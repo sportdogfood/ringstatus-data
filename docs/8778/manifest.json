@@ -1,0 +1,106 @@
+{
+  "tenant": "8778",
+  "epoch": 1772651820,
+  "datasets": [
+    {
+      "key": "horses",
+      "path": "docs/schedule/data/latest/cwf/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses",
+      "path": "docs/schedule/data/latest/fff/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses",
+      "path": "docs/schedule/data/latest/horses.json",
+      "version": null
+    },
+    {
+      "key": "profiles",
+      "path": "docs/schedule/data/latest/cwf/profiles.json",
+      "version": null
+    },
+    {
+      "key": "profiles",
+      "path": "docs/schedule/data/latest/fff/profiles.json",
+      "version": null
+    },
+    {
+      "key": "profiles",
+      "path": "docs/schedule/data/latest/profiles.json",
+      "version": null
+    },
+    {
+      "key": "riders",
+      "path": "docs/schedule/data/latest/cwf/riders.json",
+      "version": null
+    },
+    {
+      "key": "riders",
+      "path": "docs/schedule/data/latest/fff/riders.json",
+      "version": null
+    },
+    {
+      "key": "riders",
+      "path": "docs/schedule/data/latest/riders.json",
+      "version": null
+    },
+    {
+      "key": "threads",
+      "path": "docs/schedule/data/latest/cwf/threads.json",
+      "version": null
+    },
+    {
+      "key": "threads",
+      "path": "docs/schedule/data/latest/fff/threads.json",
+      "version": null
+    },
+    {
+      "key": "threads",
+      "path": "docs/schedule/data/latest/threads.json",
+      "version": null
+    },
+    {
+      "key": "watch_schedule",
+      "path": "docs/schedule/data/latest/cwf/schedule.json",
+      "version": 1772629735
+    },
+    {
+      "key": "watch_schedule",
+      "path": "docs/schedule/data/latest/fff/schedule.json",
+      "version": 1772629735
+    },
+    {
+      "key": "watch_schedule",
+      "path": "docs/schedule/data/print/cwf/schedule.json",
+      "version": 1772629735
+    },
+    {
+      "key": "watch_schedule",
+      "path": "docs/schedule/data/print/fff/schedule.json",
+      "version": 1772629735
+    },
+    {
+      "key": "watch_schedule",
+      "path": "docs/schedule/data/print/schedule.json",
+      "version": 1772629735
+    },
+    {
+      "key": "watch_trips",
+      "path": "docs/schedule/data/latest/cwf/watch_trips.json",
+      "version": null
+    },
+    {
+      "key": "watch_trips",
+      "path": "docs/schedule/data/latest/fff/watch_trips.json",
+      "version": null
+    },
+    {
+      "key": "watch_trips",
+      "path": "docs/schedule/data/latest/watch_trips.json",
+      "version": null
+    }
+  ]
+}

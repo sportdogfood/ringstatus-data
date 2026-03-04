@@ -1,6 +1,6 @@
 {
   "tenant": "8778",
-  "epoch": 1772651836,
+  "epoch": 1772658724,
   "datasets": [
     {
       "key": "horses",
@@ -63,29 +63,39 @@
       "version": null
     },
     {
-      "key": "watch_schedule",
+      "key": "watch_schedule_19676",
+      "path": "docs/19676/data/latest/schedule.json",
+      "version": 1772656621
+    },
+    {
+      "key": "watch_schedule_19676",
+      "path": "docs/19676/data/print/schedule.json",
+      "version": 1772656621
+    },
+    {
+      "key": "watch_schedule_8778",
       "path": "docs/schedule/data/latest/cwf/schedule.json",
-      "version": 1772629735
+      "version": 1772653411
     },
     {
-      "key": "watch_schedule",
+      "key": "watch_schedule_8778",
       "path": "docs/schedule/data/latest/fff/schedule.json",
-      "version": 1772629735
+      "version": 1772653411
     },
     {
-      "key": "watch_schedule",
+      "key": "watch_schedule_8778",
       "path": "docs/schedule/data/print/cwf/schedule.json",
-      "version": 1772629735
+      "version": 1772653411
     },
     {
-      "key": "watch_schedule",
+      "key": "watch_schedule_8778",
       "path": "docs/schedule/data/print/fff/schedule.json",
-      "version": 1772629735
+      "version": 1772653411
     },
     {
-      "key": "watch_schedule",
+      "key": "watch_schedule_8778",
       "path": "docs/schedule/data/print/schedule.json",
-      "version": 1772629735
+      "version": 1772653411
     },
     {
       "key": "watch_trips",

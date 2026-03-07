@@ -1,0 +1,16 @@
+{
+  "tenant": "19676",
+  "epoch": 1772853540,
+  "datasets": [
+    {
+      "key": "watch_schedule_19676",
+      "path": "docs/19676/data/latest/schedule.json",
+      "version": 1772852940
+    },
+    {
+      "key": "watch_schedule_19676",
+      "path": "docs/19676/data/print/schedule.json",
+      "version": 1772852940
+    }
+  ]
+}

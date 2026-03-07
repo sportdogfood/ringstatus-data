@@ -291,11 +291,19 @@
     "class_number": 2811,
     "class_name": "$100 Junior Hunter 3'3\" 16-17 U/S",
     "latestStart": "10:30 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 13,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167666"
+    ],
+    "rollup_trips": [
+      "39C46050313D478E989D53F49B69E9A0"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -304,7 +312,9 @@
       "Grand"
     ],
     "start_display": "10:30 AM",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "class_group_sequence": 4
   },
   {
@@ -319,11 +329,19 @@
     "class_number": 2814,
     "class_name": "$500 Junior Hunter 3'3\" 16-17",
     "latestStart": "10:45 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 13,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167666"
+    ],
+    "rollup_trips": [
+      "78B0100BD592459D87FC0665FDA3A4D5"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -332,7 +350,9 @@
       "Grand"
     ],
     "start_display": "10:45 AM",
-    "group_display": [],
+    "group_display": [
+      " (21)"
+    ],
     "class_group_sequence": 5
   },
   {
@@ -347,11 +367,19 @@
     "class_number": 2815,
     "class_name": "$800 Junior Hunter 3'3\" 16-17 Stake",
     "latestStart": "10:45 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 13,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167666"
+    ],
+    "rollup_trips": [
+      "745CC0336A614D7E9517ED8CB4712E88"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -360,7 +388,9 @@
       "Grand"
     ],
     "start_display": "10:45 AM",
-    "group_display": [],
+    "group_display": [
+      " (22)"
+    ],
     "class_group_sequence": 5
   },
   {
@@ -571,11 +601,21 @@
     "class_number": 2737,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B) U/S",
     "latestStart": "8:15 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 15,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167738",
+      "200167898"
+    ],
+    "rollup_trips": [
+      "BD8EE40BB4904F50A685C9F15D84233C",
+      "C83625EB91274B049421E77A9089C845"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -584,7 +624,9 @@
       "Rost"
     ],
     "start_display": "8:15 AM",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "class_group_sequence": 1
   },
   {
@@ -599,11 +641,21 @@
     "class_number": 2740,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B)",
     "latestStart": "8:30 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 15,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167738",
+      "200167898"
+    ],
+    "rollup_trips": [
+      "4582CEDBAF374867897633E2B7BA8749",
+      "EEF797D3DC1D4DA08A41B30F812182EE"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -612,7 +664,10 @@
       "Rost"
     ],
     "start_display": "8:30 AM",
-    "group_display": [],
+    "group_display": [
+      " (7)",
+      " (9)"
+    ],
     "class_group_sequence": 2
   },
   {
@@ -627,11 +682,21 @@
     "class_number": 2741,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B)",
     "latestStart": "8:30 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 15,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167738",
+      "200167898"
+    ],
+    "rollup_trips": [
+      "8760C430239F4CCEB0856093DED1B632",
+      "9193E060EBA24630A4AC2CE53757B453"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -640,7 +705,10 @@
       "Rost"
     ],
     "start_display": "8:30 AM",
-    "group_display": [],
+    "group_display": [
+      " (8)",
+      " (10)"
+    ],
     "class_group_sequence": 2
   },
   {
@@ -744,12 +812,15 @@
     ],
     "total_trips": 18,
     "rollup_entries": [
-      "200149787"
+      "200149787",
+      "200167850"
     ],
     "rollup_trips": [
-      "6F15C033A16B4445BFD7A77313FE61F1"
+      "6F15C033A16B4445BFD7A77313FE61F1",
+      "5DC328A75E4C4EE19782160BC5107622"
     ],
     "rollup_horses": [
+      null,
       "Elliot"
     ],
     "show_id": 200000053,
@@ -761,7 +832,8 @@
     ],
     "start_display": "10:50 AM",
     "group_display": [
-      "Elliot"
+      "Elliot",
+      null
     ],
     "class_group_sequence": 5
   },
@@ -782,12 +854,15 @@
     ],
     "total_trips": 22,
     "rollup_entries": [
-      "200149787"
+      "200149787",
+      "200167850"
     ],
     "rollup_trips": [
-      "55DC060876184A4BB4B593B1449D92F1"
+      "55DC060876184A4BB4B593B1449D92F1",
+      "F6B2A5C1C1A949EAA19CF0BAEDD4FE25"
     ],
     "rollup_horses": [
+      null,
       "Elliot"
     ],
     "show_id": 200000053,
@@ -799,6 +874,7 @@
     ],
     "start_display": "11:20 AM",
     "group_display": [
+      " (17)",
       "Elliot (21)"
     ],
     "class_group_sequence": 6
@@ -820,12 +896,15 @@
     ],
     "total_trips": 22,
     "rollup_entries": [
-      "200149787"
+      "200149787",
+      "200167850"
     ],
     "rollup_trips": [
-      "62E3831E0A254E4090B6D9935AD452AD"
+      "62E3831E0A254E4090B6D9935AD452AD",
+      "22EA21FDF04E4AC395DF3A725A10062A"
     ],
     "rollup_horses": [
+      null,
       "Elliot"
     ],
     "show_id": 200000053,
@@ -837,6 +916,7 @@
     ],
     "start_display": "11:20 AM",
     "group_display": [
+      " (18)",
       "Elliot (22)"
     ],
     "class_group_sequence": 6
@@ -1139,11 +1219,23 @@
     "class_number": 1035,
     "class_name": "$15,000 NAL 1.25m Amateur Jumper Classic II2b",
     "latestStart": "11:45 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 74,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167998",
+      "200168022",
+      "200220069"
+    ],
+    "rollup_trips": [
+      "19E8D0B44FD944589ED212CCF3BFB8D5",
+      "DC16FE7675D94281B874AE215C20D8D2",
+      "9935664FB9F34D5D83C89C8822E169CD"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -1152,7 +1244,11 @@
       "Denemethy"
     ],
     "start_display": "11:45 AM",
-    "group_display": [],
+    "group_display": [
+      " (52)",
+      " (64)",
+      " (65)"
+    ],
     "class_group_sequence": 2
   },
   {
@@ -1447,11 +1543,21 @@
     "class_number": 4066,
     "class_name": "Low Adult Hunter (Sec. B) U/S CALI @ 30+",
     "latestStart": "8:15 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 28,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167701",
+      "200167970"
+    ],
+    "rollup_trips": [
+      "C923CCC0C4B649BFAB4AAC1E2F5E8CE3",
+      "519613FA0D2F4636BA2D3B4D4472EA08"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -1460,7 +1566,9 @@
       "Ring 7"
     ],
     "start_display": "8:15 AM",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "class_group_sequence": 1
   },
   {
@@ -1475,11 +1583,21 @@
     "class_number": 4069,
     "class_name": "Low Adult Hunter (Sec. B) CALI @ 30+",
     "latestStart": "8:50 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 32,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167701",
+      "200167970"
+    ],
+    "rollup_trips": [
+      "6918F873FD0C42FCB046536B8904EC5F",
+      "3B238BA7946B41D8B8063938CF9FD1FB"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -1488,7 +1606,10 @@
       "Ring 7"
     ],
     "start_display": "8:50 AM",
-    "group_display": [],
+    "group_display": [
+      " (3)",
+      " (21)"
+    ],
     "class_group_sequence": 2
   },
   {
@@ -1503,11 +1624,21 @@
     "class_number": 4070,
     "class_name": "Low Adult Hunter (Sec. B) CALI @ 30+",
     "latestStart": "8:50 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 31,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200167701",
+      "200167970"
+    ],
+    "rollup_trips": [
+      "B5E5D91DD3D748C8AA9E22C2C010424B",
+      "E973866F9EF944E79B7903E096276400"
+    ],
+    "rollup_horses": [
+      null
+    ],
     "show_id": 200000053,
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
@@ -1516,7 +1647,10 @@
       "Ring 7"
     ],
     "start_display": "8:50 AM",
-    "group_display": [],
+    "group_display": [
+      " (4)",
+      " (22)"
+    ],
     "class_group_sequence": 2
   },
   {
@@ -1935,15 +2069,20 @@
     "total_trips": 33,
     "rollup_entries": [
       "200150563",
+      "200168095",
+      "200168103",
       "200209674",
       "200217087"
     ],
     "rollup_trips": [
       "137D7227DF954C1580CD4DBEF406F01B",
       "19DD33CE19444D25B50E3D68D56E5A5E",
-      "251D75AB557F497E9E1A6C168FF9E4BC"
+      "251D75AB557F497E9E1A6C168FF9E4BC",
+      "78AE01128570479DAD94CA91A15E39CA",
+      "AD9C0E7B7E644993A82F2C0C1F930A64"
     ],
     "rollup_horses": [
+      null,
       "BB",
       "Calypso",
       "Krypton"
@@ -1957,9 +2096,11 @@
     ],
     "start_display": "11:30 AM",
     "group_display": [
+      " (4)",
       "Calypso (11)",
       "Krypton (12)",
-      "BB (13)"
+      "BB (13)",
+      " (14)"
     ],
     "class_group_sequence": 2
   },

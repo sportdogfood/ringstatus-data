@@ -440,6 +440,44 @@
   {
     "sid": "200000053",
     "dt": "2026-03-08",
+    "ring_number": 4,
+    "ringName": "Mogavero",
+    "class_groupxclasses_id": 200031706,
+    "class_group_id": 200020919,
+    "group_name": "$2,500 Modified Adult Amateur Jumper II2b",
+    "class_id": 200020951,
+    "class_number": 1057,
+    "class_name": "$2,500 Modified Adult Amateur Jumper II2b",
+    "latestStart": "2:33 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 21,
+    "rollup_entries": [
+      "200166062"
+    ],
+    "rollup_trips": [
+      "BFC0D3AFDEF24FD8BA2F1B612F5119EB"
+    ],
+    "rollup_horses": [
+      null
+    ],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Mogavero"
+    ],
+    "start_display": "2:33 PM",
+    "group_display": [
+      " (11)"
+    ],
+    "class_group_sequence": 5
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
     "ring_number": 5,
     "ringName": "Denemethy",
     "class_groupxclasses_id": 200031707,
@@ -917,12 +955,15 @@
     ],
     "total_trips": 31,
     "rollup_entries": [
+      "200168080",
       "200214663"
     ],
     "rollup_trips": [
-      "C88B66544A9544558EF77674205DB7B9"
+      "C88B66544A9544558EF77674205DB7B9",
+      "1657E7F38E784168B68A6ACBF459DE92"
     ],
     "rollup_horses": [
+      null,
       "Celly"
     ],
     "show_id": 200000053,
@@ -934,6 +975,7 @@
     ],
     "start_display": "2:30 PM",
     "group_display": [
+      " (7)",
       "Celly (21)"
     ],
     "class_group_sequence": 4
@@ -1269,5 +1311,81 @@
       "Puppy (73)"
     ],
     "class_group_sequence": 3
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 13,
+    "ringName": "South Ring",
+    "class_groupxclasses_id": 200031774,
+    "class_group_id": 200020965,
+    "group_name": "Rusty Stirrup Equitation Flat",
+    "class_id": 200021196,
+    "class_number": 3005,
+    "class_name": "Rusty Stirrup Equitation Flat",
+    "latestStart": "1:50 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 6,
+    "rollup_entries": [
+      "200168057"
+    ],
+    "rollup_trips": [
+      "6F20C3F824154423955F58B34859828F"
+    ],
+    "rollup_horses": [
+      null
+    ],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "South Ring"
+    ],
+    "start_display": "1:50 PM",
+    "group_display": [
+      null
+    ],
+    "class_group_sequence": 12
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 13,
+    "ringName": "South Ring",
+    "class_groupxclasses_id": 200031775,
+    "class_group_id": 200020966,
+    "group_name": "Rusty Stirrup Hunter U/S",
+    "class_id": 200021085,
+    "class_number": 2997,
+    "class_name": "Rusty Stirrup Hunter U/S",
+    "latestStart": "2:00 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 6,
+    "rollup_entries": [
+      "200168057"
+    ],
+    "rollup_trips": [
+      "8ECC74DCE6C249CBA0FFA4D6E1BC0ADC"
+    ],
+    "rollup_horses": [
+      null
+    ],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "South Ring"
+    ],
+    "start_display": "2:00 PM",
+    "group_display": [
+      null
+    ],
+    "class_group_sequence": 13
   }
 ]

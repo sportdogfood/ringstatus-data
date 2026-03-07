@@ -320,6 +320,44 @@
     "dt": "2026-03-08",
     "ring_number": 9,
     "ringName": "Ring 9",
+    "class_groupxclasses_id": 200035897,
+    "class_group_id": 200024058,
+    "group_name": "ASPCA Maclay (Section A)",
+    "class_id": 200021286,
+    "class_number": 3041,
+    "class_name": "ASPCA Maclay (Section A)",
+    "latestStart": "8:15 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 26,
+    "rollup_entries": [
+      "200151061"
+    ],
+    "rollup_trips": [
+      "64917C50651B4DE38160F13AB85DBBA2"
+    ],
+    "rollup_horses": [
+      "Hurricane"
+    ],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 9"
+    ],
+    "start_display": "8:15 AM",
+    "group_display": [
+      "Hurricane (3)"
+    ],
+    "class_group_sequence": 2
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 9,
+    "ringName": "Ring 9",
     "class_groupxclasses_id": 200035898,
     "class_group_id": 200024059,
     "group_name": "ASPCA Maclay (Section B)",
@@ -370,12 +408,15 @@
     ],
     "total_trips": 26,
     "rollup_entries": [
-      "200149871"
+      "200149871",
+      "200151061"
     ],
     "rollup_trips": [
-      "AED22F850E714C18B29C02180ED3AD60"
+      "AED22F850E714C18B29C02180ED3AD60",
+      "EFB41371C6F344928DC0BC5378FB5E15"
     ],
     "rollup_horses": [
+      "Hurricane",
       "Lenny"
     ],
     "show_id": 200000053,
@@ -387,6 +428,7 @@
     ],
     "start_display": "1:00 PM",
     "group_display": [
+      "Hurricane (6)",
       "Lenny (7)"
     ],
     "class_group_sequence": 5

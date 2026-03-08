@@ -230,8 +230,8 @@
     ],
     "start_display": "12:00 PM",
     "group_display": [
-      "Carry (9)",
-      "Pedro (11)"
+      "Carry (11)",
+      "Pedro (13)"
     ],
     "class_group_sequence": 3
   },
@@ -272,8 +272,8 @@
     ],
     "start_display": "12:00 PM",
     "group_display": [
-      "Carry (10)",
-      "Pedro (12)"
+      "Carry (12)",
+      "Pedro (14)"
     ],
     "class_group_sequence": 3
   },
@@ -814,7 +814,7 @@
     "sid": "200000053",
     "dt": "2026-03-08",
     "ring_number": 4,
-    "ringName": null,
+    "ringName": "Mogavero",
     "class_groupxclasses_id": 200035904,
     "class_group_id": 200024065,
     "group_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
@@ -839,7 +839,9 @@
     "show_date": "2026-03-08",
     "show_days_display_date": "Sunday, March, 08, 2026",
     "show_days_report_title": "CWF Schedule",
-    "ring_nickname": null,
+    "ring_nickname": [
+      "Mogavero"
+    ],
     "start_display": "1:15 PM",
     "group_display": [
       "Dottie (23)"

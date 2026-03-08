@@ -872,62 +872,6 @@
   {
     "sid": "200000053",
     "dt": "2026-03-08",
-    "ring_number": 3,
-    "ringName": "Rost",
-    "class_groupxclasses_id": 200035892,
-    "class_group_id": 200024016,
-    "group_name": "Children's Hunter 15-17",
-    "class_id": 200021177,
-    "class_number": 2874,
-    "class_name": "Children's Hunter 15-17 CALI @ 30+",
-    "latestStart": "1:55 PM",
-    "latestStatus": null,
-    "total_trips": 31,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
-    "show_id": 200000053,
-    "show_date": "2026-03-08",
-    "show_days_display_date": "Sunday, March, 08, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Rost"
-    ],
-    "start_display": "1:55 PM",
-    "group_display": [],
-    "class_group_sequence": 8
-  },
-  {
-    "sid": "200000053",
-    "dt": "2026-03-08",
-    "ring_number": 3,
-    "ringName": "Rost",
-    "class_groupxclasses_id": 200035893,
-    "class_group_id": 200024016,
-    "group_name": "Children's Hunter 15-17",
-    "class_id": 200021035,
-    "class_number": 2875,
-    "class_name": "Children's Hunter 15-17 CALI @ 30+",
-    "latestStart": "1:55 PM",
-    "latestStatus": null,
-    "total_trips": 31,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
-    "show_id": 200000053,
-    "show_date": "2026-03-08",
-    "show_days_display_date": "Sunday, March, 08, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Rost"
-    ],
-    "start_display": "1:55 PM",
-    "group_display": [],
-    "class_group_sequence": 8
-  },
-  {
-    "sid": "200000053",
-    "dt": "2026-03-08",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200031702,
@@ -1015,7 +959,7 @@
     ],
     "start_display": "11:45 AM",
     "group_display": [
-      "Q (16)"
+      "Q (15)"
     ],
     "class_group_sequence": 3
   },
@@ -2464,7 +2408,7 @@
     "latestStatus": [
       "Underway"
     ],
-    "total_trips": 36,
+    "total_trips": 35,
     "rollup_entries": [
       "200149496",
       "200149643"
@@ -2487,7 +2431,7 @@
     "start_display": "9:30 AM",
     "group_display": [
       "Paisley (62)",
-      "Puppy (85)"
+      "check scratch-dns"
     ],
     "class_group_sequence": 3
   },
@@ -2506,7 +2450,7 @@
     "latestStatus": [
       "Underway"
     ],
-    "total_trips": 36,
+    "total_trips": 35,
     "rollup_entries": [
       "200149496",
       "200149643"
@@ -3201,9 +3145,45 @@
     "class_id": 200020950,
     "class_number": 1070,
     "class_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
+    "latestStart": "1:15 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 35,
+    "rollup_entries": [
+      "200149949"
+    ],
+    "rollup_trips": [
+      "F32B887A047B4A09A6DDB0D74CCB86E7"
+    ],
+    "rollup_horses": [
+      "Dottie"
+    ],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": null,
+    "start_display": "1:15 PM",
+    "group_display": [
+      "Dottie (24)"
+    ],
+    "class_group_sequence": 4
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 3,
+    "ringName": null,
+    "class_groupxclasses_id": 200035905,
+    "class_group_id": 200024066,
+    "group_name": "Children's Hunter 15-17 CALI @ 30+",
+    "class_id": 200021177,
+    "class_number": 2874,
+    "class_name": "Children's Hunter 15-17 CALI @ 30+",
     "latestStart": "2:00 PM",
     "latestStatus": null,
-    "total_trips": 35,
+    "total_trips": 31,
     "rollup_entries": [],
     "rollup_trips": [],
     "rollup_horses": [],
@@ -3214,6 +3194,32 @@
     "ring_nickname": null,
     "start_display": "2:00 PM",
     "group_display": [],
-    "class_group_sequence": 4
+    "class_group_sequence": 8
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 3,
+    "ringName": null,
+    "class_groupxclasses_id": 200035906,
+    "class_group_id": 200024066,
+    "group_name": "Children's Hunter 15-17 CALI @ 30+",
+    "class_id": 200021035,
+    "class_number": 2875,
+    "class_name": "Children's Hunter 15-17 CALI @ 30+",
+    "latestStart": "2:00 PM",
+    "latestStatus": null,
+    "total_trips": 31,
+    "rollup_entries": [],
+    "rollup_trips": [],
+    "rollup_horses": [],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": null,
+    "start_display": "2:00 PM",
+    "group_display": [],
+    "class_group_sequence": 8
   }
 ]

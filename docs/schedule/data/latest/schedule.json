@@ -996,7 +996,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 29,
+    "total_trips": 28,
     "rollup_entries": [
       "200150201"
     ],
@@ -1018,44 +1018,6 @@
       "Q (16)"
     ],
     "class_group_sequence": 3
-  },
-  {
-    "sid": "200000053",
-    "dt": "2026-03-08",
-    "ring_number": 4,
-    "ringName": "Mogavero",
-    "class_groupxclasses_id": 200031705,
-    "class_group_id": 200020918,
-    "group_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
-    "class_id": 200020950,
-    "class_number": 1070,
-    "class_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
-    "latestStart": "1:15 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 35,
-    "rollup_entries": [
-      "200149949"
-    ],
-    "rollup_trips": [
-      "F32B887A047B4A09A6DDB0D74CCB86E7"
-    ],
-    "rollup_horses": [
-      "Dottie"
-    ],
-    "show_id": 200000053,
-    "show_date": "2026-03-08",
-    "show_days_display_date": "Sunday, March, 08, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Mogavero"
-    ],
-    "start_display": "1:15 PM",
-    "group_display": [
-      "Dottie (24)"
-    ],
-    "class_group_sequence": 4
   },
   {
     "sid": "200000053",
@@ -3015,7 +2977,7 @@
     "class_id": 200021229,
     "class_number": 3000,
     "class_name": "Short Stirrup Equitation Flat CALI",
-    "latestStart": "11:21 AM",
+    "latestStart": "11:22 AM",
     "latestStatus": null,
     "total_trips": 17,
     "rollup_entries": [],
@@ -3028,7 +2990,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:21 AM",
+    "start_display": "11:22 AM",
     "group_display": [],
     "class_group_sequence": 9
   },
@@ -3043,7 +3005,7 @@
     "class_id": 200021064,
     "class_number": 2986,
     "class_name": "Short Stirrup Hunter U/S CALI",
-    "latestStart": "11:31 AM",
+    "latestStart": "11:32 AM",
     "latestStatus": null,
     "total_trips": 20,
     "rollup_entries": [],
@@ -3056,7 +3018,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:31 AM",
+    "start_display": "11:32 AM",
     "group_display": [],
     "class_group_sequence": 10
   },
@@ -3071,7 +3033,7 @@
     "class_id": 200021042,
     "class_number": 2987,
     "class_name": "Short Stirrup Hunter CALI",
-    "latestStart": "11:46 AM",
+    "latestStart": "11:47 AM",
     "latestStatus": null,
     "total_trips": 21,
     "rollup_entries": [],
@@ -3084,7 +3046,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:46 AM",
+    "start_display": "11:47 AM",
     "group_display": [],
     "class_group_sequence": 11
   },
@@ -3099,7 +3061,7 @@
     "class_id": 200021328,
     "class_number": 2988,
     "class_name": "Short Stirrup Hunter CALI",
-    "latestStart": "11:46 AM",
+    "latestStart": "11:47 AM",
     "latestStatus": null,
     "total_trips": 20,
     "rollup_entries": [],
@@ -3112,7 +3074,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:46 AM",
+    "start_display": "11:47 AM",
     "group_display": [],
     "class_group_sequence": 11
   },
@@ -3227,5 +3189,31 @@
     "start_display": "1:50 PM",
     "group_display": [],
     "class_group_sequence": 14
+  },
+  {
+    "sid": "200000053",
+    "dt": "2026-03-08",
+    "ring_number": 4,
+    "ringName": null,
+    "class_groupxclasses_id": 200035904,
+    "class_group_id": 200024065,
+    "group_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
+    "class_id": 200020950,
+    "class_number": 1070,
+    "class_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
+    "latestStart": "2:00 PM",
+    "latestStatus": null,
+    "total_trips": 35,
+    "rollup_entries": [],
+    "rollup_trips": [],
+    "rollup_horses": [],
+    "show_id": 200000053,
+    "show_date": "2026-03-08",
+    "show_days_display_date": "Sunday, March, 08, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": null,
+    "start_display": "2:00 PM",
+    "group_display": [],
+    "class_group_sequence": 4
   }
 ]

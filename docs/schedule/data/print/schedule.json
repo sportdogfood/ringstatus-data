@@ -3247,5 +3247,37 @@
     "start_display": "2:30 PM",
     "group_display": [],
     "class_group_sequence": 5
+  },
+  {
+    "sid": null,
+    "dt": null,
+    "ring_number": null,
+    "ringName": null,
+    "class_groupxclasses_id": null,
+    "class_group_id": null,
+    "group_name": null,
+    "class_id": 200020918,
+    "class_number": null,
+    "class_name": null,
+    "latestStart": {
+      "error": "#ERROR!"
+    },
+    "latestStatus": null,
+    "total_trips": null,
+    "rollup_entries": [],
+    "rollup_trips": [],
+    "rollup_horses": [],
+    "show_id": null,
+    "show_date": null,
+    "show_days_display_date": {
+      "error": "#ERROR!"
+    },
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": null,
+    "start_display": {
+      "error": "#ERROR!"
+    },
+    "group_display": [],
+    "class_group_sequence": null
   }
 ]

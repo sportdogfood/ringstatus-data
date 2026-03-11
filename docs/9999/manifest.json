@@ -1,11 +1,26 @@
 {
   "tenant": "9999",
-  "epoch": 1773238628,
+  "epoch": 1773253318,
   "datasets": [
+    {
+      "key": "data_schedule_lite_19676",
+      "path": "docs/9999/schedule/schedule_lite.json",
+      "version": 1773253018
+    },
+    {
+      "key": "data_schedule_lite_40362",
+      "path": "docs/9999/schedule/schedule_lite.json",
+      "version": 1773253018
+    },
     {
       "key": "data_schedule_lite_9999",
       "path": "docs/9999/schedule/schedule_lite.json",
-      "version": 1773165728
+      "version": 1773253018
+    },
+    {
+      "key": "horses_9999",
+      "path": "docs/9999/horses/horses.json",
+      "version": null
     }
   ]
 }

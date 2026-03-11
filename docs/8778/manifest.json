@@ -1,6 +1,6 @@
 {
   "tenant": "8778",
-  "epoch": 1773258418,
+  "epoch": 1773258762,
   "datasets": [
     {
       "key": "data_horse_profiles_8778",
@@ -10,12 +10,12 @@
     {
       "key": "data_schedule_full_8778",
       "path": "docs/8778/schedule/schedule_full.json",
-      "version": 1773257818
+      "version": 1773258418
     },
     {
       "key": "data_schedule_lite_8778",
       "path": "docs/8778/schedule/schedule_lite.json",
-      "version": 1773257818
+      "version": 1773258418
     }
   ]
 }

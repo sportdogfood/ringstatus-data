@@ -1,5 +1,21 @@
 {
   "tenant": "40362",
-  "epoch": 1773257218,
-  "datasets": []
+  "epoch": 1773257518,
+  "datasets": [
+    {
+      "key": "data_horse_profiles_40362",
+      "path": "docs/40362/horses/horse_profiles.json",
+      "version": null
+    },
+    {
+      "key": "data_schedule_lite_40362",
+      "path": "docs/40362/schedule/schedule_lite.json",
+      "version": 1773256618
+    },
+    {
+      "key": "data_schedule_lite_9999",
+      "path": "docs/40362/schedule/schedule_lite.json",
+      "version": 1773256618
+    }
+  ]
 }

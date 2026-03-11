@@ -1,6 +1,6 @@
 {
   "tenant": "40362",
-  "epoch": 1773260218,
+  "epoch": 1773260518,
   "datasets": [
     {
       "key": "data_horse_profiles_40362",
@@ -10,12 +10,12 @@
     {
       "key": "data_schedule_full_40362",
       "path": "docs/40362/schedule/schedule_full.json",
-      "version": 1773259618
+      "version": 1773260218
     },
     {
       "key": "data_schedule_lite_40362",
       "path": "docs/40362/schedule/schedule_lite.json",
-      "version": 1773259618
+      "version": 1773260218
     }
   ]
 }

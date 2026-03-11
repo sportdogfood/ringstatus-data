@@ -1,24 +1,44 @@
 {
   "tenant": "9999",
-  "epoch": 1773256618,
+  "epoch": 1773256918,
   "datasets": [
     {
       "key": "data_schedule_lite_19676",
       "path": "docs/9999/schedule/schedule_lite.json",
-      "version": 1773256318
+      "version": 1773256618
     },
     {
       "key": "data_schedule_lite_40362",
       "path": "docs/9999/schedule/schedule_lite.json",
-      "version": 1773256318
+      "version": 1773256618
     },
     {
       "key": "data_schedule_lite_9999",
       "path": "docs/9999/schedule/schedule_lite.json",
-      "version": 1773256318
+      "version": 1773256618
     },
     {
       "key": "horses_9999",
+      "path": "docs/9999/horses/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses_9999 copy",
+      "path": "docs/9999/horses/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses_9999 copy copy",
+      "path": "docs/9999/horses/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses_9999 copy copy copy",
+      "path": "docs/9999/horses/horses.json",
+      "version": null
+    },
+    {
+      "key": "horses_9999 copy copy copy copy",
       "path": "docs/9999/horses/horses.json",
       "version": null
     }

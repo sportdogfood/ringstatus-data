@@ -36,7 +36,7 @@
     "class_name": "CSI4* $6,000 Bainbridge Companies 1.40m 222.1.4.3 (Two Phase)",
     "latestStart": "9:30 AM",
     "latestStatus": null,
-    "total_trips": 49,
+    "total_trips": 50,
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -180,7 +180,7 @@
     "class_id": 200021390,
     "class_number": 2405,
     "class_name": "$630 Conformation Hunter",
-    "latestStart": "8:24 AM",
+    "latestStart": "8:30 AM",
     "latestStatus": null,
     "total_trips": 8,
     "show_id": 200000054,
@@ -190,7 +190,7 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "8:24 AM",
+    "start_display": "8:30 AM",
     "class_group_sequence": 2
   },
   {
@@ -204,7 +204,7 @@
     "class_id": 200021519,
     "class_number": 2406,
     "class_name": "$850 Conformation Hunter Stake",
-    "latestStart": "8:24 AM",
+    "latestStart": "8:30 AM",
     "latestStatus": null,
     "total_trips": 8,
     "show_id": 200000054,
@@ -214,7 +214,7 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "8:24 AM",
+    "start_display": "8:30 AM",
     "class_group_sequence": 2
   },
   {
@@ -228,7 +228,7 @@
     "class_id": 200021494,
     "class_number": 2101,
     "class_name": "$250 Green Hunter 3'6\" U/S",
-    "latestStart": "9:12 AM",
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": 17,
     "show_id": 200000054,
@@ -238,7 +238,7 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "9:12 AM",
+    "start_display": "9:30 AM",
     "class_group_sequence": 3
   },
   {
@@ -782,7 +782,7 @@
     "class_id": 200021613,
     "class_number": 1007,
     "class_name": "$2,600 1.35m Open Jumper II2b",
-    "latestStart": "9:21 AM",
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": 38,
     "show_id": 200000054,
@@ -792,7 +792,7 @@
     "ring_nickname": [
       "Denemethy"
     ],
-    "start_display": "9:21 AM",
+    "start_display": "9:30 AM",
     "class_group_sequence": 2
   },
   {
@@ -806,7 +806,7 @@
     "class_id": 200022879,
     "class_number": 1013,
     "class_name": "$6,150 1.40m Open Jumper II2b",
-    "latestStart": "11:15 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": null,
     "total_trips": 21,
     "show_id": 200000054,
@@ -816,7 +816,7 @@
     "ring_nickname": [
       "Denemethy"
     ],
-    "start_display": "11:15 AM",
+    "start_display": "11:30 AM",
     "class_group_sequence": 3
   },
   {
@@ -830,7 +830,7 @@
     "class_id": 200021559,
     "class_number": 1062,
     "class_name": "$1,500 1.40m Junior Jumper II2d",
-    "latestStart": "12:18 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": null,
     "total_trips": 27,
     "show_id": 200000054,
@@ -840,7 +840,7 @@
     "ring_nickname": [
       "Denemethy"
     ],
-    "start_display": "12:18 PM",
+    "start_display": "1:00 PM",
     "class_group_sequence": 4
   },
   {
@@ -882,7 +882,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 75,
+    "total_trips": 74,
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -1272,7 +1272,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 98,
+    "total_trips": 97,
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -1370,7 +1370,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 83,
+    "total_trips": 82,
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -2092,7 +2092,7 @@
     "class_id": 200021715,
     "class_number": 2016,
     "class_name": "$250 Performance Hunter 3'3\" U/S",
-    "latestStart": "9:00 AM",
+    "latestStart": "11:17 AM",
     "latestStatus": null,
     "total_trips": 18,
     "show_id": 200000054,
@@ -2102,8 +2102,8 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "9:00 AM",
-    "class_group_sequence": 2
+    "start_display": "11:17 AM",
+    "class_group_sequence": 3
   },
   {
     "sid": "200000054",
@@ -2127,7 +2127,7 @@
       "South Ring"
     ],
     "start_display": "9:15 AM",
-    "class_group_sequence": 3
+    "class_group_sequence": 2
   },
   {
     "sid": "200000054",
@@ -2151,7 +2151,7 @@
       "South Ring"
     ],
     "start_display": "9:15 AM",
-    "class_group_sequence": 3
+    "class_group_sequence": 2
   },
   {
     "sid": "200000054",

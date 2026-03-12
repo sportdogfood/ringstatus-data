@@ -776,7 +776,7 @@
     "class_name": "$2,000 1.30m Open Jumper II2b",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 58,
+    "total_trips": 59,
     "rollup_entries": [],
     "rollup_trips": [],
     "rollup_horses": [],
@@ -883,7 +883,7 @@
     "start_display": "1:30 PM",
     "group_display": [
       "Dottie (39)",
-      "Bee (90)"
+      "Bee (89)"
     ],
     "class_group_sequence": 4
   },
@@ -1039,19 +1039,18 @@
     "class_number": 1099,
     "class_name": "1.15m Schooling Jumper (Table II)",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 68,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 67,
     "rollup_entries": [
-      "200149955",
-      "200214037"
+      "200149134"
     ],
     "rollup_trips": [
-      "96E1BF81AE7F4A34892AEA9D3F5E100E",
-      "309895B344444796BED4EEC55774184A"
+      "5D66634698D74B5DB3B638DC6706FCDF"
     ],
     "rollup_horses": [
-      "Bee",
-      "Dottie"
+      "Doug"
     ],
     "show_id": 200000054,
     "show_date": "2026-03-12",
@@ -1062,8 +1061,7 @@
     ],
     "start_display": "8:00 AM",
     "group_display": [
-      "Dottie (2)",
-      "Bee (18)"
+      "Doug (1)"
     ],
     "class_group_sequence": 1
   },
@@ -1363,11 +1361,19 @@
     "class_number": 4049,
     "class_name": "USHJA Hunter 3' CALI @ 30+",
     "latestStart": "10:50 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 64,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200142371"
+    ],
+    "rollup_trips": [
+      "EC4DF4C816E34EF988AD85CBB5795C9A"
+    ],
+    "rollup_horses": [
+      "Dorian"
+    ],
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -1376,7 +1382,9 @@
       "Ring 7"
     ],
     "start_display": "10:50 AM",
-    "group_display": [],
+    "group_display": [
+      "Dorian (15)"
+    ],
     "class_group_sequence": 6
   },
   {
@@ -1391,11 +1399,19 @@
     "class_number": 4050,
     "class_name": "USHJA Hunter 3' CALI @ 30+",
     "latestStart": "10:50 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 62,
-    "rollup_entries": [],
-    "rollup_trips": [],
-    "rollup_horses": [],
+    "rollup_entries": [
+      "200142371"
+    ],
+    "rollup_trips": [
+      "6688E28F63864D0D9AF099C416D397BD"
+    ],
+    "rollup_horses": [
+      "Dorian"
+    ],
     "show_id": 200000054,
     "show_date": "2026-03-12",
     "show_days_display_date": "Thursday, March, 12, 2026",
@@ -1404,7 +1420,9 @@
       "Ring 7"
     ],
     "start_display": "10:50 AM",
-    "group_display": [],
+    "group_display": [
+      "Dorian (16)"
+    ],
     "class_group_sequence": 6
   },
   {
@@ -1551,7 +1569,7 @@
     ],
     "start_display": "8:00 AM",
     "group_display": [
-      "Doug (18)"
+      "Doug (17)"
     ],
     "class_group_sequence": 1
   },
@@ -1652,7 +1670,7 @@
     "class_name": "1.0m Training Jumper (Table II)",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 82,
+    "total_trips": 83,
     "rollup_entries": [
       "200150727"
     ],
@@ -1912,7 +1930,7 @@
     "class_name": "USHJA Hunter 2'6\" CALI @ 30+",
     "latestStart": "8:45 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 40,
+    "total_trips": 39,
     "rollup_entries": [],
     "rollup_trips": [],
     "rollup_horses": [],
@@ -2136,7 +2154,7 @@
     "class_name": "USHJA Hunter 2'9\"",
     "latestStart": "8:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 23,
+    "total_trips": 22,
     "rollup_entries": [],
     "rollup_trips": [],
     "rollup_horses": [],

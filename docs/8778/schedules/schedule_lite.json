@@ -1,478 +1,772 @@
 [
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 1,
-    "ringName": "Intl",
-    "class_groupxclasses_id": 200031858,
-    "class_group_id": 200021031,
-    "group_name": "$20,000 NAL/WIHS Don Little Masters “Masters Mania Classic Rd1 (1.15m Amateur) ",
-    "class_id": 200021745,
-    "class_number": 1050,
-    "class_name": "$20,000 NAL/WIHS Don Little Masters “Masters Mania Classic Rd1 (1.15m Amateur) ",
-    "latestStart": "6:15 PM",
-    "latestStatus": "Upcoming",
-    "total_trips": 44,
+    "dt": "2026-03-13",
+    "ring_number": 2,
+    "ringName": "Grand",
+    "class_groupxclasses_id": 200031971,
+    "class_group_id": 200021103,
+    "group_name": "WIHS Hunter Phase CALI",
+    "class_id": 200021702,
+    "class_number": 3091,
+    "class_name": "WIHS Hunter Phase CALI",
+    "latestStart": "1:15 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 59,
     "rollup_entries": [
-      "200141527"
+      "200142698",
+      "200150727"
     ],
     "rollup_trips": [
-      "A5005606D9B94A71B761972D8E860C27"
+      "D62BD33C9AA64FC891EBE8C1D64AFB9C",
+      "4D85B3AB86F148BD9EF5F0DA7EA61838"
     ],
     "rollup_horses": [
-      "Kudos"
+      "Indy",
+      "Jason"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
-      "Intl"
+      "Grand"
     ],
-    "start_display": "6:15 PM",
+    "start_display": "1:15 PM",
     "group_display": [
-      "Kudos (29)"
+      "Indy (42)",
+      "Jason (44)"
     ],
-    "class_group_sequence": 5
+    "class_group_sequence": 7
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
+    "dt": "2026-03-13",
+    "ring_number": 3,
+    "ringName": "Rost",
+    "class_groupxclasses_id": 200031972,
+    "class_group_id": 200021104,
+    "group_name": "Ariat National Adult Medal",
+    "class_id": 200021692,
+    "class_number": 3070,
+    "class_name": "Ariat National Adult Medal",
+    "latestStart": "8:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 30,
+    "rollup_entries": [
+      "200224477"
+    ],
+    "rollup_trips": [
+      "06BAABFA2E834B6E9A4D498220762482"
+    ],
+    "rollup_horses": [
+      "Dany"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Rost"
+    ],
+    "start_display": "8:00 AM",
+    "group_display": [
+      "Dany (22)"
+    ],
+    "class_group_sequence": 1
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 3,
+    "ringName": "Rost",
+    "class_groupxclasses_id": 200031973,
+    "class_group_id": 200021105,
+    "group_name": "SFHJA Adult Amateur Hunter Seat Medal (Flat Phase)",
+    "class_id": 200021555,
+    "class_number": 3077,
+    "class_name": "SFHJA Adult Amateur Hunter Seat Medal (Flat Phase)",
+    "latestStart": "9:35 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 12,
+    "rollup_entries": [
+      "200224477"
+    ],
+    "rollup_trips": [
+      "2FBA44E525F7476A8C322AEE14235A29"
+    ],
+    "rollup_horses": [
+      "Dany"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Rost"
+    ],
+    "start_display": "9:35 AM",
+    "group_display": [
+      "Dany"
+    ],
+    "class_group_sequence": 2
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 3,
+    "ringName": "Rost",
+    "class_groupxclasses_id": 200031986,
+    "class_group_id": 200021114,
+    "group_name": "$210 Young Hunter 3'3\" (7 & Under) U/S",
+    "class_id": 200021402,
+    "class_number": 2116,
+    "class_name": "$210 Young Hunter 3'3\" (7 & Under) U/S",
+    "latestStart": "3:15 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 17,
+    "rollup_entries": [
+      "200158838"
+    ],
+    "rollup_trips": [
+      "B212AE701CD74771A846BFC0B6518710"
+    ],
+    "rollup_horses": [
+      "Tommy"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Rost"
+    ],
+    "start_display": "3:15 PM",
+    "group_display": [
+      "Tommy"
+    ],
+    "class_group_sequence": 9
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 3,
+    "ringName": "Rost",
+    "class_groupxclasses_id": 200031987,
+    "class_group_id": 200021115,
+    "group_name": "$210 Young Hunter 3'3\" (7 & Under)",
+    "class_id": 200021506,
+    "class_number": 2119,
+    "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
+    "latestStart": "3:45 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 17,
+    "rollup_entries": [
+      "200158838"
+    ],
+    "rollup_trips": [
+      "D9D2A6D18F614DEA9E09E908585F91F8"
+    ],
+    "rollup_horses": [
+      "Tommy"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Rost"
+    ],
+    "start_display": "3:45 PM",
+    "group_display": [
+      "Tommy (17)"
+    ],
+    "class_group_sequence": 10
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 3,
+    "ringName": "Rost",
+    "class_groupxclasses_id": 200031988,
+    "class_group_id": 200021115,
+    "group_name": "$210 Young Hunter 3'3\" (7 & Under)",
+    "class_id": 200021840,
+    "class_number": 2120,
+    "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
+    "latestStart": "3:45 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 17,
+    "rollup_entries": [
+      "200158838"
+    ],
+    "rollup_trips": [
+      "D9C049815B8B4CF88B7FD3CC5008AC58"
+    ],
+    "rollup_horses": [
+      "Tommy"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Rost"
+    ],
+    "start_display": "3:45 PM",
+    "group_display": [
+      "Tommy (18)"
+    ],
+    "class_group_sequence": 10
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
     "ring_number": 4,
     "ringName": "Mogavero",
-    "class_groupxclasses_id": 200031892,
-    "class_group_id": 200021053,
-    "group_name": "1.25m Schooling Jumper (Table II) Can do either Mogavero or Denemethy NOT both",
-    "class_id": 200021413,
-    "class_number": 1096,
-    "class_name": "1.25m Schooling Jumper (Table II) Can do either Mogavero or Denemethy NOT both",
-    "latestStart": "1:05 PM",
-    "latestStatus": "Completed",
-    "total_trips": 76,
+    "class_groupxclasses_id": 200031991,
+    "class_group_id": 200021118,
+    "group_name": "$1,500 1.30m Junior Jumper II2b",
+    "class_id": 200021713,
+    "class_number": 1067,
+    "class_name": "$1,500 1.30m Junior Jumper II2b",
+    "latestStart": "11:18 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 20,
     "rollup_entries": [
-      "200149955",
       "200214037"
     ],
     "rollup_trips": [
-      "518DB1192EF4444F8E83935B3D56D16B",
-      "768BBB4DC57E49218366E472A1D2C954"
+      "762DC86F88EA4E8EA907EA6EB367AE48"
     ],
     "rollup_horses": [
-      "Bee",
-      "Dottie"
+      "Bee"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
       "Mogavero"
     ],
-    "start_display": "1:05 PM",
+    "start_display": "11:18 AM",
     "group_display": [
-      "Dottie (16)",
-      "Bee (28)"
+      "Bee"
+    ],
+    "class_group_sequence": 3
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 4,
+    "ringName": "Mogavero",
+    "class_groupxclasses_id": 200031992,
+    "class_group_id": 200021119,
+    "group_name": "$1,500 1.20m Junior Jumper II2b",
+    "class_id": 200021462,
+    "class_number": 1072,
+    "class_name": "$1,500 1.20m Junior Jumper II2b",
+    "latestStart": "12:18 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 50,
+    "rollup_entries": [
+      "200149955"
+    ],
+    "rollup_trips": [
+      "E00C1B3416FD4FC3B0222813CBE06263"
+    ],
+    "rollup_horses": [
+      "Dottie"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Mogavero"
+    ],
+    "start_display": "12:18 PM",
+    "group_display": [
+      "Dottie"
     ],
     "class_group_sequence": 4
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
+    "dt": "2026-03-13",
     "ring_number": 6,
     "ringName": "Ring 6",
-    "class_groupxclasses_id": 200031896,
-    "class_group_id": 200021057,
-    "group_name": "1.15m Schooling Jumper (Table II)",
-    "class_id": 200021746,
-    "class_number": 1099,
-    "class_name": "1.15m Schooling Jumper (Table II)",
+    "class_groupxclasses_id": 200031996,
+    "class_group_id": 200021123,
+    "group_name": "Platinum Performance USEF Show Jumping Talent Search 2*",
+    "class_id": 200021484,
+    "class_number": 3050,
+    "class_name": "Platinum Performance USEF Show Jumping Talent Search 2*",
     "latestStart": "8:00 AM",
-    "latestStatus": "Completed",
-    "total_trips": 65,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 29,
     "rollup_entries": [
-      "200149134"
+      "200150727"
     ],
     "rollup_trips": [
-      "5D66634698D74B5DB3B638DC6706FCDF"
+      "7F39407E9A504B95B962FBB49F52B7A9"
     ],
     "rollup_horses": [
-      "Doug"
+      "Indy"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
       "Ring 6"
     ],
     "start_display": "8:00 AM",
     "group_display": [
-      "Doug (18)"
+      "Indy (7)"
     ],
-    "class_group_sequence": 1
+    "class_group_sequence": 2
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
+    "dt": "2026-03-13",
     "ring_number": 6,
     "ringName": "Ring 6",
-    "class_groupxclasses_id": 200031897,
-    "class_group_id": 200021058,
-    "group_name": ".90m Training Jumper (Table II) & Low Ch/Ad Am 39&U .90m II2d",
-    "class_id": 200021616,
-    "class_number": 1108,
-    "class_name": ".90m Training Jumper (Table II.2d scored as Table II Blue Ribbon)",
-    "latestStart": "11:10 AM",
-    "latestStatus": "Completed",
-    "total_trips": 50,
-    "rollup_entries": [
-      "200149421",
-      "200206764",
-      "200224608"
+    "class_groupxclasses_id": 200031997,
+    "class_group_id": 200021124,
+    "group_name": "WIHS Jumper Phase CALI",
+    "class_id": 200021818,
+    "class_number": 3092,
+    "class_name": "WIHS Jumper Phase CALI",
+    "latestStart": "9:27 AM",
+    "latestStatus": [
+      "Not Started"
     ],
-    "rollup_trips": [
-      "0BBC19AAE189496A8D43B7230B0EEC34",
-      "D06BC870761A413FBF6F5CCCF23E2485",
-      "80D1B46E19304D7F8B4718638D7E49B9"
-    ],
-    "rollup_horses": [
-      "Arrow",
-      "Charly",
-      "Owin"
-    ],
-    "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Ring 6"
-    ],
-    "start_display": "11:10 AM",
-    "group_display": [
-      "Arrow (1)",
-      "Charly (2)",
-      "Owin (3)"
-    ],
-    "class_group_sequence": 3
-  },
-  {
-    "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 6,
-    "ringName": "Ring 6",
-    "class_groupxclasses_id": 200031898,
-    "class_group_id": 200021058,
-    "group_name": ".90m Training Jumper (Table II) & Low Ch/Ad Am 39&U .90m II2d",
-    "class_id": 200021759,
-    "class_number": 1111,
-    "class_name": "Low Child/Adult Amateur Training Jumper 39 & Under .90m II2d",
-    "latestStart": "11:10 AM",
-    "latestStatus": "Completed",
-    "total_trips": 39,
-    "rollup_entries": [
-      "200149421",
-      "200206764",
-      "200224608"
-    ],
-    "rollup_trips": [
-      "CCDCF5FFC55642B48227279FCC005C05",
-      "7F81E83C219248AFA7A004F032AB45DC",
-      "E9B8101AD4154E6083C6A3EE72D08E06"
-    ],
-    "rollup_horses": [
-      "Arrow",
-      "Charly",
-      "Owin"
-    ],
-    "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Ring 6"
-    ],
-    "start_display": "11:10 AM",
-    "group_display": [
-      "Arrow (5)",
-      "Owin (11)",
-      "check scratch-dns"
-    ],
-    "class_group_sequence": 3
-  },
-  {
-    "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 7,
-    "ringName": "Ring 7",
-    "class_groupxclasses_id": 200031911,
-    "class_group_id": 200021068,
-    "group_name": "USHJA Hunter 3' CALI @ 30+",
-    "class_id": 200021654,
-    "class_number": 4049,
-    "class_name": "USHJA Hunter 3' CALI @ 30+",
-    "latestStart": "11:10 AM",
-    "latestStatus": "Completed",
-    "total_trips": 58,
-    "rollup_entries": [
-      "200142371"
-    ],
-    "rollup_trips": [
-      "EC4DF4C816E34EF988AD85CBB5795C9A"
-    ],
-    "rollup_horses": [
-      "Dorian"
-    ],
-    "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Ring 7"
-    ],
-    "start_display": "11:10 AM",
-    "group_display": [
-      "Dorian (17)"
-    ],
-    "class_group_sequence": 6
-  },
-  {
-    "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 7,
-    "ringName": "Ring 7",
-    "class_groupxclasses_id": 200031912,
-    "class_group_id": 200021068,
-    "group_name": "USHJA Hunter 3' CALI @ 30+",
-    "class_id": 200021815,
-    "class_number": 4050,
-    "class_name": "USHJA Hunter 3' CALI @ 30+",
-    "latestStart": "11:10 AM",
-    "latestStatus": "Completed",
-    "total_trips": 52,
-    "rollup_entries": [
-      "200142371"
-    ],
-    "rollup_trips": [
-      "6688E28F63864D0D9AF099C416D397BD"
-    ],
-    "rollup_horses": [
-      "Dorian"
-    ],
-    "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Ring 7"
-    ],
-    "start_display": "11:10 AM",
-    "group_display": [
-      "Dorian (19)"
-    ],
-    "class_group_sequence": 6
-  },
-  {
-    "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 10,
-    "ringName": "Ring 10",
-    "class_groupxclasses_id": 200031920,
-    "class_group_id": 200021073,
-    "group_name": "1.0m Training Jumper (Table II) & Take2 TB Jumper (1.0m) II2.1",
-    "class_id": 200021615,
-    "class_number": 1105,
-    "class_name": "1.0m Training Jumper (Table II)",
-    "latestStart": "8:00 AM",
-    "latestStatus": "Completed",
-    "total_trips": 72,
+    "total_trips": 55,
     "rollup_entries": [
       "200150727"
     ],
     "rollup_trips": [
-      "38E86732015543B79D35474F210D084E"
+      "8C0236631FCE4B6EB2D606C1EF1D5B6A"
     ],
     "rollup_horses": [
       "Indy"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 6"
+    ],
+    "start_display": "9:27 AM",
+    "group_display": [
+      "Indy (54)"
+    ],
+    "class_group_sequence": 3
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 6,
+    "ringName": "Ring 6",
+    "class_groupxclasses_id": 200031998,
+    "class_group_id": 200021125,
+    "group_name": "Hamel Foundation NHS 3'3\" Medal Sec. A",
+    "class_id": 200021811,
+    "class_number": 3036,
+    "class_name": "Hamel Foundation NHS 3'3\" Medal Sec. A",
+    "latestStart": "12:12 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 22,
+    "rollup_entries": [
+      "200142698",
+      "200206764"
+    ],
+    "rollup_trips": [
+      "523B52BF86E24706826578055E98DE32",
+      "1F3463D9AFDE4EDF82DFDA312D86A84E"
+    ],
+    "rollup_horses": [
+      "Jason",
+      "Owin"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 6"
+    ],
+    "start_display": "12:12 PM",
+    "group_display": [
+      "Owin",
+      "Jason"
+    ],
+    "class_group_sequence": 4
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 9,
+    "ringName": "Ring 9",
+    "class_groupxclasses_id": 200032002,
+    "class_group_id": 200021130,
+    "group_name": "1.15m Schooling Jumper (Table II)",
+    "class_id": 200021516,
+    "class_number": 1100,
+    "class_name": "1.15m Schooling Jumper (Table II)",
+    "latestStart": "8:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 56,
+    "rollup_entries": [
+      "200149134"
+    ],
+    "rollup_trips": [
+      "AE161A2E6887414A85D101C217200C13"
+    ],
+    "rollup_horses": [
+      "Doug"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 9"
+    ],
+    "start_display": "8:00 AM",
+    "group_display": [
+      "Doug"
+    ],
+    "class_group_sequence": 1
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 9,
+    "ringName": "Ring 9",
+    "class_groupxclasses_id": 200032003,
+    "class_group_id": 200021131,
+    "group_name": "1.0m Training Jumper (Table II) & Take2 TB Jumper (1.0m) II2b",
+    "class_id": 200021491,
+    "class_number": 1106,
+    "class_name": "1.0m Training Jumper (Table II)",
+    "latestStart": "10:48 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 80,
+    "rollup_entries": [
+      "200142698",
+      "200150569",
+      "200224608"
+    ],
+    "rollup_trips": [
+      "E260DF5FF35E4C05865F139D5E2DC11D",
+      "70808E59CDA742EA81D850C4A9E5DAD7",
+      "751259CD47954F6585FAEE066EF7791F"
+    ],
+    "rollup_horses": [
+      "Arrow",
+      "BB",
+      "Jason"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 9"
+    ],
+    "start_display": "10:48 AM",
+    "group_display": [
+      "BB",
+      "Arrow",
+      "Jason"
+    ],
+    "class_group_sequence": 2
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 10,
+    "ringName": "Ring 10",
+    "class_groupxclasses_id": 200032007,
+    "class_group_id": 200021134,
+    "group_name": ".90m Training Jumper (Table II) & Low Ad Am 40+ .90m II2b",
+    "class_id": 200021466,
+    "class_number": 1124,
+    "class_name": ".90m Training Jumper (Table II)",
+    "latestStart": "8:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 19,
+    "rollup_entries": [
+      "200142698"
+    ],
+    "rollup_trips": [
+      "021D7B907F4B4DA09D37FB1A49861C31"
+    ],
+    "rollup_horses": [
+      "Jason"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
       "Ring 10"
     ],
     "start_display": "8:00 AM",
     "group_display": [
-      "Indy (7)"
+      "Jason (15)"
     ],
     "class_group_sequence": 1
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 12,
-    "ringName": "Ring 12",
-    "class_groupxclasses_id": 200031943,
-    "class_group_id": 200021086,
-    "group_name": "USHJA Hunter 2'3\"",
-    "class_id": 200021667,
-    "class_number": 2129,
-    "class_name": "USHJA Hunter 2'3\"",
-    "latestStart": "11:05 AM",
-    "latestStatus": "Completed",
-    "total_trips": 21,
+    "dt": "2026-03-13",
+    "ring_number": 10,
+    "ringName": "Ring 10",
+    "class_groupxclasses_id": 200032010,
+    "class_group_id": 200021136,
+    "group_name": ".90m Training Jumper (Table II) & Low Ch/Ad Am 39&U .90m II2b",
+    "class_id": 200021387,
+    "class_number": 1109,
+    "class_name": ".90m Training Jumper (Table II)",
+    "latestStart": "10:15 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 37,
     "rollup_entries": [
-      "200142687",
-      "200144357",
-      "200149204",
-      "200155957"
+      "200150569",
+      "200224608"
     ],
     "rollup_trips": [
-      "F6ACCF3A75A44C4DB130B63B6A059DBA",
-      "B3691DD2E99B44C1A886AFF3E7EDEAF2",
-      "8CA4CEA8B28744C9A08761268EC3FC80",
-      "63AACC2FD3A046DFB51C356A1321B327"
+      "A6F407F24F4A44009D5F116E1AB3559C",
+      "DA02CF725BC4499C9E8E76BFA7F4B61B"
     ],
     "rollup_horses": [
-      "Bernie",
-      "Carry",
-      "Pedro",
-      "Tank"
+      "Arrow",
+      "BB"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
-      "Ring 12"
+      "Ring 10"
     ],
-    "start_display": "11:05 AM",
+    "start_display": "10:15 AM",
     "group_display": [
-      "Tank",
-      "Bernie",
-      "Carry",
-      "Pedro"
+      "BB",
+      "Arrow"
     ],
-    "class_group_sequence": 5
+    "class_group_sequence": 2
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 12,
-    "ringName": "Ring 12",
-    "class_groupxclasses_id": 200031944,
-    "class_group_id": 200021086,
-    "group_name": "USHJA Hunter 2'3\"",
-    "class_id": 200021528,
-    "class_number": 2130,
-    "class_name": "USHJA Hunter 2'3\"",
-    "latestStart": "11:05 AM",
-    "latestStatus": "Completed",
-    "total_trips": 21,
+    "dt": "2026-03-13",
+    "ring_number": 10,
+    "ringName": "Ring 10",
+    "class_groupxclasses_id": 200032011,
+    "class_group_id": 200021136,
+    "group_name": ".90m Training Jumper (Table II) & Low Ch/Ad Am 39&U .90m II2b",
+    "class_id": 200021646,
+    "class_number": 1112,
+    "class_name": "Low Child/Adult Amateur Training Jumper 39 & Under .90m II2b",
+    "latestStart": "10:15 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 43,
     "rollup_entries": [
-      "200142687",
-      "200144357",
-      "200149204",
-      "200155957"
+      "200150569",
+      "200224608"
     ],
     "rollup_trips": [
-      "F760FF1F9C424F47822EFF03DC3B2517",
-      "7E56F8FBDBC34E59A2C560A0B5F9D63F",
-      "4141E8AF7CD0492EA6B09A9D21A8E875",
-      "13E77AD14F434D18984D0DF13FBB1763"
+      "9F0C64EC8C144A50B5A1E81A8EF68D36",
+      "14CC31577AC645E09401B7C00480EEA5"
     ],
     "rollup_horses": [
-      "Bernie",
-      "Carry",
-      "Pedro",
-      "Tank"
+      "Arrow",
+      "BB"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
-      "Ring 12"
+      "Ring 10"
     ],
-    "start_display": "11:05 AM",
+    "start_display": "10:15 AM",
     "group_display": [
-      "Pedro",
-      "Tank",
-      "Carry",
-      "Bernie"
+      "BB",
+      "Arrow"
     ],
-    "class_group_sequence": 5
+    "class_group_sequence": 2
   },
   {
     "sid": "200000054",
-    "dt": "2026-03-12",
+    "dt": "2026-03-13",
+    "ring_number": 11,
+    "ringName": "Ring 11",
+    "class_groupxclasses_id": 200032013,
+    "class_group_id": 200021139,
+    "group_name": "Pony Medals",
+    "class_id": 200021509,
+    "class_number": 3093,
+    "class_name": "WIHS Pony Equitation",
+    "latestStart": "2:30 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 15,
+    "rollup_entries": [
+      "200149648",
+      "200155957",
+      "200180810",
+      "200224610"
+    ],
+    "rollup_trips": [
+      "2D3FC4F37E544EBA9B4A6CBBF02EB2CE",
+      "51ECDD62F5E64D609BACE59BB068F6EC",
+      "E2726BB7AA6D4F1C92ED13415C0C251B",
+      "D05D4AAE4725463E8D34AD12B74FB5BB"
+    ],
+    "rollup_horses": [
+      "Bernie",
+      "Crush",
+      "Paisley",
+      "Yankee"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 11"
+    ],
+    "start_display": "2:30 PM",
+    "group_display": [
+      "Crush",
+      "Paisley",
+      "Bernie",
+      "Yankee"
+    ],
+    "class_group_sequence": 2
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
+    "ring_number": 11,
+    "ringName": "Ring 11",
+    "class_groupxclasses_id": 200032014,
+    "class_group_id": 200021139,
+    "group_name": "Pony Medals",
+    "class_id": 200021533,
+    "class_number": 3060,
+    "class_name": "Marshall + Sterling USEF Pony Medal",
+    "latestStart": "2:30 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 13,
+    "rollup_entries": [
+      "200149648",
+      "200155957",
+      "200180810",
+      "200224610"
+    ],
+    "rollup_trips": [
+      "B885C234FD4D4678BCE030A88D828031",
+      "7D0807949E9740818562E66F0A6B16F7",
+      "1450124F1E6041EB83F65CC71D312B8A",
+      "98FF0735066B4EC192434E5B1314F8E8"
+    ],
+    "rollup_horses": [
+      "Bernie",
+      "Crush",
+      "Paisley",
+      "Yankee"
+    ],
+    "show_id": 200000054,
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 11"
+    ],
+    "start_display": "2:30 PM",
+    "group_display": [
+      "Paisley",
+      "Bernie",
+      "Crush",
+      "Yankee"
+    ],
+    "class_group_sequence": 2
+  },
+  {
+    "sid": "200000054",
+    "dt": "2026-03-13",
     "ring_number": 13,
     "ringName": "South Ring",
-    "class_groupxclasses_id": 200031887,
-    "class_group_id": 200021049,
-    "group_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "class_id": 200021765,
-    "class_number": 2117,
-    "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "latestStart": "12:15 PM",
-    "latestStatus": "Completed",
-    "total_trips": 16,
+    "class_groupxclasses_id": 200032032,
+    "class_group_id": 200021151,
+    "group_name": "1.10m Schooling Jumper (Table II)",
+    "class_id": 200021515,
+    "class_number": 1103,
+    "class_name": "1.10m Schooling Jumper (Table II)",
+    "latestStart": "8:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 28,
     "rollup_entries": [
-      "200158838"
+      "200149134"
     ],
     "rollup_trips": [
-      "60B3511256BF4FFB87E6E450D5E5FE48"
+      "08E971E9A8C24AFEA858DE506C01C516"
     ],
     "rollup_horses": [
-      "Tommy"
+      "Doug"
     ],
     "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
+    "show_date": "2026-03-13",
+    "show_days_display_date": "Friday, March, 13, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:15 PM",
+    "start_display": "8:00 AM",
     "group_display": [
-      "Tommy (19)"
+      "Doug (4)"
     ],
-    "class_group_sequence": 4
-  },
-  {
-    "sid": "200000054",
-    "dt": "2026-03-12",
-    "ring_number": 13,
-    "ringName": "South Ring",
-    "class_groupxclasses_id": 200031888,
-    "class_group_id": 200021049,
-    "group_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "class_id": 200021455,
-    "class_number": 2118,
-    "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "latestStart": "12:15 PM",
-    "latestStatus": "Completed",
-    "total_trips": 16,
-    "rollup_entries": [
-      "200158838"
-    ],
-    "rollup_trips": [
-      "5367EF5C91984F4A86FFCCAD63296E63"
-    ],
-    "rollup_horses": [
-      "Tommy"
-    ],
-    "show_id": 200000054,
-    "show_date": "2026-03-12",
-    "show_days_display_date": "Thursday, March, 12, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "South Ring"
-    ],
-    "start_display": "12:15 PM",
-    "group_display": [
-      "Tommy (21)"
-    ],
-    "class_group_sequence": 4
+    "class_group_sequence": 1
   }
 ]

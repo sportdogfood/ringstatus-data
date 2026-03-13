@@ -1,0 +1,92 @@
+[
+  {
+    "list_id": "tack_barn",
+    "sort": 8,
+    "key": "list8",
+    "label": "Barn",
+    "type": "barn",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_schooling_bridles",
+    "sort": 1,
+    "key": "list1",
+    "label": "Schooling Bridles",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_show_bridles",
+    "sort": 2,
+    "key": "list2",
+    "label": "Show Bridles",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_schooling_girths",
+    "sort": 3,
+    "key": "list3",
+    "label": "Schooling Girths",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_show_girths",
+    "sort": 4,
+    "key": "list4",
+    "label": "Show Girths",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_saddles",
+    "sort": 5,
+    "key": "list5",
+    "label": "Saddles",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_trunks",
+    "sort": 6,
+    "key": "list6",
+    "label": "Trunks",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "horse_supplements",
+    "sort": 7,
+    "key": "list7",
+    "label": "Supplements",
+    "type": "horse",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  },
+  {
+    "list_id": "active_horses",
+    "sort": 0,
+    "key": "state",
+    "label": "Active Horses",
+    "type": "state",
+    "inNav": true,
+    "inSummary": true,
+    "inShare": true
+  }
+]

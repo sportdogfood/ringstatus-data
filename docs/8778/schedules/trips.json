@@ -41,7 +41,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -27932,
+    "secondsTill": -28232,
     "time_three": null,
     "score1": 73.5,
     "score2": null,
@@ -50,7 +50,9 @@
     "latestGO": "8:00 AM",
     "runningOOG": null,
     "lastOOG": "17",
-    "sched_display": "Dany (17)"
+    "sched_display": "Dany (17)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -94,7 +96,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -27932,
+    "secondsTill": -28232,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -103,7 +105,9 @@
     "latestGO": "8:00 AM",
     "runningOOG": null,
     "lastOOG": "29",
-    "sched_display": "Doug (29)"
+    "sched_display": "Doug (29)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -147,7 +151,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -27927,
+    "secondsTill": -28227,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -156,7 +160,9 @@
     "latestGO": "8:07 AM",
     "runningOOG": null,
     "lastOOG": "8",
-    "sched_display": "Indy (8)"
+    "sched_display": "Indy (8)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -200,7 +206,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -21929,
+    "secondsTill": -22229,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -209,7 +215,9 @@
     "latestGO": "9:40 AM",
     "runningOOG": null,
     "lastOOG": null,
-    "sched_display": "Dany"
+    "sched_display": "Dany",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -253,7 +261,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -21628,
+    "secondsTill": -21928,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -262,7 +270,9 @@
     "latestGO": "9:46 AM",
     "runningOOG": null,
     "lastOOG": "9",
-    "sched_display": "Arrow (9)"
+    "sched_display": "Arrow (9)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -306,7 +316,7 @@
     "time_two": 43.273,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -21628,
+    "secondsTill": -21928,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -315,7 +325,9 @@
     "latestGO": "9:50 AM",
     "runningOOG": null,
     "lastOOG": "11",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -359,7 +371,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -19829,
+    "secondsTill": -20129,
     "time_three": null,
     "score1": 80,
     "score2": null,
@@ -368,7 +380,9 @@
     "latestGO": "10:51 AM",
     "runningOOG": null,
     "lastOOG": "52",
-    "sched_display": "Indy (52)"
+    "sched_display": "Indy (52)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -412,7 +426,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -15629,
+    "secondsTill": -15929,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -421,7 +435,9 @@
     "latestGO": "11:30 AM",
     "runningOOG": null,
     "lastOOG": "16",
-    "sched_display": "Bee (16)"
+    "sched_display": "Bee (16)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -465,7 +481,7 @@
     "time_two": 29.795,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -10830,
+    "secondsTill": -11130,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -474,7 +490,9 @@
     "latestGO": "12:53 PM",
     "runningOOG": null,
     "lastOOG": "9",
-    "sched_display": "Dottie (9)"
+    "sched_display": "Dottie (9)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -518,7 +536,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -9029,
+    "secondsTill": -9329,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -527,7 +545,9 @@
     "latestGO": "1:27 PM",
     "runningOOG": null,
     "lastOOG": "5",
-    "sched_display": "Jason (5)"
+    "sched_display": "Jason (5)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -571,7 +591,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -9029,
+    "secondsTill": -9329,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -580,7 +600,9 @@
     "latestGO": "2:03 PM",
     "runningOOG": null,
     "lastOOG": "17",
-    "sched_display": "Dino (17)"
+    "sched_display": "Dino (17)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -624,7 +646,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -7532,
+    "secondsTill": -7832,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -633,7 +655,9 @@
     "latestGO": "2:37 PM",
     "runningOOG": null,
     "lastOOG": "42",
-    "sched_display": "Jason (42)"
+    "sched_display": "Jason (42)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -677,7 +701,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -7532,
+    "secondsTill": -7832,
     "time_three": null,
     "score1": 78.5,
     "score2": null,
@@ -686,7 +710,9 @@
     "latestGO": "2:33 PM",
     "runningOOG": null,
     "lastOOG": "40",
-    "sched_display": "Indy (40)"
+    "sched_display": "Indy (40)",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -730,7 +756,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": 73.5,
     "score2": null,
@@ -739,7 +765,9 @@
     "latestGO": "3:30 PM",
     "runningOOG": null,
     "lastOOG": "21",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -783,7 +811,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -792,7 +820,9 @@
     "latestGO": "2:57 PM",
     "runningOOG": null,
     "lastOOG": "10",
-    "sched_display": "Paisley (10)"
+    "sched_display": "Paisley (10)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -836,7 +866,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": 73,
     "score2": null,
@@ -845,7 +875,9 @@
     "latestGO": "3:00 PM",
     "runningOOG": null,
     "lastOOG": "11",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -889,7 +921,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -898,7 +930,9 @@
     "latestGO": "3:33 PM",
     "runningOOG": null,
     "lastOOG": "22",
-    "sched_display": "Bernie (22)"
+    "sched_display": "Bernie (22)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -942,7 +976,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": 30,
     "score2": null,
@@ -951,7 +985,9 @@
     "latestGO": "3:36 PM",
     "runningOOG": null,
     "lastOOG": "23",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -995,7 +1031,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1004,7 +1040,9 @@
     "latestGO": "3:27 PM",
     "runningOOG": null,
     "lastOOG": "20",
-    "sched_display": "Crush (20)"
+    "sched_display": "Crush (20)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -1048,7 +1086,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": 55,
     "score2": null,
@@ -1057,7 +1095,9 @@
     "latestGO": "3:06 PM",
     "runningOOG": null,
     "lastOOG": "13",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -1101,7 +1141,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -4527,
+    "secondsTill": -4827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1110,7 +1150,9 @@
     "latestGO": "3:03 PM",
     "runningOOG": null,
     "lastOOG": "12",
-    "sched_display": "Yankee (12)"
+    "sched_display": "Yankee (12)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -1154,7 +1196,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 0,
-    "secondsTill": -2432,
+    "secondsTill": -2732,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1163,7 +1205,9 @@
     "latestGO": "3:05 PM",
     "runningOOG": null,
     "lastOOG": null,
-    "sched_display": "Tommy"
+    "sched_display": "Tommy",
+    "is_target": true,
+    "is_parent": null
   },
   {
     "sid": 200000054,
@@ -1207,7 +1251,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 15,
-    "secondsTill": -932,
+    "secondsTill": -1232,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1216,7 +1260,9 @@
     "latestGO": "4:50 PM",
     "runningOOG": 10,
     "lastOOG": "33",
-    "sched_display": "Tommy (33)"
+    "sched_display": "Tommy (33)",
+    "is_target": true,
+    "is_parent": true
   },
   {
     "sid": 200000054,
@@ -1260,7 +1306,7 @@
     "time_two": null,
     "pid": 8778,
     "remaining_trips": 15,
-    "secondsTill": -932,
+    "secondsTill": -1232,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1269,6 +1315,8 @@
     "latestGO": "4:52 PM",
     "runningOOG": 9,
     "lastOOG": "dns",
-    "sched_display": null
+    "sched_display": null,
+    "is_target": null,
+    "is_parent": null
   }
 ]

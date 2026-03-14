@@ -186,7 +186,7 @@
     "class_id": 200021823,
     "class_number": 2602,
     "class_name": "$500 Amateur Owner Hunter 3'6\" 18-35",
-    "latestStart": "9:15 AM",
+    "latestStart": "9:20 AM",
     "latestStatus": "Upcoming",
     "total_trips": 16,
     "show_id": 200000054,
@@ -194,7 +194,7 @@
     "show_days_display_date": "Saturday, March, 14, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": null,
-    "start_display": "9:15 AM",
+    "start_display": "9:20 AM",
     "class_group_sequence": 3
   },
   {
@@ -208,7 +208,7 @@
     "class_id": 200021647,
     "class_number": 2603,
     "class_name": "$735 Amateur Owner Hunter 3'6\" 18-35 Handy",
-    "latestStart": "9:15 AM",
+    "latestStart": "9:20 AM",
     "latestStatus": "Upcoming",
     "total_trips": 16,
     "show_id": 200000054,
@@ -216,7 +216,7 @@
     "show_days_display_date": "Saturday, March, 14, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": null,
-    "start_display": "9:15 AM",
+    "start_display": "9:20 AM",
     "class_group_sequence": 3
   },
   {
@@ -957,7 +957,9 @@
     "class_number": 3076,
     "class_name": "SFHJA Junior Hunter Seat Medal 15-17 (Flat Phase)",
     "latestStart": "3:25 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 7,
     "show_id": 200000054,
     "show_date": "2026-03-14",
@@ -1022,7 +1024,7 @@
     "class_id": 200021498,
     "class_number": 2707,
     "class_name": "$630 Adult Amateur Hunter 18-35 (Sec B)",
-    "latestStart": "9:11 AM",
+    "latestStart": "9:05 AM",
     "latestStatus": "Underway",
     "total_trips": 19,
     "show_id": 200000054,
@@ -1030,7 +1032,7 @@
     "show_days_display_date": "Saturday, March, 14, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": null,
-    "start_display": "9:11 AM",
+    "start_display": "9:05 AM",
     "class_group_sequence": 2
   },
   {
@@ -1044,7 +1046,7 @@
     "class_id": 200021796,
     "class_number": 2708,
     "class_name": "$630 Adult Amateur Hunter 18-35 (Sec B)",
-    "latestStart": "9:11 AM",
+    "latestStart": "9:05 AM",
     "latestStatus": "Underway",
     "total_trips": 19,
     "show_id": 200000054,
@@ -1052,7 +1054,7 @@
     "show_days_display_date": "Saturday, March, 14, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": null,
-    "start_display": "9:11 AM",
+    "start_display": "9:05 AM",
     "class_group_sequence": 2
   },
   {
@@ -1330,15 +1332,15 @@
     "class_id": 200021560,
     "class_number": 1766,
     "class_name": "1.0m Amateur Jumper 18-35 II2d",
-    "latestStart": "9:15 AM",
+    "latestStart": "9:20 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 12,
+    "total_trips": 11,
     "show_id": 200000054,
     "show_date": "2026-03-14",
     "show_days_display_date": "Saturday, March, 14, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": null,
-    "start_display": "9:15 AM",
+    "start_display": "9:20 AM",
     "class_group_sequence": 2
   },
   {

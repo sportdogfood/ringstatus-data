@@ -253,7 +253,9 @@
     "class_number": 2834,
     "class_name": "$500 Large Junior Hunter 3'6\" 15 & Under",
     "latestStart": "11:55 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 9,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -277,7 +279,9 @@
     "class_number": 2835,
     "class_name": "$800 Large Junior Hunter 3'6\" 15 & Under Stake",
     "latestStart": "11:55 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 9,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -565,7 +569,7 @@
     "class_number": 2740,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B)",
     "latestStart": "12:04 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -589,7 +593,7 @@
     "class_number": 2741,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B)",
     "latestStart": "12:04 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -757,7 +761,7 @@
     "class_number": 1035,
     "class_name": "$15,000 NAL 1.25m Amateur Jumper Classic II2b",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 75,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1383,7 +1387,7 @@
     "class_number": 3031,
     "class_name": "Dover Saddlery USEF Hunter Seat Medal (Section A)",
     "latestStart": "11:55 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 33,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1478,7 +1482,7 @@
     "class_id": 200021631,
     "class_number": 1770,
     "class_name": "$1,595 1.05m Amateur Jumper Classic 36 & Over II2b",
-    "latestStart": "12:03 PM",
+    "latestStart": "12:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 19,
     "show_id": 200000054,
@@ -1488,7 +1492,7 @@
     "ring_nickname": [
       "Ring 10"
     ],
-    "start_display": "12:03 PM",
+    "start_display": "12:05 PM",
     "class_group_sequence": 3
   },
   {
@@ -1694,7 +1698,7 @@
     "class_id": 200021569,
     "class_number": 2934,
     "class_name": "$500 Large Pony Hunter",
-    "latestStart": "1:00 PM",
+    "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000054,
@@ -1704,7 +1708,7 @@
     "ring_nickname": [
       "Ring 11"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "12:55 PM",
     "class_group_sequence": 5
   },
   {
@@ -1718,7 +1722,7 @@
     "class_id": 200021476,
     "class_number": 2935,
     "class_name": "$630 Large Pony Hunter Handy",
-    "latestStart": "1:00 PM",
+    "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000054,
@@ -1728,7 +1732,7 @@
     "ring_nickname": [
       "Ring 11"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "12:55 PM",
     "class_group_sequence": 5
   },
   {
@@ -1742,7 +1746,7 @@
     "class_id": 200021477,
     "class_number": 403,
     "class_name": "$500 Large Pony Hunter Classic",
-    "latestStart": "1:00 PM",
+    "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 12,
     "show_id": 200000054,
@@ -1752,7 +1756,7 @@
     "ring_nickname": [
       "Ring 11"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "12:55 PM",
     "class_group_sequence": 5
   },
   {
@@ -2466,7 +2470,7 @@
     "class_id": 200021710,
     "class_number": 3005,
     "class_name": "Rusty Stirrup Equitation Flat",
-    "latestStart": "12:16 PM",
+    "latestStart": "12:17 PM",
     "latestStatus": null,
     "total_trips": 1,
     "show_id": 200000054,
@@ -2476,7 +2480,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:16 PM",
+    "start_display": "12:17 PM",
     "class_group_sequence": 12
   },
   {
@@ -2490,7 +2494,7 @@
     "class_id": 200021701,
     "class_number": 2997,
     "class_name": "Rusty Stirrup Hunter U/S",
-    "latestStart": "12:21 PM",
+    "latestStart": "12:22 PM",
     "latestStatus": null,
     "total_trips": 4,
     "show_id": 200000054,
@@ -2500,7 +2504,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:21 PM",
+    "start_display": "12:22 PM",
     "class_group_sequence": 13
   },
   {
@@ -2514,7 +2518,7 @@
     "class_id": 200021574,
     "class_number": 2998,
     "class_name": "Rusty Stirrup Hunter",
-    "latestStart": "12:26 PM",
+    "latestStart": "12:27 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000054,
@@ -2524,7 +2528,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:26 PM",
+    "start_display": "12:27 PM",
     "class_group_sequence": 14
   },
   {
@@ -2538,7 +2542,7 @@
     "class_id": 200021456,
     "class_number": 2999,
     "class_name": "Rusty Stirrup Hunter",
-    "latestStart": "12:26 PM",
+    "latestStart": "12:27 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000054,
@@ -2548,7 +2552,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:26 PM",
+    "start_display": "12:27 PM",
     "class_group_sequence": 14
   }
 ]

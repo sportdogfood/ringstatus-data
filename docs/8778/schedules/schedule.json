@@ -35,7 +35,7 @@
     "class_number": 99,
     "class_name": "$50,000 BrainJuice  U25 Grand Prix Final - 220.2.1.2 (JO)",
     "latestStart": "12:20 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 28,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -253,7 +253,9 @@
     "class_number": 2834,
     "class_name": "$500 Large Junior Hunter 3'6\" 15 & Under",
     "latestStart": "11:55 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -277,7 +279,9 @@
     "class_number": 2835,
     "class_name": "$800 Large Junior Hunter 3'6\" 15 & Under Stake",
     "latestStart": "11:55 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -612,7 +616,7 @@
     "class_id": 200021544,
     "class_number": 2706,
     "class_name": "$100 Adult Amateur Hunter 18-35 (Sec B) U/S",
-    "latestStart": "12:45 PM",
+    "latestStart": "12:46 PM",
     "latestStatus": null,
     "total_trips": 17,
     "show_id": 200000054,
@@ -622,7 +626,7 @@
     "ring_nickname": [
       "Rost"
     ],
-    "start_display": "12:45 PM",
+    "start_display": "12:46 PM",
     "class_group_sequence": 5
   },
   {
@@ -758,7 +762,7 @@
     "class_name": "$15,000 NAL 1.25m Amateur Jumper Classic II2b",
     "latestStart": "8:00 AM",
     "latestStatus": "Completed",
-    "total_trips": 75,
+    "total_trips": 73,
     "show_id": 200000054,
     "show_date": "2026-03-15",
     "show_days_display_date": "Sunday, March, 15, 2026",
@@ -780,7 +784,7 @@
     "class_id": 200021435,
     "class_number": 1070,
     "class_name": "$15,000 NAL 1.25m Junior Jumper Classic II2b",
-    "latestStart": "12:25 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
     "total_trips": 44,
     "show_id": 200000054,
@@ -790,7 +794,7 @@
     "ring_nickname": [
       "Mogavero"
     ],
-    "start_display": "12:25 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 2
   },
   {
@@ -1479,7 +1483,7 @@
     "class_number": 1770,
     "class_name": "$1,595 1.05m Amateur Jumper Classic 36 & Over II2b",
     "latestStart": "12:20 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 18,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -2419,7 +2423,7 @@
     "class_number": 2987,
     "class_name": "Short Stirrup Hunter CALI @ 12+",
     "latestStart": "11:31 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 10,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -2443,7 +2447,7 @@
     "class_number": 2988,
     "class_name": "Short Stirrup Hunter CALI @ 12+",
     "latestStart": "11:31 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 10,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -2514,7 +2518,7 @@
     "class_id": 200021574,
     "class_number": 2998,
     "class_name": "Rusty Stirrup Hunter",
-    "latestStart": "12:34 PM",
+    "latestStart": "12:33 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000054,
@@ -2524,7 +2528,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:34 PM",
+    "start_display": "12:33 PM",
     "class_group_sequence": 14
   },
   {
@@ -2538,7 +2542,7 @@
     "class_id": 200021456,
     "class_number": 2999,
     "class_name": "Rusty Stirrup Hunter",
-    "latestStart": "12:34 PM",
+    "latestStart": "12:33 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000054,
@@ -2548,7 +2552,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:34 PM",
+    "start_display": "12:33 PM",
     "class_group_sequence": 14
   }
 ]

@@ -1143,7 +1143,7 @@
     "class_number": 2874,
     "class_name": "Children's Hunter 15-17",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 25,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1167,7 +1167,7 @@
     "class_number": 2875,
     "class_name": "Children's Hunter 15-17",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 25,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1599,7 +1599,7 @@
     "class_number": 2893,
     "class_name": "Large Children's Pony Hunter",
     "latestStart": "9:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1623,7 +1623,7 @@
     "class_number": 2894,
     "class_name": "Large Children's Pony Hunter",
     "latestStart": "9:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 8,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1647,7 +1647,9 @@
     "class_number": 4079,
     "class_name": "Low Children's Hunter CALI @ 30+",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 29,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1671,7 +1673,7 @@
     "class_number": 4080,
     "class_name": "Low Children's Hunter CALI @ 30+",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 29,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1793,7 +1795,9 @@
     "class_number": 2919,
     "class_name": "$500 Medium Pony Conformation  Hunter",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 19,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1817,7 +1821,9 @@
     "class_number": 2920,
     "class_name": "$630 Medium Pony Hunter Handy",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 19,
     "show_id": 200000054,
     "show_date": "2026-03-15",
@@ -1841,7 +1847,9 @@
     "class_number": 402,
     "class_name": "$500 Medium Pony Hunter Classic",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 12,
     "show_id": 200000054,
     "show_date": "2026-03-15",

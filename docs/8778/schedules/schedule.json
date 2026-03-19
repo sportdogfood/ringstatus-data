@@ -35,7 +35,7 @@
     "class_number": 213,
     "class_name": "CSI2* $32,000 BrainWater 1.45m Qualifier 220.2.1.2  (JO)",
     "latestStart": "10:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 68,
     "show_id": 200000055,
     "show_date": "2026-03-19",
@@ -684,7 +684,7 @@
     "class_name": "1.10m Schooling Jumper (Table II)",
     "latestStart": "12:40 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 74,
+    "total_trips": 75,
     "show_id": 200000055,
     "show_date": "2026-03-19",
     "show_days_display_date": "Thursday, March, 19, 2026",
@@ -1235,7 +1235,7 @@
     "class_number": 1105,
     "class_name": "1.0m Training Jumper (Table II)",
     "latestStart": "10:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 68,
     "show_id": 200000055,
     "show_date": "2026-03-19",
@@ -1258,7 +1258,7 @@
     "class_id": 200021987,
     "class_number": 1216,
     "class_name": "1.0m Young Jumper (Table II)",
-    "latestStart": "12:46 PM",
+    "latestStart": "12:38 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000055,
@@ -1268,7 +1268,7 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "12:46 PM",
+    "start_display": "12:38 PM",
     "class_group_sequence": 3
   },
   {
@@ -1331,9 +1331,7 @@
     "class_number": 1123,
     "class_name": ".90m Training Jumper (Table II.2d scored as Table II Blue Ribbon)",
     "latestStart": "8:00 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 38,
     "show_id": 200000055,
     "show_date": "2026-03-19",
@@ -1980,7 +1978,7 @@
     "class_id": 200022286,
     "class_number": 2732,
     "class_name": "$630 Adult Amateur Hunter 55 & Over (Sec A)",
-    "latestStart": "10:30 AM",
+    "latestStart": "10:34 AM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000055,
@@ -1990,7 +1988,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "10:30 AM",
+    "start_display": "10:34 AM",
     "class_group_sequence": 3
   },
   {
@@ -2004,7 +2002,7 @@
     "class_id": 200022133,
     "class_number": 2733,
     "class_name": "$630 Adult Amateur Hunter 55 & Over (Sec A)",
-    "latestStart": "10:30 AM",
+    "latestStart": "10:34 AM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000055,
@@ -2014,7 +2012,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "10:30 AM",
+    "start_display": "10:34 AM",
     "class_group_sequence": 3
   },
   {
@@ -2028,9 +2026,9 @@
     "class_id": 200021929,
     "class_number": 2717,
     "class_name": "$630 Adult Amateur Hunter 36-54 (Sec A)",
-    "latestStart": "11:35 AM",
+    "latestStart": "11:40 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-19",
     "show_days_display_date": "Thursday, March, 19, 2026",
@@ -2038,7 +2036,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:35 AM",
+    "start_display": "11:40 AM",
     "class_group_sequence": 4
   },
   {
@@ -2052,9 +2050,9 @@
     "class_id": 200022274,
     "class_number": 2718,
     "class_name": "$630 Adult Amateur Hunter 36-54 (Sec A)",
-    "latestStart": "11:35 AM",
+    "latestStart": "11:40 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-19",
     "show_days_display_date": "Thursday, March, 19, 2026",
@@ -2062,7 +2060,7 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:35 AM",
+    "start_display": "11:40 AM",
     "class_group_sequence": 4
   },
   {

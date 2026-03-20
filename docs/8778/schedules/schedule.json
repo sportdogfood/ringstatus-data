@@ -1,7 +1,7 @@
 [
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 1,
     "ringName": "Intl",
     "class_groupxclasses_id": 200032421,
@@ -12,7 +12,7 @@
     "class_name": "$2,500 1.40m Amateur Jumper II.1",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 54,
+    "total_trips": 53,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -24,8 +24,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 1,
     "ringName": "Intl",
     "class_groupxclasses_id": 200032422,
@@ -36,7 +36,7 @@
     "class_name": "CSI2* $10,000 BrainWater 1.40m 220.2.1.1  (Speed)",
     "latestStart": "11:30 AM",
     "latestStatus": null,
-    "total_trips": 42,
+    "total_trips": 43,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -48,8 +48,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 1,
     "ringName": "Intl",
     "class_groupxclasses_id": 200032423,
@@ -72,8 +72,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032424,
@@ -96,8 +96,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032425,
@@ -120,8 +120,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032426,
@@ -144,8 +144,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032427,
@@ -154,7 +154,7 @@
     "class_id": 200022015,
     "class_number": 2716,
     "class_name": "$100 Adult Amateur Hunter 36-54 (Sec A) U/S",
-    "latestStart": "9:18 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -164,12 +164,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "9:18 AM",
+    "start_display": "9:15 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032428,
@@ -178,7 +178,7 @@
     "class_id": 200021879,
     "class_number": 2719,
     "class_name": "$630 Adult Amateur Hunter 36-54 (Sec A)",
-    "latestStart": "9:33 AM",
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -188,12 +188,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "9:33 AM",
+    "start_display": "9:30 AM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032429,
@@ -202,7 +202,7 @@
     "class_id": 200021953,
     "class_number": 2720,
     "class_name": "$630 Adult Amateur Hunter 36-54 (Sec A)",
-    "latestStart": "9:33 AM",
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -212,12 +212,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "9:33 AM",
+    "start_display": "9:30 AM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032430,
@@ -226,8 +226,10 @@
     "class_id": 200022132,
     "class_number": 2626,
     "class_name": "$630 Amateur Owner Hunter 3'3\" 18-35",
-    "latestStart": "10:57 AM",
-    "latestStatus": null,
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 22,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -236,12 +238,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "10:57 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032431,
@@ -250,8 +252,10 @@
     "class_id": 200021993,
     "class_number": 2627,
     "class_name": "$630 Amateur Owner Hunter 3'3\" 18-35 Handy",
-    "latestStart": "10:57 AM",
-    "latestStatus": null,
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 22,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -260,12 +264,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "10:57 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032432,
@@ -274,8 +278,10 @@
     "class_id": 200022268,
     "class_number": 2625,
     "class_name": "$100 Amateur Owner Hunter 3'3\" 18-35 U/S",
-    "latestStart": "1:09 PM",
-    "latestStatus": null,
+    "latestStart": "1:15 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 22,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -284,12 +290,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "1:09 PM",
+    "start_display": "1:15 PM",
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032433,
@@ -298,7 +304,7 @@
     "class_id": 200022200,
     "class_number": 2602,
     "class_name": "$500 Amateur Owner Hunter 3'6\" 18-35",
-    "latestStart": "1:24 PM",
+    "latestStart": "1:30 PM",
     "latestStatus": null,
     "total_trips": 11,
     "show_id": 200000055,
@@ -308,12 +314,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "1:24 PM",
+    "start_display": "1:30 PM",
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032434,
@@ -322,7 +328,7 @@
     "class_id": 200022031,
     "class_number": 2603,
     "class_name": "$735 Amateur Owner Hunter 3'6\" 18-35 Handy",
-    "latestStart": "1:24 PM",
+    "latestStart": "1:30 PM",
     "latestStatus": null,
     "total_trips": 11,
     "show_id": 200000055,
@@ -332,12 +338,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "1:24 PM",
+    "start_display": "1:30 PM",
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032435,
@@ -346,8 +352,10 @@
     "class_id": 200022095,
     "class_number": 2832,
     "class_name": "$500 Large Junior Hunter 3'6\" 15 & Under",
-    "latestStart": "2:30 PM",
-    "latestStatus": null,
+    "latestStart": "2:45 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -356,12 +364,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "2:30 PM",
+    "start_display": "2:45 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 2,
     "ringName": "Grand",
     "class_groupxclasses_id": 200032436,
@@ -370,8 +378,10 @@
     "class_id": 200021877,
     "class_number": 2833,
     "class_name": "$735 Large Junior Hunter 3'6\" 15 & Under Handy",
-    "latestStart": "2:30 PM",
-    "latestStatus": null,
+    "latestStart": "2:45 PM",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -380,12 +390,12 @@
     "ring_nickname": [
       "Grand"
     ],
-    "start_display": "2:30 PM",
+    "start_display": "2:45 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032437,
@@ -395,8 +405,10 @@
     "class_number": 3070,
     "class_name": "Ariat National Adult Medal",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 32,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 30,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -408,8 +420,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032438,
@@ -419,7 +431,9 @@
     "class_number": 3077,
     "class_name": "SFHJA Adult Amateur Hunter Seat Medal (Flat Phase)",
     "latestStart": "9:35 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 17,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -432,8 +446,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032439,
@@ -444,7 +458,7 @@
     "class_name": "USEF Adult Hunter Seat Medal",
     "latestStart": "9:50 AM",
     "latestStatus": null,
-    "total_trips": 21,
+    "total_trips": 19,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -456,8 +470,8 @@
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032440,
@@ -480,8 +494,8 @@
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032441,
@@ -504,8 +518,8 @@
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032442,
@@ -528,8 +542,8 @@
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032443,
@@ -539,7 +553,9 @@
     "class_number": 3016,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
     "latestStart": "12:40 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 53,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -552,8 +568,8 @@
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032444,
@@ -563,7 +579,9 @@
     "class_number": 3017,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
     "latestStart": "12:40 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 53,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -576,8 +594,8 @@
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 3,
     "ringName": "Rost",
     "class_groupxclasses_id": 200032445,
@@ -587,7 +605,9 @@
     "class_number": 3015,
     "class_name": "15-17 Equitation Flat CALI @ 30+",
     "latestStart": "5:15 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 53,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -600,8 +620,8 @@
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032446,
@@ -624,8 +644,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032447,
@@ -648,8 +668,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032448,
@@ -672,8 +692,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032449,
@@ -696,8 +716,8 @@
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032450,
@@ -708,7 +728,7 @@
     "class_name": "$2,600 1.35m Open Jumper II.1",
     "latestStart": "10:30 AM",
     "latestStatus": null,
-    "total_trips": 49,
+    "total_trips": 48,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -720,8 +740,8 @@
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032451,
@@ -732,7 +752,7 @@
     "class_name": "$6,150 1.40m Open Jumper II.1",
     "latestStart": "12:00 PM",
     "latestStatus": null,
-    "total_trips": 37,
+    "total_trips": 36,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -744,8 +764,8 @@
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200032452,
@@ -754,7 +774,7 @@
     "class_id": 200021988,
     "class_number": 1061,
     "class_name": "$1,500 1.40m Junior Jumper II2d",
-    "latestStart": "1:51 PM",
+    "latestStart": "1:48 PM",
     "latestStatus": null,
     "total_trips": 22,
     "show_id": 200000055,
@@ -764,12 +784,12 @@
     "ring_nickname": [
       "Mogavero"
     ],
-    "start_display": "1:51 PM",
+    "start_display": "1:48 PM",
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 5,
     "ringName": "Denemethy",
     "class_groupxclasses_id": 200032453,
@@ -780,7 +800,7 @@
     "class_name": "$1,500 1.30m Amateur Jumper II2b",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 55,
+    "total_trips": 54,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -792,8 +812,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 5,
     "ringName": "Denemethy",
     "class_groupxclasses_id": 200032454,
@@ -804,7 +824,7 @@
     "class_name": "$1,500 1.30m Junior Jumper II2b (Water Option)",
     "latestStart": "11:15 AM",
     "latestStatus": null,
-    "total_trips": 28,
+    "total_trips": 25,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -816,8 +836,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 5,
     "ringName": "Denemethy",
     "class_groupxclasses_id": 200032455,
@@ -826,9 +846,9 @@
     "class_id": 200022116,
     "class_number": 1011,
     "class_name": "$2,000 1.30m Open Jumper II.1",
-    "latestStart": "12:09 PM",
+    "latestStart": "12:45 PM",
     "latestStatus": null,
-    "total_trips": 40,
+    "total_trips": 37,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -836,12 +856,12 @@
     "ring_nickname": [
       "Denemethy"
     ],
-    "start_display": "12:09 PM",
+    "start_display": "12:45 PM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 6,
     "ringName": "Ring 6",
     "class_groupxclasses_id": 200032456,
@@ -864,8 +884,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 6,
     "ringName": "Ring 6",
     "class_groupxclasses_id": 200032457,
@@ -888,8 +908,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 6,
     "ringName": "Ring 6",
     "class_groupxclasses_id": 200032458,
@@ -900,7 +920,7 @@
     "class_name": "$1,500 1.20m Amateur Jumper II2b",
     "latestStart": "12:00 PM",
     "latestStatus": null,
-    "total_trips": 54,
+    "total_trips": 52,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -912,8 +932,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032459,
@@ -936,8 +956,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032460,
@@ -960,8 +980,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032461,
@@ -984,8 +1004,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032462,
@@ -995,8 +1015,10 @@
     "class_number": 1041,
     "class_name": "$1,500 1.10m Amateur Jumper 18-35 II2b",
     "latestStart": "1:15 PM",
-    "latestStatus": null,
-    "total_trips": 33,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 31,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1008,8 +1030,8 @@
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032463,
@@ -1032,8 +1054,8 @@
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 7,
     "ringName": "Ring 7",
     "class_groupxclasses_id": 200032466,
@@ -1044,7 +1066,7 @@
     "class_name": "Low Adult Amateur Training Jumper 40 & Over .90m II2b",
     "latestStart": "3:15 PM",
     "latestStatus": null,
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1056,8 +1078,8 @@
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200032467,
@@ -1068,7 +1090,7 @@
     "class_name": "1.25m Schooling Jumper (Table II)",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 25,
+    "total_trips": 24,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1080,8 +1102,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200032468,
@@ -1090,7 +1112,7 @@
     "class_id": 200021872,
     "class_number": 1103,
     "class_name": "1.10m Schooling Jumper (Table II)",
-    "latestStart": "9:15 AM",
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": 34,
     "show_id": 200000055,
@@ -1100,12 +1122,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "9:15 AM",
+    "start_display": "9:30 AM",
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200032469,
@@ -1114,9 +1136,11 @@
     "class_id": 200022275,
     "class_number": 1109,
     "class_name": ".90m Training Jumper (Table II)",
-    "latestStart": "10:57 AM",
-    "latestStatus": null,
-    "total_trips": 30,
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 29,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1124,12 +1148,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "10:57 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200032470,
@@ -1138,9 +1162,11 @@
     "class_id": 200021922,
     "class_number": 1112,
     "class_name": "Low Child/Adult Amateur Training Jumper 39 & Under .90m II2b",
-    "latestStart": "10:57 AM",
-    "latestStatus": null,
-    "total_trips": 39,
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 38,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1148,12 +1174,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "10:57 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200035924,
@@ -1162,7 +1188,7 @@
     "class_id": 200022047,
     "class_number": 1137,
     "class_name": "Large Pony Jumper II2d",
-    "latestStart": "2:18 PM",
+    "latestStart": "2:00 PM",
     "latestStatus": null,
     "total_trips": 16,
     "show_id": 200000055,
@@ -1172,12 +1198,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "2:18 PM",
+    "start_display": "2:00 PM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200035940,
@@ -1186,7 +1212,7 @@
     "class_id": 200025248,
     "class_number": 1140,
     "class_name": "Medium Pony Jumper II2d",
-    "latestStart": "3:06 PM",
+    "latestStart": "3:00 PM",
     "latestStatus": null,
     "total_trips": 12,
     "show_id": 200000055,
@@ -1196,12 +1222,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "3:06 PM",
+    "start_display": "3:00 PM",
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_groupxclasses_id": 200035941,
@@ -1210,7 +1236,7 @@
     "class_id": 200025251,
     "class_number": 1143,
     "class_name": "Small Pony Jumper II2d",
-    "latestStart": "3:42 PM",
+    "latestStart": "3:24 PM",
     "latestStatus": null,
     "total_trips": 20,
     "show_id": 200000055,
@@ -1220,12 +1246,12 @@
     "ring_nickname": [
       "Ring 9"
     ],
-    "start_display": "3:42 PM",
+    "start_display": "3:24 PM",
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 10,
     "ringName": "Ring 10",
     "class_groupxclasses_id": 200032472,
@@ -1235,8 +1261,10 @@
     "class_number": 1106,
     "class_name": "1.0m Training Jumper (Table II)",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 65,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 63,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1248,8 +1276,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 10,
     "ringName": "Ring 10",
     "class_groupxclasses_id": 200032473,
@@ -1272,8 +1300,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 10,
     "ringName": "Ring 10",
     "class_groupxclasses_id": 200032474,
@@ -1296,8 +1324,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 10,
     "ringName": "Ring 10",
     "class_groupxclasses_id": 200032475,
@@ -1306,7 +1334,7 @@
     "class_id": 200022168,
     "class_number": 1115,
     "class_name": ".80m Training Jumper (Table II)",
-    "latestStart": "9:31 AM",
+    "latestStart": "11:15 AM",
     "latestStatus": null,
     "total_trips": 45,
     "show_id": 200000055,
@@ -1316,12 +1344,12 @@
     "ring_nickname": [
       "Ring 10"
     ],
-    "start_display": "9:31 AM",
+    "start_display": "11:15 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 10,
     "ringName": "Ring 10",
     "class_groupxclasses_id": 200032476,
@@ -1330,7 +1358,7 @@
     "class_id": 200022105,
     "class_number": 1118,
     "class_name": "Low Child/Adult Amateur Training Jumper .80m II2b",
-    "latestStart": "9:31 AM",
+    "latestStart": "11:15 AM",
     "latestStatus": null,
     "total_trips": 47,
     "show_id": 200000055,
@@ -1340,12 +1368,12 @@
     "ring_nickname": [
       "Ring 10"
     ],
-    "start_display": "9:31 AM",
+    "start_display": "11:15 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 11,
     "ringName": "Ring 11",
     "class_groupxclasses_id": 200032477,
@@ -1355,7 +1383,9 @@
     "class_number": 3093,
     "class_name": "WIHS Pony Equitation",
     "latestStart": "2:30 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 19,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -1368,8 +1398,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 11,
     "ringName": "Ring 11",
     "class_groupxclasses_id": 200032478,
@@ -1379,7 +1409,9 @@
     "class_number": 3060,
     "class_name": "Marshall + Sterling USEF Pony Medal",
     "latestStart": "2:30 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 19,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -1392,8 +1424,8 @@
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 11,
     "ringName": "Ring 11",
     "class_groupxclasses_id": 200032479,
@@ -1416,8 +1448,8 @@
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032480,
@@ -1428,7 +1460,7 @@
     "class_name": "Low Adult Hunter (Sec. A) U/S",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 25,
+    "total_trips": 24,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1440,8 +1472,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032481,
@@ -1450,31 +1482,7 @@
     "class_id": 200021937,
     "class_number": 4064,
     "class_name": "Low Adult Hunter (Sec. A)",
-    "latestStart": "8:15 AM",
-    "latestStatus": null,
-    "total_trips": 29,
-    "show_id": 200000055,
-    "show_date": "2026-03-20",
-    "show_days_display_date": "Friday, March, 20, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "Ring 12"
-    ],
-    "start_display": "8:15 AM",
-    "class_group_sequence": 2
-  },
-  {
-    "sid": null,
-    "dt": null,
-    "ring_number": 12,
-    "ringName": "Ring 12",
-    "class_groupxclasses_id": 200032482,
-    "class_group_id": 200021475,
-    "group_name": "Low Adult Hunter (Sec. A)",
-    "class_id": 200022039,
-    "class_number": 4065,
-    "class_name": "Low Adult Hunter (Sec. A)",
-    "latestStart": "8:15 AM",
+    "latestStart": "8:30 AM",
     "latestStatus": null,
     "total_trips": 28,
     "show_id": 200000055,
@@ -1484,12 +1492,36 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "8:15 AM",
+    "start_display": "8:30 AM",
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
+    "ring_number": 12,
+    "ringName": "Ring 12",
+    "class_groupxclasses_id": 200032482,
+    "class_group_id": 200021475,
+    "group_name": "Low Adult Hunter (Sec. A)",
+    "class_id": 200022039,
+    "class_number": 4065,
+    "class_name": "Low Adult Hunter (Sec. A)",
+    "latestStart": "8:30 AM",
+    "latestStatus": null,
+    "total_trips": 27,
+    "show_id": 200000055,
+    "show_date": "2026-03-20",
+    "show_days_display_date": "Friday, March, 20, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "Ring 12"
+    ],
+    "start_display": "8:30 AM",
+    "class_group_sequence": 2
+  },
+  {
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032483,
@@ -1498,7 +1530,7 @@
     "class_id": 200022154,
     "class_number": 2753,
     "class_name": "Adult Amateur Hunter 2'9\"",
-    "latestStart": "11:06 AM",
+    "latestStart": "11:00 AM",
     "latestStatus": null,
     "total_trips": 15,
     "show_id": 200000055,
@@ -1508,12 +1540,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "11:06 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032484,
@@ -1522,7 +1554,7 @@
     "class_id": 200022188,
     "class_number": 2754,
     "class_name": "Adult Amateur Hunter 2'9\"",
-    "latestStart": "11:06 AM",
+    "latestStart": "11:00 AM",
     "latestStatus": null,
     "total_trips": 15,
     "show_id": 200000055,
@@ -1532,12 +1564,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "11:06 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032485,
@@ -1546,7 +1578,7 @@
     "class_id": 200022174,
     "class_number": 630,
     "class_name": "Pleasure Horse U/S",
-    "latestStart": "12:36 PM",
+    "latestStart": "12:15 PM",
     "latestStatus": null,
     "total_trips": 7,
     "show_id": 200000055,
@@ -1556,12 +1588,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "12:36 PM",
+    "start_display": "12:15 PM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032487,
@@ -1570,7 +1602,7 @@
     "class_id": 200022201,
     "class_number": 2121,
     "class_name": "USHJA Hunter 2' U/S",
-    "latestStart": "12:51 PM",
+    "latestStart": "12:20 PM",
     "latestStatus": null,
     "total_trips": 10,
     "show_id": 200000055,
@@ -1580,12 +1612,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "12:51 PM",
+    "start_display": "12:20 PM",
     "class_group_sequence": 5
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032488,
@@ -1594,9 +1626,9 @@
     "class_id": 200022098,
     "class_number": 3102,
     "class_name": "USHJA Hunter 2' Junior/Amateur U/S",
-    "latestStart": "1:06 PM",
+    "latestStart": "1:20 PM",
     "latestStatus": null,
-    "total_trips": 19,
+    "total_trips": 18,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1604,12 +1636,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:06 PM",
-    "class_group_sequence": 6
+    "start_display": "1:20 PM",
+    "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032491,
@@ -1618,7 +1650,7 @@
     "class_id": 200022294,
     "class_number": 2124,
     "class_name": "USHJA Hunter 2'",
-    "latestStart": "1:21 PM",
+    "latestStart": "12:35 PM",
     "latestStatus": null,
     "total_trips": 10,
     "show_id": 200000055,
@@ -1628,12 +1660,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:21 PM",
-    "class_group_sequence": 7
+    "start_display": "12:35 PM",
+    "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032492,
@@ -1642,7 +1674,7 @@
     "class_id": 200021957,
     "class_number": 2125,
     "class_name": "USHJA Hunter 2'",
-    "latestStart": "1:21 PM",
+    "latestStart": "12:35 PM",
     "latestStatus": null,
     "total_trips": 10,
     "show_id": 200000055,
@@ -1652,12 +1684,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:21 PM",
-    "class_group_sequence": 7
+    "start_display": "12:35 PM",
+    "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032493,
@@ -1666,9 +1698,9 @@
     "class_id": 200022173,
     "class_number": 3105,
     "class_name": "USHJA Hunter 2' Junior/Amateur",
-    "latestStart": "2:21 PM",
+    "latestStart": "1:35 PM",
     "latestStatus": null,
-    "total_trips": 21,
+    "total_trips": 20,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1676,12 +1708,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "2:21 PM",
+    "start_display": "1:35 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 12,
     "ringName": "Ring 12",
     "class_groupxclasses_id": 200032494,
@@ -1690,9 +1722,9 @@
     "class_id": 200021908,
     "class_number": 3106,
     "class_name": "USHJA Hunter 2' Junior/Amateur",
-    "latestStart": "2:21 PM",
+    "latestStart": "1:35 PM",
     "latestStatus": null,
-    "total_trips": 21,
+    "total_trips": 20,
     "show_id": 200000055,
     "show_date": "2026-03-20",
     "show_days_display_date": "Friday, March, 20, 2026",
@@ -1700,12 +1732,12 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "2:21 PM",
+    "start_display": "1:35 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032495,
@@ -1728,8 +1760,8 @@
     "class_group_sequence": 1
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032496,
@@ -1738,7 +1770,7 @@
     "class_id": 200022087,
     "class_number": 2119,
     "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "latestStart": "8:15 AM",
+    "latestStart": "8:10 AM",
     "latestStatus": null,
     "total_trips": 9,
     "show_id": 200000055,
@@ -1748,12 +1780,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "8:15 AM",
+    "start_display": "8:10 AM",
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032497,
@@ -1762,7 +1794,7 @@
     "class_id": 200021961,
     "class_number": 2120,
     "class_name": "$210 Young Hunter 3'3\" (7 & Under)",
-    "latestStart": "8:15 AM",
+    "latestStart": "8:10 AM",
     "latestStatus": null,
     "total_trips": 9,
     "show_id": 200000055,
@@ -1772,12 +1804,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "8:15 AM",
+    "start_display": "8:10 AM",
     "class_group_sequence": 2
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032498,
@@ -1786,7 +1818,7 @@
     "class_id": 200022038,
     "class_number": 2111,
     "class_name": "$210 Young Hunter 2'9\"/3' (6 & Under) U/S",
-    "latestStart": "9:09 AM",
+    "latestStart": "9:00 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -1796,12 +1828,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "9:09 AM",
+    "start_display": "9:00 AM",
     "class_group_sequence": 3
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032499,
@@ -1810,7 +1842,7 @@
     "class_id": 200021982,
     "class_number": 2114,
     "class_name": "$210 Young Hunter 2'9\"/3'' (6 & Under)",
-    "latestStart": "9:24 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -1820,12 +1852,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "9:24 AM",
+    "start_display": "9:15 AM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032500,
@@ -1834,7 +1866,7 @@
     "class_id": 200022086,
     "class_number": 2115,
     "class_name": "$210 Young Hunter 2'9\"/3' (6 & Under)",
-    "latestStart": "9:24 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000055,
@@ -1844,12 +1876,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "9:24 AM",
+    "start_display": "9:15 AM",
     "class_group_sequence": 4
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032504,
@@ -1858,32 +1890,10 @@
     "class_id": 200022103,
     "class_number": 3036,
     "class_name": "Hamel Foundation NHS 3'3\" Medal Sec A",
-    "latestStart": "10:48 AM",
-    "latestStatus": null,
-    "total_trips": 21,
-    "show_id": 200000055,
-    "show_date": "2026-03-20",
-    "show_days_display_date": "Friday, March, 20, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": [
-      "South Ring"
+    "latestStart": "10:40 AM",
+    "latestStatus": [
+      "Not Started"
     ],
-    "start_display": "10:48 AM",
-    "class_group_sequence": 5
-  },
-  {
-    "sid": null,
-    "dt": null,
-    "ring_number": 13,
-    "ringName": "South Ring",
-    "class_groupxclasses_id": 200035947,
-    "class_group_id": 200024171,
-    "group_name": "Hamel Foundation NHS 3'3\" Medal Sec. B",
-    "class_id": 200025254,
-    "class_number": 3037,
-    "class_name": "Hamel Foundation NHS 3'3\" Medal Sec. B",
-    "latestStart": "11:51 AM",
-    "latestStatus": null,
     "total_trips": 20,
     "show_id": 200000055,
     "show_date": "2026-03-20",
@@ -1892,12 +1902,38 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:51 AM",
+    "start_display": "10:40 AM",
+    "class_group_sequence": 5
+  },
+  {
+    "sid": 200000055,
+    "dt": "2026-03-20",
+    "ring_number": 13,
+    "ringName": "South Ring",
+    "class_groupxclasses_id": 200035947,
+    "class_group_id": 200024171,
+    "group_name": "Hamel Foundation NHS 3'3\" Medal Sec. B",
+    "class_id": 200025254,
+    "class_number": 3037,
+    "class_name": "Hamel Foundation NHS 3'3\" Medal Sec. B",
+    "latestStart": "11:40 AM",
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 20,
+    "show_id": 200000055,
+    "show_date": "2026-03-20",
+    "show_days_display_date": "Friday, March, 20, 2026",
+    "show_days_report_title": "CWF Schedule",
+    "ring_nickname": [
+      "South Ring"
+    ],
+    "start_display": "11:40 AM",
     "class_group_sequence": 6
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032505,
@@ -1906,7 +1942,7 @@
     "class_id": 200022023,
     "class_number": 3012,
     "class_name": "12-14 Equitation Flat CALI @ 30+",
-    "latestStart": "12:51 PM",
+    "latestStart": "12:35 PM",
     "latestStatus": null,
     "total_trips": 31,
     "show_id": 200000055,
@@ -1916,12 +1952,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "12:51 PM",
+    "start_display": "12:35 PM",
     "class_group_sequence": 7
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032506,
@@ -1930,7 +1966,7 @@
     "class_id": 200022296,
     "class_number": 3013,
     "class_name": "12-14 Equitation (2'9\") CALI @ 30+",
-    "latestStart": "1:06 PM",
+    "latestStart": "12:50 PM",
     "latestStatus": null,
     "total_trips": 30,
     "show_id": 200000055,
@@ -1940,12 +1976,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "1:06 PM",
+    "start_display": "12:50 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 13,
     "ringName": "South Ring",
     "class_groupxclasses_id": 200032507,
@@ -1954,7 +1990,7 @@
     "class_id": 200022113,
     "class_number": 3014,
     "class_name": "12-14 Equitation (2'9\") CALI @ 30+",
-    "latestStart": "1:06 PM",
+    "latestStart": "12:50 PM",
     "latestStatus": null,
     "total_trips": 30,
     "show_id": 200000055,
@@ -1964,12 +2000,12 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "1:06 PM",
+    "start_display": "12:50 PM",
     "class_group_sequence": 8
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": 200000055,
+    "dt": "2026-03-20",
     "ring_number": 15,
     "ringName": "Derby",
     "class_groupxclasses_id": 200032508,
@@ -1978,7 +2014,7 @@
     "class_id": 200022887,
     "class_number": 950,
     "class_name": "$15,000 International Hunter Derby (Hunt & Go)",
-    "latestStart": "8:20 AM",
+    "latestStart": "8:30 AM",
     "latestStatus": null,
     "total_trips": 24,
     "show_id": 200000055,
@@ -1988,7 +2024,7 @@
     "ring_nickname": [
       "Derby"
     ],
-    "start_display": "8:20 AM",
+    "start_display": "8:30 AM",
     "class_group_sequence": 5
   }
 ]

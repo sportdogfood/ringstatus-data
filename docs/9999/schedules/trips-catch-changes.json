@@ -39,7 +39,7 @@
     "estimated_start_time": "12:00:10",
     "estimated_go_time": "12:02:00",
     "latestStatus": "Underway",
-    "completed_trips": 42,
+    "completed_trips": 48,
     "lastOOG": 1,
     "lastGoneIn": 1
   },
@@ -81,9 +81,9 @@
     "entry_id": 200149210,
     "class_id": 200021983,
     "estimated_start_time": "12:30:08",
-    "estimated_go_time": "14:12:30",
+    "estimated_go_time": "14:15:00",
     "latestStatus": "Underway",
-    "completed_trips": 36,
+    "completed_trips": 43,
     "lastOOG": 1,
     "lastGoneIn": 0
   },
@@ -127,7 +127,7 @@
     "estimated_start_time": "13:10:00",
     "estimated_go_time": "12:58:00",
     "latestStatus": "Underway",
-    "completed_trips": 20,
+    "completed_trips": 25,
     "lastOOG": 1,
     "lastGoneIn": 1
   },
@@ -149,7 +149,7 @@
     "estimated_start_time": "13:10:00",
     "estimated_go_time": "12:58:00",
     "latestStatus": "Underway",
-    "completed_trips": 20,
+    "completed_trips": 25,
     "lastOOG": 1,
     "lastGoneIn": 1
   },
@@ -171,7 +171,7 @@
     "estimated_start_time": "13:10:00",
     "estimated_go_time": "12:58:00",
     "latestStatus": "Underway",
-    "completed_trips": 20,
+    "completed_trips": 25,
     "lastOOG": 23,
     "lastGoneIn": 1
   },
@@ -204,7 +204,7 @@
     "estimated_start_time": "12:00:10",
     "estimated_go_time": "12:00:00",
     "latestStatus": "Underway",
-    "completed_trips": 42,
+    "completed_trips": 48,
     "lastOOG": 1,
     "lastGoneIn": 1
   },
@@ -218,17 +218,6 @@
     "completed_trips": 75,
     "lastOOG": 34,
     "lastGoneIn": 1
-  },
-  {
-    "entryxclasses_uuid": "7048FC522DA345A49B4A13F41A8E2EE8",
-    "entry_id": 200150432,
-    "class_id": 200022008,
-    "estimated_start_time": "14:15:00",
-    "estimated_go_time": "14:29:00",
-    "latestStatus": "Upcoming",
-    "completed_trips": 0,
-    "lastOOG": 8,
-    "lastGoneIn": 0
   },
   {
     "entryxclasses_uuid": "7A83E8FDBDF94E85BDF48159B531E516",
@@ -248,7 +237,7 @@
     "estimated_start_time": "13:10:00",
     "estimated_go_time": "12:58:00",
     "latestStatus": "Underway",
-    "completed_trips": 20,
+    "completed_trips": 25,
     "lastOOG": 13,
     "lastGoneIn": 1
   },
@@ -402,7 +391,7 @@
     "estimated_start_time": "13:45:03",
     "estimated_go_time": "14:05:00",
     "latestStatus": "Underway",
-    "completed_trips": 6,
+    "completed_trips": 13,
     "lastOOG": 21,
     "lastGoneIn": 0
   },
@@ -433,10 +422,10 @@
     "entry_id": 200149210,
     "class_id": 200022158,
     "estimated_start_time": "12:30:08",
-    "estimated_go_time": "14:10:00",
+    "estimated_go_time": "14:07:30",
     "latestStatus": "Underway",
-    "completed_trips": 36,
-    "lastOOG": 41,
-    "lastGoneIn": 0
+    "completed_trips": 43,
+    "lastOOG": 40,
+    "lastGoneIn": 1
   }
 ]

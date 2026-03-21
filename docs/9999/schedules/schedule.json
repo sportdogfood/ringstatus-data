@@ -249,7 +249,7 @@
     ],
     "start_display": "10:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:00:00"
+    "estimated_start_time": "10:00:20"
   },
   {
     "sid": 200000055,
@@ -274,7 +274,7 @@
     ],
     "start_display": "10:15 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:15:00"
+    "estimated_start_time": "10:15:20"
   },
   {
     "sid": 200000055,
@@ -299,7 +299,7 @@
     ],
     "start_display": "10:15 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:15:00"
+    "estimated_start_time": "10:15:20"
   },
   {
     "sid": 200000055,
@@ -789,7 +789,7 @@
     "class_name": "$1,500 1.10m Junior Jumper 15-17 II2d",
     "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 23,
+    "total_trips": 21,
     "show_id": 200000055,
     "show_date": "2026-03-21",
     "show_days_display_date": "Saturday, March, 21, 2026",
@@ -939,7 +939,7 @@
     "class_name": "$1,500 1.20m Amateur Jumper II2d CALI @ 80+",
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 66,
+    "total_trips": 65,
     "show_id": 200000055,
     "show_date": "2026-03-21",
     "show_days_display_date": "Saturday, March, 21, 2026",
@@ -1266,7 +1266,7 @@
     "class_name": "SFHJA Junior Hunter Seat Medal 15-17 (Flat Phase)",
     "latestStart": "9:40 AM",
     "latestStatus": [
-      "Not Started"
+      "Completed"
     ],
     "total_trips": 15,
     "show_id": 200000055,
@@ -1278,7 +1278,7 @@
     ],
     "start_display": "9:40 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:40:00"
+    "estimated_start_time": "09:40:04"
   },
   {
     "sid": 200000055,
@@ -1291,7 +1291,7 @@
     "class_id": 200022053,
     "class_number": 2872,
     "class_name": "Children's Hunter 15-17",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
     "total_trips": 24,
     "show_id": 200000055,
@@ -1301,9 +1301,9 @@
     "ring_nickname": [
       "Ring 7"
     ],
-    "start_display": "10:15 AM",
+    "start_display": "10:10 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:15:00"
+    "estimated_start_time": "10:10:00"
   },
   {
     "sid": 200000055,
@@ -1316,7 +1316,7 @@
     "class_id": 200022016,
     "class_number": 2873,
     "class_name": "Children's Hunter 15-17",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
     "total_trips": 23,
     "show_id": 200000055,
@@ -1326,9 +1326,9 @@
     "ring_nickname": [
       "Ring 7"
     ],
-    "start_display": "10:15 AM",
+    "start_display": "10:10 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:15:00"
+    "estimated_start_time": "10:10:00"
   },
   {
     "sid": 200000055,
@@ -1543,7 +1543,7 @@
     "class_name": "1.0m Amateur Jumper 36 & Over II2b",
     "latestStart": "12:00 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 22,
+    "total_trips": 21,
     "show_id": 200000055,
     "show_date": "2026-03-21",
     "show_days_display_date": "Saturday, March, 21, 2026",
@@ -1693,7 +1693,7 @@
     "class_name": "1.0m Junior Jumper II2d CALI",
     "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 50,
+    "total_trips": 47,
     "show_id": 200000055,
     "show_date": "2026-03-21",
     "show_days_display_date": "Saturday, March, 21, 2026",
@@ -2468,7 +2468,7 @@
     "class_id": 200022158,
     "class_number": 4077,
     "class_name": "Low Children's Hunter CALI @ 30+",
-    "latestStart": "11:50 AM",
+    "latestStart": "11:52 AM",
     "latestStatus": "Upcoming",
     "total_trips": 46,
     "show_id": 200000055,
@@ -2478,9 +2478,9 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:50 AM",
+    "start_display": "11:52 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "11:50:06"
+    "estimated_start_time": "11:52:15"
   },
   {
     "sid": 200000055,
@@ -2493,7 +2493,7 @@
     "class_id": 200021983,
     "class_number": 4078,
     "class_name": "Low Children's Hunter CALI @ 30+",
-    "latestStart": "11:50 AM",
+    "latestStart": "11:52 AM",
     "latestStatus": "Upcoming",
     "total_trips": 44,
     "show_id": 200000055,
@@ -2503,9 +2503,9 @@
     "ring_nickname": [
       "South Ring"
     ],
-    "start_display": "11:50 AM",
+    "start_display": "11:52 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "11:50:06"
+    "estimated_start_time": "11:52:15"
   },
   {
     "sid": 200000055,

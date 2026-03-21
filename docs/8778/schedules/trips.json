@@ -1,6 +1,6 @@
 [
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 7,
     "ringName": "Ring 7",
@@ -41,7 +41,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -56,7 +56,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 11,
     "ringName": "Ring 11",
@@ -97,7 +97,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -112,7 +112,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 11,
     "ringName": "Ring 11",
@@ -150,13 +150,13 @@
     "lastScore": null,
     "lastPlace": 5,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "7:59 AM",
@@ -168,7 +168,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 7,
     "ringName": "Ring 7",
@@ -209,7 +209,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -224,7 +224,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -265,7 +265,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -280,7 +280,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -321,7 +321,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 19961,
+    "secondsTill": 19361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -336,7 +336,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 11,
     "ringName": "Ring 11",
@@ -377,7 +377,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 22361,
+    "secondsTill": 21761,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -392,7 +392,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 7,
     "ringName": "Ring 7",
@@ -433,7 +433,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 26261,
+    "secondsTill": 25661,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -448,7 +448,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 7,
     "ringName": "Ring 7",
@@ -489,7 +489,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 26261,
+    "secondsTill": 25661,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -504,7 +504,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 9,
     "ringName": "Ring 9",
@@ -545,7 +545,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 26561,
+    "secondsTill": 25961,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -560,7 +560,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 9,
     "ringName": "Ring 9",
@@ -601,7 +601,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 26561,
+    "secondsTill": 25961,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -616,7 +616,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -657,7 +657,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 27161,
+    "secondsTill": 26561,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -672,7 +672,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -713,7 +713,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 28061,
+    "secondsTill": 27461,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -728,7 +728,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -766,13 +766,13 @@
     "lastScore": null,
     "lastPlace": 1,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 28061,
+    "secondsTill": 27461,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "10:13 AM",
@@ -784,7 +784,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 9,
     "ringName": "Ring 9",
@@ -825,7 +825,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 30761,
+    "secondsTill": 30161,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -840,7 +840,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 9,
     "ringName": "Ring 9",
@@ -881,7 +881,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 30761,
+    "secondsTill": 30161,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -896,7 +896,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -937,7 +937,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 32561,
+    "secondsTill": 31961,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -952,7 +952,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -993,7 +993,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 32561,
+    "secondsTill": 31961,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1008,7 +1008,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 13,
     "ringName": "South Ring",
@@ -1049,7 +1049,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 33761,
+    "secondsTill": 33161,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1064,7 +1064,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 13,
     "ringName": "South Ring",
@@ -1102,13 +1102,13 @@
     "lastScore": null,
     "lastPlace": 4,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 33761,
+    "secondsTill": 33161,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "12:17 PM",
@@ -1120,7 +1120,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 12,
     "ringName": "Ring 12",
@@ -1161,7 +1161,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34361,
+    "secondsTill": 33761,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1176,7 +1176,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 12,
     "ringName": "Ring 12",
@@ -1214,13 +1214,13 @@
     "lastScore": null,
     "lastPlace": 14,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34361,
+    "secondsTill": 33761,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "12:18 PM",
@@ -1232,7 +1232,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -1273,7 +1273,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37961,
+    "secondsTill": 37361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1288,7 +1288,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -1326,13 +1326,13 @@
     "lastScore": null,
     "lastPlace": 5,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37961,
+    "secondsTill": 37361,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "12:58 PM",
@@ -1344,7 +1344,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -1385,7 +1385,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37961,
+    "secondsTill": 37361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1400,7 +1400,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 2,
     "ringName": "Grand",
@@ -1438,13 +1438,13 @@
     "lastScore": null,
     "lastPlace": 16,
     "lastPosition": null,
-    "time_one": null,
+    "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37961,
+    "secondsTill": 37361,
     "time_three": null,
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "score3": null,
     "lastTime": null,
     "latestGO": "12:58 PM",
@@ -1456,7 +1456,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -1497,7 +1497,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 39761,
+    "secondsTill": 39161,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1512,7 +1512,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 4,
     "ringName": "Mogavero",
@@ -1553,7 +1553,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 41561,
+    "secondsTill": 40961,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1568,7 +1568,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 10,
     "ringName": "Ring 10",
@@ -1609,7 +1609,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 44261,
+    "secondsTill": 43661,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1624,7 +1624,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 6,
     "ringName": "Ring 6",
@@ -1665,7 +1665,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 46961,
+    "secondsTill": 46361,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1680,7 +1680,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": 200000055,
+    "sid": null,
     "dt": "2026-03-21",
     "ring_number": 6,
     "ringName": "Ring 6",
@@ -1721,7 +1721,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 53261,
+    "secondsTill": 52661,
     "time_three": null,
     "score1": null,
     "score2": null,

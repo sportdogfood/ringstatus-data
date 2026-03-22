@@ -599,7 +599,7 @@
     "class_number": 2819,
     "class_name": "$500 Small Junior Hunter 3'6\" 16-17",
     "latestStart": "1:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 15,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -625,7 +625,7 @@
     "class_number": 2820,
     "class_name": "$800 Small Junior Hunter 3'6\" 16-17 Stake",
     "latestStart": "1:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 15,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -652,7 +652,7 @@
     "class_name": "$100 Large Junior Hunter 3'6\" 16-17 U/S",
     "latestStart": "3:10 PM",
     "latestStatus": null,
-    "total_trips": 19,
+    "total_trips": 18,
     "show_id": 200000055,
     "show_date": "2026-03-22",
     "show_days_display_date": "Sunday, March, 22, 2026",
@@ -1832,7 +1832,7 @@
     "class_number": 2954,
     "class_name": "$400 Medium Green Pony Hunter",
     "latestStart": "1:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -1858,7 +1858,7 @@
     "class_number": 2955,
     "class_name": "$400 Medium Green Pony Hunter",
     "latestStart": "1:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -1884,7 +1884,7 @@
     "class_number": 404,
     "class_name": "$500 Green Pony Hunter Classic",
     "latestStart": "1:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 11,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -1910,7 +1910,7 @@
     "class_number": 2949,
     "class_name": "$400 Small Green Pony Hunter",
     "latestStart": "2:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -1923,7 +1923,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "14:30:00",
     "group_display": [
-      "Knox | 0 |"
+      "Knox (17)"
     ]
   },
   {
@@ -1938,7 +1938,9 @@
     "class_number": 2950,
     "class_name": "$400 Small Green Pony Hunter",
     "latestStart": "2:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 7,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -1966,7 +1968,9 @@
     "class_number": 404,
     "class_name": "$500 Green Pony Hunter Classic",
     "latestStart": "2:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 11,
     "show_id": 200000055,
     "show_date": "2026-03-22",

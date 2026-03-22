@@ -1375,10 +1375,8 @@
     "class_number": 3042,
     "class_name": "ASPCA Maclay (Section B)",
     "latestStart": "9:30 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 22,
+    "latestStatus": null,
+    "total_trips": 21,
     "show_id": 200000055,
     "show_date": "2026-03-22",
     "show_days_display_date": "Sunday, March, 22, 2026",
@@ -1389,9 +1387,7 @@
     "start_display": "9:30 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "09:30:00",
-    "group_display": [
-      "Jason (9)"
-    ]
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1408,7 +1404,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 22,
+    "total_trips": 21,
     "show_id": 200000055,
     "show_date": "2026-03-22",
     "show_days_display_date": "Sunday, March, 22, 2026",
@@ -1420,8 +1416,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:00:00",
     "group_display": [
-      "Lenny (15)",
-      "Jason (16)"
+      "Lenny (15)"
     ]
   },
   {

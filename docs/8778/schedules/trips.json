@@ -41,7 +41,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34227,
+    "secondsTill": 33627,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -54,7 +54,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Yankee",
-    "8778_sched_display": "Yankee"
+    "8778_sched_display": "Yankee",
+    "sched_display": "Yankee"
   },
   {
     "sid": 200000055,
@@ -98,7 +99,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 35127,
+    "secondsTill": 34527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -111,7 +112,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Lenny (4)",
-    "8778_sched_display": "Lenny (4)"
+    "8778_sched_display": "Lenny (4)",
+    "sched_display": "Lenny (4)"
   },
   {
     "sid": 200000055,
@@ -155,7 +157,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 35127,
+    "secondsTill": 34527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -168,7 +170,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Celly (20)",
-    "8778_sched_display": "Celly (20)"
+    "8778_sched_display": "Celly (20)",
+    "sched_display": "Celly (20)"
   },
   {
     "sid": 200000055,
@@ -212,7 +215,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 35127,
+    "secondsTill": 34527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -225,7 +228,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Ranger (21)",
-    "8778_sched_display": "Ranger (21)"
+    "8778_sched_display": "Ranger (21)",
+    "sched_display": "Ranger (21)"
   },
   {
     "sid": 200000055,
@@ -269,7 +273,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 36027,
+    "secondsTill": 35427,
     "time_three": null,
     "score1": 65,
     "score2": null,
@@ -282,7 +286,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": null,
-    "8778_sched_display": null
+    "8778_sched_display": null,
+    "sched_display": null
   },
   {
     "sid": 200000055,
@@ -326,7 +331,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 36027,
+    "secondsTill": 35427,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -339,7 +344,8 @@
     "is_parent": true,
     "path_tenant": "8778",
     "8778_group_alert": "Yankee (45)",
-    "8778_sched_display": "Yankee (45)"
+    "8778_sched_display": "Yankee (45)",
+    "sched_display": "Yankee (45)"
   },
   {
     "sid": 200000055,
@@ -383,7 +389,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 36027,
+    "secondsTill": 35427,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -396,7 +402,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": null,
-    "8778_sched_display": null
+    "8778_sched_display": null,
+    "sched_display": null
   },
   {
     "sid": 200000055,
@@ -440,7 +447,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 45927,
+    "secondsTill": 45327,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -453,7 +460,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Lenny (15)",
-    "8778_sched_display": "Lenny (15)"
+    "8778_sched_display": "Lenny (15)",
+    "sched_display": "Lenny (15)"
   },
   {
     "sid": 200000055,
@@ -497,7 +505,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 48627,
+    "secondsTill": 48027,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -510,7 +518,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Calypso (15)",
-    "8778_sched_display": "Calypso (15)"
+    "8778_sched_display": "Calypso (15)",
+    "sched_display": "Calypso (15)"
   },
   {
     "sid": 200000055,
@@ -554,7 +563,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 48627,
+    "secondsTill": 48027,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -567,7 +576,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Krypton (16)",
-    "8778_sched_display": "Krypton (16)"
+    "8778_sched_display": "Krypton (16)",
+    "sched_display": "Krypton (16)"
   },
   {
     "sid": 200000055,
@@ -611,7 +621,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 49527,
+    "secondsTill": 48927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -624,7 +634,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Q (1)",
-    "8778_sched_display": "Q (1)"
+    "8778_sched_display": "Q (1)",
+    "sched_display": "Q (1)"
   },
   {
     "sid": 200000055,
@@ -668,7 +679,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 51327,
+    "secondsTill": 50727,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -681,7 +692,8 @@
     "is_parent": true,
     "path_tenant": "8778",
     "8778_group_alert": "Tank (21)",
-    "8778_sched_display": "Tank (21)"
+    "8778_sched_display": "Tank (21)",
+    "sched_display": "Tank (21)"
   },
   {
     "sid": 200000055,
@@ -725,7 +737,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 51327,
+    "secondsTill": 50727,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -738,7 +750,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": null,
-    "8778_sched_display": null
+    "8778_sched_display": null,
+    "sched_display": null
   },
   {
     "sid": 200000055,
@@ -782,7 +795,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 53127,
+    "secondsTill": 52527,
     "time_three": null,
     "score1": 71,
     "score2": null,
@@ -795,7 +808,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": null,
-    "8778_sched_display": null
+    "8778_sched_display": null,
+    "sched_display": null
   },
   {
     "sid": 200000055,
@@ -839,7 +853,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 56727,
+    "secondsTill": 56127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -852,7 +866,8 @@
     "is_parent": true,
     "path_tenant": "8778",
     "8778_group_alert": "Knox (13)",
-    "8778_sched_display": "Knox (13)"
+    "8778_sched_display": "Knox (13)",
+    "sched_display": "Knox (13)"
   },
   {
     "sid": 200000055,
@@ -896,7 +911,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 56727,
+    "secondsTill": 56127,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -909,7 +924,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": null,
-    "8778_sched_display": null
+    "8778_sched_display": null,
+    "sched_display": null
   },
   {
     "sid": 200000055,
@@ -953,7 +969,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 58527,
+    "secondsTill": 57927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -966,7 +982,8 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Hurricane (4)",
-    "8778_sched_display": "Hurricane (4)"
+    "8778_sched_display": "Hurricane (4)",
+    "sched_display": "Hurricane (4)"
   },
   {
     "sid": 200000055,
@@ -1010,7 +1027,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 61227,
+    "secondsTill": 60627,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1023,6 +1040,7 @@
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Rimini (21)",
-    "8778_sched_display": "Rimini (21)"
+    "8778_sched_display": "Rimini (21)",
+    "sched_display": "Rimini (21)"
   }
 ]

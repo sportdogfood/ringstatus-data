@@ -22,7 +22,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -47,7 +48,8 @@
     ],
     "start_display": "9:45 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "09:45:00"
+    "estimated_start_time": "09:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -72,7 +74,8 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -97,7 +100,8 @@
     ],
     "start_display": "7:45 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:45:00"
+    "estimated_start_time": "07:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -122,7 +126,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -147,7 +152,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -172,7 +178,8 @@
     ],
     "start_display": "9:15 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00"
+    "estimated_start_time": "09:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -197,7 +204,8 @@
     ],
     "start_display": "9:15 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00"
+    "estimated_start_time": "09:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -224,7 +232,10 @@
     ],
     "start_display": "11:30 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:30:00"
+    "estimated_start_time": "11:30:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -251,7 +262,10 @@
     ],
     "start_display": "11:45 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -278,7 +292,10 @@
     ],
     "start_display": "11:45 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -303,7 +320,8 @@
     ],
     "start_display": "1:15 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:15:00"
+    "estimated_start_time": "13:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -328,7 +346,8 @@
     ],
     "start_display": "1:45 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:45:00"
+    "estimated_start_time": "13:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -353,7 +372,8 @@
     ],
     "start_display": "1:45 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:45:00"
+    "estimated_start_time": "13:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -380,7 +400,10 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -407,7 +430,10 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -434,7 +460,10 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -459,7 +488,8 @@
     ],
     "start_display": "10:05 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:05:00"
+    "estimated_start_time": "10:05:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -484,7 +514,8 @@
     ],
     "start_display": "10:05 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:05:00"
+    "estimated_start_time": "10:05:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -509,7 +540,8 @@
     ],
     "start_display": "12:25 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:25:00"
+    "estimated_start_time": "12:25:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -534,7 +566,8 @@
     ],
     "start_display": "12:55 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:55:00"
+    "estimated_start_time": "12:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -559,7 +592,8 @@
     ],
     "start_display": "12:55 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:55:00"
+    "estimated_start_time": "12:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -584,7 +618,8 @@
     ],
     "start_display": "1:50 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:50:00"
+    "estimated_start_time": "13:50:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -609,7 +644,8 @@
     ],
     "start_display": "1:50 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:50:00"
+    "estimated_start_time": "13:50:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -634,7 +670,8 @@
     ],
     "start_display": "3:20 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "15:20:00"
+    "estimated_start_time": "15:20:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -659,7 +696,8 @@
     ],
     "start_display": "3:50 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "15:50:00"
+    "estimated_start_time": "15:50:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -684,7 +722,8 @@
     ],
     "start_display": "3:50 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "15:50:00"
+    "estimated_start_time": "15:50:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -709,7 +748,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -726,7 +766,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 42,
+    "total_trips": 41,
     "show_id": 200000055,
     "show_date": "2026-03-22",
     "show_days_display_date": "Sunday, March, 22, 2026",
@@ -736,7 +776,10 @@
     ],
     "start_display": "12:00 PM",
     "class_group_sequence": 2,
-    "estimated_start_time": "12:00:00"
+    "estimated_start_time": "12:00:00",
+    "group_display": [
+      "Q (1)"
+    ]
   },
   {
     "sid": 200000055,
@@ -763,7 +806,10 @@
     ],
     "start_display": "2:30 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "14:30:00"
+    "estimated_start_time": "14:30:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -788,7 +834,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -813,7 +860,8 @@
     ],
     "start_display": "8:40 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:40:00"
+    "estimated_start_time": "08:40:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -838,7 +886,8 @@
     ],
     "start_display": "9:30 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:30:00"
+    "estimated_start_time": "09:30:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -863,7 +912,8 @@
     ],
     "start_display": "11:15 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:15:00"
+    "estimated_start_time": "11:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -888,7 +938,8 @@
     ],
     "start_display": "1:45 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:45:00"
+    "estimated_start_time": "13:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -915,7 +966,10 @@
     ],
     "start_display": "3:15 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "15:15:00"
+    "estimated_start_time": "15:15:00",
+    "group_display": [
+      "Rimini (21)"
+    ]
   },
   {
     "sid": 200000055,
@@ -940,7 +994,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -965,7 +1020,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -990,7 +1046,8 @@
     ],
     "start_display": "10:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:35:00"
+    "estimated_start_time": "10:35:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1015,7 +1072,8 @@
     ],
     "start_display": "10:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:35:00"
+    "estimated_start_time": "10:35:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1042,7 +1100,10 @@
     ],
     "start_display": "2:30 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "14:30:00"
+    "estimated_start_time": "14:30:00",
+    "group_display": [
+      "Hurricane (4)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1069,7 +1130,10 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1096,7 +1160,10 @@
     ],
     "start_display": "8:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:35:00"
+    "estimated_start_time": "08:35:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1123,7 +1190,10 @@
     ],
     "start_display": "8:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:35:00"
+    "estimated_start_time": "08:35:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1148,7 +1218,8 @@
     ],
     "start_display": "12:00 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "12:00:00"
+    "estimated_start_time": "12:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1175,7 +1246,10 @@
     ],
     "start_display": "12:30 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "12:30:00",
+    "group_display": [
+      "Tank (21)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1202,7 +1276,10 @@
     ],
     "start_display": "12:30 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "12:30:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1227,7 +1304,8 @@
     ],
     "start_display": "4:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "16:00:00"
+    "estimated_start_time": "16:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1252,7 +1330,8 @@
     ],
     "start_display": "4:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "16:00:00"
+    "estimated_start_time": "16:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1279,7 +1358,10 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": [
+      "Lenny (4)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1306,7 +1388,10 @@
     ],
     "start_display": "9:30 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:30:00"
+    "estimated_start_time": "09:30:00",
+    "group_display": [
+      "Jason (9)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1333,7 +1418,11 @@
     ],
     "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "group_display": [
+      "Lenny (15)",
+      "Jason (16)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1358,7 +1447,8 @@
     ],
     "start_display": "12:30 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "12:30:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1383,7 +1473,8 @@
     ],
     "start_display": "2:00 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "14:00:00"
+    "estimated_start_time": "14:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1408,7 +1499,8 @@
     ],
     "start_display": "2:15 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "14:15:00"
+    "estimated_start_time": "14:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1433,7 +1525,8 @@
     ],
     "start_display": "2:15 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "14:15:00"
+    "estimated_start_time": "14:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1460,7 +1553,11 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": [
+      "Celly (20)",
+      "Ranger (21)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1487,7 +1584,11 @@
     ],
     "start_display": "11:45 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "group_display": [
+      "Calypso (15)",
+      "Krypton (16)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1512,7 +1613,8 @@
     ],
     "start_display": "1:15 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "13:15:00"
+    "estimated_start_time": "13:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1537,7 +1639,8 @@
     ],
     "start_display": "3:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "15:00:00"
+    "estimated_start_time": "15:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1562,7 +1665,8 @@
     ],
     "start_display": "3:45 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "15:45:00"
+    "estimated_start_time": "15:45:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1589,7 +1693,10 @@
     ],
     "start_display": "7:45 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:45:00"
+    "estimated_start_time": "07:45:00",
+    "group_display": [
+      "Yankee"
+    ]
   },
   {
     "sid": 200000055,
@@ -1616,7 +1723,10 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": [
+      "Yankee (45)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1643,7 +1753,10 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1670,7 +1783,10 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1695,7 +1811,8 @@
     ],
     "start_display": "12:15 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "12:15:00"
+    "estimated_start_time": "12:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1720,7 +1837,8 @@
     ],
     "start_display": "12:15 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "12:15:00"
+    "estimated_start_time": "12:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1745,7 +1863,8 @@
     ],
     "start_display": "12:15 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "12:15:00"
+    "estimated_start_time": "12:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1770,7 +1889,8 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1795,7 +1915,8 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1820,7 +1941,8 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1847,7 +1969,10 @@
     ],
     "start_display": "2:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "14:00:00"
+    "estimated_start_time": "14:00:00",
+    "group_display": [
+      "Knox (13)"
+    ]
   },
   {
     "sid": 200000055,
@@ -1874,7 +1999,10 @@
     ],
     "start_display": "2:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "14:00:00"
+    "estimated_start_time": "14:00:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1901,7 +2029,10 @@
     ],
     "start_display": "2:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "14:00:00"
+    "estimated_start_time": "14:00:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -1926,7 +2057,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1951,7 +2083,8 @@
     ],
     "start_display": "8:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -1976,7 +2109,8 @@
     ],
     "start_display": "9:30 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:30:00"
+    "estimated_start_time": "09:30:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2001,7 +2135,8 @@
     ],
     "start_display": "9:30 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:30:00"
+    "estimated_start_time": "09:30:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2026,7 +2161,8 @@
     ],
     "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2051,7 +2187,8 @@
     ],
     "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2076,7 +2213,8 @@
     ],
     "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2101,7 +2239,8 @@
     ],
     "start_display": "1:15 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:15:00"
+    "estimated_start_time": "13:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2126,7 +2265,8 @@
     ],
     "start_display": "1:15 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:15:00"
+    "estimated_start_time": "13:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2151,7 +2291,8 @@
     ],
     "start_display": "1:15 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:15:00"
+    "estimated_start_time": "13:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2176,7 +2317,8 @@
     ],
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2201,7 +2343,8 @@
     ],
     "start_display": "8:05 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:05:00"
+    "estimated_start_time": "08:05:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2226,7 +2369,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 3,
-    "estimated_start_time": "20:10:00"
+    "estimated_start_time": "20:10:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2251,7 +2395,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 4,
-    "estimated_start_time": "20:15:00"
+    "estimated_start_time": "20:15:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2276,7 +2421,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 5,
-    "estimated_start_time": "20:25:00"
+    "estimated_start_time": "20:25:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2301,7 +2447,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 6,
-    "estimated_start_time": "20:40:00"
+    "estimated_start_time": "20:40:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2326,7 +2473,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 7,
-    "estimated_start_time": "20:55:00"
+    "estimated_start_time": "20:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2351,7 +2499,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 7,
-    "estimated_start_time": "20:55:00"
+    "estimated_start_time": "20:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2376,7 +2525,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 7,
-    "estimated_start_time": "20:55:00"
+    "estimated_start_time": "20:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2401,7 +2551,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 7,
-    "estimated_start_time": "20:55:00"
+    "estimated_start_time": "20:55:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2426,7 +2577,8 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 8,
-    "estimated_start_time": "22:32:30"
+    "estimated_start_time": "22:32:30",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2453,7 +2605,10 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 9,
-    "estimated_start_time": "22:40:00"
+    "estimated_start_time": "22:40:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2480,7 +2635,10 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 10,
-    "estimated_start_time": "22:55:00"
+    "estimated_start_time": "22:55:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2507,7 +2665,10 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 11,
-    "estimated_start_time": "23:10:00"
+    "estimated_start_time": "23:10:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2534,7 +2695,10 @@
     ],
     "start_display": "check gate",
     "class_group_sequence": 11,
-    "estimated_start_time": "23:10:00"
+    "estimated_start_time": "23:10:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2561,7 +2725,10 @@
     ],
     "start_display": "12:40 PM",
     "class_group_sequence": 12,
-    "estimated_start_time": "12:40:00"
+    "estimated_start_time": "12:40:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2588,7 +2755,10 @@
     ],
     "start_display": "12:50 PM",
     "class_group_sequence": 13,
-    "estimated_start_time": "12:50:00"
+    "estimated_start_time": "12:50:00",
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000055,
@@ -2613,7 +2783,8 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 14,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   },
   {
     "sid": 200000055,
@@ -2638,6 +2809,7 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 14,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "group_display": []
   }
 ]

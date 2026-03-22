@@ -63,7 +63,7 @@
     "class_number": 414,
     "class_name": "CSI4* $200,000 WeatherTech Grand Prix 220.2.1.2 (JO)",
     "latestStart": "1:00 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 45,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -74,7 +74,7 @@
     ],
     "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:00:02",
     "group_display": []
   },
   {
@@ -598,7 +598,7 @@
     "class_id": 200021951,
     "class_number": 2819,
     "class_name": "$500 Small Junior Hunter 3'6\" 16-17",
-    "latestStart": "1:35 PM",
+    "latestStart": "1:40 PM",
     "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000055,
@@ -608,9 +608,9 @@
     "ring_nickname": [
       "Rost"
     ],
-    "start_display": "1:35 PM",
+    "start_display": "1:40 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:35:00",
+    "estimated_start_time": "13:40:00",
     "group_display": []
   },
   {
@@ -624,7 +624,7 @@
     "class_id": 200022171,
     "class_number": 2820,
     "class_name": "$800 Small Junior Hunter 3'6\" 16-17 Stake",
-    "latestStart": "1:35 PM",
+    "latestStart": "1:40 PM",
     "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000055,
@@ -634,9 +634,9 @@
     "ring_nickname": [
       "Rost"
     ],
-    "start_display": "1:35 PM",
+    "start_display": "1:40 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:35:00",
+    "estimated_start_time": "13:40:00",
     "group_display": []
   },
   {
@@ -1224,7 +1224,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "12:44:37",
     "group_display": [
-      "Tank | 4 |"
+      "Tank | 0 |"
     ]
   },
   {
@@ -1561,7 +1561,7 @@
     "class_id": 200021846,
     "class_number": 1770,
     "class_name": "$1,595 1.05m Amateur Jumper Classic 36 & Over II2b",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:10 PM",
     "latestStatus": "Upcoming",
     "total_trips": 27,
     "show_id": 200000055,
@@ -1571,9 +1571,9 @@
     "ring_nickname": [
       "Ring 10"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "1:10 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:10:00",
     "group_display": []
   },
   {
@@ -2098,7 +2098,7 @@
     "class_number": 2934,
     "class_name": "$500 Large Pony  Hunter",
     "latestStart": "11:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -2124,7 +2124,7 @@
     "class_number": 2935,
     "class_name": "$630 Large Pony Hunter Handy",
     "latestStart": "11:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 14,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -2150,7 +2150,7 @@
     "class_number": 403,
     "class_name": "$500 Large Pony Hunter Classic",
     "latestStart": "11:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 12,
     "show_id": 200000055,
     "show_date": "2026-03-22",
@@ -2175,7 +2175,7 @@
     "class_id": 200022195,
     "class_number": 2904,
     "class_name": "$500 Small Pony Hunter",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 26,
     "show_id": 200000055,
@@ -2185,9 +2185,9 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "1:05 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:05:05",
     "group_display": []
   },
   {
@@ -2201,7 +2201,7 @@
     "class_id": 200021931,
     "class_number": 2905,
     "class_name": "$630 Small Pony Hunter Handy",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 26,
     "show_id": 200000055,
@@ -2211,9 +2211,9 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "1:05 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:05:05",
     "group_display": []
   },
   {
@@ -2227,7 +2227,7 @@
     "class_id": 200022084,
     "class_number": 401,
     "class_name": "$500 Small Pony Hunter Classic",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 12,
     "show_id": 200000055,
@@ -2237,9 +2237,9 @@
     "ring_nickname": [
       "Ring 12"
     ],
-    "start_display": "1:00 PM",
+    "start_display": "1:05 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:05:05",
     "group_display": []
   },
   {

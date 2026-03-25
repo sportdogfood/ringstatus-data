@@ -1,6 +1,6 @@
 [
   {
-    "sid": null,
+    "sid": "200000056",
     "dt": "2026-03-25",
     "ring_number": 9,
     "class_group_id": 200021676,
@@ -9,12 +9,12 @@
     "class_name": "1.25m Schooling Jumper (Table II)",
     "class_type": "Jumpers",
     "lastGoneIn": null,
-    "estimated_go_time": null,
+    "estimated_go_time": "00:00:00",
     "estimated_start_time": "08:00:00",
     "latestStatus": "Upcoming",
     "entry_id": 200150220,
     "entryxclasses_uuid": "5E2CBC818EE64ABD93DDC7144C20520B",
-    "secondsTill": 3445,
+    "secondsTill": 2845,
     "latestGO": "8:00 AM",
     "lastOOG": "3",
     "is_target": true,
@@ -22,7 +22,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": null,
+    "sid": "200000056",
     "dt": "2026-03-25",
     "ring_number": 9,
     "class_group_id": 200021676,
@@ -31,12 +31,12 @@
     "class_name": "1.25m Schooling Jumper (Table II)",
     "class_type": "Jumpers",
     "lastGoneIn": null,
-    "estimated_go_time": null,
+    "estimated_go_time": "00:00:00",
     "estimated_start_time": "08:00:00",
     "latestStatus": "Upcoming",
     "entry_id": 200214039,
     "entryxclasses_uuid": "728591253525401D874E6F4F7D1809A6",
-    "secondsTill": 3445,
+    "secondsTill": 2845,
     "latestGO": "8:00 AM",
     "lastOOG": "10",
     "is_target": true,
@@ -44,7 +44,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": null,
+    "sid": "200000056",
     "dt": "2026-03-25",
     "ring_number": 1,
     "class_group_id": 200021645,
@@ -58,7 +58,7 @@
     "latestStatus": "Upcoming",
     "entry_id": 200150505,
     "entryxclasses_uuid": "441554258E2548FBB235EE80989296DE",
-    "secondsTill": 5245,
+    "secondsTill": 4645,
     "latestGO": "8:28 AM",
     "lastOOG": "36",
     "is_target": true,
@@ -66,7 +66,7 @@
     "path_tenant": "8778"
   },
   {
-    "sid": null,
+    "sid": "200000056",
     "dt": "2026-03-25",
     "ring_number": 1,
     "class_group_id": 200021646,
@@ -80,7 +80,7 @@
     "latestStatus": "Upcoming",
     "entry_id": 200150368,
     "entryxclasses_uuid": "7748CA51370B422E9066AE76CF8BCCF9",
-    "secondsTill": 17845,
+    "secondsTill": 17245,
     "latestGO": "11:57 AM",
     "lastOOG": "8",
     "is_target": true,

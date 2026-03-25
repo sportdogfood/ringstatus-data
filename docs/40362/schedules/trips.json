@@ -32,8 +32,8 @@
     "ringWalk": 5,
     "barnName": null,
     "horseName": null,
-    "teamName": null,
-    "riderName": null,
+    "teamName": "Santos",
+    "riderName": "Santos",
     "latestPlacing": null,
     "lastScore": null,
     "lastPlace": null,
@@ -41,7 +41,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 40362,
-    "secondsTill": 61345,
+    "secondsTill": 60745,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -49,12 +49,12 @@
     "lastTime": null,
     "latestGO": "10:28 AM",
     "runningOOG": null,
-    "lastOOG": null,
+    "lastOOG": "6",
     "is_target": true,
     "is_parent": null,
     "path_tenant": "40362",
-    "40362_group_alert": null,
-    "40362_sched_display": null
+    "40362_group_alert": " (6)",
+    "40362_sched_display": " (6)"
   },
   {
     "sid": "200000056",
@@ -98,7 +98,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 40362,
-    "secondsTill": 61345,
+    "secondsTill": 60745,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -106,11 +106,11 @@
     "lastTime": null,
     "latestGO": "10:28 AM",
     "runningOOG": null,
-    "lastOOG": null,
+    "lastOOG": "7",
     "is_target": true,
     "is_parent": null,
     "path_tenant": "40362",
-    "40362_group_alert": null,
-    "40362_sched_display": null
+    "40362_group_alert": " (7)",
+    "40362_sched_display": " (7)"
   }
 ]

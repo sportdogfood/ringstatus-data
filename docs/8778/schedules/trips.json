@@ -1,11 +1,7 @@
 [
   {
-    "sid": [
-      200000056
-    ],
-    "dt": [
-      "2026-03-25"
-    ],
+    "sid": "200000056",
+    "dt": "2026-03-25",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_group_id": 200021676,
@@ -45,7 +41,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 36448,
+    "secondsTill": 34648,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -62,12 +58,8 @@
     "sched_display": "Q"
   },
   {
-    "sid": [
-      200000056
-    ],
-    "dt": [
-      "2026-03-25"
-    ],
+    "sid": "200000056",
+    "dt": "2026-03-25",
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_group_id": 200021676,
@@ -107,7 +99,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 36448,
+    "secondsTill": 34648,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -124,12 +116,8 @@
     "sched_display": "Bee"
   },
   {
-    "sid": [
-      200000056
-    ],
-    "dt": [
-      "2026-03-25"
-    ],
+    "sid": "200000056",
+    "dt": "2026-03-25",
     "ring_number": 1,
     "ringName": "Intl",
     "class_group_id": 200021645,
@@ -169,7 +157,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 38248,
+    "secondsTill": 36448,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -186,12 +174,8 @@
     "sched_display": "Kinmar"
   },
   {
-    "sid": [
-      200000056
-    ],
-    "dt": [
-      "2026-03-25"
-    ],
+    "sid": "200000056",
+    "dt": "2026-03-25",
     "ring_number": 1,
     "ringName": "Intl",
     "class_group_id": 200021646,
@@ -231,7 +215,7 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 50848,
+    "secondsTill": 49048,
     "time_three": null,
     "score1": 0,
     "score2": 0,

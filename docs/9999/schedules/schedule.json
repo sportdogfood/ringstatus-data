@@ -11,7 +11,9 @@
     "class_number": 508,
     "class_name": "CSI5* $1,000 Bainbridge Companies 1.40m 220.2.1.1 (Speed)",
     "latestStart": "8:30 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 66,
     "show_id": 200000056,
     "show_date": "2026-03-25",
@@ -23,7 +25,9 @@
     "start_display": "8:30 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:30:00",
-    "group_display": []
+    "group_display": [
+      "Kinmar"
+    ]
   },
   {
     "sid": null,
@@ -37,7 +41,9 @@
     "class_number": 509,
     "class_name": "CSI5* $32,000 Dodd Technologies 1.45m 222.2.3 (Two Phase Special)",
     "latestStart": "12:00 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 56,
     "show_id": 200000056,
     "show_date": "2026-03-25",
@@ -49,7 +55,9 @@
     "start_display": "12:00 PM",
     "class_group_sequence": 2,
     "estimated_start_time": "12:00:00",
-    "group_display": []
+    "group_display": [
+      "Cardozo"
+    ]
   },
   {
     "sid": null,
@@ -1051,7 +1059,9 @@
     "class_number": 1095,
     "class_name": "1.25m Schooling Jumper (Table II)",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 54,
     "show_id": 200000056,
     "show_date": "2026-03-25",
@@ -1063,7 +1073,10 @@
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
-    "group_display": []
+    "group_display": [
+      "Q",
+      "Bee"
+    ]
   },
   {
     "sid": null,

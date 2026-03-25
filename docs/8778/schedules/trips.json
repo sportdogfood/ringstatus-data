@@ -1,7 +1,11 @@
 [
   {
-    "sid": null,
-    "dt": null,
+    "sid": [
+      200000056
+    ],
+    "dt": [
+      "2026-03-25"
+    ],
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_group_id": 200021676,
@@ -16,17 +20,15 @@
     "class_name": "1.25m Schooling Jumper (Table II)",
     "class_type": "Jumpers",
     "lastGoneIn": null,
-    "remaining_trips": 54,
+    "remaining_trips": 53,
     "estimated_end_time": "10:30:00",
     "estimated_go_time": "00:00:00",
     "estimated_start_time": "08:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200355661,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "8:00 AM",
     "latestStatus": "Not Started",
-    "total_trips": 54,
+    "total_trips": 53,
     "entry_id": 200150220,
     "backNumber": "1085",
     "entryNumber": "1085",
@@ -43,15 +45,13 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36448,
     "time_three": null,
     "score1": 0,
     "score2": 0,
     "score3": null,
     "lastTime": null,
-    "latestGO": null,
+    "latestGO": "8:00 AM",
     "runningOOG": null,
     "lastOOG": 1,
     "is_target": null,
@@ -62,8 +62,12 @@
     "sched_display": "Q"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": [
+      200000056
+    ],
+    "dt": [
+      "2026-03-25"
+    ],
     "ring_number": 9,
     "ringName": "Ring 9",
     "class_group_id": 200021676,
@@ -78,17 +82,15 @@
     "class_name": "1.25m Schooling Jumper (Table II)",
     "class_type": "Jumpers",
     "lastGoneIn": null,
-    "remaining_trips": 54,
+    "remaining_trips": 53,
     "estimated_end_time": "10:30:00",
     "estimated_go_time": "00:00:00",
     "estimated_start_time": "08:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200355721,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "8:00 AM",
     "latestStatus": "Not Started",
-    "total_trips": 54,
+    "total_trips": 53,
     "entry_id": 200214039,
     "backNumber": "7124",
     "entryNumber": "7124",
@@ -105,15 +107,13 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36448,
     "time_three": null,
     "score1": 0,
     "score2": 0,
     "score3": null,
     "lastTime": null,
-    "latestGO": null,
+    "latestGO": "8:00 AM",
     "runningOOG": null,
     "lastOOG": 1,
     "is_target": null,
@@ -124,8 +124,12 @@
     "sched_display": "Bee"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": [
+      200000056
+    ],
+    "dt": [
+      "2026-03-25"
+    ],
     "ring_number": 1,
     "ringName": "Intl",
     "class_group_id": 200021645,
@@ -146,9 +150,7 @@
     "estimated_start_time": "08:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200355639,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "8:30 AM",
     "latestStatus": "Not Started",
     "total_trips": 66,
     "entry_id": 200150505,
@@ -167,15 +169,13 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 38248,
     "time_three": null,
     "score1": 0,
     "score2": 0,
     "score3": null,
     "lastTime": null,
-    "latestGO": null,
+    "latestGO": "8:28 AM",
     "runningOOG": null,
     "lastOOG": 1,
     "is_target": null,
@@ -186,8 +186,12 @@
     "sched_display": "Kinmar"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": [
+      200000056
+    ],
+    "dt": [
+      "2026-03-25"
+    ],
     "ring_number": 1,
     "ringName": "Intl",
     "class_group_id": 200021646,
@@ -208,9 +212,7 @@
     "estimated_start_time": "12:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200355606,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "12:00 PM",
     "latestStatus": "Not Started",
     "total_trips": 56,
     "entry_id": 200150368,
@@ -229,15 +231,13 @@
     "time_one": 0,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 50848,
     "time_three": null,
     "score1": 0,
     "score2": 0,
     "score3": null,
     "lastTime": null,
-    "latestGO": null,
+    "latestGO": "11:57 AM",
     "runningOOG": null,
     "lastOOG": 1,
     "is_target": null,

@@ -61,7 +61,7 @@
     "class_number": 2405,
     "class_name": "$630 Green Conformation Hunter",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 6,
     "show_id": 200000056,
     "show_date": "2026-03-26",
@@ -85,7 +85,7 @@
     "class_number": 2406,
     "class_name": "$850 Green Conformation Hunter Stake",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 6,
     "show_id": 200000056,
     "show_date": "2026-03-26",
@@ -834,7 +834,7 @@
     "class_name": "$2,000 1.30m Open Jumper II2b",
     "latestStart": "9:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 59,
+    "total_trips": 58,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -980,7 +980,7 @@
     "class_name": "ESP Hunter 3'3\" CALI @ 30+",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 34,
+    "total_trips": 35,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -990,7 +990,7 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Macho (1)"
+      "Macho (2)"
     ]
   },
   {
@@ -1006,7 +1006,7 @@
     "class_name": "ESP Hunter 3'3\" CALI @ 30+",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 33,
+    "total_trips": 34,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1032,7 +1032,7 @@
     "class_name": "$630 Performance Hunter 3'3\" CALI @ 30+",
     "latestStart": "11:45 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 53,
+    "total_trips": 52,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1056,7 +1056,7 @@
     "class_name": "$850 Performance Hunter 3'3\" Stake CALI @ 30+",
     "latestStart": "11:45 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 52,
+    "total_trips": 51,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1394,7 +1394,7 @@
     "class_name": "1.10m Schooling Jumper (Table II)",
     "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 76,
+    "total_trips": 75,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1418,7 +1418,7 @@
     "class_id": 200022664,
     "class_number": 1221,
     "class_name": "1.10m Young Jumper (Table II)",
-    "latestStart": "1:04 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 9,
     "show_id": 200000056,
@@ -1426,9 +1426,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "1:04 PM",
+    "start_display": "1:00 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "13:04:00",
+    "estimated_start_time": "13:00:00",
     "group_display": []
   },
   {
@@ -1454,10 +1454,10 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Rimini (11)",
-      "Celly (12)",
-      "Kudos (18)",
-      "Arrow (19)"
+      "Rimini (12)",
+      "Celly (13)",
+      "Kudos (19)",
+      "Arrow (20)"
     ]
   },
   {
@@ -1963,7 +1963,7 @@
     "class_name": "USHJA Hunter 2'6\" (First Year Shown) U/S",
     "latestStart": "check gate",
     "latestStatus": null,
-    "total_trips": 9,
+    "total_trips": 8,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1995,7 +1995,7 @@
     "ring_nickname": "Ring 12",
     "start_display": "8:00 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:05",
     "group_display": []
   },
   {
@@ -2019,7 +2019,7 @@
     "ring_nickname": "Ring 12",
     "start_display": "8:00 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:05",
     "group_display": []
   },
   {
@@ -2203,7 +2203,7 @@
     "class_name": "USHJA Hunter 2'",
     "latestStart": "3:00 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 7,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -2227,7 +2227,7 @@
     "class_name": "USHJA Hunter 2'",
     "latestStart": "3:00 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 7,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -2251,7 +2251,7 @@
     "class_name": ".90m Training Jumper (Table II.2d scored as Table II Blue Ribbon)",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 22,
+    "total_trips": 21,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",

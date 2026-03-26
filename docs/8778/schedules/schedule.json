@@ -228,17 +228,17 @@
     "class_id": 200022727,
     "class_number": 2204,
     "class_name": "$630 Green Hunter 3'9\" ",
-    "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "10:05 AM",
+    "latestStatus": "Underway",
     "total_trips": 7,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Grand",
-    "start_display": "9:45 AM",
+    "start_display": "10:05 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:45:00",
+    "estimated_start_time": "10:05:03",
     "group_display": []
   },
   {
@@ -252,17 +252,17 @@
     "class_id": 200022471,
     "class_number": 2205,
     "class_name": "$850 Green Hunter 3'9\" Stake",
-    "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "10:05 AM",
+    "latestStatus": "Underway",
     "total_trips": 7,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Grand",
-    "start_display": "9:45 AM",
+    "start_display": "10:05 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:45:00",
+    "estimated_start_time": "10:05:03",
     "group_display": []
   },
   {
@@ -276,7 +276,7 @@
     "class_id": 200022704,
     "class_number": 2101,
     "class_name": "$250 Green Hunter 3'6\" U/S",
-    "latestStart": "10:47 AM",
+    "latestStart": "10:45 AM",
     "latestStatus": null,
     "total_trips": 21,
     "show_id": 200000056,
@@ -284,9 +284,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Grand",
-    "start_display": "10:47 AM",
+    "start_display": "10:45 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:47:03",
+    "estimated_start_time": "10:45:00",
     "group_display": []
   },
   {
@@ -875,7 +875,7 @@
     "ring_number": 4,
     "ringName": "Mogavero",
     "class_groupxclasses_id": 200035962,
-    "class_group_id": null,
+    "class_group_id": 200024230,
     "group_name": "1.25m Schooling Jumper (Table II) Can do Either Mogavero or Denemethy NOT Both",
     "class_id": 200022355,
     "class_number": 1096,
@@ -891,7 +891,9 @@
     "start_display": "2:30 PM",
     "class_group_sequence": 5,
     "estimated_start_time": "14:30:00",
-    "group_display": []
+    "group_display": [
+      "Dottie (99)"
+    ]
   },
   {
     "sid": "200000056",
@@ -963,9 +965,7 @@
     "start_display": "1:00 PM",
     "class_group_sequence": 3,
     "estimated_start_time": "13:00:00",
-    "group_display": [
-      "Dottie (103)"
-    ]
+    "group_display": []
   },
   {
     "sid": "200000056",
@@ -1032,7 +1032,7 @@
     "class_name": "$630 Performance Hunter 3'3\" CALI @ 30+",
     "latestStart": "11:45 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 53,
+    "total_trips": 52,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1056,7 +1056,7 @@
     "class_name": "$850 Performance Hunter 3'3\" Stake CALI @ 30+",
     "latestStart": "11:45 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 52,
+    "total_trips": 51,
     "show_id": 200000056,
     "show_date": "2026-03-26",
     "show_days_display_date": "Thursday, March, 26, 2026",
@@ -1174,7 +1174,7 @@
     "class_id": 200022490,
     "class_number": 2001,
     "class_name": "$250 Green Hunter 3' U/S",
-    "latestStart": "9:55 AM",
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": 25,
     "show_id": 200000056,
@@ -1182,9 +1182,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "9:55 AM",
+    "start_display": "10:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:55:04",
+    "estimated_start_time": "10:00:06",
     "group_display": []
   },
   {
@@ -1198,7 +1198,7 @@
     "class_id": 200022698,
     "class_number": 2004,
     "class_name": "$630 Green Hunter 3'",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:24 AM",
     "latestStatus": "Upcoming",
     "total_trips": 25,
     "show_id": 200000056,
@@ -1206,9 +1206,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:15 AM",
+    "start_display": "10:24 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:24:14",
     "group_display": []
   },
   {
@@ -1222,7 +1222,7 @@
     "class_id": 200022357,
     "class_number": 2005,
     "class_name": "$850 Green Hunter 3' Stake",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:24 AM",
     "latestStatus": "Upcoming",
     "total_trips": 25,
     "show_id": 200000056,
@@ -1230,9 +1230,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:15 AM",
+    "start_display": "10:24 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:24:14",
     "group_display": []
   },
   {
@@ -1342,7 +1342,7 @@
     "class_id": 200022408,
     "class_number": 917,
     "class_name": "$1,000 Green Hunter Incentive 3'9\"",
-    "latestStart": "10:49 AM",
+    "latestStart": "10:59 AM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000056,
@@ -1350,9 +1350,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 8",
-    "start_display": "10:49 AM",
+    "start_display": "10:59 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:49:05",
+    "estimated_start_time": "10:59:05",
     "group_display": []
   },
   {
@@ -1495,7 +1495,7 @@
     "class_id": 200022401,
     "class_number": 1216,
     "class_name": "1.0m Young Jumper (Table II)",
-    "latestStart": "10:35 AM",
+    "latestStart": "10:41 AM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000056,
@@ -1503,9 +1503,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 10",
-    "start_display": "10:35 AM",
+    "start_display": "10:41 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:35:46",
+    "estimated_start_time": "10:41:05",
     "group_display": []
   },
   {
@@ -2301,7 +2301,7 @@
     "class_id": 200022351,
     "class_number": 1211,
     "class_name": ".90m Young Jumper (Table II)",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000056,
@@ -2309,9 +2309,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "10:15 AM",
+    "start_display": "10:30 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:30:00",
     "group_display": []
   },
   {
@@ -2325,7 +2325,7 @@
     "class_id": 200022539,
     "class_number": 1114,
     "class_name": ".80m Training Jumper (Table II.2d scored as Table II Blue Ribbon)",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:35 AM",
     "latestStatus": "Upcoming",
     "total_trips": 48,
     "show_id": 200000056,
@@ -2333,9 +2333,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "10:15 AM",
+    "start_display": "10:35 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:35:00",
     "group_display": []
   },
   {
@@ -2349,7 +2349,7 @@
     "class_id": 200022380,
     "class_number": 1117,
     "class_name": "Low Child/Adult Amateur Training Jumper .80m II2d",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:35 AM",
     "latestStatus": "Upcoming",
     "total_trips": 42,
     "show_id": 200000056,
@@ -2357,9 +2357,9 @@
     "show_days_display_date": "Thursday, March, 26, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "10:15 AM",
+    "start_display": "10:35 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:35:00",
     "group_display": []
   }
 ]

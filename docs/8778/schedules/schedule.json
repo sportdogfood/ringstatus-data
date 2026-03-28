@@ -70,7 +70,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "12:20:00",
     "group_display": [
-      "Bee (36)"
+      "Bee (37)"
     ]
   },
   {
@@ -731,8 +731,10 @@
     "class_number": 1081,
     "class_name": "$1,500 1.10m Junior Jumper 15-17 II2d",
     "latestStart": "11:20 AM",
-    "latestStatus": "Underway",
-    "total_trips": 17,
+    "latestStatus": [
+      "Underway"
+    ],
+    "total_trips": 16,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -756,7 +758,7 @@
     "class_id": 200022503,
     "class_number": 1036,
     "class_name": "$1,500 1.20m Amateur Jumper II2d CALI @ 80+",
-    "latestStart": "12:00 PM",
+    "latestStart": "12:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 78,
     "show_id": 200000056,
@@ -764,9 +766,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "12:00 PM",
+    "start_display": "12:05 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:00:00",
+    "estimated_start_time": "12:05:00",
     "group_display": [
       null
     ]
@@ -837,7 +839,7 @@
     "class_id": 200022537,
     "class_number": 1071,
     "class_name": "$1,500 1.20m Junior Jumper II2d",
-    "latestStart": "12:15 PM",
+    "latestStart": "12:10 PM",
     "latestStatus": "Upcoming",
     "total_trips": 56,
     "show_id": 200000056,
@@ -845,9 +847,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Denemethy",
-    "start_display": "12:15 PM",
+    "start_display": "12:10 PM",
     "class_group_sequence": 3,
-    "estimated_start_time": "12:15:00",
+    "estimated_start_time": "12:10:00",
     "group_display": [
       "Dottie (43)"
     ]
@@ -865,7 +867,7 @@
     "class_name": "$1,500 1.10m Amateur Jumper 36+ II2d",
     "latestStart": "2:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 24,
+    "total_trips": 23,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -1181,7 +1183,7 @@
     "class_id": 200022744,
     "class_number": 3076,
     "class_name": "SFHJA Junior Hunter Seat Medal 15-17 (Flat Phase)",
-    "latestStart": "12:25 PM",
+    "latestStart": "12:35 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -1191,9 +1193,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "12:25 PM",
+    "start_display": "12:35 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:25:00",
+    "estimated_start_time": "12:35:00",
     "group_display": [
       "Lenny"
     ]
@@ -1209,7 +1211,7 @@
     "class_id": 200022323,
     "class_number": 3016,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:10 PM",
     "latestStatus": "Upcoming",
     "total_trips": 51,
     "show_id": 200000056,
@@ -1217,9 +1219,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:00 PM",
+    "start_display": "1:10 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:10:00",
     "group_display": []
   },
   {
@@ -1233,7 +1235,7 @@
     "class_id": 200022548,
     "class_number": 3017,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:10 PM",
     "latestStatus": "Upcoming",
     "total_trips": 50,
     "show_id": 200000056,
@@ -1241,9 +1243,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:00 PM",
+    "start_display": "1:10 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:10:00",
     "group_display": []
   },
   {
@@ -1364,7 +1366,9 @@
     "class_number": 1768,
     "class_name": "1.0m Amateur Jumper 36 & Over II2b",
     "latestStart": "11:13 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 13,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1443,7 +1447,7 @@
     "class_name": "Itty Bitty Jumper (.65m) II2b CALI",
     "latestStart": "2:30 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 43,
+    "total_trips": 42,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -1937,7 +1941,7 @@
     "class_number": 2957,
     "class_name": "$400 Large Green Pony Hunter",
     "latestStart": "11:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 10,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1946,7 +1950,7 @@
     "ring_nickname": "Ring 12",
     "start_display": "11:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:45:00",
+    "estimated_start_time": "11:45:07",
     "group_display": []
   },
   {
@@ -1961,7 +1965,7 @@
     "class_number": 2958,
     "class_name": "$400 Large Green Pony Conformation Hunter",
     "latestStart": "11:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 10,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1970,7 +1974,7 @@
     "ring_nickname": "Ring 12",
     "start_display": "11:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:45:00",
+    "estimated_start_time": "11:45:07",
     "group_display": []
   },
   {
@@ -2224,7 +2228,7 @@
     "class_name": "THIS Children's Medal 14 & Under CALI ",
     "latestStart": "11:30 AM",
     "latestStatus": "Underway",
-    "total_trips": 46,
+    "total_trips": 45,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",

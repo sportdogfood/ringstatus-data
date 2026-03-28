@@ -41,7 +41,7 @@
     "time_one": 32.23,
     "time_two": 38.307,
     "pid": 34933,
-    "secondsTill": -16416,
+    "secondsTill": -17016,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -53,7 +53,9 @@
     "is_target": true,
     "is_parent": null,
     "path_tenant": "34933",
-    "34933_sched_display": "Annie (21) "
+    "34933_sched_display": "Annie (21) ",
+    "estimatedGO00": "11:18:00",
+    "estimatedGO": "11:18 AM"
   },
   {
     "sid": "200000056",
@@ -97,7 +99,7 @@
     "time_one": 31.091,
     "time_two": 31.046,
     "pid": 34933,
-    "secondsTill": -16116,
+    "secondsTill": -16716,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -109,7 +111,9 @@
     "is_target": true,
     "is_parent": null,
     "path_tenant": "34933",
-    "34933_sched_display": "Quinto (8) "
+    "34933_sched_display": "Quinto (8) ",
+    "estimatedGO00": "10:44:00",
+    "estimatedGO": "10:44 AM"
   },
   {
     "sid": "200000056",
@@ -153,7 +157,7 @@
     "time_one": 66.49,
     "time_two": 29.759,
     "pid": 34933,
-    "secondsTill": -12888,
+    "secondsTill": -13488,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -165,7 +169,9 @@
     "is_target": true,
     "is_parent": null,
     "path_tenant": "34933",
-    "34933_sched_display": "Quinto (9) "
+    "34933_sched_display": "Quinto (9) ",
+    "estimatedGO00": "11:40:00",
+    "estimatedGO": "11:40 AM"
   },
   {
     "sid": "200000056",
@@ -177,7 +183,7 @@
     "class_groupxclasses_id": 200035974,
     "group_name": "Itty Bitty Jumper (.65m) II2b CALI",
     "groomName": "Groom",
-    "time_sort": 53400,
+    "time_sort": 53707,
     "class_id": 200022305,
     "class_number": 1127,
     "completed_trips": 0,
@@ -186,11 +192,11 @@
     "lastGoneIn": null,
     "remaining_trips": 41,
     "estimated_end_time": null,
-    "estimated_go_time": "15:46:00",
-    "estimated_start_time": "14:50:00",
+    "estimated_go_time": "15:48:00",
+    "estimated_start_time": "14:55:07",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200358579,
-    "latestStart": "2:50 PM",
+    "latestStart": "2:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 41,
     "entry_id": 200220932,
@@ -209,18 +215,20 @@
     "time_one": 0,
     "time_two": null,
     "pid": 34933,
-    "secondsTill": 77,
+    "secondsTill": -514,
     "time_three": null,
     "score1": 0,
     "score2": 0,
     "score3": null,
     "lastTime": null,
-    "latestGO": "4:17 PM",
+    "latestGO": "4:22 PM",
     "runningOOG": null,
     "lastOOG": 29,
     "is_target": true,
     "is_parent": null,
     "path_tenant": "34933",
-    "34933_sched_display": "Pride (29) "
+    "34933_sched_display": "Pride (29) ",
+    "estimatedGO00": "4:22:00",
+    "estimatedGO": "4:22 PM"
   }
 ]

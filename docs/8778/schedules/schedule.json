@@ -59,8 +59,10 @@
     "class_number": 1066,
     "class_name": "$1,500 1.30m Junior Jumper II2d",
     "latestStart": "12:20 PM",
-    "latestStatus": "Upcoming",
-    "total_trips": 53,
+    "latestStatus": [
+      "Upcoming"
+    ],
+    "total_trips": 52,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -756,17 +758,19 @@
     "class_id": 200022503,
     "class_number": 1036,
     "class_name": "$1,500 1.20m Amateur Jumper II2d CALI @ 80+",
-    "latestStart": "12:10 PM",
-    "latestStatus": "Upcoming",
-    "total_trips": 78,
+    "latestStart": "12:20 PM",
+    "latestStatus": [
+      "Upcoming"
+    ],
+    "total_trips": 76,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "12:10 PM",
+    "start_display": "12:20 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:10:05",
+    "estimated_start_time": "12:20:06",
     "group_display": [
       null
     ]
@@ -838,9 +842,7 @@
     "class_number": 1071,
     "class_name": "$1,500 1.20m Junior Jumper II2d",
     "latestStart": "12:10 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "total_trips": 56,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -851,7 +853,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "12:10:06",
     "group_display": [
-      "Dottie (43)"
+      "Dottie (22)"
     ]
   },
   {
@@ -1211,7 +1213,7 @@
     "class_id": 200022323,
     "class_number": 3016,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
-    "latestStart": "1:10 PM",
+    "latestStart": "1:20 PM",
     "latestStatus": "Upcoming",
     "total_trips": 51,
     "show_id": 200000056,
@@ -1219,9 +1221,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:10 PM",
+    "start_display": "1:20 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:10:00",
+    "estimated_start_time": "13:20:00",
     "group_display": []
   },
   {
@@ -1235,7 +1237,7 @@
     "class_id": 200022548,
     "class_number": 3017,
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
-    "latestStart": "1:10 PM",
+    "latestStart": "1:20 PM",
     "latestStatus": "Upcoming",
     "total_trips": 50,
     "show_id": 200000056,
@@ -1243,9 +1245,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:10 PM",
+    "start_display": "1:20 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:10:00",
+    "estimated_start_time": "13:20:00",
     "group_display": []
   },
   {
@@ -1391,17 +1393,19 @@
     "class_id": 200022328,
     "class_number": 1075,
     "class_name": "$1,500 1.10m Junior Jumper 14 & Under II2b",
-    "latestStart": "12:15 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "12:20 PM",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 25,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "12:15 PM",
+    "start_display": "12:20 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:15:00",
+    "estimated_start_time": "12:20:07",
     "group_display": [
       "Rimini (8)"
     ]
@@ -1521,7 +1525,7 @@
     "class_name": "1.0m Junior Jumper II2d CALI",
     "latestStart": "12:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 45,
+    "total_trips": 42,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -1531,7 +1535,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "12:45:00",
     "group_display": [
-      "Celly (36)"
+      "Celly (33)"
     ]
   },
   {
@@ -1545,7 +1549,7 @@
     "class_id": 200022447,
     "class_number": 1086,
     "class_name": "$1,500 Modified Children's Jumper II2d",
-    "latestStart": "3:00 PM",
+    "latestStart": "2:45 PM",
     "latestStatus": "Upcoming",
     "total_trips": 20,
     "show_id": 200000056,
@@ -1553,9 +1557,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 10",
-    "start_display": "3:00 PM",
+    "start_display": "2:45 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "15:00:00",
+    "estimated_start_time": "14:45:00",
     "group_display": []
   },
   {
@@ -1569,7 +1573,7 @@
     "class_id": 200022426,
     "class_number": 1085,
     "class_name": "$1,500 Modified Children's Jumper II2b",
-    "latestStart": "4:00 PM",
+    "latestStart": "3:45 PM",
     "latestStatus": "Upcoming",
     "total_trips": 18,
     "show_id": 200000056,
@@ -1577,9 +1581,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 10",
-    "start_display": "4:00 PM",
+    "start_display": "3:45 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "16:00:00",
+    "estimated_start_time": "15:45:00",
     "group_display": []
   },
   {
@@ -2226,7 +2230,7 @@
     "class_name": "THIS Children's Medal 14 & Under CALI ",
     "latestStart": "11:30 AM",
     "latestStatus": "Underway",
-    "total_trips": 42,
+    "total_trips": 41,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",

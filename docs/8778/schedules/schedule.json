@@ -1235,7 +1235,7 @@
     "class_name": "15-17 Equitation (3'3\") CALI @ 30+",
     "latestStart": "1:25 PM",
     "latestStatus": "Underway",
-    "total_trips": 49,
+    "total_trips": 48,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -1390,7 +1390,9 @@
     "class_number": 1075,
     "class_name": "$1,500 1.10m Junior Jumper 14 & Under II2b",
     "latestStart": "12:20 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 25,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1415,7 +1417,7 @@
     "class_id": 200022424,
     "class_number": 1076,
     "class_name": "$1,500 1.10m Junior Jumper 14 & Under II2d",
-    "latestStart": "1:42 PM",
+    "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000056,
@@ -1423,9 +1425,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "1:42 PM",
+    "start_display": "1:50 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:42:07",
+    "estimated_start_time": "13:50:08",
     "group_display": []
   },
   {
@@ -1738,7 +1740,7 @@
     "class_number": 2932,
     "class_name": "$630 Large Pony Hunter",
     "latestStart": "2:00 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 23,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1762,7 +1764,7 @@
     "class_number": 2933,
     "class_name": "$500 Large Pony Conformation Hunter",
     "latestStart": "2:00 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 23,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -2058,7 +2060,7 @@
     "class_id": 200022633,
     "class_number": 2946,
     "class_name": "$100 Small Green Pony Hunter U/S",
-    "latestStart": "1:50 PM",
+    "latestStart": "1:54 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2068,9 +2070,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 12",
-    "start_display": "1:50 PM",
+    "start_display": "1:54 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:50:28",
+    "estimated_start_time": "13:54:08",
     "group_display": [
       "Knox"
     ]
@@ -2086,7 +2088,7 @@
     "class_id": 200022583,
     "class_number": 2902,
     "class_name": "$630 Small Pony Hunter CALI @ 30+",
-    "latestStart": "2:05 PM",
+    "latestStart": "2:09 PM",
     "latestStatus": "Upcoming",
     "total_trips": 39,
     "show_id": 200000056,
@@ -2094,9 +2096,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 12",
-    "start_display": "2:05 PM",
+    "start_display": "2:09 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "14:05:28",
+    "estimated_start_time": "14:09:08",
     "group_display": [
       "Bernie (21)",
       "Crush (23)"
@@ -2113,7 +2115,7 @@
     "class_id": 200022340,
     "class_number": 2903,
     "class_name": "$500 Small Pony Conformation Hunter CALI @ 30+",
-    "latestStart": "2:05 PM",
+    "latestStart": "2:09 PM",
     "latestStatus": "Upcoming",
     "total_trips": 39,
     "show_id": 200000056,
@@ -2121,9 +2123,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 12",
-    "start_display": "2:05 PM",
+    "start_display": "2:09 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "14:05:28",
+    "estimated_start_time": "14:09:08",
     "group_display": [
       null
     ]
@@ -2274,7 +2276,7 @@
     "class_id": 200022455,
     "class_number": 2852,
     "class_name": "Children's Hunter 14 & Under CALI @ 30+",
-    "latestStart": "2:00 PM",
+    "latestStart": "2:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 43,
     "show_id": 200000056,
@@ -2282,9 +2284,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "2:00 PM",
+    "start_display": "2:05 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "14:00:00",
+    "estimated_start_time": "14:05:09",
     "group_display": [
       "Pedro (7)"
     ]
@@ -2300,7 +2302,7 @@
     "class_id": 200022314,
     "class_number": 2853,
     "class_name": "Children's Hunter 14 & Under CALI @ 30+",
-    "latestStart": "2:00 PM",
+    "latestStart": "2:05 PM",
     "latestStatus": "Upcoming",
     "total_trips": 41,
     "show_id": 200000056,
@@ -2308,9 +2310,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "2:00 PM",
+    "start_display": "2:05 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "14:00:00",
+    "estimated_start_time": "14:05:09",
     "group_display": [
       null
     ]
@@ -2326,7 +2328,7 @@
     "class_id": 200022677,
     "class_number": 2851,
     "class_name": "Children's Hunter 14 & Under U/S",
-    "latestStart": "5:30 PM",
+    "latestStart": "5:35 PM",
     "latestStatus": null,
     "total_trips": 37,
     "show_id": 200000056,
@@ -2334,9 +2336,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "South Ring",
-    "start_display": "5:30 PM",
+    "start_display": "5:35 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "17:30:00",
+    "estimated_start_time": "17:35:09",
     "group_display": []
   }
 ]

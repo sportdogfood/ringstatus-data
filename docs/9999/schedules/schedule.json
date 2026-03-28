@@ -838,7 +838,7 @@
     "class_number": 1071,
     "class_name": "$1,500 1.20m Junior Jumper II2d",
     "latestStart": "12:10 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 54,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1031,7 +1031,7 @@
     "class_id": 200022337,
     "class_number": 2812,
     "class_name": "$500 Junior Hunter 3'3\" 16-17",
-    "latestStart": "3:10 PM",
+    "latestStart": "3:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 20,
     "show_id": 200000056,
@@ -1039,9 +1039,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "3:10 PM",
+    "start_display": "3:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "15:10:00",
+    "estimated_start_time": "15:00:00",
     "group_display": [
       null
     ]
@@ -1057,7 +1057,7 @@
     "class_id": 200022542,
     "class_number": 2813,
     "class_name": "$735 Junior Hunter 3'3\" 16-17 Handy",
-    "latestStart": "3:10 PM",
+    "latestStart": "3:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 20,
     "show_id": 200000056,
@@ -1065,9 +1065,9 @@
     "show_days_display_date": "Saturday, March, 28, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "3:10 PM",
+    "start_display": "3:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "15:10:00",
+    "estimated_start_time": "15:00:00",
     "group_display": [
       null
     ]
@@ -1259,7 +1259,7 @@
     "class_name": "15-17 Equitation Flat CALI @ 30+",
     "latestStart": "5:30 PM",
     "latestStatus": null,
-    "total_trips": 49,
+    "total_trips": 48,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -1416,7 +1416,7 @@
     "class_number": 1076,
     "class_name": "$1,500 1.10m Junior Jumper 14 & Under II2d",
     "latestStart": "2:00 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 12,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -1441,7 +1441,7 @@
     "class_name": "Itty Bitty Jumper (.65m) II2b CALI",
     "latestStart": "2:50 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 42,
+    "total_trips": 41,
     "show_id": 200000056,
     "show_date": "2026-03-28",
     "show_days_display_date": "Saturday, March, 28, 2026",
@@ -2087,7 +2087,7 @@
     "class_number": 2902,
     "class_name": "$630 Small Pony Hunter CALI @ 30+",
     "latestStart": "2:30 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 39,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -2098,8 +2098,8 @@
     "class_group_sequence": 8,
     "estimated_start_time": "14:30:07",
     "group_display": [
-      "Bernie (25)",
-      "Crush (27)"
+      "Bernie (23)",
+      "Crush (25)"
     ]
   },
   {
@@ -2114,7 +2114,7 @@
     "class_number": 2903,
     "class_name": "$500 Small Pony Conformation Hunter CALI @ 30+",
     "latestStart": "2:30 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 39,
     "show_id": 200000056,
     "show_date": "2026-03-28",
@@ -2126,35 +2126,6 @@
     "estimated_start_time": "14:30:07",
     "group_display": [
       null
-    ]
-  },
-  {
-    "sid": "200000056",
-    "dt": "2026-03-28",
-    "ring_number": 12,
-    "ringName": "Ring 12",
-    "class_groupxclasses_id": 200033053,
-    "class_group_id": 200021883,
-    "group_name": "$100 Small Pony Hunter U/S CALI @ 30+",
-    "class_id": 200022632,
-    "class_number": 2901,
-    "class_name": "$100 Small Pony Hunter U/S CALI @ 30+",
-    "latestStart": "5:30 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 39,
-    "show_id": 200000056,
-    "show_date": "2026-03-28",
-    "show_days_display_date": "Saturday, March, 28, 2026",
-    "show_days_report_title": "CWF Schedule",
-    "ring_nickname": "Ring 12",
-    "start_display": "5:30 PM",
-    "class_group_sequence": 9,
-    "estimated_start_time": "17:30:00",
-    "group_display": [
-      "Bernie",
-      "Crush"
     ]
   },
   {
@@ -2286,7 +2257,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "14:00:00",
     "group_display": [
-      "Pedro (10)"
+      "Pedro (8)"
     ]
   },
   {

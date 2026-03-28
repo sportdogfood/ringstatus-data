@@ -41,7 +41,7 @@
     "time_one": 32.23,
     "time_two": 38.307,
     "pid": 34933,
-    "secondsTill": -23621,
+    "secondsTill": -24221,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -99,7 +99,7 @@
     "time_one": 31.091,
     "time_two": 31.046,
     "pid": 34933,
-    "secondsTill": -23321,
+    "secondsTill": -23921,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -112,7 +112,7 @@
     "is_parent": null,
     "path_tenant": "34933",
     "34933_sched_display": "Quinto (8) ",
-    "estimatedGO00": "10:43:17",
+    "estimatedGO00": "10:43:23",
     "estimatedGO": "10:43 AM"
   },
   {
@@ -157,7 +157,7 @@
     "time_one": 66.49,
     "time_two": 29.759,
     "pid": 34933,
-    "secondsTill": -20093,
+    "secondsTill": -20693,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -170,7 +170,7 @@
     "is_parent": null,
     "path_tenant": "34933",
     "34933_sched_display": "Quinto (9) ",
-    "estimatedGO00": "11:39:11",
+    "estimatedGO00": "11:39:19",
     "estimatedGO": "11:39 AM"
   },
   {
@@ -186,11 +186,11 @@
     "time_sort": 54011,
     "class_id": 200022305,
     "class_number": 1127,
-    "completed_trips": 37,
+    "completed_trips": 40,
     "class_name": "Itty Bitty Jumper (.65m) II2b CALI",
     "class_type": "Jumpers",
     "lastGoneIn": null,
-    "remaining_trips": 3,
+    "remaining_trips": 0,
     "estimated_end_time": null,
     "estimated_go_time": "15:54:00",
     "estimated_start_time": "15:00:11",
@@ -215,7 +215,7 @@
     "time_one": 64.808,
     "time_two": 30.829,
     "pid": 34933,
-    "secondsTill": -6516,
+    "secondsTill": -7116,
     "time_three": null,
     "score1": 0,
     "score2": 0,
@@ -228,7 +228,7 @@
     "is_parent": null,
     "path_tenant": "34933",
     "34933_sched_display": "Pride (33) ",
-    "estimatedGO00": "4:36:03",
+    "estimatedGO00": "4:36:30",
     "estimatedGO": "4:36 PM"
   }
 ]

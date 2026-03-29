@@ -12,7 +12,7 @@
     "class_name": "CSI2* $62,500 Vogel 1.45m Grand Prix 220.2.1.2",
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 43,
+    "total_trips": 42,
     "show_id": 200000056,
     "show_date": "2026-03-29",
     "show_days_display_date": "Sunday, March, 29, 2026",
@@ -59,10 +59,8 @@
     "class_number": 2737,
     "class_name": "$100 Adult Amateur Hunter 55 & Over (Sec B) U/S",
     "latestStart": "11:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 11,
+    "latestStatus": null,
+    "total_trips": 6,
     "show_id": 200000056,
     "show_date": "2026-03-29",
     "show_days_display_date": "Sunday, March, 29, 2026",
@@ -71,9 +69,7 @@
     "start_display": "11:00 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "11:00:00",
-    "group_display": [
-      null
-    ]
+    "group_display": []
   },
   {
     "sid": "200000056",
@@ -87,10 +83,8 @@
     "class_number": 4066,
     "class_name": "Low Adult Hunter (Sec. B) U/S CALI @ 30+",
     "latestStart": "11:20 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 18,
+    "latestStatus": null,
+    "total_trips": 14,
     "show_id": 200000056,
     "show_date": "2026-03-29",
     "show_days_display_date": "Sunday, March, 29, 2026",
@@ -99,9 +93,7 @@
     "start_display": "11:20 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "11:20:00",
-    "group_display": [
-      null
-    ]
+    "group_display": []
   },
   {
     "sid": "200000056",
@@ -118,7 +110,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 18,
+    "total_trips": 16,
     "show_id": 200000056,
     "show_date": "2026-03-29",
     "show_days_display_date": "Sunday, March, 29, 2026",

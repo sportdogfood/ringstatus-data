@@ -1046,7 +1046,7 @@
     "class_id": 200023391,
     "class_number": 994,
     "class_name": "Mulligan Class",
-    "latestStart": "2:31 PM",
+    "latestStart": "2:35 PM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000057,
@@ -1054,9 +1054,9 @@
     "show_days_display_date": "Thursday, April, 02, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "2:31 PM",
+    "start_display": "2:35 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "14:31:05",
+    "estimated_start_time": "14:35:48",
     "group_display": []
   },
   {
@@ -2024,7 +2024,7 @@
     "ring_nickname": "Rost",
     "start_display": "2:48 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "14:48:02",
+    "estimated_start_time": "14:48:46",
     "group_display": []
   },
   {
@@ -2063,8 +2063,8 @@
     "class_number": 980,
     "class_name": "Mulligan Class",
     "latestStart": "1:11 PM",
-    "latestStatus": null,
-    "total_trips": 0,
+    "latestStatus": "Completed",
+    "total_trips": 2,
     "show_id": 200000057,
     "show_date": "2026-04-02",
     "show_days_display_date": "Thursday, April, 02, 2026",

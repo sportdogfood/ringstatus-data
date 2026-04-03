@@ -2761,7 +2761,9 @@
     "class_number": 695,
     "class_name": "Itty Bitty Jumper Open (.60-.65m) II2d",
     "latestStart": "4:22 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 2,
     "show_id": 200000057,
     "show_date": "2026-04-03",
@@ -2789,7 +2791,7 @@
     "class_number": 698,
     "class_name": "Itty Bitty Jumper Jr/Am (.60-.65m)  II2d",
     "latestStart": "4:22 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 5,
     "show_id": 200000057,
     "show_date": "2026-04-03",
@@ -2816,7 +2818,7 @@
     "class_id": 200023387,
     "class_number": 990,
     "class_name": "Mulligan Class",
-    "latestStart": "4:43 PM",
+    "latestStart": "4:53 PM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000057,
@@ -2824,9 +2826,9 @@
     "show_days_display_date": "Friday, April, 03, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "4:43 PM",
+    "start_display": "4:53 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "16:43:07",
+    "estimated_start_time": "16:53:07",
     "group_display": []
   },
   {

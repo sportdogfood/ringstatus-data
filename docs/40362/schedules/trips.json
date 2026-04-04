@@ -41,7 +41,7 @@
     "time_one": 70.751,
     "time_two": 30.699,
     "pid": 40362,
-    "secondsTill": -6961,
+    "secondsTill": -7561,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -75,7 +75,7 @@
     "lastGoneIn": null,
     "remaining_trips": 23,
     "estimated_end_time": null,
-    "estimated_go_time": "11:37:00",
+    "estimated_go_time": "11:35:00",
     "estimated_start_time": "11:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200368976,
@@ -98,7 +98,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 40362,
-    "secondsTill": 5638,
+    "secondsTill": 5038,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -110,8 +110,8 @@
     "is_target": true,
     "is_parent": null,
     "path_tenant": "40362",
-    "40362_group_alert": "Agr (8)",
-    "40362_sched_display": "Agr (8)"
+    "40362_group_alert": "Agr (6)",
+    "40362_sched_display": "Agr (6)"
   },
   {
     "sid": "200000057",
@@ -132,7 +132,7 @@
     "lastGoneIn": null,
     "remaining_trips": 23,
     "estimated_end_time": null,
-    "estimated_go_time": "11:48:00",
+    "estimated_go_time": "11:46:00",
     "estimated_start_time": "11:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": 200368356,
@@ -155,7 +155,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 40362,
-    "secondsTill": 5638,
+    "secondsTill": 5038,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -167,7 +167,7 @@
     "is_target": true,
     "is_parent": null,
     "path_tenant": "40362",
-    "40362_group_alert": "Ideal (19)",
-    "40362_sched_display": "Ideal (19)"
+    "40362_group_alert": "Ideal (17)",
+    "40362_sched_display": "Ideal (17)"
   }
 ]

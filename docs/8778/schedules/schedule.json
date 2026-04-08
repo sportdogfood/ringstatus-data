@@ -607,7 +607,9 @@
     "class_number": 390,
     "class_name": "Performance Hunter 3'3\" Handy",
     "latestStart": "11:30 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 28,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -617,7 +619,9 @@
     "start_display": "11:30 AM",
     "class_group_sequence": 6,
     "estimated_start_time": "11:30:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,
@@ -1023,9 +1027,7 @@
     "class_number": 656,
     "class_name": "Warm Up Hunter",
     "latestStart": "8:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "total_trips": 10,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -1035,9 +1037,7 @@
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
-    "group_display": [
-      null
-    ]
+    "group_display": []
   },
   {
     "sid": 200000058,
@@ -1105,7 +1105,9 @@
     "class_number": 656,
     "class_name": "Warm Up Hunter",
     "latestStart": "9:00 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 10,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -1115,7 +1117,9 @@
     "start_display": "9:00 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,
@@ -1163,7 +1167,9 @@
     "class_number": 233,
     "class_name": "USHJA Hunter 2'6\"",
     "latestStart": "9:00 AM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 7,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -1173,7 +1179,9 @@
     "start_display": "9:00 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,

@@ -338,8 +338,10 @@
     "group_display": []
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000058",
+    "dt": [
+      "2026-04-08"
+    ],
     "ring_number": 5,
     "ringName": "Intl",
     "class_groupxclasses_id": 200036056,
@@ -349,7 +351,7 @@
     "class_number": 207,
     "class_name": "Add Back Hunter",
     "latestStart": "12:30 PM",
-    "latestStatus": null,
+    "latestStatus": "Underway",
     "total_trips": 6,
     "show_id": 200000058,
     "show_date": "2026-04-08",

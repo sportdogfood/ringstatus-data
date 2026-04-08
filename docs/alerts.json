@@ -1,0 +1,142 @@
+[
+  {
+    "rec_name": "rider_results",
+    "rec_label": "Rider Results",
+    "rec_id": null,
+    "rec_rid": "rec2uTnepKhQjRxk6",
+    "created_time": "2026-02-14T12:43:19.000Z",
+    "last_modified_time": "2026-04-07T17:01:44.000Z",
+    "active": null,
+    "alert_id": "rider_results"
+  },
+  {
+    "rec_name": "class_time",
+    "rec_label": "Class Time",
+    "rec_id": null,
+    "rec_rid": "rec7yRvtjjcK1Rjgf",
+    "created_time": "2026-03-21T20:32:23.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "class_time"
+  },
+  {
+    "rec_name": "class_status",
+    "rec_label": "Class Status",
+    "rec_id": null,
+    "rec_rid": "rec4HU39UWqsHHRT3",
+    "created_time": "2026-03-21T20:32:36.000Z",
+    "last_modified_time": "2026-04-08T15:24:01.000Z",
+    "active": true,
+    "alert_id": "class_status"
+  },
+  {
+    "rec_name": "weather",
+    "rec_label": "Weather",
+    "rec_id": null,
+    "rec_rid": "recRNehyHHc6z3iT4",
+    "created_time": "2026-03-21T20:33:07.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "weather"
+  },
+  {
+    "rec_name": "groom_go",
+    "rec_label": "Groom Go",
+    "rec_id": null,
+    "rec_rid": "recPtAwTK9qoQ9jUr",
+    "created_time": "2026-03-21T20:34:19.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "groom_go"
+  },
+  {
+    "rec_name": "class_tills",
+    "rec_label": "Class Tills",
+    "rec_id": null,
+    "rec_rid": "recW7ZQMiEm12AwQm",
+    "created_time": "2026-03-21T20:34:42.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "class_tills"
+  },
+  {
+    "rec_name": "threads",
+    "rec_label": "Threads",
+    "rec_id": null,
+    "rec_rid": "recWvLELpJvFVXl3m",
+    "created_time": "2026-03-31T15:25:18.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "threads"
+  },
+  {
+    "rec_name": "ring_alerts",
+    "rec_label": "Ring Alerts",
+    "rec_id": null,
+    "rec_rid": "recdAspfCmYjqNyrn",
+    "created_time": "2026-04-01T18:12:01.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "ring_alerts"
+  },
+  {
+    "rec_name": "entry_go",
+    "rec_label": "Entry Go",
+    "rec_id": null,
+    "rec_rid": "recP1Zxmr1vhbaGoP",
+    "created_time": "2026-04-02T12:04:34.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "entry_go"
+  },
+  {
+    "rec_name": "entry_tills",
+    "rec_label": "Entry Tills",
+    "rec_id": null,
+    "rec_rid": "recW4qUom3MXx1TA7",
+    "created_time": "2026-04-05T18:55:49.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "entry_tills"
+  },
+  {
+    "rec_name": "groom_tills",
+    "rec_label": "Groom Tills",
+    "rec_id": null,
+    "rec_rid": "recLfPzoyXTW9cxci",
+    "created_time": "2026-04-05T18:56:42.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "groom_tills"
+  },
+  {
+    "rec_name": "trip_tills",
+    "rec_label": "Trip Tills",
+    "rec_id": null,
+    "rec_rid": "recpk4156uWn989jm",
+    "created_time": "2026-04-05T19:37:42.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "trip_tills"
+  },
+  {
+    "rec_name": "rider_go",
+    "rec_label": "Rider Go",
+    "rec_id": null,
+    "rec_rid": "recGHixSu1jad7Fbk",
+    "created_time": "2026-04-05T19:39:09.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "rider_go"
+  },
+  {
+    "rec_name": "rider_live",
+    "rec_label": "Rider Live",
+    "rec_id": null,
+    "rec_rid": "recsNDJDsnijiaxQD",
+    "created_time": "2026-04-05T19:39:33.000Z",
+    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "active": null,
+    "alert_id": "rider_live"
+  }
+]

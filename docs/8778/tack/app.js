@@ -16,18 +16,18 @@
   // ---------------------------------------------------------------------------
 
   // horses source
-  const HORSES_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/horses.json';
+  const HORSES_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/data/horses.json';
 
-  // lists source
-  const LISTS_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/lists.json';
 
-  const STORAGE_KEY_SESSION = 'tacklists_session_v1';
-  const STORAGE_KEY_CATALOG = 'tacklists_horses_catalog_v1';
-  const STORAGE_KEY_LISTS = 'tacklists_lists_catalog_v1';
+  const LISTS_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/data/lists.json';
+
+  const STORAGE_KEY_SESSION = 'tack_session_v1';
+  const STORAGE_KEY_CATALOG = 'tack_horses_catalog_v1';
+  const STORAGE_KEY_LISTS = 'tack_lists_catalog_v1';
 
   // 12-hour TTL
   const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 43200000
-  const SESSION_COOKIE_NAME = 'tacklists_session';
+  const SESSION_COOKIE_NAME = 'tack_session';
   const SESSION_COOKIE_MAX_AGE = 12 * 60 * 60; // 43200 seconds
 
   // ---------------------------------------------------------------------------

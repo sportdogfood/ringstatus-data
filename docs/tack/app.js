@@ -16,10 +16,10 @@
   // ---------------------------------------------------------------------------
 
   // horses source
-  const HORSES_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/data/horses.json';
+  const HORSES_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/horses.json';
 
 
-  const LISTS_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/data/lists.json';
+  const LISTS_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/lists.json';
 
   const STORAGE_KEY_SESSION = 'tack_session_v1';
   const STORAGE_KEY_CATALOG = 'tack_horses_catalog_v1';

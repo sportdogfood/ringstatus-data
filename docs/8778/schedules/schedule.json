@@ -42,7 +42,7 @@
     "class_number": 3010,
     "class_name": "$32,000 CSI3* BrainJuice 1.45m 222.2.3 (2 Phase Special)",
     "latestStart": "1:00 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 37,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -385,17 +385,17 @@
     "class_id": 200023512,
     "class_number": 381,
     "class_name": "Performance Hunter 3'6\" U/S",
-    "latestStart": "10:30 AM",
+    "latestStart": "12:56 PM",
     "latestStatus": null,
-    "total_trips": 1,
+    "total_trips": 0,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Intl",
-    "start_display": "10:30 AM",
+    "start_display": "12:56 PM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:30:00",
+    "estimated_start_time": "12:56:18",
     "group_display": []
   },
   {
@@ -1108,8 +1108,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:09",
     "group_display": [
-      null,
-      "Tommy"
+      null
     ]
   },
   {

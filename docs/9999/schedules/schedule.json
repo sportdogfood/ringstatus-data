@@ -23,7 +23,9 @@
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
-    "group_display": []
+    "group_display": [
+      "Toni"
+    ]
   },
   {
     "sid": 200000058,
@@ -49,7 +51,9 @@
     "start_display": "11:00 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "11:00:00",
-    "group_display": []
+    "group_display": [
+      "Hermes"
+    ]
   },
   {
     "sid": 200000058,
@@ -413,7 +417,9 @@
     "start_display": "8:30 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "08:30:00",
-    "group_display": []
+    "group_display": [
+      "Hurricane"
+    ]
   },
   {
     "sid": 200000058,
@@ -439,7 +445,9 @@
     "start_display": "9:57 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "09:57:00",
-    "group_display": []
+    "group_display": [
+      "Macho"
+    ]
   },
   {
     "sid": 200000058,
@@ -465,7 +473,9 @@
     "start_display": "11:27 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "11:27:00",
-    "group_display": []
+    "group_display": [
+      "Hurricane"
+    ]
   },
   {
     "sid": 200000058,
@@ -491,7 +501,9 @@
     "start_display": "12:51 PM",
     "class_group_sequence": 8,
     "estimated_start_time": "12:51:00",
-    "group_display": []
+    "group_display": [
+      "Dany"
+    ]
   },
   {
     "sid": 200000058,
@@ -508,7 +520,7 @@
     "class_name": "$1,000 2'6\" USHJA Junior/Amateur Hunter Derby (Hunt-N-Go)",
     "latestStart": "10:00 AM",
     "latestStatus": null,
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
@@ -543,7 +555,11 @@
     "start_display": "10:45 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "10:45:00",
-    "group_display": []
+    "group_display": [
+      "Crush",
+      "Bernie",
+      "Poptart"
+    ]
   },
   {
     "sid": 200000058,
@@ -560,7 +576,7 @@
     "class_name": "WIHS Hunter Phase",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 25,
+    "total_trips": 24,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
@@ -569,7 +585,10 @@
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
-    "group_display": []
+    "group_display": [
+      "Coffee",
+      "Lenny"
+    ]
   },
   {
     "sid": 200000058,
@@ -907,7 +926,10 @@
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
-    "group_display": []
+    "group_display": [
+      "Lenny",
+      "Munster"
+    ]
   },
   {
     "sid": 200000058,
@@ -948,7 +970,7 @@
     "class_id": 200023553,
     "class_number": 590,
     "class_name": "Platinum Performance/USEF Talent Search 2*",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": 7,
     "show_id": 200000058,
@@ -956,9 +978,9 @@
     "show_days_display_date": "Friday, April, 10, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "10:15 AM",
+    "start_display": "10:00 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:00:00",
     "group_display": []
   },
   {
@@ -974,18 +996,21 @@
     "class_id": 200023578,
     "class_number": 581,
     "class_name": "WIHS Jumper Phase",
-    "latestStart": "11:15 AM",
+    "latestStart": "11:00 AM",
     "latestStatus": null,
-    "total_trips": 23,
+    "total_trips": 22,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "11:15 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:15:00",
-    "group_display": []
+    "estimated_start_time": "11:00:00",
+    "group_display": [
+      "Lenny",
+      "Coffee"
+    ]
   },
   {
     "sid": 200000058,
@@ -1000,7 +1025,7 @@
     "class_id": 200023421,
     "class_number": 716,
     "class_name": "1.10m Open Jumper II2b (Water Option)",
-    "latestStart": "12:30 PM",
+    "latestStart": "12:15 PM",
     "latestStatus": null,
     "total_trips": 34,
     "show_id": 200000058,
@@ -1008,10 +1033,15 @@
     "show_days_display_date": "Friday, April, 10, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "12:30 PM",
+    "start_display": "12:15 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:30:00",
-    "group_display": []
+    "estimated_start_time": "12:15:00",
+    "group_display": [
+      "Arrow",
+      "Doug",
+      "King",
+      "Celly"
+    ]
   },
   {
     "sid": 200000058,
@@ -1037,7 +1067,10 @@
     "start_display": "2:00 PM",
     "class_group_sequence": 6,
     "estimated_start_time": "14:00:00",
-    "group_display": []
+    "group_display": [
+      "Rimini",
+      "Arrow"
+    ]
   },
   {
     "sid": 200000058,
@@ -1245,7 +1278,11 @@
     "start_display": "10:09 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "10:09:00",
-    "group_display": []
+    "group_display": [
+      "Carry",
+      "Tank",
+      "Tommy"
+    ]
   },
   {
     "sid": 200000058,
@@ -1271,7 +1308,9 @@
     "start_display": "10:09 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "10:09:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,
@@ -1297,7 +1336,11 @@
     "start_display": "11:51 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "11:51:00",
-    "group_display": []
+    "group_display": [
+      "Tommy",
+      "Carry",
+      "Tank"
+    ]
   },
   {
     "sid": 200000058,
@@ -1557,7 +1600,10 @@
     "start_display": "2:45 PM",
     "class_group_sequence": 3,
     "estimated_start_time": "14:45:00",
-    "group_display": []
+    "group_display": [
+      "Crush",
+      "Paisley"
+    ]
   },
   {
     "sid": 200000058,
@@ -1583,7 +1629,9 @@
     "start_display": "2:45 PM",
     "class_group_sequence": 3,
     "estimated_start_time": "14:45:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,
@@ -1687,7 +1735,9 @@
     "start_display": "10:00 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "10:00:00",
-    "group_display": []
+    "group_display": [
+      null
+    ]
   },
   {
     "sid": 200000058,
@@ -1739,7 +1789,13 @@
     "start_display": "11:00 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "11:00:00",
-    "group_display": []
+    "group_display": [
+      "Celly",
+      null,
+      "Charly",
+      "BB",
+      "Cervin"
+    ]
   },
   {
     "sid": 200000058,
@@ -1765,7 +1821,11 @@
     "start_display": "12:00 PM",
     "class_group_sequence": 6,
     "estimated_start_time": "12:00:00",
-    "group_display": []
+    "group_display": [
+      null,
+      "Celly",
+      "Cervin"
+    ]
   },
   {
     "sid": 200000058,
@@ -1791,6 +1851,10 @@
     "start_display": "12:00 PM",
     "class_group_sequence": 6,
     "estimated_start_time": "12:00:00",
-    "group_display": []
+    "group_display": [
+      "BB",
+      "Calypso",
+      "Charly"
+    ]
   }
 ]

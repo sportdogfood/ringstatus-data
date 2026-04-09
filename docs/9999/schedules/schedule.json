@@ -96,7 +96,7 @@
     "class_name": "1.30m Open Jumper II2.1",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 47,
+    "total_trips": 46,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
@@ -148,7 +148,7 @@
     "class_name": "1.35m Open Jumper II2.1",
     "latestStart": "10:45 AM",
     "latestStatus": null,
-    "total_trips": 19,
+    "total_trips": 18,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
@@ -544,7 +544,7 @@
     "class_id": 200024359,
     "class_number": 912,
     "class_name": "$1,500 USHJA Pony Hunter Derby (Hunt-N-Go)",
-    "latestStart": "11:45 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": null,
     "total_trips": 12,
     "show_id": 200000058,
@@ -552,9 +552,9 @@
     "show_days_display_date": "Friday, April, 10, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Grand",
-    "start_display": "11:45 AM",
+    "start_display": "11:30 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "11:45:00",
+    "estimated_start_time": "11:30:00",
     "group_display": [
       "Crush",
       "Bernie",
@@ -1309,9 +1309,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      "Tank",
-      "Tommy",
-      "Carry"
+      null
     ]
   },
   {
@@ -1339,7 +1337,9 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      null
+      "Tommy",
+      "Carry",
+      "Tank"
     ]
   },
   {

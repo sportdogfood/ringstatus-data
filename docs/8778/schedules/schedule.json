@@ -14,7 +14,7 @@
     "class_name": "$1,000 CSI3* Bainbridge Companies 1.40m 222.1.4.3 (2 Phase Special)",
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 68,
+    "total_trips": 69,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",
@@ -24,8 +24,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      "Ben (19)",
-      "Hermes (46)"
+      "Ben (20)",
+      "Hermes (47)"
     ]
   },
   {
@@ -43,7 +43,7 @@
     "class_name": "$32,000 CSI3* BrainJuice 1.45m 222.2.3 (2 Phase Special)",
     "latestStart": "1:00 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 56,
+    "total_trips": 57,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",
@@ -53,7 +53,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "13:00:00",
     "group_display": [
-      "Cardozo (11)"
+      "Cardozo (12)"
     ]
   },
   {
@@ -176,7 +176,7 @@
     "class_number": 830,
     "class_name": "1.10m Young Jumper Table II",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -201,7 +201,7 @@
     "class_id": 200023624,
     "class_number": 787,
     "class_name": "1.20m Open Jumper II2.1",
-    "latestStart": "9:15 AM",
+    "latestStart": "9:25 AM",
     "latestStatus": "Upcoming",
     "total_trips": 19,
     "show_id": 200000058,
@@ -209,9 +209,9 @@
     "show_days_display_date": "Thursday, April, 09, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Covered",
-    "start_display": "9:15 AM",
+    "start_display": "9:25 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00",
+    "estimated_start_time": "09:25:00",
     "group_display": []
   },
   {
@@ -227,7 +227,7 @@
     "class_id": 200023425,
     "class_number": 835,
     "class_name": "1.20m Young Jumper II2d",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
     "total_trips": 10,
     "show_id": 200000058,
@@ -235,9 +235,9 @@
     "show_days_display_date": "Thursday, April, 09, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Covered",
-    "start_display": "10:15 AM",
+    "start_display": "10:30 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:30:00",
     "group_display": []
   },
   {
@@ -255,7 +255,7 @@
     "class_name": "1.25m Open Jumper II2.1",
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 25,
+    "total_trips": 24,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",
@@ -279,7 +279,7 @@
     "class_id": 200023585,
     "class_number": 980,
     "class_name": "Mulligan Class",
-    "latestStart": "12:15 PM",
+    "latestStart": "12:12 PM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000058,
@@ -287,9 +287,9 @@
     "show_days_display_date": "Thursday, April, 09, 2026",
     "show_days_report_title": "CWF Schedule",
     "ring_nickname": "Covered",
-    "start_display": "12:15 PM",
+    "start_display": "12:12 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:15:00",
+    "estimated_start_time": "12:12:00",
     "group_display": []
   },
   {
@@ -731,7 +731,7 @@
     "class_number": 663,
     "class_name": "Warm Up Hunter",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 10,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -757,7 +757,7 @@
     "class_number": 222,
     "class_name": "USHJA Hunter 2'9\"/3'",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 14,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -783,7 +783,7 @@
     "class_number": 223,
     "class_name": "USHJA Hunter 2'9\"/3'",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 14,
     "show_id": 200000058,
     "show_date": "2026-04-09",
@@ -1018,7 +1018,7 @@
     "class_name": "Warm Up Hunter",
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
-    "total_trips": 7,
+    "total_trips": 6,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",
@@ -1096,7 +1096,7 @@
     "class_name": "Warm Up Hunter",
     "latestStart": "9:00 AM",
     "latestStatus": "Underway",
-    "total_trips": 7,
+    "total_trips": 6,
     "show_id": 200000058,
     "show_date": "2026-04-09",
     "show_days_display_date": "Thursday, April, 09, 2026",

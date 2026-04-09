@@ -1309,7 +1309,9 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      null
+      "Tank",
+      "Tommy",
+      "Carry"
     ]
   },
   {
@@ -1337,9 +1339,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Tommy",
-      "Carry",
-      "Tank"
+      null
     ]
   },
   {
@@ -1648,7 +1648,7 @@
     "class_name": "Puddle Jumper Open (.80m) II2b",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 11,
+    "total_trips": 10,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",

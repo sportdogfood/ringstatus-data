@@ -424,7 +424,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:30:00",
     "group_display": [
-      "Hurricane (22)"
+      "Hurricane"
     ]
   },
   {
@@ -454,7 +454,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:00",
     "group_display": [
-      "Macho (22)"
+      "Macho"
     ]
   },
   {
@@ -570,9 +570,9 @@
     "class_group_sequence": 3,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Crush (1)",
-      "Bernie (2)",
-      "Poptart (5)"
+      "Crush",
+      "Bernie",
+      "Poptart"
     ]
   },
   {
@@ -945,8 +945,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Lenny (6)",
-      "Munster (7)"
+      "Lenny",
+      "Munster"
     ]
   },
   {
@@ -1335,7 +1335,9 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      null
+      "Tank",
+      "Tommy",
+      "Carry"
     ]
   },
   {
@@ -1365,9 +1367,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Tommy",
-      "Carry",
-      "Tank"
+      null
     ]
   },
   {

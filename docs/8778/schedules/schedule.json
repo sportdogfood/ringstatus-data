@@ -424,7 +424,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:30:00",
     "group_display": [
-      "Hurricane"
+      "Hurricane (22)"
     ]
   },
   {
@@ -454,7 +454,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:00",
     "group_display": [
-      "Macho"
+      "Macho (21)"
     ]
   },
   {
@@ -570,9 +570,9 @@
     "class_group_sequence": 3,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Crush",
-      "Bernie",
-      "Poptart"
+      "Crush (1)",
+      "Bernie (2)",
+      "Poptart (5)"
     ]
   },
   {
@@ -945,8 +945,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Lenny",
-      "Munster"
+      "Lenny (6)",
+      "Munster (7)"
     ]
   },
   {
@@ -1337,9 +1337,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      "Tank",
-      "Tommy",
-      "Carry"
+      null
     ]
   },
   {
@@ -1369,7 +1367,9 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      null
+      "Tommy",
+      "Carry",
+      "Tank"
     ]
   },
   {
@@ -1760,7 +1760,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 16,
+    "total_trips": 15,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",
@@ -1816,7 +1816,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 22,
+    "total_trips": 21,
     "show_id": 200000058,
     "show_date": "2026-04-10",
     "show_days_display_date": "Friday, April, 10, 2026",

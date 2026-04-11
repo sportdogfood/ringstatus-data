@@ -36,7 +36,7 @@
     "class_name": "$32,000 CSI3* 1.45m Vault Insurance Classic 220.2.1.1 (Speed)",
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 49,
+    "total_trips": 50,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -86,7 +86,7 @@
     "class_name": "1.30m Open Jumper II2.1",
     "latestStart": "9:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 21,
+    "total_trips": 22,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -157,7 +157,7 @@
     "class_number": 746,
     "class_name": "1.15m Open Jumper II2d",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 6,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -180,7 +180,7 @@
     "class_id": 200023805,
     "class_number": 832,
     "class_name": "$300 1.10m Young Jumper Table II",
-    "latestStart": "8:20 AM",
+    "latestStart": "8:25 AM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000058,
@@ -188,9 +188,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "8:20 AM",
+    "start_display": "8:25 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:20:00",
+    "estimated_start_time": "08:25:06",
     "group_display": []
   },
   {
@@ -254,7 +254,7 @@
     "class_name": "1.20m Junior/Amateur Jumper II2d",
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 17,
+    "total_trips": 16,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -302,7 +302,7 @@
     "class_name": "1.30m Junior/Amateur Jumper II2d",
     "latestStart": "12:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 11,
+    "total_trips": 10,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -325,7 +325,7 @@
     "class_number": 277,
     "class_name": "Amateur Owner Hunter 3'6\" (Ages Combined) ",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 3,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -349,7 +349,7 @@
     "class_number": 278,
     "class_name": "Amateur Owner Hunter 3'6\" (Ages Combined) ",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 3,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -374,7 +374,7 @@
     "class_name": "Amateur Owner Hunter 3'6\" (Ages Combined) U/S",
     "latestStart": "8:25 AM",
     "latestStatus": null,
-    "total_trips": 4,
+    "total_trips": 3,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -382,7 +382,7 @@
     "ring_nickname": "Intl",
     "start_display": "8:25 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:25:00",
+    "estimated_start_time": "08:25:06",
     "group_display": []
   },
   {
@@ -396,7 +396,7 @@
     "class_id": 200023804,
     "class_number": 377,
     "class_name": "Amateur Owner Hunter 3'3\" 18-35",
-    "latestStart": "8:35 AM",
+    "latestStart": "8:36 AM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000058,
@@ -404,9 +404,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "8:35 AM",
+    "start_display": "8:36 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "08:35:00",
+    "estimated_start_time": "08:36:21",
     "group_display": []
   },
   {
@@ -420,7 +420,7 @@
     "class_id": 200023769,
     "class_number": 378,
     "class_name": "Amateur Owner Hunter 3'3\" 18-35",
-    "latestStart": "8:35 AM",
+    "latestStart": "8:36 AM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000058,
@@ -428,9 +428,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "8:35 AM",
+    "start_display": "8:36 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "08:35:00",
+    "estimated_start_time": "08:36:21",
     "group_display": []
   },
   {
@@ -606,7 +606,7 @@
     "class_group_sequence": 9,
     "estimated_start_time": "12:30:00",
     "group_display": [
-      "Munster"
+      null
     ]
   },
   {
@@ -758,7 +758,7 @@
     "class_group_sequence": 13,
     "estimated_start_time": "14:45:00",
     "group_display": [
-      "Macho"
+      null
     ]
   },
   {
@@ -893,7 +893,7 @@
     "class_number": 560,
     "class_name": "THIS/NHS Adult Medal",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -917,8 +917,8 @@
     "class_number": 531,
     "class_name": "M&S Adult Amateur Medal",
     "latestStart": "8:20 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "latestStatus": "Underway",
+    "total_trips": 5,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -926,7 +926,7 @@
     "ring_nickname": "Rost",
     "start_display": "8:20 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:20:00",
+    "estimated_start_time": "08:20:07",
     "group_display": []
   },
   {
@@ -1584,7 +1584,7 @@
     "estimated_start_time": "13:15:00",
     "group_display": [
       "Celly (14)",
-      "Cervin (31)"
+      "Cervin (30)"
     ]
   },
   {
@@ -1600,7 +1600,7 @@
     "class_name": "1.0m Amateur Jumper II2d",
     "latestStart": "1:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 24,
+    "total_trips": 23,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -1611,8 +1611,8 @@
     "estimated_start_time": "13:15:00",
     "group_display": [
       "Calypso (15)",
-      "BB (30)",
-      "Charly (42)"
+      "BB (29)",
+      "Charly (41)"
     ]
   },
   {
@@ -1626,7 +1626,7 @@
     "class_id": 200023559,
     "class_number": 988,
     "class_name": "Mulligan Class",
-    "latestStart": "2:02 PM",
+    "latestStart": "2:01 PM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000058,
@@ -1634,9 +1634,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Mogavero",
-    "start_display": "2:02 PM",
+    "start_display": "2:01 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "14:02:00",
+    "estimated_start_time": "14:01:00",
     "group_display": []
   },
   {
@@ -1698,7 +1698,7 @@
     "class_id": 200023438,
     "class_number": 297,
     "class_name": "Low Adult Hunter",
-    "latestStart": "8:38 AM",
+    "latestStart": "8:41 AM",
     "latestStatus": "Upcoming",
     "total_trips": 9,
     "show_id": 200000058,
@@ -1706,9 +1706,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "8:38 AM",
+    "start_display": "8:41 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:38:31",
+    "estimated_start_time": "08:41:05",
     "group_display": []
   },
   {
@@ -1722,7 +1722,7 @@
     "class_id": 200023770,
     "class_number": 298,
     "class_name": "Low Adult Hunter",
-    "latestStart": "8:38 AM",
+    "latestStart": "8:41 AM",
     "latestStatus": "Upcoming",
     "total_trips": 9,
     "show_id": 200000058,
@@ -1730,9 +1730,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "8:38 AM",
+    "start_display": "8:41 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:38:31",
+    "estimated_start_time": "08:41:05",
     "group_display": []
   },
   {
@@ -1814,9 +1814,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Tank",
-      "Carry",
-      "Tommy"
+      null
     ]
   },
   {
@@ -1928,7 +1926,7 @@
     "class_name": "Short Stirrup Hunter U/S",
     "latestStart": "1:25 PM",
     "latestStatus": null,
-    "total_trips": 6,
+    "total_trips": 5,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -1976,7 +1974,7 @@
     "class_name": "Stirrup Warm Up",
     "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 5,
+    "total_trips": 4,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -2000,7 +1998,7 @@
     "class_name": "Short Stirrup Hunter",
     "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 5,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -2024,7 +2022,7 @@
     "class_name": "Short Stirrup Hunter",
     "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 5,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",
@@ -2094,7 +2092,7 @@
     "class_id": 200023427,
     "class_number": 989,
     "class_name": "Mulligan Class",
-    "latestStart": "2:40 PM",
+    "latestStart": "2:34 PM",
     "latestStatus": null,
     "total_trips": 0,
     "show_id": 200000058,
@@ -2102,9 +2100,9 @@
     "show_days_display_date": "Saturday, April, 11, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "2:40 PM",
+    "start_display": "2:34 PM",
     "class_group_sequence": 10,
-    "estimated_start_time": "14:40:00",
+    "estimated_start_time": "14:34:00",
     "group_display": []
   },
   {
@@ -2167,7 +2165,7 @@
     "class_number": 432,
     "class_name": "Large Pony Hunter",
     "latestStart": "9:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 9,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -2191,7 +2189,7 @@
     "class_number": 433,
     "class_name": "Large Pony Conformation Hunter",
     "latestStart": "9:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 9,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -2352,7 +2350,7 @@
     "class_group_sequence": 6,
     "estimated_start_time": "11:35:00",
     "group_display": [
-      "Paisley"
+      null
     ]
   },
   {
@@ -2486,9 +2484,7 @@
     "class_group_sequence": 9,
     "estimated_start_time": "13:50:00",
     "group_display": [
-      "Poptart",
-      "Crush",
-      "Bernie"
+      null
     ]
   },
   {
@@ -2551,7 +2547,7 @@
     "class_number": 781,
     "class_name": "Training Jumper (1.0m) II2d",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 9,
     "show_id": 200000058,
     "show_date": "2026-04-11",
@@ -2576,7 +2572,7 @@
     "class_name": "Training Jumper (.95m) II2d",
     "latestStart": "8:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 19,
+    "total_trips": 18,
     "show_id": 200000058,
     "show_date": "2026-04-11",
     "show_days_display_date": "Saturday, April, 11, 2026",

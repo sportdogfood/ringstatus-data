@@ -406,7 +406,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034080,
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 2,
     "estimated_start_time": "08:00:00"
@@ -435,7 +435,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034081,
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 2,
     "estimated_start_time": "08:00:00"
@@ -493,7 +493,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034084,
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 4,
     "estimated_start_time": "08:40:06"
@@ -522,7 +522,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034085,
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 4,
     "estimated_start_time": "08:40:06"
@@ -580,7 +580,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034088,
     "latestStart": "9:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 6,
     "estimated_start_time": "09:40:06"
@@ -609,7 +609,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034089,
     "latestStart": "9:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 6,
     "estimated_start_time": "09:40:06"
@@ -671,9 +671,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034092,
     "latestStart": "10:55 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 8,
     "estimated_start_time": "10:55:06"
@@ -772,7 +770,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034096,
     "latestStart": "1:15 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 10,
     "estimated_start_time": "13:15:06"
@@ -801,7 +799,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034097,
     "latestStart": "1:15 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 10,
     "estimated_start_time": "13:15:06"
@@ -865,9 +863,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034104,
     "latestStart": "2:05 PM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 12,
     "estimated_start_time": "14:05:00"
@@ -902,7 +898,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034105,
     "latestStart": "2:05 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 12,
     "estimated_start_time": "14:05:00"
@@ -968,7 +964,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034108,
     "latestStart": "3:10 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 14,
     "estimated_start_time": "15:10:00"
@@ -997,7 +993,7 @@
     "ringName": "Intl",
     "class_groupxclasses_id": 200034109,
     "latestStart": "3:10 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-11",
     "class_group_sequence": 14,
     "estimated_start_time": "15:10:00"
@@ -1715,17 +1711,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "4:55 PM",
-    "start_display_short": "4:55P",
-    "time_sort": 60900,
+    "start_display": "4:57 PM",
+    "start_display_short": "4:57P",
+    "time_sort": 61034,
     "total_trips": 5,
     "ringName": "Rost",
     "class_groupxclasses_id": 200034141,
-    "latestStart": "4:55 PM",
+    "latestStart": "4:57 PM",
     "latestStatus": null,
     "show_date": "2026-04-11",
     "class_group_sequence": 14,
-    "estimated_start_time": "16:55:00"
+    "estimated_start_time": "16:57:14"
   },
   {
     "8778_group_display": [

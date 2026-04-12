@@ -229,7 +229,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 11,
+    "total_trips": 2,
     "class_groupxclasses_id": 200034229,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
@@ -316,7 +316,7 @@
     "start_display": "8:30 AM",
     "start_display_short": "8:30A",
     "time_sort": 30600,
-    "total_trips": 11,
+    "total_trips": 2,
     "class_groupxclasses_id": 200034233,
     "latestStart": "8:30 AM",
     "latestStatus": "Upcoming",
@@ -403,7 +403,7 @@
     "start_display": "9:10 AM",
     "start_display_short": "9:10A",
     "time_sort": 33000,
-    "total_trips": 11,
+    "total_trips": 2,
     "class_groupxclasses_id": 200034237,
     "latestStart": "9:10 AM",
     "latestStatus": "Upcoming",
@@ -773,7 +773,7 @@
     "start_display": "2:10 PM",
     "start_display_short": "2:10P",
     "time_sort": 51000,
-    "total_trips": 11,
+    "total_trips": 2,
     "class_groupxclasses_id": 200034260,
     "latestStart": "2:10 PM",
     "latestStatus": "Upcoming",
@@ -1671,8 +1671,8 @@
   },
   {
     "8778_group_display": [
-      "Calypso (6)",
-      "Charly (7)",
+      "Calypso (7)",
+      "Charly (8)",
       "BB (19)"
     ],
     "class_group_id": 200023040,
@@ -1686,8 +1686,8 @@
     "ring_number": 8,
     "ringName": "Mogavero",
     "group_display": [
-      "Calypso (6)",
-      "Charly (7)",
+      "Calypso (7)",
+      "Charly (8)",
       "BB (19)"
     ],
     "shifted_to_next_day": null,

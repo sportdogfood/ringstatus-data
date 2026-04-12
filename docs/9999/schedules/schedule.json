@@ -548,7 +548,7 @@
     "total_trips": 16,
     "class_groupxclasses_id": 200034267,
     "latestStart": "12:25 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-12",
     "class_group_sequence": 4,
     "estimated_start_time": "12:25:07"
@@ -976,16 +976,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
+    "start_display": "12:50 PM",
+    "start_display_short": "12:50P",
+    "time_sort": 46200,
     "total_trips": 12,
     "class_groupxclasses_id": 200034284,
-    "latestStart": "1:00 PM",
+    "latestStart": "12:50 PM",
     "latestStatus": null,
     "show_date": "2026-04-12",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "12:50:00"
   },
   {
     "8778_group_display": [],
@@ -1005,16 +1005,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
+    "start_display": "1:20 PM",
+    "start_display_short": "1:20P",
+    "time_sort": 48000,
     "total_trips": 11,
     "class_groupxclasses_id": 200034286,
-    "latestStart": "1:30 PM",
+    "latestStart": "1:20 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-12",
     "class_group_sequence": 9,
-    "estimated_start_time": "13:30:00"
+    "estimated_start_time": "13:20:00"
   },
   {
     "8778_group_display": [],
@@ -1034,16 +1034,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
+    "start_display": "1:20 PM",
+    "start_display_short": "1:20P",
+    "time_sort": 48000,
     "total_trips": 11,
     "class_groupxclasses_id": 200034287,
-    "latestStart": "1:30 PM",
+    "latestStart": "1:20 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-12",
     "class_group_sequence": 9,
-    "estimated_start_time": "13:30:00"
+    "estimated_start_time": "13:20:00"
   },
   {
     "8778_group_display": [],
@@ -1509,7 +1509,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200034308,
     "latestStart": "12:25 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-12",
     "class_group_sequence": 8,
     "estimated_start_time": "12:25:09"
@@ -1538,7 +1538,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200034309,
     "latestStart": "12:25 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-12",
     "class_group_sequence": 8,
     "estimated_start_time": "12:25:09"
@@ -1988,7 +1988,7 @@
     "class_groupxclasses_id": 200034329,
     "latestStart": "12:28 PM",
     "latestStatus": [
-      "Not Started"
+      "Completed"
     ],
     "show_date": "2026-04-12",
     "class_group_sequence": 7,
@@ -2064,9 +2064,9 @@
   },
   {
     "8778_group_display": [
-      "Crush (32)",
-      "Poptart (35)",
-      "Bernie (38)"
+      "Bernie (5)",
+      "Crush (34)",
+      "Poptart (38)"
     ],
     "class_group_id": 200023063,
     "class_id": 200023763,
@@ -2079,27 +2079,27 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Crush (32)",
-      "Poptart (35)",
-      "Bernie (38)"
+      "Bernie (5)",
+      "Crush (34)",
+      "Poptart (38)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 12, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "12:50 PM",
-    "start_display_short": "12:50P",
-    "time_sort": 46234,
+    "start_display": "12:55 PM",
+    "start_display_short": "12:55P",
+    "time_sort": 46538,
     "total_trips": 14,
     "class_groupxclasses_id": 200034340,
-    "latestStart": "12:50 PM",
+    "latestStart": "12:55 PM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-12",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:50:34"
+    "estimated_start_time": "12:55:38"
   },
   {
     "8778_group_display": [],
@@ -2456,7 +2456,7 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200036070,
     "latestStart": "12:24 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-12",
     "class_group_sequence": 4,
     "estimated_start_time": "12:24:50"
@@ -2479,16 +2479,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45900,
+    "start_display": "12:46 PM",
+    "start_display_short": "12:46P",
+    "time_sort": 45972,
     "total_trips": 10,
     "class_groupxclasses_id": 200034365,
-    "latestStart": "12:45 PM",
+    "latestStart": "12:46 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-12",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:45:00"
+    "estimated_start_time": "12:46:12"
   },
   {
     "8778_group_display": [],
@@ -2943,16 +2943,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "12:27 PM",
-    "start_display_short": "12:27P",
-    "time_sort": 44849,
+    "start_display": "12:12 PM",
+    "start_display_short": "12:12P",
+    "time_sort": 43928,
     "total_trips": 1,
     "class_groupxclasses_id": 200036077,
-    "latestStart": "12:27 PM",
+    "latestStart": "12:12 PM",
     "latestStatus": null,
     "show_date": "2026-04-12",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:27:29"
+    "estimated_start_time": "12:12:08"
   },
   {
     "8778_group_display": [],
@@ -2972,16 +2972,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "12:27 PM",
-    "start_display_short": "12:27P",
-    "time_sort": 44849,
+    "start_display": "12:20 PM",
+    "start_display_short": "12:20P",
+    "time_sort": 44400,
     "total_trips": 1,
     "class_groupxclasses_id": 200036082,
-    "latestStart": "12:27 PM",
+    "latestStart": "12:20 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-12",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:27:29"
+    "estimated_start_time": "12:20:00"
   },
   {
     "8778_group_display": [],
@@ -3001,15 +3001,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000058,
     "sid": 200000058,
-    "start_display": "12:27 PM",
-    "start_display_short": "12:27P",
-    "time_sort": 44849,
+    "start_display": "12:20 PM",
+    "start_display_short": "12:20P",
+    "time_sort": 44400,
     "total_trips": 1,
     "class_groupxclasses_id": 200036083,
-    "latestStart": "12:27 PM",
+    "latestStart": "12:20 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-12",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:27:29"
+    "estimated_start_time": "12:20:00"
   }
 ]

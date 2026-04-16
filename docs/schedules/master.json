@@ -107,7 +107,7 @@
     "start_display": "8:05 AM",
     "start_display_short": "8:05A",
     "time_sort": 29105,
-    "total_trips": 32
+    "total_trips": 31
   },
   {
     "8778_group_display": [],
@@ -129,7 +129,7 @@
     "start_display": "8:05 AM",
     "start_display_short": "8:05A",
     "time_sort": 29105,
-    "total_trips": 32
+    "total_trips": 31
   },
   {
     "8778_group_display": [
@@ -264,9 +264,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:56 AM",
-    "start_display_short": "8:56A",
-    "time_sort": 32203,
+    "start_display": "8:55 AM",
+    "start_display_short": "8:55A",
+    "time_sort": 32100,
     "total_trips": 3
   },
   {
@@ -289,7 +289,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 25
+    "total_trips": 24
   },
   {
     "8778_group_display": [
@@ -339,7 +339,7 @@
     "start_display": "9:12 AM",
     "start_display_short": "9:12A",
     "time_sort": 33172,
-    "total_trips": 56
+    "total_trips": 55
   },
   {
     "8778_group_display": [],
@@ -361,7 +361,7 @@
     "start_display": "9:12 AM",
     "start_display_short": "9:12A",
     "time_sort": 33172,
-    "total_trips": 56
+    "total_trips": 55
   },
   {
     "8778_group_display": [],
@@ -380,9 +380,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
+    "start_display": "9:19 AM",
+    "start_display_short": "9:19A",
+    "time_sort": 33551,
     "total_trips": 29
   },
   {
@@ -402,9 +402,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
+    "start_display": "9:19 AM",
+    "start_display_short": "9:19A",
+    "time_sort": 33551,
     "total_trips": 29
   },
   {
@@ -424,9 +424,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 5
   },
   {
@@ -498,9 +498,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38700,
+    "start_display": "10:40 AM",
+    "start_display_short": "10:40A",
+    "time_sort": 38400,
     "total_trips": 19
   },
   {
@@ -523,7 +523,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 26
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -545,7 +545,29 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 26
+    "total_trips": 25
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023124,
+    "class_id": 200024069,
+    "class_name": "1.20m Young Jumper II2d",
+    "class_number": 835,
+    "dt": "2026-04-16",
+    "group_name": "1.20m Young Jumper II2d",
+    "group_name_tags": "target, young, 1.20m, II2d, jumpers, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Thursday, April, 16, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:45 AM",
+    "start_display_short": "11:45A",
+    "time_sort": 42300,
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -633,7 +655,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 52
   },
   {
     "8778_group_display": [],
@@ -655,7 +677,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 52
   },
   {
     "8778_group_display": [],
@@ -677,7 +699,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 52
   },
   {
     "8778_group_display": [],
@@ -699,29 +721,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023124,
-    "class_id": 200024069,
-    "class_name": "1.20m Young Jumper II2d",
-    "class_number": 835,
-    "dt": "2026-04-16",
-    "group_name": "1.20m Young Jumper II2d",
-    "group_name_tags": "target, young, 1.20m, II2d, jumpers, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Thursday, April, 16, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:00 PM",
-    "start_display_short": "12:00P",
-    "time_sort": 43200,
-    "total_trips": 8
+    "total_trips": 52
   },
   {
     "8778_group_display": [],

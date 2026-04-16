@@ -11,10 +11,8 @@
     "class_number": 3011,
     "class_name": "$1,000 CSI3* Bainbridge Companies 1.40m 222.2.3 (2 Phase)",
     "latestStart": "9:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 65,
+    "latestStatus": "Underway",
+    "total_trips": 63,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -25,12 +23,13 @@
     "estimated_start_time": "09:00:00",
     "group_display": [
       "Toni (8)",
-      "Ben (37)"
+      "Ben (38)"
     ],
     "8778_sched_display": [
       "Toni (8)",
-      "Ben (37)"
-    ]
+      "Ben (38)"
+    ],
+    "group_name_tags": "target, 1.40m, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -47,7 +46,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 51,
+    "total_trips": 52,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -57,13 +56,14 @@
     "class_group_sequence": 2,
     "estimated_start_time": "12:15:00",
     "group_display": [
-      "Hermes (3)",
-      "Toni (42)"
+      "Hermes (4)",
+      "Toni (43)"
     ],
     "8778_sched_display": [
-      "Hermes (3)",
-      "Toni (42)"
-    ]
+      "Hermes (4)",
+      "Toni (43)"
+    ],
+    "group_name_tags": "target, 1.45m, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -77,8 +77,8 @@
     "class_number": 770,
     "class_name": "1.30m Open Jumper II2d (A/B Split, Pin Halfway)",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 89,
+    "latestStatus": "Underway",
+    "total_trips": 86,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -88,7 +88,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, open, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -102,7 +103,7 @@
     "class_number": 840,
     "class_name": "1.30m Young Jumper II2d",
     "latestStart": "12:00 PM",
-    "latestStatus": null,
+    "latestStatus": "Upcoming",
     "total_trips": 16,
     "show_id": 200000059,
     "show_date": "2026-04-16",
@@ -113,7 +114,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "12:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, young, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -127,8 +129,8 @@
     "class_number": 733,
     "class_name": "1.35m Open Jumper II2d",
     "latestStart": "1:00 PM",
-    "latestStatus": null,
-    "total_trips": 55,
+    "latestStatus": "Upcoming",
+    "total_trips": 56,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -138,7 +140,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "13:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, open, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -152,8 +155,8 @@
     "class_number": 744,
     "class_name": "1.15m Open Jumper II2.1",
     "latestStart": "9:00 AM",
-    "latestStatus": null,
-    "total_trips": 26,
+    "latestStatus": "Underway",
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -163,7 +166,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "09:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, open, II2.1, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -176,19 +180,20 @@
     "class_id": 200024127,
     "class_number": 830,
     "class_name": "1.10m Young Jumper Table II",
-    "latestStart": "10:18 AM",
-    "latestStatus": null,
+    "latestStart": "10:15 AM",
+    "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "10:18 AM",
+    "start_display": "10:15 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:18:00",
+    "estimated_start_time": "10:15:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, young, 1.10m, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -223,7 +228,8 @@
       "Dottie (7)",
       "Doug (8)",
       "Bee (18)"
-    ]
+    ],
+    "group_name_tags": "target, open, 1.20m, II2.1, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -237,7 +243,7 @@
     "class_number": 835,
     "class_name": "1.20m Young Jumper II2d",
     "latestStart": "12:00 PM",
-    "latestStatus": null,
+    "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-16",
@@ -248,7 +254,8 @@
     "class_group_sequence": 4,
     "estimated_start_time": "12:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, young, 1.20m, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -262,8 +269,10 @@
     "class_number": 710,
     "class_name": "1.25m Open Jumper II2.1",
     "latestStart": "12:30 PM",
-    "latestStatus": null,
-    "total_trips": 21,
+    "latestStatus": [
+      "Not Started"
+    ],
+    "total_trips": 22,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -272,8 +281,13 @@
     "start_display": "12:30 PM",
     "class_group_sequence": 5,
     "estimated_start_time": "12:30:00",
-    "group_display": [],
-    "8778_sched_display": []
+    "group_display": [
+      "Sandenal (22)"
+    ],
+    "8778_sched_display": [
+      "Sandenal (22)"
+    ],
+    "group_name_tags": "target, open, II2.1, jumpers, Over Fences"
   },
   {
     "sid": 200000059,
@@ -288,7 +302,7 @@
     "class_name": "Performance Hunter 3\"6\" &  3'3\" U/S",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 7,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -298,7 +312,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, usf, 3', 3'3\", U/S, hunters, Under Saddle/Flat"
   },
   {
     "sid": 200000059,
@@ -312,10 +327,8 @@
     "class_number": 389,
     "class_name": "Performance Hunter 3\"6\" &  3'3\"",
     "latestStart": "8:10 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
-    "total_trips": 30,
+    "latestStatus": "Underway",
+    "total_trips": 69,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -323,7 +336,7 @@
     "ring_nickname": "Intl",
     "start_display": "8:10 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:10:00",
+    "estimated_start_time": "08:10:06",
     "group_display": [
       "Macho",
       "Munster",
@@ -339,7 +352,8 @@
       "Elliot",
       "Dorian",
       "Jason"
-    ]
+    ],
+    "group_name_tags": "target, 3', 3'3\", hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -352,19 +366,20 @@
     "class_id": 200024220,
     "class_number": 374,
     "class_name": "Green Hunter 3'6\" & 3'3\"",
-    "latestStart": "12:00 PM",
-    "latestStatus": null,
-    "total_trips": 7,
+    "latestStart": "11:45 AM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "12:00 PM",
+    "start_display": "11:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:00:00",
+    "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', 3'3\", 3'6\", green, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -377,19 +392,20 @@
     "class_id": 200024292,
     "class_number": 375,
     "class_name": "Green Hunter 3'6\" & 3'3\"",
-    "latestStart": "12:00 PM",
-    "latestStatus": null,
-    "total_trips": 7,
+    "latestStart": "11:45 AM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "12:00 PM",
+    "start_display": "11:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:00:00",
+    "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', 3'3\", 3'6\", green, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -402,19 +418,20 @@
     "class_id": 200024310,
     "class_number": 914,
     "class_name": "$1,000 USHJA Green Hunter Incentive 3' & 3'3\"",
-    "latestStart": "12:00 PM",
-    "latestStatus": null,
-    "total_trips": 3,
+    "latestStart": "11:45 AM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "12:00 PM",
+    "start_display": "11:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:00:00",
+    "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', 3'3\", 3'6\", green, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -427,19 +444,20 @@
     "class_id": 200024270,
     "class_number": 204,
     "class_name": "Green Hunter 3'",
-    "latestStart": "1:00 PM",
-    "latestStatus": null,
-    "total_trips": 7,
+    "latestStart": "12:30 PM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "1:00 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "12:30:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', green, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -452,19 +470,46 @@
     "class_id": 200024197,
     "class_number": 205,
     "class_name": "Green Hunter 3'",
-    "latestStart": "1:00 PM",
-    "latestStatus": null,
-    "total_trips": 7,
+    "latestStart": "12:30 PM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "1:00 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "12:30:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', green, hunters, Over Fences"
+  },
+  {
+    "sid": 200000059,
+    "dt": "2026-04-16",
+    "ring_number": 5,
+    "ringName": "Intl",
+    "class_groupxclasses_id": 200034470,
+    "class_group_id": 200023137,
+    "group_name": "Green Hunter 3'",
+    "class_id": 200024310,
+    "class_number": 914,
+    "class_name": "$1,000 USHJA Green Hunter Incentive 3' & 3'3\"",
+    "latestStart": "12:30 PM",
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
+    "show_id": 200000059,
+    "show_date": "2026-04-16",
+    "show_days_display_date": "Thursday, April, 16, 2026",
+    "show_days_report_title": "Schedule",
+    "ring_nickname": "Intl",
+    "start_display": "12:30 PM",
+    "class_group_sequence": 5,
+    "estimated_start_time": "12:30:00",
+    "group_display": [],
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', green, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -477,19 +522,20 @@
     "class_id": 200024306,
     "class_number": 227,
     "class_name": "ESP Hunter 3'3\"",
-    "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 8,
+    "latestStart": "8:05 AM",
+    "latestStatus": "Underway",
+    "total_trips": 32,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:00 AM",
+    "start_display": "8:05 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:05:05",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, 3', 3'3\", hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -502,19 +548,20 @@
     "class_id": 200024078,
     "class_number": 228,
     "class_name": "ESP Hunter 3'3\"",
-    "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 8,
+    "latestStart": "8:05 AM",
+    "latestStatus": "Underway",
+    "total_trips": 32,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:00 AM",
+    "start_display": "8:05 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:05:05",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, 3', 3'3\", hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -527,19 +574,20 @@
     "class_id": 200023942,
     "class_number": 226,
     "class_name": "ESP Hunter 3'3\" U/S",
-    "latestStart": "8:55 AM",
+    "latestStart": "8:56 AM",
     "latestStatus": null,
-    "total_trips": 5,
+    "total_trips": 3,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:55 AM",
+    "start_display": "8:56 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:55:00",
+    "estimated_start_time": "08:56:43",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, usf, 3', 3'3\", U/S, hunters, Under Saddle/Flat"
   },
   {
     "sid": 200000059,
@@ -552,19 +600,20 @@
     "class_id": 200024314,
     "class_number": 222,
     "class_name": "USHJA Hunter 3'",
-    "latestStart": "9:10 AM",
-    "latestStatus": null,
-    "total_trips": 19,
+    "latestStart": "9:12 AM",
+    "latestStatus": "Upcoming",
+    "total_trips": 56,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "9:10 AM",
+    "start_display": "9:12 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:10:00",
+    "estimated_start_time": "09:12:52",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -577,19 +626,20 @@
     "class_id": 200023992,
     "class_number": 223,
     "class_name": "USHJA Hunter 3'",
-    "latestStart": "9:10 AM",
-    "latestStatus": null,
-    "total_trips": 19,
+    "latestStart": "9:12 AM",
+    "latestStatus": "Upcoming",
+    "total_trips": 56,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "9:10 AM",
+    "start_display": "9:12 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:10:00",
+    "estimated_start_time": "09:12:52",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, 3', ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -603,8 +653,8 @@
     "class_number": 166,
     "class_name": "Young Hunter 3' (6 & Under)",
     "latestStart": "11:00 AM",
-    "latestStatus": null,
-    "total_trips": 3,
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -614,7 +664,8 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, young, 3', hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -628,8 +679,8 @@
     "class_number": 167,
     "class_name": "Young Hunter 3' (6 & Under)",
     "latestStart": "11:00 AM",
-    "latestStatus": null,
-    "total_trips": 3,
+    "latestStatus": "Upcoming",
+    "total_trips": 26,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -639,7 +690,8 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, young, 3', hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -653,8 +705,8 @@
     "class_number": 126,
     "class_name": "USHJA Hunter 2'9\" (First Year Shown)",
     "latestStart": "11:45 AM",
-    "latestStatus": null,
-    "total_trips": 4,
+    "latestStatus": "Upcoming",
+    "total_trips": 53,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -664,7 +716,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -678,8 +731,8 @@
     "class_number": 127,
     "class_name": "USHJA Hunter 2'9\" (First Year Shown)",
     "latestStart": "11:45 AM",
-    "latestStatus": null,
-    "total_trips": 4,
+    "latestStatus": "Upcoming",
+    "total_trips": 53,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -689,7 +742,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -703,8 +757,8 @@
     "class_number": 187,
     "class_name": "USHJA Hunter 2'9\"",
     "latestStart": "11:45 AM",
-    "latestStatus": null,
-    "total_trips": 13,
+    "latestStatus": "Upcoming",
+    "total_trips": 53,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -714,7 +768,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -728,8 +783,8 @@
     "class_number": 188,
     "class_name": "USHJA Hunter 2'9\"",
     "latestStart": "11:45 AM",
-    "latestStatus": null,
-    "total_trips": 12,
+    "latestStatus": "Upcoming",
+    "total_trips": 53,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -739,7 +794,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:45:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -764,7 +820,8 @@
     "class_group_sequence": 6,
     "estimated_start_time": "13:40:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, usf, ushja, U/S, hunters, Under Saddle/Flat"
   },
   {
     "sid": 200000059,
@@ -789,7 +846,8 @@
     "class_group_sequence": 7,
     "estimated_start_time": "13:55:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, usf, ushja, U/S, hunters, Under Saddle/Flat"
   },
   {
     "sid": 200000059,
@@ -803,8 +861,8 @@
     "class_number": 177,
     "class_name": "USHJA Hunter 2'",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 3,
+    "latestStatus": "Underway",
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -814,7 +872,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -828,8 +887,8 @@
     "class_number": 178,
     "class_name": "USHJA Hunter 2'",
     "latestStart": "8:00 AM",
-    "latestStatus": null,
-    "total_trips": 3,
+    "latestStatus": "Underway",
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -839,7 +898,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -852,19 +912,20 @@
     "class_id": 200024199,
     "class_number": 182,
     "class_name": "USHJA Hunter 2'3\"",
-    "latestStart": "8:30 AM",
-    "latestStatus": null,
-    "total_trips": 6,
+    "latestStart": "8:35 AM",
+    "latestStatus": "Underway",
+    "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "8:30 AM",
+    "start_display": "8:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00",
+    "estimated_start_time": "08:35:21",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -877,19 +938,20 @@
     "class_id": 200024097,
     "class_number": 183,
     "class_name": "USHJA Hunter 2'3\"",
-    "latestStart": "8:30 AM",
-    "latestStatus": null,
-    "total_trips": 6,
+    "latestStart": "8:35 AM",
+    "latestStatus": "Underway",
+    "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "8:30 AM",
+    "start_display": "8:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00",
+    "estimated_start_time": "08:35:21",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -903,8 +965,8 @@
     "class_number": 232,
     "class_name": "USHJA Hunter 2'6\"",
     "latestStart": "9:15 AM",
-    "latestStatus": null,
-    "total_trips": 8,
+    "latestStatus": "Upcoming",
+    "total_trips": 29,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -914,7 +976,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:15:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -928,8 +991,8 @@
     "class_number": 233,
     "class_name": "USHJA Hunter 2'6\"",
     "latestStart": "9:15 AM",
-    "latestStatus": null,
-    "total_trips": 8,
+    "latestStatus": "Upcoming",
+    "total_trips": 29,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -939,7 +1002,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:15:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
     "sid": 200000059,
@@ -952,18 +1016,19 @@
     "class_id": 200024198,
     "class_number": 231,
     "class_name": "USHJA Hunter 2'6\" U/S",
-    "latestStart": "10:21 AM",
+    "latestStart": "10:20 AM",
     "latestStatus": null,
-    "total_trips": 7,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-16",
     "show_days_display_date": "Thursday, April, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "10:21 AM",
+    "start_display": "10:20 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:21:00",
+    "estimated_start_time": "10:20:00",
     "group_display": [],
-    "8778_sched_display": []
+    "8778_sched_display": [],
+    "group_name_tags": "target, usf, ushja, U/S, hunters, Under Saddle/Flat"
   }
 ]

@@ -29,7 +29,9 @@
     "total_trips": 62,
     "class_groupxclasses_id": 200034427,
     "latestStart": "9:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
     "estimated_start_time": "09:00:00",
@@ -41,7 +43,7 @@
   {
     "8778_group_display": [
       "Hermes (3)",
-      "Toni (41)"
+      "Toni (42)"
     ],
     "class_group_id": 200023117,
     "class_id": 200024331,
@@ -55,7 +57,7 @@
     "ringName": "Derby",
     "group_display": [
       "Hermes (3)",
-      "Toni (41)"
+      "Toni (42)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -65,7 +67,7 @@
     "start_display": "12:15 PM",
     "start_display_short": "12:15P",
     "time_sort": 44100,
-    "total_trips": 51,
+    "total_trips": 50,
     "class_groupxclasses_id": 200034428,
     "latestStart": "12:15 PM",
     "latestStatus": [
@@ -76,7 +78,7 @@
     "estimated_start_time": "12:15:00",
     "8778_sched_display": [
       "Hermes (3)",
-      "Toni (41)"
+      "Toni (42)"
     ]
   },
   {
@@ -231,9 +233,9 @@
   },
   {
     "8778_group_display": [
-      "Dottie (16)",
-      "Bee (17)",
-      "Doug (18)"
+      "Dottie (15)",
+      "Bee (18)",
+      "Doug (19)"
     ],
     "class_group_id": 200023123,
     "class_id": 200024002,
@@ -246,9 +248,9 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Dottie (16)",
-      "Bee (17)",
-      "Doug (18)"
+      "Dottie (15)",
+      "Bee (18)",
+      "Doug (19)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -266,9 +268,9 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:45:05",
     "8778_sched_display": [
-      "Dottie (16)",
-      "Bee (17)",
-      "Doug (18)"
+      "Dottie (15)",
+      "Bee (18)",
+      "Doug (19)"
     ]
   },
   {
@@ -404,7 +406,7 @@
     "start_display": "8:10 AM",
     "start_display_short": "8:10A",
     "time_sort": 29406,
-    "total_trips": 31,
+    "total_trips": 30,
     "class_groupxclasses_id": 200034461,
     "latestStart": "8:10 AM",
     "latestStatus": "Underway",
@@ -768,16 +770,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39656,
+    "start_display": "11:07 AM",
+    "start_display_short": "11:07A",
+    "time_sort": 40049,
     "total_trips": 3,
     "class_groupxclasses_id": 200034483,
-    "latestStart": "11:00 AM",
+    "latestStart": "11:07 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:56",
+    "estimated_start_time": "11:07:29",
     "8778_sched_display": []
   },
   {
@@ -798,16 +800,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39656,
+    "start_display": "11:07 AM",
+    "start_display_short": "11:07A",
+    "time_sort": 40049,
     "total_trips": 3,
     "class_groupxclasses_id": 200034484,
-    "latestStart": "11:00 AM",
+    "latestStart": "11:07 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:56",
+    "estimated_start_time": "11:07:29",
     "8778_sched_display": []
   },
   {
@@ -1198,6 +1200,36 @@
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
     "estimated_start_time": "10:30:06",
+    "8778_sched_display": []
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200024419,
+    "class_id": 200023986,
+    "class_name": "Young Hunter 3' (6 & Under) U/S",
+    "class_number": 165,
+    "dt": "2026-04-16",
+    "group_name": "Young Hunter 3' (6 & Under) U/S",
+    "group_name_tags": "target, usf, young, 3', U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "ringName": "Rost",
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Thursday, April, 16, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:14 AM",
+    "start_display_short": "11:14A",
+    "time_sort": 40469,
+    "total_trips": 3,
+    "class_groupxclasses_id": 200036088,
+    "latestStart": "11:14 AM",
+    "latestStatus": null,
+    "show_date": "2026-04-16",
+    "class_group_sequence": 5,
+    "estimated_start_time": "11:14:29",
     "8778_sched_display": []
   }
 ]

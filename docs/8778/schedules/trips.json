@@ -41,7 +41,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -57,7 +57,8 @@
     "8778_sched_display": "Macho",
     "sched_display": "Macho",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -101,7 +102,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -117,7 +118,8 @@
     "8778_sched_display": "Macho",
     "sched_display": "Macho",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -161,7 +163,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -177,7 +179,8 @@
     "8778_sched_display": "Munster",
     "sched_display": "Munster",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -221,7 +224,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -237,7 +240,8 @@
     "8778_sched_display": "Munster",
     "sched_display": "Munster",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -281,7 +285,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -297,7 +301,8 @@
     "8778_sched_display": "Hurricane",
     "sched_display": "Hurricane",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -341,7 +346,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -357,7 +362,8 @@
     "8778_sched_display": "Hurricane",
     "sched_display": "Hurricane",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -401,7 +407,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -410,14 +416,15 @@
     "latestGO": "8:10 AM",
     "runningOOG": null,
     "lastOOG": null,
-    "is_target": null,
+    "is_target": true,
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Elliot",
     "8778_sched_display": "Elliot",
     "sched_display": "Elliot",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -461,7 +468,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 34692,
+    "secondsTill": 30191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -477,7 +484,8 @@
     "8778_sched_display": "Elliot",
     "sched_display": "Elliot",
     "estimatedGO00": "8:10:00",
-    "estimatedGO": "8:10 AM"
+    "estimatedGO": "8:10 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -521,7 +529,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37392,
+    "secondsTill": 33191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -537,7 +545,8 @@
     "8778_sched_display": "Ben (37)",
     "sched_display": "Ben (37)",
     "estimatedGO00": "10:51:00",
-    "estimatedGO": "10:51 AM"
+    "estimatedGO": "10:51 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -581,7 +590,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 37392,
+    "secondsTill": 33191,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -590,14 +599,15 @@
     "latestGO": "9:24 AM",
     "runningOOG": null,
     "lastOOG": 8,
-    "is_target": null,
+    "is_target": true,
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Toni (8)",
     "8778_sched_display": "Toni (8)",
     "sched_display": "Toni (8)",
     "estimatedGO00": "9:24:00",
-    "estimatedGO": "9:24 AM"
+    "estimatedGO": "9:24 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -641,7 +651,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 43692,
+    "secondsTill": 39491,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -657,7 +667,8 @@
     "8778_sched_display": "Doug (8)",
     "sched_display": "Doug (8)",
     "estimatedGO00": "11:09:00",
-    "estimatedGO": "11:09 AM"
+    "estimatedGO": "11:09 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -701,7 +712,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 43692,
+    "secondsTill": 39491,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -717,7 +728,8 @@
     "8778_sched_display": "Dottie (7)",
     "sched_display": "Dottie (7)",
     "estimatedGO00": "11:06:00",
-    "estimatedGO": "11:06 AM"
+    "estimatedGO": "11:06 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -761,7 +773,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 43692,
+    "secondsTill": 39491,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -770,14 +782,15 @@
     "latestGO": "11:39 AM",
     "runningOOG": null,
     "lastOOG": 18,
-    "is_target": null,
+    "is_target": true,
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Bee (18)",
     "8778_sched_display": "Bee (18)",
     "sched_display": "Bee (18)",
     "estimatedGO00": "11:39:00",
-    "estimatedGO": "11:39 AM"
+    "estimatedGO": "11:39 AM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -821,7 +834,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 49092,
+    "secondsTill": 44891,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -830,14 +843,15 @@
     "latestGO": "12:24 PM",
     "runningOOG": null,
     "lastOOG": 3,
-    "is_target": null,
+    "is_target": true,
     "is_parent": null,
     "path_tenant": "8778",
     "8778_group_alert": "Hermes (3)",
     "8778_sched_display": "Hermes (3)",
     "sched_display": "Hermes (3)",
     "estimatedGO00": "12:24:00",
-    "estimatedGO": "12:24 PM"
+    "estimatedGO": "12:24 PM",
+    "group_display": null
   },
   {
     "sid": "200000059",
@@ -881,7 +895,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": 49092,
+    "secondsTill": 44891,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -897,6 +911,7 @@
     "8778_sched_display": "Toni (42)",
     "sched_display": "Toni (42)",
     "estimatedGO00": "2:21:00",
-    "estimatedGO": "2:21 PM"
+    "estimatedGO": "2:21 PM",
+    "group_display": null
   }
 ]

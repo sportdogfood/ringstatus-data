@@ -34,7 +34,11 @@
     ],
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "09:00:00"
+    "estimated_start_time": "09:00:00",
+    "8778_sched_display": [
+      "Toni (8)",
+      "Ben (37)"
+    ]
   },
   {
     "8778_group_display": [
@@ -71,7 +75,11 @@
     ],
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "12:15:00"
+    "estimated_start_time": "12:15:00",
+    "8778_sched_display": [
+      "Hermes (3)",
+      "Toni (42)"
+    ]
   },
   {
     "8778_group_display": [],
@@ -100,7 +108,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -129,7 +138,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "12:00:00"
+    "estimated_start_time": "12:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -158,7 +168,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "13:00:00"
+    "estimated_start_time": "13:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -187,7 +198,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "09:00:00"
+    "estimated_start_time": "09:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -216,7 +228,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:18:00"
+    "estimated_start_time": "10:18:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [
@@ -255,7 +268,12 @@
     ],
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:45:00"
+    "estimated_start_time": "10:45:00",
+    "8778_sched_display": [
+      "Dottie (7)",
+      "Doug (8)",
+      "Bee (18)"
+    ]
   },
   {
     "8778_group_display": [],
@@ -284,7 +302,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:00:00"
+    "estimated_start_time": "12:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -313,7 +332,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "12:30:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -342,7 +362,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [
@@ -374,18 +395,25 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:15 AM",
-    "start_display_short": "8:15A",
-    "time_sort": 29700,
+    "start_display": "8:10 AM",
+    "start_display_short": "8:10A",
+    "time_sort": 29400,
     "total_trips": 30,
     "class_groupxclasses_id": 200034461,
-    "latestStart": "8:15 AM",
+    "latestStart": "8:10 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:15:00"
+    "estimated_start_time": "08:10:00",
+    "8778_sched_display": [
+      "Macho",
+      "Munster",
+      "Hurricane",
+      "Elliot",
+      null
+    ]
   },
   {
     "8778_group_display": [],
@@ -405,16 +433,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:36 AM",
-    "start_display_short": "11:36A",
-    "time_sort": 41760,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
     "total_trips": 7,
     "class_groupxclasses_id": 200034464,
-    "latestStart": "11:36 AM",
+    "latestStart": "12:00 PM",
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:36:00"
+    "estimated_start_time": "12:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -434,16 +463,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:36 AM",
-    "start_display_short": "11:36A",
-    "time_sort": 41760,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
     "total_trips": 7,
     "class_groupxclasses_id": 200034465,
-    "latestStart": "11:36 AM",
+    "latestStart": "12:00 PM",
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:36:00"
+    "estimated_start_time": "12:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -463,16 +493,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:36 AM",
-    "start_display_short": "11:36A",
-    "time_sort": 41760,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
     "total_trips": 3,
     "class_groupxclasses_id": 200036085,
-    "latestStart": "11:36 AM",
+    "latestStart": "12:00 PM",
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:36:00"
+    "estimated_start_time": "12:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -492,16 +523,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:30 PM",
-    "start_display_short": "12:30P",
-    "time_sort": 45000,
+    "start_display": "1:00 PM",
+    "start_display_short": "1:00P",
+    "time_sort": 46800,
     "total_trips": 7,
     "class_groupxclasses_id": 200034468,
-    "latestStart": "12:30 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "13:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -521,16 +553,17 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:30 PM",
-    "start_display_short": "12:30P",
-    "time_sort": 45000,
+    "start_display": "1:00 PM",
+    "start_display_short": "1:00P",
+    "time_sort": 46800,
     "total_trips": 7,
     "class_groupxclasses_id": 200034469,
-    "latestStart": "12:30 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:30:00"
+    "estimated_start_time": "13:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -559,7 +592,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -588,7 +622,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -617,7 +652,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:55:00"
+    "estimated_start_time": "08:55:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -646,7 +682,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:10:00"
+    "estimated_start_time": "09:10:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -675,7 +712,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:10:00"
+    "estimated_start_time": "09:10:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -704,7 +742,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -733,7 +772,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:00:00"
+    "estimated_start_time": "11:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -762,7 +802,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -791,7 +832,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -820,7 +862,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -849,7 +892,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:45:00"
+    "estimated_start_time": "11:45:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -878,7 +922,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 6,
-    "estimated_start_time": "13:40:00"
+    "estimated_start_time": "13:40:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -907,7 +952,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:55:00"
+    "estimated_start_time": "13:55:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -936,7 +982,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -965,7 +1012,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00"
+    "estimated_start_time": "08:00:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -994,7 +1042,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00"
+    "estimated_start_time": "08:30:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -1023,7 +1072,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00"
+    "estimated_start_time": "08:30:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -1052,7 +1102,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00"
+    "estimated_start_time": "09:15:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -1081,7 +1132,8 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00"
+    "estimated_start_time": "09:15:00",
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -1110,6 +1162,7 @@
     "latestStatus": null,
     "show_date": "2026-04-16",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:21:00"
+    "estimated_start_time": "10:21:00",
+    "8778_sched_display": []
   }
 ]

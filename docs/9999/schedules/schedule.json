@@ -161,7 +161,7 @@
     "total_trips": 51,
     "class_groupxclasses_id": 200034521,
     "latestStart": "1:00 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
     "estimated_start_time": "13:00:00",
@@ -301,7 +301,7 @@
   },
   {
     "8778_group_display": [
-      "Sandenal (13)"
+      "Sandenal (12)"
     ],
     "class_group_id": 200023125,
     "class_id": 200024182,
@@ -314,7 +314,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Sandenal (13)"
+      "Sandenal (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -332,7 +332,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "12:35:04",
     "8778_sched_display": [
-      "Sandenal (13)"
+      "Sandenal (12)"
     ]
   },
   {
@@ -403,9 +403,7 @@
     "total_trips": 30,
     "class_groupxclasses_id": 200034461,
     "latestStart": "8:10 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
     "estimated_start_time": "08:10:06",

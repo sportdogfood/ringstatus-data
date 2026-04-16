@@ -797,7 +797,7 @@
   },
   {
     "8778_group_display": [
-      "Sandenal (21)"
+      "Sandenal (13)"
     ],
     "class_group_id": 200023125,
     "class_id": 200024182,
@@ -809,7 +809,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Sandenal (21)"
+      "Sandenal (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, April, 16, 2026",
@@ -820,28 +820,6 @@
     "start_display_short": "12:35P",
     "time_sort": 45304,
     "total_trips": 22
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023126,
-    "class_id": 200024337,
-    "class_name": "Mulligan Class",
-    "class_number": 980,
-    "dt": "2026-04-16",
-    "group_name": "Mulligan Class",
-    "group_name_tags": "mulligan, hunters, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Thursday, April, 16, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:57 PM",
-    "start_display_short": "12:57P",
-    "time_sort": 46654,
-    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -930,6 +908,28 @@
     "start_display_short": "1:00P",
     "time_sort": 46800,
     "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023126,
+    "class_id": 200024337,
+    "class_name": "Mulligan Class",
+    "class_number": 980,
+    "dt": "2026-04-16",
+    "group_name": "Mulligan Class",
+    "group_name_tags": "mulligan, hunters, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Thursday, April, 16, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:04 PM",
+    "start_display_short": "1:04P",
+    "time_sort": 47084,
+    "total_trips": 0
   },
   {
     "8778_group_display": [],

@@ -107,7 +107,7 @@
     "start_display": "8:05 AM",
     "start_display_short": "8:05A",
     "time_sort": 29105,
-    "total_trips": 34
+    "total_trips": 35
   },
   {
     "8778_group_display": [],
@@ -129,7 +129,7 @@
     "start_display": "8:05 AM",
     "start_display_short": "8:05A",
     "time_sort": 29105,
-    "total_trips": 34
+    "total_trips": 35
   },
   {
     "8778_group_display": [
@@ -339,7 +339,7 @@
     "start_display": "9:12 AM",
     "start_display_short": "9:12A",
     "time_sort": 33172,
-    "total_trips": 58
+    "total_trips": 59
   },
   {
     "8778_group_display": [],
@@ -361,7 +361,7 @@
     "start_display": "9:12 AM",
     "start_display_short": "9:12A",
     "time_sort": 33172,
-    "total_trips": 58
+    "total_trips": 59
   },
   {
     "8778_group_display": [],
@@ -446,32 +446,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:25 AM",
-    "start_display_short": "10:25A",
-    "time_sort": 37507,
+    "start_display": "10:30 AM",
+    "start_display_short": "10:30A",
+    "time_sort": 37806,
     "total_trips": 6
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023153,
-    "class_id": 200024157,
-    "class_name": "Mulligan Class",
-    "class_number": 982,
-    "dt": "2026-04-16",
-    "group_name": "Mulligan Class",
-    "group_name_tags": "mulligan, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Thursday, April, 16, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:40 AM",
-    "start_display_short": "10:40A",
-    "time_sort": 38407,
-    "total_trips": 0
   },
   {
     "8778_group_display": [
@@ -505,6 +483,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023153,
+    "class_id": 200024157,
+    "class_name": "Mulligan Class",
+    "class_number": 982,
+    "dt": "2026-04-16",
+    "group_name": "Mulligan Class",
+    "group_name_tags": "mulligan, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Thursday, April, 16, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "10:47 AM",
+    "start_display_short": "10:47A",
+    "time_sort": 38838,
+    "total_trips": 0
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023142,
     "class_id": 200023936,
     "class_name": "Young Hunter 3' (6 & Under)",
@@ -523,7 +523,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 28
+    "total_trips": 29
   },
   {
     "8778_group_display": [],
@@ -545,7 +545,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 28
+    "total_trips": 29
   },
   {
     "8778_group_display": [],
@@ -589,7 +589,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 54
   },
   {
     "8778_group_display": [],
@@ -611,7 +611,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 54
   },
   {
     "8778_group_display": [],
@@ -633,7 +633,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 54
   },
   {
     "8778_group_display": [],
@@ -655,7 +655,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 53
+    "total_trips": 54
   },
   {
     "8778_group_display": [],
@@ -841,7 +841,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": 54
+    "total_trips": 51
   },
   {
     "8778_group_display": [],
@@ -992,9 +992,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:48 PM",
-    "start_display_short": "2:48P",
-    "time_sort": 53280,
+    "start_display": "2:42 PM",
+    "start_display_short": "2:42P",
+    "time_sort": 52920,
     "total_trips": 0
   }
 ]

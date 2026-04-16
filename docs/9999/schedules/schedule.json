@@ -403,7 +403,9 @@
     "total_trips": 30,
     "class_groupxclasses_id": 200034461,
     "latestStart": "8:10 AM",
-    "latestStatus": "Completed",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-16",
     "class_group_sequence": 3,
     "estimated_start_time": "08:10:06",

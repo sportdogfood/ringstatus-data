@@ -86,7 +86,7 @@
     "start_display": "3:30 PM",
     "start_display_short": "3:30P",
     "time_sort": 55800,
-    "total_trips": 23,
+    "total_trips": 21,
     "class_groupxclasses_id": 200034516,
     "latestStart": "3:30 PM",
     "latestStatus": "Upcoming",
@@ -567,7 +567,7 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200034531,
     "latestStart": "2:55 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 5,
     "estimated_start_time": "14:55:05",
@@ -1520,8 +1520,8 @@
   },
   {
     "8778_group_display": [
-      "Paisley (10)",
-      "Yankee (11)",
+      "Paisley (8)",
+      "Yankee (9)",
       "Bernie (22)"
     ],
     "class_group_id": 200023214,
@@ -1535,8 +1535,8 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Paisley (10)",
-      "Yankee (11)",
+      "Paisley (8)",
+      "Yankee (9)",
       "Bernie (22)"
     ],
     "shifted_to_next_day": null,
@@ -1555,8 +1555,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "14:30:07",
     "8778_sched_display": [
-      "Paisley (10)",
-      "Yankee (11)",
+      "Paisley (8)",
+      "Yankee (9)",
       "Bernie (22)"
     ]
   },
@@ -1774,7 +1774,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200034605,
     "latestStart": "1:55 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-17",
     "class_group_sequence": 6,
     "estimated_start_time": "13:55:06",

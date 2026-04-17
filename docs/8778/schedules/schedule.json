@@ -20,7 +20,7 @@
     "ring_nickname": "Derby",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "isFirstUp, target, open, 1.40m, jumpers, Over Fences"
@@ -95,7 +95,7 @@
     "class_number": 711,
     "class_name": "1.25m Open Jumper II2.1",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -200,7 +200,7 @@
     "class_name": "1.30m Junior/Amateur Jumper II2d",
     "latestStart": "8:00 AM",
     "latestStatus": [
-      "Not Started"
+      "Underway"
     ],
     "total_trips": null,
     "show_id": 200000059,
@@ -442,7 +442,7 @@
     "class_id": 200024204,
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
-    "latestStart": "12:30 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -452,9 +452,9 @@
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "12:30 PM",
+    "start_display": "1:00 PM",
     "class_group_sequence": 4,
-    "estimated_start_time": "12:30:00",
+    "estimated_start_time": "13:00:00",
     "group_display": [
       "Lenny (4)",
       "Jason (5)",
@@ -478,7 +478,7 @@
     "class_id": 200023951,
     "class_number": 535,
     "class_name": "IHSA/USHJA 3'3\" Hunter Seat Medal",
-    "latestStart": "1:30 PM",
+    "latestStart": "2:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": null,
     "show_id": 200000059,
@@ -486,9 +486,9 @@
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "1:30 PM",
+    "start_display": "2:00 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "13:30:00",
+    "estimated_start_time": "14:00:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences"
@@ -552,12 +552,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:15:00",
     "group_display": [
-      "Crush (10)",
-      "Bernie (11)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "8778_sched_display": [
-      "Crush (10)",
-      "Bernie (11)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "group_name_tags": "target, pony, ushja, hunters, Over Fences"
   },
@@ -573,7 +573,7 @@
     "class_number": 229,
     "class_name": "ESP Hunter 3'3\"",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -599,7 +599,7 @@
     "class_number": 230,
     "class_name": "ESP Hunter 3'3\"",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -624,7 +624,7 @@
     "class_id": 200024163,
     "class_number": 224,
     "class_name": "USHJA Hunter 3'",
-    "latestStart": "8:50 AM",
+    "latestStart": "8:45 AM",
     "latestStatus": "Upcoming",
     "total_trips": null,
     "show_id": 200000059,
@@ -632,9 +632,9 @@
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:50 AM",
+    "start_display": "8:45 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:50:00",
+    "estimated_start_time": "08:45:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 3', ushja, hunters, Over Fences"
@@ -650,7 +650,7 @@
     "class_id": 200024164,
     "class_number": 225,
     "class_name": "USHJA Hunter 3'",
-    "latestStart": "8:50 AM",
+    "latestStart": "8:45 AM",
     "latestStatus": "Upcoming",
     "total_trips": null,
     "show_id": 200000059,
@@ -658,9 +658,9 @@
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:50 AM",
+    "start_display": "8:45 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:50:00",
+    "estimated_start_time": "08:45:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 3', ushja, hunters, Over Fences"
@@ -781,9 +781,7 @@
     "class_number": 545,
     "class_name": "Marshall + Sterling/USHJA 3'3\" Jumper Seat Medal",
     "latestStart": "8:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -987,7 +985,7 @@
     "class_number": 179,
     "class_name": "USHJA Hunter 2'",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -1013,7 +1011,7 @@
     "class_number": 180,
     "class_name": "USHJA Hunter 2'",
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": null,
     "show_id": 200000059,
     "show_date": "2026-04-17",
@@ -1400,14 +1398,14 @@
     "class_group_sequence": 2,
     "estimated_start_time": "14:30:00",
     "group_display": [
-      "Bernie (9)",
-      "Yankee (13)",
-      "Paisley (16)"
+      "Bernie (11)",
+      "Yankee (15)",
+      "Paisley (18)"
     ],
     "8778_sched_display": [
-      "Bernie (9)",
-      "Yankee (13)",
-      "Paisley (16)"
+      "Bernie (11)",
+      "Yankee (15)",
+      "Paisley (18)"
     ],
     "group_name_tags": "target, pony, Over Fences"
   },
@@ -1432,7 +1430,7 @@
     "ring_nickname": "Ring 9",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:09",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "isFirstUp, target, puddle, jumpers, Over Fences"
@@ -1458,7 +1456,7 @@
     "ring_nickname": "Ring 9",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:09",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "isFirstUp, target, puddle, jumpers, Over Fences"

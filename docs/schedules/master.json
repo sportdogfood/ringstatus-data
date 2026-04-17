@@ -1042,28 +1042,6 @@
     "total_trips": null
   },
   {
-    "8778_group_display": [],
-    "class_group_id": 200023163,
-    "class_id": 200024049,
-    "class_name": "$10,000 1.40m Open Stake II2b",
-    "class_number": 807,
-    "dt": "2026-04-17",
-    "group_name": "$10,000 1.40m Open Stake II2b",
-    "group_name_tags": "isFirstUp, target, open, 1.40m, jumpers, Over Fences",
-    "ring_nickname": "Derby",
-    "ring_number": 1,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
-    "total_trips": null
-  },
-  {
     "8778_group_display": [
       "Bee (20)"
     ],
@@ -1207,6 +1185,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023163,
+    "class_id": 200024049,
+    "class_name": "$10,000 1.40m Open Stake II2b",
+    "class_number": 807,
+    "dt": "2026-04-17",
+    "group_name": "$10,000 1.40m Open Stake II2b",
+    "group_name_tags": "isFirstUp, target, open, 1.40m, jumpers, Over Fences",
+    "ring_nickname": "Derby",
+    "ring_number": 1,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:00 AM",
+    "start_display_short": "8:00A",
+    "time_sort": 28806,
+    "total_trips": null
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023217,
     "class_id": 200024227,
     "class_name": "Puddle Jumper Junior/Amateur (.80m) II2b",
@@ -1224,7 +1224,7 @@
     "sid": 200000059,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28809,
     "total_trips": null
   },
   {
@@ -1246,7 +1246,7 @@
     "sid": 200000059,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28809,
     "total_trips": null
   },
   {
@@ -1311,28 +1311,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023201,
-    "class_id": 200024056,
-    "class_name": "USHJA Hunter 2' U/S",
-    "class_number": 176,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 2' U/S",
-    "group_name_tags": "target, usf, ushja, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:45 AM",
-    "start_display_short": "8:45A",
-    "time_sort": 31500,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023186,
     "class_id": 200024164,
     "class_name": "USHJA Hunter 3'",
@@ -1348,9 +1326,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:50 AM",
-    "start_display_short": "8:50A",
-    "time_sort": 31800,
+    "start_display": "8:45 AM",
+    "start_display_short": "8:45A",
+    "time_sort": 31500,
     "total_trips": null
   },
   {
@@ -1370,9 +1348,31 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:50 AM",
-    "start_display_short": "8:50A",
-    "time_sort": 31800,
+    "start_display": "8:45 AM",
+    "start_display_short": "8:45A",
+    "time_sort": 31500,
+    "total_trips": null
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023201,
+    "class_id": 200024056,
+    "class_name": "USHJA Hunter 2' U/S",
+    "class_number": 176,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 2' U/S",
+    "group_name_tags": "target, usf, ushja, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:45 AM",
+    "start_display_short": "8:45A",
+    "time_sort": 31500,
     "total_trips": null
   },
   {
@@ -1591,8 +1591,8 @@
   },
   {
     "8778_group_display": [
-      "Crush (10)",
-      "Bernie (11)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "class_group_id": 200023226,
     "class_id": 200024361,
@@ -1604,8 +1604,8 @@
     "ring_nickname": "Grand",
     "ring_number": 6,
     "group_display": [
-      "Crush (10)",
-      "Bernie (11)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -2070,36 +2070,6 @@
     "total_trips": null
   },
   {
-    "8778_group_display": [
-      "Lenny (4)",
-      "Jason (5)",
-      "Ford (11)"
-    ],
-    "class_group_id": 200023179,
-    "class_id": 200024204,
-    "class_name": "WIHS Hunter Phase",
-    "class_number": 580,
-    "dt": "2026-04-17",
-    "group_name": "WIHS Hunter Phase",
-    "group_name_tags": "target, wihs, Over Fences",
-    "ring_nickname": "Intl",
-    "ring_number": 5,
-    "group_display": [
-      "Lenny (4)",
-      "Jason (5)",
-      "Ford (11)"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:30 PM",
-    "start_display_short": "12:30P",
-    "time_sort": 45000,
-    "total_trips": null
-  },
-  {
     "8778_group_display": [],
     "class_group_id": 200023198,
     "class_id": 200024346,
@@ -2183,6 +2153,36 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:00 PM",
+    "start_display_short": "1:00P",
+    "time_sort": 46800,
+    "total_trips": null
+  },
+  {
+    "8778_group_display": [
+      "Lenny (4)",
+      "Jason (5)",
+      "Ford (11)"
+    ],
+    "class_group_id": 200023179,
+    "class_id": 200024204,
+    "class_name": "WIHS Hunter Phase",
+    "class_number": 580,
+    "dt": "2026-04-17",
+    "group_name": "WIHS Hunter Phase",
+    "group_name_tags": "target, wihs, Over Fences",
+    "ring_nickname": "Intl",
+    "ring_number": 5,
+    "group_display": [
+      "Lenny (4)",
+      "Jason (5)",
+      "Ford (11)"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
@@ -2390,9 +2390,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
+    "start_display": "2:00 PM",
+    "start_display_short": "2:00P",
+    "time_sort": 50400,
     "total_trips": null
   },
   {
@@ -2427,9 +2427,9 @@
   },
   {
     "8778_group_display": [
-      "Bernie (9)",
-      "Yankee (13)",
-      "Paisley (16)"
+      "Bernie (11)",
+      "Yankee (15)",
+      "Paisley (18)"
     ],
     "class_group_id": 200023214,
     "class_id": 200024203,
@@ -2441,9 +2441,9 @@
     "ring_nickname": "Ring 7",
     "ring_number": 10,
     "group_display": [
-      "Bernie (9)",
-      "Yankee (13)",
-      "Paisley (16)"
+      "Bernie (11)",
+      "Yankee (15)",
+      "Paisley (18)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",

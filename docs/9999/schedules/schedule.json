@@ -353,7 +353,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie (8)"
+      "Dottie (7)"
     ],
     "class_group_id": 200023174,
     "class_id": 200024267,
@@ -366,7 +366,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Dottie (8)"
+      "Dottie (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -375,8 +375,8 @@
     "sid": 200000059,
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
-    "time_sort": 42000,
-    "total_trips": 31,
+    "time_sort": 42006,
+    "total_trips": 32,
     "class_groupxclasses_id": 200034526,
     "latestStart": "11:40 AM",
     "latestStatus": [
@@ -384,9 +384,9 @@
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:40:00",
+    "estimated_start_time": "11:40:06",
     "8778_sched_display": [
-      "Dottie (8)"
+      "Dottie (7)"
     ]
   },
   {
@@ -427,7 +427,7 @@
       "Munster (21)",
       "Dorian (39)",
       "Elliot (40)",
-      "Jason (49)"
+      "Jason (50)"
     ],
     "class_group_id": 200023178,
     "class_id": 200024278,
@@ -446,7 +446,7 @@
       "Munster (21)",
       "Dorian (39)",
       "Elliot (40)",
-      "Jason (49)"
+      "Jason (50)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -470,7 +470,7 @@
       "Munster (21)",
       "Dorian (39)",
       "Elliot (40)",
-      "Jason (49)"
+      "Jason (50)"
     ]
   },
   {
@@ -646,7 +646,9 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200034610,
     "latestStart": "10:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-17",
     "class_group_sequence": 3,
     "estimated_start_time": "10:35:00",
@@ -1684,14 +1686,14 @@
     "sid": 200000059,
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
-    "time_sort": 42000,
+    "time_sort": 42007,
     "total_trips": 14,
     "class_groupxclasses_id": 200034600,
     "latestStart": "11:40 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-17",
     "class_group_sequence": 3,
-    "estimated_start_time": "11:40:00",
+    "estimated_start_time": "11:40:07",
     "8778_sched_display": []
   },
   {

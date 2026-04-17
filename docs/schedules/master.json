@@ -1659,7 +1659,7 @@
     "start_display": "10:35 AM",
     "start_display_short": "10:35A",
     "time_sort": 38100,
-    "total_trips": 12
+    "total_trips": 11
   },
   {
     "8778_group_display": [
@@ -1706,7 +1706,7 @@
     "sid": 200000059,
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "time_sort": 39609,
     "total_trips": 21
   },
   {
@@ -1730,28 +1730,6 @@
     "start_display_short": "11:15A",
     "time_sort": 40500,
     "total_trips": 3
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023188,
-    "class_id": 200024257,
-    "class_name": "USHJA Hunter 3' U/S",
-    "class_number": 221,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 3' U/S",
-    "group_name_tags": "target, usf, 3', ushja, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
-    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1840,6 +1818,28 @@
     "start_display_short": "11:15A",
     "time_sort": 40500,
     "total_trips": 12
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023188,
+    "class_id": 200024257,
+    "class_name": "USHJA Hunter 3' U/S",
+    "class_number": 221,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 3' U/S",
+    "group_name_tags": "target, usf, 3', ushja, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:17 AM",
+    "start_display_short": "11:17A",
+    "time_sort": 40678,
+    "total_trips": 3
   },
   {
     "8778_group_display": [],

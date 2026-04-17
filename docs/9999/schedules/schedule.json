@@ -23,7 +23,7 @@
     "total_trips": null,
     "class_groupxclasses_id": 200034514,
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:06",
@@ -245,9 +245,7 @@
     "total_trips": null,
     "class_groupxclasses_id": 200034522,
     "latestStart": "8:00 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
@@ -287,7 +285,7 @@
   },
   {
     "8778_group_display": [
-      "Doug (16)"
+      "Doug (17)"
     ],
     "class_group_id": 200023172,
     "class_id": 200024126,
@@ -300,7 +298,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Doug (16)"
+      "Doug (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -320,7 +318,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:30:00",
     "8778_sched_display": [
-      "Doug (16)"
+      "Doug (17)"
     ]
   },
   {
@@ -1610,8 +1608,8 @@
   },
   {
     "8778_group_display": [
-      "Bernie (11)",
-      "Yankee (15)",
+      "Bernie (9)",
+      "Yankee (16)",
       "Paisley (18)"
     ],
     "class_group_id": 200023214,
@@ -1625,8 +1623,8 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Bernie (11)",
-      "Yankee (15)",
+      "Bernie (9)",
+      "Yankee (16)",
       "Paisley (18)"
     ],
     "shifted_to_next_day": null,
@@ -1647,8 +1645,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "14:30:00",
     "8778_sched_display": [
-      "Bernie (11)",
-      "Yankee (15)",
+      "Bernie (9)",
+      "Yankee (16)",
       "Paisley (18)"
     ]
   },
@@ -1676,7 +1674,7 @@
     "total_trips": null,
     "class_groupxclasses_id": 200034597,
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:09",
@@ -1706,7 +1704,7 @@
     "total_trips": null,
     "class_groupxclasses_id": 200034598,
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:09",

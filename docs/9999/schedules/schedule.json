@@ -375,18 +375,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:40 AM",
-    "start_display_short": "11:40A",
-    "time_sort": 42000,
+    "start_display": "11:24 AM",
+    "start_display_short": "11:24A",
+    "time_sort": 41040,
     "total_trips": null,
     "class_groupxclasses_id": 200034526,
-    "latestStart": "11:40 AM",
+    "latestStart": "11:24 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:40:00",
+    "estimated_start_time": "11:24:00",
     "8778_sched_display": [
       "Dottie (6)"
     ]
@@ -427,9 +427,9 @@
       "Macho (7)",
       "Navy (21)",
       "Munster (22)",
-      "Dorian (39)",
-      "Elliot (40)",
-      "Jason (51)"
+      "Dorian (40)",
+      "Elliot (41)",
+      "Jason (52)"
     ],
     "class_group_id": 200023178,
     "class_id": 200024278,
@@ -446,9 +446,9 @@
       "Macho (7)",
       "Navy (21)",
       "Munster (22)",
-      "Dorian (39)",
-      "Elliot (40)",
-      "Jason (51)"
+      "Dorian (40)",
+      "Elliot (41)",
+      "Jason (52)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -472,9 +472,9 @@
       "Macho (7)",
       "Navy (21)",
       "Munster (22)",
-      "Dorian (39)",
-      "Elliot (40)",
-      "Jason (51)"
+      "Dorian (40)",
+      "Elliot (41)",
+      "Jason (52)"
     ]
   },
   {
@@ -905,8 +905,8 @@
   },
   {
     "8778_group_display": [
-      "Lenny (6)",
-      "Munster (7)"
+      "Lenny (1)",
+      "Munster (2)"
     ],
     "class_group_id": 200023192,
     "class_id": 200024000,
@@ -919,8 +919,8 @@
     "ring_number": 8,
     "ringName": "Mogavero",
     "group_display": [
-      "Lenny (6)",
-      "Munster (7)"
+      "Lenny (1)",
+      "Munster (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -940,8 +940,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      "Lenny (6)",
-      "Munster (7)"
+      "Lenny (1)",
+      "Munster (2)"
     ]
   },
   {
@@ -1716,7 +1716,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (7)"
+      "Caymus (8)"
     ],
     "class_group_id": 200023218,
     "class_id": 200024300,
@@ -1729,7 +1729,7 @@
     "ring_number": 12,
     "ringName": "Ring 9",
     "group_display": [
-      "Caymus (7)"
+      "Caymus (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -1749,7 +1749,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "10:05:00",
     "8778_sched_display": [
-      "Caymus (7)"
+      "Caymus (8)"
     ]
   },
   {

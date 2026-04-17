@@ -151,7 +151,7 @@
     "total_trips": 38,
     "class_groupxclasses_id": 200034518,
     "latestStart": "9:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
     "estimated_start_time": "09:30:00",
@@ -271,16 +271,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
+    "start_display": "9:20 AM",
+    "start_display_short": "9:20A",
+    "time_sort": 33606,
     "total_trips": 20,
     "class_groupxclasses_id": 200034523,
-    "latestStart": "9:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "9:20 AM",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "09:15:00",
+    "estimated_start_time": "09:20:06",
     "8778_sched_display": []
   },
   {
@@ -579,8 +579,8 @@
   },
   {
     "8778_group_display": [
-      "Carry (4)",
-      "Tommy (5)"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "class_group_id": 200023182,
     "class_id": 200023907,
@@ -593,8 +593,8 @@
     "ring_number": 6,
     "ringName": "Grand",
     "group_display": [
-      "Carry (4)",
-      "Tommy (5)"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -612,8 +612,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:08",
     "8778_sched_display": [
-      "Carry (4)",
-      "Tommy (5)"
+      "Carry (7)",
+      "Tommy (8)"
     ]
   },
   {
@@ -768,7 +768,7 @@
     "start_display": "8:50 AM",
     "start_display_short": "8:50A",
     "time_sort": 31800,
-    "total_trips": 24,
+    "total_trips": 23,
     "class_groupxclasses_id": 200034542,
     "latestStart": "8:50 AM",
     "latestStatus": "Underway",
@@ -954,16 +954,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
+    "start_display": "9:20 AM",
+    "start_display_short": "9:20A",
+    "time_sort": 33606,
     "total_trips": 4,
     "class_groupxclasses_id": 200034554,
-    "latestStart": "9:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "9:20 AM",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:00",
+    "estimated_start_time": "09:20:06",
     "8778_sched_display": []
   },
   {
@@ -1028,7 +1028,7 @@
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
     "time_sort": 38700,
-    "total_trips": 26,
+    "total_trips": 25,
     "class_groupxclasses_id": 200034556,
     "latestStart": "10:45 AM",
     "latestStatus": "Upcoming",
@@ -1249,7 +1249,7 @@
     "start_display": "8:50 AM",
     "start_display_short": "8:50A",
     "time_sort": 31800,
-    "total_trips": 7,
+    "total_trips": 8,
     "class_groupxclasses_id": 200034567,
     "latestStart": "8:50 AM",
     "latestStatus": null,
@@ -1697,7 +1697,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28809,
-    "total_trips": 19,
+    "total_trips": 18,
     "class_groupxclasses_id": 200034598,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -1728,18 +1728,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:06 AM",
-    "start_display_short": "10:06A",
-    "time_sort": 36374,
+    "start_display": "10:05 AM",
+    "start_display_short": "10:05A",
+    "time_sort": 36341,
     "total_trips": 18,
     "class_groupxclasses_id": 200034599,
-    "latestStart": "10:06 AM",
+    "latestStart": "10:05 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:06:14",
+    "estimated_start_time": "10:05:41",
     "8778_sched_display": [
       "Caymus (8)"
     ]

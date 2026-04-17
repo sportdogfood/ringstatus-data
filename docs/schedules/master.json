@@ -1039,7 +1039,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 29
   },
   {
     "8778_group_display": [
@@ -1065,7 +1065,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -1087,7 +1087,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -1109,7 +1109,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 8
   },
   {
     "8778_group_display": [
@@ -1137,7 +1137,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -1159,7 +1159,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1181,7 +1181,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": null
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -1203,7 +1203,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28806,
-    "total_trips": null
+    "total_trips": 54
   },
   {
     "8778_group_display": [],
@@ -1225,7 +1225,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28809,
-    "total_trips": null
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -1247,7 +1247,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28809,
-    "total_trips": null
+    "total_trips": 22
   },
   {
     "8778_group_display": [
@@ -1285,7 +1285,7 @@
     "start_display": "8:35 AM",
     "start_display_short": "8:35A",
     "time_sort": 30900,
-    "total_trips": null
+    "total_trips": 40
   },
   {
     "8778_group_display": [],
@@ -1307,51 +1307,7 @@
     "start_display": "8:35 AM",
     "start_display_short": "8:35A",
     "time_sort": 30900,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023186,
-    "class_id": 200024164,
-    "class_name": "USHJA Hunter 3'",
-    "class_number": 225,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 3'",
-    "group_name_tags": "target, 3', ushja, hunters, Over Fences",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:45 AM",
-    "start_display_short": "8:45A",
-    "time_sort": 31500,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023186,
-    "class_id": 200024163,
-    "class_name": "USHJA Hunter 3'",
-    "class_number": 224,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 3'",
-    "group_name_tags": "target, 3', ushja, hunters, Over Fences",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:45 AM",
-    "start_display_short": "8:45A",
-    "time_sort": 31500,
-    "total_trips": null
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -1373,7 +1329,51 @@
     "start_display": "8:45 AM",
     "start_display_short": "8:45A",
     "time_sort": 31500,
-    "total_trips": null
+    "total_trips": 4
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023186,
+    "class_id": 200024164,
+    "class_name": "USHJA Hunter 3'",
+    "class_number": 225,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 3'",
+    "group_name_tags": "target, 3', ushja, hunters, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:49 AM",
+    "start_display_short": "8:49A",
+    "time_sort": 31761,
+    "total_trips": 24
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023186,
+    "class_id": 200024163,
+    "class_name": "USHJA Hunter 3'",
+    "class_number": 224,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 3'",
+    "group_name_tags": "target, 3', ushja, hunters, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:49 AM",
+    "start_display_short": "8:49A",
+    "time_sort": 31761,
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -1392,10 +1392,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:55 AM",
-    "start_display_short": "8:55A",
-    "time_sort": 32100,
-    "total_trips": null
+    "start_display": "8:50 AM",
+    "start_display_short": "8:50A",
+    "time_sort": 31800,
+    "total_trips": 7
   },
   {
     "8778_group_display": [
@@ -1423,7 +1423,51 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": null
+    "total_trips": 13
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023204,
+    "class_id": 200024290,
+    "class_name": "USHJA Hunter 2'3\"",
+    "class_number": 185,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 2'3\"",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:00 AM",
+    "start_display_short": "9:00A",
+    "time_sort": 32400,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023204,
+    "class_id": 200023967,
+    "class_name": "USHJA Hunter 2'3\"",
+    "class_number": 184,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 2'3\"",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:00 AM",
+    "start_display_short": "9:00A",
+    "time_sort": 32400,
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -1445,7 +1489,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": null
+    "total_trips": 17
   },
   {
     "8778_group_display": [],
@@ -1467,51 +1511,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023204,
-    "class_id": 200024290,
-    "class_name": "USHJA Hunter 2'3\"",
-    "class_number": 185,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 2'3\"",
-    "group_name_tags": "target, ushja, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023204,
-    "class_id": 200023967,
-    "class_name": "USHJA Hunter 2'3\"",
-    "class_number": 184,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 2'3\"",
-    "group_name_tags": "target, ushja, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
-    "total_trips": null
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -1533,7 +1533,7 @@
     "start_display": "9:30 AM",
     "start_display_short": "9:30A",
     "time_sort": 34200,
-    "total_trips": null
+    "total_trips": 38
   },
   {
     "8778_group_display": [
@@ -1561,7 +1561,51 @@
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
     "time_sort": 36000,
-    "total_trips": null
+    "total_trips": 16
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023205,
+    "class_id": 200024249,
+    "class_name": "USHJA Hunter 2'6\"",
+    "class_number": 234,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 2'6\"",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023205,
+    "class_id": 200023892,
+    "class_name": "USHJA Hunter 2'6\"",
+    "class_number": 235,
+    "dt": "2026-04-17",
+    "group_name": "USHJA Hunter 2'6\"",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
+    "total_trips": 8
   },
   {
     "8778_group_display": [
@@ -1587,7 +1631,7 @@
     "start_display": "10:05 AM",
     "start_display_short": "10:05A",
     "time_sort": 36300,
-    "total_trips": null
+    "total_trips": 18
   },
   {
     "8778_group_display": [
@@ -1615,51 +1659,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36900,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023205,
-    "class_id": 200024249,
-    "class_name": "USHJA Hunter 2'6\"",
-    "class_number": 234,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 2'6\"",
-    "group_name_tags": "target, ushja, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023205,
-    "class_id": 200023892,
-    "class_name": "USHJA Hunter 2'6\"",
-    "class_number": 235,
-    "dt": "2026-04-17",
-    "group_name": "USHJA Hunter 2'6\"",
-    "group_name_tags": "target, ushja, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
-    "total_trips": null
+    "total_trips": 13
   },
   {
     "8778_group_display": [
@@ -1685,7 +1685,7 @@
     "start_display": "10:30 AM",
     "start_display_short": "10:30A",
     "time_sort": 37800,
-    "total_trips": null
+    "total_trips": 17
   },
   {
     "8778_group_display": [],
@@ -1707,7 +1707,7 @@
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
     "time_sort": 38700,
-    "total_trips": null
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -1729,7 +1729,7 @@
     "start_display": "11:10 AM",
     "start_display_short": "11:10A",
     "time_sort": 40200,
-    "total_trips": null
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -1751,7 +1751,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -1773,7 +1773,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [
@@ -1799,7 +1799,7 @@
     "start_display": "11:18 AM",
     "start_display_short": "11:18A",
     "time_sort": 40680,
-    "total_trips": null
+    "total_trips": 34
   },
   {
     "8778_group_display": [],
@@ -1821,7 +1821,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -1843,7 +1843,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": null
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -1865,7 +1865,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -1887,7 +1887,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": null
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -1909,7 +1909,7 @@
     "start_display": "11:30 AM",
     "start_display_short": "11:30A",
     "time_sort": 41400,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -1931,7 +1931,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -1953,7 +1953,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -1975,7 +1975,7 @@
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
     "time_sort": 43200,
-    "total_trips": null
+    "total_trips": 30
   },
   {
     "8778_group_display": [
@@ -2001,7 +2001,7 @@
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
     "time_sort": 43200,
-    "total_trips": null
+    "total_trips": 67
   },
   {
     "8778_group_display": [],
@@ -2023,7 +2023,7 @@
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
     "time_sort": 43200,
-    "total_trips": null
+    "total_trips": 1
   },
   {
     "8778_group_display": [],
@@ -2045,7 +2045,7 @@
     "start_display": "12:15 PM",
     "start_display_short": "12:15P",
     "time_sort": 44100,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -2067,7 +2067,7 @@
     "start_display": "12:20 PM",
     "start_display_short": "12:20P",
     "time_sort": 44400,
-    "total_trips": null
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -2089,7 +2089,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": null
+    "total_trips": 23
   },
   {
     "8778_group_display": [],
@@ -2111,7 +2111,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [
@@ -2139,7 +2139,29 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": null
+    "total_trips": 11
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200024421,
+    "class_id": 200024254,
+    "class_name": "Mulligan Class",
+    "class_number": 998,
+    "dt": "2026-04-17",
+    "group_name": "Mulligan Class",
+    "group_name_tags": "mulligan, hunters, Over Fences",
+    "ring_nickname": "Annex",
+    "ring_number": 2,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:00 PM",
+    "start_display_short": "1:00P",
+    "time_sort": 46800,
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -2161,7 +2183,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": null
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -2183,7 +2205,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": null
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -2205,7 +2227,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -2227,29 +2249,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200024421,
-    "class_id": 200024254,
-    "class_name": "Mulligan Class",
-    "class_number": 998,
-    "dt": "2026-04-17",
-    "group_name": "Mulligan Class",
-    "group_name_tags": "mulligan, hunters, Over Fences",
-    "ring_nickname": "Annex",
-    "ring_number": 2,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "1:02 PM",
-    "start_display_short": "1:02P",
-    "time_sort": 46920,
-    "total_trips": null
+    "total_trips": 3
   },
   {
     "8778_group_display": [
@@ -2279,7 +2279,7 @@
     "start_display": "1:15 PM",
     "start_display_short": "1:15P",
     "time_sort": 47700,
-    "total_trips": null
+    "total_trips": 17
   },
   {
     "8778_group_display": [
@@ -2305,7 +2305,7 @@
     "start_display": "1:15 PM",
     "start_display_short": "1:15P",
     "time_sort": 47700,
-    "total_trips": null
+    "total_trips": 15
   },
   {
     "8778_group_display": [],
@@ -2327,7 +2327,7 @@
     "start_display": "1:15 PM",
     "start_display_short": "1:15P",
     "time_sort": 47700,
-    "total_trips": null
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -2349,7 +2349,7 @@
     "start_display": "1:19 PM",
     "start_display_short": "1:19P",
     "time_sort": 47940,
-    "total_trips": null
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -2371,7 +2371,7 @@
     "start_display": "1:21 PM",
     "start_display_short": "1:21P",
     "time_sort": 48060,
-    "total_trips": null
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -2393,7 +2393,7 @@
     "start_display": "2:15 PM",
     "start_display_short": "2:15P",
     "time_sort": 51300,
-    "total_trips": null
+    "total_trips": 9
   },
   {
     "8778_group_display": [
@@ -2423,7 +2423,7 @@
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
     "time_sort": 52200,
-    "total_trips": null
+    "total_trips": 10
   },
   {
     "8778_group_display": [
@@ -2453,7 +2453,7 @@
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
     "time_sort": 52200,
-    "total_trips": null
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -2475,6 +2475,6 @@
     "start_display": "3:30 PM",
     "start_display_short": "3:30P",
     "time_sort": 55800,
-    "total_trips": null
+    "total_trips": 41
   }
 ]

@@ -86,7 +86,7 @@
     "start_display": "3:30 PM",
     "start_display_short": "3:30P",
     "time_sort": 55800,
-    "total_trips": 25,
+    "total_trips": 23,
     "class_groupxclasses_id": 200034516,
     "latestStart": "3:30 PM",
     "latestStatus": "Upcoming",
@@ -1546,16 +1546,14 @@
     "sid": 200000059,
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
-    "time_sort": 52200,
+    "time_sort": 52207,
     "total_trips": 12,
     "class_groupxclasses_id": 200034595,
     "latestStart": "2:30 PM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "14:30:00",
+    "estimated_start_time": "14:30:07",
     "8778_sched_display": [
       "Paisley (11)",
       "Yankee (12)",

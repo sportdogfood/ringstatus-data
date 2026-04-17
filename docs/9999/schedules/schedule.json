@@ -151,7 +151,7 @@
     "total_trips": 34,
     "class_groupxclasses_id": 200034518,
     "latestStart": "9:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
     "estimated_start_time": "09:30:00",
@@ -376,7 +376,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": 33,
+    "total_trips": 31,
     "class_groupxclasses_id": 200034526,
     "latestStart": "11:40 AM",
     "latestStatus": [
@@ -964,9 +964,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200034555,
     "latestStart": "10:05 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-04-17",
     "class_group_sequence": 4,
     "estimated_start_time": "10:05:05",
@@ -996,7 +994,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 22,
+    "total_trips": 21,
     "class_groupxclasses_id": 200034556,
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
@@ -1427,7 +1425,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 11,
+    "total_trips": 12,
     "class_groupxclasses_id": 200034582,
     "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
@@ -1457,7 +1455,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 11,
+    "total_trips": 12,
     "class_groupxclasses_id": 200034583,
     "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
@@ -1632,7 +1630,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (10)"
+      "Caymus (12)"
     ],
     "class_group_id": 200023218,
     "class_id": 200024300,
@@ -1645,7 +1643,7 @@
     "ring_number": 12,
     "ringName": "Ring 9",
     "group_display": [
-      "Caymus (10)"
+      "Caymus (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -1663,7 +1661,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "10:30:08",
     "8778_sched_display": [
-      "Caymus (10)"
+      "Caymus (12)"
     ]
   },
   {
@@ -1687,7 +1685,7 @@
     "start_display": "11:35 AM",
     "start_display_short": "11:35A",
     "time_sort": 41700,
-    "total_trips": 17,
+    "total_trips": 15,
     "class_groupxclasses_id": 200034600,
     "latestStart": "11:35 AM",
     "latestStatus": "Upcoming",
@@ -1747,7 +1745,7 @@
     "start_display": "12:40 PM",
     "start_display_short": "12:40P",
     "time_sort": 45600,
-    "total_trips": 20,
+    "total_trips": 19,
     "class_groupxclasses_id": 200034602,
     "latestStart": "12:40 PM",
     "latestStatus": "Upcoming",

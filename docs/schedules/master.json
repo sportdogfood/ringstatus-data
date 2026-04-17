@@ -1635,8 +1635,8 @@
   },
   {
     "8778_group_display": [
-      "Crush (8)",
-      "Bernie (9)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "class_group_id": 200023226,
     "class_id": 200024361,
@@ -1648,8 +1648,8 @@
     "ring_nickname": "Grand",
     "ring_number": 6,
     "group_display": [
-      "Crush (8)",
-      "Bernie (9)"
+      "Crush (9)",
+      "Bernie (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -1748,9 +1748,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:20 AM",
+    "start_display_short": "11:20A",
+    "time_sort": 40806,
     "total_trips": 3
   },
   {
@@ -1770,9 +1770,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:20 AM",
+    "start_display_short": "11:20A",
+    "time_sort": 40806,
     "total_trips": 12
   },
   {
@@ -1792,9 +1792,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:20 AM",
+    "start_display_short": "11:20A",
+    "time_sort": 40806,
     "total_trips": 3
   },
   {
@@ -1814,9 +1814,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:20 AM",
+    "start_display_short": "11:20A",
+    "time_sort": 40806,
     "total_trips": 12
   },
   {
@@ -1836,9 +1836,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:17 AM",
-    "start_display_short": "11:17A",
-    "time_sort": 40678,
+    "start_display": "11:25 AM",
+    "start_display_short": "11:25A",
+    "time_sort": 41100,
     "total_trips": 3
   },
   {
@@ -1928,9 +1928,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:40 AM",
-    "start_display_short": "11:40A",
-    "time_sort": 42000,
+    "start_display": "11:50 AM",
+    "start_display_short": "11:50A",
+    "time_sort": 42600,
     "total_trips": 9
   },
   {
@@ -1950,9 +1950,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:40 AM",
-    "start_display_short": "11:40A",
-    "time_sort": 42000,
+    "start_display": "11:50 AM",
+    "start_display_short": "11:50A",
+    "time_sort": 42600,
     "total_trips": 9
   },
   {
@@ -1975,7 +1975,7 @@
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
     "time_sort": 43200,
-    "total_trips": 24
+    "total_trips": 22
   },
   {
     "8778_group_display": [
@@ -2071,6 +2071,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200024421,
+    "class_id": 200024254,
+    "class_name": "Mulligan Class",
+    "class_number": 998,
+    "dt": "2026-04-17",
+    "group_name": "Mulligan Class",
+    "group_name_tags": "mulligan, hunters, Over Fences",
+    "ring_nickname": "Annex",
+    "ring_number": 2,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:44 PM",
+    "start_display_short": "12:44P",
+    "time_sort": 45840,
+    "total_trips": 0
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023198,
     "class_id": 200024346,
     "class_name": "1.10m Amateur Jumper II2b",
@@ -2116,7 +2138,7 @@
   {
     "8778_group_display": [
       "Rimini (22)",
-      "Arrow (32)"
+      "Arrow (31)"
     ],
     "class_group_id": 200023198,
     "class_id": 200023979,
@@ -2129,7 +2151,7 @@
     "ring_number": 8,
     "group_display": [
       "Rimini (22)",
-      "Arrow (32)"
+      "Arrow (31)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -2139,29 +2161,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 11
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200024421,
-    "class_id": 200024254,
-    "class_name": "Mulligan Class",
-    "class_number": 998,
-    "dt": "2026-04-17",
-    "group_name": "Mulligan Class",
-    "group_name_tags": "mulligan, hunters, Over Fences",
-    "ring_nickname": "Annex",
-    "ring_number": 2,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:48 PM",
-    "start_display_short": "12:48P",
-    "time_sort": 46080,
-    "total_trips": 0
+    "total_trips": 10
   },
   {
     "8778_group_display": [],

@@ -219,7 +219,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (20)"
+      "Bee (15)"
     ],
     "class_group_id": 200023170,
     "class_id": 200024244,
@@ -232,7 +232,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Bee (20)"
+      "Bee (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -250,7 +250,7 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      "Bee (20)"
+      "Bee (15)"
     ]
   },
   {
@@ -271,21 +271,21 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:30 AM",
-    "start_display_short": "9:30A",
-    "time_sort": 34200,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
     "total_trips": null,
     "class_groupxclasses_id": 200034523,
-    "latestStart": "9:30 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "09:30:00",
+    "estimated_start_time": "09:15:00",
     "8778_sched_display": []
   },
   {
     "8778_group_display": [
-      "Doug (17)"
+      "Doug (18)"
     ],
     "class_group_id": 200023172,
     "class_id": 200024126,
@@ -298,7 +298,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Doug (17)"
+      "Doug (18)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -318,7 +318,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:30:00",
     "8778_sched_display": [
-      "Doug (17)"
+      "Doug (18)"
     ]
   },
   {
@@ -353,7 +353,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie (6)"
+      "Dottie (7)"
     ],
     "class_group_id": 200023174,
     "class_id": 200024267,
@@ -366,27 +366,27 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Dottie (6)"
+      "Dottie (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:24 AM",
-    "start_display_short": "11:24A",
-    "time_sort": 41040,
+    "start_display": "11:18 AM",
+    "start_display_short": "11:18A",
+    "time_sort": 40680,
     "total_trips": null,
     "class_groupxclasses_id": 200034526,
-    "latestStart": "11:24 AM",
+    "latestStart": "11:18 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:24:00",
+    "estimated_start_time": "11:18:00",
     "8778_sched_display": [
-      "Dottie (6)"
+      "Dottie (7)"
     ]
   },
   {
@@ -453,18 +453,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:30 AM",
-    "start_display_short": "8:30A",
-    "time_sort": 30600,
+    "start_display": "8:40 AM",
+    "start_display_short": "8:40A",
+    "time_sort": 31200,
     "total_trips": null,
     "class_groupxclasses_id": 200034529,
-    "latestStart": "8:30 AM",
+    "latestStart": "8:40 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00",
+    "estimated_start_time": "08:40:00",
     "8778_sched_display": [
       "Hurricane (6)",
       "Macho (7)",
@@ -493,16 +493,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:30 AM",
-    "start_display_short": "8:30A",
-    "time_sort": 30600,
+    "start_display": "8:40 AM",
+    "start_display_short": "8:40A",
+    "time_sort": 31200,
     "total_trips": null,
     "class_groupxclasses_id": 200036089,
-    "latestStart": "8:30 AM",
+    "latestStart": "8:40 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:30:00",
+    "estimated_start_time": "08:40:00",
     "8778_sched_display": []
   },
   {

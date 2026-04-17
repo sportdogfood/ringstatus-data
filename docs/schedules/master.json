@@ -1043,7 +1043,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (20)"
+      "Bee (15)"
     ],
     "class_group_id": 200023170,
     "class_id": 200024244,
@@ -1055,7 +1055,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Bee (20)"
+      "Bee (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -1282,9 +1282,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:30 AM",
-    "start_display_short": "8:30A",
-    "time_sort": 30600,
+    "start_display": "8:40 AM",
+    "start_display_short": "8:40A",
+    "time_sort": 31200,
     "total_trips": null
   },
   {
@@ -1304,9 +1304,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:30 AM",
-    "start_display_short": "8:30A",
-    "time_sort": 30600,
+    "start_display": "8:40 AM",
+    "start_display_short": "8:40A",
+    "time_sort": 31200,
     "total_trips": null
   },
   {
@@ -1427,6 +1427,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023171,
+    "class_id": 200024245,
+    "class_name": "1.25m Open Jumper II2d",
+    "class_number": 712,
+    "dt": "2026-04-17",
+    "group_name": "1.25m Open Jumper II2d",
+    "group_name_tags": "target, open, II2d, jumpers, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
+    "total_trips": null
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023194,
     "class_id": 200024125,
     "class_name": "Platinum Performance/USEF Talent Search 2*",
@@ -1489,28 +1511,6 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023171,
-    "class_id": 200024245,
-    "class_name": "1.25m Open Jumper II2d",
-    "class_number": 712,
-    "dt": "2026-04-17",
-    "group_name": "1.25m Open Jumper II2d",
-    "group_name_tags": "target, open, II2d, jumpers, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:30 AM",
-    "start_display_short": "9:30A",
-    "time_sort": 34200,
     "total_trips": null
   },
   {
@@ -1663,7 +1663,7 @@
   },
   {
     "8778_group_display": [
-      "Doug (17)"
+      "Doug (18)"
     ],
     "class_group_id": 200023172,
     "class_id": 200024126,
@@ -1675,7 +1675,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Doug (17)"
+      "Doug (18)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -1773,6 +1773,32 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
+    "total_trips": null
+  },
+  {
+    "8778_group_display": [
+      "Dottie (7)"
+    ],
+    "class_group_id": 200023174,
+    "class_id": 200024267,
+    "class_name": "1.20m Junior/Amateur Jumper II2d",
+    "class_number": 720,
+    "dt": "2026-04-17",
+    "group_name": "1.20m Junior/Amateur Jumper II2d",
+    "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [
+      "Dottie (7)"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Friday, April, 17, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:18 AM",
+    "start_display_short": "11:18A",
+    "time_sort": 40680,
     "total_trips": null
   },
   {
@@ -1883,32 +1909,6 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": null
-  },
-  {
-    "8778_group_display": [
-      "Dottie (6)"
-    ],
-    "class_group_id": 200023174,
-    "class_id": 200024267,
-    "class_name": "1.20m Junior/Amateur Jumper II2d",
-    "class_number": 720,
-    "dt": "2026-04-17",
-    "group_name": "1.20m Junior/Amateur Jumper II2d",
-    "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [
-      "Dottie (6)"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Friday, April, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:24 AM",
-    "start_display_short": "11:24A",
-    "time_sort": 41040,
     "total_trips": null
   },
   {

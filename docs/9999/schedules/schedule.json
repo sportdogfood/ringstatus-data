@@ -20,7 +20,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28806,
-    "total_trips": 54,
+    "total_trips": 53,
     "class_groupxclasses_id": 200034514,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -121,7 +121,7 @@
     "total_trips": 28,
     "class_groupxclasses_id": 200034517,
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-04-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
@@ -274,7 +274,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 17,
+    "total_trips": 20,
     "class_groupxclasses_id": 200034523,
     "latestStart": "9:15 AM",
     "latestStatus": "Upcoming",
@@ -308,7 +308,7 @@
     "start_display": "10:30 AM",
     "start_display_short": "10:30A",
     "time_sort": 37800,
-    "total_trips": 17,
+    "total_trips": 16,
     "class_groupxclasses_id": 200034524,
     "latestStart": "10:30 AM",
     "latestStatus": [
@@ -423,11 +423,11 @@
     "8778_group_display": [
       "Hurricane (6)",
       "Macho (7)",
-      "Navy (21)",
-      "Munster (22)",
-      "Dorian (40)",
-      "Elliot (41)",
-      "Jason (52)"
+      "Navy (20)",
+      "Munster (21)",
+      "Dorian (39)",
+      "Elliot (40)",
+      "Jason (51)"
     ],
     "class_group_id": 200023178,
     "class_id": 200024278,
@@ -442,11 +442,11 @@
     "group_display": [
       "Hurricane (6)",
       "Macho (7)",
-      "Navy (21)",
-      "Munster (22)",
-      "Dorian (40)",
-      "Elliot (41)",
-      "Jason (52)"
+      "Navy (20)",
+      "Munster (21)",
+      "Dorian (39)",
+      "Elliot (40)",
+      "Jason (51)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, April, 17, 2026",
@@ -466,11 +466,11 @@
     "8778_sched_display": [
       "Hurricane (6)",
       "Macho (7)",
-      "Navy (21)",
-      "Munster (22)",
-      "Dorian (40)",
-      "Elliot (41)",
-      "Jason (52)"
+      "Navy (20)",
+      "Munster (21)",
+      "Dorian (39)",
+      "Elliot (40)",
+      "Jason (51)"
     ]
   },
   {
@@ -607,9 +607,7 @@
     "total_trips": 12,
     "class_groupxclasses_id": 200034532,
     "latestStart": "9:00 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:08",
@@ -970,7 +968,7 @@
   },
   {
     "8778_group_display": [
-      "Ford (7)",
+      "Ford (6)",
       "Lenny (8)"
     ],
     "class_group_id": 200023195,
@@ -984,7 +982,7 @@
     "ring_number": 8,
     "ringName": "Mogavero",
     "group_display": [
-      "Ford (7)",
+      "Ford (6)",
       "Lenny (8)"
     ],
     "shifted_to_next_day": null,
@@ -995,7 +993,7 @@
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
     "time_sort": 36000,
-    "total_trips": 16,
+    "total_trips": 15,
     "class_groupxclasses_id": 200034555,
     "latestStart": "10:00 AM",
     "latestStatus": [
@@ -1005,7 +1003,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "8778_sched_display": [
-      "Ford (7)",
+      "Ford (6)",
       "Lenny (8)"
     ]
   },
@@ -1284,7 +1282,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200034572,
     "latestStart": "9:01 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 4,
     "estimated_start_time": "09:01:54",
@@ -1314,7 +1312,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200034573,
     "latestStart": "9:01 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-04-17",
     "class_group_sequence": 4,
     "estimated_start_time": "09:01:54",
@@ -1730,18 +1728,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:05 AM",
-    "start_display_short": "10:05A",
-    "time_sort": 36300,
+    "start_display": "10:06 AM",
+    "start_display_short": "10:06A",
+    "time_sort": 36374,
     "total_trips": 18,
     "class_groupxclasses_id": 200034599,
-    "latestStart": "10:05 AM",
+    "latestStart": "10:06 AM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-17",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:05:00",
+    "estimated_start_time": "10:06:14",
     "8778_sched_display": [
       "Caymus (8)"
     ]

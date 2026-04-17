@@ -2717,7 +2717,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 11
+    "total_trips": 10
   },
   {
     "8778_group_display": [],
@@ -3780,9 +3780,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:14 AM",
-    "start_display_short": "11:14A",
-    "time_sort": 40440,
+    "start_display": "11:12 AM",
+    "start_display_short": "11:12A",
+    "time_sort": 40320,
     "total_trips": 0
   },
   {
@@ -5128,28 +5128,6 @@
     "total_trips": 10
   },
   {
-    "8778_group_display": [],
-    "class_group_id": 200023258,
-    "class_id": 200023981,
-    "class_name": "Mulligan Class",
-    "class_number": 986,
-    "dt": "2026-04-18",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": true,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "3:43 PM",
-    "start_display_short": "3:43P",
-    "time_sort": 56580,
-    "total_trips": 0
-  },
-  {
     "8778_group_display": [
       "Crush"
     ],
@@ -5174,5 +5152,27 @@
     "start_display_short": "3:45P",
     "time_sort": 56700,
     "total_trips": 16
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023258,
+    "class_id": 200023981,
+    "class_name": "Mulligan Class",
+    "class_number": 986,
+    "dt": "2026-04-18",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 5,
+    "group_display": [],
+    "shifted_to_next_day": true,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "4:31 PM",
+    "start_display_short": "4:31P",
+    "time_sort": 59460,
+    "total_trips": 0
   }
 ]

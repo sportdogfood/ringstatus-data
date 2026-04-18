@@ -94,17 +94,17 @@
     "class_id": 200023980,
     "class_number": 842,
     "class_name": "$600 1.30m Young Jumper II2b",
-    "latestStart": "10:25 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 9,
+    "latestStart": "10:35 AM",
+    "latestStatus": "Underway",
+    "total_trips": 7,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Annex",
-    "start_display": "10:25 AM",
+    "start_display": "10:35 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:25:06",
+    "estimated_start_time": "10:35:06",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, jumpers, Over Fences"
@@ -268,10 +268,10 @@
     "class_group_sequence": 5,
     "estimated_start_time": "10:45:00",
     "group_display": [
-      "Dottie (23)"
+      "Dottie (4)"
     ],
     "8778_sched_display": [
-      "Dottie (23)"
+      "Dottie (4)"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -577,7 +577,7 @@
     "class_number": 392,
     "class_name": "Amateur Owner Hunter 3'3\" 36+",
     "latestStart": "10:35 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 6,
     "show_id": 200000059,
     "show_date": "2026-04-18",
@@ -603,7 +603,7 @@
     "class_number": 393,
     "class_name": "Amateur Owner Hunter 3'3\" 36+",
     "latestStart": "10:35 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 6,
     "show_id": 200000059,
     "show_date": "2026-04-18",
@@ -628,7 +628,7 @@
     "class_id": 200024114,
     "class_number": 391,
     "class_name": "Amateur Owner Hunter 3'3\" 36+ U/S",
-    "latestStart": "10:50 AM",
+    "latestStart": "10:51 AM",
     "latestStatus": null,
     "total_trips": 6,
     "show_id": 200000059,
@@ -636,9 +636,9 @@
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "10:50 AM",
+    "start_display": "10:51 AM",
     "class_group_sequence": 8,
-    "estimated_start_time": "10:50:00",
+    "estimated_start_time": "10:51:34",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, owner, 3', 3'3\", amateur, U/S, hunters, Under Saddle/Flat"
@@ -1222,7 +1222,7 @@
     "class_name": "Adult Amateur Hunter 36-54 U/S",
     "latestStart": "11:15 AM",
     "latestStatus": null,
-    "total_trips": 9,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -1571,11 +1571,11 @@
     "estimated_start_time": "10:15:07",
     "group_display": [
       "Arrow (8)",
-      "Rimini (26)"
+      "Rimini (23)"
     ],
     "8778_sched_display": [
       "Arrow (8)",
-      "Rimini (26)"
+      "Rimini (23)"
     ],
     "group_name_tags": "target, 1.10m, amateur, junior, wihs, jumpers, Over Fences"
   },
@@ -1751,7 +1751,9 @@
     "class_number": 317,
     "class_name": "Low Children's Hunter",
     "latestStart": "10:45 AM",
-    "latestStatus": "Not Started",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 18,
     "show_id": 200000059,
     "show_date": "2026-04-18",
@@ -1783,7 +1785,9 @@
     "class_number": 318,
     "class_name": "Low Children's Hunter",
     "latestStart": "10:45 AM",
-    "latestStatus": "Not Started",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 18,
     "show_id": 200000059,
     "show_date": "2026-04-18",
@@ -2032,7 +2036,7 @@
     "class_name": "Large Pony Hunter U/S",
     "latestStart": "9:45 AM",
     "latestStatus": null,
-    "total_trips": 13,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2160,17 +2164,17 @@
     "class_id": 200024136,
     "class_number": 422,
     "class_name": "Medium Pony Hunter",
-    "latestStart": "10:39 AM",
+    "latestStart": "10:47 AM",
     "latestStatus": "Not Started",
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:39 AM",
+    "start_display": "10:47 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:39:08",
+    "estimated_start_time": "10:47:08",
     "group_display": [
       "Paisley (24)"
     ],
@@ -2190,17 +2194,17 @@
     "class_id": 200023896,
     "class_number": 423,
     "class_name": "Medium Pony Conformation Hunter",
-    "latestStart": "10:39 AM",
+    "latestStart": "10:47 AM",
     "latestStatus": "Not Started",
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:39 AM",
+    "start_display": "10:47 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:39:08",
+    "estimated_start_time": "10:47:08",
     "group_display": [
       "Paisley (25)"
     ],
@@ -2224,7 +2228,7 @@
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2482,22 +2486,24 @@
     "class_id": 200024352,
     "class_number": 791,
     "class_name": "Hopeful Jumper (.85m) II2d",
-    "latestStart": "10:30 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "10:40 AM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 28,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "10:30 AM",
+    "start_display": "10:40 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:30:00",
+    "estimated_start_time": "10:40:09",
     "group_display": [
-      "Caymus (9)"
+      "Caymus (17)"
     ],
     "8778_sched_display": [
-      "Caymus (9)"
+      "Caymus (17)"
     ],
     "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences"
   },

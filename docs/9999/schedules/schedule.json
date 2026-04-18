@@ -1126,16 +1126,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "4:15 PM",
-    "start_display_short": "4:15P",
-    "time_sort": 58500,
+    "start_display": "4:10 PM",
+    "start_display_short": "4:10P",
+    "time_sort": 58200,
     "total_trips": 10,
     "class_groupxclasses_id": 200034659,
-    "latestStart": "4:15 PM",
+    "latestStart": "4:10 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 16,
-    "estimated_start_time": "16:15:00",
+    "estimated_start_time": "16:10:00",
     "8778_sched_display": []
   },
   {
@@ -1156,16 +1156,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "4:15 PM",
-    "start_display_short": "4:15P",
-    "time_sort": 58500,
+    "start_display": "4:10 PM",
+    "start_display_short": "4:10P",
+    "time_sort": 58200,
     "total_trips": 10,
     "class_groupxclasses_id": 200034660,
-    "latestStart": "4:15 PM",
+    "latestStart": "4:10 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 16,
-    "estimated_start_time": "16:15:00",
+    "estimated_start_time": "16:10:00",
     "8778_sched_display": []
   },
   {
@@ -2640,7 +2640,9 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200034738,
     "latestStart": "1:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 7,
     "estimated_start_time": "13:45:08",
@@ -2676,7 +2678,9 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200034739,
     "latestStart": "1:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 7,
     "estimated_start_time": "13:45:08",
@@ -2778,18 +2782,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "3:47 PM",
-    "start_display_short": "3:47P",
-    "time_sort": 56834,
+    "start_display": "3:49 PM",
+    "start_display_short": "3:49P",
+    "time_sort": 56957,
     "total_trips": 16,
     "class_groupxclasses_id": 200034743,
-    "latestStart": "3:47 PM",
+    "latestStart": "3:49 PM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-18",
     "class_group_sequence": 9,
-    "estimated_start_time": "15:47:14",
+    "estimated_start_time": "15:49:17",
     "8778_sched_display": [
       "Crush"
     ]

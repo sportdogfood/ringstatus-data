@@ -357,7 +357,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (13)"
+      "Bee (11)"
     ],
     "class_group_id": 200023239,
     "class_id": 200024307,
@@ -370,7 +370,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Bee (13)"
+      "Bee (11)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -383,12 +383,14 @@
     "total_trips": 18,
     "class_groupxclasses_id": 200034622,
     "latestStart": "1:45 PM",
-    "latestStatus": "Not Started",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 7,
     "estimated_start_time": "13:45:00",
     "8778_sched_display": [
-      "Bee (13)"
+      "Bee (11)"
     ]
   },
   {
@@ -2636,16 +2638,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:35 PM",
-    "start_display_short": "1:35P",
-    "time_sort": 48909,
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49209,
     "total_trips": 4,
     "class_groupxclasses_id": 200034738,
-    "latestStart": "1:35 PM",
-    "latestStatus": "Not Started",
+    "latestStart": "1:40 PM",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:35:09",
+    "estimated_start_time": "13:40:09",
     "8778_sched_display": [
       "Knox (9)"
     ]
@@ -2672,23 +2676,25 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:35 PM",
-    "start_display_short": "1:35P",
-    "time_sort": 48909,
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49209,
     "total_trips": 4,
     "class_groupxclasses_id": 200034739,
-    "latestStart": "1:35 PM",
-    "latestStatus": "Not Started",
+    "latestStart": "1:40 PM",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:35:09",
+    "estimated_start_time": "13:40:09",
     "8778_sched_display": [
       "Knox (10)"
     ]
   },
   {
     "8778_group_display": [
-      "Crush"
+      "Crush (27)"
     ],
     "class_group_id": 200023296,
     "class_id": 200023945,
@@ -2701,30 +2707,30 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Crush"
+      "Crush (27)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:46 PM",
-    "start_display_short": "1:46P",
-    "time_sort": 49569,
+    "start_display": "1:51 PM",
+    "start_display_short": "1:51P",
+    "time_sort": 49869,
     "total_trips": 16,
     "class_groupxclasses_id": 200034741,
-    "latestStart": "1:46 PM",
+    "latestStart": "1:51 PM",
     "latestStatus": "Not Started",
     "show_date": "2026-04-18",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:46:09",
+    "estimated_start_time": "13:51:09",
     "8778_sched_display": [
-      "Crush"
+      "Crush (27)"
     ]
   },
   {
     "8778_group_display": [
-      "Crush"
+      "Crush (28)"
     ],
     "class_group_id": 200023296,
     "class_id": 200024212,
@@ -2737,25 +2743,25 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Crush"
+      "Crush (28)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:46 PM",
-    "start_display_short": "1:46P",
-    "time_sort": 49569,
+    "start_display": "1:51 PM",
+    "start_display_short": "1:51P",
+    "time_sort": 49869,
     "total_trips": 16,
     "class_groupxclasses_id": 200034742,
-    "latestStart": "1:46 PM",
+    "latestStart": "1:51 PM",
     "latestStatus": "Not Started",
     "show_date": "2026-04-18",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:46:09",
+    "estimated_start_time": "13:51:09",
     "8778_sched_display": [
-      "Crush"
+      "Crush (28)"
     ]
   },
   {
@@ -3120,16 +3126,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:35 PM",
-    "start_display_short": "1:35P",
-    "time_sort": 48923,
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49209,
     "total_trips": 10,
     "class_groupxclasses_id": 200036094,
-    "latestStart": "1:35 PM",
+    "latestStart": "1:40 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:35:23",
+    "estimated_start_time": "13:40:09",
     "8778_sched_display": []
   },
   {
@@ -3150,16 +3156,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:35 PM",
-    "start_display_short": "1:35P",
-    "time_sort": 48923,
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49209,
     "total_trips": 10,
     "class_groupxclasses_id": 200036095,
-    "latestStart": "1:35 PM",
+    "latestStart": "1:40 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 4,
-    "estimated_start_time": "13:35:23",
+    "estimated_start_time": "13:40:09",
     "8778_sched_display": []
   },
   {

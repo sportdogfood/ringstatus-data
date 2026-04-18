@@ -12,7 +12,7 @@
     "class_name": "$5,000 1.40m Junior/Amateur Jumper Classic II2b",
     "latestStart": "8:00 AM",
     "latestStatus": null,
-    "total_trips": 31,
+    "total_trips": 30,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -635,9 +635,7 @@
     "class_number": 911,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
     "latestStart": "2:30 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "total_trips": 33,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -647,14 +645,8 @@
     "start_display": "2:30 PM",
     "class_group_sequence": 10,
     "estimated_start_time": "14:30:00",
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
-    "8778_sched_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
+    "8778_sched_display": [],
     "group_name_tags": "classic, target, 15 & Under, 3', 3'3\", junior, hunters, Over Fences"
   },
   {
@@ -695,7 +687,9 @@
     "class_number": 911,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
     "latestStart": "4:15 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 33,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -705,8 +699,14 @@
     "start_display": "4:15 PM",
     "class_group_sequence": 11,
     "estimated_start_time": "16:15:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
+    "8778_sched_display": [
+      "Macho",
+      "Dorian"
+    ],
     "group_name_tags": "classic, target, 16-17, 3', 3'3\", junior, hunters, Over Fences"
   },
   {
@@ -1218,7 +1218,7 @@
     "class_name": "SFHJA Junior Medal (Flat Phase)",
     "latestStart": "12:35 PM",
     "latestStatus": null,
-    "total_trips": 16,
+    "total_trips": 15,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2078,7 +2078,7 @@
     "class_id": 200023960,
     "class_number": 471,
     "class_name": "Medium Green Pony Hunter U/S",
-    "latestStart": "10:45 AM",
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": 7,
     "show_id": 200000059,
@@ -2086,9 +2086,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:45 AM",
+    "start_display": "10:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:45:00",
+    "estimated_start_time": "10:00:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, pony, green, medium, U/S, hunters, Under Saddle/Flat"
@@ -2104,7 +2104,7 @@
     "class_id": 200024091,
     "class_number": 474,
     "class_name": "Medium Green Pony Hunter",
-    "latestStart": "10:36 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000059,
@@ -2112,9 +2112,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:36 AM",
+    "start_display": "10:30 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:36:00",
+    "estimated_start_time": "10:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, green, medium, hunters, Over Fences"
@@ -2130,7 +2130,7 @@
     "class_id": 200024218,
     "class_number": 475,
     "class_name": "Medium Green Pony Hunter",
-    "latestStart": "10:36 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": null,
     "total_trips": 14,
     "show_id": 200000059,
@@ -2138,9 +2138,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "10:36 AM",
+    "start_display": "10:30 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:36:00",
+    "estimated_start_time": "10:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, green, medium, hunters, Over Fences"
@@ -2156,7 +2156,7 @@
     "class_id": 200023995,
     "class_number": 424,
     "class_name": "Medium Pony Hunter",
-    "latestStart": "11:18 AM",
+    "latestStart": "10:45 AM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2166,9 +2166,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "11:18 AM",
+    "start_display": "10:45 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:18:00",
+    "estimated_start_time": "10:45:00",
     "group_display": [
       "Paisley"
     ],
@@ -2188,7 +2188,7 @@
     "class_id": 200024080,
     "class_number": 425,
     "class_name": "Medium Pony Hunter",
-    "latestStart": "11:18 AM",
+    "latestStart": "10:45 AM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2198,9 +2198,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "11:18 AM",
+    "start_display": "10:45 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:18:00",
+    "estimated_start_time": "10:45:00",
     "group_display": [
       "Paisley"
     ],
@@ -2220,7 +2220,7 @@
     "class_id": 200024005,
     "class_number": 907,
     "class_name": "$500 Medium Pony Hunter Classic",
-    "latestStart": "11:18 AM",
+    "latestStart": "10:45 AM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2230,9 +2230,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "11:18 AM",
+    "start_display": "10:45 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:18:00",
+    "estimated_start_time": "10:45:00",
     "group_display": [
       "Paisley"
     ],
@@ -2252,7 +2252,7 @@
     "class_id": 200024201,
     "class_number": 441,
     "class_name": "Small Green Pony Hunter U/S",
-    "latestStart": "1:33 PM",
+    "latestStart": "1:57 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2262,9 +2262,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:33 PM",
+    "start_display": "1:57 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:33:00",
+    "estimated_start_time": "13:57:00",
     "group_display": [
       "Knox"
     ],
@@ -2284,7 +2284,7 @@
     "class_id": 200024330,
     "class_number": 444,
     "class_name": "Small Green Pony Hunter",
-    "latestStart": "1:48 PM",
+    "latestStart": "2:12 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2294,9 +2294,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:48 PM",
+    "start_display": "2:12 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:48:00",
+    "estimated_start_time": "14:12:00",
     "group_display": [
       "Knox"
     ],
@@ -2316,7 +2316,7 @@
     "class_id": 200023994,
     "class_number": 445,
     "class_name": "Small Green Pony Hunter",
-    "latestStart": "1:48 PM",
+    "latestStart": "2:12 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2326,9 +2326,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:48 PM",
+    "start_display": "2:12 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:48:00",
+    "estimated_start_time": "14:12:00",
     "group_display": [
       "Knox"
     ],
@@ -2348,19 +2348,19 @@
     "class_id": 200024309,
     "class_number": 414,
     "class_name": "Small Pony Hunter",
-    "latestStart": "2:12 PM",
+    "latestStart": "2:36 PM",
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 46,
+    "total_trips": 45,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "2:12 PM",
+    "start_display": "2:36 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "14:12:00",
+    "estimated_start_time": "14:36:00",
     "group_display": [
       "Crush"
     ],
@@ -2380,19 +2380,19 @@
     "class_id": 200023956,
     "class_number": 906,
     "class_name": "$500 Small Pony Hunter Classic",
-    "latestStart": "2:12 PM",
+    "latestStart": "2:36 PM",
     "latestStatus": [
       "Not Started"
     ],
-    "total_trips": 46,
+    "total_trips": 45,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "2:12 PM",
+    "start_display": "2:36 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "14:12:00",
+    "estimated_start_time": "14:36:00",
     "group_display": [
       "Crush"
     ],

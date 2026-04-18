@@ -146,16 +146,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37200,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
     "total_trips": 45,
     "class_groupxclasses_id": 200034615,
-    "latestStart": "10:20 AM",
+    "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:20:00",
+    "estimated_start_time": "11:00:00",
     "8778_sched_display": []
   },
   {
@@ -209,7 +209,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 4,
+    "total_trips": 3,
     "class_groupxclasses_id": 200034617,
     "latestStart": "9:00 AM",
     "latestStatus": "Upcoming",
@@ -272,16 +272,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:23 AM",
-    "start_display_short": "9:23A",
-    "time_sort": 33780,
+    "start_display": "9:45 AM",
+    "start_display_short": "9:45A",
+    "time_sort": 35100,
     "total_trips": 13,
     "class_groupxclasses_id": 200034618,
-    "latestStart": "9:23 AM",
+    "latestStart": "9:45 AM",
     "latestStatus": "Not Started",
     "show_date": "2026-04-18",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:23:00",
+    "estimated_start_time": "09:45:00",
     "8778_sched_display": [
       "Dottie",
       "Doug"
@@ -309,16 +309,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:02 AM",
-    "start_display_short": "10:02A",
-    "time_sort": 36120,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
     "total_trips": 38,
     "class_groupxclasses_id": 200034620,
-    "latestStart": "10:02 AM",
+    "latestStart": "11:00 AM",
     "latestStatus": "Not Started",
     "show_date": "2026-04-18",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:02:00",
+    "estimated_start_time": "11:00:00",
     "8778_sched_display": [
       "Dottie (23)"
     ]
@@ -1869,7 +1869,7 @@
   },
   {
     "8778_group_display": [
-      "Cervin (33)"
+      "Cervin (31)"
     ],
     "class_group_id": 200023276,
     "class_id": 200024046,
@@ -1882,7 +1882,7 @@
     "ring_number": 8,
     "ringName": "Mogavero",
     "group_display": [
-      "Cervin (33)"
+      "Cervin (31)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -1900,7 +1900,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "12:30:00",
     "8778_sched_display": [
-      "Cervin (33)"
+      "Cervin (31)"
     ]
   },
   {

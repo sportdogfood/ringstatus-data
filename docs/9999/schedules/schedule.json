@@ -20,7 +20,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 34,
+    "total_trips": 32,
     "class_groupxclasses_id": 200034611,
     "latestStart": "9:00 AM",
     "latestStatus": "Upcoming",
@@ -32,7 +32,7 @@
   {
     "8778_group_display": [
       "Toni (17)",
-      "Hermes (35)"
+      "Hermes (34)"
     ],
     "class_group_id": 200023228,
     "class_id": 200023911,
@@ -46,7 +46,7 @@
     "ringName": "Derby",
     "group_display": [
       "Toni (17)",
-      "Hermes (35)"
+      "Hermes (34)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -65,7 +65,7 @@
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
       "Toni (17)",
-      "Hermes (35)"
+      "Hermes (34)"
     ]
   },
   {
@@ -236,16 +236,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:25 AM",
-    "start_display_short": "9:25A",
-    "time_sort": 33900,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
     "total_trips": 3,
     "class_groupxclasses_id": 200034619,
-    "latestStart": "9:25 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-18",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:25:00",
+    "estimated_start_time": "09:15:00",
     "8778_sched_display": []
   },
   {
@@ -2875,7 +2875,7 @@
     "start_display": "8:40 AM",
     "start_display_short": "8:40A",
     "time_sort": 31208,
-    "total_trips": 28,
+    "total_trips": 27,
     "class_groupxclasses_id": 200034754,
     "latestStart": "8:40 AM",
     "latestStatus": "Underway",
@@ -2916,7 +2916,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (3)"
+      "Caymus (4)"
     ],
     "class_group_id": 200023305,
     "class_id": 200024352,
@@ -2929,7 +2929,7 @@
     "ring_number": 12,
     "ringName": "Ring 9",
     "group_display": [
-      "Caymus (3)"
+      "Caymus (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2947,7 +2947,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:05:00",
     "8778_sched_display": [
-      "Caymus (3)"
+      "Caymus (4)"
     ]
   },
   {

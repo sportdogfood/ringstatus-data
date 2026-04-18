@@ -2497,7 +2497,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 49
+    "total_trips": 50
   },
   {
     "8778_group_display": [],
@@ -2519,7 +2519,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 17
+    "total_trips": 16
   },
   {
     "8778_group_display": [],
@@ -2717,7 +2717,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 9
+    "total_trips": 10
   },
   {
     "8778_group_display": [],
@@ -2937,7 +2937,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 4
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -2959,7 +2959,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 35
+    "total_trips": 34
   },
   {
     "8778_group_display": [],
@@ -3160,34 +3160,6 @@
     "total_trips": 3
   },
   {
-    "8778_group_display": [
-      "Dottie",
-      "Doug"
-    ],
-    "class_group_id": 200023235,
-    "class_id": 200024321,
-    "class_name": "1.20m Open Jumper II2d",
-    "class_number": 789,
-    "dt": "2026-04-18",
-    "group_name": "1.20m Open Jumper II2d",
-    "group_name_tags": "target, open, 1.20m, II2d, jumpers, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [
-      "Dottie",
-      "Doug"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:23 AM",
-    "start_display_short": "9:23A",
-    "time_sort": 33780,
-    "total_trips": 13
-  },
-  {
     "8778_group_display": [],
     "class_group_id": 200023308,
     "class_id": 200023927,
@@ -3230,6 +3202,34 @@
     "start_display_short": "9:30A",
     "time_sort": 34200,
     "total_trips": 30
+  },
+  {
+    "8778_group_display": [
+      "Dottie",
+      "Doug"
+    ],
+    "class_group_id": 200023235,
+    "class_id": 200024321,
+    "class_name": "1.20m Open Jumper II2d",
+    "class_number": 789,
+    "dt": "2026-04-18",
+    "group_name": "1.20m Open Jumper II2d",
+    "group_name_tags": "target, open, 1.20m, II2d, jumpers, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [
+      "Dottie",
+      "Doug"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:45 AM",
+    "start_display_short": "9:45A",
+    "time_sort": 35100,
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -3393,7 +3393,7 @@
     "class_number": 453,
     "dt": "2026-04-18",
     "group_name": "Large Green Pony Hunter",
-    "group_name_tags": "target, pony, green, large, jumpers, Over Fences",
+    "group_name_tags": "target, pony, green, large, hunters, Over Fences",
     "ring_nickname": "Ring 7",
     "ring_number": 10,
     "group_display": [],
@@ -3415,7 +3415,7 @@
     "class_number": 452,
     "dt": "2026-04-18",
     "group_name": "Large Green Pony Hunter",
-    "group_name_tags": "target, pony, green, large, jumpers, Over Fences",
+    "group_name_tags": "target, pony, green, large, hunters, Over Fences",
     "ring_nickname": "Ring 7",
     "ring_number": 10,
     "group_display": [],
@@ -3428,32 +3428,6 @@
     "start_display_short": "10:00A",
     "time_sort": 36000,
     "total_trips": 3
-  },
-  {
-    "8778_group_display": [
-      "Dottie (23)"
-    ],
-    "class_group_id": 200023237,
-    "class_id": 200024026,
-    "class_name": "1.20m Junior/Amateur Jumper II2d",
-    "class_number": 722,
-    "dt": "2026-04-18",
-    "group_name": "1.20m Junior/Amateur Jumper II2d",
-    "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences",
-    "ring_nickname": "Covered",
-    "ring_number": 3,
-    "group_display": [
-      "Dottie (23)"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:02 AM",
-    "start_display_short": "10:02A",
-    "time_sort": 36120,
-    "total_trips": 38
   },
   {
     "8778_group_display": [
@@ -3546,28 +3520,6 @@
     "start_display_short": "10:15A",
     "time_sort": 36900,
     "total_trips": 8
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023232,
-    "class_id": 200024360,
-    "class_name": "$5,000 1.35m Stake II2b",
-    "class_number": 808,
-    "dt": "2026-04-18",
-    "group_name": "$5,000 1.35m Stake II2b",
-    "group_name_tags": "target, jumpers, Over Fences",
-    "ring_nickname": "Annex",
-    "ring_number": 2,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37200,
-    "total_trips": 45
   },
   {
     "8778_group_display": [],
@@ -3718,6 +3670,54 @@
     "start_display_short": "10:30A",
     "time_sort": 37800,
     "total_trips": 7
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023232,
+    "class_id": 200024360,
+    "class_name": "$5,000 1.35m Stake II2b",
+    "class_number": 808,
+    "dt": "2026-04-18",
+    "group_name": "$5,000 1.35m Stake II2b",
+    "group_name_tags": "target, jumpers, Over Fences",
+    "ring_nickname": "Annex",
+    "ring_number": 2,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
+    "total_trips": 45
+  },
+  {
+    "8778_group_display": [
+      "Dottie (23)"
+    ],
+    "class_group_id": 200023237,
+    "class_id": 200024026,
+    "class_name": "1.20m Junior/Amateur Jumper II2d",
+    "class_number": 722,
+    "dt": "2026-04-18",
+    "group_name": "1.20m Junior/Amateur Jumper II2d",
+    "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences",
+    "ring_nickname": "Covered",
+    "ring_number": 3,
+    "group_display": [
+      "Dottie (23)"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
+    "total_trips": 36
   },
   {
     "8778_group_display": [],
@@ -4171,7 +4171,7 @@
     "start_display": "12:15 PM",
     "start_display_short": "12:15P",
     "time_sort": 44100,
-    "total_trips": 18
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -4241,7 +4241,7 @@
   },
   {
     "8778_group_display": [
-      "Cervin (33)"
+      "Cervin (31)"
     ],
     "class_group_id": 200023276,
     "class_id": 200024046,
@@ -4253,7 +4253,7 @@
     "ring_nickname": "Mogavero",
     "ring_number": 8,
     "group_display": [
-      "Cervin (33)"
+      "Cervin (31)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -4263,7 +4263,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 20
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -4285,7 +4285,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 23
+    "total_trips": 22
   },
   {
     "8778_group_display": [
@@ -4925,6 +4925,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023277,
+    "class_id": 200023957,
+    "class_name": "Mulligan Class",
+    "class_number": 988,
+    "dt": "2026-04-18",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 8,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:33 PM",
+    "start_display_short": "2:33P",
+    "time_sort": 52380,
+    "total_trips": 0
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023288,
     "class_id": 200024171,
     "class_name": "Mulligan Class",
@@ -4972,28 +4994,6 @@
     "start_display_short": "2:35P",
     "time_sort": 52500,
     "total_trips": 6
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023277,
-    "class_id": 200023957,
-    "class_name": "Mulligan Class",
-    "class_number": 988,
-    "dt": "2026-04-18",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 8,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:39 PM",
-    "start_display_short": "2:39P",
-    "time_sort": 52740,
-    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -5078,9 +5078,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:52 PM",
-    "start_display_short": "2:52P",
-    "time_sort": 53520,
+    "start_display": "2:56 PM",
+    "start_display_short": "2:56P",
+    "time_sort": 53760,
     "total_trips": 0
   },
   {

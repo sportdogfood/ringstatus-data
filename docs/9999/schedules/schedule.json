@@ -957,14 +957,16 @@
     "sid": 200000059,
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
-    "time_sort": 52200,
+    "time_sort": 52207,
     "total_trips": 5,
     "class_groupxclasses_id": 200034648,
     "latestStart": "2:30 PM",
-    "latestStatus": "Not Started",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 13,
-    "estimated_start_time": "14:30:00",
+    "estimated_start_time": "14:30:07",
     "8778_sched_display": [
       "Macho",
       "Dorian"
@@ -996,14 +998,16 @@
     "sid": 200000059,
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
-    "time_sort": 52200,
+    "time_sort": 52207,
     "total_trips": 5,
     "class_groupxclasses_id": 200034649,
     "latestStart": "2:30 PM",
-    "latestStatus": "Not Started",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-18",
     "class_group_sequence": 13,
-    "estimated_start_time": "14:30:00",
+    "estimated_start_time": "14:30:07",
     "8778_sched_display": [
       "Macho",
       "Dorian"
@@ -2780,18 +2784,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "3:43 PM",
-    "start_display_short": "3:43P",
-    "time_sort": 56584,
+    "start_display": "3:42 PM",
+    "start_display_short": "3:42P",
+    "time_sort": 56523,
     "total_trips": 16,
     "class_groupxclasses_id": 200034743,
-    "latestStart": "3:43 PM",
+    "latestStart": "3:42 PM",
     "latestStatus": [
       "Not Started"
     ],
     "show_date": "2026-04-18",
     "class_group_sequence": 9,
-    "estimated_start_time": "15:43:04",
+    "estimated_start_time": "15:42:03",
     "8778_sched_display": [
       "Crush"
     ]

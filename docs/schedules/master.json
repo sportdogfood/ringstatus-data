@@ -2519,7 +2519,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 48
+    "total_trips": 47
   },
   {
     "8778_group_display": [],
@@ -3167,50 +3167,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023308,
-    "class_id": 200023927,
-    "class_name": "Puddle Jumper Open (.80m) II2d CALI",
-    "class_number": 784,
-    "dt": "2026-04-18",
-    "group_name": "Puddle Jumpers (.80m) II2d",
-    "group_name_tags": "target, puddle, II2d, jumpers, Over Fences",
-    "ring_nickname": "Ring 10",
-    "ring_number": 13,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34508,
-    "total_trips": 28
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023308,
-    "class_id": 200024105,
-    "class_name": "Puddle Jumper Junior/Amateur (.80m) II2d CALI",
-    "class_number": 796,
-    "dt": "2026-04-18",
-    "group_name": "Puddle Jumpers (.80m) II2d",
-    "group_name_tags": "target, puddle, II2d, jumpers, Over Fences",
-    "ring_nickname": "Ring 10",
-    "ring_number": 13,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34508,
-    "total_trips": 30
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023244,
     "class_id": 200024133,
     "class_name": "Amateur Owner Hunter 3'3\" 18-35",
@@ -3255,6 +3211,50 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023308,
+    "class_id": 200023927,
+    "class_name": "Puddle Jumper Open (.80m) II2d CALI",
+    "class_number": 784,
+    "dt": "2026-04-18",
+    "group_name": "Puddle Jumpers (.80m) II2d",
+    "group_name_tags": "target, puddle, II2d, jumpers, Over Fences",
+    "ring_nickname": "Ring 10",
+    "ring_number": 13,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:40 AM",
+    "start_display_short": "9:40A",
+    "time_sort": 34808,
+    "total_trips": 28
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023308,
+    "class_id": 200024105,
+    "class_name": "Puddle Jumper Junior/Amateur (.80m) II2d CALI",
+    "class_number": 796,
+    "dt": "2026-04-18",
+    "group_name": "Puddle Jumpers (.80m) II2d",
+    "group_name_tags": "target, puddle, II2d, jumpers, Over Fences",
+    "ring_nickname": "Ring 10",
+    "ring_number": 13,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "9:40 AM",
+    "start_display_short": "9:40A",
+    "time_sort": 34808,
+    "total_trips": 30
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023291,
     "class_id": 200023921,
     "class_name": "Large Pony Hunter U/S",
@@ -3292,9 +3292,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "9:52 AM",
-    "start_display_short": "9:52A",
-    "time_sort": 35568,
+    "start_display": "9:53 AM",
+    "start_display_short": "9:53A",
+    "time_sort": 35631,
     "total_trips": 2
   },
   {
@@ -4175,7 +4175,7 @@
   },
   {
     "8778_group_display": [
-      "Cervin (32)"
+      "Cervin (31)"
     ],
     "class_group_id": 200023276,
     "class_id": 200024046,
@@ -4187,7 +4187,7 @@
     "ring_nickname": "Mogavero",
     "ring_number": 8,
     "group_display": [
-      "Cervin (32)"
+      "Cervin (31)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",

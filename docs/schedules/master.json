@@ -3410,7 +3410,7 @@
   {
     "8778_group_display": [
       "Arrow (8)",
-      "Rimini (24)"
+      "Rimini (23)"
     ],
     "class_group_id": 200023275,
     "class_id": 200024068,
@@ -3423,7 +3423,7 @@
     "ring_number": 8,
     "group_display": [
       "Arrow (8)",
-      "Rimini (24)"
+      "Rimini (23)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -3433,7 +3433,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36907,
-    "total_trips": 26
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -3569,7 +3569,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (21)"
+      "Caymus (25)"
     ],
     "class_group_id": 200023305,
     "class_id": 200024352,
@@ -3581,7 +3581,7 @@
     "ring_nickname": "Ring 9",
     "ring_number": 12,
     "group_display": [
-      "Caymus (21)"
+      "Caymus (25)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -3591,7 +3591,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38409,
-    "total_trips": 28
+    "total_trips": 27
   },
   {
     "8778_group_display": [
@@ -3744,9 +3744,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:12 AM",
-    "start_display_short": "11:12A",
-    "time_sort": 40334,
+    "start_display": "11:15 AM",
+    "start_display_short": "11:15A",
+    "time_sort": 40506,
     "total_trips": 6
   },
   {
@@ -3768,34 +3768,12 @@
     "sid": 200000059,
     "start_display": "11:25 AM",
     "start_display_short": "11:25A",
-    "time_sort": 41100,
+    "time_sort": 41106,
     "total_trips": 45
   },
   {
-    "8778_group_display": [],
-    "class_group_id": 200023264,
-    "class_id": 200023909,
-    "class_name": "Adult Amateur Hunter 36-54 U/S",
-    "class_number": 286,
-    "dt": "2026-04-18",
-    "group_name": "Adult Amateur Hunter 36-54 U/S",
-    "group_name_tags": "target, usf, 36-54, adult, amateur, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:25 AM",
-    "start_display_short": "11:25A",
-    "time_sort": 41113,
-    "total_trips": 8
-  },
-  {
     "8778_group_display": [
-      "Toni (18)",
+      "Toni (17)",
       "Hermes (35)"
     ],
     "class_group_id": 200023228,
@@ -3808,7 +3786,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Toni (18)",
+      "Toni (17)",
       "Hermes (35)"
     ],
     "shifted_to_next_day": null,
@@ -3867,6 +3845,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023264,
+    "class_id": 200023909,
+    "class_name": "Adult Amateur Hunter 36-54 U/S",
+    "class_number": 286,
+    "dt": "2026-04-18",
+    "group_name": "Adult Amateur Hunter 36-54 U/S",
+    "group_name_tags": "target, usf, 36-54, adult, amateur, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023265,
     "class_id": 200024229,
     "class_name": "Adult Amateur Hunter 55 & Over",
@@ -3882,9 +3882,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
+    "start_display": "11:40 AM",
+    "start_display_short": "11:40A",
+    "time_sort": 42000,
     "total_trips": 5
   },
   {
@@ -3904,9 +3904,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
+    "start_display": "11:40 AM",
+    "start_display_short": "11:40A",
+    "time_sort": 42000,
     "total_trips": 5
   },
   {
@@ -3926,9 +3926,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
+    "start_display": "11:40 AM",
+    "start_display_short": "11:40A",
+    "time_sort": 42000,
     "total_trips": 12
   },
   {
@@ -3948,9 +3948,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:42 AM",
-    "start_display_short": "11:42A",
-    "time_sort": 42134,
+    "start_display": "11:45 AM",
+    "start_display_short": "11:45A",
+    "time_sort": 42320,
     "total_trips": 0
   },
   {

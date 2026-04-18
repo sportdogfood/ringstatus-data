@@ -2656,7 +2656,7 @@
   },
   {
     "8778_group_display": [
-      "Knox (9)"
+      "Knox (7)"
     ],
     "class_group_id": 200023295,
     "class_id": 200024312,
@@ -2669,7 +2669,7 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Knox (9)"
+      "Knox (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2687,7 +2687,7 @@
     "class_group_sequence": 7,
     "estimated_start_time": "13:45:08",
     "8778_sched_display": [
-      "Knox (9)"
+      "Knox (7)"
     ]
   },
   {
@@ -2786,7 +2786,7 @@
     "sid": 200000059,
     "start_display": "3:45 PM",
     "start_display_short": "3:45P",
-    "time_sort": 56708,
+    "time_sort": 56700,
     "total_trips": 16,
     "class_groupxclasses_id": 200034743,
     "latestStart": "3:45 PM",
@@ -2795,7 +2795,7 @@
     ],
     "show_date": "2026-04-18",
     "class_group_sequence": 9,
-    "estimated_start_time": "15:45:08",
+    "estimated_start_time": "15:45:00",
     "8778_sched_display": [
       "Crush"
     ]

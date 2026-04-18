@@ -784,7 +784,7 @@
     "class_id": 200023990,
     "class_number": 341,
     "class_name": "Junior Hunter 3'3\" 16-17 U/S",
-    "latestStart": "1:59 PM",
+    "latestStart": "2:10 PM",
     "latestStatus": null,
     "total_trips": 9,
     "show_id": 200000059,
@@ -792,9 +792,9 @@
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "1:59 PM",
+    "start_display": "2:10 PM",
     "class_group_sequence": 12,
-    "estimated_start_time": "13:59:06",
+    "estimated_start_time": "14:10:06",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, 16-17, 3', 3'3\", junior, U/S, hunters, Under Saddle/Flat"
@@ -1591,7 +1591,9 @@
     "class_number": 738,
     "class_name": "1.0m Junior Jumper II2d",
     "latestStart": "12:10 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 20,
     "show_id": 200000059,
     "show_date": "2026-04-18",
@@ -2284,7 +2286,7 @@
     "class_name": "Small Green Pony Hunter",
     "latestStart": "1:45 PM",
     "latestStatus": "Underway",
-    "total_trips": 4,
+    "total_trips": 3,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2312,19 +2314,17 @@
     "class_id": 200023945,
     "class_number": 412,
     "class_name": "Small Pony Hunter",
-    "latestStart": "2:04 PM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStart": "2:08 PM",
+    "latestStatus": "Underway",
     "total_trips": 16,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "2:04 PM",
+    "start_display": "2:08 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "14:04:08",
+    "estimated_start_time": "14:08:48",
     "group_display": [
       "Crush (29)"
     ],
@@ -2344,19 +2344,17 @@
     "class_id": 200024212,
     "class_number": 413,
     "class_name": "Small Pony Conformation Hunter",
-    "latestStart": "2:04 PM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStart": "2:08 PM",
+    "latestStatus": "Underway",
     "total_trips": 16,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "2:04 PM",
+    "start_display": "2:08 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "14:04:08",
+    "estimated_start_time": "14:08:48",
     "group_display": [
       "Crush (30)"
     ],
@@ -2376,7 +2374,7 @@
     "class_id": 200024151,
     "class_number": 411,
     "class_name": "Small Pony Hunter U/S",
-    "latestStart": "3:43 PM",
+    "latestStart": "3:39 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2386,9 +2384,9 @@
     "show_days_display_date": "Saturday, April, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "3:43 PM",
+    "start_display": "3:39 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "15:43:00",
+    "estimated_start_time": "15:39:19",
     "group_display": [
       "Crush"
     ],
@@ -2700,7 +2698,7 @@
     "class_name": "Large/Medium Pony Jumper II2d",
     "latestStart": "1:40 PM",
     "latestStatus": "Underway",
-    "total_trips": 10,
+    "total_trips": 9,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -2934,7 +2932,7 @@
     "class_name": "Stirrup Hunter U/S",
     "latestStart": "2:30 PM",
     "latestStatus": null,
-    "total_trips": 8,
+    "total_trips": 7,
     "show_id": 200000059,
     "show_date": "2026-04-18",
     "show_days_display_date": "Saturday, April, 18, 2026",

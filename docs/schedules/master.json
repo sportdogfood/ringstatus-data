@@ -4677,7 +4677,7 @@
   },
   {
     "8778_group_display": [
-      "Knox (9)"
+      "Knox (7)"
     ],
     "class_group_id": 200023295,
     "class_id": 200024312,
@@ -4689,7 +4689,7 @@
     "ring_nickname": "Ring 7",
     "ring_number": 10,
     "group_display": [
-      "Knox (9)"
+      "Knox (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -4984,9 +4984,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:58 PM",
-    "start_display_short": "2:58P",
-    "time_sort": 53888,
+    "start_display": "3:04 PM",
+    "start_display_short": "3:04P",
+    "time_sort": 54270,
     "total_trips": 0
   },
   {
@@ -5016,28 +5016,6 @@
     "start_display_short": "3:10P",
     "time_sort": 54600,
     "total_trips": 5
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023272,
-    "class_id": 200023982,
-    "class_name": "Mulligan Class",
-    "class_number": 987,
-    "dt": "2026-04-18",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Saturday, April, 18, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "3:24 PM",
-    "start_display_short": "3:24P",
-    "time_sort": 55447,
-    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -5084,6 +5062,28 @@
     "total_trips": 5
   },
   {
+    "8778_group_display": [],
+    "class_group_id": 200023272,
+    "class_id": 200023982,
+    "class_name": "Mulligan Class",
+    "class_number": 987,
+    "dt": "2026-04-18",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Saturday, April, 18, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "3:26 PM",
+    "start_display_short": "3:26P",
+    "time_sort": 55610,
+    "total_trips": 0
+  },
+  {
     "8778_group_display": [
       "Crush"
     ],
@@ -5104,9 +5104,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "3:45 PM",
-    "start_display_short": "3:45P",
-    "time_sort": 56708,
+    "start_display": "3:47 PM",
+    "start_display_short": "3:47P",
+    "time_sort": 56834,
     "total_trips": 16
   },
   {

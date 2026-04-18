@@ -2629,7 +2629,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 16
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -3695,7 +3695,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie (23)"
+      "Dottie (22)"
     ],
     "class_group_id": 200023237,
     "class_id": 200024026,
@@ -3707,7 +3707,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Dottie (23)"
+      "Dottie (22)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -3717,7 +3717,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 36
+    "total_trips": 35
   },
   {
     "8778_group_display": [],
@@ -3809,8 +3809,8 @@
   },
   {
     "8778_group_display": [
-      "Toni (19)",
-      "Hermes (38)"
+      "Toni (18)",
+      "Hermes (37)"
     ],
     "class_group_id": 200023228,
     "class_id": 200023911,
@@ -3822,8 +3822,8 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Toni (19)",
-      "Hermes (38)"
+      "Toni (18)",
+      "Hermes (37)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -4241,7 +4241,7 @@
   },
   {
     "8778_group_display": [
-      "Cervin (31)"
+      "Cervin (32)"
     ],
     "class_group_id": 200023276,
     "class_id": 200024046,
@@ -4253,7 +4253,7 @@
     "ring_nickname": "Mogavero",
     "ring_number": 8,
     "group_display": [
-      "Cervin (31)"
+      "Cervin (32)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, April, 18, 2026",
@@ -4263,7 +4263,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 19
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -5170,9 +5170,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "4:31 PM",
-    "start_display_short": "4:31P",
-    "time_sort": 59460,
+    "start_display": "4:28 PM",
+    "start_display_short": "4:28P",
+    "time_sort": 59280,
     "total_trips": 0
   }
 ]

@@ -94,7 +94,7 @@
     "class_name": "$5,000 NAL 1.20m Junior Jumper Classic II2b",
     "latestStart": "9:00 AM",
     "latestStatus": "Not Started",
-    "total_trips": 47,
+    "total_trips": 48,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -104,10 +104,10 @@
     "class_group_sequence": 1,
     "estimated_start_time": "09:00:00",
     "group_display": [
-      "Dottie (41)"
+      "Dottie (42)"
     ],
     "8778_sched_display": [
-      "Dottie (41)"
+      "Dottie (42)"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
   },
@@ -124,7 +124,7 @@
     "class_name": "$5,000 NAL 1.20m Amateur Jumper Classic II2b",
     "latestStart": "9:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 47,
+    "total_trips": 48,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -150,7 +150,7 @@
     "class_name": "$5,000 NAL 1.30m Junior/Amateur Jumper Classic II2b",
     "latestStart": "11:30 AM",
     "latestStatus": "Not Started",
-    "total_trips": 33,
+    "total_trips": 32,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -160,10 +160,10 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:30:00",
     "group_display": [
-      "Bee (14)"
+      "Bee (13)"
     ],
     "8778_sched_display": [
-      "Bee (14)"
+      "Bee (13)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -483,7 +483,7 @@
     "estimated_start_time": "09:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "medal, junior, seat, Over Fences"
+    "group_name_tags": "target, medal, junior, seat, Over Fences"
   },
   {
     "sid": 200000059,
@@ -528,7 +528,7 @@
     "class_name": "ASPCA Maclay",
     "latestStart": "10:45 AM",
     "latestStatus": "Not Started",
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -579,7 +579,7 @@
       "Ford (5)",
       "Jason (7)"
     ],
-    "group_name_tags": "medal, dover, seat, Over Fences"
+    "group_name_tags": "target, medal, dover, seat, Over Fences"
   },
   {
     "sid": 200000059,
@@ -750,7 +750,7 @@
     "class_name": "USEF Adult Equitation",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 4,
+    "total_trips": 5,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -761,7 +761,7 @@
     "estimated_start_time": "08:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "isFirstUp, adult, Over Fences"
+    "group_name_tags": "isFirstUp, target, adult, Over Fences"
   },
   {
     "sid": 200000059,
@@ -774,7 +774,7 @@
     "class_id": 200024282,
     "class_number": 565,
     "class_name": "Ariat Adult Medal",
-    "latestStart": "8:10 AM",
+    "latestStart": "8:20 AM",
     "latestStatus": "Not Started",
     "total_trips": 6,
     "show_id": 200000059,
@@ -782,9 +782,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:10 AM",
+    "start_display": "8:20 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:10:00",
+    "estimated_start_time": "08:20:00",
     "group_display": [
       "Hurricane (4)"
     ],
@@ -804,7 +804,7 @@
     "class_id": 200024295,
     "class_number": 527,
     "class_name": "SFHJA Adult Medal (Flat Phase)",
-    "latestStart": "8:40 AM",
+    "latestStart": "8:45 AM",
     "latestStatus": null,
     "total_trips": 5,
     "show_id": 200000059,
@@ -812,9 +812,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:40 AM",
+    "start_display": "8:45 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "08:40:00",
+    "estimated_start_time": "08:45:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, adult, medal, flat, Under Saddle/Flat"
@@ -830,7 +830,7 @@
     "class_id": 200024051,
     "class_number": 294,
     "class_name": "Adult Amateur Hunter 55 & Over",
-    "latestStart": "8:50 AM",
+    "latestStart": "8:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000059,
@@ -838,9 +838,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:50 AM",
+    "start_display": "8:55 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "08:50:00",
+    "estimated_start_time": "08:55:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences"
@@ -856,7 +856,7 @@
     "class_id": 200024050,
     "class_number": 295,
     "class_name": "Adult Amateur Hunter 55 & Over",
-    "latestStart": "8:50 AM",
+    "latestStart": "8:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000059,
@@ -864,9 +864,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "8:50 AM",
+    "start_display": "8:55 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "08:50:00",
+    "estimated_start_time": "08:55:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences"
@@ -1288,7 +1288,7 @@
     "class_name": "Low Adult Hunter",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 26,
+    "total_trips": 27,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1314,7 +1314,7 @@
     "class_name": "Low Adult Hunter",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 26,
+    "total_trips": 27,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1340,7 +1340,7 @@
     "class_name": "Low Children's Hunter",
     "latestStart": "9:30 AM",
     "latestStatus": "Not Started",
-    "total_trips": 45,
+    "total_trips": 40,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1372,7 +1372,7 @@
     "class_name": "Low Children's Hunter",
     "latestStart": "9:30 AM",
     "latestStatus": "Not Started",
-    "total_trips": 45,
+    "total_trips": 40,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",

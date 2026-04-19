@@ -5337,7 +5337,7 @@
     "class_number": 595,
     "dt": "2026-04-19",
     "group_name": "USEF Adult Equitation",
-    "group_name_tags": "isFirstUp, adult, Over Fences",
+    "group_name_tags": "isFirstUp, target, adult, Over Fences",
     "ring_nickname": "Rost",
     "ring_number": 7,
     "group_display": [],
@@ -5349,7 +5349,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 4
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -5397,7 +5397,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 26
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -5419,7 +5419,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 26
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -5554,32 +5554,6 @@
     "total_trips": 5
   },
   {
-    "8778_group_display": [
-      "Hurricane (4)"
-    ],
-    "class_group_id": 200023336,
-    "class_id": 200024282,
-    "class_name": "Ariat Adult Medal",
-    "class_number": 565,
-    "dt": "2026-04-19",
-    "group_name": "Ariat Adult Medal",
-    "group_name_tags": "target, adult, medal, Over Fences",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [
-      "Hurricane (4)"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:10 AM",
-    "start_display_short": "8:10A",
-    "time_sort": 29400,
-    "total_trips": 6
-  },
-  {
     "8778_group_display": [],
     "class_group_id": 200023375,
     "class_id": 200023972,
@@ -5666,6 +5640,32 @@
     "start_display_short": "8:10A",
     "time_sort": 29400,
     "total_trips": 5
+  },
+  {
+    "8778_group_display": [
+      "Hurricane (4)"
+    ],
+    "class_group_id": 200023336,
+    "class_id": 200024282,
+    "class_name": "Ariat Adult Medal",
+    "class_number": 565,
+    "dt": "2026-04-19",
+    "group_name": "Ariat Adult Medal",
+    "group_name_tags": "target, adult, medal, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [
+      "Hurricane (4)"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:20 AM",
+    "start_display_short": "8:20A",
+    "time_sort": 30000,
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -5779,28 +5779,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023337,
-    "class_id": 200024295,
-    "class_name": "SFHJA Adult Medal (Flat Phase)",
-    "class_number": 527,
-    "dt": "2026-04-19",
-    "group_name": "SFHJA Adult Medal (Flat Phase)",
-    "group_name_tags": "target, usf, adult, medal, flat, Under Saddle/Flat",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:40 AM",
-    "start_display_short": "8:40A",
-    "time_sort": 31200,
-    "total_trips": 5
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023378,
     "class_id": 200023903,
     "class_name": "Training Jumper (.95m) II2d",
@@ -5845,13 +5823,13 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023340,
-    "class_id": 200024051,
-    "class_name": "Adult Amateur Hunter 55 & Over",
-    "class_number": 294,
+    "class_group_id": 200023337,
+    "class_id": 200024295,
+    "class_name": "SFHJA Adult Medal (Flat Phase)",
+    "class_number": 527,
     "dt": "2026-04-19",
-    "group_name": "Adult Amateur Hunter 55 & Over",
-    "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences",
+    "group_name": "SFHJA Adult Medal (Flat Phase)",
+    "group_name_tags": "target, usf, adult, medal, flat, Under Saddle/Flat",
     "ring_nickname": "Rost",
     "ring_number": 7,
     "group_display": [],
@@ -5860,32 +5838,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "8:50 AM",
-    "start_display_short": "8:50A",
-    "time_sort": 31800,
-    "total_trips": 8
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023340,
-    "class_id": 200024050,
-    "class_name": "Adult Amateur Hunter 55 & Over",
-    "class_number": 295,
-    "dt": "2026-04-19",
-    "group_name": "Adult Amateur Hunter 55 & Over",
-    "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "8:50 AM",
-    "start_display_short": "8:50A",
-    "time_sort": 31800,
-    "total_trips": 8
+    "start_display": "8:45 AM",
+    "start_display_short": "8:45A",
+    "time_sort": 31500,
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -5955,6 +5911,50 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023340,
+    "class_id": 200024051,
+    "class_name": "Adult Amateur Hunter 55 & Over",
+    "class_number": 294,
+    "dt": "2026-04-19",
+    "group_name": "Adult Amateur Hunter 55 & Over",
+    "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:55 AM",
+    "start_display_short": "8:55A",
+    "time_sort": 32100,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023340,
+    "class_id": 200024050,
+    "class_name": "Adult Amateur Hunter 55 & Over",
+    "class_number": 295,
+    "dt": "2026-04-19",
+    "group_name": "Adult Amateur Hunter 55 & Over",
+    "group_name_tags": "target, 55 & Over, adult, amateur, hunters, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "8:55 AM",
+    "start_display_short": "8:55A",
+    "time_sort": 32100,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023316,
     "class_id": 200025724,
     "class_name": "$5,000 NAL 1.20m Amateur Jumper Classic II2b",
@@ -5973,11 +5973,11 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 47
+    "total_trips": 48
   },
   {
     "8778_group_display": [
-      "Dottie (41)"
+      "Dottie (42)"
     ],
     "class_group_id": 200023316,
     "class_id": 200024086,
@@ -5989,7 +5989,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Dottie (41)"
+      "Dottie (42)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -5999,7 +5999,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 47
+    "total_trips": 48
   },
   {
     "8778_group_display": [],
@@ -6009,7 +6009,7 @@
     "class_number": 585,
     "dt": "2026-04-19",
     "group_name": "NCEA/USEF Junior Hunter Seat Medal",
-    "group_name_tags": "medal, junior, seat, Over Fences",
+    "group_name_tags": "target, medal, junior, seat, Over Fences",
     "ring_nickname": "Grand",
     "ring_number": 6,
     "group_display": [],
@@ -6247,7 +6247,7 @@
     "start_display": "9:30 AM",
     "start_display_short": "9:30A",
     "time_sort": 34200,
-    "total_trips": 45
+    "total_trips": 40
   },
   {
     "8778_group_display": [
@@ -6275,7 +6275,7 @@
     "start_display": "9:30 AM",
     "start_display_short": "9:30A",
     "time_sort": 34200,
-    "total_trips": 45
+    "total_trips": 40
   },
   {
     "8778_group_display": [
@@ -6829,7 +6829,7 @@
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
     "time_sort": 38700,
-    "total_trips": 18
+    "total_trips": 17
   },
   {
     "8778_group_display": [
@@ -7141,7 +7141,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (14)"
+      "Bee (13)"
     ],
     "class_group_id": 200023317,
     "class_id": 200024047,
@@ -7153,7 +7153,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Bee (14)"
+      "Bee (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -7163,7 +7163,7 @@
     "start_display": "11:30 AM",
     "start_display_short": "11:30A",
     "time_sort": 41400,
-    "total_trips": 33
+    "total_trips": 32
   },
   {
     "8778_group_display": [],
@@ -7242,7 +7242,7 @@
     "class_number": 550,
     "dt": "2026-04-19",
     "group_name": "Dover Saddlery/USEF Hunter Seat Medal",
-    "group_name_tags": "medal, dover, seat, Over Fences",
+    "group_name_tags": "target, medal, dover, seat, Over Fences",
     "ring_nickname": "Grand",
     "ring_number": 6,
     "group_display": [

@@ -162,10 +162,10 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:45:00",
     "group_display": [
-      "Bee (13)"
+      "Bee (11)"
     ],
     "8778_sched_display": [
-      "Bee (13)"
+      "Bee (11)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -316,7 +316,7 @@
     "class_id": 200024296,
     "class_number": 329,
     "class_name": "Small Junior Hunter 3'6\" 16-17",
-    "latestStart": "check gate",
+    "latestStart": "11:35 AM",
     "latestStatus": "Upcoming",
     "total_trips": 10,
     "show_id": 200000059,
@@ -324,9 +324,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "check gate",
+    "start_display": "11:35 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "23:50:00",
+    "estimated_start_time": "11:35:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 16-17, 3', 3'6\", junior, small, hunters, Over Fences"
@@ -530,17 +530,19 @@
     "class_id": 200024066,
     "class_number": 570,
     "class_name": "ASPCA Maclay",
-    "latestStart": "10:45 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 19,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Grand",
-    "start_display": "10:45 AM",
+    "start_display": "11:00 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:45:06",
+    "estimated_start_time": "11:00:00",
     "group_display": [
       "Lenny (5)",
       "Ford (6)",
@@ -966,7 +968,7 @@
     "class_name": "Adult Amateur Hunter 18-35",
     "latestStart": "10:52 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 9,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -992,7 +994,7 @@
     "class_name": "Adult Amateur Hunter 18-35",
     "latestStart": "10:52 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 9,
+    "total_trips": 8,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1018,7 +1020,7 @@
     "class_name": "THIS Children's Medal",
     "latestStart": "11:25 AM",
     "latestStatus": "Not Started",
-    "total_trips": 26,
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1028,10 +1030,10 @@
     "class_group_sequence": 9,
     "estimated_start_time": "11:25:00",
     "group_display": [
-      "Jason (15)"
+      "Jason (13)"
     ],
     "8778_sched_display": [
-      "Jason (15)"
+      "Jason (13)"
     ],
     "group_name_tags": "target, medal, children's, hunters, Over Fences"
   },
@@ -1216,7 +1218,7 @@
     "ring_nickname": "Mogavero",
     "start_display": "11:00 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "11:00:00",
+    "estimated_start_time": "11:00:10",
     "group_display": [
       "Rimini (2)",
       "Arrow (15)"
@@ -1354,12 +1356,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:30:00",
     "group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "8778_sched_display": [
-      "Carry",
-      "Tommy"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "group_name_tags": "target, low, children's, hunters, Over Fences"
   },
@@ -1386,12 +1388,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:30:00",
     "group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (17)",
+      "Tommy (20)"
     ],
     "8778_sched_display": [
-      "Carry",
-      "Tommy"
+      "Carry (17)",
+      "Tommy (20)"
     ],
     "group_name_tags": "target, low, children's, hunters, Over Fences"
   },
@@ -1406,17 +1408,17 @@
     "class_id": 200025270,
     "class_number": 503,
     "class_name": "Child/Adult Amateur Equitation 2'6\"",
-    "latestStart": "11:15 AM",
+    "latestStart": "11:16 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 7,
+    "total_trips": 6,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "11:15 AM",
+    "start_display": "11:16 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:15:00",
+    "estimated_start_time": "11:16:09",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, Over Fences"
@@ -1432,17 +1434,17 @@
     "class_id": 200025271,
     "class_number": 504,
     "class_name": "Child/Adult Amateur Equitation 2'6\"",
-    "latestStart": "11:15 AM",
+    "latestStart": "11:16 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 7,
+    "total_trips": 6,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "11:15 AM",
+    "start_display": "11:16 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "11:15:00",
+    "estimated_start_time": "11:16:09",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, Over Fences"
@@ -1458,7 +1460,7 @@
     "class_id": 200025269,
     "class_number": 502,
     "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "latestStart": "11:29 AM",
+    "latestStart": "11:28 AM",
     "latestStatus": null,
     "total_trips": 3,
     "show_id": 200000059,
@@ -1466,9 +1468,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "11:29 AM",
+    "start_display": "11:28 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:29:00",
+    "estimated_start_time": "11:28:09",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat"
@@ -2326,7 +2328,7 @@
     "class_name": "Puddle Jumper Open (.80m) II2d",
     "latestStart": "10:15 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 41,
+    "total_trips": 40,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2352,7 +2354,7 @@
     "class_name": "Puddle Jumper Junior/Amateur (.80m) II2d",
     "latestStart": "10:15 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 41,
+    "total_trips": 40,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",

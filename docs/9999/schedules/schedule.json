@@ -167,7 +167,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (11)"
+      "Bee (10)"
     ],
     "class_group_id": 200023317,
     "class_id": 200024047,
@@ -180,7 +180,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Bee (11)"
+      "Bee (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -198,7 +198,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:45:00",
     "8778_sched_display": [
-      "Bee (11)"
+      "Bee (10)"
     ]
   },
   {
@@ -383,7 +383,7 @@
     "start_display": "11:41 AM",
     "start_display_short": "11:41A",
     "time_sort": 42106,
-    "total_trips": 15,
+    "total_trips": 16,
     "class_groupxclasses_id": 200034796,
     "latestStart": "11:41 AM",
     "latestStatus": "Upcoming",
@@ -443,7 +443,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 25,
+    "total_trips": 26,
     "class_groupxclasses_id": 200034801,
     "latestStart": "12:45 PM",
     "latestStatus": "Upcoming",
@@ -643,7 +643,7 @@
     "class_groupxclasses_id": 200034816,
     "latestStart": "11:00 AM",
     "latestStatus": [
-      "Underway"
+      "Completed"
     ],
     "show_date": "2026-04-19",
     "class_group_sequence": 4,
@@ -1430,7 +1430,7 @@
     "start_display": "11:10 AM",
     "start_display_short": "11:10A",
     "time_sort": 40207,
-    "total_trips": 15,
+    "total_trips": 14,
     "class_groupxclasses_id": 200034845,
     "latestStart": "11:10 AM",
     "latestStatus": [
@@ -1722,16 +1722,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41708,
+    "start_display": "11:40 AM",
+    "start_display_short": "11:40A",
+    "time_sort": 42008,
     "total_trips": 3,
     "class_groupxclasses_id": 200036051,
-    "latestStart": "11:35 AM",
+    "latestStart": "11:40 AM",
     "latestStatus": null,
     "show_date": "2026-04-19",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:35:08",
+    "estimated_start_time": "11:40:08",
     "8778_sched_display": []
   },
   {
@@ -2276,7 +2276,7 @@
   },
   {
     "8778_group_display": [
-      "Paisley (25)"
+      "Paisley (34)"
     ],
     "class_group_id": 200023374,
     "class_id": 200023995,
@@ -2289,7 +2289,7 @@
     "ring_number": 10,
     "ringName": "Ring 7",
     "group_display": [
-      "Paisley (25)"
+      "Paisley (34)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2309,7 +2309,7 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:45:00",
     "8778_sched_display": [
-      "Paisley (25)"
+      "Paisley (34)"
     ]
   },
   {
@@ -2618,7 +2618,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (10)"
+      "Caymus (17)"
     ],
     "class_group_id": 200023381,
     "class_id": 200024027,
@@ -2631,7 +2631,7 @@
     "ring_number": 12,
     "ringName": "Ring 9",
     "group_display": [
-      "Caymus (10)"
+      "Caymus (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2651,7 +2651,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:10",
     "8778_sched_display": [
-      "Caymus (10)"
+      "Caymus (17)"
     ]
   },
   {

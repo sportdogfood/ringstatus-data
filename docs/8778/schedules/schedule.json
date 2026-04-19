@@ -635,7 +635,9 @@
     "class_number": 911,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
     "latestStart": "2:30 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 33,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -645,8 +647,14 @@
     "start_display": "2:30 PM",
     "class_group_sequence": 10,
     "estimated_start_time": "14:30:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
+    "8778_sched_display": [
+      "Macho",
+      "Dorian"
+    ],
     "group_name_tags": "classic, target, 15 & Under, 3', 3'3\", junior, hunters, Over Fences"
   },
   {
@@ -687,9 +695,7 @@
     "class_number": 911,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
     "latestStart": "4:15 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "total_trips": 33,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -699,14 +705,8 @@
     "start_display": "4:15 PM",
     "class_group_sequence": 11,
     "estimated_start_time": "16:15:00",
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
-    "8778_sched_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
+    "8778_sched_display": [],
     "group_name_tags": "classic, target, 16-17, 3', 3'3\", junior, hunters, Over Fences"
   },
   {

@@ -527,7 +527,7 @@
     "start_display": "4:00 PM",
     "start_display_short": "4:00P",
     "time_sort": 57600,
-    "total_trips": 24,
+    "total_trips": 30,
     "class_groupxclasses_id": 200034810,
     "latestStart": "4:00 PM",
     "latestStatus": "Upcoming",
@@ -2476,7 +2476,9 @@
     "total_trips": 42,
     "class_groupxclasses_id": 200034891,
     "latestStart": "2:06 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-04-19",
     "class_group_sequence": 9,
     "estimated_start_time": "14:06:52",

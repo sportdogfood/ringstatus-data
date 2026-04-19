@@ -7725,7 +7725,7 @@
     "start_display": "1:35 PM",
     "start_display_short": "1:35P",
     "time_sort": 48907,
-    "total_trips": 29
+    "total_trips": 28
   },
   {
     "8778_group_display": [],
@@ -7747,7 +7747,7 @@
     "start_display": "1:35 PM",
     "start_display_short": "1:35P",
     "time_sort": 48907,
-    "total_trips": 29
+    "total_trips": 28
   },
   {
     "8778_group_display": [
@@ -8160,54 +8160,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:43 PM",
-    "start_display_short": "2:43P",
-    "time_sort": 52987,
+    "start_display": "2:47 PM",
+    "start_display_short": "2:47P",
+    "time_sort": 53252,
     "total_trips": 4
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023366,
-    "class_id": 200024064,
-    "class_name": "12-14  Equitation Flat",
-    "class_number": 512,
-    "dt": "2026-04-19",
-    "group_name": "12-14  Equitation Flat",
-    "group_name_tags": "target, usf, flat, Under Saddle/Flat",
-    "ring_nickname": "Grand",
-    "ring_number": 6,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:45 PM",
-    "start_display_short": "2:45P",
-    "time_sort": 53107,
-    "total_trips": 8
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023348,
-    "class_id": 200024284,
-    "class_name": "Mulligan Class",
-    "class_number": 984,
-    "dt": "2026-04-19",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 7,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:48 PM",
-    "start_display_short": "2:48P",
-    "time_sort": 53327,
-    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -8228,7 +8184,7 @@
     "sid": 200000059,
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
-    "time_sort": 53400,
+    "time_sort": 53407,
     "total_trips": 22
   },
   {
@@ -8250,7 +8206,7 @@
     "sid": 200000059,
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
-    "time_sort": 53400,
+    "time_sort": 53407,
     "total_trips": 22
   },
   {
@@ -8272,8 +8228,52 @@
     "sid": 200000059,
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
-    "time_sort": 53400,
+    "time_sort": 53407,
     "total_trips": 22
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023348,
+    "class_id": 200024284,
+    "class_name": "Mulligan Class",
+    "class_number": 984,
+    "dt": "2026-04-19",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 7,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:52 PM",
+    "start_display_short": "2:52P",
+    "time_sort": 53527,
+    "total_trips": 0
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023366,
+    "class_id": 200024064,
+    "class_name": "12-14  Equitation Flat",
+    "class_number": 512,
+    "dt": "2026-04-19",
+    "group_name": "12-14  Equitation Flat",
+    "group_name_tags": "target, usf, flat, Under Saddle/Flat",
+    "ring_nickname": "Grand",
+    "ring_number": 6,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:57 PM",
+    "start_display_short": "2:57P",
+    "time_sort": 53835,
+    "total_trips": 8
   },
   {
     "8778_group_display": [],

@@ -5195,7 +5195,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 10
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -5397,7 +5397,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 31
+    "total_trips": 26
   },
   {
     "8778_group_display": [],
@@ -5419,7 +5419,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 31
+    "total_trips": 26
   },
   {
     "8778_group_display": [],
@@ -6225,7 +6225,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 39
+    "total_trips": 43
   },
   {
     "8778_group_display": [
@@ -6253,7 +6253,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 39
+    "total_trips": 43
   },
   {
     "8778_group_display": [],
@@ -6832,50 +6832,6 @@
     "total_trips": 18
   },
   {
-    "8778_group_display": [],
-    "class_group_id": 200024339,
-    "class_id": 200025270,
-    "class_name": "Child/Adult Amateur Equitation 2'6\"",
-    "class_number": 503,
-    "dt": "2026-04-19",
-    "group_name": "Child/Adult Amateur Equitation 2'6\"",
-    "group_name_tags": "target, adult, amateur, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38700,
-    "total_trips": 4
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200024339,
-    "class_id": 200025271,
-    "class_name": "Child/Adult Amateur Equitation 2'6\"",
-    "class_number": 504,
-    "dt": "2026-04-19",
-    "group_name": "Child/Adult Amateur Equitation 2'6\"",
-    "group_name_tags": "target, adult, amateur, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38700,
-    "total_trips": 4
-  },
-  {
     "8778_group_display": [
       "Paisley"
     ],
@@ -6954,28 +6910,6 @@
     "total_trips": 45
   },
   {
-    "8778_group_display": [],
-    "class_group_id": 200024338,
-    "class_id": 200025269,
-    "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "class_number": 502,
-    "dt": "2026-04-19",
-    "group_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:55 AM",
-    "start_display_short": "10:55A",
-    "time_sort": 39300,
-    "total_trips": 2
-  },
-  {
     "8778_group_display": [
       "Macho",
       "Dorian"
@@ -7049,6 +6983,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200024339,
+    "class_id": 200025270,
+    "class_name": "Child/Adult Amateur Equitation 2'6\"",
+    "class_number": 503,
+    "dt": "2026-04-19",
+    "group_name": "Child/Adult Amateur Equitation 2'6\"",
+    "group_name_tags": "target, adult, amateur, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
+    "total_trips": 4
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023356,
     "class_id": 200024121,
     "class_name": "Modified Hunter 2'/2'6\" U/S",
@@ -7068,6 +7024,28 @@
     "start_display_short": "11:00A",
     "time_sort": 39600,
     "total_trips": 5
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200024339,
+    "class_id": 200025271,
+    "class_name": "Child/Adult Amateur Equitation 2'6\"",
+    "class_number": 504,
+    "dt": "2026-04-19",
+    "group_name": "Child/Adult Amateur Equitation 2'6\"",
+    "group_name_tags": "target, adult, amateur, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
+    "total_trips": 4
   },
   {
     "8778_group_display": [
@@ -7097,13 +7075,13 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023357,
-    "class_id": 200024264,
-    "class_name": "Modified Hunter 2'/2'6\"",
-    "class_number": 644,
+    "class_group_id": 200024338,
+    "class_id": 200025269,
+    "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
+    "class_number": 502,
     "dt": "2026-04-19",
-    "group_name": "Modified Hunter 2'/2'6\"",
-    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
+    "group_name": "Child/Adult Amateur Equitation 2'6\" Flat",
+    "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat",
     "ring_nickname": "Ring 6",
     "ring_number": 9,
     "group_display": [],
@@ -7112,32 +7090,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
-    "total_trips": 11
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023357,
-    "class_id": 200024120,
-    "class_name": "Modified Hunter 2'/2'6\"",
-    "class_number": 645,
-    "dt": "2026-04-19",
-    "group_name": "Modified Hunter 2'/2'6\"",
-    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
-    "total_trips": 11
+    "start_display": "11:10 AM",
+    "start_display_short": "11:10A",
+    "time_sort": 40200,
+    "total_trips": 2
   },
   {
     "8778_group_display": [],
@@ -7230,6 +7186,50 @@
     "start_display_short": "11:30A",
     "time_sort": 41400,
     "total_trips": 16
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023357,
+    "class_id": 200024264,
+    "class_name": "Modified Hunter 2'/2'6\"",
+    "class_number": 644,
+    "dt": "2026-04-19",
+    "group_name": "Modified Hunter 2'/2'6\"",
+    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
+    "total_trips": 11
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023357,
+    "class_id": 200024120,
+    "class_name": "Modified Hunter 2'/2'6\"",
+    "class_number": 645,
+    "dt": "2026-04-19",
+    "group_name": "Modified Hunter 2'/2'6\"",
+    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -8157,7 +8157,7 @@
     "start_display": "4:15 PM",
     "start_display_short": "4:15P",
     "time_sort": 58500,
-    "total_trips": 33
+    "total_trips": 35
   },
   {
     "8778_group_display": [],

@@ -5337,7 +5337,7 @@
     "class_number": 595,
     "dt": "2026-04-19",
     "group_name": "USEF Adult Equitation",
-    "group_name_tags": null,
+    "group_name_tags": "isFirstUp, adult, Over Fences",
     "ring_nickname": null,
     "ring_number": 7,
     "group_display": [],
@@ -6009,7 +6009,7 @@
     "class_number": 585,
     "dt": "2026-04-19",
     "group_name": "NCEA/USEF Junior Hunter Seat Medal",
-    "group_name_tags": null,
+    "group_name_tags": "medal, junior, seat, Over Fences",
     "ring_nickname": null,
     "ring_number": 6,
     "group_display": [],
@@ -6803,9 +6803,9 @@
   },
   {
     "8778_group_display": [
-      "Lenny (4)",
-      "Ford (5)",
-      "Jason (7)"
+      "Lenny (3)",
+      "Ford (4)",
+      "Jason (6)"
     ],
     "class_group_id": 200023333,
     "class_id": 200024066,
@@ -6817,9 +6817,9 @@
     "ring_nickname": "Grand",
     "ring_number": 6,
     "group_display": [
-      "Lenny (4)",
-      "Ford (5)",
-      "Jason (7)"
+      "Lenny (3)",
+      "Ford (4)",
+      "Jason (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -7005,28 +7005,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023356,
-    "class_id": 200024121,
-    "class_name": "Modified Hunter 2'/2'6\" U/S",
-    "class_number": 641,
-    "dt": "2026-04-19",
-    "group_name": "Modified Hunter 2'/2'6\" U/S",
-    "group_name_tags": "target, usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
-    "total_trips": 5
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200024339,
     "class_id": 200025271,
     "class_name": "Child/Adult Amateur Equitation 2'6\"",
@@ -7094,6 +7072,28 @@
     "start_display_short": "11:10A",
     "time_sort": 40200,
     "total_trips": 2
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023356,
+    "class_id": 200024121,
+    "class_name": "Modified Hunter 2'/2'6\" U/S",
+    "class_number": 641,
+    "dt": "2026-04-19",
+    "group_name": "Modified Hunter 2'/2'6\" U/S",
+    "group_name_tags": "target, usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:15 AM",
+    "start_display_short": "11:15A",
+    "time_sort": 40500,
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -7232,17 +7232,23 @@
     "total_trips": 11
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      " (5)",
+      " (7)"
+    ],
     "class_group_id": 200023334,
     "class_id": 200024023,
     "class_name": "Dover Saddlery/USEF Hunter Seat Medal",
     "class_number": 550,
     "dt": "2026-04-19",
     "group_name": "Dover Saddlery/USEF Hunter Seat Medal",
-    "group_name_tags": null,
+    "group_name_tags": "medal, dover, seat, Over Fences",
     "ring_nickname": null,
     "ring_number": 6,
-    "group_display": [],
+    "group_display": [
+      " (5)",
+      " (7)"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
@@ -8157,7 +8163,7 @@
     "start_display": "4:15 PM",
     "start_display_short": "4:15P",
     "time_sort": 58500,
-    "total_trips": 35
+    "total_trips": 33
   },
   {
     "8778_group_display": [],

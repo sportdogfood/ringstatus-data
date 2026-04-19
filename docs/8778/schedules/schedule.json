@@ -420,7 +420,7 @@
     "class_name": "Junior Hunter 3'3\" 15 & Under",
     "latestStart": "2:55 PM",
     "latestStatus": "Underway",
-    "total_trips": 24,
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -445,7 +445,7 @@
     "class_number": 344,
     "class_name": "Junior Hunter 3'3\" 16-17",
     "latestStart": "4:00 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 30,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -1342,7 +1342,7 @@
     "class_name": "Low Children's Hunter",
     "latestStart": "9:30 AM",
     "latestStatus": "Completed",
-    "total_trips": 40,
+    "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1376,7 +1376,7 @@
     "latestStatus": [
       "Underway"
     ],
-    "total_trips": 40,
+    "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2109,9 +2109,7 @@
     "class_number": 414,
     "class_name": "Small Pony Hunter",
     "latestStart": "2:06 PM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 44,
     "show_id": 200000059,
     "show_date": "2026-04-19",

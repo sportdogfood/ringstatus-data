@@ -5863,7 +5863,7 @@
     "start_display": "8:45 AM",
     "start_display_short": "8:45A",
     "time_sort": 31500,
-    "total_trips": 10
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -5885,7 +5885,7 @@
     "start_display": "8:45 AM",
     "start_display_short": "8:45A",
     "time_sort": 31500,
-    "total_trips": 10
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -6065,7 +6065,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 22
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -6087,7 +6087,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 22
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -6437,28 +6437,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023398,
-    "class_id": 200024081,
-    "class_name": "Rusty Stirrup Equitation Flat",
-    "class_number": 618,
-    "dt": "2026-04-19",
-    "group_name": "Rusty Stirrup Equitation Flat",
-    "group_name_tags": "target, usf, rusty, stirrup, flat, Under Saddle/Flat",
-    "ring_nickname": "Ring 11",
-    "ring_number": 14,
-    "group_display": [],
-    "shifted_to_next_day": true,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "10:01 AM",
-    "start_display_short": "10:01A",
-    "time_sort": 36060,
-    "total_trips": 6
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023385,
     "class_id": 200023952,
     "class_name": "Puddle Jumper Open (.80m) II2d",
@@ -6474,9 +6452,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:06 AM",
-    "start_display_short": "10:06A",
-    "time_sort": 36360,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 42
   },
   {
@@ -6496,10 +6474,32 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:06 AM",
-    "start_display_short": "10:06A",
-    "time_sort": 36360,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 42
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023398,
+    "class_id": 200024081,
+    "class_name": "Rusty Stirrup Equitation Flat",
+    "class_number": 618,
+    "dt": "2026-04-19",
+    "group_name": "Rusty Stirrup Equitation Flat",
+    "group_name_tags": "target, usf, rusty, stirrup, flat, Under Saddle/Flat",
+    "ring_nickname": "Ring 11",
+    "ring_number": 14,
+    "group_display": [],
+    "shifted_to_next_day": true,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "10:01 AM",
+    "start_display_short": "10:01A",
+    "time_sort": 36060,
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -7189,6 +7189,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200024424,
+    "class_id": 200025722,
+    "class_name": "WIHS Large/Medium Pony Jumper II2b",
+    "class_number": 685,
+    "dt": "2026-04-19",
+    "group_name": "WIHS Large/Medium Pony Jumper II2b",
+    "group_name_tags": "target, pony, large, medium, wihs, jumpers, Over Fences",
+    "ring_nickname": "Ring 10",
+    "ring_number": 13,
+    "group_display": [],
+    "shifted_to_next_day": true,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:06 PM",
+    "start_display_short": "12:06P",
+    "time_sort": 43560,
+    "total_trips": 12
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023357,
     "class_id": 200024264,
     "class_name": "Modified Hunter 2'/2'6\"",
@@ -7230,28 +7252,6 @@
     "start_display_short": "12:12P",
     "time_sort": 43920,
     "total_trips": 11
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200024424,
-    "class_id": 200025722,
-    "class_name": "WIHS Large/Medium Pony Jumper II2b",
-    "class_number": 685,
-    "dt": "2026-04-19",
-    "group_name": "WIHS Large/Medium Pony Jumper II2b",
-    "group_name_tags": "target, pony, large, medium, wihs, jumpers, Over Fences",
-    "ring_nickname": "Ring 10",
-    "ring_number": 13,
-    "group_display": [],
-    "shifted_to_next_day": true,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:12 PM",
-    "start_display_short": "12:12P",
-    "time_sort": 43920,
-    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -7387,6 +7387,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023386,
+    "class_id": 200024214,
+    "class_name": "Small WIHS Pony Jumper II2b",
+    "class_number": 682,
+    "dt": "2026-04-19",
+    "group_name": "Small WIHS Pony Jumper II2b",
+    "group_name_tags": "target, pony, small, wihs, jumpers, Over Fences",
+    "ring_nickname": "Ring 10",
+    "ring_number": 13,
+    "group_display": [],
+    "shifted_to_next_day": true,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:42 PM",
+    "start_display_short": "12:42P",
+    "time_sort": 45720,
+    "total_trips": 10
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023326,
     "class_id": 200024142,
     "class_name": "$1,000 Junior Hunter 3'3\"  Classic",
@@ -7497,28 +7519,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023386,
-    "class_id": 200024214,
-    "class_name": "Small WIHS Pony Jumper II2b",
-    "class_number": 682,
-    "dt": "2026-04-19",
-    "group_name": "Small WIHS Pony Jumper II2b",
-    "group_name_tags": "target, pony, small, wihs, jumpers, Over Fences",
-    "ring_nickname": "Ring 10",
-    "ring_number": 13,
-    "group_display": [],
-    "shifted_to_next_day": true,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:48 PM",
-    "start_display_short": "12:48P",
-    "time_sort": 46080,
-    "total_trips": 10
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023345,
     "class_id": 200024118,
     "class_name": "Children's Hunter U/S",
@@ -7626,9 +7626,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:18 PM",
-    "start_display_short": "1:18P",
-    "time_sort": 47880,
+    "start_display": "1:12 PM",
+    "start_display_short": "1:12P",
+    "time_sort": 47520,
     "total_trips": 0
   },
   {

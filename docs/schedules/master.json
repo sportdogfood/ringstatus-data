@@ -7151,7 +7151,7 @@
     "class_number": 555,
     "dt": "2026-04-19",
     "group_name": "THIS Children's Medal",
-    "group_name_tags": "target, medal, children's, hunters, Over Fences",
+    "group_name_tags": "target, medal, children's, Over Fences",
     "ring_nickname": "Rost",
     "ring_number": 7,
     "group_display": [
@@ -8079,28 +8079,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023327,
-    "class_id": 200024280,
-    "class_name": "Large Junior Hunter 3'6\" 16-17 U/S",
-    "class_number": 331,
-    "dt": "2026-04-19",
-    "group_name": "Large Junior Hunter 3'6\" 16-17 U/S",
-    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, large, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Intl",
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:30 PM",
-    "start_display_short": "2:30P",
-    "time_sort": 52200,
-    "total_trips": 10
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023328,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -8123,6 +8101,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023327,
+    "class_id": 200024280,
+    "class_name": "Large Junior Hunter 3'6\" 16-17 U/S",
+    "class_number": 331,
+    "dt": "2026-04-19",
+    "group_name": "Large Junior Hunter 3'6\" 16-17 U/S",
+    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, large, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Intl",
+    "ring_number": 5,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:30 PM",
+    "start_display_short": "2:30P",
+    "time_sort": 52206,
+    "total_trips": 10
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023361,
     "class_id": 200023926,
     "class_name": "M&S Children's Pony Medal",
@@ -8140,30 +8140,8 @@
     "sid": 200000059,
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
-    "time_sort": 52200,
+    "time_sort": 52208,
     "total_trips": 5
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023366,
-    "class_id": 200024064,
-    "class_name": "12-14  Equitation Flat",
-    "class_number": 512,
-    "dt": "2026-04-19",
-    "group_name": "12-14  Equitation Flat",
-    "group_name_tags": "target, usf, flat, Under Saddle/Flat",
-    "ring_nickname": "Grand",
-    "ring_number": 6,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:33 PM",
-    "start_display_short": "2:33P",
-    "time_sort": 52386,
-    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -8182,10 +8160,32 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:40 PM",
-    "start_display_short": "2:40P",
-    "time_sort": 52800,
+    "start_display": "2:43 PM",
+    "start_display_short": "2:43P",
+    "time_sort": 52987,
     "total_trips": 4
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023366,
+    "class_id": 200024064,
+    "class_name": "12-14  Equitation Flat",
+    "class_number": 512,
+    "dt": "2026-04-19",
+    "group_name": "12-14  Equitation Flat",
+    "group_name_tags": "target, usf, flat, Under Saddle/Flat",
+    "ring_nickname": "Grand",
+    "ring_number": 6,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:45 PM",
+    "start_display_short": "2:45P",
+    "time_sort": 53107,
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -8204,9 +8204,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:44 PM",
-    "start_display_short": "2:44P",
-    "time_sort": 53080,
+    "start_display": "2:48 PM",
+    "start_display_short": "2:48P",
+    "time_sort": 53327,
     "total_trips": 0
   },
   {
@@ -8229,7 +8229,7 @@
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
     "time_sort": 53400,
-    "total_trips": 24
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -8251,7 +8251,7 @@
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
     "time_sort": 53400,
-    "total_trips": 24
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -8273,7 +8273,7 @@
     "start_display": "2:50 PM",
     "start_display_short": "2:50P",
     "time_sort": 53400,
-    "total_trips": 24
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -8317,7 +8317,7 @@
     "start_display": "4:20 PM",
     "start_display_short": "4:20P",
     "time_sort": 58800,
-    "total_trips": 24
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -8339,7 +8339,7 @@
     "start_display": "4:20 PM",
     "start_display_short": "4:20P",
     "time_sort": 58800,
-    "total_trips": 24
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -8361,7 +8361,7 @@
     "start_display": "4:20 PM",
     "start_display_short": "4:20P",
     "time_sort": 58800,
-    "total_trips": 24
+    "total_trips": 22
   },
   {
     "8778_group_display": [],

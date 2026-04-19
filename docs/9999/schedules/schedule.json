@@ -725,10 +725,7 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023328,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -739,10 +736,7 @@
     "ring_nickname": "Intl",
     "ring_number": 5,
     "ringName": "Intl",
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
@@ -754,16 +748,11 @@
     "total_trips": 33,
     "class_groupxclasses_id": 200036144,
     "latestStart": "2:30 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-04-19",
     "class_group_sequence": 10,
     "estimated_start_time": "14:30:00",
-    "8778_sched_display": [
-      "Macho",
-      "Dorian"
-    ]
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -796,7 +785,10 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023329,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -807,7 +799,10 @@
     "ring_nickname": "Intl",
     "ring_number": 5,
     "ringName": "Intl",
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
@@ -819,11 +814,16 @@
     "total_trips": 33,
     "class_groupxclasses_id": 200036143,
     "latestStart": "4:15 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "show_date": "2026-04-19",
     "class_group_sequence": 11,
     "estimated_start_time": "16:15:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Macho",
+      "Dorian"
+    ]
   },
   {
     "8778_group_display": [

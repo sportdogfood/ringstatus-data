@@ -6947,7 +6947,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 15
+    "total_trips": 17
   },
   {
     "8778_group_display": [],
@@ -6969,7 +6969,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 15
+    "total_trips": 17
   },
   {
     "8778_group_display": [
@@ -6997,7 +6997,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -7253,7 +7253,7 @@
     "start_display": "11:41 AM",
     "start_display_short": "11:41A",
     "time_sort": 42106,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -7323,7 +7323,7 @@
     "start_display": "12:10 PM",
     "start_display_short": "12:10P",
     "time_sort": 43800,
-    "total_trips": 16
+    "total_trips": 15
   },
   {
     "8778_group_display": [
@@ -7421,28 +7421,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023325,
-    "class_id": 200024184,
-    "class_name": "Small Junior Hunter 3'6\" 16-17 U/S",
-    "class_number": 326,
-    "dt": "2026-04-19",
-    "group_name": "Small Junior Hunter 3'6\" 16-17 U/S",
-    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, small, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Intl",
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:41 PM",
-    "start_display_short": "12:41P",
-    "time_sort": 45666,
-    "total_trips": 5
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023358,
     "class_id": 200024150,
     "class_name": "Small/Medium Children's Hunter Pony",
@@ -7458,10 +7436,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:41 PM",
-    "start_display_short": "12:41P",
-    "time_sort": 45667,
-    "total_trips": 24
+    "start_display": "12:43 PM",
+    "start_display_short": "12:43P",
+    "time_sort": 45800,
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -7480,32 +7458,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:41 PM",
-    "start_display_short": "12:41P",
-    "time_sort": 45667,
-    "total_trips": 24
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023382,
-    "class_id": 200024319,
-    "class_name": "Mulligan Class",
-    "class_number": 994,
-    "dt": "2026-04-19",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 12,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:44 PM",
-    "start_display_short": "12:44P",
-    "time_sort": 45848,
-    "total_trips": 0
+    "start_display": "12:43 PM",
+    "start_display_short": "12:43P",
+    "time_sort": 45800,
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -7531,6 +7487,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023325,
+    "class_id": 200024184,
+    "class_name": "Small Junior Hunter 3'6\" 16-17 U/S",
+    "class_number": 326,
+    "dt": "2026-04-19",
+    "group_name": "Small Junior Hunter 3'6\" 16-17 U/S",
+    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, small, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Intl",
+    "ring_number": 5,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:51 PM",
+    "start_display_short": "12:51P",
+    "time_sort": 46267,
+    "total_trips": 5
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023363,
     "class_id": 200023925,
     "class_name": "11 & Under Equitation",
@@ -7546,9 +7524,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45900,
+    "start_display": "12:52 PM",
+    "start_display_short": "12:52P",
+    "time_sort": 46328,
     "total_trips": 7
   },
   {
@@ -7568,9 +7546,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45900,
+    "start_display": "12:52 PM",
+    "start_display_short": "12:52P",
+    "time_sort": 46328,
     "total_trips": 7
   },
   {
@@ -7590,10 +7568,32 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45907,
+    "start_display": "12:52 PM",
+    "start_display_short": "12:52P",
+    "time_sort": 46329,
     "total_trips": 15
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023382,
+    "class_id": 200024319,
+    "class_name": "Mulligan Class",
+    "class_number": 994,
+    "dt": "2026-04-19",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 12,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:53 PM",
+    "start_display_short": "12:53P",
+    "time_sort": 46390,
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -7615,7 +7615,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -7637,7 +7637,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -7659,7 +7659,7 @@
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
     "time_sort": 46800,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -7700,10 +7700,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:05 PM",
-    "start_display_short": "1:05P",
-    "time_sort": 47100,
-    "total_trips": 13
+    "start_display": "1:07 PM",
+    "start_display_short": "1:07P",
+    "time_sort": 47229,
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -7722,9 +7722,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:08 PM",
-    "start_display_short": "1:08P",
-    "time_sort": 47297,
+    "start_display": "1:11 PM",
+    "start_display_short": "1:11P",
+    "time_sort": 47485,
     "total_trips": 10
   },
   {
@@ -7814,9 +7814,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:20 PM",
-    "start_display_short": "1:20P",
-    "time_sort": 48000,
+    "start_display": "1:22 PM",
+    "start_display_short": "1:22P",
+    "time_sort": 48129,
     "total_trips": 29
   },
   {
@@ -7836,9 +7836,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:20 PM",
-    "start_display_short": "1:20P",
-    "time_sort": 48000,
+    "start_display": "1:22 PM",
+    "start_display_short": "1:22P",
+    "time_sort": 48129,
     "total_trips": 29
   },
   {
@@ -7858,9 +7858,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:38 PM",
-    "start_display_short": "1:38P",
-    "time_sort": 49097,
+    "start_display": "1:41 PM",
+    "start_display_short": "1:41P",
+    "time_sort": 49285,
     "total_trips": 0
   },
   {
@@ -8138,9 +8138,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "2:18 PM",
-    "start_display_short": "2:18P",
-    "time_sort": 51480,
+    "start_display": "2:20 PM",
+    "start_display_short": "2:20P",
+    "time_sort": 51609,
     "total_trips": 0
   },
   {

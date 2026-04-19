@@ -376,16 +376,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "check gate",
-    "start_display_short": "checkgate",
-    "time_sort": 85800,
+    "start_display": "11:50 AM",
+    "start_display_short": "11:50A",
+    "time_sort": 42600,
     "total_trips": 10,
     "class_groupxclasses_id": 200034796,
-    "latestStart": "check gate",
+    "latestStart": "11:50 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-04-19",
     "class_group_sequence": 6,
-    "estimated_start_time": "23:50:00",
+    "estimated_start_time": "11:50:00",
     "8778_sched_display": []
   },
   {
@@ -632,16 +632,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38706,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
     "total_trips": 19,
     "class_groupxclasses_id": 200034816,
-    "latestStart": "10:45 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "11:00 AM",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-04-19",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:45:06",
+    "estimated_start_time": "11:00:00",
     "8778_sched_display": [
       "Lenny (5)",
       "Ford (6)",
@@ -1175,7 +1177,7 @@
   },
   {
     "8778_group_display": [
-      "Jason (15)"
+      "Jason (13)"
     ],
     "class_group_id": 200023343,
     "class_id": 200024243,
@@ -1188,7 +1190,7 @@
     "ring_number": 7,
     "ringName": "Rost",
     "group_display": [
-      "Jason (15)"
+      "Jason (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1206,7 +1208,7 @@
     "class_group_sequence": 9,
     "estimated_start_time": "11:25:00",
     "8778_sched_display": [
-      "Jason (15)"
+      "Jason (13)"
     ]
   },
   {
@@ -1556,8 +1558,8 @@
   },
   {
     "8778_group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "class_group_id": 200023355,
     "class_id": 200024059,
@@ -1570,8 +1572,8 @@
     "ring_number": 9,
     "ringName": "Ring 6",
     "group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (7)",
+      "Tommy (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1589,14 +1591,14 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:30:00",
     "8778_sched_display": [
-      "Carry",
-      "Tommy"
+      "Carry (7)",
+      "Tommy (8)"
     ]
   },
   {
     "8778_group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (17)",
+      "Tommy (20)"
     ],
     "class_group_id": 200023355,
     "class_id": 200023895,
@@ -1609,8 +1611,8 @@
     "ring_number": 9,
     "ringName": "Ring 6",
     "group_display": [
-      "Carry",
-      "Tommy"
+      "Carry (17)",
+      "Tommy (20)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1628,8 +1630,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:30:00",
     "8778_sched_display": [
-      "Carry",
-      "Tommy"
+      "Carry (17)",
+      "Tommy (20)"
     ]
   },
   {

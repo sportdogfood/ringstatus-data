@@ -95,9 +95,7 @@
     "class_number": 723,
     "class_name": "$5,000 NAL 1.20m Junior Jumper Classic II2b",
     "latestStart": "9:00 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -127,7 +125,7 @@
     "class_number": 724,
     "class_name": "$5,000 NAL 1.20m Amateur Jumper Classic II2b",
     "latestStart": "9:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -152,22 +150,24 @@
     "class_id": 200024047,
     "class_number": 775,
     "class_name": "$5,000 NAL 1.30m Junior/Amateur Jumper Classic II2b",
-    "latestStart": "11:50 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "12:00 PM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 29,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:50 AM",
+    "start_display": "12:00 PM",
     "class_group_sequence": 2,
-    "estimated_start_time": "11:50:07",
+    "estimated_start_time": "12:00:10",
     "group_display": [
-      "Bee (10)"
+      "Bee (28)"
     ],
     "8778_sched_display": [
-      "Bee (10)"
+      "Bee (28)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -184,7 +184,7 @@
     "class_name": "Amateur Owner Hunter 3'3\" 18-35",
     "latestStart": "8:00 AM",
     "latestStatus": "Completed",
-    "total_trips": 23,
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -210,7 +210,7 @@
     "class_name": "Amateur Owner Hunter 3'3\" 36+",
     "latestStart": "8:30 AM",
     "latestStatus": "Completed",
-    "total_trips": 25,
+    "total_trips": 27,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -236,7 +236,7 @@
     "class_name": "Amateur Owner Hunter 3'6\" 18-35",
     "latestStart": "9:15 AM",
     "latestStatus": "Completed",
-    "total_trips": 23,
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -262,7 +262,7 @@
     "class_name": "Amateur Owner Hunter 3'6\" 36+",
     "latestStart": "10:10 AM",
     "latestStatus": "Completed",
-    "total_trips": 21,
+    "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -287,10 +287,8 @@
     "class_number": 304,
     "class_name": "Junior Hunter 3'6\" 15 & Under",
     "latestStart": "11:05 AM",
-    "latestStatus": [
-      "Completed"
-    ],
-    "total_trips": 14,
+    "latestStatus": "Completed",
+    "total_trips": 18,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -322,7 +320,7 @@
     "class_name": "Small Junior Hunter 3'6\" 16-17",
     "latestStart": "11:41 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 17,
+    "total_trips": 18,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -374,7 +372,7 @@
     "class_name": "Large Junior Hunter 3'6\" 16-17",
     "latestStart": "12:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 27,
+    "total_trips": 24,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -503,9 +501,7 @@
     "class_number": 530,
     "class_name": "Hamel Foundation/NHS 3'3\" Medal",
     "latestStart": "9:40 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 19,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -570,17 +566,17 @@
     "class_id": 200024023,
     "class_number": 550,
     "class_name": "Dover Saddlery/USEF Hunter Seat Medal",
-    "latestStart": "12:00 PM",
+    "latestStart": "12:05 PM",
     "latestStatus": "Not Started",
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Grand",
-    "start_display": "12:00 PM",
+    "start_display": "12:05 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:00:00",
+    "estimated_start_time": "12:05:07",
     "group_display": [
       "Ford (5)",
       "Jason (7)"
@@ -1215,9 +1211,7 @@
     "class_number": 743,
     "class_name": "$2,640 M&S 1.15m Junior Jumper Classic II2b",
     "latestStart": "11:10 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 14,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -1532,7 +1526,7 @@
     "ring_nickname": "Ring 6",
     "start_display": "12:05 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:05:00",
+    "estimated_start_time": "12:05:08",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 2'/2'6\", hunters, Over Fences"
@@ -1558,7 +1552,7 @@
     "ring_nickname": "Ring 6",
     "start_display": "12:05 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:05:00",
+    "estimated_start_time": "12:05:08",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 2'/2'6\", hunters, Over Fences"
@@ -1978,10 +1972,10 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:45:00",
     "group_display": [
-      "Paisley (34)"
+      "Paisley (40)"
     ],
     "8778_sched_display": [
-      "Paisley (34)"
+      "Paisley (40)"
     ],
     "group_name_tags": "target, pony, medium, hunters, Over Fences"
   },
@@ -2028,7 +2022,7 @@
     "class_id": 200024201,
     "class_number": 441,
     "class_name": "Small Green Pony Hunter U/S",
-    "latestStart": "1:00 PM",
+    "latestStart": "1:15 PM",
     "latestStatus": [
       "Not Started"
     ],
@@ -2038,9 +2032,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:00 PM",
+    "start_display": "1:15 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:00:00",
+    "estimated_start_time": "13:15:00",
     "group_display": [
       "Knox"
     ],
@@ -2060,7 +2054,7 @@
     "class_id": 200024330,
     "class_number": 444,
     "class_name": "Small Green Pony Hunter",
-    "latestStart": "1:30 PM",
+    "latestStart": "1:45 PM",
     "latestStatus": "Not Started",
     "total_trips": 8,
     "show_id": 200000059,
@@ -2068,9 +2062,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:30 PM",
+    "start_display": "1:45 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:30:00",
+    "estimated_start_time": "13:45:00",
     "group_display": [
       "Knox"
     ],
@@ -2090,7 +2084,7 @@
     "class_id": 200023994,
     "class_number": 445,
     "class_name": "Small Green Pony Hunter",
-    "latestStart": "1:30 PM",
+    "latestStart": "1:45 PM",
     "latestStatus": "Not Started",
     "total_trips": 8,
     "show_id": 200000059,
@@ -2098,9 +2092,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:30 PM",
+    "start_display": "1:45 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:30:00",
+    "estimated_start_time": "13:45:00",
     "group_display": [
       "Knox"
     ],
@@ -2120,7 +2114,7 @@
     "class_id": 200024309,
     "class_number": 414,
     "class_name": "Small Pony Hunter",
-    "latestStart": "1:40 PM",
+    "latestStart": "1:55 PM",
     "latestStatus": "Not Started",
     "total_trips": 45,
     "show_id": 200000059,
@@ -2128,9 +2122,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 7",
-    "start_display": "1:40 PM",
+    "start_display": "1:55 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "13:40:00",
+    "estimated_start_time": "13:55:00",
     "group_display": [
       "Crush"
     ],
@@ -2340,7 +2334,7 @@
     "class_name": "Puddle Jumper Open (.80m) II2d",
     "latestStart": "10:15 AM",
     "latestStatus": "Underway",
-    "total_trips": 38,
+    "total_trips": 37,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2366,7 +2360,7 @@
     "class_name": "Puddle Jumper Junior/Amateur (.80m) II2d",
     "latestStart": "10:15 AM",
     "latestStatus": "Underway",
-    "total_trips": 38,
+    "total_trips": 37,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",

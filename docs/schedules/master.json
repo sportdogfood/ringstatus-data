@@ -5327,7 +5327,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -5349,7 +5349,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -5371,7 +5371,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -5819,7 +5819,7 @@
     "start_display": "8:30 AM",
     "start_display_short": "8:30A",
     "time_sort": 30600,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -5841,7 +5841,7 @@
     "start_display": "8:30 AM",
     "start_display_short": "8:30A",
     "time_sort": 30600,
-    "total_trips": 25
+    "total_trips": 27
   },
   {
     "8778_group_display": [],
@@ -5863,7 +5863,7 @@
     "start_display": "8:30 AM",
     "start_display_short": "8:30A",
     "time_sort": 30600,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -6131,7 +6131,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -6153,7 +6153,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -6175,7 +6175,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33300,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -6543,7 +6543,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 23
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -6565,7 +6565,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 21
+    "total_trips": 23
   },
   {
     "8778_group_display": [],
@@ -6587,7 +6587,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 21
+    "total_trips": 23
   },
   {
     "8778_group_display": [],
@@ -6631,7 +6631,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36908,
-    "total_trips": 38
+    "total_trips": 37
   },
   {
     "8778_group_display": [],
@@ -6653,7 +6653,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36908,
-    "total_trips": 38
+    "total_trips": 37
   },
   {
     "8778_group_display": [],
@@ -6749,7 +6749,7 @@
   },
   {
     "8778_group_display": [
-      "Paisley (34)"
+      "Paisley (40)"
     ],
     "class_group_id": 200023374,
     "class_id": 200023995,
@@ -6761,7 +6761,7 @@
     "ring_nickname": "Ring 7",
     "ring_number": 10,
     "group_display": [
-      "Paisley (34)"
+      "Paisley (40)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -6947,7 +6947,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 14
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -6997,7 +6997,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 17
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -7209,7 +7209,7 @@
     "start_display": "11:41 AM",
     "start_display_short": "11:41A",
     "time_sort": 42106,
-    "total_trips": 17
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -7231,7 +7231,7 @@
     "start_display": "11:41 AM",
     "start_display_short": "11:41A",
     "time_sort": 42106,
-    "total_trips": 17
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -7253,11 +7253,33 @@
     "start_display": "11:41 AM",
     "start_display_short": "11:41A",
     "time_sort": 42106,
-    "total_trips": 17
+    "total_trips": 18
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023356,
+    "class_id": 200024121,
+    "class_name": "Modified Hunter 2'/2'6\" U/S",
+    "class_number": 641,
+    "dt": "2026-04-19",
+    "group_name": "Modified Hunter 2'/2'6\" U/S",
+    "group_name_tags": "target, usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
+    "total_trips": 6
   },
   {
     "8778_group_display": [
-      "Bee (10)"
+      "Bee (28)"
     ],
     "class_group_id": 200023317,
     "class_id": 200024047,
@@ -7269,16 +7291,16 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Bee (10)"
+      "Bee (28)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:50 AM",
-    "start_display_short": "11:50A",
-    "time_sort": 42607,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43210,
     "total_trips": 29
   },
   {
@@ -7304,32 +7326,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:00 PM",
-    "start_display_short": "12:00P",
-    "time_sort": 43200,
-    "total_trips": 15
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023356,
-    "class_id": 200024121,
-    "class_name": "Modified Hunter 2'/2'6\" U/S",
-    "class_number": 641,
-    "dt": "2026-04-19",
-    "group_name": "Modified Hunter 2'/2'6\" U/S",
-    "group_name_tags": "target, usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:00 PM",
-    "start_display_short": "12:00P",
-    "time_sort": 43200,
-    "total_trips": 6
+    "start_display": "12:05 PM",
+    "start_display_short": "12:05P",
+    "time_sort": 43507,
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -7350,7 +7350,7 @@
     "sid": 200000059,
     "start_display": "12:05 PM",
     "start_display_short": "12:05P",
-    "time_sort": 43500,
+    "time_sort": 43508,
     "total_trips": 11
   },
   {
@@ -7372,7 +7372,7 @@
     "sid": 200000059,
     "start_display": "12:05 PM",
     "start_display_short": "12:05P",
-    "time_sort": 43500,
+    "time_sort": 43508,
     "total_trips": 11
   },
   {
@@ -7502,9 +7502,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "12:38 PM",
-    "start_display_short": "12:38P",
-    "time_sort": 45489,
+    "start_display": "12:41 PM",
+    "start_display_short": "12:41P",
+    "time_sort": 45669,
     "total_trips": 0
   },
   {
@@ -7549,7 +7549,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 27
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -7571,7 +7571,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 27
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -7659,7 +7659,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 17
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -7682,32 +7682,6 @@
     "start_display_short": "1:00P",
     "time_sort": 46800,
     "total_trips": 13
-  },
-  {
-    "8778_group_display": [
-      "Knox"
-    ],
-    "class_group_id": 200023369,
-    "class_id": 200024201,
-    "class_name": "Small Green Pony Hunter U/S",
-    "class_number": 441,
-    "dt": "2026-04-19",
-    "group_name": "Small Green Pony Hunter U/S",
-    "group_name_tags": "target, usf, pony, green, small, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Ring 7",
-    "ring_number": 10,
-    "group_display": [
-      "Knox"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
-    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -7798,6 +7772,32 @@
     "total_trips": 30
   },
   {
+    "8778_group_display": [
+      "Knox"
+    ],
+    "class_group_id": 200023369,
+    "class_id": 200024201,
+    "class_name": "Small Green Pony Hunter U/S",
+    "class_number": 441,
+    "dt": "2026-04-19",
+    "group_name": "Small Green Pony Hunter U/S",
+    "group_name_tags": "target, usf, pony, green, small, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Ring 7",
+    "ring_number": 10,
+    "group_display": [
+      "Knox"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:15 PM",
+    "start_display_short": "1:15P",
+    "time_sort": 47700,
+    "total_trips": 4
+  },
+  {
     "8778_group_display": [],
     "class_group_id": 200023365,
     "class_id": 200024266,
@@ -7842,58 +7842,6 @@
     "total_trips": 17
   },
   {
-    "8778_group_display": [
-      "Knox"
-    ],
-    "class_group_id": 200023370,
-    "class_id": 200024330,
-    "class_name": "Small Green Pony Hunter",
-    "class_number": 444,
-    "dt": "2026-04-19",
-    "group_name": "Small Green Pony Hunter",
-    "group_name_tags": "target, pony, green, small, hunters, Over Fences",
-    "ring_nickname": "Ring 7",
-    "ring_number": 10,
-    "group_display": [
-      "Knox"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
-    "total_trips": 8
-  },
-  {
-    "8778_group_display": [
-      "Knox"
-    ],
-    "class_group_id": 200023370,
-    "class_id": 200023994,
-    "class_name": "Small Green Pony Hunter",
-    "class_number": 445,
-    "dt": "2026-04-19",
-    "group_name": "Small Green Pony Hunter",
-    "group_name_tags": "target, pony, green, small, hunters, Over Fences",
-    "ring_nickname": "Ring 7",
-    "ring_number": 10,
-    "group_display": [
-      "Knox"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
-    "total_trips": 8
-  },
-  {
     "8778_group_display": [],
     "class_group_id": 200023387,
     "class_id": 200024108,
@@ -7917,6 +7865,80 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023359,
+    "class_id": 200023920,
+    "class_name": "Small/Medium Children's Pony Hunter U/S",
+    "class_number": 405,
+    "dt": "2026-04-19",
+    "group_name": "Small/Medium Children's Pony Hunter U/S",
+    "group_name_tags": "target, usf, pony, children's, medium, small, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:45 PM",
+    "start_display_short": "1:45P",
+    "time_sort": 49500,
+    "total_trips": 10
+  },
+  {
+    "8778_group_display": [
+      "Knox"
+    ],
+    "class_group_id": 200023370,
+    "class_id": 200024330,
+    "class_name": "Small Green Pony Hunter",
+    "class_number": 444,
+    "dt": "2026-04-19",
+    "group_name": "Small Green Pony Hunter",
+    "group_name_tags": "target, pony, green, small, hunters, Over Fences",
+    "ring_nickname": "Ring 7",
+    "ring_number": 10,
+    "group_display": [
+      "Knox"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:45 PM",
+    "start_display_short": "1:45P",
+    "time_sort": 49500,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [
+      "Knox"
+    ],
+    "class_group_id": 200023370,
+    "class_id": 200023994,
+    "class_name": "Small Green Pony Hunter",
+    "class_number": 445,
+    "dt": "2026-04-19",
+    "group_name": "Small Green Pony Hunter",
+    "group_name_tags": "target, pony, green, small, hunters, Over Fences",
+    "ring_nickname": "Ring 7",
+    "ring_number": 10,
+    "group_display": [
+      "Knox"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "1:45 PM",
+    "start_display_short": "1:45P",
+    "time_sort": 49500,
+    "total_trips": 8
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023373,
     "class_id": 200024017,
     "class_name": "Small Pony Handy Hunter",
@@ -7932,9 +7954,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:40 PM",
-    "start_display_short": "1:40P",
-    "time_sort": 49200,
+    "start_display": "1:55 PM",
+    "start_display_short": "1:55P",
+    "time_sort": 50100,
     "total_trips": 45
   },
   {
@@ -7958,9 +7980,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:40 PM",
-    "start_display_short": "1:40P",
-    "time_sort": 49200,
+    "start_display": "1:55 PM",
+    "start_display_short": "1:55P",
+    "time_sort": 50100,
     "total_trips": 45
   },
   {
@@ -7984,32 +8006,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "1:40 PM",
-    "start_display_short": "1:40P",
-    "time_sort": 49200,
+    "start_display": "1:55 PM",
+    "start_display_short": "1:55P",
+    "time_sort": 50100,
     "total_trips": 45
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023359,
-    "class_id": 200023920,
-    "class_name": "Small/Medium Children's Pony Hunter U/S",
-    "class_number": 405,
-    "dt": "2026-04-19",
-    "group_name": "Small/Medium Children's Pony Hunter U/S",
-    "group_name_tags": "target, usf, pony, children's, medium, small, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "1:45 PM",
-    "start_display_short": "1:45P",
-    "time_sort": 49500,
-    "total_trips": 10
   },
   {
     "8778_group_display": [],

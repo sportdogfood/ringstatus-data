@@ -6017,7 +6017,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 48
+    "total_trips": 47
   },
   {
     "8778_group_display": [
@@ -6043,7 +6043,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 48
+    "total_trips": 47
   },
   {
     "8778_group_display": [],
@@ -6631,7 +6631,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36908,
-    "total_trips": 40
+    "total_trips": 39
   },
   {
     "8778_group_display": [],
@@ -6653,7 +6653,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36908,
-    "total_trips": 40
+    "total_trips": 39
   },
   {
     "8778_group_display": [],
@@ -6947,7 +6947,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 15
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -6969,10 +6969,13 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 15
+    "total_trips": 14
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023322,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -6982,7 +6985,10 @@
     "group_name_tags": null,
     "ring_nickname": null,
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
@@ -6991,7 +6997,7 @@
     "start_display": "11:05 AM",
     "start_display_short": "11:05A",
     "time_sort": 39900,
-    "total_trips": 13
+    "total_trips": 15
   },
   {
     "8778_group_display": [],
@@ -7018,7 +7024,7 @@
   {
     "8778_group_display": [
       "Rimini (2)",
-      "Arrow (16)"
+      "Arrow (15)"
     ],
     "class_group_id": 200023351,
     "class_id": 200023955,
@@ -7031,7 +7037,7 @@
     "ring_number": 8,
     "group_display": [
       "Rimini (2)",
-      "Arrow (16)"
+      "Arrow (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -7041,7 +7047,7 @@
     "start_display": "11:10 AM",
     "start_display_short": "11:10A",
     "time_sort": 40207,
-    "total_trips": 16
+    "total_trips": 15
   },
   {
     "8778_group_display": [],
@@ -7089,7 +7095,7 @@
   },
   {
     "8778_group_display": [
-      "Caymus (9)"
+      "Caymus (10)"
     ],
     "class_group_id": 200023381,
     "class_id": 200024027,
@@ -7101,56 +7107,8 @@
     "ring_nickname": "Ring 9",
     "ring_number": 12,
     "group_display": [
-      "Caymus (9)"
+      "Caymus (10)"
     ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:20 AM",
-    "start_display_short": "11:20A",
-    "time_sort": 40809,
-    "total_trips": 22
-  },
-  {
-    "8778_group_display": [
-      "Jason (13)"
-    ],
-    "class_group_id": 200023343,
-    "class_id": 200024243,
-    "class_name": "THIS Children's Medal",
-    "class_number": 555,
-    "dt": "2026-04-19",
-    "group_name": "THIS Children's Medal",
-    "group_name_tags": "target, medal, children's, hunters, Over Fences",
-    "ring_nickname": "Rost",
-    "ring_number": 7,
-    "group_display": [
-      "Jason (13)"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:25 AM",
-    "start_display_short": "11:25A",
-    "time_sort": 41100,
-    "total_trips": 25
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200024338,
-    "class_id": 200025269,
-    "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "class_number": 502,
-    "dt": "2026-04-19",
-    "group_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
@@ -7158,30 +7116,8 @@
     "sid": 200000059,
     "start_display": "11:30 AM",
     "start_display_short": "11:30A",
-    "time_sort": 41408,
-    "total_trips": 3
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023324,
-    "class_id": 200024090,
-    "class_name": "Small Junior Hunter 3'6\" 16-17 Handy",
-    "class_number": 330,
-    "dt": "2026-04-19",
-    "group_name": "Small Junior Hunter 3'6\" 16-17",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
-    "total_trips": 13
+    "time_sort": 41410,
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -7206,6 +7142,76 @@
     "total_trips": 10
   },
   {
+    "8778_group_display": [
+      "Jason (14)"
+    ],
+    "class_group_id": 200023343,
+    "class_id": 200024243,
+    "class_name": "THIS Children's Medal",
+    "class_number": 555,
+    "dt": "2026-04-19",
+    "group_name": "THIS Children's Medal",
+    "group_name_tags": "target, medal, children's, hunters, Over Fences",
+    "ring_nickname": "Rost",
+    "ring_number": 7,
+    "group_display": [
+      "Jason (14)"
+    ],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:35 AM",
+    "start_display_short": "11:35A",
+    "time_sort": 41707,
+    "total_trips": 25
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200024338,
+    "class_id": 200025269,
+    "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
+    "class_number": 502,
+    "dt": "2026-04-19",
+    "group_name": "Child/Adult Amateur Equitation 2'6\" Flat",
+    "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:35 AM",
+    "start_display_short": "11:35A",
+    "time_sort": 41708,
+    "total_trips": 3
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023324,
+    "class_id": 200024090,
+    "class_name": "Small Junior Hunter 3'6\" 16-17 Handy",
+    "class_number": 330,
+    "dt": "2026-04-19",
+    "group_name": "Small Junior Hunter 3'6\" 16-17",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 5,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "11:41 AM",
+    "start_display_short": "11:41A",
+    "time_sort": 42106,
+    "total_trips": 15
+  },
+  {
     "8778_group_display": [],
     "class_group_id": 200023324,
     "class_id": 200024296,
@@ -7222,10 +7228,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
-    "total_trips": 13
+    "start_display": "11:41 AM",
+    "start_display_short": "11:41A",
+    "time_sort": 42106,
+    "total_trips": 15
   },
   {
     "8778_group_display": [],
@@ -7244,10 +7250,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000059,
     "sid": 200000059,
-    "start_display": "11:35 AM",
-    "start_display_short": "11:35A",
-    "time_sort": 41700,
-    "total_trips": 13
+    "start_display": "11:41 AM",
+    "start_display_short": "11:41A",
+    "time_sort": 42106,
+    "total_trips": 15
   },
   {
     "8778_group_display": [
@@ -7273,7 +7279,7 @@
     "start_display": "11:45 AM",
     "start_display_short": "11:45A",
     "time_sort": 42300,
-    "total_trips": 30
+    "total_trips": 29
   },
   {
     "8778_group_display": [
@@ -7415,28 +7421,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023382,
-    "class_id": 200024319,
-    "class_name": "Mulligan Class",
-    "class_number": 994,
-    "dt": "2026-04-19",
-    "group_name": "Mulligan Class",
-    "group_name_tags": null,
-    "ring_nickname": null,
-    "ring_number": 12,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:26 PM",
-    "start_display_short": "12:26P",
-    "time_sort": 44769,
-    "total_trips": 0
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023325,
     "class_id": 200024184,
     "class_name": "Small Junior Hunter 3'6\" 16-17 U/S",
@@ -7456,6 +7440,72 @@
     "start_display_short": "12:30P",
     "time_sort": 45000,
     "total_trips": 5
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023358,
+    "class_id": 200024150,
+    "class_name": "Small/Medium Children's Hunter Pony",
+    "class_number": 408,
+    "dt": "2026-04-19",
+    "group_name": "Small/Medium Children's Hunter Pony",
+    "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:30 PM",
+    "start_display_short": "12:30P",
+    "time_sort": 45000,
+    "total_trips": 24
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023358,
+    "class_id": 200024190,
+    "class_name": "Small/Medium Children's Hunter Pony",
+    "class_number": 409,
+    "dt": "2026-04-19",
+    "group_name": "Small/Medium Children's Hunter Pony",
+    "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences",
+    "ring_nickname": "Ring 6",
+    "ring_number": 9,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:30 PM",
+    "start_display_short": "12:30P",
+    "time_sort": 45000,
+    "total_trips": 24
+  },
+  {
+    "8778_group_display": [],
+    "class_group_id": 200023382,
+    "class_id": 200024319,
+    "class_name": "Mulligan Class",
+    "class_number": 994,
+    "dt": "2026-04-19",
+    "group_name": "Mulligan Class",
+    "group_name_tags": null,
+    "ring_nickname": null,
+    "ring_number": 12,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "12:38 PM",
+    "start_display_short": "12:38P",
+    "time_sort": 45489,
+    "total_trips": 0
   },
   {
     "8778_group_display": [],
@@ -7499,7 +7549,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 26
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -7521,7 +7571,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 26
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -7591,50 +7641,6 @@
   },
   {
     "8778_group_display": [],
-    "class_group_id": 200023358,
-    "class_id": 200024150,
-    "class_name": "Small/Medium Children's Hunter Pony",
-    "class_number": 408,
-    "dt": "2026-04-19",
-    "group_name": "Small/Medium Children's Hunter Pony",
-    "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45900,
-    "total_trips": 24
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023358,
-    "class_id": 200024190,
-    "class_name": "Small/Medium Children's Hunter Pony",
-    "class_number": 409,
-    "dt": "2026-04-19",
-    "group_name": "Small/Medium Children's Hunter Pony",
-    "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences",
-    "ring_nickname": "Ring 6",
-    "ring_number": 9,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45900,
-    "total_trips": 24
-  },
-  {
-    "8778_group_display": [],
     "class_group_id": 200023326,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -7653,7 +7659,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 13
+    "total_trips": 15
   },
   {
     "8778_group_display": [],
@@ -8029,6 +8035,28 @@
   },
   {
     "8778_group_display": [],
+    "class_group_id": 200023327,
+    "class_id": 200024280,
+    "class_name": "Large Junior Hunter 3'6\" 16-17 U/S",
+    "class_number": 331,
+    "dt": "2026-04-19",
+    "group_name": "Large Junior Hunter 3'6\" 16-17 U/S",
+    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, large, U/S, hunters, Under Saddle/Flat",
+    "ring_nickname": "Intl",
+    "ring_number": 5,
+    "group_display": [],
+    "shifted_to_next_day": null,
+    "show_days_display_date": "Sunday, April, 19, 2026",
+    "show_days_report_title": "Schedule",
+    "show_id": 200000059,
+    "sid": 200000059,
+    "start_display": "2:00 PM",
+    "start_display_short": "2:00P",
+    "time_sort": 50400,
+    "total_trips": 10
+  },
+  {
+    "8778_group_display": [],
     "class_group_id": 200023360,
     "class_id": 200024159,
     "class_name": "Large Children's Pony Hunter",
@@ -8070,28 +8098,6 @@
     "start_display_short": "2:00P",
     "time_sort": 50400,
     "total_trips": 6
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200023327,
-    "class_id": 200024280,
-    "class_name": "Large Junior Hunter 3'6\" 16-17 U/S",
-    "class_number": 331,
-    "dt": "2026-04-19",
-    "group_name": "Large Junior Hunter 3'6\" 16-17 U/S",
-    "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, large, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Intl",
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Sunday, April, 19, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000059,
-    "sid": 200000059,
-    "start_display": "2:03 PM",
-    "start_display_short": "2:03P",
-    "time_sort": 50580,
-    "total_trips": 10
   },
   {
     "8778_group_display": [],
@@ -8182,10 +8188,7 @@
     "total_trips": 24
   },
   {
-    "8778_group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023328,
     "class_id": 200025723,
     "class_name": "$1,000 Junior Hunter 3'6\" Classic",
@@ -8195,10 +8198,7 @@
     "group_name_tags": "classic, target, 15 & Under, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Intl",
     "ring_number": 5,
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",

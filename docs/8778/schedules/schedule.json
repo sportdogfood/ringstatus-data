@@ -95,8 +95,10 @@
     "class_number": 723,
     "class_name": "$5,000 NAL 1.20m Junior Jumper Classic II2b",
     "latestStart": "9:00 AM",
-    "latestStatus": "Underway",
-    "total_trips": 48,
+    "latestStatus": [
+      "Completed"
+    ],
+    "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -126,7 +128,7 @@
     "class_name": "$5,000 NAL 1.20m Amateur Jumper Classic II2b",
     "latestStart": "9:00 AM",
     "latestStatus": "Underway",
-    "total_trips": 48,
+    "total_trips": 47,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -152,7 +154,7 @@
     "class_name": "$5,000 NAL 1.30m Junior/Amateur Jumper Classic II2b",
     "latestStart": "11:45 AM",
     "latestStatus": "Not Started",
-    "total_trips": 30,
+    "total_trips": 29,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -181,7 +183,7 @@
     "class_number": 379,
     "class_name": "Amateur Owner Hunter 3'3\" 18-35",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -207,7 +209,7 @@
     "class_number": 394,
     "class_name": "Amateur Owner Hunter 3'3\" 36+",
     "latestStart": "8:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -288,7 +290,7 @@
     "latestStatus": [
       "Underway"
     ],
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -318,17 +320,17 @@
     "class_id": 200024296,
     "class_number": 329,
     "class_name": "Small Junior Hunter 3'6\" 16-17",
-    "latestStart": "11:35 AM",
+    "latestStart": "11:41 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 13,
+    "total_trips": 15,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "11:35 AM",
+    "start_display": "11:41 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:35:00",
+    "estimated_start_time": "11:41:46",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 16-17, 3', 3'6\", junior, small, hunters, Over Fences"
@@ -372,7 +374,7 @@
     "class_name": "Large Junior Hunter 3'6\" 16-17",
     "latestStart": "12:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 26,
+    "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -396,7 +398,7 @@
     "class_id": 200024280,
     "class_number": 331,
     "class_name": "Large Junior Hunter 3'6\" 16-17 U/S",
-    "latestStart": "2:03 PM",
+    "latestStart": "2:00 PM",
     "latestStatus": null,
     "total_trips": 10,
     "show_id": 200000059,
@@ -404,9 +406,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Intl",
-    "start_display": "2:03 PM",
+    "start_display": "2:00 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "14:03:00",
+    "estimated_start_time": "14:00:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, 16-17, 3', 3'6\", junior, large, U/S, hunters, Under Saddle/Flat"
@@ -1020,22 +1022,24 @@
     "class_id": 200024243,
     "class_number": 555,
     "class_name": "THIS Children's Medal",
-    "latestStart": "11:25 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "11:35 AM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 25,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Rost",
-    "start_display": "11:25 AM",
+    "start_display": "11:35 AM",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:25:00",
+    "estimated_start_time": "11:35:07",
     "group_display": [
-      "Jason (13)"
+      "Jason (14)"
     ],
     "8778_sched_display": [
-      "Jason (13)"
+      "Jason (14)"
     ],
     "group_name_tags": "target, medal, children's, hunters, Over Fences"
   },
@@ -1214,7 +1218,7 @@
     "latestStatus": [
       "Underway"
     ],
-    "total_trips": 16,
+    "total_trips": 15,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -1225,11 +1229,11 @@
     "estimated_start_time": "11:10:07",
     "group_display": [
       "Rimini (2)",
-      "Arrow (16)"
+      "Arrow (15)"
     ],
     "8778_sched_display": [
       "Rimini (2)",
-      "Arrow (16)"
+      "Arrow (15)"
     ],
     "group_name_tags": "target, junior, jumpers, Over Fences"
   },
@@ -1349,7 +1353,9 @@
     "class_number": 319,
     "class_name": "Low Children's Hunter",
     "latestStart": "9:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 40,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -1464,7 +1470,7 @@
     "class_id": 200025269,
     "class_number": 502,
     "class_name": "Child/Adult Amateur Equitation 2'6\" Flat",
-    "latestStart": "11:30 AM",
+    "latestStart": "11:35 AM",
     "latestStatus": null,
     "total_trips": 3,
     "show_id": 200000059,
@@ -1472,9 +1478,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "11:30 AM",
+    "start_display": "11:35 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:30:08",
+    "estimated_start_time": "11:35:08",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat"
@@ -1568,7 +1574,7 @@
     "class_id": 200024150,
     "class_number": 408,
     "class_name": "Small/Medium Children's Hunter Pony",
-    "latestStart": "12:45 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
     "total_trips": 24,
     "show_id": 200000059,
@@ -1576,9 +1582,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "12:45 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "12:45:00",
+    "estimated_start_time": "12:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences"
@@ -1594,7 +1600,7 @@
     "class_id": 200024190,
     "class_number": 409,
     "class_name": "Small/Medium Children's Hunter Pony",
-    "latestStart": "12:45 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
     "total_trips": 24,
     "show_id": 200000059,
@@ -1602,9 +1608,9 @@
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 6",
-    "start_display": "12:45 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "12:45:00",
+    "estimated_start_time": "12:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, children's, medium, small, hunters, Over Fences"
@@ -2248,22 +2254,24 @@
     "class_id": 200024027,
     "class_number": 815,
     "class_name": "$250 .85m Jumper Classic II2b",
-    "latestStart": "11:20 AM",
-    "latestStatus": "Not Started",
+    "latestStart": "11:30 AM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 22,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Ring 9",
-    "start_display": "11:20 AM",
+    "start_display": "11:30 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:20:09",
+    "estimated_start_time": "11:30:10",
     "group_display": [
-      "Caymus (9)"
+      "Caymus (10)"
     ],
     "8778_sched_display": [
-      "Caymus (9)"
+      "Caymus (10)"
     ],
     "group_name_tags": "target, .85m, jumpers, Over Fences"
   },
@@ -2331,8 +2339,8 @@
     "class_number": 785,
     "class_name": "Puddle Jumper Open (.80m) II2d",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 40,
+    "latestStatus": "Underway",
+    "total_trips": 39,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2357,8 +2365,8 @@
     "class_number": 797,
     "class_name": "Puddle Jumper Junior/Amateur (.80m) II2d",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 40,
+    "latestStatus": "Underway",
+    "total_trips": 39,
     "show_id": 200000059,
     "show_date": "2026-04-19",
     "show_days_display_date": "Sunday, April, 19, 2026",
@@ -2695,7 +2703,7 @@
     "class_number": 605,
     "class_name": "Short Stirrup Equitation",
     "latestStart": "9:51 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -2721,7 +2729,7 @@
     "class_number": 606,
     "class_name": "Short Stirrup Equitation",
     "latestStart": "9:51 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -2747,7 +2755,7 @@
     "class_number": 619,
     "class_name": "Rusty Stirrup Equitation",
     "latestStart": "9:51 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",
@@ -2773,7 +2781,7 @@
     "class_number": 620,
     "class_name": "Rusty Stirrup Equitation",
     "latestStart": "9:51 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 23,
     "show_id": 200000059,
     "show_date": "2026-04-19",

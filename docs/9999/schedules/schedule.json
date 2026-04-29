@@ -134,7 +134,7 @@
     "8778_group_display": [
       "Jason (1)",
       "Arrow (4)",
-      "Markanto A (15)",
+      "Markanto (15)",
       "Rimini (16)",
       "Q (27)"
     ],
@@ -151,7 +151,7 @@
     "group_display": [
       "Jason (1)",
       "Arrow (4)",
-      "Markanto A (15)",
+      "Markanto (15)",
       "Rimini (16)",
       "Q (27)"
     ],
@@ -175,7 +175,7 @@
     "8778_sched_display": [
       "Jason (1)",
       "Arrow (4)",
-      "Markanto A (15)",
+      "Markanto (15)",
       "Rimini (16)",
       "Q (27)"
     ]
@@ -198,16 +198,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:27 AM",
-    "start_display_short": "10:27A",
-    "time_sort": 37620,
+    "start_display": "10:21 AM",
+    "start_display_short": "10:21A",
+    "time_sort": 37260,
     "total_trips": 2,
     "class_groupxclasses_id": 200034944,
-    "latestStart": "10:27 AM",
+    "latestStart": "10:21 AM",
     "latestStatus": null,
     "show_date": "2026-04-30",
     "class_group_sequence": 2,
-    "estimated_start_time": "10:27:00",
+    "estimated_start_time": "10:21:00",
     "8778_sched_display": []
   },
   {
@@ -288,7 +288,7 @@
   },
   {
     "8778_group_display": [
-      " (6)"
+      "Calou (6)"
     ],
     "class_group_id": 200023431,
     "class_id": 200024639,
@@ -301,7 +301,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      " (6)"
+      "Calou (6)"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -321,7 +321,7 @@
     "class_group_sequence": 5,
     "estimated_start_time": "12:37:00",
     "8778_sched_display": [
-      " (6)"
+      "Calou (6)"
     ]
   },
   {
@@ -419,7 +419,7 @@
       "Kudos",
       "Munster",
       "Jason",
-      null
+      "Shelby"
     ],
     "class_group_id": 200023435,
     "class_id": 200024516,
@@ -435,7 +435,7 @@
       "Kudos",
       "Munster",
       "Jason",
-      null
+      "Shelby"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -458,7 +458,7 @@
       "Kudos",
       "Munster",
       "Jason",
-      null
+      "Shelby"
     ]
   },
   {
@@ -929,7 +929,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023473,
     "class_id": 200024525,
@@ -942,7 +942,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -962,12 +962,12 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      null
+      "Casanova"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023473,
     "class_id": 200024711,
@@ -980,7 +980,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -1000,7 +1000,7 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      null
+      "Casanova"
     ]
   },
   {

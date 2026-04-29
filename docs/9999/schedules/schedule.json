@@ -1,8 +1,8 @@
 [
   {
     "8778_group_display": [
-      " (28)",
-      " (49)"
+      "Insider (28)",
+      "Bee (49)"
     ],
     "class_group_id": 200023423,
     "class_id": 200024517,
@@ -15,8 +15,8 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      " (28)",
-      " (49)"
+      "Insider (28)",
+      "Bee (49)"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -36,8 +36,8 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:30:00",
     "8778_sched_display": [
-      " (28)",
-      " (49)"
+      "Insider (28)",
+      "Bee (49)"
     ]
   },
   {
@@ -132,11 +132,11 @@
   },
   {
     "8778_group_display": [
-      " (1)",
-      " (4)",
-      " (15)",
-      " (16)",
-      " (27)"
+      "Jason (1)",
+      "Arrow (4)",
+      "Markanto A (15)",
+      "Rimini (16)",
+      "Q (27)"
     ],
     "class_group_id": 200023427,
     "class_id": 200024614,
@@ -149,11 +149,11 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      " (1)",
-      " (4)",
-      " (15)",
-      " (16)",
-      " (27)"
+      "Jason (1)",
+      "Arrow (4)",
+      "Markanto A (15)",
+      "Rimini (16)",
+      "Q (27)"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -173,11 +173,11 @@
     "class_group_sequence": 1,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
-      " (1)",
-      " (4)",
-      " (15)",
-      " (16)",
-      " (27)"
+      "Jason (1)",
+      "Arrow (4)",
+      "Markanto A (15)",
+      "Rimini (16)",
+      "Q (27)"
     ]
   },
   {
@@ -212,7 +212,7 @@
   },
   {
     "8778_group_display": [
-      " (5)"
+      "King (5)"
     ],
     "class_group_id": 200023429,
     "class_id": 200024589,
@@ -225,7 +225,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      " (5)"
+      "King (5)"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -245,12 +245,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:40:00",
     "8778_sched_display": [
-      " (5)"
+      "King (5)"
     ]
   },
   {
     "8778_group_display": [
-      " (13)"
+      "Doug (13)"
     ],
     "class_group_id": 200023430,
     "class_id": 200024536,
@@ -263,7 +263,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      " (13)"
+      "Doug (13)"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -283,7 +283,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:40:00",
     "8778_sched_display": [
-      " (13)"
+      "Doug (13)"
     ]
   },
   {
@@ -416,6 +416,9 @@
   },
   {
     "8778_group_display": [
+      "Kudos",
+      "Munster",
+      "Jason",
       null
     ],
     "class_group_id": 200023435,
@@ -429,6 +432,9 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
+      "Kudos",
+      "Munster",
+      "Jason",
       null
     ],
     "shifted_to_next_day": true,
@@ -449,6 +455,9 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:45:00",
     "8778_sched_display": [
+      "Kudos",
+      "Munster",
+      "Jason",
       null
     ]
   },
@@ -484,7 +493,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023448,
     "class_id": 200024522,
@@ -497,7 +506,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -517,12 +526,12 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      null
+      "Elliot"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023448,
     "class_id": 200024630,
@@ -535,7 +544,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, April, 30, 2026",
@@ -555,7 +564,7 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      null
+      "Elliot"
     ]
   },
   {

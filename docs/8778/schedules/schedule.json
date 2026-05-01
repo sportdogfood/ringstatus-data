@@ -100,12 +100,12 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:45:00",
     "group_display": [
-      "Insider (32)",
-      "Bee (33)"
+      "Bee",
+      "Insider"
     ],
     "8778_sched_display": [
-      "Insider (32)",
-      "Bee (33)"
+      "Bee",
+      "Insider"
     ],
     "group_name_tags": "target, open, young, II2d, jumpers, Over Fences"
   },
@@ -173,9 +173,7 @@
     "class_number": 920,
     "class_name": "$2,700 USHJA National Hunter Derby (Hunt-N-Go)",
     "latestStart": "1:30 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -186,12 +184,12 @@
     "class_group_sequence": 2,
     "estimated_start_time": "13:30:00",
     "group_display": [
-      "Macho (8)",
-      "Hurricane (9)"
+      "Hurricane",
+      "Macho"
     ],
     "8778_sched_display": [
-      "Macho (8)",
-      "Hurricane (9)"
+      "Hurricane",
+      "Macho"
     ],
     "group_name_tags": "target, ushja, hunters, Over Fences"
   },
@@ -218,12 +216,12 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "King (8)",
-      "Markanto (9)"
+      "King",
+      "Markanto"
     ],
     "8778_sched_display": [
-      "King (8)",
-      "Markanto (9)"
+      "King",
+      "Markanto"
     ],
     "group_name_tags": "isFirstUp, target, open, young, 1.10m, II2.1, jumpers, Over Fences"
   },
@@ -302,10 +300,10 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:55:05",
     "group_display": [
-      "Q (4)"
+      "Q"
     ],
     "8778_sched_display": [
-      "Q (4)"
+      "Q"
     ],
     "group_name_tags": "target, 1.10m, amateur, junior, II2.1, jumpers, Over Fences"
   },
@@ -358,10 +356,10 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:30:07",
     "group_display": [
-      "Doug (13)"
+      "Doug"
     ],
     "8778_sched_display": [
-      "Doug (13)"
+      "Doug"
     ],
     "group_name_tags": "target, open, 1.20m, II2.1, jumpers, Over Fences"
   },
@@ -429,9 +427,7 @@
     "class_number": 581,
     "class_name": "WIHS Jumper Phase",
     "latestStart": "12:45 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -442,10 +438,10 @@
     "class_group_sequence": 6,
     "estimated_start_time": "12:45:00",
     "group_display": [
-      "Markanto (4)"
+      "Markanto"
     ],
     "8778_sched_display": [
-      "Markanto (4)"
+      "Markanto"
     ],
     "group_name_tags": "target, wihs, Over Fences"
   },
@@ -491,9 +487,7 @@
     "class_number": 545,
     "class_name": "Marshall + Sterling/USHJA 3'3\" Junior Jumper Seat Medal **3 To Fill**",
     "latestStart": "1:42 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -504,10 +498,10 @@
     "class_group_sequence": 8,
     "estimated_start_time": "13:42:00",
     "group_display": [
-      "Munster (3)"
+      "Munster"
     ],
     "8778_sched_display": [
-      "Munster (3)"
+      "Munster"
     ],
     "group_name_tags": "target, 3', 3'3\", medal, junior, seat, ushja, Over Fences"
   },
@@ -663,7 +657,7 @@
     "class_number": 751,
     "class_name": "Training Jumper (.90m) II2d",
     "latestStart": "11:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 14,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -688,7 +682,7 @@
     "class_id": 200024707,
     "class_number": 821,
     "class_name": ".90m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
-    "latestStart": "12:09 PM",
+    "latestStart": "12:20 PM",
     "latestStatus": "Upcoming",
     "total_trips": 1,
     "show_id": 200000060,
@@ -696,9 +690,9 @@
     "show_days_display_date": "Friday, May, 01, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "12:09 PM",
+    "start_display": "12:20 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:09:45",
+    "estimated_start_time": "12:20:28",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, .90m, II2d, jumpers, Over Fences"
@@ -1142,17 +1136,17 @@
     "class_id": 200024474,
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
-    "latestStart": "11:38 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "11:45 AM",
+    "latestStatus": "Underway",
     "total_trips": 8,
     "show_id": 200000060,
     "show_date": "2026-05-01",
     "show_days_display_date": "Friday, May, 01, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:38 AM",
+    "start_display": "11:45 AM",
     "class_group_sequence": 7,
-    "estimated_start_time": "11:38:08",
+    "estimated_start_time": "11:45:07",
     "group_display": [
       "Munster",
       "Markanto",
@@ -1178,7 +1172,7 @@
     "class_id": 200024587,
     "class_number": 518,
     "class_name": "15-17/Adult Amateur Equitation Flat",
-    "latestStart": "12:00 PM",
+    "latestStart": "12:15 PM",
     "latestStatus": null,
     "total_trips": 4,
     "show_id": 200000060,
@@ -1186,9 +1180,9 @@
     "show_days_display_date": "Friday, May, 01, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:00 PM",
+    "start_display": "12:15 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "12:00:06",
+    "estimated_start_time": "12:15:10",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, 15-17, adult, amateur, flat, Under Saddle/Flat"
@@ -1204,7 +1198,7 @@
     "class_id": 200024451,
     "class_number": 519,
     "class_name": "15-17/Adult Amateur Equitation",
-    "latestStart": "12:15 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000060,
@@ -1212,9 +1206,9 @@
     "show_days_display_date": "Friday, May, 01, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:15 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:15:06",
+    "estimated_start_time": "12:30:10",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 15-17, adult, amateur, Over Fences"
@@ -1230,7 +1224,7 @@
     "class_id": 200024402,
     "class_number": 520,
     "class_name": "15-17/Adult Amateur Equitation",
-    "latestStart": "12:15 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000060,
@@ -1238,9 +1232,9 @@
     "show_days_display_date": "Friday, May, 01, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:15 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:15:06",
+    "estimated_start_time": "12:30:10",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 15-17, adult, amateur, Over Fences"
@@ -1298,10 +1292,10 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:09",
     "group_display": [
-      "Bernie (19)"
+      "Bernie"
     ],
     "8778_sched_display": [
-      "Bernie (19)"
+      "Bernie"
     ],
     "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences"
   },
@@ -1369,9 +1363,7 @@
     "class_number": 512,
     "class_name": "14 & Under  Equitation Flat",
     "latestStart": "11:05 AM",
-    "latestStatus": [
-      "Completed"
-    ],
+    "latestStatus": null,
     "total_trips": 6,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -1414,12 +1406,12 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:25:07",
     "group_display": [
-      "Casanova (9)",
-      "Tommy (12)"
+      "Tommy",
+      "Casanova"
     ],
     "8778_sched_display": [
-      "Casanova (9)",
-      "Tommy (12)"
+      "Tommy",
+      "Casanova"
     ],
     "group_name_tags": "target, 14 & Under, Over Fences"
   },
@@ -1446,12 +1438,12 @@
     "class_group_sequence": 4,
     "estimated_start_time": "11:25:07",
     "group_display": [
-      "Casanova (10)",
-      "Tommy (11)"
+      "Tommy",
+      "Casanova"
     ],
     "8778_sched_display": [
-      "Casanova (10)",
-      "Tommy (11)"
+      "Tommy",
+      "Casanova"
     ],
     "group_name_tags": "target, 14 & Under, Over Fences"
   },
@@ -1527,9 +1519,7 @@
     "class_number": 540,
     "class_name": "Marshall + Sterling/USEF Pony Medal",
     "latestStart": "2:45 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "total_trips": 20,
     "show_id": 200000060,
     "show_date": "2026-05-01",
@@ -1540,14 +1530,14 @@
     "class_group_sequence": 7,
     "estimated_start_time": "14:45:00",
     "group_display": [
-      "Paisley (10)",
-      "Poptart (14)",
-      "Bernie (17)"
+      "Paisley",
+      "Bernie",
+      "Poptart"
     ],
     "8778_sched_display": [
-      "Paisley (10)",
-      "Poptart (14)",
-      "Bernie (17)"
+      "Paisley",
+      "Bernie",
+      "Poptart"
     ],
     "group_name_tags": "target, pony, Over Fences"
   }

@@ -19,11 +19,11 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34506,
-    "total_trips": 11
+    "total_trips": 61
   },
   {
     "8778_group_display": [
-      null
+      "Q"
     ],
     "class_group_id": 200023548,
     "class_id": 200024756,
@@ -35,7 +35,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      null
+      "Q"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -93,7 +93,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Insider"
     ],
     "class_group_id": 200023542,
     "class_id": 200024408,
@@ -105,7 +105,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      null
+      "Insider"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -203,11 +203,11 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34506,
-    "total_trips": 61
+    "total_trips": 35
   },
   {
     "8778_group_display": [
-      null
+      "King"
     ],
     "class_group_id": 200023549,
     "class_id": 200024382,
@@ -219,7 +219,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      null
+      "King"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -248,10 +248,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:23 AM",
-    "start_display_short": "11:23A",
-    "time_sort": 40980,
-    "total_trips": 17
+    "start_display": "11:48 AM",
+    "start_display_short": "11:48A",
+    "time_sort": 42480,
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -270,9 +270,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
+    "start_display": "1:21 PM",
+    "start_display_short": "1:21P",
+    "time_sort": 48060,
     "total_trips": 10
   },
   {
@@ -292,10 +292,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:23 AM",
-    "start_display_short": "11:23A",
-    "time_sort": 40980,
-    "total_trips": 17
+    "start_display": "11:48 AM",
+    "start_display_short": "11:48A",
+    "time_sort": 42480,
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -314,9 +314,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37206,
+    "start_display": "10:40 AM",
+    "start_display_short": "10:40A",
+    "time_sort": 38405,
     "total_trips": 14
   },
   {
@@ -336,14 +336,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:30 PM",
-    "start_display_short": "3:30P",
-    "time_sort": 55800,
+    "start_display": "3:54 PM",
+    "start_display_short": "3:54P",
+    "time_sort": 57240,
     "total_trips": 0
   },
   {
     "8778_group_display": [
-      null
+      "Arrow",
+      "Rimini",
+      "Q"
     ],
     "class_group_id": 200023555,
     "class_id": 200024499,
@@ -355,16 +357,18 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      null
+      "Arrow",
+      "Rimini",
+      "Q"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:14 PM",
-    "start_display_short": "12:14P",
-    "time_sort": 44040,
+    "start_display": "12:32 PM",
+    "start_display_short": "12:32P",
+    "time_sort": 45126,
     "total_trips": 14
   },
   {
@@ -384,9 +388,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48600,
+    "start_display": "1:51 PM",
+    "start_display_short": "1:51P",
+    "time_sort": 49860,
     "total_trips": 7
   },
   {
@@ -406,14 +410,14 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:05 AM",
-    "start_display_short": "11:05A",
-    "time_sort": 39900,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
     "total_trips": 6
   },
   {
     "8778_group_display": [
-      null
+      "Indy"
     ],
     "class_group_id": 200023558,
     "class_id": 200024407,
@@ -425,21 +429,21 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      null
+      "Indy"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:51 PM",
-    "start_display_short": "1:51P",
-    "time_sort": 49860,
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
     "total_trips": 33
   },
   {
     "8778_group_display": [
-      null
+      "Kudos"
     ],
     "class_group_id": 200023558,
     "class_id": 200024498,
@@ -451,16 +455,16 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      null
+      "Kudos"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:51 PM",
-    "start_display_short": "1:51P",
-    "time_sort": 49860,
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
     "total_trips": 33
   },
   {
@@ -480,10 +484,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
-    "total_trips": 14
+    "start_display": "11:05 AM",
+    "start_display_short": "11:05A",
+    "time_sort": 39907,
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -502,9 +506,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "start_display": "11:05 AM",
+    "start_display_short": "11:05A",
+    "time_sort": 39907,
     "total_trips": 7
   },
   {
@@ -531,7 +535,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Hurricane"
     ],
     "class_group_id": 200023564,
     "class_id": 200024676,
@@ -543,7 +548,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      null
+      "Munster",
+      "Hurricane"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -601,7 +607,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023574,
     "class_id": 200024392,
@@ -613,7 +619,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -623,7 +629,7 @@
     "start_display": "7:49 AM",
     "start_display_short": "7:49A",
     "time_sort": 28170,
-    "total_trips": 5
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -693,7 +699,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023574,
     "class_id": 200024607,
@@ -705,7 +711,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -715,11 +721,11 @@
     "start_display": "7:49 AM",
     "start_display_short": "7:49A",
     "time_sort": 28170,
-    "total_trips": 5
+    "total_trips": 19
   },
   {
     "8778_group_display": [
-      null
+      "Jason"
     ],
     "class_group_id": 200023561,
     "class_id": 200024657,
@@ -731,7 +737,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      null
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -760,9 +766,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:45 AM",
-    "start_display_short": "11:45A",
-    "time_sort": 42300,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
     "total_trips": 12
   },
   {
@@ -811,7 +817,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023575,
     "class_id": 200024747,
@@ -823,7 +829,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -852,14 +858,14 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:45 AM",
-    "start_display_short": "11:45A",
-    "time_sort": 42300,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43200,
     "total_trips": 11
   },
   {
     "8778_group_display": [
-      null
+      "Jason"
     ],
     "class_group_id": 200023561,
     "class_id": 200024405,
@@ -871,7 +877,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      null
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -881,7 +887,7 @@
     "start_display": "9:30 AM",
     "start_display_short": "9:30A",
     "time_sort": 34200,
-    "total_trips": 13
+    "total_trips": 23
   },
   {
     "8778_group_display": [],
@@ -903,7 +909,7 @@
     "start_display": "8:54 AM",
     "start_display_short": "8:54A",
     "time_sort": 32065,
-    "total_trips": 9
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -922,9 +928,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:12 AM",
-    "start_display_short": "11:12A",
-    "time_sort": 40347,
+    "start_display": "11:28 AM",
+    "start_display_short": "11:28A",
+    "time_sort": 41293,
     "total_trips": 5
   },
   {
@@ -944,14 +950,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:44 AM",
-    "start_display_short": "10:44A",
-    "time_sort": 38697,
-    "total_trips": 11
+    "start_display": "10:47 AM",
+    "start_display_short": "10:47A",
+    "time_sort": 38856,
+    "total_trips": 5
   },
   {
     "8778_group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "class_group_id": 200023570,
     "class_id": 200024581,
@@ -963,7 +970,8 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -973,11 +981,12 @@
     "start_display": "10:02 AM",
     "start_display_short": "10:02A",
     "time_sort": 36157,
-    "total_trips": 13
+    "total_trips": 19
   },
   {
     "8778_group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "class_group_id": 200023571,
     "class_id": 200024417,
@@ -989,16 +998,17 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:29 AM",
-    "start_display_short": "10:29A",
-    "time_sort": 37797,
+    "start_display": "10:32 AM",
+    "start_display_short": "10:32A",
+    "time_sort": 37956,
     "total_trips": 5
   },
   {
@@ -1040,14 +1050,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:44 AM",
-    "start_display_short": "10:44A",
-    "time_sort": 38697,
+    "start_display": "10:47 AM",
+    "start_display_short": "10:47A",
+    "time_sort": 38856,
     "total_trips": 5
   },
   {
     "8778_group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "class_group_id": 200023570,
     "class_id": 200024608,
@@ -1059,7 +1070,8 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1069,11 +1081,12 @@
     "start_display": "10:02 AM",
     "start_display_short": "10:02A",
     "time_sort": 36157,
-    "total_trips": 5
+    "total_trips": 19
   },
   {
     "8778_group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "class_group_id": 200023587,
     "class_id": 200024773,
@@ -1085,17 +1098,18 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:00 PM",
-    "start_display_short": "2:00P",
-    "time_sort": 50400,
-    "total_trips": 12
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
+    "total_trips": 38
   },
   {
     "8778_group_display": [],
@@ -1114,9 +1128,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
+    "start_display": "1:30 PM",
+    "start_display_short": "1:30P",
+    "time_sort": 48600,
     "total_trips": 4
   },
   {
@@ -1136,9 +1150,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:25 PM",
-    "start_display_short": "12:25P",
-    "time_sort": 44700,
+    "start_display": "1:05 PM",
+    "start_display_short": "1:05P",
+    "time_sort": 47100,
     "total_trips": 7
   },
   {
@@ -1158,9 +1172,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:40 PM",
-    "start_display_short": "1:40P",
-    "time_sort": 49200,
+    "start_display": "2:00 PM",
+    "start_display_short": "2:00P",
+    "time_sort": 50400,
     "total_trips": 4
   },
   {
@@ -1180,9 +1194,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:45 PM",
-    "start_display_short": "3:45P",
-    "time_sort": 56700,
+    "start_display": "4:15 PM",
+    "start_display_short": "4:15P",
+    "time_sort": 58500,
     "total_trips": 7
   },
   {
@@ -1202,14 +1216,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
-    "total_trips": 10
+    "start_display": "1:30 PM",
+    "start_display_short": "1:30P",
+    "time_sort": 48600,
+    "total_trips": 4
   },
   {
     "8778_group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "class_group_id": 200023588,
     "class_id": 200024778,
@@ -1221,16 +1236,17 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:30 PM",
-    "start_display_short": "3:30P",
-    "time_sort": 55800,
+    "start_display": "3:45 PM",
+    "start_display_short": "3:45P",
+    "time_sort": 56700,
     "total_trips": 11
   },
   {
@@ -1250,10 +1266,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:45 PM",
-    "start_display_short": "3:45P",
-    "time_sort": 56700,
-    "total_trips": 20
+    "start_display": "4:15 PM",
+    "start_display_short": "4:15P",
+    "time_sort": 58500,
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1272,14 +1288,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:57 AM",
-    "start_display_short": "11:57A",
-    "time_sort": 43047,
+    "start_display": "12:15 PM",
+    "start_display_short": "12:15P",
+    "time_sort": 44100,
     "total_trips": 5
   },
   {
     "8778_group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "class_group_id": 200023587,
     "class_id": 200024548,
@@ -1291,17 +1308,18 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:00 PM",
-    "start_display_short": "2:00P",
-    "time_sort": 50400,
-    "total_trips": 12
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
+    "total_trips": 38
   },
   {
     "8778_group_display": [],
@@ -1320,9 +1338,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "4:25 PM",
-    "start_display_short": "4:25P",
-    "time_sort": 59100,
+    "start_display": "4:50 PM",
+    "start_display_short": "4:50P",
+    "time_sort": 60600,
     "total_trips": 7
   },
   {
@@ -1342,9 +1360,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:27 AM",
-    "start_display_short": "11:27A",
-    "time_sort": 41247,
+    "start_display": "11:45 AM",
+    "start_display_short": "11:45A",
+    "time_sort": 42300,
     "total_trips": 5
   },
   {
@@ -1364,10 +1382,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:00 PM",
-    "start_display_short": "1:00P",
-    "time_sort": 46800,
-    "total_trips": 9
+    "start_display": "1:30 PM",
+    "start_display_short": "1:30P",
+    "time_sort": 48600,
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -1386,14 +1404,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:27 AM",
-    "start_display_short": "11:27A",
-    "time_sort": 41247,
+    "start_display": "11:45 AM",
+    "start_display_short": "11:45A",
+    "time_sort": 42300,
     "total_trips": 5
   },
   {
     "8778_group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "class_group_id": 200023587,
     "class_id": 200024576,
@@ -1405,16 +1424,17 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      null
+      "Tommy",
+      "Pedro"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:00 PM",
-    "start_display_short": "2:00P",
-    "time_sort": 50400,
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
     "total_trips": 9
   },
   {
@@ -1434,9 +1454,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:12 PM",
-    "start_display_short": "12:12P",
-    "time_sort": 43947,
+    "start_display": "12:45 PM",
+    "start_display_short": "12:45P",
+    "time_sort": 45900,
     "total_trips": 4
   },
   {
@@ -1456,9 +1476,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:45 PM",
-    "start_display_short": "3:45P",
-    "time_sort": 56700,
+    "start_display": "4:15 PM",
+    "start_display_short": "4:15P",
+    "time_sort": 58500,
     "total_trips": 6
   },
   {
@@ -1485,7 +1505,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023590,
     "class_id": 200024446,
@@ -1497,7 +1518,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1507,11 +1529,12 @@
     "start_display": "7:50 AM",
     "start_display_short": "7:50A",
     "time_sort": 28208,
-    "total_trips": 7
+    "total_trips": 29
   },
   {
     "8778_group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023593,
     "class_id": 200024611,
@@ -1523,7 +1546,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1537,7 +1561,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023590,
     "class_id": 200024621,
@@ -1549,7 +1574,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1559,11 +1585,11 @@
     "start_display": "7:50 AM",
     "start_display_short": "7:50A",
     "time_sort": 28208,
-    "total_trips": 7
+    "total_trips": 29
   },
   {
     "8778_group_display": [
-      null
+      "Paisley"
     ],
     "class_group_id": 200023591,
     "class_id": 200024704,
@@ -1575,7 +1601,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1585,7 +1611,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33308,
-    "total_trips": 7
+    "total_trips": 28
   },
   {
     "8778_group_display": [],
@@ -1604,9 +1630,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:42 AM",
-    "start_display_short": "10:42A",
-    "time_sort": 38527,
+    "start_display": "11:07 AM",
+    "start_display_short": "11:07A",
+    "time_sort": 40029,
     "total_trips": 9
   },
   {
@@ -1626,9 +1652,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:37 AM",
-    "start_display_short": "10:37A",
-    "time_sort": 38227,
+    "start_display": "11:12 AM",
+    "start_display_short": "11:12A",
+    "time_sort": 40364,
     "total_trips": 7
   },
   {
@@ -1648,9 +1674,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37207,
+    "start_display": "10:25 AM",
+    "start_display_short": "10:25A",
+    "time_sort": 37507,
     "total_trips": 7
   },
   {
@@ -1670,9 +1696,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:42 AM",
-    "start_display_short": "10:42A",
-    "time_sort": 38527,
+    "start_display": "11:07 AM",
+    "start_display_short": "11:07A",
+    "time_sort": 40029,
     "total_trips": 9
   },
   {
@@ -1692,9 +1718,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37207,
+    "start_display": "10:25 AM",
+    "start_display_short": "10:25A",
+    "time_sort": 37507,
     "total_trips": 7
   },
   {
@@ -1717,11 +1743,11 @@
     "start_display": "11:50 AM",
     "start_display_short": "11:50A",
     "time_sort": 42600,
-    "total_trips": 16
+    "total_trips": 7
   },
   {
     "8778_group_display": [
-      null
+      "Paisley"
     ],
     "class_group_id": 200023591,
     "class_id": 200024549,
@@ -1733,7 +1759,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1743,7 +1769,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33308,
-    "total_trips": 6
+    "total_trips": 28
   },
   {
     "8778_group_display": [],
@@ -1765,11 +1791,11 @@
     "start_display": "11:50 AM",
     "start_display_short": "11:50A",
     "time_sort": 42600,
-    "total_trips": 16
+    "total_trips": 7
   },
   {
     "8778_group_display": [
-      null
+      "Paisley"
     ],
     "class_group_id": 200023592,
     "class_id": 200024374,
@@ -1781,7 +1807,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1810,9 +1836,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "4:40 PM",
-    "start_display_short": "4:40P",
-    "time_sort": 60000,
+    "start_display": "5:05 PM",
+    "start_display_short": "5:05P",
+    "time_sort": 61500,
     "total_trips": 0
   },
   {
@@ -1839,7 +1865,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023599,
     "class_id": 200024397,
@@ -1851,7 +1877,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1861,7 +1887,7 @@
     "start_display": "12:40 PM",
     "start_display_short": "12:40P",
     "time_sort": 45600,
-    "total_trips": 5
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -1887,7 +1913,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023600,
     "class_id": 200024396,
@@ -1899,7 +1925,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1935,7 +1961,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023599,
     "class_id": 200024373,
@@ -1947,7 +1973,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1957,7 +1983,7 @@
     "start_display": "12:40 PM",
     "start_display_short": "12:40P",
     "time_sort": 45600,
-    "total_trips": 5
+    "total_trips": 18
   },
   {
     "8778_group_display": [],
@@ -2005,7 +2031,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023605,
     "class_id": 200024623,
@@ -2017,7 +2043,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -2027,7 +2053,7 @@
     "start_display": "3:10 PM",
     "start_display_short": "3:10P",
     "time_sort": 54600,
-    "total_trips": 8
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -2053,7 +2079,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023606,
     "class_id": 200024763,
@@ -2065,7 +2091,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -2123,7 +2149,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023605,
     "class_id": 200024672,
@@ -2135,7 +2161,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -2145,6 +2171,6 @@
     "start_display": "3:10 PM",
     "start_display_short": "3:10P",
     "time_sort": 54600,
-    "total_trips": 8
+    "total_trips": 21
   }
 ]

@@ -19,11 +19,11 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34506,
-    "total_trips": 11
+    "total_trips": 60
   },
   {
     "8778_group_display": [
-      "Q (11)"
+      "Q"
     ],
     "class_group_id": 200023548,
     "class_id": 200024756,
@@ -35,7 +35,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Q (11)"
+      "Q"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -93,7 +93,7 @@
   },
   {
     "8778_group_display": [
-      "Insider (27)"
+      "Insider"
     ],
     "class_group_id": 200023542,
     "class_id": 200024408,
@@ -105,7 +105,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Insider (27)"
+      "Insider"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -115,7 +115,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34506,
-    "total_trips": 60
+    "total_trips": 16
   },
   {
     "8778_group_display": [],
@@ -203,11 +203,11 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34506,
-    "total_trips": 60
+    "total_trips": 33
   },
   {
     "8778_group_display": [
-      "King (3)"
+      "King"
     ],
     "class_group_id": 200023549,
     "class_id": 200024382,
@@ -219,7 +219,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "King (3)"
+      "King"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -237,7 +237,7 @@
     "class_id": 200024456,
     "class_name": "1.10m Amateur Jumper II2b",
     "class_number": 761,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.10m Junior & Amateur Jumpers II2b",
     "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
@@ -273,7 +273,7 @@
     "start_display": "1:40 PM",
     "start_display_short": "1:40P",
     "time_sort": 49200,
-    "total_trips": 10
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -281,7 +281,7 @@
     "class_id": 200024556,
     "class_name": "1.10m Junior Jumper II2b",
     "class_number": 741,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.10m Junior & Amateur Jumpers II2b",
     "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
@@ -303,7 +303,7 @@
     "class_id": 200024700,
     "class_name": "1.20m Junior/Amateur Jumper II2b",
     "class_number": 722,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.20m Junior/Amateur Jumper II2b",
     "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
@@ -336,16 +336,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "4:10 PM",
-    "start_display_short": "4:10P",
-    "time_sort": 58200,
+    "start_display": "4:36 PM",
+    "start_display_short": "4:36P",
+    "time_sort": 59760,
     "total_trips": 0
   },
   {
     "8778_group_display": [
-      "Arrow (3)",
-      "Rimini (14)",
-      "Q (15)"
+      "Arrow",
+      "Rimini",
+      "Q"
     ],
     "class_group_id": 200023555,
     "class_id": 200024499,
@@ -357,18 +357,18 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Arrow (3)",
-      "Rimini (14)",
-      "Q (15)"
+      "Arrow",
+      "Rimini",
+      "Q"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:44 PM",
-    "start_display_short": "12:44P",
-    "time_sort": 45847,
+    "start_display": "12:46 PM",
+    "start_display_short": "12:46P",
+    "time_sort": 45994,
     "total_trips": 14
   },
   {
@@ -377,7 +377,7 @@
     "class_id": 200024727,
     "class_name": "1.0m Young Jumper Table II",
     "class_number": 827,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.0m Young Jumper Table II",
     "group_name_tags": "target, young, 1.0m, jumpers, Over Fences",
     "ring_nickname": "Covered",
@@ -413,24 +413,20 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42008,
-    "total_trips": 6
+    "total_trips": 23
   },
   {
-    "8778_group_display": [
-      "Indy (22)"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023558,
     "class_id": 200024407,
     "class_name": "1.0m Junior Jumper II2b",
     "class_number": 738,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.0m Junior & Amateur Jumpers II2b",
     "group_name_tags": "target, 1.0m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [
-      "Indy (22)"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
@@ -442,21 +438,17 @@
     "total_trips": 33
   },
   {
-    "8778_group_display": [
-      "Kudos (21)"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023558,
     "class_id": 200024498,
     "class_name": "1.0m Amateur Jumper II2b",
     "class_number": 766,
-    "dt": "2026-05-02",
+    "dt": null,
     "group_name": "1.0m Junior & Amateur Jumpers II2b",
     "group_name_tags": "target, 1.0m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [
-      "Kudos (21)"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
@@ -471,7 +463,7 @@
     "8778_group_display": [],
     "class_group_id": 200025071,
     "class_id": 200026165,
-    "class_name": "Large Pony Jumper II2d",
+    "class_name": "Large Pony Jumper II2b",
     "class_number": 684,
     "dt": "2026-05-02",
     "group_name": "Large Pony Jumper Table II/II2b",
@@ -581,7 +573,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 6
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -603,7 +595,7 @@
     "start_display": "8:09 AM",
     "start_display_short": "8:09A",
     "time_sort": 29371,
-    "total_trips": 9
+    "total_trips": 15
   },
   {
     "8778_group_display": [
@@ -629,7 +621,7 @@
     "start_display": "7:49 AM",
     "start_display_short": "7:49A",
     "time_sort": 28170,
-    "total_trips": 18
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -651,7 +643,7 @@
     "start_display": "8:54 AM",
     "start_display_short": "8:54A",
     "time_sort": 32065,
-    "total_trips": 9
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -721,11 +713,11 @@
     "start_display": "7:49 AM",
     "start_display_short": "7:49A",
     "time_sort": 28170,
-    "total_trips": 18
+    "total_trips": 5
   },
   {
     "8778_group_display": [
-      "Jason (14)"
+      "Jason"
     ],
     "class_group_id": 200023561,
     "class_id": 200024657,
@@ -737,7 +729,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Jason (14)"
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -747,7 +739,7 @@
     "start_display": "9:30 AM",
     "start_display_short": "9:30A",
     "time_sort": 34200,
-    "total_trips": 23
+    "total_trips": 10
   },
   {
     "8778_group_display": [],
@@ -768,7 +760,7 @@
     "sid": 200000060,
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
-    "time_sort": 43200,
+    "time_sort": 43210,
     "total_trips": 12
   },
   {
@@ -860,12 +852,12 @@
     "sid": 200000060,
     "start_display": "12:00 PM",
     "start_display_short": "12:00P",
-    "time_sort": 43200,
+    "time_sort": 43210,
     "total_trips": 11
   },
   {
     "8778_group_display": [
-      "Jason (15)"
+      "Jason"
     ],
     "class_group_id": 200023561,
     "class_id": 200024405,
@@ -877,7 +869,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Jason (15)"
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -981,7 +973,7 @@
     "start_display": "10:02 AM",
     "start_display_short": "10:02A",
     "time_sort": 36157,
-    "total_trips": 18
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -1009,7 +1001,7 @@
     "start_display": "10:32 AM",
     "start_display_short": "10:32A",
     "time_sort": 37956,
-    "total_trips": 4
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -1053,7 +1045,7 @@
     "start_display": "10:47 AM",
     "start_display_short": "10:47A",
     "time_sort": 38856,
-    "total_trips": 10
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -1081,7 +1073,7 @@
     "start_display": "10:02 AM",
     "start_display_short": "10:02A",
     "time_sort": 36157,
-    "total_trips": 18
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -1109,7 +1101,7 @@
     "start_display": "2:15 PM",
     "start_display_short": "2:15P",
     "time_sort": 51300,
-    "total_trips": 38
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1288,9 +1280,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:30 PM",
-    "start_display_short": "12:30P",
-    "time_sort": 45009,
+    "start_display": "12:33 PM",
+    "start_display_short": "12:33P",
+    "time_sort": 45227,
     "total_trips": 5
   },
   {
@@ -1319,7 +1311,7 @@
     "start_display": "2:15 PM",
     "start_display_short": "2:15P",
     "time_sort": 51300,
-    "total_trips": 38
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1360,16 +1352,13 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:55 AM",
-    "start_display_short": "11:55A",
-    "time_sort": 42909,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43210,
     "total_trips": 5
   },
   {
-    "8778_group_display": [
-      "Tommy",
-      "Pedro"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023585,
     "class_id": 200024576,
     "class_name": "$500 NAL/WIHS/M&S Child/Adult Hunter Classic",
@@ -1379,10 +1368,7 @@
     "group_name_tags": "classic, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Tommy",
-      "Pedro"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
@@ -1391,7 +1377,7 @@
     "start_display": "1:30 PM",
     "start_display_short": "1:30P",
     "time_sort": 48600,
-    "total_trips": 22
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -1410,13 +1396,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:55 AM",
-    "start_display_short": "11:55A",
-    "time_sort": 42909,
+    "start_display": "12:00 PM",
+    "start_display_short": "12:00P",
+    "time_sort": 43210,
     "total_trips": 5
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy",
+      "Pedro"
+    ],
     "class_group_id": 200023587,
     "class_id": 200024576,
     "class_name": "$500 NAL/WIHS/M&S Child/Adult Hunter Classic",
@@ -1426,7 +1415,10 @@
     "group_name_tags": "classic, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Tommy",
+      "Pedro"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
@@ -1454,9 +1446,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:45 PM",
-    "start_display_short": "12:45P",
-    "time_sort": 45909,
+    "start_display": "12:48 PM",
+    "start_display_short": "12:48P",
+    "time_sort": 46127,
     "total_trips": 4
   },
   {
@@ -1498,15 +1490,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:30 PM",
-    "start_display_short": "12:30P",
-    "time_sort": 45000,
+    "start_display": "1:30 PM",
+    "start_display_short": "1:30P",
+    "time_sort": 48600,
     "total_trips": 7
   },
   {
     "8778_group_display": [
-      "Poptart (6)",
-      "Knox (8)"
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023590,
     "class_id": 200024446,
@@ -1518,8 +1510,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Poptart (6)",
-      "Knox (8)"
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1529,7 +1521,7 @@
     "start_display": "7:50 AM",
     "start_display_short": "7:50A",
     "time_sort": 28208,
-    "total_trips": 30
+    "total_trips": 7
   },
   {
     "8778_group_display": [
@@ -1561,8 +1553,8 @@
   },
   {
     "8778_group_display": [
-      "Poptart (5)",
-      "Knox (7)"
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023590,
     "class_id": 200024621,
@@ -1574,8 +1566,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Poptart (5)",
-      "Knox (7)"
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1585,11 +1577,11 @@
     "start_display": "7:50 AM",
     "start_display_short": "7:50A",
     "time_sort": 28208,
-    "total_trips": 30
+    "total_trips": 7
   },
   {
     "8778_group_display": [
-      "Paisley (12)"
+      "Paisley"
     ],
     "class_group_id": 200023591,
     "class_id": 200024704,
@@ -1601,7 +1593,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Paisley (12)"
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1611,7 +1603,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33308,
-    "total_trips": 29
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1633,7 +1625,7 @@
     "start_display": "11:07 AM",
     "start_display_short": "11:07A",
     "time_sort": 40029,
-    "total_trips": 23
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -1652,9 +1644,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "11:46 AM",
-    "start_display_short": "11:46A",
-    "time_sort": 42387,
+    "start_display": "11:51 AM",
+    "start_display_short": "11:51A",
+    "time_sort": 42706,
     "total_trips": 7
   },
   {
@@ -1721,7 +1713,7 @@
     "start_display": "10:25 AM",
     "start_display_short": "10:25A",
     "time_sort": 37507,
-    "total_trips": 18
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1740,14 +1732,14 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:00 PM",
-    "start_display_short": "12:00P",
-    "time_sort": 43227,
+    "start_display": "12:50 PM",
+    "start_display_short": "12:50P",
+    "time_sort": 46200,
     "total_trips": 7
   },
   {
     "8778_group_display": [
-      "Paisley (13)"
+      "Paisley"
     ],
     "class_group_id": 200023591,
     "class_id": 200024549,
@@ -1759,7 +1751,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Paisley (13)"
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
@@ -1769,7 +1761,7 @@
     "start_display": "9:15 AM",
     "start_display_short": "9:15A",
     "time_sort": 33308,
-    "total_trips": 29
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -1788,9 +1780,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:00 PM",
-    "start_display_short": "12:00P",
-    "time_sort": 43227,
+    "start_display": "12:50 PM",
+    "start_display_short": "12:50P",
+    "time_sort": 46200,
     "total_trips": 7
   },
   {
@@ -1858,9 +1850,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:25 PM",
-    "start_display_short": "1:25P",
-    "time_sort": 48300,
+    "start_display": "2:25 PM",
+    "start_display_short": "2:25P",
+    "time_sort": 51900,
     "total_trips": 7
   },
   {
@@ -1884,10 +1876,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:40 PM",
-    "start_display_short": "12:40P",
-    "time_sort": 45600,
-    "total_trips": 18
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49200,
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -1906,9 +1898,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:05 PM",
-    "start_display_short": "2:05P",
-    "time_sort": 50700,
+    "start_display": "3:05 PM",
+    "start_display_short": "3:05P",
+    "time_sort": 54300,
     "total_trips": 6
   },
   {
@@ -1932,9 +1924,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:15 PM",
-    "start_display_short": "1:15P",
-    "time_sort": 47700,
+    "start_display": "2:15 PM",
+    "start_display_short": "2:15P",
+    "time_sort": 51300,
     "total_trips": 5
   },
   {
@@ -1954,9 +1946,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "1:25 PM",
-    "start_display_short": "1:25P",
-    "time_sort": 48300,
+    "start_display": "2:25 PM",
+    "start_display_short": "2:25P",
+    "time_sort": 51900,
     "total_trips": 7
   },
   {
@@ -1980,10 +1972,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "12:40 PM",
-    "start_display_short": "12:40P",
-    "time_sort": 45600,
-    "total_trips": 18
+    "start_display": "1:40 PM",
+    "start_display_short": "1:40P",
+    "time_sort": 49200,
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -2024,10 +2016,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:10 PM",
-    "start_display_short": "3:10P",
-    "time_sort": 54600,
-    "total_trips": 21
+    "start_display": "4:10 PM",
+    "start_display_short": "4:10P",
+    "time_sort": 58200,
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -2050,10 +2042,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:10 PM",
-    "start_display_short": "3:10P",
-    "time_sort": 54600,
-    "total_trips": 21
+    "start_display": "4:10 PM",
+    "start_display_short": "4:10P",
+    "time_sort": 58200,
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -2120,9 +2112,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:55 PM",
-    "start_display_short": "2:55P",
-    "time_sort": 53700,
+    "start_display": "3:55 PM",
+    "start_display_short": "3:55P",
+    "time_sort": 57300,
     "total_trips": 4
   },
   {
@@ -2168,13 +2160,15 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "3:10 PM",
-    "start_display_short": "3:10P",
-    "time_sort": 54600,
-    "total_trips": 21
+    "start_display": "4:10 PM",
+    "start_display_short": "4:10P",
+    "time_sort": 58200,
+    "total_trips": 8
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Kudos"
+    ],
     "class_group_id": 200025124,
     "class_id": 200024498,
     "class_name": "1.0m Amateur Jumper II2b",
@@ -2184,15 +2178,17 @@
     "group_name_tags": "target, 1.0m, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [],
+    "group_display": [
+      "Kudos"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:31 PM",
-    "start_display_short": "2:31P",
-    "time_sort": 52260,
+    "start_display": "3:00 PM",
+    "start_display_short": "3:00P",
+    "time_sort": 54000,
     "total_trips": 17
   },
   {
@@ -2240,7 +2236,9 @@
     "total_trips": 5
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Indy"
+    ],
     "class_group_id": 200025124,
     "class_id": 200024407,
     "class_name": "1.0m Junior Jumper II2b",
@@ -2250,16 +2248,18 @@
     "group_name_tags": "target, 1.0m, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [],
+    "group_display": [
+      "Indy"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 02, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000060,
     "sid": 200000060,
-    "start_display": "2:31 PM",
-    "start_display_short": "2:31P",
-    "time_sort": 52260,
-    "total_trips": 33
+    "start_display": "3:00 PM",
+    "start_display_short": "3:00P",
+    "time_sort": 54000,
+    "total_trips": 32
   },
   {
     "8778_group_display": [],

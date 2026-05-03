@@ -45,9 +45,9 @@
   },
   {
     "8778_group_display": [
-      "Rimini (4)",
-      "Arrow (5)",
-      "Q (17)"
+      "Arrow",
+      "Q",
+      "Rimini"
     ],
     "class_group_id": 200023611,
     "class_id": 200024694,
@@ -59,9 +59,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Rimini (4)",
-      "Arrow (5)",
-      "Q (17)"
+      "Arrow",
+      "Q",
+      "Rimini"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -159,11 +159,11 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 1
+    "total_trips": 4
   },
   {
     "8778_group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -175,7 +175,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -299,10 +299,10 @@
   },
   {
     "8778_group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -314,10 +314,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -349,7 +349,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 11
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -375,7 +375,7 @@
   },
   {
     "8778_group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -387,7 +387,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -515,7 +515,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 11
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -541,8 +541,8 @@
   },
   {
     "8778_group_display": [
-      "Jason (3)",
-      "Munster (10)"
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023619,
     "class_id": 200024705,
@@ -554,8 +554,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Jason (3)",
-      "Munster (10)"
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -569,8 +569,8 @@
   },
   {
     "8778_group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -582,8 +582,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -619,10 +619,10 @@
   },
   {
     "8778_group_display": [
-      "Jason (2)",
-      "Markanto (3)",
-      "Shelby (6)",
-      "Munster (7)"
+      "Munster",
+      "Markanto",
+      "Shelby",
+      "Jason"
     ],
     "class_group_id": 200023618,
     "class_id": 200024403,
@@ -634,10 +634,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Jason (2)",
-      "Markanto (3)",
-      "Shelby (6)",
-      "Munster (7)"
+      "Munster",
+      "Markanto",
+      "Shelby",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -695,7 +695,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 4
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -745,7 +745,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 5
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -767,7 +767,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 5
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -789,7 +789,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 5
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -811,7 +811,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 15
+    "total_trips": 22
   },
   {
     "8778_group_display": [
@@ -839,7 +839,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 15
+    "total_trips": 22
   },
   {
     "8778_group_display": [],
@@ -905,7 +905,7 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 5
+    "total_trips": 13
   },
   {
     "8778_group_display": [
@@ -975,7 +975,7 @@
     "start_display": "12:20 PM",
     "start_display_short": "12:20P",
     "time_sort": 44400,
-    "total_trips": 4
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -997,7 +997,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -1205,7 +1205,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 5
+    "total_trips": 13
   },
   {
     "8778_group_display": [
@@ -1287,7 +1287,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 12
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -1309,7 +1309,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -1375,7 +1375,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1419,7 +1419,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1489,7 +1489,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 5
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -1511,7 +1511,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -1533,7 +1533,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 5
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -1599,7 +1599,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -1621,7 +1621,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4
+    "total_trips": 21
   },
   {
     "8778_group_display": [
@@ -1647,7 +1647,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -1691,7 +1691,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 11
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -1741,7 +1741,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 11
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -1785,7 +1785,7 @@
     "start_display": "3:19 PM",
     "start_display_short": "3:19P",
     "time_sort": 55140,
-    "total_trips": 7
+    "total_trips": 14
   },
   {
     "8778_group_display": [
@@ -1813,7 +1813,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 19
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -1835,7 +1835,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 6
+    "total_trips": 20
   },
   {
     "8778_group_display": [],
@@ -1857,7 +1857,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8
+    "total_trips": 16
   },
   {
     "8778_group_display": [],
@@ -1905,7 +1905,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 7
+    "total_trips": 25
   },
   {
     "8778_group_display": [],
@@ -1949,7 +1949,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 7
+    "total_trips": 20
   },
   {
     "8778_group_display": [
@@ -1977,7 +1977,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 7
+    "total_trips": 25
   },
   {
     "8778_group_display": [
@@ -2003,7 +2003,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7
+    "total_trips": 19
   },
   {
     "8778_group_display": [],
@@ -2047,7 +2047,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38400,
-    "total_trips": 5
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -2069,7 +2069,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8
+    "total_trips": 16
   },
   {
     "8778_group_display": [
@@ -2095,7 +2095,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 20
+    "total_trips": 25
   },
   {
     "8778_group_display": [],

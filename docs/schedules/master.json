@@ -41,13 +41,13 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 3
+    "total_trips": 4
   },
   {
     "8778_group_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "class_group_id": 200023611,
     "class_id": 200024694,
@@ -59,9 +59,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -163,7 +163,7 @@
   },
   {
     "8778_group_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -175,7 +175,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -207,7 +207,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": 31
+    "total_trips": 17
   },
   {
     "8778_group_display": [],
@@ -299,10 +299,10 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -314,10 +314,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -330,7 +330,9 @@
     "total_trips": 8
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Elliot"
+    ],
     "class_group_id": 200023629,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -340,7 +342,9 @@
     "group_name_tags": "classic, isFirstUp, owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Elliot"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -349,7 +353,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 14
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -375,7 +379,7 @@
   },
   {
     "8778_group_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -387,7 +391,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -515,7 +519,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 14
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -541,8 +545,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "class_group_id": 200023619,
     "class_id": 200024705,
@@ -554,8 +558,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -569,8 +573,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Jason"
+      "Munster (5)",
+      "Jason (6)"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -582,8 +586,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Jason"
+      "Munster (5)",
+      "Jason (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -593,7 +597,7 @@
     "start_display": "8:20 AM",
     "start_display_short": "8:20A",
     "time_sort": 30000,
-    "total_trips": 7
+    "total_trips": 8
   },
   {
     "8778_group_display": [],
@@ -619,10 +623,10 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "class_group_id": 200023618,
     "class_id": 200024403,
@@ -634,10 +638,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -695,7 +699,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 14
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -745,7 +749,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 22
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -767,7 +771,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 14
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -792,7 +796,10 @@
     "total_trips": 5
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023634,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -802,7 +809,10 @@
     "group_name_tags": "classic, 3', 3'6\", junior, small, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -811,7 +821,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22
+    "total_trips": 12
   },
   {
     "8778_group_display": [
@@ -839,7 +849,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 22
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -905,12 +915,10 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 5
+    "total_trips": 13
   },
   {
-    "8778_group_display": [
-      "Elliot"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023630,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -920,9 +928,7 @@
     "group_name_tags": "classic, owner, 3', 3'3\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Elliot"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1045,7 +1051,7 @@
     "start_display": "1:10 PM",
     "start_display_short": "1:10P",
     "time_sort": 47400,
-    "total_trips": 10
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -1073,7 +1079,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 24
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1208,10 +1214,7 @@
     "total_trips": 5
   },
   {
-    "8778_group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023635,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -1221,10 +1224,7 @@
     "group_name_tags": "classic, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1259,7 +1259,7 @@
     "start_display": "1:10 PM",
     "start_display_short": "1:10P",
     "time_sort": 47400,
-    "total_trips": 10
+    "total_trips": 5
   },
   {
     "8778_group_display": [
@@ -1287,7 +1287,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 24
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -1647,7 +1647,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 19
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1741,7 +1741,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 25
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -1813,7 +1813,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 25
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1905,7 +1905,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 25
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -1977,7 +1977,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 25
+    "total_trips": 7
   },
   {
     "8778_group_display": [
@@ -2003,7 +2003,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 19
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -2095,7 +2095,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 25
+    "total_trips": 7
   },
   {
     "8778_group_display": [],

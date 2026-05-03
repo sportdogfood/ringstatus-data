@@ -31,7 +31,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -44,7 +44,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -57,14 +57,12 @@
     "total_trips": 27,
     "class_groupxclasses_id": 200035273,
     "latestStart": "11:15 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 2,
     "estimated_start_time": "11:15:00",
     "8778_sched_display": [
-      "Bee (15)"
+      "Bee"
     ]
   },
   {
@@ -162,7 +160,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 5,
+    "total_trips": 4,
     "class_groupxclasses_id": 200035278,
     "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
@@ -192,7 +190,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 5,
+    "total_trips": 4,
     "class_groupxclasses_id": 200035279,
     "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
@@ -293,8 +291,8 @@
   },
   {
     "8778_group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -307,8 +305,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -321,15 +319,13 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035284,
     "latestStart": "8:20 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 2,
     "estimated_start_time": "08:20:00",
     "8778_sched_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ]
   },
   {
@@ -364,10 +360,10 @@
   },
   {
     "8778_group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -380,10 +376,10 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -396,17 +392,15 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200035285,
     "latestStart": "10:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "8778_sched_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ]
   },
   {
@@ -499,7 +493,7 @@
   },
   {
     "8778_group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -512,7 +506,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -525,14 +519,12 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200035289,
     "latestStart": "12:40 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
     "8778_sched_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ]
   },
   {
@@ -563,9 +555,7 @@
     "total_trips": 12,
     "class_groupxclasses_id": 200035288,
     "latestStart": "12:52 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 8,
     "estimated_start_time": "12:52:00",
@@ -941,9 +931,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035316,
     "latestStart": "9:00 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:00",
@@ -1072,9 +1060,7 @@
     "total_trips": 24,
     "class_groupxclasses_id": 200035333,
     "latestStart": "11:20 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 7,
     "estimated_start_time": "11:20:00",
@@ -1113,9 +1099,7 @@
     "total_trips": 24,
     "class_groupxclasses_id": 200035334,
     "latestStart": "11:20 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 7,
     "estimated_start_time": "11:20:00",
@@ -1302,9 +1286,7 @@
     "total_trips": 10,
     "class_groupxclasses_id": 200035343,
     "latestStart": "1:10 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 11,
     "estimated_start_time": "13:10:00",
@@ -1340,9 +1322,7 @@
     "total_trips": 10,
     "class_groupxclasses_id": 200035344,
     "latestStart": "1:10 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 11,
     "estimated_start_time": "13:10:00",
@@ -1768,9 +1748,7 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035360,
     "latestStart": "9:28 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 9,
     "estimated_start_time": "09:28:00",
@@ -1806,9 +1784,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200035363,
     "latestStart": "9:43 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 10,
     "estimated_start_time": "09:43:00",
@@ -1844,9 +1820,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200035364,
     "latestStart": "9:43 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 10,
     "estimated_start_time": "09:43:00",
@@ -1944,9 +1918,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200035372,
     "latestStart": "11:19 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 12,
     "estimated_start_time": "11:19:00",
@@ -1983,9 +1955,7 @@
     "total_trips": 20,
     "class_groupxclasses_id": 200035375,
     "latestStart": "12:16 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": "Upcoming",
     "show_date": "2026-05-03",
     "class_group_sequence": 13,
     "estimated_start_time": "12:16:00",

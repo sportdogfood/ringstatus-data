@@ -5,9 +5,9 @@
     "key": "list8",
     "label": "Barn",
     "type": "barn",
-    "inNav": true,
-    "inSummary": true,
-    "inShare": true
+    "inNav": null,
+    "inSummary": null,
+    "inShare": null
   },
   {
     "list_id": "horse_schooling_bridles",
@@ -88,5 +88,25 @@
     "inNav": true,
     "inSummary": true,
     "inShare": true
+  },
+  {
+    "list_id": "barn_first_aid_kit",
+    "sort": 9,
+    "key": "list9",
+    "label": "First Aid Kits",
+    "type": "barn",
+    "inNav": null,
+    "inSummary": null,
+    "inShare": null
+  },
+  {
+    "list_id": "barn_water_buckets",
+    "sort": 10,
+    "key": "list10",
+    "label": "Water Buckets",
+    "type": "barn",
+    "inNav": null,
+    "inSummary": null,
+    "inShare": null
   }
 ]

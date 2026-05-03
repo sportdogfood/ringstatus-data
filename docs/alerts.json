@@ -5,7 +5,7 @@
     "rec_id": null,
     "rec_rid": "rec2uTnepKhQjRxk6",
     "created_time": "2026-02-14T12:43:19.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "rider_results"
   },
@@ -15,8 +15,8 @@
     "rec_id": null,
     "rec_rid": "rec7yRvtjjcK1Rjgf",
     "created_time": "2026-03-21T20:32:23.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
-    "active": null,
+    "last_modified_time": "2026-05-03T02:42:08.000Z",
+    "active": true,
     "alert_id": "class_time"
   },
   {
@@ -25,7 +25,7 @@
     "rec_id": null,
     "rec_rid": "rec4HU39UWqsHHRT3",
     "created_time": "2026-03-21T20:32:36.000Z",
-    "last_modified_time": "2026-04-16T02:30:25.000Z",
+    "last_modified_time": "2026-05-03T02:42:08.000Z",
     "active": true,
     "alert_id": "class_status"
   },
@@ -35,19 +35,9 @@
     "rec_id": null,
     "rec_rid": "recRNehyHHc6z3iT4",
     "created_time": "2026-03-21T20:33:07.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "weather"
-  },
-  {
-    "rec_name": "groom_go",
-    "rec_label": "Groom Go",
-    "rec_id": null,
-    "rec_rid": "recPtAwTK9qoQ9jUr",
-    "created_time": "2026-03-21T20:34:19.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
-    "active": null,
-    "alert_id": "groom_go"
   },
   {
     "rec_name": "class_tills",
@@ -55,7 +45,7 @@
     "rec_id": null,
     "rec_rid": "recW7ZQMiEm12AwQm",
     "created_time": "2026-03-21T20:34:42.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "class_tills"
   },
@@ -65,29 +55,29 @@
     "rec_id": null,
     "rec_rid": "recWvLELpJvFVXl3m",
     "created_time": "2026-03-31T15:25:18.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "threads"
   },
   {
     "rec_name": "ring_alerts",
-    "rec_label": "Ring Alerts",
+    "rec_label": "Ring Time",
     "rec_id": null,
     "rec_rid": "recdAspfCmYjqNyrn",
     "created_time": "2026-04-01T18:12:01.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "ring_alerts"
   },
   {
     "rec_name": "entry_go",
-    "rec_label": "Entry Go",
+    "rec_label": "Entry Go Time",
     "rec_id": null,
     "rec_rid": "recP1Zxmr1vhbaGoP",
     "created_time": "2026-04-02T12:04:34.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
-    "alert_id": "entry_go"
+    "alert_id": "entry_go_time"
   },
   {
     "rec_name": "entry_tills",
@@ -95,7 +85,7 @@
     "rec_id": null,
     "rec_rid": "recW4qUom3MXx1TA7",
     "created_time": "2026-04-05T18:55:49.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "entry_tills"
   },
@@ -105,29 +95,19 @@
     "rec_id": null,
     "rec_rid": "recLfPzoyXTW9cxci",
     "created_time": "2026-04-05T18:56:42.000Z",
-    "last_modified_time": "2026-04-14T19:51:49.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "groom_tills"
   },
   {
     "rec_name": "trip_tills",
-    "rec_label": "Trip Tills",
+    "rec_label": "Trainer Tills",
     "rec_id": null,
-    "rec_rid": "recpk4156uWn989jm",
-    "created_time": "2026-04-05T19:37:42.000Z",
-    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "rec_rid": "recbE06R7U8YJFglz",
+    "created_time": "2026-04-17T13:33:21.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
-    "alert_id": "trip_tills"
-  },
-  {
-    "rec_name": "rider_go",
-    "rec_label": "Rider Go",
-    "rec_id": null,
-    "rec_rid": "recGHixSu1jad7Fbk",
-    "created_time": "2026-04-05T19:39:09.000Z",
-    "last_modified_time": "2026-04-07T17:01:48.000Z",
-    "active": null,
-    "alert_id": "rider_go"
+    "alert_id": "trainer_tills"
   },
   {
     "rec_name": "rider_live",
@@ -135,8 +115,128 @@
     "rec_id": null,
     "rec_rid": "recsNDJDsnijiaxQD",
     "created_time": "2026-04-05T19:39:33.000Z",
-    "last_modified_time": "2026-04-07T17:01:48.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
     "active": null,
     "alert_id": "rider_live"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Entry Class Status",
+    "rec_id": null,
+    "rec_rid": "rec2kvZ0kM1WnPlKP",
+    "created_time": "2026-04-17T13:22:56.000Z",
+    "last_modified_time": "2026-04-20T15:52:50.000Z",
+    "active": null,
+    "alert_id": "class_status_tripwise"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Entry Class Tills",
+    "rec_id": null,
+    "rec_rid": "recjbQlK0FRsqXKB3",
+    "created_time": "2026-04-17T13:23:32.000Z",
+    "last_modified_time": "2026-04-20T15:52:55.000Z",
+    "active": null,
+    "alert_id": "class_tills_tripwise"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Entry Class Times",
+    "rec_id": null,
+    "rec_rid": "recCbGDhKKXDETU6I",
+    "created_time": "2026-04-17T13:36:15.000Z",
+    "last_modified_time": "2026-04-20T15:53:02.000Z",
+    "active": null,
+    "alert_id": "class_time_tripwise"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Rider Tills",
+    "rec_id": null,
+    "rec_rid": "rechXnhfRYUU9J3PX",
+    "created_time": "2026-04-17T13:38:51.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
+    "active": null,
+    "alert_id": "rider_tills"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Class Trips Completed",
+    "rec_id": null,
+    "rec_rid": "recXoAWpGOZO8rvze",
+    "created_time": "2026-04-17T13:54:34.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
+    "active": null,
+    "alert_id": "class_ten"
+  },
+  {
+    "rec_name": null,
+    "rec_label": "Entry Trips Completed",
+    "rec_id": null,
+    "rec_rid": "receiYFAa8DZ1GuTS",
+    "created_time": "2026-04-17T13:54:58.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
+    "active": null,
+    "alert_id": "entry_go_ten_out"
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "recwqORzT2hOZxdni",
+    "created_time": "2026-04-17T17:47:17.000Z",
+    "last_modified_time": "2026-04-20T15:53:02.000Z",
+    "active": null,
+    "alert_id": "custom10"
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "recahnuskHtvcWMw5",
+    "created_time": "2026-04-20T14:54:01.000Z",
+    "last_modified_time": "2026-04-20T14:54:01.000Z",
+    "active": null,
+    "alert_id": null
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "rec5DqPOj7caQHIWQ",
+    "created_time": "2026-04-20T15:37:13.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
+    "active": null,
+    "alert_id": "Rider or Horse Status by Text"
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "recDMNFtJmC4k5u6O",
+    "created_time": "2026-04-20T15:37:53.000Z",
+    "last_modified_time": "2026-04-23T15:55:01.000Z",
+    "active": null,
+    "alert_id": "Ring Status by Text"
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "recChfP2u6p5yr1sd",
+    "created_time": "2026-04-20T15:44:12.000Z",
+    "last_modified_time": "2026-04-20T15:44:12.000Z",
+    "active": null,
+    "alert_id": null
+  },
+  {
+    "rec_name": null,
+    "rec_label": null,
+    "rec_id": null,
+    "rec_rid": "rec7bIKKhq5OglxOz",
+    "created_time": "2026-04-20T15:44:12.000Z",
+    "last_modified_time": "2026-04-20T15:44:12.000Z",
+    "active": null,
+    "alert_id": null
   }
 ]

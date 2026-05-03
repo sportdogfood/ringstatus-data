@@ -31,7 +31,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -44,7 +44,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -62,7 +62,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:15:00",
     "8778_sched_display": [
-      "Bee (15)"
+      "Bee"
     ]
   },
   {
@@ -289,8 +289,8 @@
   },
   {
     "8778_group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -303,8 +303,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -322,8 +322,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:20:00",
     "8778_sched_display": [
-      "Munster (5)",
-      "Jason (6)"
+      "Munster",
+      "Jason"
     ]
   },
   {
@@ -358,10 +358,10 @@
   },
   {
     "8778_group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -374,10 +374,10 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -395,10 +395,10 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "8778_sched_display": [
-      "Shelby (1)",
-      "Munster (2)",
-      "Jason (7)",
-      "Markanto (8)"
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ]
   },
   {
@@ -487,7 +487,7 @@
   },
   {
     "8778_group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -500,7 +500,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -518,7 +518,7 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
     "8778_sched_display": [
-      "Hurricane (5)"
+      "Hurricane"
     ]
   },
   {
@@ -549,9 +549,7 @@
     "total_trips": 12,
     "class_groupxclasses_id": 200035288,
     "latestStart": "12:52 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 8,
     "estimated_start_time": "12:52:00",
@@ -1742,9 +1740,7 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035360,
     "latestStart": "9:28 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 9,
     "estimated_start_time": "09:28:00",

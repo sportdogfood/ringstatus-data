@@ -31,7 +31,7 @@
   },
   {
     "8778_group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -44,7 +44,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Bee (15)"
+      "Bee"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -62,7 +62,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:15:00",
     "8778_sched_display": [
-      "Bee (15)"
+      "Bee"
     ]
   },
   {
@@ -188,7 +188,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 1,
+    "total_trips": 4,
     "class_groupxclasses_id": 200035279,
     "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
@@ -448,8 +448,8 @@
   },
   {
     "8778_group_display": [
-      "Jason (3)",
-      "Munster (10)"
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023619,
     "class_id": 200024705,
@@ -462,8 +462,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Jason (3)",
-      "Munster (10)"
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -481,8 +481,8 @@
     "class_group_sequence": 6,
     "estimated_start_time": "11:40:00",
     "8778_sched_display": [
-      "Jason (3)",
-      "Munster (10)"
+      "Munster",
+      "Jason"
     ]
   },
   {
@@ -549,9 +549,7 @@
     "total_trips": 12,
     "class_groupxclasses_id": 200035288,
     "latestStart": "12:52 PM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 8,
     "estimated_start_time": "12:52:00",
@@ -886,7 +884,7 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035303,
     "latestStart": "8:15 AM",
     "latestStatus": "Upcoming",
@@ -922,7 +920,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 5,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035316,
     "latestStart": "9:00 AM",
     "latestStatus": "Not Started",
@@ -955,7 +953,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 5,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035320,
     "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
@@ -1090,7 +1088,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 12,
+    "total_trips": 24,
     "class_groupxclasses_id": 200035334,
     "latestStart": "11:20 AM",
     "latestStatus": "Not Started",
@@ -1153,7 +1151,7 @@
     "start_display": "12:20 PM",
     "start_display_short": "12:20P",
     "time_sort": 44400,
-    "total_trips": 4,
+    "total_trips": 8,
     "class_groupxclasses_id": 200035337,
     "latestStart": "12:20 PM",
     "latestStatus": "Upcoming",
@@ -1213,7 +1211,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3,
+    "total_trips": 6,
     "class_groupxclasses_id": 200035340,
     "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
@@ -1243,7 +1241,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3,
+    "total_trips": 6,
     "class_groupxclasses_id": 200035341,
     "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
@@ -1345,7 +1343,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6,
+    "total_trips": 12,
     "class_groupxclasses_id": 200035346,
     "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
@@ -1375,7 +1373,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6,
+    "total_trips": 12,
     "class_groupxclasses_id": 200035347,
     "latestStart": "1:50 PM",
     "latestStatus": "Upcoming",
@@ -1615,7 +1613,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035356,
     "latestStart": "8:25 AM",
     "latestStatus": "Upcoming",
@@ -1645,7 +1643,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035357,
     "latestStart": "8:25 AM",
     "latestStatus": "Upcoming",
@@ -1705,7 +1703,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035359,
     "latestStart": "8:25 AM",
     "latestStatus": "Upcoming",
@@ -1742,9 +1740,7 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035360,
     "latestStart": "9:28 AM",
-    "latestStatus": [
-      "Not Started"
-    ],
+    "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 9,
     "estimated_start_time": "09:28:00",
@@ -1777,7 +1773,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035363,
     "latestStart": "9:43 AM",
     "latestStatus": "Not Started",
@@ -1813,7 +1809,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035364,
     "latestStart": "9:43 AM",
     "latestStatus": "Not Started",
@@ -1875,7 +1871,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38400,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035370,
     "latestStart": "10:40 AM",
     "latestStatus": "Upcoming",
@@ -1948,7 +1944,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035375,
     "latestStart": "12:16 PM",
     "latestStatus": "Not Started",
@@ -1980,7 +1976,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035378,
     "latestStart": "1:16 PM",
     "latestStatus": "Upcoming",
@@ -2040,7 +2036,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8,
+    "total_trips": 16,
     "class_groupxclasses_id": 200035382,
     "latestStart": "2:31 PM",
     "latestStatus": "Upcoming",
@@ -2070,7 +2066,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8,
+    "total_trips": 16,
     "class_groupxclasses_id": 200035383,
     "latestStart": "2:31 PM",
     "latestStatus": "Upcoming",
@@ -2130,7 +2126,7 @@
     "start_display": "3:19 PM",
     "start_display_short": "3:19P",
     "time_sort": 55140,
-    "total_trips": 7,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035387,
     "latestStart": "3:19 PM",
     "latestStatus": "Upcoming",

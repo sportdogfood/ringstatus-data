@@ -31,7 +31,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Bee"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -44,7 +44,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      null
+      "Bee"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -62,7 +62,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:15:00",
     "8778_sched_display": [
-      null
+      "Bee"
     ]
   },
   {
@@ -97,7 +97,9 @@
   },
   {
     "8778_group_display": [
-      null
+      "Arrow",
+      "Q",
+      "Rimini"
     ],
     "class_group_id": 200023611,
     "class_id": 200024694,
@@ -110,7 +112,9 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Arrow",
+      "Q",
+      "Rimini"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -128,7 +132,9 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:30:00",
     "8778_sched_display": [
-      null
+      "Arrow",
+      "Q",
+      "Rimini"
     ]
   },
   {
@@ -152,7 +158,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 3,
+    "total_trips": 5,
     "class_groupxclasses_id": 200035278,
     "latestStart": "11:15 AM",
     "latestStatus": null,
@@ -182,7 +188,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 2,
+    "total_trips": 5,
     "class_groupxclasses_id": 200035279,
     "latestStart": "11:15 AM",
     "latestStatus": null,
@@ -212,7 +218,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": 17,
+    "total_trips": 31,
     "class_groupxclasses_id": 200035280,
     "latestStart": "11:40 AM",
     "latestStatus": null,
@@ -242,7 +248,7 @@
     "start_display": "11:40 AM",
     "start_display_short": "11:40A",
     "time_sort": 42000,
-    "total_trips": 14,
+    "total_trips": 31,
     "class_groupxclasses_id": 200035281,
     "latestStart": "11:40 AM",
     "latestStatus": null,
@@ -313,7 +319,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -326,7 +333,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -344,7 +352,8 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:20:00",
     "8778_sched_display": [
-      null
+      "Munster",
+      "Jason"
     ]
   },
   {
@@ -379,7 +388,10 @@
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -392,7 +404,10 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -410,12 +425,18 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "8778_sched_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Jason",
+      "Shelby"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Shelby",
+      "Jason"
     ],
     "class_group_id": 200023618,
     "class_id": 200024403,
@@ -428,7 +449,10 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Shelby",
+      "Jason"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -446,12 +470,16 @@
     "class_group_sequence": 5,
     "estimated_start_time": "10:45:00",
     "8778_sched_display": [
-      null
+      "Munster",
+      "Markanto",
+      "Shelby",
+      "Jason"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Jason"
     ],
     "class_group_id": 200023619,
     "class_id": 200024705,
@@ -464,7 +492,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Munster",
+      "Jason"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -482,12 +511,13 @@
     "class_group_sequence": 6,
     "estimated_start_time": "11:40:00",
     "8778_sched_display": [
-      null
+      "Munster",
+      "Jason"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Hurricane"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -500,7 +530,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Hurricane"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -518,12 +548,12 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
     "8778_sched_display": [
-      null
+      "Hurricane"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Munster"
     ],
     "class_group_id": 200023620,
     "class_id": 200024674,
@@ -536,7 +566,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Munster"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -554,7 +584,7 @@
     "class_group_sequence": 8,
     "estimated_start_time": "12:52:00",
     "8778_sched_display": [
-      null
+      "Munster"
     ]
   },
   {
@@ -608,7 +638,7 @@
     "start_display": "2:00 PM",
     "start_display_short": "2:00P",
     "time_sort": 50400,
-    "total_trips": 12,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035292,
     "latestStart": "2:00 PM",
     "latestStatus": null,
@@ -638,7 +668,7 @@
     "start_display": "2:00 PM",
     "start_display_short": "2:00P",
     "time_sort": 50400,
-    "total_trips": 8,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035293,
     "latestStart": "2:00 PM",
     "latestStatus": null,
@@ -698,7 +728,7 @@
     "start_display": "3:00 PM",
     "start_display_short": "3:00P",
     "time_sort": 54000,
-    "total_trips": 5,
+    "total_trips": 9,
     "class_groupxclasses_id": 200035295,
     "latestStart": "3:00 PM",
     "latestStatus": null,
@@ -859,7 +889,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023629,
     "class_id": 200024641,
@@ -872,7 +902,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -882,7 +912,7 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 4,
+    "total_trips": 11,
     "class_groupxclasses_id": 200035300,
     "latestStart": "7:45 AM",
     "latestStatus": null,
@@ -890,12 +920,12 @@
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      null
+      "Elliot"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Elliot"
     ],
     "class_group_id": 200023629,
     "class_id": 200024563,
@@ -908,7 +938,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Elliot"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -926,11 +956,13 @@
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      null
+      "Elliot"
     ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Elliot"
+    ],
     "class_group_id": 200023629,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -941,7 +973,9 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Elliot"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -950,14 +984,16 @@
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
     "time_sort": 27900,
-    "total_trips": 6,
+    "total_trips": 11,
     "class_groupxclasses_id": 200035302,
     "latestStart": "7:45 AM",
     "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Elliot"
+    ]
   },
   {
     "8778_group_display": [],
@@ -980,7 +1016,7 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035303,
     "latestStart": "8:15 AM",
     "latestStatus": null,
@@ -1010,7 +1046,7 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035304,
     "latestStart": "8:15 AM",
     "latestStatus": null,
@@ -1020,9 +1056,7 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [
-      null
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023630,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -1033,9 +1067,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [
-      null
-    ],
+    "group_display": [],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1044,20 +1076,19 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 6,
+    "total_trips": 11,
     "class_groupxclasses_id": 200035305,
     "latestStart": "8:15 AM",
     "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 2,
     "estimated_start_time": "08:15:00",
-    "8778_sched_display": [
-      null
-    ]
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "class_group_id": 200023633,
     "class_id": 200024595,
@@ -1070,7 +1101,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1080,7 +1112,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 5,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035316,
     "latestStart": "9:00 AM",
     "latestStatus": null,
@@ -1088,12 +1120,14 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
-      null
+      "Macho",
+      "Dorian"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "class_group_id": 200023633,
     "class_id": 200024485,
@@ -1106,7 +1140,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Macho",
+      "Dorian"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1116,7 +1151,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 5,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035317,
     "latestStart": "9:00 AM",
     "latestStatus": null,
@@ -1124,7 +1159,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
-      null
+      "Macho",
+      "Dorian"
     ]
   },
   {
@@ -1148,7 +1184,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 12,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035318,
     "latestStart": "9:00 AM",
     "latestStatus": null,
@@ -1178,7 +1214,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 5,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035320,
     "latestStart": "9:40 AM",
     "latestStatus": null,
@@ -1208,7 +1244,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 5,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035321,
     "latestStart": "9:40 AM",
     "latestStatus": null,
@@ -1218,7 +1254,10 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023634,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -1229,7 +1268,10 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1238,14 +1280,17 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 12,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035322,
     "latestStart": "9:40 AM",
     "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 4,
     "estimated_start_time": "09:40:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Macho",
+      "Dorian"
+    ]
   },
   {
     "8778_group_display": [],
@@ -1268,7 +1313,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035324,
     "latestStart": "10:20 AM",
     "latestStatus": null,
@@ -1298,7 +1343,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035325,
     "latestStart": "10:20 AM",
     "latestStatus": null,
@@ -1308,9 +1353,7 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [
-      null
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023635,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -1321,9 +1364,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [
-      null
-    ],
+    "group_display": [],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1332,16 +1373,14 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 12,
+    "total_trips": 15,
     "class_groupxclasses_id": 200035326,
     "latestStart": "10:20 AM",
     "latestStatus": null,
     "show_date": "2026-05-03",
     "class_group_sequence": 5,
     "estimated_start_time": "10:20:00",
-    "8778_sched_display": [
-      null
-    ]
+    "8778_sched_display": []
   },
   {
     "8778_group_display": [],
@@ -1375,7 +1414,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Pedro",
+      "Tommy"
     ],
     "class_group_id": 200023638,
     "class_id": 200024527,
@@ -1388,7 +1428,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Pedro",
+      "Tommy"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1398,7 +1439,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 12,
+    "total_trips": 24,
     "class_groupxclasses_id": 200035333,
     "latestStart": "11:20 AM",
     "latestStatus": null,
@@ -1406,12 +1447,14 @@
     "class_group_sequence": 7,
     "estimated_start_time": "11:20:00",
     "8778_sched_display": [
-      null
+      "Pedro",
+      "Tommy"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Pedro",
+      "Tommy"
     ],
     "class_group_id": 200023638,
     "class_id": 200024510,
@@ -1424,7 +1467,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Pedro",
+      "Tommy"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1434,7 +1478,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 12,
+    "total_trips": 24,
     "class_groupxclasses_id": 200035334,
     "latestStart": "11:20 AM",
     "latestStatus": null,
@@ -1442,7 +1486,8 @@
     "class_group_sequence": 7,
     "estimated_start_time": "11:20:00",
     "8778_sched_display": [
-      null
+      "Pedro",
+      "Tommy"
     ]
   },
   {
@@ -1466,7 +1511,7 @@
     "start_display": "12:20 PM",
     "start_display_short": "12:20P",
     "time_sort": 44400,
-    "total_trips": 4,
+    "total_trips": 8,
     "class_groupxclasses_id": 200035336,
     "latestStart": "12:20 PM",
     "latestStatus": null,
@@ -1496,7 +1541,7 @@
     "start_display": "12:20 PM",
     "start_display_short": "12:20P",
     "time_sort": 44400,
-    "total_trips": 4,
+    "total_trips": 8,
     "class_groupxclasses_id": 200035337,
     "latestStart": "12:20 PM",
     "latestStatus": null,
@@ -1556,7 +1601,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3,
+    "total_trips": 6,
     "class_groupxclasses_id": 200035340,
     "latestStart": "12:55 PM",
     "latestStatus": null,
@@ -1586,7 +1631,7 @@
     "start_display": "12:55 PM",
     "start_display_short": "12:55P",
     "time_sort": 46500,
-    "total_trips": 3,
+    "total_trips": 6,
     "class_groupxclasses_id": 200035341,
     "latestStart": "12:55 PM",
     "latestStatus": null,
@@ -1597,7 +1642,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023642,
     "class_id": 200024422,
@@ -1610,7 +1655,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1620,7 +1665,7 @@
     "start_display": "1:10 PM",
     "start_display_short": "1:10P",
     "time_sort": 47400,
-    "total_trips": 5,
+    "total_trips": 10,
     "class_groupxclasses_id": 200035343,
     "latestStart": "1:10 PM",
     "latestStatus": null,
@@ -1628,12 +1673,12 @@
     "class_group_sequence": 11,
     "estimated_start_time": "13:10:00",
     "8778_sched_display": [
-      null
+      "Casanova"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Casanova"
     ],
     "class_group_id": 200023642,
     "class_id": 200024796,
@@ -1646,7 +1691,7 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      null
+      "Casanova"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1656,7 +1701,7 @@
     "start_display": "1:10 PM",
     "start_display_short": "1:10P",
     "time_sort": 47400,
-    "total_trips": 5,
+    "total_trips": 10,
     "class_groupxclasses_id": 200035344,
     "latestStart": "1:10 PM",
     "latestStatus": null,
@@ -1664,7 +1709,7 @@
     "class_group_sequence": 11,
     "estimated_start_time": "13:10:00",
     "8778_sched_display": [
-      null
+      "Casanova"
     ]
   },
   {
@@ -1688,7 +1733,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6,
+    "total_trips": 12,
     "class_groupxclasses_id": 200035346,
     "latestStart": "1:50 PM",
     "latestStatus": null,
@@ -1718,7 +1763,7 @@
     "start_display": "1:50 PM",
     "start_display_short": "1:50P",
     "time_sort": 49800,
-    "total_trips": 6,
+    "total_trips": 12,
     "class_groupxclasses_id": 200035347,
     "latestStart": "1:50 PM",
     "latestStatus": null,
@@ -1988,7 +2033,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 5,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035355,
     "latestStart": "8:25 AM",
     "latestStatus": null,
@@ -2018,7 +2063,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035356,
     "latestStart": "8:25 AM",
     "latestStatus": null,
@@ -2048,7 +2093,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035357,
     "latestStart": "8:25 AM",
     "latestStatus": null,
@@ -2078,7 +2123,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035358,
     "latestStart": "8:25 AM",
     "latestStatus": null,
@@ -2108,7 +2153,7 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30300,
-    "total_trips": 4,
+    "total_trips": 21,
     "class_groupxclasses_id": 200035359,
     "latestStart": "8:25 AM",
     "latestStatus": null,
@@ -2119,7 +2164,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023652,
     "class_id": 200024748,
@@ -2132,7 +2177,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2150,7 +2195,7 @@
     "class_group_sequence": 9,
     "estimated_start_time": "09:28:00",
     "8778_sched_display": [
-      null
+      "Prom Queen"
     ]
   },
   {
@@ -2174,7 +2219,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 5,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035362,
     "latestStart": "9:43 AM",
     "latestStatus": null,
@@ -2185,7 +2230,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023654,
     "class_id": 200024448,
@@ -2198,7 +2243,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2208,7 +2253,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035363,
     "latestStart": "9:43 AM",
     "latestStatus": null,
@@ -2216,12 +2261,12 @@
     "class_group_sequence": 10,
     "estimated_start_time": "09:43:00",
     "8778_sched_display": [
-      null
+      "Prom Queen"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Prom Queen"
     ],
     "class_group_id": 200023654,
     "class_id": 200024471,
@@ -2234,7 +2279,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Prom Queen"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2244,7 +2289,7 @@
     "start_display": "9:43 AM",
     "start_display_short": "9:43A",
     "time_sort": 34980,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035364,
     "latestStart": "9:43 AM",
     "latestStatus": null,
@@ -2252,7 +2297,7 @@
     "class_group_sequence": 10,
     "estimated_start_time": "09:43:00",
     "8778_sched_display": [
-      null
+      "Prom Queen"
     ]
   },
   {
@@ -2276,7 +2321,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38400,
-    "total_trips": 3,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035368,
     "latestStart": "10:40 AM",
     "latestStatus": null,
@@ -2306,7 +2351,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38400,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035369,
     "latestStart": "10:40 AM",
     "latestStatus": null,
@@ -2336,7 +2381,7 @@
     "start_display": "10:40 AM",
     "start_display_short": "10:40A",
     "time_sort": 38400,
-    "total_trips": 5,
+    "total_trips": 13,
     "class_groupxclasses_id": 200035370,
     "latestStart": "10:40 AM",
     "latestStatus": null,
@@ -2347,7 +2392,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023657,
     "class_id": 200024785,
@@ -2360,7 +2406,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2370,7 +2417,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035372,
     "latestStart": "11:19 AM",
     "latestStatus": null,
@@ -2378,12 +2425,14 @@
     "class_group_sequence": 12,
     "estimated_start_time": "11:19:00",
     "8778_sched_display": [
-      null
+      "Knox",
+      "Poptart"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "class_group_id": 200023657,
     "class_id": 200024469,
@@ -2396,7 +2445,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Knox",
+      "Poptart"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2406,7 +2456,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 7,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035373,
     "latestStart": "11:19 AM",
     "latestStatus": null,
@@ -2414,7 +2464,8 @@
     "class_group_sequence": 12,
     "estimated_start_time": "11:19:00",
     "8778_sched_display": [
-      null
+      "Knox",
+      "Poptart"
     ]
   },
   {
@@ -2438,7 +2489,7 @@
     "start_display": "11:19 AM",
     "start_display_short": "11:19A",
     "time_sort": 40740,
-    "total_trips": 11,
+    "total_trips": 19,
     "class_groupxclasses_id": 200037247,
     "latestStart": "11:19 AM",
     "latestStatus": null,
@@ -2449,7 +2500,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Paisley"
     ],
     "class_group_id": 200023658,
     "class_id": 200024725,
@@ -2462,7 +2513,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Paisley"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2472,7 +2523,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035375,
     "latestStart": "12:16 PM",
     "latestStatus": null,
@@ -2480,12 +2531,12 @@
     "class_group_sequence": 13,
     "estimated_start_time": "12:16:00",
     "8778_sched_display": [
-      null
+      "Paisley"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Paisley"
     ],
     "class_group_id": 200023658,
     "class_id": 200024584,
@@ -2498,7 +2549,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Paisley"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2508,7 +2559,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035376,
     "latestStart": "12:16 PM",
     "latestStatus": null,
@@ -2516,12 +2567,13 @@
     "class_group_sequence": 13,
     "estimated_start_time": "12:16:00",
     "8778_sched_display": [
-      null
+      "Paisley"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Paisley",
+      "Knox"
     ],
     "class_group_id": 200023658,
     "class_id": 200024435,
@@ -2534,7 +2586,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Paisley",
+      "Knox"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -2544,7 +2597,7 @@
     "start_display": "12:16 PM",
     "start_display_short": "12:16P",
     "time_sort": 44160,
-    "total_trips": 11,
+    "total_trips": 19,
     "class_groupxclasses_id": 200035377,
     "latestStart": "12:16 PM",
     "latestStatus": null,
@@ -2552,7 +2605,8 @@
     "class_group_sequence": 13,
     "estimated_start_time": "12:16:00",
     "8778_sched_display": [
-      null
+      "Paisley",
+      "Knox"
     ]
   },
   {
@@ -2576,7 +2630,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035378,
     "latestStart": "1:16 PM",
     "latestStatus": null,
@@ -2606,7 +2660,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 7,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035379,
     "latestStart": "1:16 PM",
     "latestStatus": null,
@@ -2636,7 +2690,7 @@
     "start_display": "1:16 PM",
     "start_display_short": "1:16P",
     "time_sort": 47760,
-    "total_trips": 6,
+    "total_trips": 20,
     "class_groupxclasses_id": 200035380,
     "latestStart": "1:16 PM",
     "latestStatus": null,
@@ -2696,7 +2750,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8,
+    "total_trips": 16,
     "class_groupxclasses_id": 200035382,
     "latestStart": "2:31 PM",
     "latestStatus": null,
@@ -2726,7 +2780,7 @@
     "start_display": "2:31 PM",
     "start_display_short": "2:31P",
     "time_sort": 52260,
-    "total_trips": 8,
+    "total_trips": 16,
     "class_groupxclasses_id": 200035383,
     "latestStart": "2:31 PM",
     "latestStatus": null,
@@ -2756,7 +2810,7 @@
     "start_display": "3:19 PM",
     "start_display_short": "3:19P",
     "time_sort": 55140,
-    "total_trips": 7,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035386,
     "latestStart": "3:19 PM",
     "latestStatus": null,
@@ -2786,7 +2840,7 @@
     "start_display": "3:19 PM",
     "start_display_short": "3:19P",
     "time_sort": 55140,
-    "total_trips": 7,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035387,
     "latestStart": "3:19 PM",
     "latestStatus": null,

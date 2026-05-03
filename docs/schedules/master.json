@@ -45,9 +45,9 @@
   },
   {
     "8778_group_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "class_group_id": 200023611,
     "class_id": 200024694,
@@ -59,9 +59,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -163,7 +163,7 @@
   },
   {
     "8778_group_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "class_group_id": 200023608,
     "class_id": 200024752,
@@ -175,7 +175,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -299,10 +299,10 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "class_group_id": 200023617,
     "class_id": 200024656,
@@ -314,10 +314,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -330,7 +330,9 @@
     "total_trips": 8
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Elliot"
+    ],
     "class_group_id": 200023629,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -340,7 +342,9 @@
     "group_name_tags": "classic, isFirstUp, owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Elliot"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -375,7 +379,7 @@
   },
   {
     "8778_group_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "class_group_id": 200023621,
     "class_id": 200024764,
@@ -387,7 +391,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -541,8 +545,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "class_group_id": 200023619,
     "class_id": 200024705,
@@ -554,8 +558,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -569,8 +573,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Jason"
+      "Munster (5)",
+      "Jason (6)"
     ],
     "class_group_id": 200023616,
     "class_id": 200024535,
@@ -582,8 +586,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Jason"
+      "Munster (5)",
+      "Jason (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -619,10 +623,10 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "class_group_id": 200023618,
     "class_id": 200024403,
@@ -634,10 +638,10 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -792,7 +796,10 @@
     "total_trips": 14
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023634,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -802,7 +809,10 @@
     "group_name_tags": "classic, 3', 3'6\", junior, small, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -908,9 +918,7 @@
     "total_trips": 13
   },
   {
-    "8778_group_display": [
-      "Elliot"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023630,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -920,9 +928,7 @@
     "group_name_tags": "classic, owner, 3', 3'3\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Elliot"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1208,10 +1214,7 @@
     "total_trips": 13
   },
   {
-    "8778_group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023635,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -1221,10 +1224,7 @@
     "group_name_tags": "classic, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",

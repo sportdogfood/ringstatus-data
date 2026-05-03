@@ -12,7 +12,7 @@
     "class_name": "$24,999 Palm Beach Equine Clinic Regional Grand Prix",
     "latestStart": "8:30 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 39,
+    "total_trips": 38,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -38,7 +38,7 @@
     "class_name": "$5,000 NAL 1.30m Junior/Amateur Jumper Classic II2b",
     "latestStart": "11:15 AM",
     "latestStatus": "Not Started",
-    "total_trips": 27,
+    "total_trips": 26,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -48,10 +48,10 @@
     "class_group_sequence": 2,
     "estimated_start_time": "11:15:00",
     "group_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "8778_sched_display": [
-      "Bee"
+      "Bee (15)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -68,7 +68,7 @@
     "class_name": "$5,000 NAL 1.20m Junior/Amateur Jumper Classic II2b",
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
-    "total_trips": 18,
+    "total_trips": 17,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -104,14 +104,14 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:30:00",
     "group_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "8778_sched_display": [
-      "Arrow",
-      "Q",
-      "Rimini"
+      "Rimini (4)",
+      "Arrow (5)",
+      "Q (17)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -256,24 +256,24 @@
     "class_id": 200024535,
     "class_number": 530,
     "class_name": "Hamel Foundation/NHS 3'3\" Medal",
-    "latestStart": "8:20 AM",
-    "latestStatus": "Not Started",
-    "total_trips": 7,
+    "latestStart": "8:25 AM",
+    "latestStatus": "Underway",
+    "total_trips": 6,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "8:20 AM",
+    "start_display": "8:25 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:20:00",
+    "estimated_start_time": "08:25:08",
     "group_display": [
       "Munster",
-      "Jason"
+      "Jason (7)"
     ],
     "8778_sched_display": [
       "Munster",
-      "Jason"
+      "Jason (7)"
     ],
     "group_name_tags": "target, 3', 3'3\", medal, Over Fences"
   },
@@ -290,7 +290,7 @@
     "class_name": "IHSA/USHJA 3'3\" Hunter Seat Medal",
     "latestStart": "9:10 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 5,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -326,16 +326,16 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:00:00",
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "8778_sched_display": [
-      "Munster",
-      "Markanto",
-      "Jason",
-      "Shelby"
+      "Shelby (1)",
+      "Munster (2)",
+      "Jason (7)",
+      "Markanto (8)"
     ],
     "group_name_tags": "target, maclay, Over Fences"
   },
@@ -362,16 +362,16 @@
     "class_group_sequence": 5,
     "estimated_start_time": "10:45:00",
     "group_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "8778_sched_display": [
-      "Munster",
-      "Markanto",
-      "Shelby",
-      "Jason"
+      "Jason (2)",
+      "Markanto (3)",
+      "Shelby (6)",
+      "Munster (7)"
     ],
     "group_name_tags": "target, medal, dover, seat, Over Fences"
   },
@@ -398,12 +398,12 @@
     "class_group_sequence": 6,
     "estimated_start_time": "11:40:00",
     "group_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "8778_sched_display": [
-      "Munster",
-      "Jason"
+      "Jason (3)",
+      "Munster (10)"
     ],
     "group_name_tags": "target, medal, children's, hunters, Over Fences"
   },
@@ -430,10 +430,10 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
     "group_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "8778_sched_display": [
-      "Hurricane"
+      "Hurricane (5)"
     ],
     "group_name_tags": "target, adult, medal, Over Fences"
   },
@@ -449,7 +449,9 @@
     "class_number": 525,
     "class_name": "SFHJA Junior Medal (Flat Phase)",
     "latestStart": "12:52 PM",
-    "latestStatus": null,
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 12,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -713,8 +715,8 @@
     "class_number": 379,
     "class_name": "Amateur Owner Hunter 3'6\"/3'3\" 18-35",
     "latestStart": "7:45 AM",
-    "latestStatus": "Underway",
-    "total_trips": 14,
+    "latestStatus": "Completed",
+    "total_trips": 13,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -744,7 +746,7 @@
     "class_name": "Amateur Owner Hunter 3'3\" 36+",
     "latestStart": "8:15 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 13,
+    "total_trips": 16,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -769,7 +771,9 @@
     "class_number": 309,
     "class_name": "Large Junior Hunter 3'6\"",
     "latestStart": "9:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Not Started"
+    ],
     "total_trips": 22,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -1022,7 +1026,7 @@
     "class_name": "Child/Adult Amateur Equitation 2'6\"",
     "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 8,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1048,7 +1052,7 @@
     "class_name": "Child/Adult Amateur Equitation 2'6\"",
     "latestStart": "12:55 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 8,
     "show_id": 200000060,
     "show_date": "2026-05-03",
     "show_days_display_date": "Sunday, May, 03, 2026",
@@ -1072,7 +1076,7 @@
     "class_id": 200024422,
     "class_number": 319,
     "class_name": "Low Children's Hunter",
-    "latestStart": "1:10 PM",
+    "latestStart": "1:15 PM",
     "latestStatus": "Not Started",
     "total_trips": 10,
     "show_id": 200000060,
@@ -1080,9 +1084,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "1:10 PM",
+    "start_display": "1:15 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:10:00",
+    "estimated_start_time": "13:15:00",
     "group_display": [
       "Casanova"
     ],
@@ -1102,7 +1106,7 @@
     "class_id": 200024796,
     "class_number": 320,
     "class_name": "Low Children's Hunter",
-    "latestStart": "1:10 PM",
+    "latestStart": "1:15 PM",
     "latestStatus": "Not Started",
     "total_trips": 10,
     "show_id": 200000060,
@@ -1110,9 +1114,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "1:10 PM",
+    "start_display": "1:15 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:10:00",
+    "estimated_start_time": "13:15:00",
     "group_display": [
       "Casanova"
     ],
@@ -1132,7 +1136,7 @@
     "class_id": 200024509,
     "class_number": 299,
     "class_name": "Low Adult Hunter",
-    "latestStart": "1:50 PM",
+    "latestStart": "1:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 12,
     "show_id": 200000060,
@@ -1140,9 +1144,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "1:50 PM",
+    "start_display": "1:55 PM",
     "class_group_sequence": 13,
-    "estimated_start_time": "13:50:00",
+    "estimated_start_time": "13:55:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, low, hunters, Over Fences"
@@ -1158,7 +1162,7 @@
     "class_id": 200024566,
     "class_number": 300,
     "class_name": "Low Adult Hunter",
-    "latestStart": "1:50 PM",
+    "latestStart": "1:55 PM",
     "latestStatus": "Upcoming",
     "total_trips": 12,
     "show_id": 200000060,
@@ -1166,9 +1170,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "1:50 PM",
+    "start_display": "1:55 PM",
     "class_group_sequence": 13,
-    "estimated_start_time": "13:50:00",
+    "estimated_start_time": "13:55:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, low, hunters, Over Fences"
@@ -1367,7 +1371,7 @@
     "class_number": 145,
     "class_name": "Younger Cross Rail Equitation",
     "latestStart": "8:21 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -1393,7 +1397,7 @@
     "class_number": 146,
     "class_name": "Younger Cross Rail Equitation",
     "latestStart": "8:21 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -1419,7 +1423,7 @@
     "class_number": 151,
     "class_name": "Older Cross Rail Equitation",
     "latestStart": "8:21 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -1445,7 +1449,7 @@
     "class_number": 152,
     "class_name": "Older Cross Rail Equitation",
     "latestStart": "8:21 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000060,
     "show_date": "2026-05-03",
@@ -1470,7 +1474,7 @@
     "class_id": 200024748,
     "class_number": 604,
     "class_name": "Stirrup Equitation Flat",
-    "latestStart": "9:24 AM",
+    "latestStart": "9:18 AM",
     "latestStatus": [
       "Not Started"
     ],
@@ -1480,9 +1484,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "9:24 AM",
+    "start_display": "9:18 AM",
     "class_group_sequence": 9,
-    "estimated_start_time": "09:24:57",
+    "estimated_start_time": "09:18:57",
     "group_display": [
       "Prom Queen"
     ],
@@ -1502,7 +1506,7 @@
     "class_id": 200024448,
     "class_number": 605,
     "class_name": "Stirrup Equitation",
-    "latestStart": "9:34 AM",
+    "latestStart": "10:10 AM",
     "latestStatus": "Not Started",
     "total_trips": 19,
     "show_id": 200000060,
@@ -1510,9 +1514,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "9:34 AM",
+    "start_display": "10:10 AM",
     "class_group_sequence": 10,
-    "estimated_start_time": "09:34:57",
+    "estimated_start_time": "10:10:00",
     "group_display": [
       "Prom Queen"
     ],
@@ -1532,7 +1536,7 @@
     "class_id": 200024471,
     "class_number": 606,
     "class_name": "Stirrup Equitation",
-    "latestStart": "9:34 AM",
+    "latestStart": "10:10 AM",
     "latestStatus": "Not Started",
     "total_trips": 19,
     "show_id": 200000060,
@@ -1540,9 +1544,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "9:34 AM",
+    "start_display": "10:10 AM",
     "class_group_sequence": 10,
-    "estimated_start_time": "09:34:57",
+    "estimated_start_time": "10:10:00",
     "group_display": [
       "Prom Queen"
     ],
@@ -1562,7 +1566,7 @@
     "class_id": 200024398,
     "class_number": 644,
     "class_name": "Modified Hunter 2'/2'6\"",
-    "latestStart": "10:31 AM",
+    "latestStart": "11:07 AM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000060,
@@ -1570,9 +1574,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "10:31 AM",
+    "start_display": "11:07 AM",
     "class_group_sequence": 11,
-    "estimated_start_time": "10:31:57",
+    "estimated_start_time": "11:07:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 2'/2'6\", hunters, Over Fences"
@@ -1588,7 +1592,7 @@
     "class_id": 200024375,
     "class_number": 645,
     "class_name": "Modified Hunter 2'/2'6\"",
-    "latestStart": "10:31 AM",
+    "latestStart": "11:07 AM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000060,
@@ -1596,9 +1600,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "10:31 AM",
+    "start_display": "11:07 AM",
     "class_group_sequence": 11,
-    "estimated_start_time": "10:31:57",
+    "estimated_start_time": "11:07:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 2'/2'6\", hunters, Over Fences"
@@ -1614,7 +1618,7 @@
     "class_id": 200024785,
     "class_number": 414,
     "class_name": "Small Pony Conformation Hunter",
-    "latestStart": "11:10 AM",
+    "latestStart": "11:46 AM",
     "latestStatus": "Not Started",
     "total_trips": 25,
     "show_id": 200000060,
@@ -1622,9 +1626,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "11:10 AM",
+    "start_display": "11:46 AM",
     "class_group_sequence": 12,
-    "estimated_start_time": "11:10:57",
+    "estimated_start_time": "11:46:00",
     "group_display": [
       "Knox",
       "Poptart"
@@ -1646,7 +1650,7 @@
     "class_id": 200024725,
     "class_number": 424,
     "class_name": "Medium Pony Conformation Hunter",
-    "latestStart": "12:07 PM",
+    "latestStart": "12:43 PM",
     "latestStatus": "Not Started",
     "total_trips": 25,
     "show_id": 200000060,
@@ -1654,9 +1658,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "12:07 PM",
+    "start_display": "12:43 PM",
     "class_group_sequence": 13,
-    "estimated_start_time": "12:07:57",
+    "estimated_start_time": "12:43:00",
     "group_display": [
       "Paisley"
     ],
@@ -1676,7 +1680,7 @@
     "class_id": 200024680,
     "class_number": 434,
     "class_name": "Large Pony Conformation Hunter",
-    "latestStart": "1:07 PM",
+    "latestStart": "1:43 PM",
     "latestStatus": "Upcoming",
     "total_trips": 20,
     "show_id": 200000060,
@@ -1684,9 +1688,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "1:07 PM",
+    "start_display": "1:43 PM",
     "class_group_sequence": 14,
-    "estimated_start_time": "13:07:57",
+    "estimated_start_time": "13:43:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, large, hunters, Over Fences"
@@ -1702,7 +1706,7 @@
     "class_id": 200024583,
     "class_number": 441,
     "class_name": "Green Pony Hunter U/S",
-    "latestStart": "2:07 PM",
+    "latestStart": "2:43 PM",
     "latestStatus": null,
     "total_trips": 8,
     "show_id": 200000060,
@@ -1710,9 +1714,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "2:07 PM",
+    "start_display": "2:43 PM",
     "class_group_sequence": 15,
-    "estimated_start_time": "14:07:57",
+    "estimated_start_time": "14:43:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, pony, green, U/S, hunters, Under Saddle/Flat"
@@ -1728,7 +1732,7 @@
     "class_id": 200024489,
     "class_number": 444,
     "class_name": "Green Pony Conformation Hunter",
-    "latestStart": "2:17 PM",
+    "latestStart": "2:53 PM",
     "latestStatus": "Upcoming",
     "total_trips": 16,
     "show_id": 200000060,
@@ -1736,9 +1740,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "2:17 PM",
+    "start_display": "2:53 PM",
     "class_group_sequence": 16,
-    "estimated_start_time": "14:17:57",
+    "estimated_start_time": "14:53:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, green, hunters, Over Fences"
@@ -1754,7 +1758,7 @@
     "class_id": 200024664,
     "class_number": 445,
     "class_name": "Green Pony Hunter",
-    "latestStart": "2:17 PM",
+    "latestStart": "2:53 PM",
     "latestStatus": "Upcoming",
     "total_trips": 16,
     "show_id": 200000060,
@@ -1762,9 +1766,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "2:17 PM",
+    "start_display": "2:53 PM",
     "class_group_sequence": 16,
-    "estimated_start_time": "14:17:57",
+    "estimated_start_time": "14:53:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, green, hunters, Over Fences"
@@ -1780,7 +1784,7 @@
     "class_id": 200024598,
     "class_number": 408,
     "class_name": "Children's Hunter Pony",
-    "latestStart": "3:05 PM",
+    "latestStart": "3:41 PM",
     "latestStatus": "Upcoming",
     "total_trips": 14,
     "show_id": 200000060,
@@ -1788,9 +1792,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "3:05 PM",
+    "start_display": "3:41 PM",
     "class_group_sequence": 17,
-    "estimated_start_time": "15:05:57",
+    "estimated_start_time": "15:41:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, children's, hunters, Over Fences"
@@ -1806,7 +1810,7 @@
     "class_id": 200024775,
     "class_number": 409,
     "class_name": "Children's Hunter Pony",
-    "latestStart": "3:05 PM",
+    "latestStart": "3:41 PM",
     "latestStatus": "Upcoming",
     "total_trips": 14,
     "show_id": 200000060,
@@ -1814,9 +1818,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "3:05 PM",
+    "start_display": "3:41 PM",
     "class_group_sequence": 17,
-    "estimated_start_time": "15:05:57",
+    "estimated_start_time": "15:41:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, pony, children's, hunters, Over Fences"
@@ -1832,7 +1836,7 @@
     "class_id": 200024665,
     "class_number": 532,
     "class_name": "M&S Children's Pony Medal",
-    "latestStart": "3:47 PM",
+    "latestStart": "4:23 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000060,
@@ -1840,9 +1844,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "3:47 PM",
+    "start_display": "4:23 PM",
     "class_group_sequence": 18,
-    "estimated_start_time": "15:47:57",
+    "estimated_start_time": "16:23:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, medal, pony, children's, Over Fences"
@@ -1858,7 +1862,7 @@
     "class_id": 200024452,
     "class_number": 528,
     "class_name": "SFHJA Children's Pony Medal (Flat Phase)",
-    "latestStart": "3:56 PM",
+    "latestStart": "4:32 PM",
     "latestStatus": null,
     "total_trips": 3,
     "show_id": 200000060,
@@ -1866,9 +1870,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "3:56 PM",
+    "start_display": "4:32 PM",
     "class_group_sequence": 19,
-    "estimated_start_time": "15:56:57",
+    "estimated_start_time": "16:32:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, medal, pony, children's, flat, Under Saddle/Flat"
@@ -1884,7 +1888,7 @@
     "class_id": 200024644,
     "class_number": 296,
     "class_name": "Low Adult Hunter U/S",
-    "latestStart": "1:35 PM",
+    "latestStart": "1:40 PM",
     "latestStatus": null,
     "total_trips": 4,
     "show_id": 200000060,
@@ -1892,9 +1896,9 @@
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "1:35 PM",
+    "start_display": "1:40 PM",
     "class_group_sequence": 12,
-    "estimated_start_time": "13:35:00",
+    "estimated_start_time": "13:40:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, usf, adult, low, U/S, hunters, Under Saddle/Flat"

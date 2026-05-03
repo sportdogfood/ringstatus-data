@@ -41,7 +41,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 5
+    "total_trips": 4
   },
   {
     "8778_group_display": [
@@ -159,7 +159,7 @@
     "start_display": "11:15 AM",
     "start_display_short": "11:15A",
     "time_sort": 40500,
-    "total_trips": 5
+    "total_trips": 4
   },
   {
     "8778_group_display": [
@@ -330,9 +330,7 @@
     "total_trips": 8
   },
   {
-    "8778_group_display": [
-      "Elliot"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023629,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -342,9 +340,7 @@
     "group_name_tags": "classic, isFirstUp, owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Elliot"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -796,10 +792,7 @@
     "total_trips": 14
   },
   {
-    "8778_group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200023634,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -809,10 +802,7 @@
     "group_name_tags": "classic, 3', 3'6\", junior, small, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Macho",
-      "Dorian"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -918,7 +908,9 @@
     "total_trips": 13
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Elliot"
+    ],
     "class_group_id": 200023630,
     "class_id": 200024410,
     "class_name": "$1,000 Amateur Owner Hunter 3'3\"/3'6\" Classic",
@@ -928,7 +920,9 @@
     "group_name_tags": "classic, owner, 3', 3'3\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Elliot"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",
@@ -1214,7 +1208,10 @@
     "total_trips": 13
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "class_group_id": 200023635,
     "class_id": 200024560,
     "class_name": "$1,000 Junior Hunter 3'3\"/3'6\" Classic",
@@ -1224,7 +1221,10 @@
     "group_name_tags": "classic, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Macho",
+      "Dorian"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 03, 2026",
     "show_days_report_title": "Schedule",

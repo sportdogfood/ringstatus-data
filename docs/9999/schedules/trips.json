@@ -1,7 +1,7 @@
 [
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023629,
@@ -22,9 +22,7 @@
     "estimated_start_time": "07:45:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "7:45 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233908,
@@ -43,9 +41,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 28027,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -62,8 +58,8 @@
     "estimatedGO": "7:45 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023616,
@@ -84,9 +80,7 @@
     "estimated_start_time": "08:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "8:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233914,
@@ -105,9 +99,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 30127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -124,8 +116,8 @@
     "estimatedGO": "8:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023616,
@@ -146,9 +138,7 @@
     "estimated_start_time": "08:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "8:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200230256,
@@ -167,9 +157,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 30127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -186,8 +174,8 @@
     "estimatedGO": "8:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023633,
@@ -208,9 +196,7 @@
     "estimated_start_time": "09:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233874,
@@ -229,9 +215,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 32527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -248,8 +232,8 @@
     "estimatedGO": "9:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023633,
@@ -270,9 +254,7 @@
     "estimated_start_time": "09:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200230238,
@@ -291,9 +273,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 32527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -310,8 +290,8 @@
     "estimatedGO": "9:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023652,
@@ -332,9 +312,7 @@
     "estimated_start_time": "09:28:00",
     "schedule_sequencetype": "Under Saddle/Flat",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:28 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234826,
@@ -353,9 +331,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 34207,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -372,8 +348,8 @@
     "estimatedGO": "9:28 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 3,
     "ringName": "Covered",
     "class_group_id": 200023611,
@@ -394,9 +370,7 @@
     "estimated_start_time": "09:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233850,
@@ -415,9 +389,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 34327,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -434,8 +406,8 @@
     "estimatedGO": "9:30 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 3,
     "ringName": "Covered",
     "class_group_id": 200023611,
@@ -456,9 +428,7 @@
     "estimated_start_time": "09:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233922,
@@ -477,9 +447,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 34327,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -496,8 +464,8 @@
     "estimatedGO": "9:30 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 3,
     "ringName": "Covered",
     "class_group_id": 200023611,
@@ -518,9 +486,7 @@
     "estimated_start_time": "09:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233924,
@@ -539,9 +505,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 34327,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -558,8 +522,8 @@
     "estimatedGO": "9:30 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023654,
@@ -580,9 +544,7 @@
     "estimated_start_time": "09:43:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:43 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234826,
@@ -601,9 +563,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 35107,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -620,8 +580,8 @@
     "estimatedGO": "9:43 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023654,
@@ -642,9 +602,7 @@
     "estimated_start_time": "09:43:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "9:43 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234826,
@@ -663,9 +621,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 35107,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -682,8 +638,8 @@
     "estimatedGO": "9:43 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023617,
@@ -704,9 +660,7 @@
     "estimated_start_time": "10:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233914,
@@ -725,9 +679,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -744,8 +696,8 @@
     "estimatedGO": "10:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023617,
@@ -766,9 +718,7 @@
     "estimated_start_time": "10:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234358,
@@ -787,9 +737,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -806,8 +754,8 @@
     "estimatedGO": "10:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023617,
@@ -828,9 +776,7 @@
     "estimated_start_time": "10:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200230256,
@@ -849,9 +795,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -868,8 +812,8 @@
     "estimatedGO": "10:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023617,
@@ -890,9 +834,7 @@
     "estimated_start_time": "10:00:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:00 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234571,
@@ -911,9 +853,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 36127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -930,8 +870,8 @@
     "estimatedGO": "10:00 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023618,
@@ -952,9 +892,7 @@
     "estimated_start_time": "10:45:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:45 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233914,
@@ -973,9 +911,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 38827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -992,8 +928,8 @@
     "estimatedGO": "10:45 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023618,
@@ -1014,9 +950,7 @@
     "estimated_start_time": "10:45:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:45 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234358,
@@ -1035,9 +969,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 38827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1054,8 +986,8 @@
     "estimatedGO": "10:45 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023618,
@@ -1076,9 +1008,7 @@
     "estimated_start_time": "10:45:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:45 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234571,
@@ -1097,9 +1027,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 38827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1116,8 +1044,8 @@
     "estimatedGO": "10:45 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023618,
@@ -1138,9 +1066,7 @@
     "estimated_start_time": "10:45:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "10:45 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200230256,
@@ -1159,9 +1085,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 38827,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1178,8 +1102,8 @@
     "estimatedGO": "10:45 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 1,
     "ringName": "Derby",
     "class_group_id": 200023608,
@@ -1200,9 +1124,7 @@
     "estimated_start_time": "11:15:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:15 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233896,
@@ -1221,9 +1143,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40627,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1240,8 +1160,8 @@
     "estimatedGO": "11:15 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023657,
@@ -1262,9 +1182,7 @@
     "estimated_start_time": "11:19:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:19 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233872,
@@ -1283,9 +1201,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40867,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1302,8 +1218,8 @@
     "estimatedGO": "11:19 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023657,
@@ -1324,9 +1240,7 @@
     "estimated_start_time": "11:19:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:19 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233920,
@@ -1345,9 +1259,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40867,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1364,8 +1276,8 @@
     "estimatedGO": "11:19 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023638,
@@ -1386,9 +1298,7 @@
     "estimated_start_time": "11:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233930,
@@ -1407,9 +1317,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1426,8 +1334,8 @@
     "estimatedGO": "11:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023638,
@@ -1448,9 +1356,7 @@
     "estimated_start_time": "11:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233930,
@@ -1469,9 +1375,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1488,8 +1392,8 @@
     "estimatedGO": "11:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023638,
@@ -1510,9 +1414,7 @@
     "estimated_start_time": "11:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234355,
@@ -1531,9 +1433,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1550,8 +1450,8 @@
     "estimatedGO": "11:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023638,
@@ -1572,9 +1472,7 @@
     "estimated_start_time": "11:20:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:20 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234355,
@@ -1593,9 +1491,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 40927,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1612,8 +1508,8 @@
     "estimatedGO": "11:20 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023619,
@@ -1634,9 +1530,7 @@
     "estimated_start_time": "11:40:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:40 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233914,
@@ -1655,9 +1549,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 42127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1674,8 +1566,8 @@
     "estimatedGO": "11:40 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023619,
@@ -1696,9 +1588,7 @@
     "estimated_start_time": "11:40:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "11:40 AM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200230256,
@@ -1717,9 +1607,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 19676,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 42127,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1736,8 +1624,8 @@
     "estimatedGO": "11:40 AM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 6,
     "ringName": "Hunter 2",
     "class_group_id": 200023658,
@@ -1758,9 +1646,7 @@
     "estimated_start_time": "12:16:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "12:16 PM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233876,
@@ -1779,9 +1665,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 44287,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1798,8 +1682,8 @@
     "estimatedGO": "12:16 PM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023621,
@@ -1820,9 +1704,7 @@
     "estimated_start_time": "12:40:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "12:40 PM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233880,
@@ -1841,9 +1723,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 45727,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1860,8 +1740,8 @@
     "estimatedGO": "12:40 PM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 4,
     "ringName": "Village",
     "class_group_id": 200023620,
@@ -1882,9 +1762,7 @@
     "estimated_start_time": "12:52:00",
     "schedule_sequencetype": "Under Saddle/Flat",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "12:52 PM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200233914,
@@ -1903,9 +1781,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 46447,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1922,8 +1798,8 @@
     "estimatedGO": "12:52 PM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023642,
@@ -1944,9 +1820,7 @@
     "estimated_start_time": "13:10:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "1:10 PM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234569,
@@ -1965,9 +1839,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 47527,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1984,8 +1856,8 @@
     "estimatedGO": "1:10 PM"
   },
   {
-    "sid": null,
-    "dt": null,
+    "sid": "200000060",
+    "dt": "2026-05-03",
     "ring_number": 5,
     "ringName": "Hunter 1",
     "class_group_id": 200023642,
@@ -2006,9 +1878,7 @@
     "estimated_start_time": "13:10:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": {
-      "error": "#ERROR!"
-    },
+    "latestStart": "1:10 PM",
     "latestStatus": null,
     "total_trips": null,
     "entry_id": 200234569,
@@ -2027,9 +1897,7 @@
     "time_one": null,
     "time_two": null,
     "pid": 8778,
-    "secondsTill": {
-      "specialValue": "NaN"
-    },
+    "secondsTill": 47527,
     "time_three": null,
     "score1": null,
     "score2": null,

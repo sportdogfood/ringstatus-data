@@ -11,7 +11,9 @@
     "class_number": 770,
     "class_name": "1.30m Open Jumper II2.1",
     "latestStart": "8:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 59,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -47,7 +49,7 @@
     "class_number": 840,
     "class_name": "1.30m Young Jumper II2.1",
     "latestStart": "8:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 59,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -125,7 +127,9 @@
     "class_number": 715,
     "class_name": "1.10m Open Jumper II2d",
     "latestStart": "9:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 34,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -157,7 +161,7 @@
     "class_number": 830,
     "class_name": "1.10m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
     "latestStart": "10:42 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 8,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -291,7 +295,9 @@
     "class_number": 750,
     "class_name": "Training Jumper (.90m) II2d",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 21,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -302,10 +308,12 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Choco"
+      "Choco",
+      null
     ],
     "8778_sched_display": [
-      "Choco"
+      "Choco",
+      null
     ],
     "group_name_tags": "isFirstUp, target, .90m, II2d, jumpers, Over Fences"
   },
@@ -321,7 +329,7 @@
     "class_number": 820,
     "class_name": ".90m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
     "latestStart": "8:43 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Completed",
     "total_trips": 3,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -347,7 +355,9 @@
     "class_number": 780,
     "class_name": "Training Jumper (1.0m) II2d",
     "latestStart": "9:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 29,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -361,13 +371,15 @@
       "Calypso",
       "Choco",
       "Fento",
-      "Munster"
+      "Munster",
+      null
     ],
     "8778_sched_display": [
       "Calypso",
       "Choco",
       "Fento",
-      "Munster"
+      "Munster",
+      null
     ],
     "group_name_tags": "target, 1.0m, II2d, jumpers, Over Fences"
   },
@@ -383,7 +395,7 @@
     "class_number": 747,
     "class_name": "Take2 Thoroughbred Jumper (1.0m) II2d",
     "latestStart": "9:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 29,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -409,7 +421,7 @@
     "class_number": 825,
     "class_name": "1.0m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
     "latestStart": "10:28 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 2,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -513,7 +525,7 @@
     "class_number": 202,
     "class_name": "Green Hunter 3'3\"/3'",
     "latestStart": "9:22 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -539,7 +551,7 @@
     "class_number": 203,
     "class_name": "Green Hunter 3'3\"/3'",
     "latestStart": "9:22 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 21,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -747,7 +759,7 @@
     "class_number": 232,
     "class_name": "USHJA Hunter 2'6\"",
     "latestStart": "8:47 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 25,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -773,7 +785,7 @@
     "class_number": 233,
     "class_name": "USHJA Hunter 2'6\"",
     "latestStart": "8:47 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 25,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -825,7 +837,7 @@
     "class_number": 187,
     "class_name": "USHJA Hunter 2'9\"",
     "latestStart": "9:56 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 23,
     "show_id": 200000061,
     "show_date": "2026-05-07",
@@ -851,7 +863,7 @@
     "class_number": 188,
     "class_name": "USHJA Hunter 2'9\"",
     "latestStart": "9:56 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 23,
     "show_id": 200000061,
     "show_date": "2026-05-07",

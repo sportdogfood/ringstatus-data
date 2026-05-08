@@ -193,7 +193,7 @@
     "class_number": 920,
     "class_name": "$2,700 USHJA National Hunter Derby (Hunt-N-Go)",
     "latestStart": "1:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 20,
     "show_id": 200000061,
     "show_date": "2026-05-08",
@@ -484,11 +484,11 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:55:00",
     "group_display": [
-      " (1)",
+      "Munster (1)",
       "Markanto (4)"
     ],
     "8778_sched_display": [
-      " (1)",
+      "Munster (1)",
       "Markanto (4)"
     ],
     "group_name_tags": "target, wihs, Over Fences"
@@ -1330,10 +1330,12 @@
     "class_group_sequence": 6,
     "estimated_start_time": "14:30:00",
     "group_display": [
-      null
+      "Poptart",
+      "Paisley"
     ],
     "8778_sched_display": [
-      null
+      "Poptart",
+      "Paisley"
     ],
     "group_name_tags": "target, usf, medal, pony, flat, Under Saddle/Flat"
   },
@@ -1349,7 +1351,9 @@
     "class_number": 541,
     "class_name": "WIHS Pony Equitation",
     "latestStart": "2:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 19,
     "show_id": 200000061,
     "show_date": "2026-05-08",
@@ -1381,7 +1385,9 @@
     "class_number": 540,
     "class_name": "Marshall + Sterling/USEF Pony Medal",
     "latestStart": "2:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 19,
     "show_id": 200000061,
     "show_date": "2026-05-08",

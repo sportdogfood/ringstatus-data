@@ -242,7 +242,7 @@
     "total_trips": 20,
     "class_groupxclasses_id": 200035501,
     "latestStart": "1:30 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "13:30:00",
@@ -550,7 +550,7 @@
   },
   {
     "8778_group_display": [
-      " (1)",
+      "Munster (1)",
       "Markanto (4)"
     ],
     "class_group_id": 200023765,
@@ -564,7 +564,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      " (1)",
+      "Munster (1)",
       "Markanto (4)"
     ],
     "shifted_to_next_day": null,
@@ -583,7 +583,7 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:55:00",
     "8778_sched_display": [
-      " (1)",
+      "Munster (1)",
       "Markanto (4)"
     ]
   },
@@ -1546,7 +1546,8 @@
   },
   {
     "8778_group_display": [
-      null
+      "Poptart",
+      "Paisley"
     ],
     "class_group_id": 200023802,
     "class_id": null,
@@ -1559,7 +1560,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Poptart",
+      "Paisley"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -1577,7 +1579,8 @@
     "class_group_sequence": 6,
     "estimated_start_time": "14:30:00",
     "8778_sched_display": [
-      null
+      "Poptart",
+      "Paisley"
     ]
   },
   {
@@ -1610,7 +1613,9 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200035606,
     "latestStart": "2:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-08",
     "class_group_sequence": 7,
     "estimated_start_time": "14:45:00",
@@ -1649,7 +1654,9 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200035607,
     "latestStart": "2:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-08",
     "class_group_sequence": 7,
     "estimated_start_time": "14:45:00",

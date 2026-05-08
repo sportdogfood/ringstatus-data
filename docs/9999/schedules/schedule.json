@@ -37,6 +37,7 @@
   },
   {
     "8778_group_display": [
+      " (2)",
       "Hermes (12)"
     ],
     "class_group_id": 200023751,
@@ -50,6 +51,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
+      " (2)",
       "Hermes (12)"
     ],
     "shifted_to_next_day": null,
@@ -68,6 +70,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
+      " (2)",
       "Hermes (12)"
     ]
   },
@@ -313,7 +316,7 @@
   },
   {
     "8778_group_display": [
-      "Choco (12)"
+      "Choco (13)"
     ],
     "class_group_id": 200023760,
     "class_id": null,
@@ -326,7 +329,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Choco (12)"
+      "Choco (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -339,17 +342,17 @@
     "total_trips": 21,
     "class_groupxclasses_id": 200035504,
     "latestStart": "9:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:12",
     "8778_sched_display": [
-      "Choco (12)"
+      "Choco (13)"
     ]
   },
   {
     "8778_group_display": [
-      "Kudos (13)"
+      "Kudos (14)"
     ],
     "class_group_id": 200023760,
     "class_id": null,
@@ -362,7 +365,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Kudos (13)"
+      "Kudos (14)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -375,12 +378,12 @@
     "total_trips": 21,
     "class_groupxclasses_id": 200035505,
     "latestStart": "9:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:12",
     "8778_sched_display": [
-      "Kudos (13)"
+      "Kudos (14)"
     ]
   },
   {
@@ -753,7 +756,9 @@
     ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      " (2)"
+    ],
     "class_group_id": 200023772,
     "class_id": null,
     "class_name": "1.0m Amateur Jumper II2d",
@@ -764,7 +769,9 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
-    "group_display": [],
+    "group_display": [
+      " (2)"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
@@ -780,11 +787,14 @@
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      " (2)"
+    ]
   },
   {
     "8778_group_display": [
-      "Ranger"
+      "Ranger",
+      " (5)"
     ],
     "class_group_id": 200023773,
     "class_id": null,
@@ -797,7 +807,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Ranger"
+      "Ranger",
+      " (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -815,7 +826,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
-      "Ranger"
+      "Ranger",
+      " (5)"
     ]
   },
   {
@@ -998,7 +1010,7 @@
     "total_trips": 16,
     "class_groupxclasses_id": 200037201,
     "latestStart": "9:14 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "09:14:54",
@@ -1028,7 +1040,7 @@
     "total_trips": 16,
     "class_groupxclasses_id": 200037202,
     "latestStart": "9:14 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "09:14:54",
@@ -1229,7 +1241,8 @@
   {
     "8778_group_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ],
     "class_group_id": 200025117,
     "class_id": null,
@@ -1243,7 +1256,8 @@
     "ringName": "Hunter 1",
     "group_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -1262,13 +1276,15 @@
     "estimated_start_time": "11:50:24",
     "8778_sched_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ]
   },
   {
     "8778_group_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ],
     "class_group_id": 200025117,
     "class_id": null,
@@ -1282,7 +1298,8 @@
     "ringName": "Hunter 1",
     "group_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -1301,7 +1318,8 @@
     "estimated_start_time": "11:50:24",
     "8778_sched_display": [
       "Tommy",
-      "Ranger"
+      "Ranger",
+      null
     ]
   },
   {

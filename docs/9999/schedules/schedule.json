@@ -65,9 +65,7 @@
     "total_trips": 31,
     "class_groupxclasses_id": 200035496,
     "latestStart": "9:00 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:00",
@@ -108,8 +106,8 @@
   },
   {
     "8778_group_display": [
-      "Peri (7)",
-      "Bee (8)"
+      "Peri (6)",
+      "Bee (7)"
     ],
     "class_group_id": 200023753,
     "class_id": null,
@@ -122,8 +120,8 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Peri (7)",
-      "Bee (8)"
+      "Peri (6)",
+      "Bee (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -136,13 +134,13 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035498,
     "latestStart": "10:40 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
     "estimated_start_time": "10:40:00",
     "8778_sched_display": [
-      "Peri (7)",
-      "Bee (8)"
+      "Peri (6)",
+      "Bee (7)"
     ]
   },
   {
@@ -787,7 +785,7 @@
     "total_trips": 25,
     "class_groupxclasses_id": 200035519,
     "latestStart": "9:45 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:09",
@@ -991,7 +989,7 @@
     "total_trips": 25,
     "class_groupxclasses_id": 200037187,
     "latestStart": "7:55 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 1,
     "estimated_start_time": "07:55:09",
@@ -1023,7 +1021,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200037201,
     "latestStart": "9:17 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "09:17:39",
@@ -1053,7 +1051,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200037202,
     "latestStart": "9:17 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "09:17:39",

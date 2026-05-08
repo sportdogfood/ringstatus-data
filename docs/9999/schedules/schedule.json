@@ -37,7 +37,7 @@
   },
   {
     "8778_group_display": [
-      " (2)",
+      "Sandenal (2)",
       "Hermes (12)"
     ],
     "class_group_id": 200023751,
@@ -51,7 +51,7 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      " (2)",
+      "Sandenal (2)",
       "Hermes (12)"
     ],
     "shifted_to_next_day": null,
@@ -62,7 +62,7 @@
     "start_display": "9:00 AM",
     "start_display_short": "9:00A",
     "time_sort": 32400,
-    "total_trips": 33,
+    "total_trips": 31,
     "class_groupxclasses_id": 200035496,
     "latestStart": "9:00 AM",
     "latestStatus": "Underway",
@@ -70,7 +70,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
-      " (2)",
+      "Sandenal (2)",
       "Hermes (12)"
     ]
   },
@@ -316,7 +316,7 @@
   },
   {
     "8778_group_display": [
-      "Choco (13)"
+      "Choco (19)"
     ],
     "class_group_id": 200023760,
     "class_id": null,
@@ -329,30 +329,30 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Choco (13)"
+      "Choco (19)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000061,
     "sid": 200000061,
-    "start_display": "9:00 AM",
-    "start_display_short": "9:00A",
-    "time_sort": 32412,
+    "start_display": "9:09 AM",
+    "start_display_short": "9:09A",
+    "time_sort": 32969,
     "total_trips": 21,
     "class_groupxclasses_id": 200035504,
-    "latestStart": "9:00 AM",
+    "latestStart": "9:09 AM",
     "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:00:12",
+    "estimated_start_time": "09:09:29",
     "8778_sched_display": [
-      "Choco (13)"
+      "Choco (19)"
     ]
   },
   {
     "8778_group_display": [
-      "Kudos (14)"
+      "Kudos (21)"
     ],
     "class_group_id": 200023760,
     "class_id": null,
@@ -365,25 +365,25 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Kudos (14)"
+      "Kudos (21)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000061,
     "sid": 200000061,
-    "start_display": "9:00 AM",
-    "start_display_short": "9:00A",
-    "time_sort": 32412,
+    "start_display": "9:09 AM",
+    "start_display_short": "9:09A",
+    "time_sort": 32969,
     "total_trips": 21,
     "class_groupxclasses_id": 200035505,
-    "latestStart": "9:00 AM",
+    "latestStart": "9:09 AM",
     "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:00:12",
+    "estimated_start_time": "09:09:29",
     "8778_sched_display": [
-      "Kudos (14)"
+      "Kudos (21)"
     ]
   },
   {
@@ -587,7 +587,7 @@
   {
     "8778_group_display": [
       "Fento (1)",
-      "Munster (6)"
+      "Munster (5)"
     ],
     "class_group_id": 200023766,
     "class_id": null,
@@ -601,7 +601,7 @@
     "ringName": "Covered",
     "group_display": [
       "Fento (1)",
-      "Munster (6)"
+      "Munster (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -620,7 +620,7 @@
     "estimated_start_time": "13:40:00",
     "8778_sched_display": [
       "Fento (1)",
-      "Munster (6)"
+      "Munster (5)"
     ]
   },
   {
@@ -678,10 +678,10 @@
     "start_display": "8:25 AM",
     "start_display_short": "8:25A",
     "time_sort": 30309,
-    "total_trips": 15,
+    "total_trips": 14,
     "class_groupxclasses_id": 200035515,
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 2,
     "estimated_start_time": "08:25:09",
@@ -747,7 +747,9 @@
     "total_trips": 26,
     "class_groupxclasses_id": 200035518,
     "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:00",
@@ -757,7 +759,7 @@
   },
   {
     "8778_group_display": [
-      " (2)"
+      "Calypso (10)"
     ],
     "class_group_id": 200023772,
     "class_id": null,
@@ -770,7 +772,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      " (2)"
+      "Calypso (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -783,18 +785,19 @@
     "total_trips": 26,
     "class_groupxclasses_id": 200035519,
     "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:00",
     "8778_sched_display": [
-      " (2)"
+      "Calypso (10)"
     ]
   },
   {
     "8778_group_display": [
       "Ranger",
-      " (5)"
+      null,
+      "Ranger (4)"
     ],
     "class_group_id": 200023773,
     "class_id": null,
@@ -808,7 +811,8 @@
     "ringName": "Village",
     "group_display": [
       "Ranger",
-      " (5)"
+      null,
+      "Ranger (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -827,7 +831,8 @@
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
       "Ranger",
-      " (5)"
+      null,
+      "Ranger (4)"
     ]
   },
   {
@@ -861,7 +866,9 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200023775,
     "class_id": null,
     "class_name": "Hopeful Jumper (.85m) II2d",
@@ -872,7 +879,9 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
@@ -888,7 +897,9 @@
     "show_date": "2026-05-08",
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      null
+    ]
   },
   {
     "8778_group_display": [],
@@ -975,7 +986,7 @@
     "start_display": "7:55 AM",
     "start_display_short": "7:55A",
     "time_sort": 28509,
-    "total_trips": 27,
+    "total_trips": 25,
     "class_groupxclasses_id": 200037187,
     "latestStart": "7:55 AM",
     "latestStatus": "Underway",
@@ -1222,16 +1233,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000061,
     "sid": 200000061,
-    "start_display": "11:32 AM",
-    "start_display_short": "11:32A",
-    "time_sort": 41544,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41409,
     "total_trips": 6,
     "class_groupxclasses_id": 200037210,
-    "latestStart": "11:32 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-08",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:32:24",
+    "estimated_start_time": "11:30:09",
     "8778_sched_display": [
       "Munster",
       "Markanto",
@@ -1241,8 +1252,7 @@
   {
     "8778_group_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ],
     "class_group_id": 200025117,
     "class_id": null,
@@ -1256,35 +1266,32 @@
     "ringName": "Hunter 1",
     "group_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000061,
     "sid": 200000061,
-    "start_display": "11:50 AM",
-    "start_display_short": "11:50A",
-    "time_sort": 42624,
+    "start_display": "11:48 AM",
+    "start_display_short": "11:48A",
+    "time_sort": 42489,
     "total_trips": 24,
     "class_groupxclasses_id": 200037227,
-    "latestStart": "11:50 AM",
+    "latestStart": "11:48 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-08",
     "class_group_sequence": 7,
-    "estimated_start_time": "11:50:24",
+    "estimated_start_time": "11:48:09",
     "8778_sched_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ]
   },
   {
     "8778_group_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ],
     "class_group_id": 200025117,
     "class_id": null,
@@ -1298,28 +1305,26 @@
     "ringName": "Hunter 1",
     "group_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000061,
     "sid": 200000061,
-    "start_display": "11:50 AM",
-    "start_display_short": "11:50A",
-    "time_sort": 42624,
+    "start_display": "11:48 AM",
+    "start_display_short": "11:48A",
+    "time_sort": 42489,
     "total_trips": 24,
     "class_groupxclasses_id": 200037228,
-    "latestStart": "11:50 AM",
+    "latestStart": "11:48 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-08",
     "class_group_sequence": 7,
-    "estimated_start_time": "11:50:24",
+    "estimated_start_time": "11:48:09",
     "8778_sched_display": [
       "Tommy",
-      "Ranger",
-      null
+      "Ranger"
     ]
   },
   {
@@ -1496,7 +1501,7 @@
     "total_trips": 17,
     "class_groupxclasses_id": 200035603,
     "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:00",
@@ -1526,7 +1531,7 @@
     "total_trips": 17,
     "class_groupxclasses_id": 200035604,
     "latestStart": "9:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-08",
     "class_group_sequence": 4,
     "estimated_start_time": "09:45:00",

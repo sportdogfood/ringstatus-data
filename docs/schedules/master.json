@@ -46,8 +46,8 @@
   {
     "8778_group_display": [
       "Ben (3)",
-      "Toni (16)",
-      "Insider (17)",
+      "Toni (15)",
+      "Insider (16)",
       "Kinmar (27)"
     ],
     "class_group_id": 200023754,
@@ -61,8 +61,8 @@
     "ring_number": 1,
     "group_display": [
       "Ben (3)",
-      "Toni (16)",
-      "Insider (17)",
+      "Toni (15)",
+      "Insider (16)",
       "Kinmar (27)"
     ],
     "shifted_to_next_day": null,
@@ -351,7 +351,8 @@
   },
   {
     "8778_group_display": [
-      "Markanto (3)"
+      " (1)",
+      "Markanto (4)"
     ],
     "class_group_id": 200023765,
     "class_id": null,
@@ -363,7 +364,8 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Markanto (3)"
+      " (1)",
+      "Markanto (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -421,7 +423,7 @@
   },
   {
     "8778_group_display": [
-      "Doug (20)"
+      "Doug (25)"
     ],
     "class_group_id": 200023762,
     "class_id": null,
@@ -433,7 +435,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Doug (20)"
+      "Doug (25)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -469,7 +471,7 @@
   },
   {
     "8778_group_display": [
-      "Fento (1)",
+      "Fento (2)",
       "Munster (5)"
     ],
     "class_group_id": 200023766,
@@ -482,7 +484,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Fento (1)",
+      "Fento (2)",
       "Munster (5)"
     ],
     "shifted_to_next_day": null,
@@ -498,8 +500,8 @@
   {
     "8778_group_display": [
       "Ranger",
-      "Jason (1)",
-      "Ranger (5)"
+      "Ranger (4)",
+      "Jason (17)"
     ],
     "class_group_id": 200023773,
     "class_id": null,
@@ -512,8 +514,8 @@
     "ring_number": 4,
     "group_display": [
       "Ranger",
-      "Jason (1)",
-      "Ranger (5)"
+      "Ranger (4)",
+      "Jason (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -1210,7 +1212,9 @@
     "total_trips": 19
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200023802,
     "class_id": null,
     "class_name": "SFHJA Pony Medal (Flat Phase) **3 To Fill**",
@@ -1220,7 +1224,9 @@
     "group_name_tags": "target, usf, medal, pony, flat, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
     "show_days_report_title": "Schedule",

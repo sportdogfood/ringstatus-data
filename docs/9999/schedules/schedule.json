@@ -342,7 +342,7 @@
     "total_trips": 21,
     "class_groupxclasses_id": 200035504,
     "latestStart": "9:09 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
     "estimated_start_time": "09:09:29",
@@ -378,7 +378,7 @@
     "total_trips": 21,
     "class_groupxclasses_id": 200035505,
     "latestStart": "9:09 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-08",
     "class_group_sequence": 3,
     "estimated_start_time": "09:09:29",
@@ -796,8 +796,8 @@
   {
     "8778_group_display": [
       "Ranger",
-      null,
-      "Ranger (4)"
+      "Jason (1)",
+      "Ranger (5)"
     ],
     "class_group_id": 200023773,
     "class_id": null,
@@ -811,8 +811,8 @@
     "ringName": "Village",
     "group_display": [
       "Ranger",
-      null,
-      "Ranger (4)"
+      "Jason (1)",
+      "Ranger (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -831,8 +831,8 @@
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
       "Ranger",
-      null,
-      "Ranger (4)"
+      "Jason (1)",
+      "Ranger (5)"
     ]
   },
   {
@@ -867,7 +867,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Jason (1)"
     ],
     "class_group_id": 200023775,
     "class_id": null,
@@ -880,7 +880,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      null
+      "Jason (1)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 08, 2026",
@@ -898,7 +898,7 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:40:00",
     "8778_sched_display": [
-      null
+      "Jason (1)"
     ]
   },
   {

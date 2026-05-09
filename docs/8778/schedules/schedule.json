@@ -11,7 +11,7 @@
     "class_number": 712,
     "class_name": "1.25m Open Jumper II2b",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 17,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -707,7 +707,7 @@
     "estimated_start_time": "12:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, pony, jumpers, Over Fences"
+    "group_name_tags": "target, pony, small, jumpers, Over Fences"
   },
   {
     "sid": 200000061,
@@ -733,7 +733,7 @@
     "estimated_start_time": "12:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, pony, jumpers, Over Fences"
+    "group_name_tags": "target, pony, small, jumpers, Over Fences"
   },
   {
     "sid": 200000061,
@@ -914,10 +914,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:10",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "group_name_tags": "target, 3', 3'6\", junior, hunters, Over Fences"
   },
@@ -944,10 +946,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:10",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "group_name_tags": "target, 3', 3'6\", junior, hunters, Over Fences"
   },
@@ -974,10 +978,12 @@
     "class_group_sequence": 4,
     "estimated_start_time": "08:52:00",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "group_name_tags": "target, usf, 3', 3'6\", junior, U/S, hunters, Under Saddle/Flat"
   },

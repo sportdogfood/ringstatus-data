@@ -23,7 +23,7 @@
     "total_trips": 17,
     "class_groupxclasses_id": 200035609,
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-09",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
@@ -748,7 +748,7 @@
     "class_number": 680,
     "dt": "2026-05-09",
     "group_name": "Small Pony Jumpers Table II & II2b",
-    "group_name_tags": "target, pony, jumpers, Over Fences",
+    "group_name_tags": "target, pony, small, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -778,7 +778,7 @@
     "class_number": 681,
     "dt": "2026-05-09",
     "group_name": "Small Pony Jumpers Table II & II2b",
-    "group_name_tags": "target, pony, jumpers, Over Fences",
+    "group_name_tags": "target, pony, small, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -982,7 +982,8 @@
   },
   {
     "8778_group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "class_group_id": 200023838,
     "class_id": null,
@@ -995,7 +996,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1013,12 +1015,14 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:10",
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "class_group_id": 200023838,
     "class_id": null,
@@ -1031,7 +1035,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1049,12 +1054,14 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:10",
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "class_group_id": 200023839,
     "class_id": null,
@@ -1067,7 +1074,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Dorian"
+      "Dorian",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1085,7 +1093,8 @@
     "class_group_sequence": 4,
     "estimated_start_time": "08:52:00",
     "8778_sched_display": [
-      "Dorian"
+      "Dorian",
+      null
     ]
   },
   {

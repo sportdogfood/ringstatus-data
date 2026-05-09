@@ -7,7 +7,7 @@
     "class_number": 712,
     "dt": "2026-05-09",
     "group_name": "1.25m Open Jumper II2b",
-    "group_name_tags": "open, jumpers, Over Fences",
+    "group_name_tags": "target, open, jumpers, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "ringName": "Derby",
@@ -37,7 +37,7 @@
     "class_number": 772,
     "dt": "2026-05-09",
     "group_name": "1.30m Open Jumper II2b",
-    "group_name_tags": "open, jumpers, Over Fences",
+    "group_name_tags": "target, open, jumpers, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "ringName": "Derby",
@@ -67,7 +67,7 @@
     "class_number": 842,
     "dt": "2026-05-09",
     "group_name": "$600 1.30m Young Jumper II2b",
-    "group_name_tags": "young, jumpers, Over Fences",
+    "group_name_tags": "target, young, jumpers, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "ringName": "Derby",
@@ -90,18 +90,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Peri"
+    ],
     "class_group_id": 200023812,
     "class_id": null,
     "class_name": "1.30m Junior/Amateur Jumper II2b",
     "class_number": 774,
     "dt": "2026-05-09",
     "group_name": "1.30m Junior/Amateur Jumper II2b",
-    "group_name_tags": "amateur, junior, jumpers, Over Fences",
+    "group_name_tags": "target, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "ringName": "Derby",
-    "group_display": [],
+    "group_display": [
+      "Peri"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -117,7 +121,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 4,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Peri"
+    ]
   },
   {
     "8778_group_display": [],
@@ -127,7 +133,7 @@
     "class_number": 702,
     "dt": "2026-05-09",
     "group_name": "1.40m Open Jumper II2b",
-    "group_name_tags": "open, 1.40m, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.40m, jumpers, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "ringName": "Derby",
@@ -157,7 +163,7 @@
     "class_number": 925,
     "dt": "2026-05-09",
     "group_name": "$1,000 2'6\" USHJA Junior/Amateur Hunter Derby (Hunt-N-Go)",
-    "group_name_tags": "amateur, junior, ushja, hunters, Over Fences",
+    "group_name_tags": "target, amateur, junior, ushja, hunters, Over Fences",
     "ring_nickname": "Annex",
     "ring_number": 2,
     "ringName": "Annex",
@@ -187,7 +193,7 @@
     "class_number": 718,
     "dt": "2026-05-09",
     "group_name": "1.10m Open Jumper II2b",
-    "group_name_tags": "open, 1.10m, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.10m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -217,7 +223,7 @@
     "class_number": 746,
     "dt": "2026-05-09",
     "group_name": "1.15m Open Jumper II2b",
-    "group_name_tags": "open, jumpers, Over Fences",
+    "group_name_tags": "target, open, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -247,7 +253,7 @@
     "class_number": 789,
     "dt": "2026-05-09",
     "group_name": "1.20m Open Jumper II2b",
-    "group_name_tags": "open, 1.20m, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.20m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -277,7 +283,7 @@
     "class_number": 837,
     "dt": "2026-05-09",
     "group_name": "1.20m Open Jumper II2b",
-    "group_name_tags": "open, 1.20m, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.20m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -300,18 +306,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "King"
+    ],
     "class_group_id": 200023818,
     "class_id": null,
     "class_name": "1.20m Junior/Amateur Jumper II2b",
     "class_number": 722,
     "dt": "2026-05-09",
     "group_name": "1.20m Open Jumper II2b",
-    "group_name_tags": "open, 1.20m, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.20m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      "King"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -327,7 +337,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "King"
+    ]
   },
   {
     "8778_group_display": [],
@@ -337,7 +349,7 @@
     "class_number": 832,
     "dt": "2026-05-09",
     "group_name": "$300 1.10m Young Jumper Table II",
-    "group_name_tags": "young, 1.10m, jumpers, Over Fences",
+    "group_name_tags": "target, young, 1.10m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -367,7 +379,7 @@
     "class_number": 741,
     "dt": "2026-05-09",
     "group_name": "$300 1.10m Young Jumper Table II",
-    "group_name_tags": "young, 1.10m, jumpers, Over Fences",
+    "group_name_tags": "target, young, 1.10m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -397,7 +409,7 @@
     "class_number": 761,
     "dt": "2026-05-09",
     "group_name": "$300 1.10m Young Jumper Table II",
-    "group_name_tags": "young, 1.10m, jumpers, Over Fences",
+    "group_name_tags": "target, young, 1.10m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -420,18 +432,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Choco"
+    ],
     "class_group_id": 200023823,
     "class_id": null,
     "class_name": "$1,595 NAL/WIHS 1.10m Junior/Amateur Jumper Classic II2b",
     "class_number": 802,
     "dt": "2026-05-09",
     "group_name": "$1,595 NAL/WIHS 1.10m Junior/Amateur Jumper Classic II2b",
-    "group_name_tags": "1.10m, amateur, junior, wihs, jumpers, Over Fences",
+    "group_name_tags": "target, 1.10m, amateur, junior, wihs, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      "Choco"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -447,21 +463,29 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 5,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Choco"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Munster",
+      "Indy"
+    ],
     "class_group_id": 200023824,
     "class_id": null,
     "class_name": "Training Jumper (1.0m) II2b",
     "class_number": 782,
     "dt": "2026-05-09",
     "group_name": "Training Jumper (1.0m) II2b",
-    "group_name_tags": "1.0m, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      "Munster",
+      "Indy"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -477,7 +501,10 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 6,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Munster",
+      "Indy"
+    ]
   },
   {
     "8778_group_display": [],
@@ -487,7 +514,7 @@
     "class_number": 827,
     "dt": "2026-05-09",
     "group_name": "Training Jumper (1.0m) II2b",
-    "group_name_tags": "1.0m, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -517,7 +544,7 @@
     "class_number": 738,
     "dt": "2026-05-09",
     "group_name": "Training Jumper (1.0m) II2b",
-    "group_name_tags": "1.0m, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -540,18 +567,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Calypso"
+    ],
     "class_group_id": 200023824,
     "class_id": null,
     "class_name": "1.0m Amateur Jumper II2b",
     "class_number": 766,
     "dt": "2026-05-09",
     "group_name": "Training Jumper (1.0m) II2b",
-    "group_name_tags": "1.0m, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      "Calypso"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -567,7 +598,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 6,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Calypso"
+    ]
   },
   {
     "8778_group_display": [],
@@ -577,7 +610,7 @@
     "class_number": 694,
     "dt": "2026-05-09",
     "group_name": "Itty Bitty Jumpers (.60-.65m) Table II",
-    "group_name_tags": "60-.65m, jumpers, Over Fences",
+    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -607,7 +640,7 @@
     "class_number": 697,
     "dt": "2026-05-09",
     "group_name": "Itty Bitty Jumpers (.60-.65m) Table II",
-    "group_name_tags": "60-.65m, jumpers, Over Fences",
+    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -637,7 +670,7 @@
     "class_number": 695,
     "dt": "2026-05-09",
     "group_name": "Itty Bitty Jumpers (.60-.65m) II2b",
-    "group_name_tags": "60-.65m, jumpers, Over Fences",
+    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -667,7 +700,7 @@
     "class_number": 698,
     "dt": "2026-05-09",
     "group_name": "Itty Bitty Jumpers (.60-.65m) II2b",
-    "group_name_tags": "60-.65m, jumpers, Over Fences",
+    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -690,18 +723,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Jason"
+    ],
     "class_group_id": 200023829,
     "class_id": null,
     "class_name": "Puddle Jumper Open (.80m) II2b",
     "class_number": 784,
     "dt": "2026-05-09",
     "group_name": "Puddle Jumpers (.80m) II2b",
-    "group_name_tags": "puddle, jumpers, Over Fences",
+    "group_name_tags": "target, puddle, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
-    "group_display": [],
+    "group_display": [
+      "Jason"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -717,21 +754,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Jason"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Jason"
+    ],
     "class_group_id": 200023829,
     "class_id": null,
     "class_name": "Puddle Jumper Junior/Amateur (.80m) II2b",
     "class_number": 796,
     "dt": "2026-05-09",
     "group_name": "Puddle Jumpers (.80m) II2b",
-    "group_name_tags": "puddle, jumpers, Over Fences",
+    "group_name_tags": "target, puddle, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
-    "group_display": [],
+    "group_display": [
+      "Jason"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -747,7 +790,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Jason"
+    ]
   },
   {
     "8778_group_display": [],
@@ -757,7 +802,7 @@
     "class_number": 680,
     "dt": "2026-05-09",
     "group_name": "Pony Jumpers Table II & II2b",
-    "group_name_tags": "pony, jumpers, Over Fences",
+    "group_name_tags": "target, pony, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -787,7 +832,7 @@
     "class_number": 681,
     "dt": "2026-05-09",
     "group_name": "Pony Jumpers Table II & II2b",
-    "group_name_tags": "pony, jumpers, Over Fences",
+    "group_name_tags": "target, pony, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -817,7 +862,7 @@
     "class_number": 791,
     "dt": "2026-05-09",
     "group_name": "Hopeful Jumper (.85m) II2b",
-    "group_name_tags": "hopeful, .85m, jumpers, Over Fences",
+    "group_name_tags": "target, hopeful, .85m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -847,7 +892,7 @@
     "class_number": 752,
     "dt": "2026-05-09",
     "group_name": "Training Jumper (.90m) II2b",
-    "group_name_tags": ".90m, jumpers, Over Fences",
+    "group_name_tags": "target, .90m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -877,7 +922,7 @@
     "class_number": 822,
     "dt": "2026-05-09",
     "group_name": ".90m Young Jumper Table II",
-    "group_name_tags": "young, .90m, jumpers, Over Fences",
+    "group_name_tags": "target, young, .90m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
@@ -907,7 +952,7 @@
     "class_number": 392,
     "dt": "2026-05-09",
     "group_name": "Amateur Owner Hunter 3'3\"/3'6\"",
-    "group_name_tags": "owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
+    "group_name_tags": "target, owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -937,7 +982,7 @@
     "class_number": 393,
     "dt": "2026-05-09",
     "group_name": "Amateur Owner Hunter 3'3\"/3'6\"",
-    "group_name_tags": "owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
+    "group_name_tags": "target, owner, 3', 3'3\", 3'6\", amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -967,7 +1012,7 @@
     "class_number": 391,
     "dt": "2026-05-09",
     "group_name": "Amateur Owner Hunter 3'3\"/3'6\" U/S",
-    "group_name_tags": "usf, owner, 3', 3'3\", 3'6\", amateur, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, owner, 3', 3'3\", 3'6\", amateur, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -990,18 +1035,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Dorian"
+    ],
     "class_group_id": 200023838,
     "class_id": null,
     "class_name": "Junior Hunter 3'6\"",
     "class_number": 307,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'6\"",
-    "group_name_tags": "3', 3'6\", junior, hunters, Over Fences",
+    "group_name_tags": "target, 3', 3'6\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Dorian"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1017,21 +1066,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Dorian"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Dorian"
+    ],
     "class_group_id": 200023838,
     "class_id": null,
     "class_name": "Junior Hunter 3'6\"",
     "class_number": 308,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'6\"",
-    "group_name_tags": "3', 3'6\", junior, hunters, Over Fences",
+    "group_name_tags": "target, 3', 3'6\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Dorian"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1047,21 +1102,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Dorian"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Dorian"
+    ],
     "class_group_id": 200023839,
     "class_id": null,
     "class_name": "Junior Hunter 3'6\" U/S",
     "class_number": 306,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'6\" U/S",
-    "group_name_tags": "usf, 3', 3'6\", junior, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, 3', 3'6\", junior, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Dorian"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1077,7 +1138,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 4,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Dorian"
+    ]
   },
   {
     "8778_group_display": [],
@@ -1087,7 +1150,7 @@
     "class_number": 337,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'3\" 15 & Under",
-    "group_name_tags": "15 & Under, 3', 3'3\", junior, hunters, Over Fences",
+    "group_name_tags": "target, 15 & Under, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1117,7 +1180,7 @@
     "class_number": 338,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'3\" 15 & Under",
-    "group_name_tags": "15 & Under, 3', 3'3\", junior, hunters, Over Fences",
+    "group_name_tags": "target, 15 & Under, 3', 3'3\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1147,7 +1210,7 @@
     "class_number": 336,
     "dt": "2026-05-09",
     "group_name": "Junior Hunter 3'3\" U/S",
-    "group_name_tags": "usf, 3', 3'3\", junior, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, 3', 3'3\", junior, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1177,7 +1240,7 @@
     "class_number": 529,
     "dt": "2026-05-09",
     "group_name": "M&S Children's Medal",
-    "group_name_tags": "medal, children's, Over Fences",
+    "group_name_tags": "target, medal, children's, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1207,7 +1270,7 @@
     "class_number": 282,
     "dt": "2026-05-09",
     "group_name": "Adult Amateur Hunter",
-    "group_name_tags": "adult, amateur, hunters, Over Fences",
+    "group_name_tags": "target, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1237,7 +1300,7 @@
     "class_number": 283,
     "dt": "2026-05-09",
     "group_name": "Adult Amateur Hunter",
-    "group_name_tags": "adult, amateur, hunters, Over Fences",
+    "group_name_tags": "target, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1267,7 +1330,7 @@
     "class_number": 281,
     "dt": "2026-05-09",
     "group_name": "Adult Amateur Hunter U/S",
-    "group_name_tags": "usf, adult, amateur, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, adult, amateur, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1290,18 +1353,22 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200023855,
     "class_id": null,
     "class_name": "Children's Hunter",
     "class_number": 312,
     "dt": "2026-05-09",
     "group_name": "Children's Hunter",
-    "group_name_tags": "children's, hunters, Over Fences",
+    "group_name_tags": "target, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1317,21 +1384,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 10,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200023855,
     "class_id": null,
     "class_name": "Children's Hunter",
     "class_number": 313,
     "dt": "2026-05-09",
     "group_name": "Children's Hunter",
-    "group_name_tags": "children's, hunters, Over Fences",
+    "group_name_tags": "target, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1347,21 +1420,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 10,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200023856,
     "class_id": null,
     "class_name": "Children's Hunter U/S",
     "class_number": 311,
     "dt": "2026-05-09",
     "group_name": "Children's Hunter U/S",
-    "group_name_tags": "usf, children's, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, children's, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1377,7 +1456,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 11,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
     "8778_group_display": [],
@@ -1387,7 +1468,7 @@
     "class_number": 317,
     "dt": "2026-05-09",
     "group_name": "Low Children's Hunter",
-    "group_name_tags": "low, children's, hunters, Over Fences",
+    "group_name_tags": "target, low, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1417,7 +1498,7 @@
     "class_number": 318,
     "dt": "2026-05-09",
     "group_name": "Low Children's Hunter",
-    "group_name_tags": "low, children's, hunters, Over Fences",
+    "group_name_tags": "target, low, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1447,7 +1528,7 @@
     "class_number": 316,
     "dt": "2026-05-09",
     "group_name": "Low Children's Hunter U/S",
-    "group_name_tags": "usf, low, children's, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, low, children's, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1477,7 +1558,7 @@
     "class_number": 297,
     "dt": "2026-05-09",
     "group_name": "Low Adult Hunter",
-    "group_name_tags": "adult, low, hunters, Over Fences",
+    "group_name_tags": "target, adult, low, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1507,7 +1588,7 @@
     "class_number": 298,
     "dt": "2026-05-09",
     "group_name": "Low Adult Hunter",
-    "group_name_tags": "adult, low, hunters, Over Fences",
+    "group_name_tags": "target, adult, low, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1537,7 +1618,7 @@
     "class_number": 296,
     "dt": "2026-05-09",
     "group_name": "Low Adult Hunter U/S",
-    "group_name_tags": "usf, adult, low, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, adult, low, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1567,7 +1648,7 @@
     "class_number": 142,
     "dt": "2026-05-09",
     "group_name": "Cross Rail Hunter",
-    "group_name_tags": "hunters, Over Fences",
+    "group_name_tags": "target, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1597,7 +1678,7 @@
     "class_number": 143,
     "dt": "2026-05-09",
     "group_name": "Cross Rail Hunter",
-    "group_name_tags": "hunters, Over Fences",
+    "group_name_tags": "target, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1627,7 +1708,7 @@
     "class_number": 141,
     "dt": "2026-05-09",
     "group_name": "Cross Rail Hunter U/S",
-    "group_name_tags": "usf, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
@@ -1650,18 +1731,24 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Knox",
+      "Poptart"
+    ],
     "class_group_id": 200023858,
     "class_id": null,
     "class_name": "Small Pony Hunter",
     "class_number": 412,
     "dt": "2026-05-09",
     "group_name": "Small Pony Hunter",
-    "group_name_tags": "pony, small, hunters, Over Fences",
+    "group_name_tags": "target, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
-    "group_display": [],
+    "group_display": [
+      "Knox",
+      "Poptart"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1677,21 +1764,30 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 1,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Knox",
+      "Poptart"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Knox",
+      "Poptart"
+    ],
     "class_group_id": 200023858,
     "class_id": null,
     "class_name": "Small Pony Hunter",
     "class_number": 413,
     "dt": "2026-05-09",
     "group_name": "Small Pony Hunter",
-    "group_name_tags": "pony, small, hunters, Over Fences",
+    "group_name_tags": "target, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
-    "group_display": [],
+    "group_display": [
+      "Knox",
+      "Poptart"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1707,21 +1803,28 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 1,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Knox",
+      "Poptart"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Paisley"
+    ],
     "class_group_id": 200023859,
     "class_id": null,
     "class_name": "Medium Pony Hunter",
     "class_number": 422,
     "dt": "2026-05-09",
     "group_name": "Medium Pony Hunter",
-    "group_name_tags": "pony, medium, hunters, Over Fences",
+    "group_name_tags": "target, pony, medium, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
-    "group_display": [],
+    "group_display": [
+      "Paisley"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1737,21 +1840,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 2,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Paisley"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Paisley"
+    ],
     "class_group_id": 200023859,
     "class_id": null,
     "class_name": "Medium Pony Hunter",
     "class_number": 423,
     "dt": "2026-05-09",
     "group_name": "Medium Pony Hunter",
-    "group_name_tags": "pony, medium, hunters, Over Fences",
+    "group_name_tags": "target, pony, medium, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
-    "group_display": [],
+    "group_display": [
+      "Paisley"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1767,21 +1876,27 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 2,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Paisley"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Paisley"
+    ],
     "class_group_id": 200023860,
     "class_id": null,
     "class_name": "Medium Pony Hunter U/S",
     "class_number": 421,
     "dt": "2026-05-09",
     "group_name": "Medium Pony Hunter U/S",
-    "group_name_tags": "usf, pony, medium, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, pony, medium, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
-    "group_display": [],
+    "group_display": [
+      "Paisley"
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Saturday, May, 09, 2026",
     "show_days_report_title": "Schedule",
@@ -1797,7 +1912,9 @@
     "show_date": "2026-05-09",
     "class_group_sequence": 3,
     "estimated_start_time": null,
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Paisley"
+    ]
   },
   {
     "8778_group_display": [],
@@ -1807,7 +1924,7 @@
     "class_number": 432,
     "dt": "2026-05-09",
     "group_name": "Large Pony Hunter",
-    "group_name_tags": "pony, large, hunters, Over Fences",
+    "group_name_tags": "target, pony, large, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1837,7 +1954,7 @@
     "class_number": 433,
     "dt": "2026-05-09",
     "group_name": "Large Pony Hunter",
-    "group_name_tags": "pony, large, hunters, Over Fences",
+    "group_name_tags": "target, pony, large, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1867,7 +1984,7 @@
     "class_number": 431,
     "dt": "2026-05-09",
     "group_name": "Large Pony Hunter U/S",
-    "group_name_tags": "usf, pony, large, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, pony, large, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1897,7 +2014,7 @@
     "class_number": 442,
     "dt": "2026-05-09",
     "group_name": "Green Pony Hunter",
-    "group_name_tags": "pony, green, hunters, Over Fences",
+    "group_name_tags": "target, pony, green, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1927,7 +2044,7 @@
     "class_number": 443,
     "dt": "2026-05-09",
     "group_name": "Green Pony Hunter",
-    "group_name_tags": "pony, green, hunters, Over Fences",
+    "group_name_tags": "target, pony, green, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1957,7 +2074,7 @@
     "class_number": 406,
     "dt": "2026-05-09",
     "group_name": "Children's Pony Hunter",
-    "group_name_tags": "pony, children's, hunters, Over Fences",
+    "group_name_tags": "target, pony, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -1987,7 +2104,7 @@
     "class_number": 407,
     "dt": "2026-05-09",
     "group_name": "Children's Pony Hunter",
-    "group_name_tags": "pony, children's, hunters, Over Fences",
+    "group_name_tags": "target, pony, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2017,7 +2134,7 @@
     "class_number": 405,
     "dt": "2026-05-09",
     "group_name": "Children's Pony Hunter U/S",
-    "group_name_tags": "usf, pony, children's, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, pony, children's, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2047,7 +2164,7 @@
     "class_number": 642,
     "dt": "2026-05-09",
     "group_name": "Modified Hunter 2'/2'6\"",
-    "group_name_tags": "2'/2'6\", hunters, Over Fences",
+    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2077,7 +2194,7 @@
     "class_number": 643,
     "dt": "2026-05-09",
     "group_name": "Modified Hunter 2'/2'6\"",
-    "group_name_tags": "2'/2'6\", hunters, Over Fences",
+    "group_name_tags": "target, 2'/2'6\", hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2107,7 +2224,7 @@
     "class_number": 641,
     "dt": "2026-05-09",
     "group_name": "Modified Hunter 2'/2'6\" U/S",
-    "group_name_tags": "usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, 2'/2'6\", U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2137,7 +2254,7 @@
     "class_number": 602,
     "dt": "2026-05-09",
     "group_name": "Short Stirrup Hunter",
-    "group_name_tags": "short, stirrup, hunters, Over Fences",
+    "group_name_tags": "target, short, stirrup, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2167,7 +2284,7 @@
     "class_number": 603,
     "dt": "2026-05-09",
     "group_name": "Short Stirrup Hunter",
-    "group_name_tags": "short, stirrup, hunters, Over Fences",
+    "group_name_tags": "target, short, stirrup, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",
@@ -2197,7 +2314,7 @@
     "class_number": 601,
     "dt": "2026-05-09",
     "group_name": "Short Stirrup Hunter U/S",
-    "group_name_tags": "usf, short, stirrup, U/S, hunters, Under Saddle/Flat",
+    "group_name_tags": "target, usf, short, stirrup, U/S, hunters, Under Saddle/Flat",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "ringName": "Hunter 2",

@@ -903,9 +903,7 @@
     "class_number": 307,
     "class_name": "Junior Hunter 3'6\"",
     "latestStart": "9:05 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "total_trips": 15,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -937,9 +935,7 @@
     "class_number": 308,
     "class_name": "Junior Hunter 3'6\"",
     "latestStart": "9:05 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "total_trips": 15,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -1579,7 +1575,9 @@
     "class_number": 422,
     "class_name": "Medium Pony Hunter",
     "latestStart": "9:10 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 36,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -1609,7 +1607,9 @@
     "class_number": 423,
     "class_name": "Medium Pony Hunter",
     "latestStart": "9:10 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 36,
     "show_id": 200000061,
     "show_date": "2026-05-09",

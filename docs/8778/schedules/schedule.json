@@ -171,9 +171,7 @@
     "class_number": 718,
     "class_name": "1.10m Open Jumper II2b",
     "latestStart": "7:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 10,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -203,7 +201,7 @@
     "class_number": 746,
     "class_name": "1.15m Open Jumper II2b",
     "latestStart": "8:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 15,
     "show_id": 200000061,
     "show_date": "2026-05-09",
@@ -1188,10 +1186,12 @@
     "class_group_sequence": 10,
     "estimated_start_time": "11:34:48",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "group_name_tags": "target, children's, hunters, Over Fences"
   },
@@ -1218,10 +1218,12 @@
     "class_group_sequence": 10,
     "estimated_start_time": "11:34:48",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "group_name_tags": "target, children's, hunters, Over Fences"
   },
@@ -1248,10 +1250,12 @@
     "class_group_sequence": 11,
     "estimated_start_time": "12:49:00",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "group_name_tags": "target, usf, children's, U/S, hunters, Under Saddle/Flat"
   },

@@ -213,9 +213,7 @@
     "total_trips": 10,
     "class_groupxclasses_id": 200035615,
     "latestStart": "7:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-09",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
@@ -247,7 +245,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035616,
     "latestStart": "8:30 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-09",
     "class_group_sequence": 2,
     "estimated_start_time": "08:30:00",
@@ -1302,7 +1300,8 @@
   },
   {
     "8778_group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "class_group_id": 200023855,
     "class_id": null,
@@ -1315,7 +1314,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1333,12 +1333,14 @@
     "class_group_sequence": 10,
     "estimated_start_time": "11:34:48",
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "class_group_id": 200023855,
     "class_id": null,
@@ -1351,7 +1353,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1369,12 +1372,14 @@
     "class_group_sequence": 10,
     "estimated_start_time": "11:34:48",
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "class_group_id": 200023856,
     "class_id": null,
@@ -1387,7 +1392,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Tommy"
+      "Tommy",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 09, 2026",
@@ -1405,7 +1411,8 @@
     "class_group_sequence": 11,
     "estimated_start_time": "12:49:00",
     "8778_sched_display": [
-      "Tommy"
+      "Tommy",
+      null
     ]
   },
   {

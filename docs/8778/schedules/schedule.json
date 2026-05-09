@@ -181,8 +181,12 @@
     "start_display": "7:45 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      null
+    ],
+    "8778_sched_display": [
+      null
+    ],
     "group_name_tags": "isFirstUp, target, open, 1.10m, jumpers, Over Fences"
   },
   {

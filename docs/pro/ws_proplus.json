@@ -732,7 +732,7 @@
       "time_sort": 55809,
       "class_id": 200028291,
       "class_number": 685,
-      "completed_trips": 7,
+      "completed_trips": 11,
       "class_name": "WIHS Large/Medium Pony Jumper II2b",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -778,7 +778,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, pony, large, medium, wihs, jumpers, Over Fences"
     },
@@ -792,7 +792,7 @@
       "class_groupxclasses_id": 200035755,
       "group_name": "WIHS Small Pony Jumper II2b",
       "groomName": null,
-      "time_sort": 58156,
+      "time_sort": 58194,
       "class_id": 200025035,
       "class_number": 682,
       "completed_trips": 0,
@@ -802,7 +802,7 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "16:09:16",
+      "estimated_start_time": "16:09:54",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "4:09 PM",
@@ -824,7 +824,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 48,
+      "secondsTill": 86,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3647,6 +3647,7 @@
         10,
         10,
         11,
+        11,
         13,
         13,
         14,
@@ -3717,9 +3718,6 @@
         54,
         55,
         55
-      ],
-      "underway": [
-        11
       ],
       "upcoming": [
         12,

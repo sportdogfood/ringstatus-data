@@ -206,7 +206,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035735,
     "latestStart": "10:17 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-10",
     "class_group_sequence": 4,
     "estimated_start_time": "10:17:00",
@@ -240,7 +240,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035736,
     "latestStart": "10:17 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-10",
     "class_group_sequence": 4,
     "estimated_start_time": "10:17:00",
@@ -573,9 +573,7 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035743,
     "latestStart": "10:20 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-10",
     "class_group_sequence": 6,
     "estimated_start_time": "10:20:09",

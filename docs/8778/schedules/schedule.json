@@ -375,7 +375,9 @@
     "class_number": 530,
     "class_name": "Hamel Foundation/NHS 3'3\" Medal",
     "latestStart": "7:50 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 8,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -384,7 +386,7 @@
     "ring_nickname": "Village",
     "start_display": "7:50 AM",
     "class_group_sequence": 2,
-    "estimated_start_time": "07:50:00",
+    "estimated_start_time": "07:50:09",
     "group_display": [
       "Fento (6)"
     ],

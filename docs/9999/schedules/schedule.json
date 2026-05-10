@@ -174,9 +174,7 @@
     "total_trips": 25,
     "class_groupxclasses_id": 200035734,
     "latestStart": "9:05 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 3,
     "estimated_start_time": "09:05:00",
@@ -1533,7 +1531,7 @@
   },
   {
     "8778_group_display": [
-      "Knox (14)",
+      "Knox (17)",
       "Poptart (26)"
     ],
     "class_group_id": 200023927,
@@ -1547,7 +1545,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Knox (14)",
+      "Knox (17)",
       "Poptart (26)"
     ],
     "shifted_to_next_day": null,
@@ -1566,7 +1564,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:59:10",
     "8778_sched_display": [
-      "Knox (14)",
+      "Knox (17)",
       "Poptart (26)"
     ]
   },

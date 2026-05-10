@@ -1,8 +1,8 @@
 [
   {
     "8778_group_display": [
-      "Peri",
-      "Bee"
+      "Peri (9)",
+      "Bee (10)"
     ],
     "class_group_id": 200023878,
     "class_id": 200025175,
@@ -15,8 +15,8 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Peri",
-      "Bee"
+      "Peri (9)",
+      "Bee (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -34,15 +34,15 @@
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      "Peri",
-      "Bee"
+      "Peri (9)",
+      "Bee (10)"
     ]
   },
   {
     "8778_group_display": [
-      "Ben",
-      "Toni",
-      "Kinmar"
+      "Ben (1)",
+      "Toni (14)",
+      "Kinmar (41)"
     ],
     "class_group_id": 200023879,
     "class_id": 200024852,
@@ -55,9 +55,9 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Ben",
-      "Toni",
-      "Kinmar"
+      "Ben (1)",
+      "Toni (14)",
+      "Kinmar (41)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -75,14 +75,14 @@
     "class_group_sequence": 2,
     "estimated_start_time": "09:30:00",
     "8778_sched_display": [
-      "Ben",
-      "Toni",
-      "Kinmar"
+      "Ben (1)",
+      "Toni (14)",
+      "Kinmar (41)"
     ]
   },
   {
     "8778_group_display": [
-      "King"
+      "King (13)"
     ],
     "class_group_id": 200023880,
     "class_id": 200025174,
@@ -95,7 +95,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "King"
+      "King (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -113,7 +113,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      "King"
+      "King (13)"
     ]
   },
   {
@@ -148,7 +148,7 @@
   },
   {
     "8778_group_display": [
-      "Choco"
+      "Choco (9)"
     ],
     "class_group_id": 200023881,
     "class_id": 200025154,
@@ -161,7 +161,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Choco"
+      "Choco (9)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -179,7 +179,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "21:05:00",
     "8778_sched_display": [
-      "Choco"
+      "Choco (9)"
     ]
   },
   {
@@ -214,7 +214,7 @@
   },
   {
     "8778_group_display": [
-      "Calypso"
+      "Calypso (12)"
     ],
     "class_group_id": 200023882,
     "class_id": 200024959,
@@ -227,7 +227,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Calypso"
+      "Calypso (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -245,7 +245,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "22:17:00",
     "8778_sched_display": [
-      "Calypso"
+      "Calypso (12)"
     ]
   },
   {
@@ -316,7 +316,7 @@
     "class_number": 792,
     "dt": "2026-05-10",
     "group_name": "Hopeful Jumper (.85m) II2d",
-    "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences",
+    "group_name_tags": "isFirstUp, target, hopeful, .85m, II2d, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -346,7 +346,7 @@
     "class_number": 815,
     "dt": "2026-05-10",
     "group_name": "$250 .85m Jumper Classic II2b",
-    "group_name_tags": "target, .85m, jumpers, Over Fences",
+    "group_name_tags": "isFirstUp, target, .85m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -430,7 +430,7 @@
   },
   {
     "8778_group_display": [
-      "Fento"
+      "Fento (7)"
     ],
     "class_group_id": 200023886,
     "class_id": 200025181,
@@ -443,7 +443,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Fento"
+      "Fento (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -461,7 +461,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "07:50:00",
     "8778_sched_display": [
-      "Fento"
+      "Fento (7)"
     ]
   },
   {
@@ -526,10 +526,10 @@
   },
   {
     "8778_group_display": [
-      "Indy",
-      "Munster",
-      "Fento",
-      "Jason"
+      "Fento (1)",
+      "Indy (2)",
+      "Jason (6)",
+      "Munster (7)"
     ],
     "class_group_id": 200023887,
     "class_id": 200025034,
@@ -542,10 +542,10 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Indy",
-      "Munster",
-      "Fento",
-      "Jason"
+      "Fento (1)",
+      "Indy (2)",
+      "Jason (6)",
+      "Munster (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -563,10 +563,10 @@
     "class_group_sequence": 5,
     "estimated_start_time": "09:50:00",
     "8778_sched_display": [
-      "Indy",
-      "Munster",
-      "Fento",
-      "Jason"
+      "Fento (1)",
+      "Indy (2)",
+      "Jason (6)",
+      "Munster (7)"
     ]
   },
   {
@@ -616,8 +616,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Jason"
+      "Munster (4)",
+      "Jason (6)"
     ],
     "class_group_id": 200023889,
     "class_id": 200024991,
@@ -630,8 +630,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Munster",
-      "Jason"
+      "Munster (4)",
+      "Jason (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -649,8 +649,8 @@
     "class_group_sequence": 7,
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
-      "Munster",
-      "Jason"
+      "Munster (4)",
+      "Jason (6)"
     ]
   },
   {
@@ -1561,8 +1561,8 @@
   },
   {
     "8778_group_display": [
-      "Poptart",
-      "Knox"
+      "Knox (4)",
+      "Poptart (16)"
     ],
     "class_group_id": 200023927,
     "class_id": 200025090,
@@ -1575,8 +1575,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Poptart",
-      "Knox"
+      "Knox (4)",
+      "Poptart (16)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -1594,13 +1594,13 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:55:00",
     "8778_sched_display": [
-      "Poptart",
-      "Knox"
+      "Knox (4)",
+      "Poptart (16)"
     ]
   },
   {
     "8778_group_display": [
-      "Paisley"
+      "Paisley (13)"
     ],
     "class_group_id": 200023928,
     "class_id": 200025002,
@@ -1613,7 +1613,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Paisley"
+      "Paisley (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -1631,7 +1631,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:40:00",
     "8778_sched_display": [
-      "Paisley"
+      "Paisley (13)"
     ]
   },
   {

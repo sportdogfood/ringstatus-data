@@ -467,7 +467,9 @@
     "class_number": 550,
     "class_name": "Dover Saddlery/USEF Hunter Seat Medal",
     "latestStart": "10:20 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 7,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -1345,9 +1347,7 @@
     "class_number": 424,
     "class_name": "Medium Pony Conformation Hunter",
     "latestStart": "10:50 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "total_trips": 27,
     "show_id": 200000061,
     "show_date": "2026-05-10",

@@ -503,7 +503,9 @@
     "class_number": 555,
     "class_name": "THIS Children's Medal",
     "latestStart": "11:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 11,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -514,12 +516,12 @@
     "class_group_sequence": 7,
     "estimated_start_time": "11:20:10",
     "group_display": [
-      "Munster (4)",
-      "Jason (6)"
+      "Jason (1)",
+      "Munster (2)"
     ],
     "8778_sched_display": [
-      "Munster (4)",
-      "Jason (6)"
+      "Jason (1)",
+      "Munster (2)"
     ],
     "group_name_tags": "target, medal, children's, hunters, Over Fences"
   },
@@ -1356,10 +1358,10 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:50:12",
     "group_display": [
-      "Paisley (14)"
+      "Paisley (17)"
     ],
     "8778_sched_display": [
-      "Paisley (14)"
+      "Paisley (17)"
     ],
     "group_name_tags": "target, pony, medium, hunters, Over Fences"
   },

@@ -29,7 +29,7 @@
     "total_trips": 23,
     "class_groupxclasses_id": 200035730,
     "latestStart": "7:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:08",
@@ -108,9 +108,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035732,
     "latestStart": "7:45 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 2,
     "estimated_start_time": "07:45:00",
@@ -432,7 +430,7 @@
   },
   {
     "8778_group_display": [
-      "Fento (7)"
+      "Fento (6)"
     ],
     "class_group_id": 200023886,
     "class_id": 200025181,
@@ -445,7 +443,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Fento (7)"
+      "Fento (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -458,12 +456,12 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200035741,
     "latestStart": "7:50 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 2,
     "estimated_start_time": "07:50:00",
     "8778_sched_display": [
-      "Fento (7)"
+      "Fento (6)"
     ]
   },
   {

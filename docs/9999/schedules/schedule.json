@@ -240,9 +240,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035736,
     "latestStart": "10:17 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 4,
     "estimated_start_time": "10:17:00",
@@ -1078,7 +1076,7 @@
     "total_trips": 28,
     "class_groupxclasses_id": 200035781,
     "latestStart": "10:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 7,
     "estimated_start_time": "10:20:15",
@@ -1572,7 +1570,7 @@
   },
   {
     "8778_group_display": [
-      "Paisley (13)"
+      "Paisley (14)"
     ],
     "class_group_id": 200023928,
     "class_id": 200025002,
@@ -1585,7 +1583,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Paisley (13)"
+      "Paisley (14)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -1598,12 +1596,14 @@
     "total_trips": 27,
     "class_groupxclasses_id": 200035831,
     "latestStart": "10:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-10",
     "class_group_sequence": 4,
     "estimated_start_time": "10:45:10",
     "8778_sched_display": [
-      "Paisley (13)"
+      "Paisley (14)"
     ]
   },
   {

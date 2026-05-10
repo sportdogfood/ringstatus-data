@@ -189,9 +189,7 @@
     "class_number": 762,
     "class_name": "1.10m Amateur Jumper II2d",
     "latestStart": "10:17 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "total_trips": 15,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -907,7 +905,7 @@
     "class_number": 339,
     "class_name": "Junior Hunter 3'3\"",
     "latestStart": "10:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 28,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -1347,7 +1345,9 @@
     "class_number": 424,
     "class_name": "Medium Pony Conformation Hunter",
     "latestStart": "10:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 27,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -1358,10 +1358,10 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:45:10",
     "group_display": [
-      "Paisley (13)"
+      "Paisley (14)"
     ],
     "8778_sched_display": [
-      "Paisley (13)"
+      "Paisley (14)"
     ],
     "group_name_tags": "target, pony, medium, hunters, Over Fences"
   },

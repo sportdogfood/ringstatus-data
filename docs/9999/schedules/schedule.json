@@ -82,7 +82,7 @@
   },
   {
     "8778_group_display": [
-      "King (1)"
+      "King (2)"
     ],
     "class_group_id": 200023880,
     "class_id": 200025174,
@@ -95,7 +95,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "King (1)"
+      "King (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -108,12 +108,14 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200035732,
     "latestStart": "7:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-10",
     "class_group_sequence": 2,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      "King (1)"
+      "King (2)"
     ]
   },
   {
@@ -887,7 +889,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200035813,
     "latestStart": "7:40 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 2,
     "estimated_start_time": "07:40:10",
@@ -917,7 +919,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200035814,
     "latestStart": "7:40 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 2,
     "estimated_start_time": "07:40:10",
@@ -1484,7 +1486,7 @@
     "total_trips": 17,
     "class_groupxclasses_id": 200035826,
     "latestStart": "7:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
@@ -1514,7 +1516,7 @@
     "total_trips": 17,
     "class_groupxclasses_id": 200035825,
     "latestStart": "7:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",

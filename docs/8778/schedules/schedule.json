@@ -107,7 +107,7 @@
     "class_number": 743,
     "class_name": "$1,595 M&S 1.15m Junior Jumper Classic II2b",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 25,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -133,7 +133,9 @@
     "class_number": 763,
     "class_name": "$1,595 M&S 1.15m Amateur Jumper Classic II2b",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 25,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -405,7 +407,7 @@
     "class_number": 585,
     "class_name": "NCEA/USEF Junior Hunter Seat Medal",
     "latestStart": "8:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 4,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -795,7 +797,7 @@
     "class_number": 605,
     "class_name": "Stirrup Equitation",
     "latestStart": "8:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -821,7 +823,7 @@
     "class_number": 606,
     "class_name": "Stirrup Equitation",
     "latestStart": "8:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -1313,7 +1315,7 @@
     "class_number": 414,
     "class_name": "Small Pony Conformation Hunter",
     "latestStart": "8:59 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 33,
     "show_id": 200000061,
     "show_date": "2026-05-10",
@@ -1324,12 +1326,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:59:10",
     "group_display": [
-      "Knox (1)",
-      "Poptart (19)"
+      "Knox (14)",
+      "Poptart (26)"
     ],
     "8778_sched_display": [
-      "Knox (1)",
-      "Poptart (19)"
+      "Knox (14)",
+      "Poptart (26)"
     ],
     "group_name_tags": "target, pony, small, hunters, Over Fences"
   },

@@ -140,7 +140,7 @@
     "total_trips": 25,
     "class_groupxclasses_id": 200035733,
     "latestStart": "9:05 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-10",
     "class_group_sequence": 3,
     "estimated_start_time": "09:05:00",
@@ -174,7 +174,7 @@
     "total_trips": 25,
     "class_groupxclasses_id": 200035734,
     "latestStart": "9:05 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-10",
     "class_group_sequence": 3,
     "estimated_start_time": "09:05:00",
@@ -214,7 +214,7 @@
   },
   {
     "8778_group_display": [
-      "Calypso (11)"
+      "Calypso (12)"
     ],
     "class_group_id": 200023882,
     "class_id": 200024959,
@@ -227,7 +227,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Calypso (11)"
+      "Calypso (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -245,7 +245,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:17:00",
     "8778_sched_display": [
-      "Calypso (11)"
+      "Calypso (12)"
     ]
   },
   {
@@ -528,7 +528,9 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200035742,
     "latestStart": "9:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-05-10",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
@@ -1043,9 +1045,7 @@
     "total_trips": 21,
     "class_groupxclasses_id": 200035773,
     "latestStart": "9:50 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-05-10",
     "class_group_sequence": 6,
     "estimated_start_time": "09:50:15",

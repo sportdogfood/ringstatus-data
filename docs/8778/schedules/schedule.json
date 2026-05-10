@@ -200,10 +200,10 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:17:00",
     "group_display": [
-      "Calypso (12)"
+      "Calypso (18)"
     ],
     "8778_sched_display": [
-      "Calypso (12)"
+      "Calypso (18)"
     ],
     "group_name_tags": "target, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -467,7 +467,9 @@
     "class_number": 550,
     "class_name": "Dover Saddlery/USEF Hunter Seat Medal",
     "latestStart": "10:20 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 7,
     "show_id": 200000061,
     "show_date": "2026-05-10",

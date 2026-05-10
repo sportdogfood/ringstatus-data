@@ -1,8 +1,8 @@
 [
   {
     "8778_group_display": [
-      "Peri (9)",
-      "Bee (10)"
+      "Peri (10)",
+      "Bee (11)"
     ],
     "class_group_id": 200023878,
     "class_id": 200025175,
@@ -15,8 +15,8 @@
     "ring_number": 1,
     "ringName": "Derby",
     "group_display": [
-      "Peri (9)",
-      "Bee (10)"
+      "Peri (10)",
+      "Bee (11)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -34,15 +34,15 @@
     "class_group_sequence": 1,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      "Peri (9)",
-      "Bee (10)"
+      "Peri (10)",
+      "Bee (11)"
     ]
   },
   {
     "8778_group_display": [
       "Ben (1)",
-      "Toni (14)",
-      "Kinmar (41)"
+      "Toni (13)",
+      "Kinmar (40)"
     ],
     "class_group_id": 200023879,
     "class_id": 200024852,
@@ -56,8 +56,8 @@
     "ringName": "Derby",
     "group_display": [
       "Ben (1)",
-      "Toni (14)",
-      "Kinmar (41)"
+      "Toni (13)",
+      "Kinmar (40)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -76,13 +76,13 @@
     "estimated_start_time": "09:30:00",
     "8778_sched_display": [
       "Ben (1)",
-      "Toni (14)",
-      "Kinmar (41)"
+      "Toni (13)",
+      "Kinmar (40)"
     ]
   },
   {
     "8778_group_display": [
-      "King (13)"
+      "King (1)"
     ],
     "class_group_id": 200023880,
     "class_id": 200025174,
@@ -95,7 +95,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "King (13)"
+      "King (1)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 10, 2026",
@@ -113,7 +113,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "07:45:00",
     "8778_sched_display": [
-      "King (13)"
+      "King (1)"
     ]
   },
   {
@@ -346,7 +346,7 @@
     "class_number": 815,
     "dt": "2026-05-10",
     "group_name": "$250 .85m Jumper Classic II2b",
-    "group_name_tags": "isFirstUp, target, .85m, jumpers, Over Fences",
+    "group_name_tags": "target, .85m, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",

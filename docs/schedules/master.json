@@ -55,7 +55,7 @@
     "8778_group_display": [
       "Toulamba",
       "Dottie",
-      null
+      "Judge"
     ],
     "class_group_id": 200001093,
     "class_id": null,
@@ -69,7 +69,7 @@
     "group_display": [
       "Toulamba",
       "Dottie",
-      null
+      "Judge"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -283,7 +283,7 @@
   },
   {
     "8778_group_display": [
-      null,
+      "Judge",
       "Dottie",
       "Toulamba"
     ],
@@ -297,7 +297,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      null,
+      "Judge",
       "Dottie",
       "Toulamba"
     ],
@@ -2706,7 +2706,7 @@
     "class_number": 525,
     "dt": null,
     "group_name": "SFHJA Junior Medal Flat Phase",
-    "group_name_tags": "usf, medal, junior, flat, Under Saddle/Flat",
+    "group_name_tags": "target, usf, medal, junior, flat, Under Saddle/Flat",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2734,7 +2734,7 @@
     "class_number": 565,
     "dt": null,
     "group_name": "Ariat National Adult Medal",
-    "group_name_tags": "adult, medal, Over Fences",
+    "group_name_tags": "target, adult, medal, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2761,7 +2761,7 @@
     "class_number": 527,
     "dt": null,
     "group_name": "SFHJA Adult Medal Flat Phase",
-    "group_name_tags": "usf, adult, medal, flat, Under Saddle/Flat",
+    "group_name_tags": "target, usf, adult, medal, flat, Under Saddle/Flat",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2787,7 +2787,7 @@
     "class_number": 535,
     "dt": null,
     "group_name": "Hamel Foundation/NHS 3'3\" Junior Medal",
-    "group_name_tags": "3', 3'3\", medal, junior, Over Fences",
+    "group_name_tags": "target, 3', 3'3\", medal, junior, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2811,7 +2811,7 @@
     "class_number": 585,
     "dt": null,
     "group_name": "USEF/NCEA Junior Hunter Seat Medal",
-    "group_name_tags": "medal, junior, seat, hunters, Over Fences",
+    "group_name_tags": "target, medal, junior, seat, hunters, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
@@ -2837,7 +2837,7 @@
     "class_number": 555,
     "dt": null,
     "group_name": "THIS National Children's Medal",
-    "group_name_tags": "medal, children's, Over Fences",
+    "group_name_tags": "target, medal, children's, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2863,7 +2863,7 @@
     "class_number": 530,
     "dt": null,
     "group_name": "USHJA 3'3\" Hunter Seat Medal",
-    "group_name_tags": "3', 3'3\", medal, seat, ushja, Over Fences",
+    "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
@@ -2889,7 +2889,7 @@
     "class_number": 550,
     "dt": null,
     "group_name": "Dover Saddlery/USEF Hunter Seat Medal",
-    "group_name_tags": "medal, dover, seat, Over Fences",
+    "group_name_tags": "target, medal, dover, seat, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2915,7 +2915,7 @@
     "class_number": 595,
     "dt": null,
     "group_name": "USEF Adult Equitation",
-    "group_name_tags": "adult, Over Fences",
+    "group_name_tags": "target, adult, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
@@ -2940,7 +2940,7 @@
     "class_number": 560,
     "dt": null,
     "group_name": "NHS THIS Adult Medal",
-    "group_name_tags": "adult, medal, Over Fences",
+    "group_name_tags": "target, adult, medal, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2969,7 +2969,7 @@
     "class_number": 545,
     "dt": null,
     "group_name": "USHJA 3'3\" Junior Jumping Seat Medal",
-    "group_name_tags": "3', 3'3\", medal, junior, seat, ushja, Over Fences",
+    "group_name_tags": "target, 3', 3'3\", medal, junior, seat, ushja, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
@@ -2995,7 +2995,7 @@
     "class_number": 590,
     "dt": null,
     "group_name": "Platinum Performance/USEF Show Jumping Talent Search 1*",
-    "group_name_tags": "Over Fences",
+    "group_name_tags": "target, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
@@ -3017,7 +3017,7 @@
     "class_number": 581,
     "dt": null,
     "group_name": "WIHS Jumper Phase ",
-    "group_name_tags": "wihs, Over Fences",
+    "group_name_tags": "target, wihs, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
@@ -3044,7 +3044,7 @@
     "class_number": 570,
     "dt": null,
     "group_name": "ASPCA Maclay",
-    "group_name_tags": "maclay, Over Fences",
+    "group_name_tags": "target, maclay, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [

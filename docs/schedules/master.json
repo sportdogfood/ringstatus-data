@@ -53,8 +53,9 @@
   },
   {
     "8778_group_display": [
-      null,
-      "Dottie"
+      "Toulamba",
+      "Dottie",
+      null
     ],
     "class_group_id": 200001093,
     "class_id": null,
@@ -66,8 +67,9 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      null,
-      "Dottie"
+      "Toulamba",
+      "Dottie",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -103,7 +105,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "La La Land"
     ],
     "class_group_id": 200001098,
     "class_id": null,
@@ -115,7 +117,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      null
+      "La La Land"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -282,7 +284,8 @@
   {
     "8778_group_display": [
       null,
-      "Dottie"
+      "Dottie",
+      "Toulamba"
     ],
     "class_group_id": 200001091,
     "class_id": null,
@@ -295,7 +298,8 @@
     "ring_number": 1,
     "group_display": [
       null,
-      "Dottie"
+      "Dottie",
+      "Toulamba"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -2693,23 +2697,23 @@
   },
   {
     "8778_group_display": [
-      null,
+      "Tenor",
       "Tommy"
     ],
     "class_group_id": 200001021,
     "class_id": null,
     "class_name": "SFHJA Junior Medal Flat Phase",
     "class_number": 525,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "SFHJA Junior Medal Flat Phase",
     "group_name_tags": "usf, medal, junior, flat, Under Saddle/Flat",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      null,
+      "Tenor",
       "Tommy"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2728,7 +2732,7 @@
     "class_id": null,
     "class_name": "Ariat National Adult Medal",
     "class_number": 565,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "Ariat National Adult Medal",
     "group_name_tags": "adult, medal, Over Fences",
     "ring_nickname": "Derby",
@@ -2737,7 +2741,7 @@
       "Hurricane",
       "Coffee"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2755,7 +2759,7 @@
     "class_id": null,
     "class_name": "SFHJA Adult Medal Flat Phase",
     "class_number": 527,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "SFHJA Adult Medal Flat Phase",
     "group_name_tags": "usf, adult, medal, flat, Under Saddle/Flat",
     "ring_nickname": "Derby",
@@ -2763,7 +2767,7 @@
     "group_display": [
       "Coffee"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2781,7 +2785,7 @@
     "class_id": null,
     "class_name": "Hamel Foundation/NHS 3'3\" Junior Medal",
     "class_number": 535,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "Hamel Foundation/NHS 3'3\" Junior Medal",
     "group_name_tags": "3', 3'3\", medal, junior, Over Fences",
     "ring_nickname": "Derby",
@@ -2789,7 +2793,7 @@
     "group_display": [
       "Ranger"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2805,13 +2809,13 @@
     "class_id": null,
     "class_name": "USEF/NCEA Junior Hunter Seat Medal",
     "class_number": 585,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "USEF/NCEA Junior Hunter Seat Medal",
     "group_name_tags": "medal, junior, seat, hunters, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2824,24 +2828,24 @@
   {
     "8778_group_display": [
       "Munster",
-      null,
+      "Tenor",
       "Tommy"
     ],
     "class_group_id": 200001020,
     "class_id": null,
     "class_name": "THIS National Children's Medal",
     "class_number": 555,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "THIS National Children's Medal",
     "group_name_tags": "medal, children's, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
       "Munster",
-      null,
+      "Tenor",
       "Tommy"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2857,13 +2861,13 @@
     "class_id": null,
     "class_name": "USHJA 3'3\" Hunter Seat Medal",
     "class_number": 530,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "USHJA 3'3\" Hunter Seat Medal",
     "group_name_tags": "3', 3'3\", medal, seat, ushja, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2883,7 +2887,7 @@
     "class_id": null,
     "class_name": "Dover Saddlery/USEF Hunter Seat Medal",
     "class_number": 550,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "Dover Saddlery/USEF Hunter Seat Medal",
     "group_name_tags": "medal, dover, seat, Over Fences",
     "ring_nickname": "Derby",
@@ -2893,7 +2897,7 @@
       "Ford",
       "Ranger"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2909,13 +2913,13 @@
     "class_id": null,
     "class_name": "USEF Adult Equitation",
     "class_number": 595,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "USEF Adult Equitation",
     "group_name_tags": "adult, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2934,7 +2938,7 @@
     "class_id": null,
     "class_name": "NHS THIS Adult Medal",
     "class_number": 560,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "NHS THIS Adult Medal",
     "group_name_tags": "adult, medal, Over Fences",
     "ring_nickname": "Derby",
@@ -2943,7 +2947,7 @@
       "Hurricane",
       "Coffee"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2963,7 +2967,7 @@
     "class_id": null,
     "class_name": "USHJA 3'3\" Junior Jumping Seat Medal",
     "class_number": 545,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "USHJA 3'3\" Junior Jumping Seat Medal",
     "group_name_tags": "3', 3'3\", medal, junior, seat, ushja, Over Fences",
     "ring_nickname": "Derby",
@@ -2973,7 +2977,7 @@
       "Choco",
       "Ranger"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -2989,13 +2993,13 @@
     "class_id": null,
     "class_name": "Platinum Performance/USEF Show Jumping Talent Search 1*",
     "class_number": 590,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "Platinum Performance/USEF Show Jumping Talent Search 1*",
     "group_name_tags": "Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -3011,13 +3015,13 @@
     "class_id": null,
     "class_name": "WIHS Jumper Phase",
     "class_number": 581,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "WIHS Jumper Phase ",
     "group_name_tags": "wihs, Over Fences",
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,
@@ -3038,7 +3042,7 @@
     "class_id": null,
     "class_name": "ASPCA Maclay",
     "class_number": 570,
-    "dt": "2026-05-15",
+    "dt": null,
     "group_name": "ASPCA Maclay",
     "group_name_tags": "maclay, Over Fences",
     "ring_nickname": "Derby",
@@ -3049,7 +3053,7 @@
       "Ford",
       "Ranger"
     ],
-    "shifted_to_next_day": true,
+    "shifted_to_next_day": null,
     "show_days_display_date": "Friday, May, 15, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000005,

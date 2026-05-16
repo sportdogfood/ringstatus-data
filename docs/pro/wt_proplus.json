@@ -1,8 +1,8 @@
 {
   "records": [
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001088,
@@ -23,7 +23,9 @@
       "estimated_start_time": "08:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "8:30 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -42,7 +44,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 3382,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -66,8 +70,8 @@
       "group_name_tags": "target, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001034,
@@ -88,7 +92,9 @@
       "estimated_start_time": "09:09:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:09 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -107,7 +113,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 5722,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -131,8 +139,8 @@
       "group_name_tags": "target, wihs, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001091,
@@ -153,7 +161,9 @@
       "estimated_start_time": "09:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:30 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -172,7 +182,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6982,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -196,8 +208,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001090,
@@ -218,7 +230,9 @@
       "estimated_start_time": "09:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:30 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -237,7 +251,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6982,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -261,8 +277,8 @@
       "group_name_tags": "target, 1.20m, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001091,
@@ -283,7 +299,9 @@
       "estimated_start_time": "09:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:30 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -302,7 +320,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6982,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -326,8 +346,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001091,
@@ -348,7 +368,9 @@
       "estimated_start_time": "09:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:30 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -367,7 +389,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6982,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -391,8 +415,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001093,
@@ -413,7 +437,9 @@
       "estimated_start_time": "10:45:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "10:45 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -432,7 +458,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11482,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -456,8 +484,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001093,
@@ -478,7 +506,9 @@
       "estimated_start_time": "10:45:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "10:45 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -497,7 +527,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11482,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -521,8 +553,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001093,
@@ -543,7 +575,9 @@
       "estimated_start_time": "10:45:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "10:45 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -562,7 +596,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11482,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -586,8 +622,8 @@
       "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
@@ -608,7 +644,9 @@
       "estimated_start_time": "11:55:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:55 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -627,7 +665,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15682,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -651,8 +691,8 @@
       "group_name_tags": "target, 1.10m, amateur, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
@@ -673,7 +713,9 @@
       "estimated_start_time": "11:55:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:55 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -692,7 +734,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15682,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -716,8 +760,8 @@
       "group_name_tags": "target, 1.10m, junior, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
@@ -738,7 +782,9 @@
       "estimated_start_time": "11:55:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:55 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -757,7 +803,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15682,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -781,8 +829,8 @@
       "group_name_tags": "target, 1.10m, junior, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
@@ -803,7 +851,9 @@
       "estimated_start_time": "11:55:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:55 AM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -822,7 +872,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15682,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -846,8 +898,8 @@
       "group_name_tags": "target, 1.10m, amateur, II2.1, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001095,
@@ -868,7 +920,9 @@
       "estimated_start_time": "13:10:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "1:10 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -887,7 +941,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 20182,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -911,8 +967,8 @@
       "group_name_tags": "target, 1.10m, low, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001097,
@@ -933,7 +989,9 @@
       "estimated_start_time": "13:10:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "1:10 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -952,7 +1010,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 20182,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -976,8 +1036,8 @@
       "group_name_tags": "target, 1.10m, amateur, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001095,
@@ -998,7 +1058,9 @@
       "estimated_start_time": "13:10:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "1:10 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1017,7 +1079,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 20182,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1041,8 +1105,8 @@
       "group_name_tags": "target, 1.10m, low, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001099,
@@ -1063,7 +1127,9 @@
       "estimated_start_time": "14:15:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "2:15 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1082,7 +1148,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 24082,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1106,8 +1174,8 @@
       "group_name_tags": "target, 1.0m, amateur, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001098,
@@ -1128,7 +1196,9 @@
       "estimated_start_time": "14:15:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "2:15 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1147,7 +1217,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 24082,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1171,8 +1243,8 @@
       "group_name_tags": "target, 1.0m, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001100,
@@ -1193,7 +1265,9 @@
       "estimated_start_time": "15:00:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "3:00 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1212,7 +1286,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26782,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1236,8 +1312,8 @@
       "group_name_tags": "target, 1.0m, amateur, II2d, jumpers, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001102,
@@ -1258,7 +1334,9 @@
       "estimated_start_time": "15:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "3:30 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1277,7 +1355,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 28582,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1301,8 +1381,8 @@
       "group_name_tags": "target, wihs, Over Fences"
     },
     {
-      "sid": "200000006",
-      "dt": "2026-05-16",
+      "sid": null,
+      "dt": null,
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001103,
@@ -1323,7 +1403,9 @@
       "estimated_start_time": "15:30:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "3:30 PM",
+      "latestStart": {
+        "error": "#ERROR!"
+      },
       "latestStatus": null,
       "total_trips": null,
       "entry_id": null,
@@ -1342,7 +1424,9 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 28582,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,

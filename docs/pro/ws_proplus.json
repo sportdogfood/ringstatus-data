@@ -71,7 +71,7 @@
       "class_group_id": 200001088,
       "class_group_sequence": 3,
       "class_groupxclasses_id": 200001708,
-      "group_name": "1.30m Jumper (II2b)",
+      "group_name": "1.30m Jumper (II2b & II2d)",
       "groomName": null,
       "time_sort": 30600,
       "class_id": null,
@@ -135,10 +135,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001089,
-      "class_group_sequence": 4,
-      "class_groupxclasses_id": 200001709,
-      "group_name": "1.30m Jumper (II2d)",
+      "class_group_id": 200001088,
+      "class_group_sequence": 3,
+      "class_groupxclasses_id": 200001861,
+      "group_name": "1.30m Jumper (II2b & II2d)",
       "groomName": null,
       "time_sort": 30600,
       "class_id": null,
@@ -199,9 +199,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001090,
-      "class_group_sequence": 5,
+      "class_group_sequence": 4,
       "class_groupxclasses_id": 200001710,
-      "group_name": "High Schooling Jumper (1.20m) II2.1",
+      "group_name": "High Schooling Jumper (1.20m) & 1.20m Jr/Am Jumper II2.1",
       "groomName": null,
       "time_sort": 34200,
       "class_id": null,
@@ -265,10 +265,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001091,
-      "class_group_sequence": 6,
-      "class_groupxclasses_id": 200001711,
-      "group_name": "1.20m Amateur/Junior Jumper II2.1",
+      "class_group_id": 200001090,
+      "class_group_sequence": 4,
+      "class_groupxclasses_id": 200001862,
+      "group_name": "High Schooling Jumper (1.20m) & 1.20m Jr/Am Jumper II2.1",
       "groomName": null,
       "time_sort": 34200,
       "class_id": null,
@@ -337,9 +337,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001092,
-      "class_group_sequence": 7,
+      "class_group_sequence": 5,
       "class_groupxclasses_id": 200001712,
-      "group_name": "High Schooling Jumper (1.20m) II2b",
+      "group_name": "High Schooling Jumper (1.20m) & 1.20m Jr/Am Jumper II2b",
       "groomName": null,
       "time_sort": 38700,
       "class_id": null,
@@ -399,10 +399,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001093,
-      "class_group_sequence": 8,
-      "class_groupxclasses_id": 200001713,
-      "group_name": "1.20m Amateur/Junior Jumper II2b",
+      "class_group_id": 200001092,
+      "class_group_sequence": 5,
+      "class_groupxclasses_id": 200001863,
+      "group_name": "High Schooling Jumper (1.20m) & 1.20m Jr/Am Jumper II2b",
       "groomName": null,
       "time_sort": 38700,
       "class_id": null,
@@ -470,10 +470,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001094,
-      "class_group_sequence": 9,
-      "class_groupxclasses_id": 200001714,
-      "group_name": "Low Schooling Jumper (1.10m) II2.1",
+      "class_group_id": 200001096,
+      "class_group_sequence": 6,
+      "class_groupxclasses_id": 200001864,
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2.1",
       "groomName": null,
       "time_sort": 42900,
       "class_id": null,
@@ -533,10 +533,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001095,
-      "class_group_sequence": 10,
-      "class_groupxclasses_id": 200001715,
-      "group_name": "Low Schooling Jumper (1.10m) II2b",
+      "class_group_id": 200001097,
+      "class_group_sequence": 7,
+      "class_groupxclasses_id": 200001865,
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2b",
       "groomName": null,
       "time_sort": 47400,
       "class_id": null,
@@ -603,9 +603,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
-      "class_group_sequence": 11,
-      "class_groupxclasses_id": 200001716,
-      "group_name": "1.10m Junior & Amateur Jumpers II2.1",
+      "class_group_sequence": 6,
+      "class_groupxclasses_id": 200001866,
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2.1",
       "groomName": null,
       "time_sort": 42900,
       "class_id": null,
@@ -672,9 +672,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001096,
-      "class_group_sequence": 11,
+      "class_group_sequence": 6,
       "class_groupxclasses_id": 200001717,
-      "group_name": "1.10m Junior & Amateur Jumpers II2.1",
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2.1",
       "groomName": null,
       "time_sort": 42900,
       "class_id": null,
@@ -741,9 +741,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001097,
-      "class_group_sequence": 12,
-      "class_groupxclasses_id": 200001718,
-      "group_name": "1.10m Junior & Amateur Jumpers II2b",
+      "class_group_sequence": 7,
+      "class_groupxclasses_id": 200001867,
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2b",
       "groomName": null,
       "time_sort": 47400,
       "class_id": null,
@@ -804,9 +804,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001097,
-      "class_group_sequence": 12,
+      "class_group_sequence": 7,
       "class_groupxclasses_id": 200001719,
-      "group_name": "1.10m Junior & Amateur Jumpers II2b",
+      "group_name": "Low Schooling Jumper (1.10m) & 1.10m Jr & Am Jumpers II2b",
       "groomName": null,
       "time_sort": 47400,
       "class_id": null,
@@ -870,10 +870,10 @@
       "dt": "2026-05-16",
       "ring_number": 1,
       "ringName": "Covered",
-      "class_group_id": 200001098,
-      "class_group_sequence": 13,
-      "class_groupxclasses_id": 200001720,
-      "group_name": "Training Jumper (1.0m) II2b",
+      "class_group_id": 200001099,
+      "class_group_sequence": 8,
+      "class_groupxclasses_id": 200001868,
+      "group_name": "Training Jumper (1.0m) & 1.0m Jr & Am Jumpers II2b ",
       "groomName": null,
       "time_sort": 51300,
       "class_id": null,
@@ -938,9 +938,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001099,
-      "class_group_sequence": 14,
-      "class_groupxclasses_id": 200001721,
-      "group_name": "1.0m Junior & Amateur Jumpers II2b",
+      "class_group_sequence": 8,
+      "class_groupxclasses_id": 200001869,
+      "group_name": "Training Jumper (1.0m) & 1.0m Jr & Am Jumpers II2b ",
       "groomName": null,
       "time_sort": 51300,
       "class_id": null,
@@ -1001,9 +1001,9 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001099,
-      "class_group_sequence": 14,
-      "class_groupxclasses_id": 200001722,
-      "group_name": "1.0m Junior & Amateur Jumpers II2b",
+      "class_group_sequence": 8,
+      "class_groupxclasses_id": 200001879,
+      "group_name": "Training Jumper (1.0m) & 1.0m Jr & Am Jumpers II2b ",
       "groomName": null,
       "time_sort": 51300,
       "class_id": null,
@@ -1068,7 +1068,7 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001100,
-      "class_group_sequence": 15,
+      "class_group_sequence": 9,
       "class_groupxclasses_id": 200001723,
       "group_name": "1.0m Junior & Amateur Jumpers II2d",
       "groomName": null,
@@ -1076,7 +1076,7 @@
       "class_id": null,
       "class_number": 738,
       "completed_trips": null,
-      "class_name": "1.0m Junior Jumper II2d",
+      "class_name": "1.0m Junior/Amateur Jumper II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -1131,8 +1131,8 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001100,
-      "class_group_sequence": 15,
-      "class_groupxclasses_id": 200001724,
+      "class_group_sequence": 9,
+      "class_groupxclasses_id": 200001880,
       "group_name": "1.0m Junior & Amateur Jumpers II2d",
       "groomName": null,
       "time_sort": 54000,
@@ -1198,15 +1198,15 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001101,
-      "class_group_sequence": 16,
+      "class_group_sequence": 10,
       "class_groupxclasses_id": 200001725,
-      "group_name": "USHJA 3'3\" Junior/Adult Amateur Jumping Seat Medal",
+      "group_name": "USHJA 3'3\" Junior/Adult Amateur Jumping Seat Medal **3 To Fill**",
       "groomName": null,
       "time_sort": 55800,
       "class_id": null,
       "class_number": 545,
       "completed_trips": null,
-      "class_name": "USHJA 3'3\" Junior/Adult Amateur Jumping Seat Medal",
+      "class_name": "USHJA 3'3\" Junior/Adult Amateur Jumping Seat Medal **3 To Fill**",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -1261,15 +1261,15 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001102,
-      "class_group_sequence": 17,
+      "class_group_sequence": 11,
       "class_groupxclasses_id": 200001726,
-      "group_name": "WIHS Jumper Phase",
+      "group_name": "WIHS Jumper Phase **3 To Fill**",
       "groomName": null,
       "time_sort": 55800,
       "class_id": null,
       "class_number": 581,
       "completed_trips": null,
-      "class_name": "WIHS Jumper Phase",
+      "class_name": "WIHS Jumper Phase **3 To Fill**",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -1328,15 +1328,15 @@
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001103,
-      "class_group_sequence": 18,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200001727,
-      "group_name": "Plat. Perf. Show Jumping Talent Search 1*",
+      "group_name": "Plat. Perf. Show Jumping Talent Search 1*  **3 To Fill**",
       "groomName": null,
       "time_sort": 55800,
       "class_id": null,
       "class_number": 590,
       "completed_trips": null,
-      "class_name": "Plat. Perf. Show Jumping Talent Search 1*",
+      "class_name": "Plat. Perf. Show Jumping Talent Search 1*  **3 To Fill**",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -1523,7 +1523,7 @@
       "class_group_id": 200001105,
       "class_group_sequence": 3,
       "class_groupxclasses_id": 200001730,
-      "group_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2d",
+      "group_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2d & II2b",
       "groomName": null,
       "time_sort": 29520,
       "class_id": null,
@@ -1583,10 +1583,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001106,
-      "class_group_sequence": 4,
-      "class_groupxclasses_id": 200001731,
-      "group_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2b",
+      "class_group_id": 200001105,
+      "class_group_sequence": 3,
+      "class_groupxclasses_id": 200001870,
+      "group_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2d & II2b",
       "groomName": null,
       "time_sort": 29520,
       "class_id": null,
@@ -1647,9 +1647,9 @@
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001107,
-      "class_group_sequence": 5,
+      "class_group_sequence": 4,
       "class_groupxclasses_id": 200001732,
-      "group_name": "Pony Jumper (Table II)",
+      "group_name": "Pony Jumper Table II & II2b",
       "groomName": null,
       "time_sort": 31680,
       "class_id": null,
@@ -1709,10 +1709,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001108,
-      "class_group_sequence": 6,
-      "class_groupxclasses_id": 200001733,
-      "group_name": "Pony Jumper II2b",
+      "class_group_id": 200001107,
+      "class_group_sequence": 4,
+      "class_groupxclasses_id": 200001871,
+      "group_name": "Pony Jumper Table II & II2b",
       "groomName": null,
       "time_sort": 31680,
       "class_id": null,
@@ -1773,9 +1773,9 @@
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001109,
-      "class_group_sequence": 7,
+      "class_group_sequence": 5,
       "class_groupxclasses_id": 200001734,
-      "group_name": "Tad Pole Jumper (.80m) II2d",
+      "group_name": "Tad Pole Jumper (.80m) II2d & II2b",
       "groomName": null,
       "time_sort": 35460,
       "class_id": null,
@@ -1835,10 +1835,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001110,
-      "class_group_sequence": 8,
-      "class_groupxclasses_id": 200001735,
-      "group_name": "Tad Pole Jumper (.80m) II2b",
+      "class_group_id": 200001109,
+      "class_group_sequence": 5,
+      "class_groupxclasses_id": 200001872,
+      "group_name": "Tad Pole Jumper (.80m) II2d & II2b",
       "groomName": null,
       "time_sort": 35460,
       "class_id": null,
@@ -1899,9 +1899,9 @@
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001111,
-      "class_group_sequence": 9,
+      "class_group_sequence": 6,
       "class_groupxclasses_id": 200001736,
-      "group_name": "Hopeful Jumper (.85m) II2d",
+      "group_name": "Hopeful Jumper (.85m) II2d & II2b",
       "groomName": null,
       "time_sort": 39060,
       "class_id": null,
@@ -1961,10 +1961,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001112,
-      "class_group_sequence": 10,
-      "class_groupxclasses_id": 200001737,
-      "group_name": "Hopeful Jumper (.85m) II2b",
+      "class_group_id": 200001111,
+      "class_group_sequence": 6,
+      "class_groupxclasses_id": 200001873,
+      "group_name": "Hopeful Jumper (.85m) II2d & II2b",
       "groomName": null,
       "time_sort": 39060,
       "class_id": null,
@@ -2025,9 +2025,9 @@
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001113,
-      "class_group_sequence": 11,
+      "class_group_sequence": 7,
       "class_groupxclasses_id": 200001738,
-      "group_name": "Training Jumper (.95m) II2d",
+      "group_name": "Training Jumper (.95m) II2d & II2b",
       "groomName": null,
       "time_sort": 42660,
       "class_id": null,
@@ -2087,10 +2087,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001114,
-      "class_group_sequence": 12,
-      "class_groupxclasses_id": 200001739,
-      "group_name": "Training Jumper (.95m) II2b",
+      "class_group_id": 200001113,
+      "class_group_sequence": 7,
+      "class_groupxclasses_id": 200001874,
+      "group_name": "Training Jumper (.95m) II2d & II2b",
       "groomName": null,
       "time_sort": 42660,
       "class_id": null,
@@ -2151,9 +2151,9 @@
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001115,
-      "class_group_sequence": 13,
+      "class_group_sequence": 8,
       "class_groupxclasses_id": 200001740,
-      "group_name": "Training Jumper (1.0m) II2d & Take2 TB Jumper II2d",
+      "group_name": "Training Jumper (1.0m) II2d & II2b",
       "groomName": null,
       "time_sort": 45900,
       "class_id": null,
@@ -2210,7 +2210,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001115,
@@ -2250,7 +2250,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2276,10 +2278,10 @@
       "dt": "2026-05-16",
       "ring_number": 2,
       "ringName": "Village",
-      "class_group_id": 200001116,
-      "class_group_sequence": 14,
-      "class_groupxclasses_id": 200001742,
-      "group_name": "Training Jumper (1.0m) II2b & Take2 TB Jumper (1.0m) II2b",
+      "class_group_id": 200001115,
+      "class_group_sequence": 8,
+      "class_groupxclasses_id": 200001875,
+      "group_name": "Training Jumper (1.0m) II2d & II2b",
       "groomName": null,
       "time_sort": 45900,
       "class_id": null,
@@ -2336,7 +2338,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 2,
       "ringName": "Village",
       "class_group_id": 200001116,
@@ -2376,7 +2378,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2525,7 +2529,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001031,
@@ -2565,7 +2569,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2588,7 +2594,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001032,
@@ -2628,7 +2634,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2651,7 +2659,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001032,
@@ -2691,7 +2699,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2714,7 +2724,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001033,
@@ -2754,7 +2764,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2781,9 +2793,9 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001034,
-      "class_group_sequence": 6,
+      "class_group_sequence": 5,
       "class_groupxclasses_id": 200001608,
-      "group_name": "WIHS Hunter Phase",
+      "group_name": "WIHS Hunter Phase ",
       "groomName": null,
       "time_sort": 32940,
       "class_id": null,
@@ -2848,15 +2860,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001035,
-      "class_group_sequence": 7,
+      "class_group_sequence": 3,
       "class_groupxclasses_id": 200001610,
-      "group_name": "Junior Hunter 3'6\"",
+      "group_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
       "groomName": null,
       "time_sort": 29340,
       "class_id": null,
       "class_number": 302,
       "completed_trips": null,
-      "class_name": "Junior Hunter 3'6\"",
+      "class_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -2911,15 +2923,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001035,
-      "class_group_sequence": 7,
+      "class_group_sequence": 3,
       "class_groupxclasses_id": 200001611,
-      "group_name": "Junior Hunter 3'6\"",
+      "group_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
       "groomName": null,
       "time_sort": 29340,
       "class_id": null,
       "class_number": 303,
       "completed_trips": null,
-      "class_name": "Junior Hunter 3'6\"",
+      "class_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -2974,15 +2986,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001036,
-      "class_group_sequence": 8,
+      "class_group_sequence": 4,
       "class_groupxclasses_id": 200001612,
-      "group_name": "Junior Hunter 3'6\" U/S",
+      "group_name": "Junior/Amateur Owner Hunter 3'3\"/3'6\" U/S",
       "groomName": null,
       "time_sort": 32040,
       "class_id": null,
       "class_number": 301,
       "completed_trips": null,
-      "class_name": "Junior Hunter 3'6\" U/S",
+      "class_name": "Junior/Amateur Owner Hunter 3'3\"/3'6\" U/S",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -3033,7 +3045,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001037,
@@ -3073,7 +3085,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3096,7 +3110,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001037,
@@ -3136,7 +3150,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3159,7 +3175,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001038,
@@ -3199,7 +3215,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3222,7 +3240,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001039,
@@ -3262,7 +3280,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3285,7 +3305,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001039,
@@ -3325,7 +3345,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3348,7 +3370,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001040,
@@ -3388,7 +3410,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3411,7 +3435,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001041,
@@ -3451,7 +3475,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3474,7 +3500,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001041,
@@ -3514,7 +3540,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3537,7 +3565,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001042,
@@ -3577,7 +3605,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3600,7 +3630,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001043,
@@ -3640,7 +3670,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3663,7 +3695,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001043,
@@ -3703,7 +3735,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3726,7 +3760,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001043,
@@ -3766,7 +3800,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3789,7 +3825,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001043,
@@ -3829,7 +3865,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3852,7 +3890,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001044,
@@ -3892,7 +3930,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3915,7 +3955,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001045,
@@ -3955,7 +3995,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -3982,7 +4024,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001046,
-      "class_group_sequence": 18,
+      "class_group_sequence": 6,
       "class_groupxclasses_id": 200001633,
       "group_name": "15-17 Equitation (3')",
       "groomName": null,
@@ -4045,7 +4087,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001046,
-      "class_group_sequence": 18,
+      "class_group_sequence": 6,
       "class_groupxclasses_id": 200001634,
       "group_name": "15-17 Equitation (3')",
       "groomName": null,
@@ -4108,7 +4150,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001047,
-      "class_group_sequence": 19,
+      "class_group_sequence": 7,
       "class_groupxclasses_id": 200001635,
       "group_name": "15-17 Equitation Flat",
       "groomName": null,
@@ -4171,7 +4213,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001048,
-      "class_group_sequence": 20,
+      "class_group_sequence": 8,
       "class_groupxclasses_id": 200001636,
       "group_name": "THIS National Children's Medal",
       "groomName": null,
@@ -4234,7 +4276,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001049,
-      "class_group_sequence": 21,
+      "class_group_sequence": 9,
       "class_groupxclasses_id": 200001637,
       "group_name": "SFHJA Junior/Adult Amateur Medal Flat Phase",
       "groomName": null,
@@ -4297,7 +4339,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001050,
-      "class_group_sequence": 22,
+      "class_group_sequence": 10,
       "class_groupxclasses_id": 200001638,
       "group_name": "Ariat National Adult Medal",
       "groomName": null,
@@ -4360,7 +4402,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001051,
-      "class_group_sequence": 23,
+      "class_group_sequence": 11,
       "class_groupxclasses_id": 200001639,
       "group_name": "SFHJA Adult Medal Flat Phase",
       "groomName": null,
@@ -4423,15 +4465,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001052,
-      "class_group_sequence": 24,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200001641,
-      "group_name": "Children's Hunter",
+      "group_name": "Child/Adult Hunter",
       "groomName": null,
       "time_sort": 41220,
       "class_id": null,
       "class_number": 312,
       "completed_trips": null,
-      "class_name": "Children's Hunter",
+      "class_name": "Child/Adult Hunter",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -4486,15 +4528,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001052,
-      "class_group_sequence": 24,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200001642,
-      "group_name": "Children's Hunter",
+      "group_name": "Child/Adult Hunter",
       "groomName": null,
       "time_sort": 41220,
       "class_id": null,
       "class_number": 313,
       "completed_trips": null,
-      "class_name": "Children's Hunter",
+      "class_name": "Child/Adult Hunter",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -4549,15 +4591,15 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001053,
-      "class_group_sequence": 25,
+      "class_group_sequence": 13,
       "class_groupxclasses_id": 200001644,
-      "group_name": "Children's Hunter U/S",
+      "group_name": "Child/Adult Hunter U/S",
       "groomName": null,
       "time_sort": 43380,
       "class_id": null,
       "class_number": 311,
       "completed_trips": null,
-      "class_name": "Children's Hunter U/S",
+      "class_name": "Child/Adult Hunter U/S",
       "class_type": "Hunters",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -4608,7 +4650,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001054,
@@ -4648,7 +4690,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4671,7 +4715,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001054,
@@ -4711,7 +4755,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4734,7 +4780,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001055,
@@ -4774,7 +4820,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 15862,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4797,7 +4845,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001055,
@@ -4837,7 +4885,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 15862,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4860,7 +4910,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001056,
@@ -4900,7 +4950,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 17842,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4923,7 +4975,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001057,
@@ -4963,7 +5015,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -4986,7 +5040,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001057,
@@ -5026,7 +5080,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -5049,7 +5105,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001058,
@@ -5089,7 +5145,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -5116,7 +5174,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001059,
-      "class_group_sequence": 31,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001658,
       "group_name": "Low Adult & Low Children's  Hunter",
       "groomName": null,
@@ -5179,7 +5237,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001059,
-      "class_group_sequence": 31,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001659,
       "group_name": "Low Adult & Low Children's  Hunter",
       "groomName": null,
@@ -5242,7 +5300,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001059,
-      "class_group_sequence": 31,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001664,
       "group_name": "Low Adult & Low Children's  Hunter",
       "groomName": null,
@@ -5305,7 +5363,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001059,
-      "class_group_sequence": 31,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001665,
       "group_name": "Low Adult & Low Children's  Hunter",
       "groomName": null,
@@ -5368,7 +5426,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001061,
-      "class_group_sequence": 32,
+      "class_group_sequence": 15,
       "class_groupxclasses_id": 200001663,
       "group_name": "Low Adult Hunter U/S",
       "groomName": null,
@@ -5431,7 +5489,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001062,
-      "class_group_sequence": 33,
+      "class_group_sequence": 16,
       "class_groupxclasses_id": 200001666,
       "group_name": "Low Children's Hunter U/S",
       "groomName": null,
@@ -5494,7 +5552,7 @@
       "ring_number": 3,
       "ringName": "Hunter 1",
       "class_group_id": 200001063,
-      "class_group_sequence": 34,
+      "class_group_sequence": 17,
       "class_groupxclasses_id": 200001667,
       "group_name": "Hunter Pleasure Horse",
       "groomName": null,
@@ -6183,7 +6241,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001072,
@@ -6223,7 +6281,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -6246,7 +6306,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001073,
@@ -6286,7 +6346,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -6309,7 +6371,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001073,
@@ -6349,7 +6411,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -6372,7 +6436,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001074,
@@ -6412,7 +6476,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -6439,15 +6505,15 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001075,
-      "class_group_sequence": 13,
+      "class_group_sequence": 10,
       "class_groupxclasses_id": 200001684,
-      "group_name": "12-14 Equitation (2'9\")",
+      "group_name": "14 & Under Equitation (11&U: 2'6\"/12-14: 2'9\")",
       "groomName": null,
       "time_sort": 33900,
       "class_id": null,
       "class_number": 513,
       "completed_trips": null,
-      "class_name": "12-14 Equitation (2'9\")",
+      "class_name": "14 & Under Equitation (11&U: 2'6\"/12-14: 2'9\")",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -6502,15 +6568,15 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001075,
-      "class_group_sequence": 13,
+      "class_group_sequence": 10,
       "class_groupxclasses_id": 200001685,
-      "group_name": "12-14 Equitation (2'9\")",
+      "group_name": "14 & Under Equitation (11&U: 2'6\"/12-14: 2'9\")",
       "groomName": null,
       "time_sort": 33900,
       "class_id": null,
       "class_number": 514,
       "completed_trips": null,
-      "class_name": "12-14 Equitation (2'9\")",
+      "class_name": "14 & Under Equitation (11&U: 2'6\"/12-14: 2'9\")",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -6565,15 +6631,15 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001076,
-      "class_group_sequence": 14,
+      "class_group_sequence": 11,
       "class_groupxclasses_id": 200001686,
-      "group_name": "12-14 Equitation Flat",
+      "group_name": "14 & Under Equitation Flat",
       "groomName": null,
       "time_sort": 36060,
       "class_id": null,
       "class_number": 512,
       "completed_trips": null,
-      "class_name": "12-14 Equitation Flat",
+      "class_name": "14 & Under Equitation Flat",
       "class_type": "Equitation",
       "lastGoneIn": null,
       "remaining_trips": null,
@@ -6628,7 +6694,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001077,
-      "class_group_sequence": 15,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200001688,
       "group_name": "USHJA Hunter 2'",
       "groomName": null,
@@ -6691,7 +6757,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001077,
-      "class_group_sequence": 15,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200001689,
       "group_name": "USHJA Hunter 2'",
       "groomName": null,
@@ -6754,7 +6820,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001078,
-      "class_group_sequence": 16,
+      "class_group_sequence": 13,
       "class_groupxclasses_id": 200001690,
       "group_name": "USHJA Hunter 2' U/S",
       "groomName": null,
@@ -6817,7 +6883,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001079,
-      "class_group_sequence": 17,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001691,
       "group_name": "USHJA Hunter 2'3\"",
       "groomName": null,
@@ -6880,7 +6946,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001079,
-      "class_group_sequence": 17,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200001692,
       "group_name": "USHJA Hunter 2'3\"",
       "groomName": null,
@@ -6943,7 +7009,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001080,
-      "class_group_sequence": 18,
+      "class_group_sequence": 15,
       "class_groupxclasses_id": 200001694,
       "group_name": "USHJA Hunter 2'3\" U/S",
       "groomName": null,
@@ -7006,7 +7072,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001081,
-      "class_group_sequence": 19,
+      "class_group_sequence": 18,
       "class_groupxclasses_id": 200001696,
       "group_name": "Pony Hunter",
       "groomName": null,
@@ -7069,7 +7135,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001081,
-      "class_group_sequence": 19,
+      "class_group_sequence": 18,
       "class_groupxclasses_id": 200001697,
       "group_name": "Pony Hunter",
       "groomName": null,
@@ -7132,7 +7198,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001082,
-      "class_group_sequence": 20,
+      "class_group_sequence": 19,
       "class_groupxclasses_id": 200001698,
       "group_name": "Pony Hunter U/S",
       "groomName": null,
@@ -7191,7 +7257,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001083,
@@ -7231,7 +7297,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -7254,7 +7322,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001083,
@@ -7294,7 +7362,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -7317,7 +7387,7 @@
     },
     {
       "sid": 200000006,
-      "dt": "2026-05-16",
+      "dt": null,
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001084,
@@ -7357,7 +7427,9 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -27217,
+      "secondsTill": {
+        "specialValue": "NaN"
+      },
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -7384,7 +7456,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001085,
-      "class_group_sequence": 23,
+      "class_group_sequence": 20,
       "class_groupxclasses_id": 200001704,
       "group_name": "Children's Pony Hunter",
       "groomName": null,
@@ -7447,7 +7519,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001085,
-      "class_group_sequence": 23,
+      "class_group_sequence": 20,
       "class_groupxclasses_id": 200001705,
       "group_name": "Children's Pony Hunter",
       "groomName": null,
@@ -7510,7 +7582,7 @@
       "ring_number": 4,
       "ringName": "Hunter 2",
       "class_group_id": 200001086,
-      "class_group_sequence": 24,
+      "class_group_sequence": 21,
       "class_groupxclasses_id": 200001706,
       "group_name": "Children's Pony Hunter U/S",
       "groomName": null,
@@ -7566,6 +7638,195 @@
       "status": null,
       "scope_status": null,
       "group_name_tags": "target, usf, pony, children's, U/S, hunters, Under Saddle/Flat"
+    },
+    {
+      "sid": 200000006,
+      "dt": "2026-05-16",
+      "ring_number": 4,
+      "ringName": null,
+      "class_group_id": 200001213,
+      "class_group_sequence": 16,
+      "class_groupxclasses_id": 200001877,
+      "group_name": "USHJA Hunter 2'6\"/2'9\"/3'",
+      "groomName": null,
+      "time_sort": 43080,
+      "class_id": null,
+      "class_number": 187,
+      "completed_trips": null,
+      "class_name": "USHJA Hunter 2'6\"/2'9\"/3'",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "11:58:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "11:58 AM",
+      "latestStatus": null,
+      "total_trips": null,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": null,
+      "barnName": null,
+      "horseName": null,
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": null,
+      "secondsTill": 15862,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": null,
+      "runningOOG": null,
+      "lastOOG": null,
+      "is_target": null,
+      "is_parent": null,
+      "path_tenant": null,
+      "8778_group_alert": [],
+      "8778_sched_display": [],
+      "sched_display": null,
+      "estimatedGO00": null,
+      "estimatedGO": null,
+      "status": null,
+      "scope_status": null,
+      "group_name_tags": null
+    },
+    {
+      "sid": 200000006,
+      "dt": "2026-05-16",
+      "ring_number": 4,
+      "ringName": null,
+      "class_group_id": 200001213,
+      "class_group_sequence": 16,
+      "class_groupxclasses_id": 200001878,
+      "group_name": "USHJA Hunter 2'6\"/2'9\"/3'",
+      "groomName": null,
+      "time_sort": 43080,
+      "class_id": null,
+      "class_number": 188,
+      "completed_trips": null,
+      "class_name": "USHJA Hunter 2'6\"/2'9\"/3'",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "11:58:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "11:58 AM",
+      "latestStatus": null,
+      "total_trips": null,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": null,
+      "barnName": null,
+      "horseName": null,
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": null,
+      "secondsTill": 15862,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": null,
+      "runningOOG": null,
+      "lastOOG": null,
+      "is_target": null,
+      "is_parent": null,
+      "path_tenant": null,
+      "8778_group_alert": [],
+      "8778_sched_display": [],
+      "sched_display": null,
+      "estimatedGO00": null,
+      "estimatedGO": null,
+      "status": null,
+      "scope_status": null,
+      "group_name_tags": null
+    },
+    {
+      "sid": 200000006,
+      "dt": "2026-05-16",
+      "ring_number": 4,
+      "ringName": null,
+      "class_group_id": 200001056,
+      "class_group_sequence": 17,
+      "class_groupxclasses_id": 200001652,
+      "group_name": "USHJA Hunter 2'6\"/2'9\"/3' U/S",
+      "groomName": null,
+      "time_sort": 45060,
+      "class_id": null,
+      "class_number": 186,
+      "completed_trips": null,
+      "class_name": "USHJA Hunter 2'6\"/2'9\"/3' U/S",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "12:31:00",
+      "schedule_sequencetype": "Under Saddle/Flat",
+      "trip_id": null,
+      "latestStart": "12:31 PM",
+      "latestStatus": null,
+      "total_trips": null,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": null,
+      "barnName": null,
+      "horseName": null,
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": null,
+      "secondsTill": 17842,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": null,
+      "runningOOG": null,
+      "lastOOG": null,
+      "is_target": null,
+      "is_parent": null,
+      "path_tenant": null,
+      "8778_group_alert": [],
+      "8778_sched_display": [],
+      "sched_display": null,
+      "estimatedGO00": null,
+      "estimatedGO": null,
+      "status": null,
+      "scope_status": null,
+      "group_name_tags": null
     }
   ],
   "indexes": {
@@ -7698,7 +7959,10 @@
         115,
         116,
         117,
-        118
+        118,
+        119,
+        120,
+        121
       ],
       "covered": [
         0,
@@ -7955,7 +8219,9 @@
         113,
         114,
         116,
-        117
+        117,
+        119,
+        120
       ],
       "equitation": [
         18,
@@ -8044,7 +8310,10 @@
         115,
         116,
         117,
-        118
+        118,
+        119,
+        120,
+        121
       ],
       "under saddle/flat": [
         39,
@@ -8074,7 +8343,8 @@
         109,
         112,
         115,
-        118
+        118,
+        121
       ]
     },
     "group_name_tags": {
@@ -8355,10 +8625,8 @@
         116,
         117
       ],
-      "1.30m jumper (ii2b)": [
-        1
-      ],
-      "1.30m jumper (ii2d)": [
+      "1.30m jumper (ii2b & ii2d)": [
+        1,
         2
       ],
       "1.20m": [
@@ -8374,8 +8642,9 @@
         9,
         10
       ],
-      "high schooling jumper (1.20m) ii2.1": [
-        3
+      "high schooling jumper (1.20m) & 1.20m jr/am jumper ii2.1": [
+        3,
+        4
       ],
       "amateur": [
         4,
@@ -8419,13 +8688,8 @@
         49,
         66
       ],
-      "1.20m amateur/junior jumper ii2.1": [
-        4
-      ],
-      "high schooling jumper (1.20m) ii2b": [
-        5
-      ],
-      "1.20m amateur/junior jumper ii2b": [
+      "high schooling jumper (1.20m) & 1.20m jr/am jumper ii2b": [
+        5,
         6
       ],
       "1.10m": [
@@ -8446,17 +8710,13 @@
         84,
         85
       ],
-      "low schooling jumper (1.10m) ii2.1": [
-        7
-      ],
-      "low schooling jumper (1.10m) ii2b": [
-        8
-      ],
-      "1.10m junior & amateur jumpers ii2.1": [
+      "low schooling jumper (1.10m) & 1.10m jr & am jumpers ii2.1": [
+        7,
         9,
         10
       ],
-      "1.10m junior & amateur jumpers ii2b": [
+      "low schooling jumper (1.10m) & 1.10m jr & am jumpers ii2b": [
+        8,
         11,
         12
       ],
@@ -8471,10 +8731,8 @@
         35,
         36
       ],
-      "training jumper (1.0m) ii2b": [
-        13
-      ],
-      "1.0m junior & amateur jumpers ii2b": [
+      "training jumper (1.0m) & 1.0m jr & am jumpers ii2b": [
+        13,
         14,
         15
       ],
@@ -8565,17 +8823,17 @@
         108,
         109
       ],
-      "ushja 3'3\" junior/adult amateur jumping seat medal": [
+      "ushja 3'3\" junior/adult amateur jumping seat medal **3 to fill**": [
         18
       ],
       "wihs": [
         19,
         43
       ],
-      "wihs jumper phase": [
+      "wihs jumper phase **3 to fill**": [
         19
       ],
-      "plat. perf. show jumping talent search 1*": [
+      "plat. perf. show jumping talent search 1* **3 to fill**": [
         20
       ],
       "cross rail jumpers (table ii) (opportunity)": [
@@ -8586,10 +8844,8 @@
         23,
         24
       ],
-      "puddle jumper (no oxers/combinations) (.70m) ii2d": [
-        23
-      ],
-      "puddle jumper (no oxers/combinations) (.70m) ii2b": [
+      "puddle jumper (no oxers/combinations) (.70m) ii2d & ii2b": [
+        23,
         24
       ],
       "pony": [
@@ -8606,16 +8862,12 @@
         117,
         118
       ],
-      "pony jumper (table ii)": [
-        25
-      ],
-      "pony jumper ii2b": [
+      "pony jumper table ii & ii2b": [
+        25,
         26
       ],
-      "tad pole jumper (.80m) ii2d": [
-        27
-      ],
-      "tad pole jumper (.80m) ii2b": [
+      "tad pole jumper (.80m) ii2d & ii2b": [
+        27,
         28
       ],
       "hopeful": [
@@ -8626,28 +8878,26 @@
         29,
         30
       ],
-      "hopeful jumper (.85m) ii2d": [
-        29
-      ],
-      "hopeful jumper (.85m) ii2b": [
+      "hopeful jumper (.85m) ii2d & ii2b": [
+        29,
         30
       ],
       ".95m": [
         31,
         32
       ],
-      "training jumper (.95m) ii2d": [
-        31
-      ],
-      "training jumper (.95m) ii2b": [
+      "training jumper (.95m) ii2d & ii2b": [
+        31,
         32
       ],
-      "training jumper (1.0m) ii2d & take2 tb jumper ii2d": [
+      "training jumper (1.0m) ii2d & ii2b": [
         33,
+        35
+      ],
+      "training jumper (1.0m) ii2d & take2 tb jumper ii2d": [
         34
       ],
       "training jumper (1.0m) ii2b & take2 tb jumper (1.0m) ii2b": [
-        35,
         36
       ],
       "hunters": [
@@ -8830,11 +9080,11 @@
       "wihs hunter phase": [
         43
       ],
-      "junior hunter 3'6\"": [
+      "junior/amateur hunter 3'3\"/3'6\"": [
         44,
         45
       ],
-      "junior hunter 3'6\" u/s": [
+      "junior/amateur owner hunter 3'3\"/3'6\" u/s": [
         46
       ],
       "junior hunter 3'3\"": [
@@ -8923,11 +9173,11 @@
       "sfhja adult medal flat phase": [
         68
       ],
-      "children's hunter": [
+      "child/adult hunter": [
         69,
         70
       ],
-      "children's hunter u/s": [
+      "child/adult hunter u/s": [
         71
       ],
       "adult amateur hunter": [
@@ -9004,11 +9254,11 @@
       "11 & under equitation flat": [
         100
       ],
-      "12-14 equitation (2'9\")": [
+      "14 & under equitation (11&u: 2'6\"/12-14: 2'9\")": [
         101,
         102
       ],
-      "12-14 equitation flat": [
+      "14 & under equitation flat": [
         103
       ],
       "ushja hunter 2'": [
@@ -9050,6 +9300,13 @@
       ],
       "children's pony hunter u/s": [
         118
+      ],
+      "ushja hunter 2'6\"/2'9\"/3'": [
+        119,
+        120
+      ],
+      "ushja hunter 2'6\"/2'9\"/3' u/s": [
+        121
       ]
     }
   }

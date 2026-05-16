@@ -1,7 +1,7 @@
 [
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001087,
@@ -41,7 +41,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -61,7 +63,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001088,
@@ -101,7 +103,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32327,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -125,7 +129,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001088,
@@ -165,7 +169,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32327,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -185,7 +191,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001090,
@@ -225,7 +231,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -28414,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -249,7 +257,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001090,
@@ -289,7 +297,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -28414,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -317,7 +327,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001092,
@@ -357,7 +367,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -24227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -377,7 +389,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001092,
@@ -417,7 +429,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -24227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -445,7 +459,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001096,
@@ -485,7 +499,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20627,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -505,7 +521,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001097,
@@ -545,7 +561,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -15227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -573,7 +591,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001096,
@@ -613,7 +631,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20627,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -639,7 +659,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001096,
@@ -679,7 +699,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20627,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -707,7 +729,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001097,
@@ -747,7 +769,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -15227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -767,7 +791,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001097,
@@ -809,7 +833,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -15227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -835,7 +861,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001099,
@@ -875,7 +901,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -12227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -899,7 +927,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001099,
@@ -939,7 +967,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -12227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -959,7 +989,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001099,
@@ -999,7 +1029,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -12227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1025,7 +1057,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001100,
@@ -1065,7 +1097,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -9827,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1085,7 +1119,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001100,
@@ -1125,7 +1159,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -9827,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1151,7 +1187,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001101,
@@ -1191,7 +1227,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -6274,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1215,7 +1253,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001102,
@@ -1255,7 +1293,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -4727,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1283,7 +1323,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 1,
     "ringName": "Covered",
     "class_group_id": 200001103,
@@ -1323,7 +1363,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -3227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1351,7 +1393,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001104,
@@ -1391,7 +1433,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1411,7 +1455,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001104,
@@ -1451,7 +1495,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1471,7 +1517,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001105,
@@ -1511,7 +1557,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32915,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1531,7 +1579,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001105,
@@ -1571,7 +1619,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32915,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1591,7 +1641,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001107,
@@ -1631,7 +1681,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -29837,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1651,7 +1703,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001107,
@@ -1691,7 +1743,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -29837,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1711,7 +1765,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001109,
@@ -1751,7 +1805,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -25123,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1771,7 +1827,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001109,
@@ -1811,7 +1867,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -25123,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1831,7 +1889,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001111,
@@ -1871,7 +1929,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19727,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1891,7 +1951,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001111,
@@ -1931,7 +1991,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19727,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -1951,7 +2013,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001113,
@@ -1991,7 +2053,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14012,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2011,7 +2075,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001113,
@@ -2051,7 +2115,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14012,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2071,7 +2137,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001115,
@@ -2111,7 +2177,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -9513,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2131,7 +2199,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001115,
@@ -2171,7 +2239,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2191,7 +2261,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001115,
@@ -2231,7 +2301,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -9513,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2251,7 +2323,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001116,
@@ -2291,7 +2363,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2311,7 +2385,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001030,
@@ -2351,7 +2425,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2371,7 +2447,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001030,
@@ -2411,7 +2487,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2431,7 +2509,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001031,
@@ -2471,7 +2549,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2491,7 +2571,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001032,
@@ -2531,7 +2611,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2551,7 +2633,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001032,
@@ -2591,7 +2673,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2611,7 +2695,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001033,
@@ -2651,7 +2735,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2671,7 +2757,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001034,
@@ -2711,7 +2797,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -29987,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2731,7 +2819,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001035,
@@ -2771,7 +2859,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -33814,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2791,7 +2881,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001035,
@@ -2831,7 +2921,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -33814,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2851,7 +2943,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001036,
@@ -2891,7 +2983,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -30887,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2911,7 +3005,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001037,
@@ -2951,7 +3045,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2971,7 +3067,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001037,
@@ -3011,7 +3107,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3031,7 +3129,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001038,
@@ -3071,7 +3169,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3091,7 +3191,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001039,
@@ -3131,7 +3231,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3151,7 +3253,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001039,
@@ -3191,7 +3293,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3211,7 +3315,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001040,
@@ -3251,7 +3355,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3271,7 +3377,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001041,
@@ -3311,7 +3417,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3331,7 +3439,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001041,
@@ -3371,7 +3479,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3391,7 +3501,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001042,
@@ -3431,7 +3541,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3451,7 +3563,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3491,7 +3603,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3511,7 +3625,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3551,7 +3665,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3571,7 +3687,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3611,7 +3727,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3631,7 +3749,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3671,7 +3789,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3691,7 +3811,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001044,
@@ -3731,7 +3851,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3751,7 +3873,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001045,
@@ -3791,7 +3913,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3811,7 +3935,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001046,
@@ -3851,7 +3975,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -27321,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3871,7 +3997,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001046,
@@ -3911,7 +4037,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -27321,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3931,7 +4059,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001047,
@@ -3971,7 +4099,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -27467,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3991,7 +4121,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001048,
@@ -4031,7 +4161,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -25395,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4051,7 +4183,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001049,
@@ -4091,7 +4223,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -24227,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4111,7 +4245,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001050,
@@ -4151,7 +4285,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -21212,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4175,7 +4311,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001051,
@@ -4215,7 +4351,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -22607,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4235,7 +4373,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001052,
@@ -4275,7 +4413,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19411,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4299,7 +4439,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001052,
@@ -4341,7 +4481,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19411,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4365,7 +4507,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001053,
@@ -4405,7 +4547,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19547,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4429,7 +4573,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001054,
@@ -4469,7 +4613,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4489,7 +4635,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001054,
@@ -4529,7 +4675,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4549,7 +4697,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001055,
@@ -4589,7 +4737,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19847,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4609,7 +4759,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001055,
@@ -4649,7 +4799,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -19847,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4669,7 +4821,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001056,
@@ -4709,7 +4861,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -17867,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4729,7 +4883,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001057,
@@ -4769,7 +4923,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4789,7 +4945,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001057,
@@ -4829,7 +4985,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4849,7 +5007,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001058,
@@ -4889,7 +5047,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4909,7 +5069,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001059,
@@ -4949,7 +5109,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14641,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4969,7 +5131,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001059,
@@ -5009,7 +5171,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14641,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5029,7 +5193,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001059,
@@ -5069,7 +5233,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14641,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5089,7 +5255,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001059,
@@ -5129,7 +5295,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14641,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5149,7 +5317,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001061,
@@ -5189,7 +5357,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -12527,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5209,7 +5379,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001062,
@@ -5249,7 +5419,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -11627,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5269,7 +5441,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001063,
@@ -5309,7 +5481,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -10727,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5329,7 +5503,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001064,
@@ -5369,7 +5543,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -34127,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5389,7 +5565,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001065,
@@ -5429,7 +5605,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -33527,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5449,7 +5627,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001066,
@@ -5489,7 +5667,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5509,7 +5689,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001067,
@@ -5549,7 +5729,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32327,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5569,7 +5751,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001068,
@@ -5609,7 +5791,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32267,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5629,7 +5813,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001068,
@@ -5669,7 +5853,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -32267,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5689,7 +5875,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001069,
@@ -5729,7 +5915,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -31367,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5749,7 +5937,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001070,
@@ -5789,7 +5977,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -30504,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5809,7 +5999,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001070,
@@ -5849,7 +6039,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -30504,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5869,7 +6061,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001071,
@@ -5909,7 +6101,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -29927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5929,7 +6123,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001072,
@@ -5969,7 +6163,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5989,7 +6185,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001073,
@@ -6029,7 +6225,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6049,7 +6247,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001073,
@@ -6089,7 +6287,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6109,7 +6309,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001074,
@@ -6149,7 +6349,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6169,7 +6371,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001075,
@@ -6209,7 +6411,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -26927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6229,7 +6433,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001075,
@@ -6269,7 +6473,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -26927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6289,7 +6495,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001076,
@@ -6329,7 +6535,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -26867,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6349,7 +6557,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001077,
@@ -6389,7 +6597,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -24212,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6409,7 +6619,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001077,
@@ -6449,7 +6659,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -24212,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6469,7 +6681,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001078,
@@ -6509,7 +6721,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -23267,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6529,7 +6743,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001079,
@@ -6569,7 +6783,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20492,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6589,7 +6805,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001079,
@@ -6629,7 +6845,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20492,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6649,7 +6867,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001080,
@@ -6689,7 +6907,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -20747,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6709,7 +6929,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001081,
@@ -6749,7 +6969,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14327,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6769,7 +6991,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001081,
@@ -6809,7 +7031,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -14327,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6829,7 +7053,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001082,
@@ -6869,7 +7093,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -15707,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6889,7 +7115,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001083,
@@ -6929,7 +7155,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6949,7 +7177,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001083,
@@ -6989,7 +7217,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7009,7 +7239,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001084,
@@ -7049,7 +7279,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -62927,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7069,7 +7301,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001085,
@@ -7109,7 +7341,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -11312,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7129,7 +7363,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001085,
@@ -7169,7 +7403,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -11312,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7189,7 +7425,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001086,
@@ -7229,7 +7465,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -12647,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7249,7 +7487,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001213,
@@ -7289,7 +7527,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -17910,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7309,7 +7549,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001213,
@@ -7349,7 +7589,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -17910,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7369,7 +7611,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001056,
@@ -7409,7 +7651,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -17867,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,

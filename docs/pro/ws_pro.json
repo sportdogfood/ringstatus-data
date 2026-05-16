@@ -516,7 +516,7 @@
     "time_sort": 47700,
     "class_id": 200001286,
     "class_number": 715,
-    "completed_trips": 5,
+    "completed_trips": 7,
     "class_name": "Low Schooling Jumper (1.10m) II2b",
     "class_type": "Jumpers",
     "lastGoneIn": null,
@@ -718,7 +718,7 @@
     "time_sort": 47700,
     "class_id": 200001440,
     "class_number": 742,
-    "completed_trips": 5,
+    "completed_trips": 7,
     "class_name": "1.10m Junior Jumper II2b",
     "class_type": "Jumpers",
     "lastGoneIn": null,
@@ -778,7 +778,7 @@
     "time_sort": 47700,
     "class_id": 200001416,
     "class_number": 762,
-    "completed_trips": 5,
+    "completed_trips": 7,
     "class_name": "1.10m Amateur Jumper II2b",
     "class_type": "Jumpers",
     "lastGoneIn": null,
@@ -858,7 +858,7 @@
     "trip_id": null,
     "latestStart": "2:05 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 14,
+    "total_trips": 13,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -922,7 +922,7 @@
     "trip_id": null,
     "latestStart": "2:05 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 14,
+    "total_trips": 13,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -982,7 +982,7 @@
     "trip_id": null,
     "latestStart": "2:05 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 14,
+    "total_trips": 13,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -1048,7 +1048,7 @@
     "trip_id": null,
     "latestStart": "2:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 9,
+    "total_trips": 8,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -1108,7 +1108,7 @@
     "trip_id": null,
     "latestStart": "2:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 9,
+    "total_trips": 8,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -1174,7 +1174,7 @@
     "trip_id": null,
     "latestStart": "3:30 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 2,
+    "total_trips": 3,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -1959,22 +1959,22 @@
     "class_groupxclasses_id": 200001738,
     "group_name": "Training Jumper (.95m) II2d & II2b",
     "groomName": null,
-    "time_sort": 48314,
+    "time_sort": 48915,
     "class_id": 200001353,
     "class_number": 751,
-    "completed_trips": 0,
+    "completed_trips": 1,
     "class_name": "Training Jumper (.95m) II2d",
     "class_type": "Jumpers",
     "lastGoneIn": null,
     "remaining_trips": null,
     "estimated_end_time": null,
     "estimated_go_time": null,
-    "estimated_start_time": "13:25:14",
+    "estimated_start_time": "13:35:15",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": "1:25 PM",
+    "latestStart": "1:35 PM",
     "latestStatus": "Underway",
-    "total_trips": 17,
+    "total_trips": 20,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -1991,7 +1991,7 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -808,
+    "secondsTill": -207,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2019,22 +2019,22 @@
     "class_groupxclasses_id": 200001874,
     "group_name": "Training Jumper (.95m) II2d & II2b",
     "groomName": null,
-    "time_sort": 48314,
+    "time_sort": 48915,
     "class_id": 200001273,
     "class_number": 750,
-    "completed_trips": 0,
+    "completed_trips": 1,
     "class_name": "Training Jumper (.95m) II2b",
     "class_type": "Jumpers",
     "lastGoneIn": null,
     "remaining_trips": null,
     "estimated_end_time": null,
     "estimated_go_time": null,
-    "estimated_start_time": "13:25:14",
+    "estimated_start_time": "13:35:15",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": "1:25 PM",
+    "latestStart": "1:35 PM",
     "latestStatus": "Underway",
-    "total_trips": 17,
+    "total_trips": 20,
     "entry_id": null,
     "backNumber": null,
     "entryNumber": null,
@@ -2051,7 +2051,7 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -808,
+    "secondsTill": -207,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2131,7 +2131,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001115,
@@ -2171,7 +2171,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2251,7 +2253,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_group_id": 200001116,
@@ -2291,7 +2293,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2431,7 +2435,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001031,
@@ -2471,7 +2475,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2491,7 +2497,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001032,
@@ -2531,7 +2537,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2551,7 +2559,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001032,
@@ -2591,7 +2599,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2611,7 +2621,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001033,
@@ -2651,7 +2661,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2671,7 +2683,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001034,
@@ -2711,7 +2723,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -16182,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2911,7 +2925,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001037,
@@ -2951,7 +2965,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -2971,7 +2987,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001037,
@@ -3011,7 +3027,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3031,7 +3049,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001038,
@@ -3071,7 +3089,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3091,7 +3111,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001039,
@@ -3131,7 +3151,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3151,7 +3173,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001039,
@@ -3191,7 +3213,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3211,7 +3235,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001040,
@@ -3251,7 +3275,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3271,7 +3297,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001041,
@@ -3311,7 +3337,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3331,7 +3359,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001041,
@@ -3371,7 +3399,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3391,7 +3421,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001042,
@@ -3431,7 +3461,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3451,7 +3483,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3491,7 +3523,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3511,7 +3545,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3551,7 +3585,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3571,7 +3607,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3611,7 +3647,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3631,7 +3669,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001043,
@@ -3671,7 +3709,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3691,7 +3731,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001044,
@@ -3731,7 +3771,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -3751,7 +3793,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001045,
@@ -3791,7 +3833,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4427,7 +4471,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001054,
@@ -4467,7 +4511,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4487,7 +4533,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001054,
@@ -4527,7 +4573,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4547,7 +4595,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001055,
@@ -4587,7 +4635,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -6042,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4607,7 +4657,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001055,
@@ -4647,7 +4697,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -6042,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4667,7 +4719,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001056,
@@ -4707,7 +4759,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -4062,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4727,7 +4781,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001057,
@@ -4767,7 +4821,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4787,7 +4843,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001057,
@@ -4827,7 +4883,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4847,7 +4905,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_group_id": 200001058,
@@ -4887,7 +4945,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -4918,7 +4978,7 @@
     "time_sort": 48286,
     "class_id": 200001332,
     "class_number": 297,
-    "completed_trips": 1,
+    "completed_trips": 5,
     "class_name": "Low Adult Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
@@ -4978,7 +5038,7 @@
     "time_sort": 48286,
     "class_id": 200001398,
     "class_number": 298,
-    "completed_trips": 1,
+    "completed_trips": 5,
     "class_name": "Low Adult Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
@@ -5038,7 +5098,7 @@
     "time_sort": 48286,
     "class_id": 200001426,
     "class_number": 317,
-    "completed_trips": 1,
+    "completed_trips": 5,
     "class_name": "Low Children's Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
@@ -5098,7 +5158,7 @@
     "time_sort": 48286,
     "class_id": 200001300,
     "class_number": 318,
-    "completed_trips": 1,
+    "completed_trips": 5,
     "class_name": "Low Children's Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
@@ -5927,7 +5987,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001072,
@@ -5967,7 +6027,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -5987,7 +6049,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001073,
@@ -6027,7 +6089,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6047,7 +6111,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001073,
@@ -6087,7 +6151,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6107,7 +6173,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001074,
@@ -6147,7 +6213,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6715,20 +6783,20 @@
     "class_groupxclasses_id": 200001696,
     "group_name": "Pony Hunter",
     "groomName": null,
-    "time_sort": 48374,
+    "time_sort": 48600,
     "class_id": 200001283,
     "class_number": 412,
-    "completed_trips": 0,
+    "completed_trips": 1,
     "class_name": "Pony Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
     "remaining_trips": null,
     "estimated_end_time": null,
     "estimated_go_time": null,
-    "estimated_start_time": "13:26:14",
+    "estimated_start_time": "13:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": "1:26 PM",
+    "latestStart": "1:30 PM",
     "latestStatus": "Underway",
     "total_trips": 10,
     "entry_id": null,
@@ -6747,7 +6815,7 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -748,
+    "secondsTill": -522,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6775,20 +6843,20 @@
     "class_groupxclasses_id": 200001697,
     "group_name": "Pony Hunter",
     "groomName": null,
-    "time_sort": 48374,
+    "time_sort": 48600,
     "class_id": 200001359,
     "class_number": 413,
-    "completed_trips": 0,
+    "completed_trips": 1,
     "class_name": "Pony Hunter",
     "class_type": "Hunters",
     "lastGoneIn": null,
     "remaining_trips": null,
     "estimated_end_time": null,
     "estimated_go_time": null,
-    "estimated_start_time": "13:26:14",
+    "estimated_start_time": "13:30:00",
     "schedule_sequencetype": "Over Fences",
     "trip_id": null,
-    "latestStart": "1:26 PM",
+    "latestStart": "1:30 PM",
     "latestStatus": "Underway",
     "total_trips": 10,
     "entry_id": null,
@@ -6807,7 +6875,7 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -748,
+    "secondsTill": -522,
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6887,7 +6955,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001083,
@@ -6927,7 +6995,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -6947,7 +7017,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001083,
@@ -6987,7 +7057,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,
@@ -7007,7 +7079,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_group_id": 200001084,
@@ -7047,7 +7119,9 @@
     "time_one": null,
     "time_two": null,
     "pid": null,
-    "secondsTill": -49122,
+    "secondsTill": {
+      "specialValue": "NaN"
+    },
     "time_three": null,
     "score1": null,
     "score2": null,

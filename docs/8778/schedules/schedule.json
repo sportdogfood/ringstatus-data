@@ -578,7 +578,7 @@
     "class_id": 200001296,
     "class_number": 581,
     "class_name": "WIHS Jumper Phase",
-    "latestStart": "3:50 PM",
+    "latestStart": "4:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000006,
@@ -586,9 +586,9 @@
     "show_days_display_date": "Saturday, May, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "3:50 PM",
+    "start_display": "4:00 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "15:50:14",
+    "estimated_start_time": "16:00:20",
     "group_display": [
       "Ford",
       "Choco",
@@ -612,7 +612,7 @@
     "class_id": 200001294,
     "class_number": 590,
     "class_name": "Plat. Perf. Show Jumping Talent Search 1*",
-    "latestStart": "3:50 PM",
+    "latestStart": "4:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000006,
@@ -620,9 +620,9 @@
     "show_days_display_date": "Saturday, May, 16, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "3:50 PM",
+    "start_display": "4:00 PM",
     "class_group_sequence": 12,
-    "estimated_start_time": "15:50:32",
+    "estimated_start_time": "16:00:38",
     "group_display": [
       "Ford",
       "Choco",
@@ -960,7 +960,7 @@
     "class_name": "Training Jumper (1.0m) II2d",
     "latestStart": "2:50 PM",
     "latestStatus": "Completed",
-    "total_trips": 11,
+    "total_trips": 12,
     "show_id": 200000006,
     "show_date": "2026-05-16",
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -975,7 +975,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_groupxclasses_id": 200001741,
@@ -1012,7 +1012,7 @@
     "class_name": "Training Jumper (1.0m) II2b",
     "latestStart": "2:50 PM",
     "latestStatus": "Completed",
-    "total_trips": 11,
+    "total_trips": 12,
     "show_id": 200000006,
     "show_date": "2026-05-16",
     "show_days_display_date": "Saturday, May, 16, 2026",
@@ -1027,7 +1027,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 2,
     "ringName": "Village",
     "class_groupxclasses_id": 200001743,
@@ -1105,7 +1105,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001603,
@@ -1131,7 +1131,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001605,
@@ -1157,7 +1157,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001606,
@@ -1183,7 +1183,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001607,
@@ -1209,7 +1209,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001608,
@@ -1313,7 +1313,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001614,
@@ -1339,7 +1339,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001615,
@@ -1365,7 +1365,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001616,
@@ -1391,7 +1391,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001618,
@@ -1417,7 +1417,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001619,
@@ -1443,7 +1443,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001620,
@@ -1469,7 +1469,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001622,
@@ -1495,7 +1495,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001623,
@@ -1521,7 +1521,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001624,
@@ -1547,7 +1547,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001626,
@@ -1573,7 +1573,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001627,
@@ -1599,7 +1599,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001628,
@@ -1625,7 +1625,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001629,
@@ -1651,7 +1651,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001630,
@@ -1677,7 +1677,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001631,
@@ -1981,7 +1981,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001646,
@@ -2007,7 +2007,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001647,
@@ -2033,7 +2033,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001650,
@@ -2059,7 +2059,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001651,
@@ -2085,7 +2085,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001652,
@@ -2111,7 +2111,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001654,
@@ -2137,7 +2137,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001655,
@@ -2163,7 +2163,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 3,
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200001656,
@@ -2631,7 +2631,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001680,
@@ -2657,7 +2657,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001681,
@@ -2683,7 +2683,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001682,
@@ -2709,7 +2709,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001683,
@@ -3047,7 +3047,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001700,
@@ -3073,7 +3073,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001701,
@@ -3099,7 +3099,7 @@
   },
   {
     "sid": 200000006,
-    "dt": "2026-05-16",
+    "dt": null,
     "ring_number": 4,
     "ringName": "Hunter 2",
     "class_groupxclasses_id": 200001702,

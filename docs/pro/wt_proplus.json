@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 981,
+      "secondsTill": 381,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -52,7 +52,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Calou",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:30:00",
@@ -63,7 +63,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4581,
+      "secondsTill": 3981,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -117,7 +117,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Judge",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "9:30:00",
@@ -128,7 +128,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4581,
+      "secondsTill": 3981,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -182,7 +182,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Toulamba",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "9:30:00",
@@ -193,7 +193,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -237,7 +237,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4581,
+      "secondsTill": 3981,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -247,7 +247,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Dottie",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "9:30:00",
@@ -258,7 +258,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -302,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4581,
+      "secondsTill": 3981,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -312,7 +312,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Dottie",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "9:30:00",
@@ -323,7 +323,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9081,
+      "secondsTill": 8481,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -377,7 +377,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Toulamba",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:45:00",
@@ -388,7 +388,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9081,
+      "secondsTill": 8481,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -442,7 +442,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Judge",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:45:00",
@@ -453,7 +453,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9081,
+      "secondsTill": 8481,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -507,7 +507,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Dottie",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:45:00",
@@ -518,7 +518,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.20m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -562,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9981,
+      "secondsTill": 9381,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -572,7 +572,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Hurricane",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:00:00",
@@ -583,7 +583,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "adult, medal, Over Fences"
     },
     {
       "sid": "200000006",
@@ -627,7 +627,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11601,
+      "secondsTill": 11001,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -637,7 +637,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Elliot",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:27:00",
@@ -648,7 +648,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "adult, hunters, Over Fences"
     },
     {
       "sid": "200000006",
@@ -692,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11601,
+      "secondsTill": 11001,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -702,7 +702,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Elliot",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:27:00",
@@ -713,7 +713,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "adult, hunters, Over Fences"
     },
     {
       "sid": "200000006",
@@ -757,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13281,
+      "secondsTill": 12681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -767,7 +767,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Choco",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:55:00",
@@ -778,7 +778,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, junior, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -822,7 +822,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13281,
+      "secondsTill": 12681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -832,7 +832,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Q",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:55:00",
@@ -843,7 +843,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, amateur, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13281,
+      "secondsTill": 12681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -897,7 +897,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Calypso",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:55:00",
@@ -908,7 +908,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, amateur, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13281,
+      "secondsTill": 12681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -962,7 +962,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Kudos",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:55:00",
@@ -973,7 +973,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, amateur, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1017,7 +1017,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13281,
+      "secondsTill": 12681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1027,7 +1027,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Rimini",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "11:55:00",
@@ -1038,7 +1038,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, junior, II2.1, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1082,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13761,
+      "secondsTill": 13161,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1092,7 +1092,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Elliot",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "12:03:00",
@@ -1103,7 +1103,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "usf, adult, U/S, hunters, Under Saddle/Flat"
     },
     {
       "sid": "200000006",
@@ -1147,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 17781,
+      "secondsTill": 17181,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1157,7 +1157,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Q",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "1:10:00",
@@ -1168,7 +1168,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, low, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1212,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 17781,
+      "secondsTill": 17181,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1222,7 +1222,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Maiki",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "1:10:00",
@@ -1233,7 +1233,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, low, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1277,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 17781,
+      "secondsTill": 17181,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1287,7 +1287,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Kudos",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "1:10:00",
@@ -1298,7 +1298,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, amateur, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 17781,
+      "secondsTill": 17181,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1352,7 +1352,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Q",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "1:10:00",
@@ -1363,7 +1363,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, amateur, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1407,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 17781,
+      "secondsTill": 17181,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1417,7 +1417,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Kudos",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "1:10:00",
@@ -1428,7 +1428,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.10m, low, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1472,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21681,
+      "secondsTill": 21081,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1482,7 +1482,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Coffee",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "2:15:00",
@@ -1493,7 +1493,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, amateur, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1537,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21681,
+      "secondsTill": 21081,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1547,7 +1547,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Maiki",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "2:15:00",
@@ -1558,7 +1558,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, amateur, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1602,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21681,
+      "secondsTill": 21081,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1612,7 +1612,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "La La Land",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "2:15:00",
@@ -1623,7 +1623,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1667,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 24381,
+      "secondsTill": 23781,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1677,7 +1677,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Coffee",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:00:00",
@@ -1688,7 +1688,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, amateur, II2d, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1732,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 24381,
+      "secondsTill": 23781,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1742,7 +1742,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Maiki",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:00:00",
@@ -1753,7 +1753,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, amateur, II2d, jumpers, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1797,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1807,7 +1807,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Ranger",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -1818,7 +1818,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "adult, 3', 3'3\", medal, amateur, junior, seat, ushja, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1862,7 +1862,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1872,7 +1872,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Ford",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -1883,7 +1883,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "Over Fences"
     },
     {
       "sid": "200000006",
@@ -1927,7 +1927,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1937,7 +1937,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Ford",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -1948,7 +1948,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "wihs, Over Fences"
     },
     {
       "sid": "200000006",
@@ -1992,7 +1992,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2002,7 +2002,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Choco",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -2013,7 +2013,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "Over Fences"
     },
     {
       "sid": "200000006",
@@ -2057,7 +2057,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2067,7 +2067,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Choco",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -2078,7 +2078,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "wihs, Over Fences"
     },
     {
       "sid": "200000006",
@@ -2122,7 +2122,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2132,7 +2132,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Indy",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -2143,7 +2143,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "Over Fences"
     },
     {
       "sid": "200000006",
@@ -2187,7 +2187,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 26181,
+      "secondsTill": 25581,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2197,7 +2197,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Indy",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "3:30:00",
@@ -2208,7 +2208,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "wihs, Over Fences"
     }
   ],
   "indexes": {
@@ -2593,8 +2593,117 @@
       ]
     },
     "group_name_tags": {
+      "jumpers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "over fences": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
       "1.30m jumper (ii2b & ii2d)": [
         0
+      ],
+      "1.20m": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "amateur": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        12,
+        13,
+        14,
+        19,
+        20,
+        22,
+        23,
+        25,
+        26,
+        27
+      ],
+      "junior": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        11,
+        15,
+        27
+      ],
+      "ii2.1": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
       ],
       "high schooling jumper (1.20m) & 1.20m jr/am jumper ii2.1": [
         1,
@@ -2607,12 +2716,40 @@
         6,
         7
       ],
+      "adult": [
+        8,
+        9,
+        10,
+        16,
+        27
+      ],
+      "medal": [
+        8,
+        27
+      ],
       "ariat national adult medal": [
         8
+      ],
+      "hunters": [
+        9,
+        10,
+        16
       ],
       "child/adult hunter": [
         9,
         10
+      ],
+      "1.10m": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21
       ],
       "low schooling jumper (1.10m) & 1.10m jr & am jumpers ii2.1": [
         11,
@@ -2621,8 +2758,22 @@
         14,
         15
       ],
+      "usf": [
+        16
+      ],
+      "u/s": [
+        16
+      ],
+      "under saddle/flat": [
+        16
+      ],
       "child/adult hunter u/s": [
         16
+      ],
+      "low": [
+        17,
+        18,
+        21
       ],
       "low schooling jumper (1.10m) & 1.10m jr & am jumpers ii2b": [
         17,
@@ -2631,14 +2782,37 @@
         20,
         21
       ],
+      "1.0m": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
       "training jumper (1.0m) & 1.0m jr & am jumpers ii2b": [
         22,
         23,
         24
       ],
+      "ii2d": [
+        25,
+        26
+      ],
       "1.0m junior & amateur jumpers ii2d": [
         25,
         26
+      ],
+      "3'": [
+        27
+      ],
+      "3'3\"": [
+        27
+      ],
+      "seat": [
+        27
+      ],
+      "ushja": [
+        27
       ],
       "ushja 3'3\" junior/adult amateur jumping seat medal **3 to fill**": [
         27
@@ -2647,6 +2821,11 @@
         28,
         30,
         32
+      ],
+      "wihs": [
+        29,
+        31,
+        33
       ],
       "wihs jumper phase **3 to fill**": [
         29,

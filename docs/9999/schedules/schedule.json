@@ -146,7 +146,7 @@
   {
     "8778_group_display": [
       "Dottie (1)",
-      "Toulamba (8)"
+      "Toulamba (11)"
     ],
     "class_group_id": 200001122,
     "class_id": 200001309,
@@ -160,7 +160,7 @@
     "ringName": "Covered",
     "group_display": [
       "Dottie (1)",
-      "Toulamba (8)"
+      "Toulamba (11)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -179,7 +179,7 @@
     "estimated_start_time": "10:10:00",
     "8778_sched_display": [
       "Dottie (1)",
-      "Toulamba (8)"
+      "Toulamba (11)"
     ]
   },
   {
@@ -950,7 +950,7 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200001765,
     "latestStart": "10:20 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 4,
     "estimated_start_time": "10:20:14",
@@ -1098,16 +1098,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000006,
     "sid": 200000006,
-    "start_display": "11:32 AM",
-    "start_display_short": "11:32A",
-    "time_sort": 41533,
+    "start_display": "11:35 AM",
+    "start_display_short": "11:35A",
+    "time_sort": 41715,
     "total_trips": 5,
     "class_groupxclasses_id": 200001785,
-    "latestStart": "11:32 AM",
+    "latestStart": "11:35 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-17",
     "class_group_sequence": 7,
-    "estimated_start_time": "11:32:13",
+    "estimated_start_time": "11:35:15",
     "8778_sched_display": [
       "Coffee"
     ]

@@ -215,7 +215,7 @@
     "class_number": 718,
     "class_name": "Low Schooling Jumper (1.10m) II2b",
     "latestStart": "12:25 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 2,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -240,27 +240,29 @@
     "class_id": 200001447,
     "class_number": 763,
     "class_name": "$1,500  NAL/WIHS 1.10m Junior/Amateur Jumper Classic II2b",
-    "latestStart": "12:25 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "12:30 PM",
+    "latestStatus": [
+      "Underway"
+    ],
     "total_trips": 17,
     "show_id": 200000006,
     "show_date": "2026-05-17",
     "show_days_display_date": "Sunday, May, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "12:25 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 8,
-    "estimated_start_time": "12:25:00",
+    "estimated_start_time": "12:30:18",
     "group_display": [
-      "Q (3)",
-      "Calypso (4)",
+      "Q (1)",
+      "Calypso (2)",
       "Choco (11)",
       "Kudos (12)",
       "Maiki (13)"
     ],
     "8778_sched_display": [
-      "Q (3)",
-      "Calypso (4)",
+      "Q (1)",
+      "Calypso (2)",
       "Choco (11)",
       "Kudos (12)",
       "Maiki (13)"
@@ -849,7 +851,7 @@
     "class_number": 665,
     "class_name": "Warm Up",
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 15,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -875,7 +877,7 @@
     "class_number": 304,
     "class_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 15,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -901,7 +903,7 @@
     "class_number": 305,
     "class_name": "Junior/Amateur Hunter 3'3\"/3'6\"",
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 15,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -926,7 +928,7 @@
     "class_id": 200001227,
     "class_number": 560,
     "class_name": "NHS THIS Adult Medal",
-    "latestStart": "12:39 PM",
+    "latestStart": "12:38 PM",
     "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000006,
@@ -934,14 +936,14 @@
     "show_days_display_date": "Sunday, May, 17, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:39 PM",
+    "start_display": "12:38 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:39:24",
+    "estimated_start_time": "12:38:15",
     "group_display": [
-      "Coffee"
+      "Coffee (5)"
     ],
     "8778_sched_display": [
-      "Coffee"
+      "Coffee (5)"
     ],
     "group_name_tags": "target, adult, medal, Over Fences"
   },

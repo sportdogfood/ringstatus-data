@@ -266,7 +266,7 @@
     "total_trips": 2,
     "class_groupxclasses_id": 200001752,
     "latestStart": "12:25 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 7,
     "estimated_start_time": "12:25:00",
@@ -274,8 +274,8 @@
   },
   {
     "8778_group_display": [
-      "Q (3)",
-      "Calypso (4)",
+      "Q (1)",
+      "Calypso (2)",
       "Choco (11)",
       "Kudos (12)",
       "Maiki (13)"
@@ -291,8 +291,8 @@
     "ring_number": 1,
     "ringName": "Covered",
     "group_display": [
-      "Q (3)",
-      "Calypso (4)",
+      "Q (1)",
+      "Calypso (2)",
       "Choco (11)",
       "Kudos (12)",
       "Maiki (13)"
@@ -302,19 +302,21 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000006,
     "sid": 200000006,
-    "start_display": "12:25 PM",
-    "start_display_short": "12:25P",
-    "time_sort": 44700,
+    "start_display": "12:30 PM",
+    "start_display_short": "12:30P",
+    "time_sort": 45018,
     "total_trips": 17,
     "class_groupxclasses_id": 200001754,
-    "latestStart": "12:25 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "12:30 PM",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-05-17",
     "class_group_sequence": 8,
-    "estimated_start_time": "12:25:00",
+    "estimated_start_time": "12:30:18",
     "8778_sched_display": [
-      "Q (3)",
-      "Calypso (4)",
+      "Q (1)",
+      "Calypso (2)",
       "Choco (11)",
       "Kudos (12)",
       "Maiki (13)"
@@ -1010,7 +1012,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001779,
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 6,
     "estimated_start_time": "11:30:19",
@@ -1040,7 +1042,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001780,
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 6,
     "estimated_start_time": "11:30:19",
@@ -1070,7 +1072,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001781,
     "latestStart": "11:30 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 6,
     "estimated_start_time": "11:30:19",
@@ -1078,7 +1080,7 @@
   },
   {
     "8778_group_display": [
-      "Coffee"
+      "Coffee (5)"
     ],
     "class_group_id": 200001142,
     "class_id": 200001227,
@@ -1091,25 +1093,25 @@
     "ring_number": 3,
     "ringName": "Hunter 1",
     "group_display": [
-      "Coffee"
+      "Coffee (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000006,
     "sid": 200000006,
-    "start_display": "12:39 PM",
-    "start_display_short": "12:39P",
-    "time_sort": 45564,
+    "start_display": "12:38 PM",
+    "start_display_short": "12:38P",
+    "time_sort": 45495,
     "total_trips": 5,
     "class_groupxclasses_id": 200001785,
-    "latestStart": "12:39 PM",
+    "latestStart": "12:38 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-17",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:39:24",
+    "estimated_start_time": "12:38:15",
     "8778_sched_display": [
-      "Coffee"
+      "Coffee (5)"
     ]
   },
   {

@@ -80,7 +80,7 @@
       "time_sort": 31500,
       "class_id": 200001295,
       "class_number": 773,
-      "completed_trips": 0,
+      "completed_trips": 2,
       "class_name": "1.30m Jumper (II2b)",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -130,7 +130,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Upcoming",
+      "status": "Underway",
       "scope_status": null,
       "group_name_tags": "target, young, jumpers, Over Fences"
     },
@@ -147,7 +147,7 @@
       "time_sort": 31500,
       "class_id": 200001221,
       "class_number": 757,
-      "completed_trips": 0,
+      "completed_trips": 2,
       "class_name": "1.30m Young Jumper II2b",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -197,7 +197,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Upcoming",
+      "status": "Underway",
       "scope_status": null,
       "group_name_tags": "target, young, jumpers, Over Fences"
     },
@@ -874,7 +874,7 @@
       "time_sort": 30300,
       "class_id": 200001318,
       "class_number": 797,
-      "completed_trips": 6,
+      "completed_trips": 9,
       "class_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -920,7 +920,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, puddle, II2d, jumpers, Over Fences"
     },
@@ -937,7 +937,7 @@
       "time_sort": 30300,
       "class_id": 200001418,
       "class_number": 798,
-      "completed_trips": 6,
+      "completed_trips": 9,
       "class_name": "Puddle Jumper (No Oxers/Combinations) (.70m) II2b",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -983,7 +983,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, puddle, II2d, jumpers, Over Fences"
     },
@@ -1567,7 +1567,7 @@
       "time_sort": 29114,
       "class_id": 200001441,
       "class_number": 907,
-      "completed_trips": 6,
+      "completed_trips": 9,
       "class_name": "$1,000 USHJA National Hunter Derby (Hunt & Go)",
       "class_type": "Hunters",
       "lastGoneIn": null,
@@ -1617,7 +1617,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences"
     },
@@ -4755,12 +4755,19 @@
         12,
         12,
         13,
+        13,
         14,
+        14,
+        24,
         24
       ],
-      "upcoming": [
+      "underway": [
+        1,
         1,
         2,
+        2
+      ],
+      "upcoming": [
         3,
         3,
         4,
@@ -4881,13 +4888,6 @@
         71,
         72,
         72
-      ],
-      "underway": [
-        1,
-        2,
-        13,
-        14,
-        24
       ]
     },
     "ring": {

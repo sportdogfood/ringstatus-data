@@ -63,7 +63,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200001745,
     "latestStart": "8:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:45:00",
@@ -73,7 +73,7 @@
   },
   {
     "8778_group_display": [
-      "Calou (9)"
+      "Calou (7)"
     ],
     "class_group_id": 200001118,
     "class_id": 200001221,
@@ -86,7 +86,7 @@
     "ring_number": 1,
     "ringName": "Covered",
     "group_display": [
-      "Calou (9)"
+      "Calou (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -99,12 +99,12 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200001887,
     "latestStart": "8:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:45:00",
     "8778_sched_display": [
-      "Calou (9)"
+      "Calou (7)"
     ]
   },
   {
@@ -476,7 +476,7 @@
     "total_trips": 9,
     "class_groupxclasses_id": 200001844,
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:25:00",
@@ -506,7 +506,7 @@
     "total_trips": 9,
     "class_groupxclasses_id": 200001894,
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:25:00",
@@ -810,7 +810,7 @@
     "total_trips": 9,
     "class_groupxclasses_id": 200001758,
     "latestStart": "8:05 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 1,
     "estimated_start_time": "08:05:14",

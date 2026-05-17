@@ -3,71 +3,6 @@
     {
       "sid": "200000006",
       "dt": "2026-05-17",
-      "ring_number": 3,
-      "ringName": "Hunter 1",
-      "class_group_id": 200001129,
-      "class_group_sequence": 1,
-      "class_groupxclasses_id": 200001758,
-      "group_name": "$1,000 USHJA National Hunter Derby (Hunt & Go)",
-      "groomName": "Groom",
-      "time_sort": 28800,
-      "class_id": null,
-      "class_number": 907,
-      "completed_trips": 0,
-      "class_name": "$1,000 USHJA National Hunter Derby (Hunt & Go)",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": null,
-      "estimated_go_time": null,
-      "estimated_start_time": "08:00:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "8:00 AM",
-      "latestStatus": "Upcoming",
-      "total_trips": 9,
-      "entry_id": null,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": null,
-      "ringWalk": 0,
-      "barnName": "Ford",
-      "horseName": "Ford",
-      "teamName": null,
-      "riderName": null,
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": -209,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "8:00 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Ford",
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "8:00:00",
-      "estimatedGO": "8:00 AM",
-      "rider_name": "SUNSHINE BUCHANAN",
-      "rider_id": null,
-      "horse": "FORD",
-      "horse_id": null,
-      "status": "Upcoming",
-      "scope_status": "current",
-      "group_name_tags": "firstUp, target, ushja, hunters, Over Fences"
-    },
-    {
-      "sid": "200000006",
-      "dt": "2026-05-17",
       "ring_number": 1,
       "ringName": "Covered",
       "class_group_id": 200001117,
@@ -78,7 +13,7 @@
       "time_sort": 28800,
       "class_id": null,
       "class_number": 701,
-      "completed_trips": 0,
+      "completed_trips": 5,
       "class_name": "1.40m Jumper Table II2b",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -89,7 +24,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "8:00 AM",
-      "latestStatus": "Upcoming",
+      "latestStatus": "Underway",
       "total_trips": 9,
       "entry_id": null,
       "backNumber": null,
@@ -107,14 +42,14 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -228,
+      "secondsTill": -528,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
       "latestGO": "8:09 AM",
-      "runningOOG": null,
+      "runningOOG": 0,
       "lastOOG": 3,
       "sched_display": "Bee (3)",
       "is_target": true,
@@ -126,9 +61,74 @@
       "rider_id": null,
       "horse": "KINDLY",
       "horse_id": null,
-      "status": "Upcoming",
+      "status": "Underway",
       "scope_status": "current",
       "group_name_tags": "firstUp, target, 1.40m, jumpers, Over Fences"
+    },
+    {
+      "sid": "200000006",
+      "dt": "2026-05-17",
+      "ring_number": 3,
+      "ringName": "Hunter 1",
+      "class_group_id": 200001129,
+      "class_group_sequence": 1,
+      "class_groupxclasses_id": 200001758,
+      "group_name": "$1,000 USHJA National Hunter Derby (Hunt & Go)",
+      "groomName": "Groom",
+      "time_sort": 29114,
+      "class_id": null,
+      "class_number": 907,
+      "completed_trips": 2,
+      "class_name": "$1,000 USHJA National Hunter Derby (Hunt & Go)",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "08:05:14",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "8:05 AM",
+      "latestStatus": "Underway",
+      "total_trips": 9,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": 0,
+      "barnName": "Ford",
+      "horseName": "Ford",
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": -214,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "8:05 AM",
+      "runningOOG": 0,
+      "lastOOG": null,
+      "sched_display": "Ford",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "8:05:00",
+      "estimatedGO": "8:05 AM",
+      "rider_name": "SUNSHINE BUCHANAN",
+      "rider_id": null,
+      "horse": "FORD",
+      "horse_id": null,
+      "status": "Underway",
+      "scope_status": "current",
+      "group_name_tags": "firstUp, target, ushja, hunters, Over Fences"
     },
     {
       "sid": "200000006",
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 2471,
+      "secondsTill": 2171,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -237,7 +237,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 2471,
+      "secondsTill": 2171,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -302,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 3371,
+      "secondsTill": 3071,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4811,
+      "secondsTill": 4511,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6071,
+      "secondsTill": 5771,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8171,
+      "secondsTill": 7871,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -562,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8171,
+      "secondsTill": 7871,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -627,7 +627,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 10211,
+      "secondsTill": 9911,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -692,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15077,
+      "secondsTill": 14777,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -757,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15077,
+      "secondsTill": 14777,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -822,7 +822,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15077,
+      "secondsTill": 14777,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15077,
+      "secondsTill": 14777,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15077,
+      "secondsTill": 14777,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1017,7 +1017,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15251,
+      "secondsTill": 14951,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1082,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15251,
+      "secondsTill": 14951,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1147,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 18851,
+      "secondsTill": 18551,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1212,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 18851,
+      "secondsTill": 18551,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1260,7 +1260,7 @@
       "trip_id": null,
       "latestStart": "1:30 PM",
       "latestStatus": "Upcoming",
-      "total_trips": 7,
+      "total_trips": 8,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -1277,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 19571,
+      "secondsTill": 19271,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21971,
+      "secondsTill": 21671,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1368,14 +1368,14 @@
   ],
   "indexes": {
     "rider": {
-      "sunshine buchanan": [
-        0,
-        8
-      ],
       "tanner korotkin": [
-        1,
+        0,
         3,
         6
+      ],
+      "sunshine buchanan": [
+        1,
+        8
       ],
       "carsyn korotkin": [
         2,
@@ -1415,17 +1415,17 @@
       ]
     },
     "horse": {
-      "ford": [
-        0,
-        0
-      ],
       "kindly": [
-        1,
+        0,
         2
       ],
       "bee": [
-        1,
+        0,
         2
+      ],
+      "ford": [
+        1,
+        1
       ],
       "calou us": [
         3
@@ -1511,11 +1511,36 @@
       ]
     },
     "status": {
+      "underway": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "current": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
       "upcoming": [
-        0,
-        0,
-        1,
-        1,
         2,
         2,
         3,
@@ -1550,34 +1575,11 @@
         19,
         20,
         20
-      ],
-      "current": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20
       ]
     },
     "ring": {
       "1": [
-        1,
+        0,
         2,
         3,
         6,
@@ -1592,7 +1594,7 @@
         20
       ],
       "3": [
-        0,
+        1,
         4,
         5,
         9
@@ -1603,14 +1605,8 @@
         17,
         18
       ],
-      "hunter 1": [
-        0,
-        4,
-        5,
-        9
-      ],
       "covered": [
-        1,
+        0,
         2,
         3,
         6,
@@ -1624,6 +1620,12 @@
         19,
         20
       ],
+      "hunter 1": [
+        1,
+        4,
+        5,
+        9
+      ],
       "hunter 2": [
         15,
         16,
@@ -1632,9 +1634,20 @@
       ]
     },
     "class_type": {
-      "hunters": [
+      "jumpers": [
         0,
-        4
+        2,
+        3,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        19,
+        20
       ],
       "over fences": [
         0,
@@ -1657,20 +1670,9 @@
         19,
         20
       ],
-      "jumpers": [
+      "hunters": [
         1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        19,
-        20
+        4
       ],
       "equitation": [
         5,
@@ -1713,12 +1715,23 @@
         19,
         20
       ],
-      "ushja": [
+      "1.40m": [
         0
       ],
-      "hunters": [
+      "jumpers": [
         0,
-        4
+        2,
+        3,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        19,
+        20
       ],
       "over fences": [
         0,
@@ -1741,8 +1754,18 @@
         19,
         20
       ],
+      "1.40m jumper table ii2b": [
+        0
+      ],
+      "ushja": [
+        1
+      ],
+      "hunters": [
+        1,
+        4
+      ],
       "$1": [
-        0,
+        1,
         10,
         11,
         12,
@@ -1751,27 +1774,6 @@
         20
       ],
       "000 ushja national hunter derby (hunt & go)": [
-        0
-      ],
-      "1.40m": [
-        1
-      ],
-      "jumpers": [
-        1,
-        2,
-        3,
-        6,
-        7,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        19,
-        20
-      ],
-      "1.40m jumper table ii2b": [
         1
       ],
       "1.30m jumper ii2b & 1.30m young jumper ii2b": [

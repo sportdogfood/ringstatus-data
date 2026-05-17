@@ -109,7 +109,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie (7)"
+      "Dottie (3)"
     ],
     "class_group_id": 200001121,
     "class_id": 200001247,
@@ -122,7 +122,7 @@
     "ring_number": 1,
     "ringName": "Covered",
     "group_display": [
-      "Dottie (7)"
+      "Dottie (3)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -140,13 +140,13 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:45:00",
     "8778_sched_display": [
-      "Dottie (7)"
+      "Dottie (3)"
     ]
   },
   {
     "8778_group_display": [
-      "Toulamba (7)",
-      "Dottie (8)"
+      "Dottie (3)",
+      "Toulamba (8)"
     ],
     "class_group_id": 200001122,
     "class_id": 200001309,
@@ -159,8 +159,8 @@
     "ring_number": 1,
     "ringName": "Covered",
     "group_display": [
-      "Toulamba (7)",
-      "Dottie (8)"
+      "Dottie (3)",
+      "Toulamba (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -178,8 +178,8 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:20:00",
     "8778_sched_display": [
-      "Toulamba (7)",
-      "Dottie (8)"
+      "Dottie (3)",
+      "Toulamba (8)"
     ]
   },
   {
@@ -476,7 +476,7 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200001844,
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:25:00",
@@ -506,7 +506,7 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200001894,
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "08:25:00",
@@ -516,7 +516,7 @@
     "8778_group_display": [],
     "class_group_id": 200001174,
     "class_id": 200001400,
-    "class_name": "Pony Jumper (Table II)",
+    "class_name": "Pony Jumper II2d",
     "class_number": 682,
     "dt": "2026-05-17",
     "group_name": "Pony Jumper II2d & WIHS Pony Jumper II2b",
@@ -846,7 +846,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200001761,
     "latestStart": "9:12 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "09:12:54",
@@ -882,7 +882,7 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200001762,
     "latestStart": "9:12 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 2,
     "estimated_start_time": "09:12:54",
@@ -892,7 +892,7 @@
   },
   {
     "8778_group_display": [
-      "Ranger (1)"
+      "Ranger (2)"
     ],
     "class_group_id": 200001132,
     "class_id": 200001343,
@@ -905,7 +905,7 @@
     "ring_number": 3,
     "ringName": "Hunter 1",
     "group_display": [
-      "Ranger (1)"
+      "Ranger (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -918,12 +918,12 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200001763,
     "latestStart": "9:38 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 3,
     "estimated_start_time": "09:38:53",
     "8778_sched_display": [
-      "Ranger (1)"
+      "Ranger (2)"
     ]
   },
   {
@@ -1286,7 +1286,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001800,
     "latestStart": "9:33 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 4,
     "estimated_start_time": "09:33:00",
@@ -1316,7 +1316,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200001803,
     "latestStart": "10:06 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 5,
     "estimated_start_time": "10:06:00",
@@ -1346,7 +1346,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001801,
     "latestStart": "9:33 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 4,
     "estimated_start_time": "09:33:00",
@@ -1376,7 +1376,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200001802,
     "latestStart": "9:33 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 4,
     "estimated_start_time": "09:33:00",
@@ -1406,7 +1406,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200001804,
     "latestStart": "10:06 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 5,
     "estimated_start_time": "10:06:00",
@@ -1436,7 +1436,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200001805,
     "latestStart": "10:08 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 5,
     "estimated_start_time": "10:08:15",

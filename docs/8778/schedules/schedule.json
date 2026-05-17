@@ -101,9 +101,7 @@
     "class_number": 712,
     "class_name": "High Schooling Jumper (1.20m) II2.1",
     "latestStart": "9:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 7,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -133,7 +131,9 @@
     "class_number": 723,
     "class_name": "1.20m Amateur/Junior Jumper II2b",
     "latestStart": "10:10 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 11,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -144,11 +144,11 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:10:00",
     "group_display": [
-      "Dottie (3)",
+      "Dottie (1)",
       "Toulamba (8)"
     ],
     "8778_sched_display": [
-      "Dottie (3)",
+      "Dottie (1)",
       "Toulamba (8)"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
@@ -769,9 +769,7 @@
     "class_number": 535,
     "class_name": "Hamel Foundation/NHS 3'3\" Medal",
     "latestStart": "9:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 6,
     "show_id": 200000006,
     "show_date": "2026-05-17",

@@ -135,9 +135,7 @@
     "total_trips": 7,
     "class_groupxclasses_id": 200001748,
     "latestStart": "9:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 3,
     "estimated_start_time": "09:45:00",
@@ -147,7 +145,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie (3)",
+      "Dottie (1)",
       "Toulamba (8)"
     ],
     "class_group_id": 200001122,
@@ -161,7 +159,7 @@
     "ring_number": 1,
     "ringName": "Covered",
     "group_display": [
-      "Dottie (3)",
+      "Dottie (1)",
       "Toulamba (8)"
     ],
     "shifted_to_next_day": null,
@@ -175,12 +173,14 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200001749,
     "latestStart": "10:10 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-17",
     "class_group_sequence": 4,
     "estimated_start_time": "10:10:00",
     "8778_sched_display": [
-      "Dottie (3)",
+      "Dottie (1)",
       "Toulamba (8)"
     ]
   },
@@ -920,9 +920,7 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200001763,
     "latestStart": "9:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 3,
     "estimated_start_time": "09:45:14",

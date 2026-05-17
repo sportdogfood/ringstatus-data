@@ -320,10 +320,10 @@
     "class_group_sequence": 10,
     "estimated_start_time": "14:10:00",
     "group_display": [
-      "Coffee (8)"
+      "Coffee (7)"
     ],
     "8778_sched_display": [
-      "Coffee (8)"
+      "Coffee (7)"
     ],
     "group_name_tags": "target, 1.0m, junior, jumpers, Over Fences"
   },
@@ -707,7 +707,9 @@
     "class_number": 314,
     "class_name": "Child/Adult Hunter",
     "latestStart": "9:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 8,
     "show_id": 200000006,
     "show_date": "2026-05-17",
@@ -737,7 +739,9 @@
     "class_number": 315,
     "class_name": "Child/Adult Hunter",
     "latestStart": "9:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 8,
     "show_id": 200000006,
     "show_date": "2026-05-17",

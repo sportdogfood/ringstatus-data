@@ -236,7 +236,7 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200001751,
     "latestStart": "11:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-17",
     "class_group_sequence": 6,
     "estimated_start_time": "11:35:20",
@@ -276,9 +276,9 @@
     "8778_group_display": [
       "Q (3)",
       "Calypso (4)",
-      "Choco (13)",
-      "Kudos (14)",
-      "Maiki (15)"
+      "Choco (12)",
+      "Kudos (13)",
+      "Maiki (14)"
     ],
     "class_group_id": 200001126,
     "class_id": 200001447,
@@ -293,9 +293,9 @@
     "group_display": [
       "Q (3)",
       "Calypso (4)",
-      "Choco (13)",
-      "Kudos (14)",
-      "Maiki (15)"
+      "Choco (12)",
+      "Kudos (13)",
+      "Maiki (14)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 17, 2026",
@@ -315,9 +315,9 @@
     "8778_sched_display": [
       "Q (3)",
       "Calypso (4)",
-      "Choco (13)",
-      "Kudos (14)",
-      "Maiki (15)"
+      "Choco (12)",
+      "Kudos (13)",
+      "Maiki (14)"
     ]
   },
   {
@@ -656,7 +656,7 @@
     "total_trips": 23,
     "class_groupxclasses_id": 200001850,
     "latestStart": "12:01 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 5,
     "estimated_start_time": "12:01:51",
@@ -686,7 +686,7 @@
     "total_trips": 23,
     "class_groupxclasses_id": 200001895,
     "latestStart": "12:01 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-05-17",
     "class_group_sequence": 5,
     "estimated_start_time": "12:01:51",
@@ -1098,16 +1098,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000006,
     "sid": 200000006,
-    "start_display": "12:33 PM",
-    "start_display_short": "12:33P",
-    "time_sort": 45204,
+    "start_display": "12:40 PM",
+    "start_display_short": "12:40P",
+    "time_sort": 45615,
     "total_trips": 5,
     "class_groupxclasses_id": 200001785,
-    "latestStart": "12:33 PM",
+    "latestStart": "12:40 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-17",
     "class_group_sequence": 7,
-    "estimated_start_time": "12:33:24",
+    "estimated_start_time": "12:40:15",
     "8778_sched_display": [
       "Coffee"
     ]

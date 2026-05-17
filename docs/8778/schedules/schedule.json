@@ -927,7 +927,9 @@
     "class_number": 560,
     "class_name": "NHS THIS Adult Medal",
     "latestStart": "12:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 5,
     "show_id": 200000006,
     "show_date": "2026-05-17",

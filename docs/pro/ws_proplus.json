@@ -44,7 +44,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -7590,
+      "secondsTill": -8190,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -115,7 +115,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -6390,
+      "secondsTill": -6990,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -186,7 +186,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -4590,
+      "secondsTill": -5190,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -257,7 +257,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -2490,
+      "secondsTill": -3090,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -291,7 +291,7 @@
       "time_sort": 53101,
       "class_id": 200025287,
       "class_number": 535,
-      "completed_trips": 1,
+      "completed_trips": 3,
       "class_name": "USHJA 3'3\" Hunter Seat Medal",
       "class_type": "Equitation",
       "lastGoneIn": null,
@@ -302,7 +302,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "2:45 PM",
-      "latestStatus": "Underway",
+      "latestStatus": "Completed",
       "total_trips": 3,
       "entry_id": null,
       "backNumber": null,
@@ -320,7 +320,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -390,
+      "secondsTill": -990,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -337,76 +337,9 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences"
-    },
-    {
-      "sid": 200000062,
-      "dt": "2026-05-28",
-      "ring_number": 3,
-      "ringName": "Covered",
-      "class_group_id": 200024446,
-      "class_group_sequence": 12,
-      "class_groupxclasses_id": 200036104,
-      "group_name": "Dover Saddlery USEF Hunter Seat Medal **3 To Fill**",
-      "groomName": null,
-      "time_sort": 57720,
-      "class_id": 200025295,
-      "class_number": 550,
-      "completed_trips": 0,
-      "class_name": "Dover Saddlery USEF Hunter Seat Medal **3 To Fill**",
-      "class_type": "Equitation",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": null,
-      "estimated_go_time": null,
-      "estimated_start_time": "16:02:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "4:02 PM",
-      "latestStatus": "Upcoming",
-      "total_trips": 2,
-      "entry_id": null,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": null,
-      "ringWalk": null,
-      "barnName": null,
-      "horseName": null,
-      "teamName": null,
-      "riderName": null,
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": null,
-      "secondsTill": 4228,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": null,
-      "runningOOG": null,
-      "lastOOG": null,
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": null,
-      "8778_group_alert": [
-        "Ranger"
-      ],
-      "8778_sched_display": [
-        "Ranger"
-      ],
-      "sched_display": null,
-      "estimatedGO00": null,
-      "estimatedGO": null,
-      "status": "Upcoming",
-      "scope_status": null,
-      "group_name_tags": "target, medal, dover, seat, Over Fences"
     },
     {
       "sid": 200000062,
@@ -450,7 +383,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 1708,
+      "secondsTill": 1108,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -500,7 +433,7 @@
       "trip_id": null,
       "latestStart": "3:50 PM",
       "latestStatus": "Upcoming",
-      "total_trips": 6,
+      "total_trips": 5,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -517,7 +450,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 3508,
+      "secondsTill": 2908,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -544,11 +477,11 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200024449,
-      "class_group_sequence": 13,
+      "class_group_sequence": 12,
       "class_groupxclasses_id": 200036107,
       "group_name": "THIS Children's Medal",
       "groomName": null,
-      "time_sort": 59400,
+      "time_sort": 58800,
       "class_id": 200025286,
       "class_number": 555,
       "completed_trips": 0,
@@ -558,10 +491,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "16:30:00",
+      "estimated_start_time": "16:20:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "4:30 PM",
+      "latestStart": "4:20 PM",
       "latestStatus": "Upcoming",
       "total_trips": 11,
       "entry_id": null,
@@ -580,7 +513,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 5908,
+      "secondsTill": 4708,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -615,11 +548,11 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200024450,
-      "class_group_sequence": 14,
+      "class_group_sequence": 13,
       "class_groupxclasses_id": 200036108,
       "group_name": "Ariat Adult Medal",
       "groomName": null,
-      "time_sort": 61380,
+      "time_sort": 60450,
       "class_id": 200025283,
       "class_number": 565,
       "completed_trips": 0,
@@ -629,10 +562,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "17:03:00",
+      "estimated_start_time": "16:47:30",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "5:03 PM",
+      "latestStart": "4:47 PM",
       "latestStatus": "Upcoming",
       "total_trips": 2,
       "entry_id": null,
@@ -651,7 +584,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 7888,
+      "secondsTill": 6358,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -682,7 +615,7 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200024452,
-      "class_group_sequence": 15,
+      "class_group_sequence": 14,
       "class_groupxclasses_id": 200036110,
       "group_name": "SFHJA Junior/Adult Amateur Medal (Flat Phase)",
       "groomName": null,
@@ -718,7 +651,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 1048,
+      "secondsTill": 448,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -751,11 +684,11 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200024453,
-      "class_group_sequence": 16,
+      "class_group_sequence": 15,
       "class_groupxclasses_id": 200036111,
       "group_name": "M&S Children's Medal",
       "groomName": null,
-      "time_sort": 62340,
+      "time_sort": 62100,
       "class_id": 200025281,
       "class_number": 529,
       "completed_trips": 0,
@@ -765,10 +698,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "17:19:00",
+      "estimated_start_time": "17:15:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "5:19 PM",
+      "latestStart": "5:15 PM",
       "latestStatus": "Upcoming",
       "total_trips": 3,
       "entry_id": null,
@@ -787,7 +720,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 8848,
+      "secondsTill": 8008,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -814,7 +747,7 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200024455,
-      "class_group_sequence": 17,
+      "class_group_sequence": 16,
       "class_groupxclasses_id": 200036113,
       "group_name": "NHS/THIS Adult Medal",
       "groomName": null,
@@ -850,7 +783,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 9508,
+      "secondsTill": 8908,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -881,7 +814,7 @@
       "ring_number": 3,
       "ringName": "Covered",
       "class_group_id": 200025073,
-      "class_group_sequence": 18,
+      "class_group_sequence": 17,
       "class_groupxclasses_id": 200037139,
       "group_name": "M&S USEF Pony Medal **3 To Fill**",
       "groomName": null,
@@ -917,7 +850,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 10408,
+      "secondsTill": 9808,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -948,7 +881,9 @@
         1,
         2,
         3,
-        3
+        3,
+        4,
+        4
       ],
       "upcoming": [
         0,
@@ -962,18 +897,12 @@
         7,
         8,
         8,
-        9,
-        9,
+        10,
+        10,
         11,
         11,
         12,
-        12,
-        13,
-        13
-      ],
-      "underway": [
-        4,
-        4
+        12
       ]
     },
     "ring": {
@@ -990,8 +919,7 @@
         9,
         10,
         11,
-        12,
-        13
+        12
       ],
       "covered": [
         0,
@@ -1006,8 +934,7 @@
         9,
         10,
         11,
-        12,
-        13
+        12
       ]
     },
     "class_type": {
@@ -1024,8 +951,7 @@
         9,
         10,
         11,
-        12,
-        13
+        12
       ],
       "over fences": [
         0,
@@ -1037,13 +963,12 @@
         6,
         7,
         8,
-        9,
+        10,
         11,
-        12,
-        13
+        12
       ],
       "under saddle/flat": [
-        10
+        9
       ]
     },
     "group_name_tags": {
@@ -1060,8 +985,7 @@
         9,
         10,
         11,
-        12,
-        13
+        12
       ],
       "wihs": [
         0
@@ -1076,10 +1000,9 @@
         6,
         7,
         8,
-        9,
+        10,
         11,
-        12,
-        13
+        12
       ],
       "wihs jumper phase": [
         0
@@ -1100,20 +1023,18 @@
         2,
         3,
         4,
-        5,
+        6,
         7,
         8,
         9,
         10,
         11,
-        12,
-        13
+        12
       ],
       "seat": [
         2,
         4,
-        5,
-        7
+        6
       ],
       "ushja": [
         2,
@@ -1128,66 +1049,60 @@
       "ushja 3'3\" hunter seat medal": [
         4
       ],
-      "dover": [
-        5
-      ],
-      "dover saddlery usef hunter seat medal **3 to fill**": [
-        5
-      ],
       "maclay": [
-        6
+        5
       ],
       "aspca maclay": [
-        6
+        5
       ],
       "junior": [
+        6,
+        9
+      ],
+      "usef/ncea junior hunter seat medal": [
+        6
+      ],
+      "children's": [
         7,
         10
       ],
-      "usef/ncea junior hunter seat medal": [
+      "this children's medal": [
         7
       ],
-      "children's": [
-        8,
-        11
-      ],
-      "this children's medal": [
-        8
-      ],
       "adult": [
+        8,
         9,
-        10,
-        12
+        11
       ],
       "ariat adult medal": [
-        9
+        8
       ],
       "usf": [
-        10
+        9
       ],
       "amateur": [
-        10
+        9
       ],
       "flat": [
-        10
+        9
       ],
       "under saddle/flat": [
-        10
+        9
       ],
       "sfhja junior/adult amateur medal (flat phase)": [
-        10
+        9
       ],
       "m&s children's medal": [
-        11
+        10
       ],
       "nhs/this adult medal": [
-        12
+        11
       ],
       "pony": [
-        13
+        12
       ],
       "m&s usef pony medal **3 to fill**": [
-        13
+        12
       ]
     }
   }

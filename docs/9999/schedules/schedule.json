@@ -1,7 +1,8 @@
 [
   {
     "8778_group_display": [
-      null
+      "Indy",
+      "Munster"
     ],
     "class_group_id": 200024440,
     "class_id": null,
@@ -14,7 +15,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Indy",
+      "Munster"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -32,12 +34,14 @@
     "class_group_sequence": 5,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Indy",
+      "Munster"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Indy",
+      "Choco"
     ],
     "class_group_id": 200024441,
     "class_id": null,
@@ -50,7 +54,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Indy",
+      "Choco"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -68,12 +73,15 @@
     "class_group_sequence": 6,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Indy",
+      "Choco"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Choco",
+      "Munster",
+      "Ranger"
     ],
     "class_group_id": 200024442,
     "class_id": 200025288,
@@ -86,7 +94,9 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Choco",
+      "Munster",
+      "Ranger"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -104,12 +114,14 @@
     "class_group_sequence": 7,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Choco",
+      "Munster",
+      "Ranger"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Coffee"
     ],
     "class_group_id": 200024443,
     "class_id": 200025284,
@@ -122,7 +134,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Coffee"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -140,7 +152,7 @@
     "class_group_sequence": 8,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Coffee"
     ]
   },
   {
@@ -205,7 +217,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Ranger"
     ],
     "class_group_id": 200024446,
     "class_id": 200025295,
@@ -218,7 +230,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Ranger"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -236,12 +248,12 @@
     "class_group_sequence": 11,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Ranger"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Ranger"
     ],
     "class_group_id": 200024447,
     "class_id": null,
@@ -254,7 +266,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Ranger"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -272,7 +284,7 @@
     "class_group_sequence": 12,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Ranger"
     ]
   },
   {
@@ -307,7 +319,9 @@
   },
   {
     "8778_group_display": [
-      null
+      "Munster",
+      "Ranger",
+      "Tommy"
     ],
     "class_group_id": 200024449,
     "class_id": null,
@@ -320,7 +334,9 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Munster",
+      "Ranger",
+      "Tommy"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -338,12 +354,14 @@
     "class_group_sequence": 14,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Munster",
+      "Ranger",
+      "Tommy"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Coffee"
     ],
     "class_group_id": 200024450,
     "class_id": null,
@@ -356,7 +374,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Coffee"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -374,12 +392,13 @@
     "class_group_sequence": 15,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Coffee"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Ranger",
+      "Tommy"
     ],
     "class_group_id": 200024452,
     "class_id": 200025282,
@@ -392,7 +411,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Ranger",
+      "Tommy"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -410,12 +430,13 @@
     "class_group_sequence": 16,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Ranger",
+      "Tommy"
     ]
   },
   {
     "8778_group_display": [
-      null
+      "Coffee"
     ],
     "class_group_id": 200024451,
     "class_id": 200025293,
@@ -428,7 +449,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Coffee"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -446,7 +467,7 @@
     "class_group_sequence": 17,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Coffee"
     ]
   },
   {
@@ -511,7 +532,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Coffee"
     ],
     "class_group_id": 200024455,
     "class_id": null,
@@ -524,7 +545,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Coffee"
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -542,7 +563,7 @@
     "class_group_sequence": 20,
     "estimated_start_time": null,
     "8778_sched_display": [
-      null
+      "Coffee"
     ]
   },
   {

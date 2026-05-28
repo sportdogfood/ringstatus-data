@@ -24,9 +24,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "12:45 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 3,
       "entry_id": null,
       "backNumber": null,
@@ -44,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14792,
+      "secondsTill": -15092,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -57,12 +55,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Indy",
-        "Munster"
+        null
       ],
       "8778_sched_display": [
-        "Indy",
-        "Munster"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -95,9 +91,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "1:05 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 3,
       "entry_id": null,
       "backNumber": null,
@@ -115,7 +109,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -13592,
+      "secondsTill": -13892,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -128,12 +122,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Indy",
-        "Choco"
+        null
       ],
       "8778_sched_display": [
-        "Indy",
-        "Choco"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -166,9 +158,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "1:35 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 8,
       "entry_id": null,
       "backNumber": null,
@@ -186,7 +176,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -11792,
+      "secondsTill": -12092,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -199,14 +189,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Choco",
-        "Munster",
-        "Ranger"
+        null
       ],
       "8778_sched_display": [
-        "Choco",
-        "Munster",
-        "Ranger"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -257,7 +243,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -9692,
+      "secondsTill": -9992,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -320,7 +306,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -7592,
+      "secondsTill": -7892,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -365,9 +351,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "3:15 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 3,
       "entry_id": null,
       "backNumber": null,
@@ -385,7 +369,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -5793,
+      "secondsTill": -6093,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -398,10 +382,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Ranger"
+        null
       ],
       "8778_sched_display": [
-        "Ranger"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -452,7 +436,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -3993,
+      "secondsTill": -4293,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -497,9 +481,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "4:15 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 10,
       "entry_id": null,
       "backNumber": null,
@@ -517,7 +499,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -2193,
+      "secondsTill": -2493,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -530,14 +512,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Munster",
-        "Ranger",
-        "Tommy"
+        null
       ],
       "8778_sched_display": [
-        "Munster",
-        "Ranger",
-        "Tommy"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -570,9 +548,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "4:35 PM",
-      "latestStatus": [
-        "Upcoming"
-      ],
+      "latestStatus": "Completed",
       "total_trips": 2,
       "entry_id": null,
       "backNumber": null,
@@ -590,7 +566,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -976,
+      "secondsTill": -1276,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -603,10 +579,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Coffee"
+        null
       ],
       "8778_sched_display": [
-        "Coffee"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -657,7 +633,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -6153,
+      "secondsTill": -6453,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -670,12 +646,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Ranger",
-        "Tommy"
+        null
       ],
       "8778_sched_display": [
-        "Ranger",
-        "Tommy"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -694,7 +668,7 @@
       "class_groupxclasses_id": 200036111,
       "group_name": "M&S Children's Medal",
       "groomName": null,
-      "time_sort": 61200,
+      "time_sort": 61411,
       "class_id": 200025281,
       "class_number": 529,
       "completed_trips": 0,
@@ -704,10 +678,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "17:00:00",
+      "estimated_start_time": "17:03:31",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "5:00 PM",
+      "latestStart": "5:03 PM",
       "latestStatus": "Upcoming",
       "total_trips": 3,
       "entry_id": null,
@@ -726,7 +700,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 506,
+      "secondsTill": 417,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -789,7 +763,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 1406,
+      "secondsTill": 1106,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -802,10 +776,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Coffee"
+        null
       ],
       "8778_sched_display": [
-        "Coffee"
+        null
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -856,7 +830,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 2306,
+      "secondsTill": 2006,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -868,8 +842,12 @@
       "is_target": true,
       "is_parent": null,
       "path_tenant": null,
-      "8778_group_alert": [],
-      "8778_sched_display": [],
+      "8778_group_alert": [
+        null
+      ],
+      "8778_sched_display": [
+        null
+      ],
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
@@ -884,25 +862,25 @@
     "status": {
       "completed": [
         0,
+        0,
         1,
+        1,
+        2,
         2,
         3,
         3,
         4,
         4,
         5,
+        5,
         6,
         6,
         7,
+        7,
+        8,
         8
       ],
       "upcoming": [
-        0,
-        1,
-        2,
-        5,
-        7,
-        8,
         10,
         10,
         11,

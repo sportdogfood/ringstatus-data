@@ -1,8 +1,7 @@
 [
   {
     "8778_group_display": [
-      "Indy",
-      "Munster"
+      null
     ],
     "class_group_id": 200024440,
     "class_id": 200025279,
@@ -15,8 +14,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Indy",
-      "Munster"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -29,21 +27,17 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200036098,
     "latestStart": "12:45 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 5,
     "estimated_start_time": "12:45:01",
     "8778_sched_display": [
-      "Indy",
-      "Munster"
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Indy",
-      "Choco"
+      null
     ],
     "class_group_id": 200024441,
     "class_id": 200025294,
@@ -56,8 +50,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Indy",
-      "Choco"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -70,22 +63,17 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200036099,
     "latestStart": "1:05 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 6,
     "estimated_start_time": "13:05:01",
     "8778_sched_display": [
-      "Indy",
-      "Choco"
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Choco",
-      "Munster",
-      "Ranger"
+      null
     ],
     "class_group_id": 200024442,
     "class_id": 200025288,
@@ -98,9 +86,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Choco",
-      "Munster",
-      "Ranger"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -113,16 +99,12 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200036100,
     "latestStart": "1:35 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 7,
     "estimated_start_time": "13:35:01",
     "8778_sched_display": [
-      "Choco",
-      "Munster",
-      "Ranger"
+      null
     ]
   },
   {
@@ -187,7 +169,7 @@
   },
   {
     "8778_group_display": [
-      "Ranger"
+      null
     ],
     "class_group_id": 200024447,
     "class_id": 200025290,
@@ -200,7 +182,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Ranger"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -213,14 +195,12 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200036105,
     "latestStart": "3:15 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 10,
     "estimated_start_time": "15:15:00",
     "8778_sched_display": [
-      "Ranger"
+      null
     ]
   },
   {
@@ -255,9 +235,7 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Ranger",
-      "Tommy"
+      null
     ],
     "class_group_id": 200024449,
     "class_id": 200025286,
@@ -270,9 +248,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Munster",
-      "Ranger",
-      "Tommy"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -285,21 +261,17 @@
     "total_trips": 10,
     "class_groupxclasses_id": 200036107,
     "latestStart": "4:15 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 12,
     "estimated_start_time": "16:15:00",
     "8778_sched_display": [
-      "Munster",
-      "Ranger",
-      "Tommy"
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Coffee"
+      null
     ],
     "class_group_id": 200024450,
     "class_id": 200025283,
@@ -312,7 +284,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Coffee"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -325,20 +297,17 @@
     "total_trips": 2,
     "class_groupxclasses_id": 200036108,
     "latestStart": "4:35 PM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 13,
     "estimated_start_time": "16:35:17",
     "8778_sched_display": [
-      "Coffee"
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Ranger",
-      "Tommy"
+      null
     ],
     "class_group_id": 200024452,
     "class_id": 200025282,
@@ -351,8 +320,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Ranger",
-      "Tommy"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -370,8 +338,7 @@
     "class_group_sequence": 14,
     "estimated_start_time": "15:09:00",
     "8778_sched_display": [
-      "Ranger",
-      "Tommy"
+      null
     ]
   },
   {
@@ -392,21 +359,21 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000062,
     "sid": 200000062,
-    "start_display": "5:00 PM",
-    "start_display_short": "5:00P",
-    "time_sort": 61200,
+    "start_display": "5:03 PM",
+    "start_display_short": "5:03P",
+    "time_sort": 61411,
     "total_trips": 3,
     "class_groupxclasses_id": 200036111,
-    "latestStart": "5:00 PM",
+    "latestStart": "5:03 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-28",
     "class_group_sequence": 15,
-    "estimated_start_time": "17:00:00",
+    "estimated_start_time": "17:03:31",
     "8778_sched_display": []
   },
   {
     "8778_group_display": [
-      "Coffee"
+      null
     ],
     "class_group_id": 200024455,
     "class_id": 200025285,
@@ -419,7 +386,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Coffee"
+      null
     ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
@@ -437,11 +404,13 @@
     "class_group_sequence": 16,
     "estimated_start_time": "17:15:00",
     "8778_sched_display": [
-      "Coffee"
+      null
     ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200025073,
     "class_id": 200026167,
     "class_name": "M&S USEF Pony Medal **3 To Fill**",
@@ -452,7 +421,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": true,
     "show_days_display_date": "Thursday, May, 28, 2026",
     "show_days_report_title": "Schedule",
@@ -468,6 +439,8 @@
     "show_date": "2026-05-28",
     "class_group_sequence": 17,
     "estimated_start_time": "17:30:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      null
+    ]
   }
 ]

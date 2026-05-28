@@ -29,7 +29,9 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200036098,
     "latestStart": "12:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-28",
     "class_group_sequence": 5,
     "estimated_start_time": "12:45:01",
@@ -62,16 +64,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000062,
     "sid": 200000062,
-    "start_display": "12:51 PM",
-    "start_display_short": "12:51P",
-    "time_sort": 46261,
+    "start_display": "1:00 PM",
+    "start_display_short": "1:00P",
+    "time_sort": 46803,
     "total_trips": 4,
     "class_groupxclasses_id": 200036099,
-    "latestStart": "12:51 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-05-28",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:51:01",
+    "estimated_start_time": "13:00:03",
     "8778_sched_display": [
       "Indy",
       "Choco"

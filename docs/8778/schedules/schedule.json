@@ -11,7 +11,9 @@
     "class_number": 581,
     "class_name": "WIHS Jumper Phase",
     "latestStart": "12:45 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 3,
     "show_id": 200000062,
     "show_date": "2026-05-28",
@@ -42,7 +44,7 @@
     "class_id": 200025294,
     "class_number": 590,
     "class_name": "Platinum Performance/USEF Talent Search 1*",
-    "latestStart": "12:51 PM",
+    "latestStart": "1:00 PM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000062,
@@ -50,9 +52,9 @@
     "show_days_display_date": "Thursday, May, 28, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "12:51 PM",
+    "start_display": "1:00 PM",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:51:01",
+    "estimated_start_time": "13:00:03",
     "group_display": [
       "Indy",
       "Choco"

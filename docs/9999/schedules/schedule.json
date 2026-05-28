@@ -247,7 +247,7 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200036106,
     "latestStart": "3:45 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-05-28",
     "class_group_sequence": 11,
     "estimated_start_time": "15:45:00",
@@ -282,10 +282,12 @@
     "start_display": "4:15 PM",
     "start_display_short": "4:15P",
     "time_sort": 58500,
-    "total_trips": 11,
+    "total_trips": 10,
     "class_groupxclasses_id": 200036107,
     "latestStart": "4:15 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-28",
     "class_group_sequence": 12,
     "estimated_start_time": "16:15:00",
@@ -317,16 +319,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000062,
     "sid": 200000062,
-    "start_display": "4:42 PM",
-    "start_display_short": "4:42P",
-    "time_sort": 60150,
+    "start_display": "4:35 PM",
+    "start_display_short": "4:35P",
+    "time_sort": 59717,
     "total_trips": 2,
     "class_groupxclasses_id": 200036108,
-    "latestStart": "4:42 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "4:35 PM",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-05-28",
     "class_group_sequence": 13,
-    "estimated_start_time": "16:42:30",
+    "estimated_start_time": "16:35:17",
     "8778_sched_display": [
       "Coffee"
     ]

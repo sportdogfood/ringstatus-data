@@ -63,7 +63,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, wihs, Over Fences"
     },
     {
       "sid": "200000062",
@@ -128,7 +128,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, wihs, Over Fences"
     },
     {
       "sid": "200000062",
@@ -193,7 +193,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, wihs, Over Fences"
     },
     {
       "sid": "200000062",
@@ -258,7 +258,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, Over Fences"
     },
     {
       "sid": "200000062",
@@ -323,7 +323,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, Over Fences"
     },
     {
       "sid": "200000062",
@@ -388,7 +388,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, Over Fences"
     },
     {
       "sid": "200000062",
@@ -453,7 +453,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, Over Fences"
     },
     {
       "sid": "200000062",
@@ -518,7 +518,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences"
     },
     {
       "sid": "200000062",
@@ -583,7 +583,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences"
     },
     {
       "sid": "200000062",
@@ -648,7 +648,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, 3', 3'3\", medal, seat, ushja, Over Fences"
     },
     {
       "sid": "200000062",
@@ -713,7 +713,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, usf, adult, medal, amateur, junior, flat, Under Saddle/Flat"
     },
     {
       "sid": "200000062",
@@ -778,7 +778,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, usf, adult, medal, amateur, junior, flat, Under Saddle/Flat"
     },
     {
       "sid": "200000062",
@@ -843,7 +843,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, maclay, Over Fences"
     },
     {
       "sid": "200000062",
@@ -908,7 +908,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, maclay, Over Fences"
     },
     {
       "sid": "200000062",
@@ -973,7 +973,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, medal, children's, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1038,7 +1038,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, medal, children's, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1103,7 +1103,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, medal, children's, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1168,7 +1168,7 @@
       "horse_id": null,
       "status": "Completed",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, adult, medal, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1233,7 +1233,7 @@
       "horse_id": null,
       "status": "Upcoming",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, adult, medal, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1298,7 +1298,7 @@
       "horse_id": null,
       "status": "Upcoming",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, medal, model, pony, Over Fences"
     },
     {
       "sid": "200000062",
@@ -1363,7 +1363,7 @@
       "horse_id": null,
       "status": "Upcoming",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, medal, model, pony, Over Fences"
     }
   ],
   "indexes": {
@@ -1592,6 +1592,55 @@
       ]
     },
     "group_name_tags": {
+      "target": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "wihs": [
+        0,
+        1,
+        2
+      ],
+      "over fences": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
       "wihs jumper phase": [
         0,
         1,
@@ -1603,18 +1652,87 @@
         5,
         6
       ],
+      "3'": [
+        7,
+        8,
+        9
+      ],
+      "3'3\"": [
+        7,
+        8,
+        9
+      ],
+      "medal": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "seat": [
+        7,
+        8,
+        9
+      ],
+      "ushja": [
+        7,
+        8,
+        9
+      ],
       "ushja jumping seat medal 3'3\"": [
         7,
         8,
         9
       ],
+      "usf": [
+        10,
+        11
+      ],
+      "adult": [
+        10,
+        11,
+        17,
+        18
+      ],
+      "amateur": [
+        10,
+        11
+      ],
+      "junior": [
+        10,
+        11
+      ],
+      "flat": [
+        10,
+        11
+      ],
+      "under saddle/flat": [
+        10,
+        11
+      ],
       "sfhja junior/adult amateur medal (flat phase)": [
         10,
         11
       ],
+      "maclay": [
+        12,
+        13
+      ],
       "aspca maclay": [
         12,
         13
+      ],
+      "children's": [
+        14,
+        15,
+        16
       ],
       "this children's medal": [
         14,
@@ -1626,6 +1744,14 @@
       ],
       "nhs/this adult medal": [
         18
+      ],
+      "model": [
+        19,
+        20
+      ],
+      "pony": [
+        19,
+        20
       ],
       "m&s usef pony medal **3 to fill**": [
         19,

@@ -1173,8 +1173,12 @@
     "start_display": "3:00 PM",
     "class_group_sequence": 9,
     "estimated_start_time": "15:00:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      null
+    ],
+    "8778_sched_display": [
+      null
+    ],
     "group_name_tags": "target, usf, medal, pony, flat, Under Saddle/Flat"
   },
   {

@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -105,7 +105,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -168,7 +168,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49098,
+      "secondsTill": 47898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -181,10 +181,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Bee"
+        "Bee (3)"
       ],
       "8778_sched_display": [
-        "Bee"
+        "Bee (3)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -235,7 +235,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 52698,
+      "secondsTill": 51498,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -280,7 +280,9 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "12:00 PM",
-      "latestStatus": null,
+      "latestStatus": [
+        "Not Started"
+      ],
       "total_trips": null,
       "entry_id": null,
       "backNumber": null,
@@ -298,7 +300,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 56298,
+      "secondsTill": 55098,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -311,10 +313,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Dottie"
+        "Dottie (14)"
       ],
       "8778_sched_display": [
-        "Dottie"
+        "Dottie (14)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -365,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 59898,
+      "secondsTill": 58698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -378,10 +380,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Dottie"
+        "Dottie (4)"
       ],
       "8778_sched_display": [
-        "Dottie"
+        "Dottie (4)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -414,7 +416,9 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "11:30 AM",
-      "latestStatus": null,
+      "latestStatus": [
+        "Not Started"
+      ],
       "total_trips": null,
       "entry_id": null,
       "backNumber": null,
@@ -432,7 +436,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 54498,
+      "secondsTill": 53298,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -499,7 +503,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -562,7 +566,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 43398,
+      "secondsTill": 42198,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -575,14 +579,14 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Doug",
-        "Choco",
-        "Arrow"
+        "Doug (2)",
+        "Choco (3)",
+        "Arrow (10)"
       ],
       "8778_sched_display": [
-        "Doug",
-        "Choco",
-        "Arrow"
+        "Doug (2)",
+        "Choco (3)",
+        "Arrow (10)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -633,7 +637,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 43398,
+      "secondsTill": 42198,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -696,7 +700,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 47298,
+      "secondsTill": 46098,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -759,7 +763,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49098,
+      "secondsTill": 47898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -772,12 +776,12 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Maiki",
-        "Kudos"
+        "Kudos (2)",
+        "Maiki (11)"
       ],
       "8778_sched_display": [
-        "Maiki",
-        "Kudos"
+        "Kudos (2)",
+        "Maiki (11)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -828,7 +832,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 50898,
+      "secondsTill": 49698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -891,7 +895,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 52698,
+      "secondsTill": 51498,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -954,7 +958,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 52698,
+      "secondsTill": 51498,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -967,14 +971,14 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Q",
-        "Maiki",
-        "Kudos"
+        "Maiki (2)",
+        "Kudos (3)",
+        "Q (12)"
       ],
       "8778_sched_display": [
-        "Q",
-        "Maiki",
-        "Kudos"
+        "Maiki (2)",
+        "Kudos (3)",
+        "Q (12)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -1025,7 +1029,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 58098,
+      "secondsTill": 56898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1038,20 +1042,20 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Munster",
-        "Indy",
-        "Hurricane",
-        "Charly",
-        null,
-        "Calypso"
+        "Charly (2)",
+        "Indy (3)",
+        " (4)",
+        "Hurricane (10)",
+        "Calypso (11)",
+        "Munster (12)"
       ],
       "8778_sched_display": [
-        "Munster",
-        "Indy",
-        "Hurricane",
-        "Charly",
-        null,
-        "Calypso"
+        "Charly (2)",
+        "Indy (3)",
+        " (4)",
+        "Hurricane (10)",
+        "Calypso (11)",
+        "Munster (12)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -1102,7 +1106,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 60138,
+      "secondsTill": 58938,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1147,7 +1151,9 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "1:45 PM",
-      "latestStatus": null,
+      "latestStatus": [
+        "Not Started"
+      ],
       "total_trips": null,
       "entry_id": null,
       "backNumber": null,
@@ -1165,7 +1171,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 62598,
+      "secondsTill": 61398,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1178,10 +1184,10 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Munster"
+        "Munster (2)"
       ],
       "8778_sched_display": [
-        "Munster"
+        "Munster (2)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -1232,7 +1238,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 62598,
+      "secondsTill": 61398,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1245,14 +1251,14 @@
       "is_parent": null,
       "path_tenant": null,
       "8778_group_alert": [
-        "Coffee",
-        null,
-        "Charly"
+        "Charly (3)",
+        "Coffee (11)",
+        " (12)"
       ],
       "8778_sched_display": [
-        "Coffee",
-        null,
-        "Charly"
+        "Charly (3)",
+        "Coffee (11)",
+        " (12)"
       ],
       "sched_display": null,
       "estimatedGO00": null,
@@ -1303,7 +1309,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 13098,
+      "secondsTill": 11898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1366,7 +1372,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 13098,
+      "secondsTill": 11898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1433,7 +1439,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 47658,
+      "secondsTill": 46458,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1496,7 +1502,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 47838,
+      "secondsTill": 46638,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1563,7 +1569,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49998,
+      "secondsTill": 48798,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1626,7 +1632,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49998,
+      "secondsTill": 48798,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1689,7 +1695,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1752,7 +1758,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1815,7 +1821,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 42438,
+      "secondsTill": 41238,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1878,7 +1884,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 42438,
+      "secondsTill": 41238,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1941,7 +1947,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 42438,
+      "secondsTill": 41238,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2004,7 +2010,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 44238,
+      "secondsTill": 43038,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2067,7 +2073,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 45138,
+      "secondsTill": 43938,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2130,7 +2136,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 45138,
+      "secondsTill": 43938,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2193,7 +2199,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 48378,
+      "secondsTill": 47178,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2256,7 +2262,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2319,7 +2325,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 41898,
+      "secondsTill": 40698,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2382,7 +2388,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 44418,
+      "secondsTill": 43218,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2445,7 +2451,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 45318,
+      "secondsTill": 44118,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2508,7 +2514,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 45318,
+      "secondsTill": 44118,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2571,7 +2577,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 47298,
+      "secondsTill": 46098,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2634,7 +2640,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 48198,
+      "secondsTill": 46998,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2697,7 +2703,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49098,
+      "secondsTill": 47898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2760,7 +2766,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 49098,
+      "secondsTill": 47898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2823,7 +2829,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 67098,
+      "secondsTill": 65898,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2868,7 +2874,9 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "3:15 PM",
-      "latestStatus": null,
+      "latestStatus": [
+        "Not Started"
+      ],
       "total_trips": null,
       "entry_id": null,
       "backNumber": null,
@@ -2886,7 +2894,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 67998,
+      "secondsTill": 66798,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2953,7 +2961,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 67998,
+      "secondsTill": 66798,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2984,7 +2992,14 @@
   "indexes": {
     "rider": {},
     "horse": {},
-    "status": {},
+    "status": {
+      "not started": [
+        4,
+        6,
+        17,
+        44
+      ]
+    },
     "ring": {
       "1": [
         0,

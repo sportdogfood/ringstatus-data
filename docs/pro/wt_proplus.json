@@ -1368,136 +1368,6 @@
     {
       "sid": "200000063",
       "dt": "2026-05-30",
-      "ring_number": 6,
-      "ringName": "Hunter 2",
-      "class_group_id": 200024630,
-      "class_group_sequence": 1,
-      "class_groupxclasses_id": 200036402,
-      "group_name": "Small Pony Hunter",
-      "groomName": "Groom",
-      "time_sort": 36720,
-      "class_id": 200025306,
-      "class_number": 401,
-      "completed_trips": 0,
-      "class_name": "Schooling Pony",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": 12,
-      "estimated_end_time": "08:36:00",
-      "estimated_go_time": null,
-      "estimated_start_time": "10:12:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:12 AM",
-      "latestStatus": "Not Started",
-      "total_trips": 11,
-      "entry_id": 200235548,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "1105CD2976D7466A89F6C4FBA3D35CCF",
-      "ringWalk": 0,
-      "barnName": "Poptart",
-      "horseName": "Poptart",
-      "teamName": "Jessica",
-      "riderName": "Jessica",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 41401,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:12 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Poptart",
-      "is_target": null,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:12:00",
-      "estimatedGO": "10:12 AM",
-      "rider_name": "JESSICA HEAP",
-      "rider_id": 70495,
-      "horse": "POPTART",
-      "horse_id": null,
-      "status": "Not Started",
-      "scope_status": "current",
-      "group_name_tags": "schooling_pony, model, pony, hunters, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-30",
-      "ring_number": 6,
-      "ringName": "Hunter 2",
-      "class_group_id": 200024630,
-      "class_group_sequence": 1,
-      "class_groupxclasses_id": 200036402,
-      "group_name": "Small Pony Hunter",
-      "groomName": "Groom",
-      "time_sort": 36720,
-      "class_id": 200025306,
-      "class_number": 401,
-      "completed_trips": 0,
-      "class_name": "Schooling Pony",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": 12,
-      "estimated_end_time": "08:36:00",
-      "estimated_go_time": null,
-      "estimated_start_time": "10:12:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:12 AM",
-      "latestStatus": "Not Started",
-      "total_trips": 11,
-      "entry_id": 200235545,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "4BA4B54CDD4E4908AE824282DEB9243C",
-      "ringWalk": 0,
-      "barnName": "Knox",
-      "horseName": "Knox",
-      "teamName": "Jessica",
-      "riderName": "Jessica",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 41401,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:12 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Knox",
-      "is_target": null,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:12:00",
-      "estimatedGO": "10:12 AM",
-      "rider_name": "JESSICA HEAP",
-      "rider_id": 70495,
-      "horse": "FORT KNOX",
-      "horse_id": null,
-      "status": "Not Started",
-      "scope_status": "current",
-      "group_name_tags": "schooling_pony, model, pony, hunters, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-30",
       "ring_number": 5,
       "ringName": "Hunter 1",
       "class_group_id": 200024625,
@@ -1624,136 +1494,6 @@
       "status": null,
       "scope_status": "current",
       "group_name_tags": "target, adult, amateur, hunters, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-30",
-      "ring_number": 5,
-      "ringName": "Hunter 1",
-      "class_group_id": 200024625,
-      "class_group_sequence": 9,
-      "class_groupxclasses_id": 200036394,
-      "group_name": "Children's Hunter",
-      "groomName": "Groom",
-      "time_sort": 37800,
-      "class_id": 200025587,
-      "class_number": 902,
-      "completed_trips": 0,
-      "class_name": "$500 NAL/WIHS/M&S Children's/Adult Hunter Classic",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": 12,
-      "estimated_end_time": "10:51:00",
-      "estimated_go_time": "10:27:30",
-      "estimated_start_time": "10:30:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:30 AM",
-      "latestStatus": "Not Started",
-      "total_trips": 4,
-      "entry_id": 200235532,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "B25B875704F848C38739BEE2DA1CB12B",
-      "ringWalk": 0,
-      "barnName": "Tommy",
-      "horseName": "Tommy",
-      "teamName": "Kate",
-      "riderName": "Kate",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 42481,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:30 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Tommy",
-      "is_target": null,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:30:00",
-      "estimatedGO": "10:30 AM",
-      "rider_name": "KATE MARISCH",
-      "rider_id": 1000001391,
-      "horse": "SPECIALIST",
-      "horse_id": null,
-      "status": "Not Started",
-      "scope_status": "current",
-      "group_name_tags": "classic, adult, children's, wihs, hunters, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-30",
-      "ring_number": 5,
-      "ringName": "Hunter 1",
-      "class_group_id": 200024625,
-      "class_group_sequence": 9,
-      "class_groupxclasses_id": 200036394,
-      "group_name": "Children's Hunter",
-      "groomName": "Gonzalo",
-      "time_sort": 37800,
-      "class_id": 200025587,
-      "class_number": 902,
-      "completed_trips": 0,
-      "class_name": "$500 NAL/WIHS/M&S Children's/Adult Hunter Classic",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": 12,
-      "estimated_end_time": "10:51:00",
-      "estimated_go_time": "10:27:30",
-      "estimated_start_time": "10:30:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:30 AM",
-      "latestStatus": "Not Started",
-      "total_trips": 4,
-      "entry_id": 200235540,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "A635CED232A84AFA99DA35326C11D929",
-      "ringWalk": 0,
-      "barnName": "Elliot",
-      "horseName": "Elliot",
-      "teamName": "Taylor",
-      "riderName": "Taylor",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 42481,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:30 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Elliot",
-      "is_target": null,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:30:00",
-      "estimatedGO": "10:30 AM",
-      "rider_name": "TAYLOR OAKVIK",
-      "rider_id": 47066,
-      "horse": "LUMINOSITY CLASS",
-      "horse_id": null,
-      "status": "Not Started",
-      "scope_status": "current",
-      "group_name_tags": "classic, adult, children's, wihs, hunters, Over Fences"
     },
     {
       "sid": "200000063",
@@ -3319,20 +3059,19 @@
   "indexes": {
     "rider": {
       "4025": [
-        33
+        29
       ],
       "47066": [
         3,
         8,
-        23,
-        24,
-        26,
-        29,
-        31,
-        32,
-        38,
-        39,
-        48
+        21,
+        22,
+        25,
+        27,
+        28,
+        34,
+        35,
+        44
       ],
       "50082": [
         5,
@@ -3340,9 +3079,9 @@
         16,
         17,
         19,
-        35,
-        36,
-        46
+        31,
+        32,
+        42
       ],
       "56558": [
         12,
@@ -3354,8 +3093,8 @@
         20
       ],
       "67673": [
-        34,
-        37
+        30,
+        33
       ],
       "70495": [
         0,
@@ -3363,39 +3102,36 @@
         2,
         4,
         6,
-        7,
-        21,
-        22
+        7
       ],
       "70856": [
-        40
+        36
       ],
       "73560": [
-        41,
-        43
+        37,
+        39
       ],
       "79378": [
-        50
+        46
       ],
       "83010": [
         9,
         10,
-        44
+        40
       ],
       "88626": [
-        42,
-        45
+        38,
+        41
       ],
       "1000001391": [
-        25,
-        27,
-        28,
-        30
+        23,
+        24,
+        26
       ],
       "1000001728": [
         15,
-        47,
-        49
+        43,
+        45
       ],
       "jessica heap": [
         0,
@@ -3403,9 +3139,7 @@
         2,
         4,
         6,
-        7,
-        21,
-        22
+        7
       ],
       "jessica": [
         0,
@@ -3413,35 +3147,31 @@
         2,
         4,
         6,
-        7,
-        21,
-        22
+        7
       ],
       "taylor oakvik": [
         3,
         8,
-        23,
-        24,
-        26,
-        29,
-        31,
-        32,
-        38,
-        39,
-        48
+        21,
+        22,
+        25,
+        27,
+        28,
+        34,
+        35,
+        44
       ],
       "taylor": [
         3,
         8,
-        23,
-        24,
-        26,
-        29,
-        31,
-        32,
-        38,
-        39,
-        48
+        21,
+        22,
+        25,
+        27,
+        28,
+        34,
+        35,
+        44
       ],
       "carsyn korotkin": [
         5,
@@ -3449,9 +3179,9 @@
         16,
         17,
         19,
-        35,
-        36,
-        46
+        31,
+        32,
+        42
       ],
       "carsyn": [
         5,
@@ -3459,19 +3189,19 @@
         16,
         17,
         19,
-        35,
-        36,
-        46
+        31,
+        32,
+        42
       ],
       "sydney matalon": [
         9,
         10,
-        44
+        40
       ],
       "sydney": [
         9,
         10,
-        44
+        40
       ],
       "iliana palumbo": [
         11,
@@ -3493,81 +3223,77 @@
       ],
       "naomi selleck": [
         15,
-        47,
-        49
+        43,
+        45
       ],
       "naomi": [
         15,
-        47,
-        49
+        43,
+        45
       ],
       "kate marisch": [
-        25,
-        27,
-        28,
-        30
+        23,
+        24,
+        26
       ],
       "kate": [
-        25,
-        27,
-        28,
-        30
+        23,
+        24,
+        26
       ],
       "lynn yoos": [
-        33
+        29
       ],
       "lynn": [
-        33
+        29
       ],
       "sophie heap": [
-        34,
-        37
+        30,
+        33
       ],
       "sophie": [
-        34,
-        37
+        30,
+        33
       ],
       "josephine demmo": [
-        40
+        36
       ],
       "josephine": [
-        40
+        36
       ],
       "grace lyons": [
-        41,
-        43
+        37,
+        39
       ],
       "grace": [
-        41,
-        43
+        37,
+        39
       ],
       "lola applebaum": [
-        42,
-        45
+        38,
+        41
       ],
       "lola": [
-        42,
-        45
+        38,
+        41
       ],
       "lainey posa": [
-        50
+        46
       ],
       "lainey": [
-        50
+        46
       ]
     },
     "horse": {
       "fort knox": [
         0,
         1,
-        6,
-        22
+        6
       ],
       "knox": [
         0,
         1,
-        6,
-        22
+        6
       ],
       "poptart": [
         2,
@@ -3575,17 +3301,15 @@
         4,
         4,
         7,
-        7,
-        21,
-        21
+        7
       ],
       "hurricane": [
         3,
         3,
         8,
         8,
-        48,
-        48
+        44,
+        44
       ],
       "kindly": [
         5
@@ -3595,13 +3319,13 @@
       ],
       "charly d'ysenbeekc z": [
         9,
-        41,
-        44
+        37,
+        40
       ],
       "charly": [
         9,
-        41,
-        44
+        37,
+        40
       ],
       "fanfan boy": [
         10
@@ -3629,21 +3353,21 @@
       ],
       "indigo van de muggenhoek": [
         14,
-        46
+        42
       ],
       "indy": [
         14,
-        46
+        42
       ],
       "mastermind": [
         15,
-        47,
-        49
+        43,
+        45
       ],
       "munster": [
         15,
-        47,
-        49
+        43,
+        45
       ],
       "forte": [
         16,
@@ -3656,88 +3380,84 @@
         19
       ],
       "luminosity class": [
-        23,
-        24,
-        26,
-        29
+        21,
+        22,
+        25
       ],
       "elliot": [
-        23,
-        24,
-        26,
-        29
+        21,
+        22,
+        25
       ],
       "specialist": [
-        25,
-        27,
-        28,
-        30
+        23,
+        24,
+        26
       ],
       "tommy": [
-        25,
-        27,
-        28,
-        30
+        23,
+        24,
+        26
       ],
       "maiki": [
-        31,
-        31,
-        38,
-        38
+        27,
+        27,
+        34,
+        34
       ],
       "qastaar van't heike": [
-        32,
-        39
+        28,
+        35
       ],
       "q": [
-        32,
-        39
+        28,
+        35
       ],
       "fernhill kudos": [
-        33
+        29
       ],
       "kudos": [
-        33
+        29
       ],
       "arrow m z": [
-        34
+        30
       ],
       "arrow": [
-        34
+        30
       ],
       "dodicci": [
-        35,
-        36
+        31,
+        32
       ],
       "dottie": [
-        35,
-        36
+        31,
+        32
       ],
       "choco du reverdy": [
-        37
+        33
       ],
       "choco": [
-        37
+        33
       ],
       "calypso": [
-        40,
-        40
+        36,
+        36
       ],
       "tenor van't klavertje vier": [
-        42,
-        45
+        38,
+        41
       ],
       "ideal": [
-        43
+        39
       ],
       "doug": [
-        43
+        39
       ],
       "range rover": [
-        50
+        46
       ],
       "ranger": [
-        50
+        46
       ]
     },
     "status": {
@@ -3760,40 +3480,32 @@
         19,
         21,
         21,
-        22,
-        22,
         23,
         23,
         25,
         25,
         26,
         26,
-        27,
-        27,
-        29,
-        29,
-        30,
-        30,
-        35,
-        35,
+        31,
+        31,
+        37,
+        37,
+        38,
+        38,
+        40,
+        40,
         41,
         41,
         42,
         42,
+        43,
+        43,
         44,
         44,
         45,
         45,
         46,
-        46,
-        47,
-        47,
-        48,
-        48,
-        49,
-        49,
-        50,
-        50
+        46
       ],
       "current": [
         0,
@@ -3842,20 +3554,16 @@
         43,
         44,
         45,
-        46,
-        47,
-        48,
-        49,
-        50
+        46
       ]
     },
     "ring": {
       "1": [
         5,
-        34,
-        35,
-        36,
-        37
+        30,
+        31,
+        32,
+        33
       ],
       "3": [
         3,
@@ -3863,24 +3571,24 @@
         9,
         10,
         11,
-        31,
-        32,
-        33,
-        38,
+        27,
+        28,
+        29,
+        34,
+        35,
+        36,
         39,
-        40,
+        42,
         43,
-        46,
-        47,
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "4": [
-        41,
-        42,
-        44,
-        45
+        37,
+        38,
+        40,
+        41
       ],
       "5": [
         14,
@@ -3889,14 +3597,12 @@
         17,
         19,
         20,
+        21,
+        22,
         23,
         24,
         25,
-        26,
-        27,
-        28,
-        29,
-        30
+        26
       ],
       "6": [
         0,
@@ -3907,9 +3613,7 @@
         7,
         12,
         13,
-        18,
-        21,
-        22
+        18
       ],
       "hunter 2": [
         0,
@@ -3920,9 +3624,7 @@
         7,
         12,
         13,
-        18,
-        21,
-        22
+        18
       ],
       "covered": [
         3,
@@ -3930,25 +3632,25 @@
         9,
         10,
         11,
-        31,
-        32,
-        33,
-        38,
-        39,
-        40,
-        43,
-        46,
-        47,
-        48,
-        49,
-        50
-      ],
-      "derby": [
-        5,
+        27,
+        28,
+        29,
         34,
         35,
         36,
-        37
+        39,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "derby": [
+        5,
+        30,
+        31,
+        32,
+        33
       ],
       "hunter 1": [
         14,
@@ -3957,20 +3659,18 @@
         17,
         19,
         20,
+        21,
+        22,
         23,
         24,
         25,
-        26,
-        27,
-        28,
-        29,
-        30
+        26
       ],
       "village": [
-        41,
-        42,
-        44,
-        45
+        37,
+        38,
+        40,
+        41
       ]
     },
     "class_type": {
@@ -3992,11 +3692,7 @@
         23,
         24,
         25,
-        26,
-        27,
-        28,
-        29,
-        30
+        26
       ],
       "over fences": [
         0,
@@ -4020,10 +3716,10 @@
         22,
         23,
         24,
-        25,
-        26,
         27,
         28,
+        29,
+        30,
         31,
         32,
         33,
@@ -4039,11 +3735,7 @@
         43,
         44,
         45,
-        46,
-        47,
-        48,
-        49,
-        50
+        46
       ],
       "jumpers": [
         3,
@@ -4052,6 +3744,10 @@
         9,
         10,
         11,
+        27,
+        28,
+        29,
+        30,
         31,
         32,
         33,
@@ -4062,29 +3758,25 @@
         38,
         39,
         40,
-        41,
-        42,
-        43,
-        44,
-        45
+        41
       ],
       "under saddle/flat": [
         6,
         7,
         18,
         19,
-        29,
-        30
+        25,
+        26
       ],
       "equitation": [
         14,
         15,
         20,
-        46,
-        47,
-        48,
-        49,
-        50
+        42,
+        43,
+        44,
+        45,
+        46
       ]
     },
     "group_name_tags": {
@@ -4118,8 +3810,12 @@
         18,
         19,
         20,
+        21,
+        22,
         23,
         24,
+        25,
+        26,
         27,
         28,
         29,
@@ -4139,11 +3835,7 @@
         43,
         44,
         45,
-        46,
-        47,
-        48,
-        49,
-        50
+        46
       ],
       "model": [
         0,
@@ -4154,9 +3846,7 @@
         7,
         12,
         13,
-        18,
-        21,
-        22
+        18
       ],
       "pony": [
         0,
@@ -4167,9 +3857,7 @@
         7,
         12,
         13,
-        18,
-        21,
-        22
+        18
       ],
       "small": [
         0,
@@ -4197,11 +3885,7 @@
         23,
         24,
         25,
-        26,
-        27,
-        28,
-        29,
-        30
+        26
       ],
       "over fences": [
         0,
@@ -4225,10 +3909,10 @@
         22,
         23,
         24,
-        25,
-        26,
         27,
         28,
+        29,
+        30,
         31,
         32,
         33,
@@ -4244,19 +3928,13 @@
         43,
         44,
         45,
-        46,
-        47,
-        48,
-        49,
-        50
+        46
       ],
       "small pony hunter": [
         0,
         1,
         2,
-        4,
-        21,
-        22
+        4
       ],
       "1.0m": [
         3,
@@ -4272,6 +3950,10 @@
         9,
         10,
         11,
+        27,
+        28,
+        29,
+        30,
         31,
         32,
         33,
@@ -4282,19 +3964,15 @@
         38,
         39,
         40,
-        41,
-        42,
-        43,
-        44,
-        45
+        41
       ],
       "training (1.0m) ii2b / 1.0m young (table ii)": [
         3
       ],
       "open": [
         5,
-        35,
-        43
+        31,
+        39
       ],
       "$5": [
         5
@@ -4307,24 +3985,24 @@
         7,
         18,
         19,
-        29,
-        30
+        25,
+        26
       ],
       "u/s": [
         6,
         7,
         18,
         19,
-        29,
-        30
+        25,
+        26
       ],
       "under saddle/flat": [
         6,
         7,
         18,
         19,
-        29,
-        30
+        25,
+        26
       ],
       "small pony hunter u/s": [
         6,
@@ -4335,21 +4013,21 @@
         9,
         10,
         11,
+        21,
+        22,
         23,
         24,
+        25,
+        26,
         27,
         28,
         29,
         30,
-        31,
         32,
         33,
         34,
-        36,
-        37,
-        38,
-        39,
-        40
+        35,
+        36
       ],
       "1.0m junior & amateur jumpers ii2b": [
         8,
@@ -4369,13 +4047,11 @@
       "wihs": [
         14,
         15,
-        25,
-        26,
-        38,
-        39,
-        40,
-        46,
-        47
+        34,
+        35,
+        36,
+        42,
+        43
       ],
       "wihs hunter phase": [
         14,
@@ -4385,17 +4061,17 @@
         16,
         17,
         19,
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "3'3\"": [
         16,
         17,
         19,
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "3'6\"": [
         16,
@@ -4406,15 +4082,15 @@
         16,
         17,
         19,
-        31,
+        27,
+        28,
+        29,
+        30,
         32,
         33,
         34,
-        36,
-        37,
-        38,
-        39,
-        40
+        35,
+        36
       ],
       "junior hunter 3'6\"/3'3\"": [
         16,
@@ -4428,120 +4104,104 @@
       ],
       "adult": [
         20,
+        21,
+        22,
         23,
         24,
         25,
-        26,
-        27,
-        28,
-        29,
-        30
+        26
       ],
       "medal": [
         20,
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "nhs/this adult medal **3 to fill**": [
         20
       ],
-      "schooling_pony": [
-        21,
-        22
-      ],
       "children's hunter": [
+        21,
+        22,
         23,
-        24,
-        25,
-        26,
-        27,
-        28
-      ],
-      "classic": [
-        25,
-        26
-      ],
-      "children's": [
-        25,
-        26
+        24
       ],
       "child/adult amateur hunter u/s": [
-        29,
-        30
+        25,
+        26
       ],
       "1.10m": [
+        27,
+        28,
+        29,
+        34,
+        35,
+        36
+      ],
+      "1.10m junior/amateur jumper ii2b": [
+        27,
+        28,
+        29
+      ],
+      "1.20m": [
+        30,
         31,
         32,
         33,
-        38,
-        39,
-        40
+        39
       ],
-      "1.10m junior/amateur jumper ii2b": [
+      "1.20m open ii2b / 1.20m jr/am ii2b": [
+        30,
         31,
         32,
         33
       ],
-      "1.20m": [
-        34,
-        35,
-        36,
-        37,
-        43
-      ],
-      "1.20m open ii2b / 1.20m jr/am ii2b": [
-        34,
-        35,
-        36,
-        37
-      ],
       "nal/wihs 1.10m junior/amateur jumper classic ii2b": [
-        38,
-        39,
-        40
+        34,
+        35,
+        36
       ],
       "hopeful": [
-        41,
-        42
+        37,
+        38
       ],
       ".85m": [
-        41,
-        42
+        37,
+        38
       ],
       "hopeful jumper (.85m) ii2b": [
-        41,
-        42
+        37,
+        38
       ],
       "1.20m open jumper ii2b & 1.20m young jumper ii2b": [
-        43
+        39
       ],
       ".90m": [
-        44,
-        45
+        40,
+        41
       ],
       "training jumper (.90m) ii2b": [
-        44,
-        45
+        40,
+        41
       ],
       "wihs jumper phase **3 to fill**": [
-        46,
-        47
+        42,
+        43
       ],
       "seat": [
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "ushja": [
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ],
       "ushja 3'3\" jumper seat medal": [
-        48,
-        49,
-        50
+        44,
+        45,
+        46
       ]
     }
   }

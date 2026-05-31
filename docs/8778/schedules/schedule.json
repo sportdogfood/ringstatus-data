@@ -476,7 +476,7 @@
     "class_id": 200025474,
     "class_number": 782,
     "class_name": "Training Jumper (1.0m) II2d",
-    "latestStart": "12:27 PM",
+    "latestStart": "12:30 PM",
     "latestStatus": null,
     "total_trips": 1,
     "show_id": 200000063,
@@ -484,9 +484,9 @@
     "show_days_display_date": "Sunday, May, 31, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "12:27 PM",
+    "start_display": "12:30 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:27:36",
+    "estimated_start_time": "12:30:33",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, 1.0m, II2d, jumpers, Over Fences"
@@ -634,7 +634,7 @@
     "class_name": "Hopeful Jumper (.85m) II2d",
     "latestStart": "11:35 AM",
     "latestStatus": [
-      "Underway"
+      "Completed"
     ],
     "total_trips": 10,
     "show_id": 200000063,
@@ -680,16 +680,16 @@
     "ring_nickname": "Village",
     "start_display": "12:25 PM",
     "class_group_sequence": 5,
-    "estimated_start_time": "12:25:00",
+    "estimated_start_time": "12:25:02",
     "group_display": [
-      "Shrek ",
       null,
-      "Charly"
+      "Charly (3)",
+      "Shrek  (4)"
     ],
     "8778_sched_display": [
-      "Shrek ",
       null,
-      "Charly"
+      "Charly (3)",
+      "Shrek  (4)"
     ],
     "group_name_tags": "target, .85m, jumpers, Over Fences"
   },
@@ -706,7 +706,7 @@
     "class_name": "Training Jumper (.90m) II2d",
     "latestStart": "1:10 PM",
     "latestStatus": null,
-    "total_trips": 5,
+    "total_trips": 6,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -736,7 +736,7 @@
     "class_id": 200025710,
     "class_number": 827,
     "class_name": "1.0m Young Jumper Table II",
-    "latestStart": "1:25 PM",
+    "latestStart": "1:28 PM",
     "latestStatus": null,
     "total_trips": 1,
     "show_id": 200000063,
@@ -744,9 +744,9 @@
     "show_days_display_date": "Sunday, May, 31, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "1:25 PM",
+    "start_display": "1:28 PM",
     "class_group_sequence": 7,
-    "estimated_start_time": "13:25:00",
+    "estimated_start_time": "13:28:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, 1.0m, jumpers, Over Fences"
@@ -1030,7 +1030,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "12:34 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:34:37",
+    "estimated_start_time": "12:34:24",
     "group_display": [
       "Elliot",
       null,
@@ -1064,7 +1064,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "12:34 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:34:37",
+    "estimated_start_time": "12:34:24",
     "group_display": [
       null,
       "Elliot",
@@ -1246,7 +1246,7 @@
     "class_name": "Small Pony Conformation Hunter",
     "latestStart": "9:40 AM",
     "latestStatus": null,
-    "total_trips": 19,
+    "total_trips": 17,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -1280,7 +1280,7 @@
     "class_name": "Medium Pony Conformation Hunter",
     "latestStart": "10:30 AM",
     "latestStatus": null,
-    "total_trips": 15,
+    "total_trips": 13,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -1312,7 +1312,7 @@
     "class_name": "Large Pony Conformation Hunter",
     "latestStart": "11:00 AM",
     "latestStatus": null,
-    "total_trips": 19,
+    "total_trips": 17,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -1364,7 +1364,7 @@
     "class_name": "Green Pony Conformation Hunter",
     "latestStart": "12:08 PM",
     "latestStatus": null,
-    "total_trips": 12,
+    "total_trips": 10,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -1390,7 +1390,7 @@
     "class_name": "Green Pony Hunter",
     "latestStart": "12:08 PM",
     "latestStatus": null,
-    "total_trips": 12,
+    "total_trips": 10,
     "show_id": 200000063,
     "show_date": "2026-05-31",
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -1476,7 +1476,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "12:55 PM",
     "class_group_sequence": 10,
-    "estimated_start_time": "12:55:37",
+    "estimated_start_time": "12:55:24",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, Over Fences"
@@ -1502,7 +1502,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "12:55 PM",
     "class_group_sequence": 10,
-    "estimated_start_time": "12:55:37",
+    "estimated_start_time": "12:55:24",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, Over Fences"
@@ -1528,7 +1528,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "1:22 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:22:37",
+    "estimated_start_time": "13:22:24",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, low, amateur, hunters, Over Fences"
@@ -1554,7 +1554,7 @@
     "ring_nickname": "Hunter 1",
     "start_display": "1:22 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:22:37",
+    "estimated_start_time": "13:22:24",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, low, amateur, hunters, Over Fences"

@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 1952,
+      "secondsTill": 1352,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 3752,
+      "secondsTill": 3152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 3752,
+      "secondsTill": 3152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -205,7 +205,7 @@
       "class_groupxclasses_id": 200036563,
       "group_name": "Small Pony Conformation/Handy Hunter & Classic",
       "groomName": "Groom",
-      "time_sort": 32460,
+      "time_sort": 33000,
       "class_id": 200025690,
       "class_number": 414,
       "completed_trips": 0,
@@ -215,10 +215,10 @@
       "remaining_trips": null,
       "estimated_end_time": "09:37:00",
       "estimated_go_time": null,
-      "estimated_start_time": "09:01:00",
+      "estimated_start_time": "09:10:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:01 AM",
+      "latestStart": "9:10 AM",
       "latestStatus": "Upcoming",
       "total_trips": 19,
       "entry_id": 200235548,
@@ -237,21 +237,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 5612,
+      "secondsTill": 5552,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "9:01 AM",
+      "latestGO": "9:10 AM",
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Poptart",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "9:01:00",
-      "estimatedGO": "9:01 AM",
+      "estimatedGO00": "9:10:00",
+      "estimatedGO": "9:10 AM",
       "rider_name": "JESSICA HEAP",
       "rider_id": 70495,
       "horse": "POPTART",
@@ -270,7 +270,7 @@
       "class_groupxclasses_id": 200036563,
       "group_name": "Small Pony Conformation/Handy Hunter & Classic",
       "groomName": "Groom",
-      "time_sort": 32460,
+      "time_sort": 33000,
       "class_id": 200025690,
       "class_number": 414,
       "completed_trips": 0,
@@ -280,10 +280,10 @@
       "remaining_trips": null,
       "estimated_end_time": "09:37:00",
       "estimated_go_time": null,
-      "estimated_start_time": "09:01:00",
+      "estimated_start_time": "09:10:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "9:01 AM",
+      "latestStart": "9:10 AM",
       "latestStatus": "Upcoming",
       "total_trips": 19,
       "entry_id": 200235545,
@@ -302,21 +302,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 5612,
+      "secondsTill": 5552,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "9:01 AM",
+      "latestGO": "9:10 AM",
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Knox",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "9:01:00",
-      "estimatedGO": "9:01 AM",
+      "estimatedGO00": "9:10:00",
+      "estimatedGO": "9:10 AM",
       "rider_name": "JESSICA HEAP",
       "rider_id": 70495,
       "horse": "FORT KNOX",
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 6752,
+      "secondsTill": 6152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6752,
+      "secondsTill": 6152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6752,
+      "secondsTill": 6152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -562,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 6752,
+      "secondsTill": 6152,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -584,71 +584,6 @@
       "status": "Upcoming",
       "scope_status": "current",
       "group_name_tags": "target, maclay, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-31",
-      "ring_number": 6,
-      "ringName": "Hunter 2",
-      "class_group_id": 200024717,
-      "class_group_sequence": 6,
-      "class_groupxclasses_id": 200036567,
-      "group_name": "Medium Pony Conformation/Handy Hunter & Classic",
-      "groomName": "Groom",
-      "time_sort": 34620,
-      "class_id": 200025591,
-      "class_number": 424,
-      "completed_trips": 0,
-      "class_name": "Medium Pony Conformation Hunter",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": "10:01:00",
-      "estimated_go_time": null,
-      "estimated_start_time": "09:37:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "9:37 AM",
-      "latestStatus": "Upcoming",
-      "total_trips": 17,
-      "entry_id": 200235713,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "C1D5143FA4AC47B1B8F518B32F7EC2CD",
-      "ringWalk": 0,
-      "barnName": "Paisley",
-      "horseName": "Paisley",
-      "teamName": "Lacey",
-      "riderName": "Lacey",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 7772,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "9:37 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Paisley",
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "9:37:00",
-      "estimatedGO": "9:37 AM",
-      "rider_name": "LACEY POWERS",
-      "rider_id": 56558,
-      "horse": "HALO",
-      "horse_id": null,
-      "status": "Upcoming",
-      "scope_status": "current",
-      "group_name_tags": "target, model, pony, medium, hunters, Over Fences"
     },
     {
       "sid": "200000063",
@@ -675,7 +610,7 @@
       "trip_id": null,
       "latestStart": "9:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 9,
+      "total_trips": 11,
       "entry_id": 200235550,
       "backNumber": null,
       "entryNumber": null,
@@ -692,21 +627,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8252,
+      "secondsTill": 7652,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "9:45 AM",
+      "latestGO": "9:51 AM",
       "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Bee",
+      "lastOOG": 2,
+      "sched_display": "Bee (2)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "9:45:00",
-      "estimatedGO": "9:45 AM",
+      "estimatedGO00": "9:51:00",
+      "estimatedGO": "9:51 AM",
       "rider_name": "CARSYN KOROTKIN",
       "rider_id": 50082,
       "horse": "KINDLY",
@@ -757,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 8252,
+      "secondsTill": 7652,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -822,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8252,
+      "secondsTill": 7652,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -844,6 +779,71 @@
       "status": "Upcoming",
       "scope_status": "current",
       "group_name_tags": "target, medal, dover, seat, Over Fences"
+    },
+    {
+      "sid": "200000063",
+      "dt": "2026-05-31",
+      "ring_number": 6,
+      "ringName": "Hunter 2",
+      "class_group_id": 200024717,
+      "class_group_sequence": 6,
+      "class_groupxclasses_id": 200036567,
+      "group_name": "Medium Pony Conformation/Handy Hunter & Classic",
+      "groomName": "Groom",
+      "time_sort": 35160,
+      "class_id": 200025591,
+      "class_number": 424,
+      "completed_trips": 0,
+      "class_name": "Medium Pony Conformation Hunter",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": "10:01:00",
+      "estimated_go_time": null,
+      "estimated_start_time": "09:46:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "9:46 AM",
+      "latestStatus": "Upcoming",
+      "total_trips": 17,
+      "entry_id": 200235713,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": "C1D5143FA4AC47B1B8F518B32F7EC2CD",
+      "ringWalk": 0,
+      "barnName": "Paisley",
+      "horseName": "Paisley",
+      "teamName": "Lacey",
+      "riderName": "Lacey",
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": 7712,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "9:46 AM",
+      "runningOOG": null,
+      "lastOOG": null,
+      "sched_display": "Paisley",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "9:46:00",
+      "estimatedGO": "9:46 AM",
+      "rider_name": "LACEY POWERS",
+      "rider_id": 56558,
+      "horse": "HALO",
+      "horse_id": null,
+      "status": "Upcoming",
+      "scope_status": "current",
+      "group_name_tags": "target, model, pony, medium, hunters, Over Fences"
     },
     {
       "sid": "200000063",
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9152,
+      "secondsTill": 8552,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 9152,
+      "secondsTill": 8552,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1017,7 +1017,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9152,
+      "secondsTill": 8552,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1039,136 +1039,6 @@
       "status": "Upcoming",
       "scope_status": "current",
       "group_name_tags": "target, medal, children's, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-31",
-      "ring_number": 4,
-      "ringName": "Village",
-      "class_group_id": 200024665,
-      "class_group_sequence": 4,
-      "class_groupxclasses_id": 200036468,
-      "group_name": "Hopeful Jumper (.85m) II2d",
-      "groomName": "Groom",
-      "time_sort": 37980,
-      "class_id": 200025360,
-      "class_number": 791,
-      "completed_trips": 0,
-      "class_name": "Hopeful Jumper (.85m) II2d",
-      "class_type": "Jumpers",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": "11:06:00",
-      "estimated_go_time": null,
-      "estimated_start_time": "10:33:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:33 AM",
-      "latestStatus": "Upcoming",
-      "total_trips": 13,
-      "entry_id": 200235555,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "57427E3330764B3AB034BCAA0ABB5698",
-      "ringWalk": 0,
-      "barnName": "Shrek ",
-      "horseName": "Shrek ",
-      "teamName": "Lola",
-      "riderName": "Lola",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 11132,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:33 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Shrek ",
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:33:00",
-      "estimatedGO": "10:33 AM",
-      "rider_name": "LOLA APPLEBAUM",
-      "rider_id": 88626,
-      "horse": "TENOR VAN'T KLAVERTJE VIER",
-      "horse_id": null,
-      "status": "Upcoming",
-      "scope_status": "current",
-      "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences"
-    },
-    {
-      "sid": "200000063",
-      "dt": "2026-05-31",
-      "ring_number": 4,
-      "ringName": "Village",
-      "class_group_id": 200024665,
-      "class_group_sequence": 4,
-      "class_groupxclasses_id": 200036468,
-      "group_name": "Hopeful Jumper (.85m) II2d",
-      "groomName": "Groom",
-      "time_sort": 37980,
-      "class_id": 200025360,
-      "class_number": 791,
-      "completed_trips": 0,
-      "class_name": "Hopeful Jumper (.85m) II2d",
-      "class_type": "Jumpers",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": "11:06:00",
-      "estimated_go_time": null,
-      "estimated_start_time": "10:33:00",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "10:33 AM",
-      "latestStatus": "Upcoming",
-      "total_trips": 13,
-      "entry_id": 200235553,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": "583AC06131A74A56AC96913F9439FDBB",
-      "ringWalk": 0,
-      "barnName": "Charly",
-      "horseName": "Charly",
-      "teamName": "Sydney",
-      "riderName": "Sydney",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 11132,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:33 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Charly",
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:33:00",
-      "estimatedGO": "10:33 AM",
-      "rider_name": "SYDNEY MATALON",
-      "rider_id": 83010,
-      "horse": "CHARLY D'YSENBEEKC Z",
-      "horse_id": null,
-      "status": "Upcoming",
-      "scope_status": "current",
-      "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences"
     },
     {
       "sid": "200000063",
@@ -1212,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11672,
+      "secondsTill": 11072,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1277,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 11672,
+      "secondsTill": 11072,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1299,6 +1169,136 @@
       "status": "Upcoming",
       "scope_status": "current",
       "group_name_tags": "target, adult, medal, Over Fences"
+    },
+    {
+      "sid": "200000063",
+      "dt": "2026-05-31",
+      "ring_number": 4,
+      "ringName": "Village",
+      "class_group_id": 200024665,
+      "class_group_sequence": 4,
+      "class_groupxclasses_id": 200036468,
+      "group_name": "Hopeful Jumper (.85m) II2d",
+      "groomName": "Groom",
+      "time_sort": 39000,
+      "class_id": 200025360,
+      "class_number": 791,
+      "completed_trips": 0,
+      "class_name": "Hopeful Jumper (.85m) II2d",
+      "class_type": "Jumpers",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": "11:06:00",
+      "estimated_go_time": null,
+      "estimated_start_time": "10:50:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "10:50 AM",
+      "latestStatus": "Upcoming",
+      "total_trips": 13,
+      "entry_id": 200235555,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": "57427E3330764B3AB034BCAA0ABB5698",
+      "ringWalk": 0,
+      "barnName": "Shrek ",
+      "horseName": "Shrek ",
+      "teamName": "Lola",
+      "riderName": "Lola",
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": 10532,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "10:50 AM",
+      "runningOOG": null,
+      "lastOOG": null,
+      "sched_display": "Shrek ",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "10:50:00",
+      "estimatedGO": "10:50 AM",
+      "rider_name": "LOLA APPLEBAUM",
+      "rider_id": 88626,
+      "horse": "TENOR VAN'T KLAVERTJE VIER",
+      "horse_id": null,
+      "status": "Upcoming",
+      "scope_status": "current",
+      "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences"
+    },
+    {
+      "sid": "200000063",
+      "dt": "2026-05-31",
+      "ring_number": 4,
+      "ringName": "Village",
+      "class_group_id": 200024665,
+      "class_group_sequence": 4,
+      "class_groupxclasses_id": 200036468,
+      "group_name": "Hopeful Jumper (.85m) II2d",
+      "groomName": "Groom",
+      "time_sort": 39000,
+      "class_id": 200025360,
+      "class_number": 791,
+      "completed_trips": 0,
+      "class_name": "Hopeful Jumper (.85m) II2d",
+      "class_type": "Jumpers",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": "11:06:00",
+      "estimated_go_time": null,
+      "estimated_start_time": "10:50:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "10:50 AM",
+      "latestStatus": "Upcoming",
+      "total_trips": 13,
+      "entry_id": 200235553,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": "583AC06131A74A56AC96913F9439FDBB",
+      "ringWalk": 0,
+      "barnName": "Charly",
+      "horseName": "Charly",
+      "teamName": "Sydney",
+      "riderName": "Sydney",
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": 10532,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "10:50 AM",
+      "runningOOG": null,
+      "lastOOG": null,
+      "sched_display": "Charly",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "10:50:00",
+      "estimatedGO": "10:50 AM",
+      "rider_name": "SYDNEY MATALON",
+      "rider_id": 83010,
+      "horse": "CHARLY D'YSENBEEKC Z",
+      "horse_id": null,
+      "status": "Upcoming",
+      "scope_status": "current",
+      "group_name_tags": "target, hopeful, .85m, II2d, jumpers, Over Fences"
     },
     {
       "sid": "200000063",
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12392,
+      "secondsTill": 11792,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1407,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13112,
+      "secondsTill": 12512,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1472,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13472,
+      "secondsTill": 12872,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1537,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 13472,
+      "secondsTill": 12872,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1602,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15812,
+      "secondsTill": 15212,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1667,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 16352,
+      "secondsTill": 15752,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1732,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 16352,
+      "secondsTill": 15752,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1797,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 16352,
+      "secondsTill": 15752,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1862,7 +1862,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 16352,
+      "secondsTill": 15752,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1893,24 +1893,24 @@
       ],
       "46790": [
         5,
-        11,
+        10,
         14
       ],
       "47066": [
-        18,
+        16,
         25
       ],
       "50082": [
         0,
         1,
-        10,
+        9,
         21
       ],
       "56558": [
-        9
+        12
       ],
       "67632": [
-        19,
+        17,
         27
       ],
       "67673": [
@@ -1925,15 +1925,15 @@
       ],
       "79378": [
         8,
-        12
+        11
       ],
       "83010": [
-        17,
+        19,
         23,
         26
       ],
       "88626": [
-        16,
+        18,
         22,
         24
       ],
@@ -1948,13 +1948,13 @@
       "carsyn korotkin": [
         0,
         1,
-        10,
+        9,
         21
       ],
       "carsyn": [
         0,
         1,
-        10,
+        9,
         21
       ],
       "sophie heap": [
@@ -1973,12 +1973,12 @@
       ],
       "zoey burton": [
         5,
-        11,
+        10,
         14
       ],
       "zoey": [
         5,
-        11,
+        10,
         14
       ],
       "josephine demmo": [
@@ -1995,17 +1995,17 @@
       ],
       "lainey posa": [
         8,
-        12
+        11
       ],
       "lainey": [
         8,
-        12
+        11
       ],
       "lacey powers": [
-        9
+        12
       ],
       "lacey": [
-        9
+        12
       ],
       "kate marisch": [
         13,
@@ -2023,41 +2023,41 @@
       "naomi": [
         15
       ],
-      "lola applebaum": [
+      "taylor oakvik": [
         16,
+        25
+      ],
+      "taylor": [
+        16,
+        25
+      ],
+      "iliana palumbo": [
+        17,
+        27
+      ],
+      "iliana": [
+        17,
+        27
+      ],
+      "lola applebaum": [
+        18,
         22,
         24
       ],
       "lola": [
-        16,
+        18,
         22,
         24
       ],
       "sydney matalon": [
-        17,
+        19,
         23,
         26
       ],
       "sydney": [
-        17,
+        19,
         23,
         26
-      ],
-      "taylor oakvik": [
-        18,
-        25
-      ],
-      "taylor": [
-        18,
-        25
-      ],
-      "iliana palumbo": [
-        19,
-        27
-      ],
-      "iliana": [
-        19,
-        27
       ]
     },
     "horse": {
@@ -2088,8 +2088,8 @@
       "jason": [
         5,
         5,
-        11,
-        11,
+        10,
+        10,
         14,
         14
       ],
@@ -2105,23 +2105,23 @@
       ],
       "range rover": [
         8,
-        12
+        11
       ],
       "ranger": [
         8,
-        12
-      ],
-      "halo": [
-        9
-      ],
-      "paisley": [
-        9
+        11
       ],
       "kindly": [
-        10
+        9
       ],
       "bee": [
-        10
+        9
+      ],
+      "halo": [
+        12
+      ],
+      "paisley": [
+        12
       ],
       "specialist": [
         13,
@@ -2139,35 +2139,35 @@
       "munster": [
         15
       ],
-      "tenor van't klavertje vier": [
+      "hurricane": [
         16,
+        16
+      ],
+      "irish coffee vhl": [
+        17,
+        27
+      ],
+      "coffee": [
+        17,
+        27
+      ],
+      "tenor van't klavertje vier": [
+        18,
         22,
         24
       ],
       "shrek": [
-        16,
+        18,
         22,
         24
       ],
       "charly d'ysenbeekc z": [
-        17,
+        19,
         23
       ],
       "charly": [
-        17,
+        19,
         23
-      ],
-      "hurricane": [
-        18,
-        18
-      ],
-      "irish coffee vhl": [
-        19,
-        27
-      ],
-      "coffee": [
-        19,
-        27
       ],
       "forte": [
         21
@@ -2284,7 +2284,7 @@
         0,
         1,
         2,
-        10
+        9
       ],
       "3": [
         6,
@@ -2293,8 +2293,8 @@
         27
       ],
       "4": [
-        16,
-        17,
+        18,
+        19,
         22,
         23,
         24
@@ -2302,13 +2302,13 @@
       "5": [
         5,
         8,
+        10,
         11,
-        12,
         13,
         14,
         15,
-        18,
-        19,
+        16,
+        17,
         20,
         21,
         25,
@@ -2317,29 +2317,29 @@
       "6": [
         3,
         4,
-        9
+        12
       ],
       "derby": [
         0,
         1,
         2,
-        10
+        9
       ],
       "hunter 2": [
         3,
         4,
-        9
+        12
       ],
       "hunter 1": [
         5,
         8,
+        10,
         11,
-        12,
         13,
         14,
         15,
-        18,
-        19,
+        16,
+        17,
         20,
         21,
         25,
@@ -2352,8 +2352,8 @@
         27
       ],
       "village": [
-        16,
-        17,
+        18,
+        19,
         22,
         23,
         24
@@ -2366,9 +2366,9 @@
         2,
         6,
         7,
-        10,
-        16,
-        17,
+        9,
+        18,
+        19,
         22,
         23,
         24,
@@ -2408,7 +2408,7 @@
       "hunters": [
         3,
         4,
-        9,
+        12,
         21,
         25,
         28
@@ -2416,13 +2416,13 @@
       "equitation": [
         5,
         8,
+        10,
         11,
-        12,
         13,
         14,
         15,
-        18,
-        19,
+        16,
+        17,
         20
       ],
       "under saddle/flat": [
@@ -2474,8 +2474,8 @@
       ],
       "ii2d": [
         0,
-        16,
-        17,
+        18,
+        19,
         24
       ],
       "jumpers": [
@@ -2484,9 +2484,9 @@
         2,
         6,
         7,
-        10,
-        16,
-        17,
+        9,
+        18,
+        19,
         22,
         23,
         24,
@@ -2531,7 +2531,7 @@
         2,
         6,
         7,
-        10,
+        9,
         25,
         26,
         27,
@@ -2542,14 +2542,14 @@
         2,
         6,
         7,
-        10,
+        9,
         20,
         21
       ],
       "$2": [
         1,
         2,
-        10
+        9
       ],
       "625 nal 1.20m junior/amateur jumper classic ii2b": [
         1,
@@ -2558,12 +2558,12 @@
       "model": [
         3,
         4,
-        9
+        12
       ],
       "pony": [
         3,
         4,
-        9
+        12
       ],
       "small": [
         3,
@@ -2572,7 +2572,7 @@
       "hunters": [
         3,
         4,
-        9,
+        12,
         21,
         25,
         28
@@ -2599,35 +2599,35 @@
         6,
         7
       ],
-      "medium": [
-        9
-      ],
-      "medium pony conformation/handy hunter & classic": [
-        9
-      ],
       "625 nal 1.30m junior/amateur jumper classic ii2b": [
-        10
+        9
       ],
       "medal": [
+        10,
         11,
-        12,
         13,
         14,
         15,
-        18,
-        19,
+        16,
+        17,
         20
       ],
       "dover": [
-        11,
-        12
+        10,
+        11
       ],
       "seat": [
-        11,
-        12
+        10,
+        11
       ],
       "dover saddlery/usef hunter seat medal": [
-        11,
+        10,
+        11
+      ],
+      "medium": [
+        12
+      ],
+      "medium pony conformation/handy hunter & classic": [
         12
       ],
       "children's": [
@@ -2640,28 +2640,28 @@
         14,
         15
       ],
-      "hopeful": [
-        16,
-        17
-      ],
-      ".85m": [
+      "adult": [
         16,
         17,
-        22,
-        23
-      ],
-      "hopeful jumper (.85m) ii2d": [
-        16,
-        17
-      ],
-      "adult": [
-        18,
-        19,
         20,
         25,
         28
       ],
       "ariat adult medal": [
+        16,
+        17
+      ],
+      "hopeful": [
+        18,
+        19
+      ],
+      ".85m": [
+        18,
+        19,
+        22,
+        23
+      ],
+      "hopeful jumper (.85m) ii2d": [
         18,
         19
       ],

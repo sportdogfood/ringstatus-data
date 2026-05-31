@@ -41,7 +41,7 @@
     "8778_group_display": [
       null,
       "Choco (3)",
-      "Dottie (11)"
+      "Dottie (10)"
     ],
     "class_group_id": 200024674,
     "class_id": 200025420,
@@ -56,7 +56,7 @@
     "group_display": [
       null,
       "Choco (3)",
-      "Dottie (11)"
+      "Dottie (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -78,7 +78,7 @@
     "8778_sched_display": [
       null,
       "Choco (3)",
-      "Dottie (11)"
+      "Dottie (10)"
     ]
   },
   {
@@ -356,16 +356,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "9:20 AM",
-    "start_display_short": "9:20A",
-    "time_sort": 33600,
+    "start_display": "9:25 AM",
+    "start_display_short": "9:25A",
+    "time_sort": 33901,
     "total_trips": 6,
     "class_groupxclasses_id": 200036479,
-    "latestStart": "9:20 AM",
+    "latestStart": "9:25 AM",
     "latestStatus": null,
     "show_date": "2026-05-31",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:20:00",
+    "estimated_start_time": "09:25:01",
     "8778_sched_display": [
       null,
       "Calypso (6)",
@@ -650,16 +650,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "9:30 AM",
-    "start_display_short": "9:30A",
-    "time_sort": 34200,
+    "start_display": "9:31 AM",
+    "start_display_short": "9:31A",
+    "time_sort": 34262,
     "total_trips": 8,
     "class_groupxclasses_id": 200036465,
-    "latestStart": "9:30 AM",
+    "latestStart": "9:31 AM",
     "latestStatus": null,
     "show_date": "2026-05-31",
     "class_group_sequence": 2,
-    "estimated_start_time": "09:30:00",
+    "estimated_start_time": "09:31:02",
     "8778_sched_display": []
   },
   {
@@ -972,7 +972,7 @@
     "class_groupxclasses_id": 200036492,
     "latestStart": "9:20 AM",
     "latestStatus": [
-      "Upcoming"
+      "Completed"
     ],
     "show_date": "2026-05-31",
     "class_group_sequence": 3,

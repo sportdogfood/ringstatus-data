@@ -140,8 +140,8 @@
   {
     "8778_group_display": [
       null,
-      "Dottie",
-      "Choco"
+      "Choco (3)",
+      "Dottie (12)"
     ],
     "class_group_id": 200024674,
     "class_id": null,
@@ -154,8 +154,8 @@
     "ring_number": 1,
     "group_display": [
       null,
-      "Dottie",
-      "Choco"
+      "Choco (3)",
+      "Dottie (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -213,7 +213,7 @@
   },
   {
     "8778_group_display": [
-      "Dottie"
+      "Dottie (4)"
     ],
     "class_group_id": 200024660,
     "class_id": null,
@@ -225,7 +225,7 @@
     "ring_nickname": "Derby",
     "ring_number": 1,
     "group_display": [
-      "Dottie"
+      "Dottie (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -306,8 +306,8 @@
   {
     "8778_group_display": [
       null,
-      "Fan",
-      "Coffee"
+      "Coffee (6)",
+      "Fan (7)"
     ],
     "class_group_id": 200024679,
     "class_id": null,
@@ -320,8 +320,8 @@
     "ring_number": 3,
     "group_display": [
       null,
-      "Fan",
-      "Coffee"
+      "Coffee (6)",
+      "Fan (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -336,8 +336,8 @@
   {
     "8778_group_display": [
       null,
-      "Calypso",
-      "Kudos"
+      "Calypso (6)",
+      "Kudos (7)"
     ],
     "class_group_id": 200024675,
     "class_id": null,
@@ -350,8 +350,8 @@
     "ring_number": 3,
     "group_display": [
       null,
-      "Calypso",
-      "Kudos"
+      "Calypso (6)",
+      "Kudos (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
@@ -886,7 +886,7 @@
     "class_number": 340,
     "dt": "2026-05-31",
     "group_name": "Junior Hunter 3'6\"/3'3\" ",
-    "group_name_tags": "handy, target, 3', 3'3\", 3'6\", junior, hunters, Over Fences",
+    "group_name_tags": "handy, 3', 3'3\", 3'6\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
@@ -914,7 +914,7 @@
     "class_number": 909,
     "dt": "2026-05-31",
     "group_name": "Junior Hunter 3'6\"/3'3\" ",
-    "group_name_tags": "classic, target, 3', 3'3\", 3'6\", junior, hunters, Over Fences",
+    "group_name_tags": "classic, 3', 3'3\", 3'6\", junior, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
@@ -1082,7 +1082,7 @@
     "class_number": 425,
     "dt": "2026-05-31",
     "group_name": "Medium Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "handy, target, pony, medium, hunters, Over Fences",
+    "group_name_tags": "handy, pony, medium, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1191,7 +1191,7 @@
     "class_number": 906,
     "dt": "2026-05-31",
     "group_name": "Medium Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "classic, target, pony, medium, hunters, Over Fences",
+    "group_name_tags": "classic, pony, medium, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1221,7 +1221,7 @@
     "class_number": 415,
     "dt": "2026-05-31",
     "group_name": "Small Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "handy, target, pony, small, hunters, Over Fences",
+    "group_name_tags": "handy, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1247,7 +1247,7 @@
     "class_number": 906,
     "dt": "2026-05-31",
     "group_name": "Small Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "classic, target, pony, small, hunters, Over Fences",
+    "group_name_tags": "classic, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [],
@@ -1291,7 +1291,7 @@
     "class_number": 435,
     "dt": "2026-05-31",
     "group_name": "Large Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "handy, target, pony, large, hunters, Over Fences",
+    "group_name_tags": "handy, pony, large, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [],
@@ -1357,7 +1357,7 @@
     "class_number": 906,
     "dt": "2026-05-31",
     "group_name": "Large Pony Conformation/Handy Hunter & Classic",
-    "group_name_tags": "classic, target, pony, large, hunters, Over Fences",
+    "group_name_tags": "classic, pony, large, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [],

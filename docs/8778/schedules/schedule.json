@@ -22,10 +22,10 @@
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      "Dottie"
+      "Dottie (4)"
     ],
     "8778_sched_display": [
-      "Dottie"
+      "Dottie (4)"
     ],
     "group_name_tags": "isFirstUp, target, open, 1.20m, II2d, jumpers, Over Fences"
   },
@@ -53,13 +53,13 @@
     "estimated_start_time": "08:30:00",
     "group_display": [
       null,
-      "Dottie",
-      "Choco"
+      "Choco (3)",
+      "Dottie (12)"
     ],
     "8778_sched_display": [
       null,
-      "Dottie",
-      "Choco"
+      "Choco (3)",
+      "Dottie (12)"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
   },
@@ -301,13 +301,13 @@
     "estimated_start_time": "08:15:00",
     "group_display": [
       null,
-      "Calypso",
-      "Kudos"
+      "Calypso (6)",
+      "Kudos (7)"
     ],
     "8778_sched_display": [
       null,
-      "Calypso",
-      "Kudos"
+      "Calypso (6)",
+      "Kudos (7)"
     ],
     "group_name_tags": "target, amateur, junior, jumpers, Over Fences"
   },
@@ -443,13 +443,13 @@
     "estimated_start_time": "12:00:00",
     "group_display": [
       null,
-      "Fan",
-      "Coffee"
+      "Coffee (6)",
+      "Fan (7)"
     ],
     "8778_sched_display": [
       null,
-      "Fan",
-      "Coffee"
+      "Coffee (6)",
+      "Fan (7)"
     ],
     "group_name_tags": "target, 1.0m, amateur, junior, jumpers, Over Fences"
   },
@@ -503,7 +503,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "mulligan, target, jumpers, Over Fences"
+    "group_name_tags": "mulligan, jumpers, Over Fences"
   },
   {
     "sid": 200000063,
@@ -779,7 +779,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "mulligan, target, jumpers, Over Fences"
+    "group_name_tags": "mulligan, jumpers, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1025,7 +1025,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "add_back, target, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
+    "group_name_tags": "add_back, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1089,7 +1089,7 @@
       "Macho",
       null
     ],
-    "group_name_tags": "handy, target, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
+    "group_name_tags": "handy, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1121,7 +1121,7 @@
       "Macho",
       null
     ],
-    "group_name_tags": "classic, target, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
+    "group_name_tags": "classic, 3', 3'3\", 3'6\", junior, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1147,7 +1147,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, children's, hunters, Over Fences"
+    "group_name_tags": "warmup, children's, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1241,7 +1241,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "mulligan, target, jumpers, Over Fences"
+    "group_name_tags": "mulligan, jumpers, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1319,7 +1319,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, hunters, Over Fences"
+    "group_name_tags": "warmup, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1397,7 +1397,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, 2'/2'6\", hunters, Over Fences"
+    "group_name_tags": "warmup, 2'/2'6\", hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1479,7 +1479,7 @@
     "8778_sched_display": [
       "Knox"
     ],
-    "group_name_tags": "schooling_pony, target, pony, small, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, pony, small, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1547,7 +1547,7 @@
       "Poptart",
       null
     ],
-    "group_name_tags": "handy, target, pony, small, hunters, Over Fences"
+    "group_name_tags": "handy, pony, small, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1573,7 +1573,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "classic, target, pony, small, hunters, Over Fences"
+    "group_name_tags": "classic, pony, small, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1599,7 +1599,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "schooling_pony, target, pony, medium, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, pony, medium, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1663,7 +1663,7 @@
       null,
       "Paisley"
     ],
-    "group_name_tags": "handy, target, pony, medium, hunters, Over Fences"
+    "group_name_tags": "handy, pony, medium, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1697,7 +1697,7 @@
       "Knox",
       "Poptart"
     ],
-    "group_name_tags": "classic, target, pony, medium, hunters, Over Fences"
+    "group_name_tags": "classic, pony, medium, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1723,7 +1723,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "schooling_pony, target, pony, large, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, pony, large, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1775,7 +1775,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "handy, target, pony, large, hunters, Over Fences"
+    "group_name_tags": "handy, pony, large, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1801,7 +1801,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "classic, target, pony, large, hunters, Over Fences"
+    "group_name_tags": "classic, pony, large, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1853,7 +1853,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "schooling_pony, target, pony, green, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, pony, green, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -1931,7 +1931,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, pony, children's, hunters, Over Fences"
+    "group_name_tags": "warmup, pony, children's, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -2009,7 +2009,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, adult, amateur, hunters, Over Fences"
+    "group_name_tags": "warmup, adult, amateur, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -2087,7 +2087,7 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, warmup, adult, low, amateur, hunters, Over Fences"
+    "group_name_tags": "warmup, adult, low, amateur, hunters, Over Fences"
   },
   {
     "sid": 200000063,
@@ -2165,6 +2165,6 @@
     "estimated_start_time": null,
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "mulligan, target, jumpers, Over Fences"
+    "group_name_tags": "mulligan, jumpers, Over Fences"
   }
 ]

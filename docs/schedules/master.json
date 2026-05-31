@@ -19,7 +19,7 @@
     "start_display": "1:15 PM",
     "start_display_short": "1:15P",
     "time_sort": 47700,
-    "total_trips": 5
+    "total_trips": 4
   },
   {
     "8778_group_display": [
@@ -44,10 +44,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "10:00 AM",
-    "start_display_short": "10:00A",
-    "time_sort": 36000,
-    "total_trips": 11
+    "start_display": "10:05 AM",
+    "start_display_short": "10:05A",
+    "time_sort": 36301,
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -91,7 +91,7 @@
     "start_display": "12:45 PM",
     "start_display_short": "12:45P",
     "time_sort": 45900,
-    "total_trips": 8
+    "total_trips": 7
   },
   {
     "8778_group_display": [],
@@ -256,8 +256,8 @@
     "sid": 200000063,
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
-    "time_sort": 36000,
-    "total_trips": 2
+    "time_sort": 36002,
+    "total_trips": 1
   },
   {
     "8778_group_display": [],
@@ -390,7 +390,9 @@
     "total_trips": 13
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200024677,
     "class_id": 200025680,
     "class_name": "1.10m Open Jumper II2d",
@@ -400,7 +402,9 @@
     "group_name_tags": "target, open, 1.10m, II2d, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, May, 31, 2026",
     "show_days_report_title": "Schedule",
@@ -409,7 +413,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 22
+    "total_trips": 23
   },
   {
     "8778_group_display": [
@@ -594,9 +598,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "10:32 AM",
-    "start_display_short": "10:32A",
-    "time_sort": 37969,
+    "start_display": "10:35 AM",
+    "start_display_short": "10:35A",
+    "time_sort": 38102,
     "total_trips": 3
   },
   {
@@ -818,9 +822,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "9:51 AM",
-    "start_display_short": "9:51A",
-    "time_sort": 35485,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36003,
     "total_trips": 8
   },
   {
@@ -848,9 +852,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "11:50 AM",
-    "start_display_short": "11:50A",
-    "time_sort": 42649,
+    "start_display": "11:53 AM",
+    "start_display_short": "11:53A",
+    "time_sort": 42782,
     "total_trips": 8
   },
   {
@@ -876,9 +880,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "10:56 AM",
-    "start_display_short": "10:56A",
-    "time_sort": 39409,
+    "start_display": "10:59 AM",
+    "start_display_short": "10:59A",
+    "time_sort": 39542,
     "total_trips": 18
   },
   {
@@ -904,9 +908,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "10:56 AM",
-    "start_display_short": "10:56A",
-    "time_sort": 39409,
+    "start_display": "10:59 AM",
+    "start_display_short": "10:59A",
+    "time_sort": 39542,
     "total_trips": 18
   },
   {
@@ -932,9 +936,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "10:56 AM",
-    "start_display_short": "10:56A",
-    "time_sort": 39409,
+    "start_display": "10:59 AM",
+    "start_display_short": "10:59A",
+    "time_sort": 39542,
     "total_trips": 18
   },
   {
@@ -962,9 +966,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "11:50 AM",
-    "start_display_short": "11:50A",
-    "time_sort": 42649,
+    "start_display": "11:53 AM",
+    "start_display_short": "11:53A",
+    "time_sort": 42782,
     "total_trips": 8
   },
   {
@@ -1416,9 +1420,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "12:14 PM",
-    "start_display_short": "12:14P",
-    "time_sort": 44089,
+    "start_display": "12:17 PM",
+    "start_display_short": "12:17P",
+    "time_sort": 44222,
     "total_trips": 7
   },
   {
@@ -1482,9 +1486,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "12:14 PM",
-    "start_display_short": "12:14P",
-    "time_sort": 44089,
+    "start_display": "12:17 PM",
+    "start_display_short": "12:17P",
+    "time_sort": 44222,
     "total_trips": 7
   },
   {
@@ -1504,9 +1508,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "12:32 PM",
-    "start_display_short": "12:32P",
-    "time_sort": 45169,
+    "start_display": "12:35 PM",
+    "start_display_short": "12:35P",
+    "time_sort": 45302,
     "total_trips": 23
   },
   {
@@ -1526,9 +1530,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000063,
     "sid": 200000063,
-    "start_display": "12:32 PM",
-    "start_display_short": "12:32P",
-    "time_sort": 45169,
+    "start_display": "12:35 PM",
+    "start_display_short": "12:35P",
+    "time_sort": 45302,
     "total_trips": 23
   }
 ]

@@ -1,0 +1,328 @@
+{
+  "provider": "horseshowing",
+  "show_family": "wec",
+  "lane": "catalyst-discovery",
+  "canonical_model_reference": "sgl",
+  "authority": "Catalyst SDK/MCP/CLI plus live endpoint evidence. Do not guess endpoint contracts.",
+  "default_show_no_under_test": "14905",
+  "path_to_endpoint": {
+    "/shows-happening": "shows-happening",
+    "/orders": "orders",
+    "/rings": "rings",
+    "/ring-days": "ring-days",
+    "/ring-day": "ring-day",
+    "/class-oog": "class-oog",
+    "/update-schedule": "update-schedule"
+  },
+  "browser_bootstrap_surfaces": [
+    {
+      "name": "show-selection",
+      "url": "https://www.horseshowing.com/showsel.php",
+      "verified_method": "GET",
+      "verified_from": "browser_fetch_capture",
+      "purpose": "Initial show selection/referrer page."
+    },
+    {
+      "name": "selected-show-shell",
+      "url": "https://www.horseshowing.com/show.php?show=14905",
+      "verified_method": "GET",
+      "verified_from": "browser_fetch_capture_and_html",
+      "show_no": "14905",
+      "show_title": "WEC Ocala Summer Opener",
+      "show_dates": "June 3 - 7, 2026",
+      "inline_show_no_js": true,
+      "last_updated_observed": "2026 Jun 06 12:20pm",
+      "purpose": "Browser/session bootstrap page and source for show-level links/buttons."
+    }
+  ],
+  "branch_surfaces": [
+    {
+      "name": "counts",
+      "url": "https://www.horseshowing.com/counts.php",
+      "verified_method": "GET",
+      "verified_from": "counts branch browser fetch capture and HTML",
+      "referrer_observed": "https://www.horseshowing.com/schedule.php",
+      "requires_session_cookie": true,
+      "response_type": "html_document",
+      "show_no_source": "inline session_show_no = 14905",
+      "last_updated_observed": "2026 Jun 06 12:20pm",
+      "observed_row_count": 292,
+      "observed_fields": ["num_cell", "name_cell", "entries_cell", "data-class", "data-num", "data-name"],
+      "classification": "scrape_candidate",
+      "canonical_targets": {
+        "classes": "available",
+        "entries": "partial",
+        "class_times": "missing",
+        "rings": "missing",
+        "days": "missing",
+        "go_times": "missing",
+        "trips": "missing",
+        "live_trips": "missing",
+        "riders": "missing",
+        "results": "missing"
+      },
+      "notes": "Counts page provides class inventory and entry counts as HTML table rows. It does not provide ring/day/time/live state in the captured document. #class_orders may hydrate on class click and needs separate capture."
+    },
+    {
+      "name": "rings",
+      "url": "https://www.horseshowing.com/rings.php?show=14905",
+      "verified_method": "GET",
+      "verified_from": "rings branch browser navigation",
+      "response_type": "html_document",
+      "notes": "Rings branch shell. It triggers get_rings.php for JSON current ring-status rows."
+    }
+  ],
+  "unresolved_urls": [
+    {
+      "url": "https://www.horseshowing.com/shows_happening.php",
+      "status": "unverified",
+      "possible_use": "active show or show_no discovery",
+      "notes": "Do not rely on until request/response behavior is captured."
+    },
+    {
+      "url": "https://www.horseshowing.com/get_have_times.php",
+      "status": "unverified",
+      "possible_use": "schedule/time availability signal",
+      "notes": "Do not rely on until request/response behavior is captured."
+    }
+  ],
+  "classification_values": [
+    "unknown",
+    "reliable_api",
+    "thin_api",
+    "scrape_candidate",
+    "live_only",
+    "not_needed",
+    "unusable"
+  ],
+  "capability_values": [
+    "unknown",
+    "available",
+    "partial",
+    "derived",
+    "scraped",
+    "manual",
+    "missing",
+    "not_needed"
+  ],
+  "service_level_values": [
+    "unknown",
+    "level_1_show_day_ring_class",
+    "level_2_schedule_oog_snapshots",
+    "level_3_live_class_order_tracking",
+    "level_4_trip_rider_result_workflow"
+  ],
+  "endpoints": [
+    {
+      "alias": "shows-happening",
+      "path": "/shows-happening",
+      "upstream_url": "https://www.horseshowing.com/shows_happening.php",
+      "verified_method": "unknown",
+      "priority": 3,
+      "known_required_params": [],
+      "candidate_params": [],
+      "requires_session_cookie": "unknown",
+      "requires_show_no": false,
+      "classification": "unknown",
+      "role_hypothesis": "show discovery",
+      "canonical_targets": {
+        "shows": "unknown",
+        "show_weeks": "unknown"
+      },
+      "test_status": "not_started",
+      "notes": "Use to determine whether active WEC shows can be discovered without manual show_no seed."
+    },
+    {
+      "alias": "rings",
+      "path": "/rings",
+      "upstream_url": "https://www.horseshowing.com/get_rings.php",
+      "verified_method": "POST",
+      "priority": 1,
+      "known_required_params": ["show_no"],
+      "candidate_params": [],
+      "requires_session_cookie": true,
+      "requires_show_no": true,
+      "classification": "thin_api",
+      "role_hypothesis": "current ring-status rows",
+      "canonical_targets": {
+        "days": "partial",
+        "rings": "partial",
+        "classes": "partial",
+        "entries": "partial",
+        "go_times": "partial",
+        "live_trips": "partial",
+        "trips": "missing",
+        "riders": "missing",
+        "results": "missing"
+      },
+      "test_status": "browser_verified",
+      "verified_from": "rings branch browser fetch capture",
+      "observed_request_body": "show_no=14905",
+      "observed_fields": ["show_no", "class_no", "ring_no", "ring_day_no", "ring", "day", "class", "entry", "total", "n_to_go", "n_gone", "time", "timestamp", "elapsed", "orders", "gone", "n_standings", "type"],
+      "polling_observed": true,
+      "polling_note": "Browser constantly pings get_rings.php in the Ring Status branch. Measure cadence before reproducing polling in Catalyst.",
+      "notes": "POST from rings.php?show=14905 with x-www-form-urlencoded body show_no=14905. Provides current ring-status rows, not a complete ring inventory."
+    },
+    {
+      "alias": "ring-days",
+      "path": "/ring-days",
+      "upstream_url": "https://www.horseshowing.com/get_ring_days.php",
+      "verified_method": "GET",
+      "priority": 1,
+      "known_required_params": [],
+      "candidate_params": [],
+      "requires_session_cookie": true,
+      "requires_show_no": "implicit_session_context",
+      "classification": "reliable_api",
+      "role_hypothesis": "ring/day calendar",
+      "canonical_targets": {
+        "days": "available",
+        "rings": "available",
+        "class_times": "unknown"
+      },
+      "test_status": "browser_verified",
+      "verified_from": "schedule branch browser fetch capture",
+      "observed_fields": ["ring_no", "name", "ring_days", "ring_days[].ring_day_no", "ring_days[].date"],
+      "notes": "GET from schedule.php with credentials include and XMLHttpRequest header. Provides ring/day list but no class detail."
+    },
+    {
+      "alias": "ring-day",
+      "path": "/ring-day",
+      "upstream_url": "https://www.horseshowing.com/get_ring_day_oc.php",
+      "verified_method": "unknown",
+      "priority": 1,
+      "known_required_params": ["show_no"],
+      "candidate_params": ["ring_no", "ring_day_no", "day"],
+      "requires_session_cookie": "unknown",
+      "requires_show_no": true,
+      "classification": "unknown",
+      "role_hypothesis": "ring/day class schedule detail",
+      "canonical_targets": {
+        "days": "unknown",
+        "rings": "unknown",
+        "classes": "unknown",
+        "class_times": "unknown",
+        "class_groups": "unknown",
+        "live_groups": "unknown"
+      },
+      "test_status": "not_started",
+      "notes": "Likely needs params learned from rings or ring-days."
+    },
+    {
+      "alias": "orders",
+      "path": "/orders",
+      "upstream_url": "https://www.horseshowing.com/get_orders.php",
+      "verified_method": "POST",
+      "priority": 1,
+      "known_required_params": ["show_no"],
+      "candidate_params": [],
+      "requires_session_cookie": true,
+      "requires_show_no": true,
+      "classification": "thin_api",
+      "role_hypothesis": "orders, go status, live-ish class state",
+      "canonical_targets": {
+        "classes": "partial",
+        "entries": "partial",
+        "go_times": "partial",
+        "trips": "missing",
+        "live_trips": "partial",
+        "riders": "missing",
+        "results": "missing"
+      },
+      "test_status": "browser_verified",
+      "verified_from": "schedule branch browser fetch capture",
+      "observed_fields": ["show_no", "ring_no", "ring_day_no", "ring", "day", "class", "entry", "total", "n_to_go", "n_gone", "time", "timestamp", "elapsed", "orders", "gone"],
+      "notes": "POST from schedule.php with x-www-form-urlencoded body show_no=14905, credentials include, and XMLHttpRequest header. Observed rows are current/live-ish ring state, not complete schedule/trip history. Empty [] can be valid."
+    },
+    {
+      "alias": "class-oog",
+      "path": "/class-oog",
+      "upstream_url": "https://www.horseshowing.com/class_oog.php",
+      "verified_method": "GET",
+      "priority": 2,
+      "known_required_params": ["class_no"],
+      "candidate_params": [],
+      "requires_session_cookie": "unknown",
+      "requires_show_no": false,
+      "classification": "scrape_candidate",
+      "role_hypothesis": "class order-of-go detail",
+      "canonical_targets": {
+        "classes": "available",
+        "entries": "available",
+        "go_times": "available",
+        "trips": "missing",
+        "live_trips": "missing",
+        "horses": "available",
+        "riders": "available",
+        "trainers": "available",
+        "results": "missing"
+      },
+      "test_status": "browser_verified",
+      "verified_from": "class_oog.php?class_no=28587 HTML capture",
+      "response_type": "html_fragment_or_document",
+      "observed_request_query": "class_no=28587",
+      "observed_fields": ["#order_option", ".orders_table", "row_number", "entry_no", "horse", "rider", "trainer"],
+      "notes": "HTML order-of-go table by class_no. Observed status was NOT A POSTED ORDER, so preserve posted-order status and avoid treating rows as confirmed order unless the status says so."
+    },
+    {
+      "alias": "update-schedule",
+      "path": "/update-schedule",
+      "upstream_url": "https://www.horseshowing.com/update_schedule.php",
+      "verified_method": "POST",
+      "priority": 3,
+      "known_required_params": ["show_no", "ring_day_no"],
+      "candidate_params": [],
+      "requires_session_cookie": "unknown",
+      "requires_show_no": true,
+      "classification": "scrape_candidate",
+      "role_hypothesis": "selected ring-day schedule HTML fragment",
+      "canonical_targets": {
+        "classes": "available",
+        "class_times": "available",
+        "entries": "partial",
+        "rings": "derived",
+        "days": "derived",
+        "class_groups": "missing",
+        "live_groups": "unknown",
+        "trips": "missing",
+        "riders": "missing",
+        "results": "missing"
+      },
+      "test_status": "browser_verified",
+      "verified_from": "schedule branch browser fetch capture",
+      "response_type": "html_fragment",
+      "observed_request_body": "show_no=14905&ring_day_no=3828",
+      "observed_request_body_variants": ["show_no=14905&ring_day_no=3828", "show_no=14905&ring_day_no=3829"],
+      "parameterization": "ring_day_no varies; values come from get_ring_days.php ring_days[].ring_day_no",
+      "observed_fields": ["h3.ring_evt id", "data-show", "data-class", "data-time", "data-n_entries", "data-name", "data-re_type", "data-oc_id", "data-live", ".ring_evt_time", ".ring_evt_entries", ".ring_evt_name"],
+      "notes": "POST from schedule.php with x-www-form-urlencoded body. Returns HTML accordion fragment for a selected ring_day_no. Requires parser/scraper, not clean JSON."
+    }
+  ],
+  "critical_workflow_gaps": [
+    {
+      "gap": "show_no discovery",
+      "status": "unknown",
+      "candidate_support": ["shows-happening", "manual_seed"]
+    },
+    {
+      "gap": "ring/day/class hierarchy",
+      "status": "unknown",
+      "candidate_support": ["rings", "ring-days", "ring-day", "scrape_if_needed"]
+    },
+    {
+      "gap": "order-of-go or trip state",
+      "status": "unknown",
+      "candidate_support": ["orders", "class-oog", "manual_qa"]
+    },
+    {
+      "gap": "rider/horse detail",
+      "status": "unknown",
+      "candidate_support": ["class-oog", "scrape_if_needed", "manual_seed"]
+    },
+    {
+      "gap": "results",
+      "status": "unknown",
+      "candidate_support": ["future_endpoint", "scrape_if_needed", "shelf"]
+    }
+  ]
+}

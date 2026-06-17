@@ -1,0 +1,70 @@
+{
+  "show_id": "14906",
+  "ring_day_no": "3860",
+  "iso_date": "2026-06-10",
+  "endpoint": "update_schedule.php",
+  "upstream_status": 200,
+  "row_count": 4,
+  "columns": [
+    "show_no",
+    "ring_day_no",
+    "event_id",
+    "class_no",
+    "time_text",
+    "entry_count",
+    "event_name",
+    "event_type",
+    "oc_id",
+    "live_flag"
+  ],
+  "rows": [
+    {
+      "show_no": "14906",
+      "ring_day_no": "3860",
+      "event_id": "58939",
+      "class_no": "29237",
+      "time_text": "",
+      "entry_count": 28,
+      "event_name": "2201) $4,000 4CYTE 1.40m CSI2* Two Phase 222.1.4.3",
+      "event_type": "1",
+      "oc_id": "0",
+      "live_flag": "0"
+    },
+    {
+      "show_no": "14906",
+      "ring_day_no": "3860",
+      "event_id": "58940",
+      "class_no": "28941",
+      "time_text": "",
+      "entry_count": 30,
+      "event_name": "2202) $32,000 4CYTE 1.45m CSI2* Speed 220.2.1.1",
+      "event_type": "1",
+      "oc_id": "0",
+      "live_flag": "0"
+    },
+    {
+      "show_no": "14906",
+      "ring_day_no": "3860",
+      "event_id": "58941",
+      "class_no": "29134",
+      "time_text": "",
+      "entry_count": 55,
+      "event_name": "645) $1000 1.35m Jumper II.1",
+      "event_type": "1",
+      "oc_id": "0",
+      "live_flag": "0"
+    },
+    {
+      "show_no": "14906",
+      "ring_day_no": "3860",
+      "event_id": "58942",
+      "class_no": "29172",
+      "time_text": "",
+      "entry_count": 21,
+      "event_name": "692) $250 1.30m Young Jumper II.1",
+      "event_type": "1",
+      "oc_id": "0",
+      "live_flag": "0"
+    }
+  ]
+}

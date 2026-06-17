@@ -1,0 +1,134 @@
+{
+  "provider": "horseshowing",
+  "show_family": "wec",
+  "contract_version": "0.1.0",
+  "authority": "Captured browser evidence. Do not add fields without live evidence.",
+  "recommended_service_level": "level_2_schedule_oog_snapshots_plus_level_3_current_status",
+  "show_context": {
+    "show_no": "14905",
+    "show_title": "WEC Ocala Summer Opener",
+    "show_dates_text": "June 3 - 7, 2026",
+    "last_updated_observed": "2026 Jun 06 12:20pm"
+  },
+  "tables": [
+    {
+      "name": "rings_days",
+      "source": "get_ring_days.php",
+      "source_type": "json",
+      "grain": "one row per ring_day_no",
+      "primary_key": ["show_no", "ring_no", "ring_day_no"],
+      "fields": [
+        { "name": "show_no", "source": "session/manual context", "status": "manual" },
+        { "name": "ring_no", "source": "ring_no", "status": "available" },
+        { "name": "ring_name", "source": "name", "status": "available" },
+        { "name": "ring_day_no", "source": "ring_days[].ring_day_no", "status": "available" },
+        { "name": "date_text", "source": "ring_days[].date", "status": "available" }
+      ]
+    },
+    {
+      "name": "ring_day_schedule",
+      "source": "update_schedule.php",
+      "source_type": "html_fragment",
+      "grain": "one row per h3.ring_evt",
+      "primary_key": ["show_no", "ring_day_no", "event_id"],
+      "fields": [
+        { "name": "show_no", "source": "data-show", "status": "available" },
+        { "name": "ring_day_no", "source": "request body ring_day_no and rdNNNN class", "status": "available" },
+        { "name": "event_id", "source": "h3 id", "status": "available" },
+        { "name": "class_no", "source": "data-class", "status": "available_zero_for_non_class_events" },
+        { "name": "time_text", "source": "data-time", "status": "available" },
+        { "name": "entry_count", "source": "data-n_entries", "status": "partial" },
+        { "name": "event_name", "source": "data-name", "status": "available" },
+        { "name": "event_type", "source": "data-re_type", "status": "available_unknown_semantics" },
+        { "name": "oc_id", "source": "data-oc_id", "status": "available_unknown_semantics" },
+        { "name": "live_flag", "source": "data-live", "status": "available_unknown_semantics" }
+      ]
+    },
+    {
+      "name": "class_counts",
+      "source": "counts.php",
+      "source_type": "html_document",
+      "grain": "one row per class count table row",
+      "primary_key": ["show_no", "class_no"],
+      "fields": [
+        { "name": "show_no", "source": "session_show_no inline JS", "status": "available" },
+        { "name": "class_no", "source": ".link data-class", "status": "available" },
+        { "name": "class_number", "source": ".link data-num", "status": "available" },
+        { "name": "class_name", "source": ".link data-name", "status": "available" },
+        { "name": "entry_count", "source": ".entries_cell", "status": "available" }
+      ]
+    },
+    {
+      "name": "current_ring_status",
+      "source": "get_rings.php",
+      "source_type": "json",
+      "grain": "one row per current ring-status row",
+      "primary_key": ["show_no", "ring_no", "ring_day_no"],
+      "fields": [
+        { "name": "show_no", "source": "show_no", "status": "available" },
+        { "name": "class_no", "source": "class_no", "status": "available" },
+        { "name": "ring_no", "source": "ring_no", "status": "available" },
+        { "name": "ring_day_no", "source": "ring_day_no", "status": "available" },
+        { "name": "ring_name", "source": "ring", "status": "available" },
+        { "name": "day_text", "source": "day", "status": "available" },
+        { "name": "class_text", "source": "class", "status": "available" },
+        { "name": "entry_text", "source": "entry", "status": "partial_html" },
+        { "name": "total", "source": "total", "status": "available" },
+        { "name": "n_to_go", "source": "n_to_go", "status": "available" },
+        { "name": "n_gone", "source": "n_gone", "status": "available" },
+        { "name": "time_text", "source": "time", "status": "partial" },
+        { "name": "timestamp", "source": "timestamp", "status": "available" },
+        { "name": "elapsed", "source": "elapsed", "status": "available" },
+        { "name": "n_standings", "source": "n_standings", "status": "available_unknown_semantics" },
+        { "name": "type", "source": "type", "status": "available_unknown_semantics" }
+      ]
+    },
+    {
+      "name": "current_orders",
+      "source": "get_orders.php",
+      "source_type": "json",
+      "grain": "one row per current/live-ish order row",
+      "primary_key": ["show_no", "ring_no", "ring_day_no"],
+      "fields": [
+        { "name": "show_no", "source": "show_no", "status": "available" },
+        { "name": "ring_no", "source": "ring_no", "status": "available" },
+        { "name": "ring_day_no", "source": "ring_day_no", "status": "available" },
+        { "name": "ring_name", "source": "ring", "status": "available" },
+        { "name": "day_text", "source": "day", "status": "available" },
+        { "name": "class_text", "source": "class", "status": "available" },
+        { "name": "entry_text", "source": "entry", "status": "partial_html" },
+        { "name": "total", "source": "total", "status": "available" },
+        { "name": "n_to_go", "source": "n_to_go", "status": "available" },
+        { "name": "n_gone", "source": "n_gone", "status": "available" },
+        { "name": "time_text", "source": "time", "status": "partial" },
+        { "name": "timestamp", "source": "timestamp", "status": "available" },
+        { "name": "elapsed", "source": "elapsed", "status": "available" }
+      ]
+    },
+    {
+      "name": "class_oog",
+      "source": "class_oog.php",
+      "source_type": "html_fragment_or_document",
+      "grain": "one row per order table row",
+      "primary_key": ["class_no", "row_number", "entry_no"],
+      "fields": [
+        { "name": "class_no", "source": "request query class_no", "status": "available" },
+        { "name": "posted_order_status", "source": "#order_option", "status": "available" },
+        { "name": "row_number", "source": "orders_table column #", "status": "available" },
+        { "name": "entry_no", "source": "orders_table Entry No.", "status": "available" },
+        { "name": "horse", "source": "orders_table Horse", "status": "available" },
+        { "name": "rider", "source": "orders_table Rider", "status": "available" },
+        { "name": "trainer", "source": "orders_table Trainer in .lg table", "status": "available" }
+      ],
+      "normalization_note": "If posted_order_status contains NOT A POSTED ORDER, do not treat row_number as confirmed go order."
+    }
+  ],
+  "shelved_targets": [
+    "full_trips",
+    "live_trip_history",
+    "class_groups",
+    "live_groups",
+    "complete_results",
+    "automatic_show_discovery"
+  ]
+}

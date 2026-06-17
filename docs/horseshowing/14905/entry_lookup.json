@@ -1,0 +1,20 @@
+{
+  "show_no": "14905",
+  "provider": "horseshowing",
+  "purpose": "Team entry lookup for focus overlay. Full show schedule remains complete; focus is true only when class entry matches this lookup.",
+  "match_fields": [
+    "entry_no",
+    "horse",
+    "rider"
+  ],
+  "entries": [
+    {
+      "entry_no": "",
+      "horse": "",
+      "rider": "",
+      "trainer": "",
+      "team_member": "",
+      "notes": ""
+    }
+  ]
+}

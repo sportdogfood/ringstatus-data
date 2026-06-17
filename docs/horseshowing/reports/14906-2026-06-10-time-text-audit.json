@@ -1,0 +1,1097 @@
+{
+  "summary": {
+    "class_count": 70,
+    "data_time_populated": 13,
+    "data_time_empty": 57,
+    "data_time_missing_attr": 0,
+    "visible_time_count": 13,
+    "by_ring": [
+      {
+        "ring_day_no": "3860",
+        "ring_name": "WEC GRAND ARENA",
+        "raw_length": 2198,
+        "class_count": 4,
+        "data_time_populated": 0,
+        "data_time_empty": 4,
+        "visible_time_count": 0
+      },
+      {
+        "ring_day_no": "3901",
+        "ring_name": "INDOOR 3",
+        "raw_length": 448,
+        "class_count": 1,
+        "data_time_populated": 0,
+        "data_time_empty": 1,
+        "visible_time_count": 0
+      },
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "raw_length": 2883,
+        "class_count": 5,
+        "data_time_populated": 5,
+        "data_time_empty": 0,
+        "visible_time_count": 5
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "raw_length": 3428,
+        "class_count": 6,
+        "data_time_populated": 6,
+        "data_time_empty": 0,
+        "visible_time_count": 6
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "raw_length": 13708,
+        "class_count": 26,
+        "data_time_populated": 0,
+        "data_time_empty": 26,
+        "visible_time_count": 0
+      },
+      {
+        "ring_day_no": "3895",
+        "ring_name": "INDOOR 2",
+        "raw_length": 9765,
+        "class_count": 19,
+        "data_time_populated": 0,
+        "data_time_empty": 19,
+        "visible_time_count": 0
+      },
+      {
+        "ring_day_no": "3907",
+        "ring_name": "INDOOR 4",
+        "raw_length": 3599,
+        "class_count": 7,
+        "data_time_populated": 0,
+        "data_time_empty": 7,
+        "visible_time_count": 0
+      },
+      {
+        "ring_day_no": "4293",
+        "ring_name": "JUMPER ANNEX",
+        "raw_length": 665,
+        "class_count": 1,
+        "data_time_populated": 1,
+        "data_time_empty": 0,
+        "visible_time_count": 1
+      },
+      {
+        "ring_day_no": "4295",
+        "ring_name": "HUNTER 2",
+        "raw_length": 657,
+        "class_count": 1,
+        "data_time_populated": 1,
+        "data_time_empty": 0,
+        "visible_time_count": 1
+      }
+    ],
+    "populated_examples": [
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "class_no": "29164",
+        "event_name": "633) 1.15m Jumper II.1",
+        "data_time": "8:00am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:00am 29 633) 1.15m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "class_no": "29128",
+        "event_name": "636) $500 1.20m Jumper II.1",
+        "data_time": "8:00am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:00am 43 636) $500 1.20m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "class_no": "29131",
+        "event_name": "642) $1000 1.30m Jumper II.1",
+        "data_time": "9:47am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "9:47am 20 642) $1000 1.30m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "class_no": "29169",
+        "event_name": "689) $250 1.20m Young Jumper  II.1",
+        "data_time": "10:37am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "10:37am 19 689) $250 1.20m Young Jumper II.1"
+      },
+      {
+        "ring_day_no": "4174",
+        "ring_name": "INDOOR 6",
+        "class_no": "29166",
+        "event_name": "686) 1.10m Young Jumper  II",
+        "data_time": "11:24am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "11:24am 16 686) 1.10m Young Jumper II"
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "class_no": "29394",
+        "event_name": "624) .95m Jumper II.1",
+        "data_time": "8:00am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:00am 20 624) .95m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "class_no": "29159",
+        "event_name": "627) 1.00m Jumper II.1",
+        "data_time": "8:50am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:50am 38 627) 1.00m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "class_no": "29125",
+        "event_name": "695) $100 1.0m Thoroughbred Jumper  II.1",
+        "data_time": "8:50am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:50am 1 695) $100 1.0m Thoroughbred Jumper II.1"
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "class_no": "29161",
+        "event_name": "630) 1.10m Jumper  II.1",
+        "data_time": "8:52am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:52am 25 630) 1.10m Jumper II.1"
+      },
+      {
+        "ring_day_no": "4182",
+        "ring_name": "INDOOR 5",
+        "class_no": "29451",
+        "event_name": "683) 1.0m Young Jumpers II",
+        "data_time": "8:52am",
+        "data_time_empty": false,
+        "visible_text_has_time": true,
+        "visible_text_preview": "8:52am 5 683) 1.0m Young Jumpers II"
+      }
+    ],
+    "empty_examples": [
+      {
+        "ring_day_no": "3860",
+        "ring_name": "WEC GRAND ARENA",
+        "class_no": "29237",
+        "event_name": "2201) $4,000 4CYTE 1.40m CSI2* Two Phase 222.1.4.3",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "28 2201) $4,000 4CYTE 1.40m CSI2* Two Phase 222.1.4.3"
+      },
+      {
+        "ring_day_no": "3860",
+        "ring_name": "WEC GRAND ARENA",
+        "class_no": "28941",
+        "event_name": "2202) $32,000 4CYTE 1.45m CSI2* Speed 220.2.1.1",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "30 2202) $32,000 4CYTE 1.45m CSI2* Speed 220.2.1.1"
+      },
+      {
+        "ring_day_no": "3860",
+        "ring_name": "WEC GRAND ARENA",
+        "class_no": "29134",
+        "event_name": "645) $1000 1.35m Jumper II.1",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "55 645) $1000 1.35m Jumper II.1"
+      },
+      {
+        "ring_day_no": "3860",
+        "ring_name": "WEC GRAND ARENA",
+        "class_no": "29172",
+        "event_name": "692) $250 1.30m Young Jumper  II.1",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "21 692) $250 1.30m Young Jumper II.1"
+      },
+      {
+        "ring_day_no": "3901",
+        "ring_name": "INDOOR 3",
+        "class_no": "0",
+        "event_name": "FEI Only",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "FEI Only"
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "class_no": "29275",
+        "event_name": "1) High Performance Conformation Hunter-Model",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "0 1) High Performance Conformation Hunter-Model"
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "class_no": "29281",
+        "event_name": "7) Green Conformation Hunter-Model",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "0 7) Green Conformation Hunter-Model"
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "class_no": "29276",
+        "event_name": "2) $500 High Performance Conformation Hunter",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "0 2) $500 High Performance Conformation Hunter"
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "class_no": "29277",
+        "event_name": "3) $500 High Performance Conformation Hunter",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "0 3) $500 High Performance Conformation Hunter"
+      },
+      {
+        "ring_day_no": "3889",
+        "ring_name": "INDOOR 1",
+        "class_no": "29280",
+        "event_name": "6) $200 High Performance Conformation Hunter U/S",
+        "data_time": "",
+        "data_time_empty": true,
+        "visible_text_has_time": false,
+        "visible_text_preview": "0 6) $200 High Performance Conformation Hunter U/S"
+      }
+    ]
+  },
+  "results": [
+    {
+      "ring_day_no": "3860",
+      "ring_name": "WEC GRAND ARENA",
+      "raw_length": 2198,
+      "class_count": 4,
+      "data_time_populated": 0,
+      "data_time_empty": 4,
+      "visible_time_count": 0,
+      "classes": [
+        {
+          "ring_day_no": "3860",
+          "ring_name": "WEC GRAND ARENA",
+          "class_no": "29237",
+          "event_name": "2201) $4,000 4CYTE 1.40m CSI2* Two Phase 222.1.4.3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "28 2201) $4,000 4CYTE 1.40m CSI2* Two Phase 222.1.4.3"
+        },
+        {
+          "ring_day_no": "3860",
+          "ring_name": "WEC GRAND ARENA",
+          "class_no": "28941",
+          "event_name": "2202) $32,000 4CYTE 1.45m CSI2* Speed 220.2.1.1",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "30 2202) $32,000 4CYTE 1.45m CSI2* Speed 220.2.1.1"
+        },
+        {
+          "ring_day_no": "3860",
+          "ring_name": "WEC GRAND ARENA",
+          "class_no": "29134",
+          "event_name": "645) $1000 1.35m Jumper II.1",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "55 645) $1000 1.35m Jumper II.1"
+        },
+        {
+          "ring_day_no": "3860",
+          "ring_name": "WEC GRAND ARENA",
+          "class_no": "29172",
+          "event_name": "692) $250 1.30m Young Jumper  II.1",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "21 692) $250 1.30m Young Jumper II.1"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "3901",
+      "ring_name": "INDOOR 3",
+      "raw_length": 448,
+      "class_count": 1,
+      "data_time_populated": 0,
+      "data_time_empty": 1,
+      "visible_time_count": 0,
+      "classes": [
+        {
+          "ring_day_no": "3901",
+          "ring_name": "INDOOR 3",
+          "class_no": "0",
+          "event_name": "FEI Only",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "FEI Only"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "4174",
+      "ring_name": "INDOOR 6",
+      "raw_length": 2883,
+      "class_count": 5,
+      "data_time_populated": 5,
+      "data_time_empty": 0,
+      "visible_time_count": 5,
+      "classes": [
+        {
+          "ring_day_no": "4174",
+          "ring_name": "INDOOR 6",
+          "class_no": "29164",
+          "event_name": "633) 1.15m Jumper II.1",
+          "data_time": "8:00am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:00am 29 633) 1.15m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4174",
+          "ring_name": "INDOOR 6",
+          "class_no": "29128",
+          "event_name": "636) $500 1.20m Jumper II.1",
+          "data_time": "8:00am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:00am 43 636) $500 1.20m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4174",
+          "ring_name": "INDOOR 6",
+          "class_no": "29131",
+          "event_name": "642) $1000 1.30m Jumper II.1",
+          "data_time": "9:47am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "9:47am 20 642) $1000 1.30m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4174",
+          "ring_name": "INDOOR 6",
+          "class_no": "29169",
+          "event_name": "689) $250 1.20m Young Jumper  II.1",
+          "data_time": "10:37am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "10:37am 19 689) $250 1.20m Young Jumper II.1"
+        },
+        {
+          "ring_day_no": "4174",
+          "ring_name": "INDOOR 6",
+          "class_no": "29166",
+          "event_name": "686) 1.10m Young Jumper  II",
+          "data_time": "11:24am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "11:24am 16 686) 1.10m Young Jumper II"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "4182",
+      "ring_name": "INDOOR 5",
+      "raw_length": 3428,
+      "class_count": 6,
+      "data_time_populated": 6,
+      "data_time_empty": 0,
+      "visible_time_count": 6,
+      "classes": [
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29394",
+          "event_name": "624) .95m Jumper II.1",
+          "data_time": "8:00am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:00am 20 624) .95m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29159",
+          "event_name": "627) 1.00m Jumper II.1",
+          "data_time": "8:50am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:50am 38 627) 1.00m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29125",
+          "event_name": "695) $100 1.0m Thoroughbred Jumper  II.1",
+          "data_time": "8:50am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:50am 1 695) $100 1.0m Thoroughbred Jumper II.1"
+        },
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29161",
+          "event_name": "630) 1.10m Jumper  II.1",
+          "data_time": "8:52am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:52am 25 630) 1.10m Jumper II.1"
+        },
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29451",
+          "event_name": "683) 1.0m Young Jumpers II",
+          "data_time": "8:52am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:52am 5 683) 1.0m Young Jumpers II"
+        },
+        {
+          "ring_day_no": "4182",
+          "ring_name": "INDOOR 5",
+          "class_no": "29433",
+          "event_name": "680) .90m Young Jumpers II",
+          "data_time": "8:52am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:52am 9 680) .90m Young Jumpers II"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "3889",
+      "ring_name": "INDOOR 1",
+      "raw_length": 13708,
+      "class_count": 26,
+      "data_time_populated": 0,
+      "data_time_empty": 26,
+      "visible_time_count": 0,
+      "classes": [
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29275",
+          "event_name": "1) High Performance Conformation Hunter-Model",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 1) High Performance Conformation Hunter-Model"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29281",
+          "event_name": "7) Green Conformation Hunter-Model",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 7) Green Conformation Hunter-Model"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29276",
+          "event_name": "2) $500 High Performance Conformation Hunter",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 2) $500 High Performance Conformation Hunter"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29277",
+          "event_name": "3) $500 High Performance Conformation Hunter",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 3) $500 High Performance Conformation Hunter"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29280",
+          "event_name": "6) $200 High Performance Conformation Hunter U/S",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 6) $200 High Performance Conformation Hunter U/S"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29282",
+          "event_name": "8) $400 Green Conformation Hunter",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 8) $400 Green Conformation Hunter"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29283",
+          "event_name": "9) $400 Green Conformation Hunter",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 9) $400 Green Conformation Hunter"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29286",
+          "event_name": "12) $150 Green Conformation Hunter U/S",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 12) $150 Green Conformation Hunter U/S"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29292",
+          "event_name": "23) $600 Green Hunter 3'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "1 23) $600 Green Hunter 3'6\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29293",
+          "event_name": "24) $600 Green Hunter 3'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "1 24) $600 Green Hunter 3'6\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29296",
+          "event_name": "27) $200 Green Hunter 3'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 27) $200 Green Hunter 3'6\" U/S"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29287",
+          "event_name": "18) $600 Green Hunter 3'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 18) $600 Green Hunter 3'9\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29288",
+          "event_name": "19) $600 Green Hunter 3'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 19) $600 Green Hunter 3'9\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29291",
+          "event_name": "22) $200 Green Hunter 3'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 22) $200 Green Hunter 3'9\" U/S"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29311",
+          "event_name": "13) $700 High Performance Hunter 4'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "1 13) $700 High Performance Hunter 4'"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29310",
+          "event_name": "14) $700 High Performance Hunter 4'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "1 14) $700 High Performance Hunter 4'"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29332",
+          "event_name": "38) $400 Performance Hunter 3'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "4 38) $400 Performance Hunter 3'6\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29382",
+          "event_name": "39) $400 Performance Hunter 3'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "3 39) $400 Performance Hunter 3'6\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29071",
+          "event_name": "245) USHJA Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "10 245) USHJA Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29072",
+          "event_name": "246) USHJA Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "11 246) USHJA Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29297",
+          "event_name": "28) $350 Green Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "7 28) $350 Green Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29298",
+          "event_name": "29) $350 Green Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "7 29) $350 Green Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29301",
+          "event_name": "32) $150 Green Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "7 32) $150 Green Hunter 3'3\" U/S"
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29327",
+          "event_name": "43) $350 Performance Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "11 43) $350 Performance Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29328",
+          "event_name": "44) $350 Performance Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "10 44) $350 Performance Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3889",
+          "ring_name": "INDOOR 1",
+          "class_no": "29331",
+          "event_name": "47) $150 Performance Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "4 47) $150 Performance Hunter 3'3\" U/S"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "3895",
+      "ring_name": "INDOOR 2",
+      "raw_length": 9765,
+      "class_count": 19,
+      "data_time_populated": 0,
+      "data_time_empty": 19,
+      "visible_time_count": 0,
+      "classes": [
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29066",
+          "event_name": "275) USHJA Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "8 275) USHJA Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29067",
+          "event_name": "276) USHJA Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "8 276) USHJA Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29302",
+          "event_name": "33) $350 Green Hunter 3'0",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "9 33) $350 Green Hunter 3'0\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29303",
+          "event_name": "34) $350 Green Hunter 3'0",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "9 34) $350 Green Hunter 3'0\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29306",
+          "event_name": "37) $150 Green Hunter 3'0",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "9 37) $150 Green Hunter 3'0\" U/S"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29010",
+          "event_name": "235) Thoroughbred Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 235) Thoroughbred Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29011",
+          "event_name": "236) Thoroughbred Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "0 236) Thoroughbred Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29264",
+          "event_name": "270) USHJA Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "19 270) USHJA Hunter 2'9\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29263",
+          "event_name": "271) USHJA Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "18 271) USHJA Hunter 2'9\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29260",
+          "event_name": "274) USHJA Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "14 274) USHJA Hunter 2'9\" U/S"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29312",
+          "event_name": "48) $350 Young Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "2 48) $350 Young Hunter 2'9\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29313",
+          "event_name": "49) $350 Young Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "2 49) $350 Young Hunter 2'9\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29316",
+          "event_name": "52) $150 Young Hunter 2'9",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "2 52) $150 Young Hunter 2'9\" U/S"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29317",
+          "event_name": "53) $350 Young Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "4 53) $350 Young Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29318",
+          "event_name": "54) $350 Young Hunter 3'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "4 54) $350 Young Hunter 3'"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29321",
+          "event_name": "57) $150 Young Hunter 3' U/S",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "4 57) $150 Young Hunter 3' U/S"
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29322",
+          "event_name": "58) $350 Young Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "2 58) $350 Young Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29323",
+          "event_name": "59) $350 Young Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "3 59) $350 Young Hunter 3'3\""
+        },
+        {
+          "ring_day_no": "3895",
+          "ring_name": "INDOOR 2",
+          "class_no": "29326",
+          "event_name": "62) $150 Young Hunter 3'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "2 62) $150 Young Hunter 3'3\" U/S"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "3907",
+      "ring_name": "INDOOR 4",
+      "raw_length": 3599,
+      "class_count": 7,
+      "data_time_populated": 0,
+      "data_time_empty": 7,
+      "visible_time_count": 0,
+      "classes": [
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29061",
+          "event_name": "265) USHJA Hunter 2'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "16 265) USHJA Hunter 2'6\""
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29062",
+          "event_name": "266) USHJA Hunter 2'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "14 266) USHJA Hunter 2'6\""
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29046",
+          "event_name": "280) Baby Green Hunter 2'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "5 280) Baby Green Hunter 2'6\""
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29047",
+          "event_name": "281) Baby Green Hunter 2'6'",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "5 281) Baby Green Hunter 2'6'"
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29065",
+          "event_name": "269) USHJA Hunter 2'6",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "7 269) USHJA Hunter 2'6\" U/S"
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29056",
+          "event_name": "260) USHJA Hunter 2'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "12 260) USHJA Hunter 2'3\""
+        },
+        {
+          "ring_day_no": "3907",
+          "ring_name": "INDOOR 4",
+          "class_no": "29057",
+          "event_name": "261) USHJA Hunter 2'3",
+          "data_time": "",
+          "data_time_empty": true,
+          "visible_text_has_time": false,
+          "visible_text_preview": "11 261) USHJA Hunter 2'3\""
+        }
+      ]
+    },
+    {
+      "ring_day_no": "4293",
+      "ring_name": "JUMPER ANNEX",
+      "raw_length": 665,
+      "class_count": 1,
+      "data_time_populated": 1,
+      "data_time_empty": 0,
+      "visible_time_count": 1,
+      "classes": [
+        {
+          "ring_day_no": "4293",
+          "ring_name": "JUMPER ANNEX",
+          "class_no": "33485",
+          "event_name": "9019) Ticketed Schooling- Wednesday Jumper Annex 8:00am-3:00pm",
+          "data_time": "8:00am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:00am 0 9019) Ticketed Schooling- Wednesday Jumper Annex 8:00am-3:00pm"
+        }
+      ]
+    },
+    {
+      "ring_day_no": "4295",
+      "ring_name": "HUNTER 2",
+      "raw_length": 657,
+      "class_count": 1,
+      "data_time_populated": 1,
+      "data_time_empty": 0,
+      "visible_time_count": 1,
+      "classes": [
+        {
+          "ring_day_no": "4295",
+          "ring_name": "HUNTER 2",
+          "class_no": "29408",
+          "event_name": "9013) Ticketed Schooling- Wednesday Hunter 2   8am- 3:00pm",
+          "data_time": "8:00am",
+          "data_time_empty": false,
+          "visible_text_has_time": true,
+          "visible_text_preview": "8:00am 0 9013) Ticketed Schooling- Wednesday Hunter 2 8am- 3:00pm"
+        }
+      ]
+    }
+  ]
+}

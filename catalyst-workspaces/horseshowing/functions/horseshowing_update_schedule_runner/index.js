@@ -234,6 +234,24 @@ async function airtableUpdate(baseId, tableId, records, token) {
   return results;
 }
 
+async function airtableDelete(baseId, tableId, recordIds, token) {
+  const results = [];
+  for (let i = 0; i < recordIds.length; i += 10) {
+    const chunk = recordIds.slice(i, i + 10).filter(Boolean);
+    if (!chunk.length) continue;
+    const url = new URL(`https://api.airtable.com/v0/${baseId}/${tableId}`);
+    for (const id of chunk) url.searchParams.append("records[]", id);
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable delete ${tableId} HTTP ${response.status}: ${raw.slice(0, 500)}`);
+    results.push(...(JSON.parse(raw).records || []));
+  }
+  return results;
+}
+
 async function airtableUpsert(baseId, tableId, mergeFieldId, records, token) {
   const results = [];
   for (let i = 0; i < records.length; i += 10) {
@@ -383,6 +401,15 @@ async function airtableListStagingBlockRows(baseId, token, showNo, ringDayNo) {
   );
 }
 
+async function airtableListUpdateScheduleBlockRows(baseId, token, showNo, ringDayNo) {
+  return airtableListFieldIds(
+    baseId,
+    "update_schedule",
+    `AND({show_no}=${Number(showNo)},{ring_day_no}=${Number(ringDayNo)})`,
+    token
+  );
+}
+
 async function airtableListStagingFocusRows(baseId, token, showNo, focusDay) {
   return airtableListFieldIds(
     baseId,
@@ -390,6 +417,34 @@ async function airtableListStagingFocusRows(baseId, token, showNo, focusDay) {
     `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},'${yyyymmddToIso(focusDay)}','day'))`,
     token
   );
+}
+
+async function airtableListUpdateScheduleFocusRows(baseId, token, showNo, focusDay) {
+  return airtableListFieldIds(
+    baseId,
+    "update_schedule",
+    `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},'${yyyymmddToIso(focusDay)}','day'))`,
+    token
+  );
+}
+
+async function resetFocusUpdateSchedule(baseId, token, showNo, focusDay) {
+  const [stagingRows, updateRows] = await Promise.all([
+    airtableListStagingFocusRows(baseId, token, showNo, focusDay),
+    airtableListUpdateScheduleFocusRows(baseId, token, showNo, focusDay)
+  ]);
+  const [stagingDeleted, updateDeleted] = await Promise.all([
+    airtableDelete(baseId, TABLE_UPDATE_SCHEDULE_STAGING, stagingRows.map((record) => record.record_id), token),
+    airtableDelete(baseId, TABLE_UPDATE_SCHEDULE, updateRows.map((record) => record.record_id), token)
+  ]);
+  return {
+    show_no: Number(showNo),
+    focus_day: yyyymmddToIso(focusDay),
+    update_schedule_seen: updateRows.length,
+    update_schedule_deleted: updateDeleted.length,
+    update_schedule_staging_seen: stagingRows.length,
+    update_schedule_staging_deleted: stagingDeleted.length
+  };
 }
 
 async function ensureStagingHelpers(baseId, token, stagingRows) {
@@ -531,7 +586,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
   }
   const result = await airtableUpdate(baseId, TABLE_UPDATE_SCHEDULE_STAGING, updates.filter((row) => Object.keys(row.fields).length), token);
   const lockedSources = stagingRecords
-    .filter((record) => truthy(record.lock))
+    .filter((record) => truthy(record[STAGING_FIELDS.lock]) && !truthy(record[STAGING_FIELDS.inactive]))
     .map((record) => sourceByKey.get(text(record.staging_key)))
     .filter(Boolean);
   const lockedKeySet = new Set(lockedSources.map((source) => updateScheduleKey(
@@ -542,12 +597,47 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
   )).filter(Boolean));
   return {
     staged_records: stagingRecords.length,
-    locked: lockedSources.length,
+    locked: stagingRecords.filter((record) => truthy(record[STAGING_FIELDS.lock])).length,
+    target: lockedSources.length,
     linked: result.length,
     paused: lockedSources.length === 0,
     missing,
     helper_created: helperCreated,
     locked_keys: [...lockedKeySet]
+  };
+}
+
+async function reconcileBlockRows(baseId, token, showNo, ringDayNo, stagingRows) {
+  const currentKeys = new Set((stagingRows || []).map((row) => text(row[STAGING_FIELDS.staging_key])).filter(Boolean));
+  const [existingStagingRows, existingUpdateScheduleRows] = await Promise.all([
+    airtableListStagingBlockRows(baseId, token, showNo, ringDayNo),
+    airtableListUpdateScheduleBlockRows(baseId, token, showNo, ringDayNo)
+  ]);
+
+  const staleStagingRows = existingStagingRows.filter((record) => !currentKeys.has(text(record[STAGING_FIELDS.staging_key])));
+  const staleStagingUpdates = staleStagingRows
+    .filter((record) => !truthy(record[STAGING_FIELDS.inactive]))
+    .map((record) => ({
+      id: record.record_id,
+      fields: { [STAGING_FIELDS.inactive]: true }
+    }));
+  const staleStagingResult = staleStagingUpdates.length
+    ? await airtableUpdate(baseId, TABLE_UPDATE_SCHEDULE_STAGING, staleStagingUpdates, token)
+    : [];
+
+  const staleUpdateScheduleRows = existingUpdateScheduleRows.filter((record) => !currentKeys.has(text(record[UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key])));
+  const staleUpdateScheduleResult = staleUpdateScheduleRows.length
+    ? await airtableDelete(baseId, TABLE_UPDATE_SCHEDULE, staleUpdateScheduleRows.map((record) => record.record_id), token)
+    : [];
+
+  return {
+    current_source_rows: currentKeys.size,
+    existing_staging_rows: existingStagingRows.length,
+    stale_staging_rows: staleStagingRows.length,
+    stale_staging_inactivated: staleStagingResult.length,
+    existing_update_schedule_rows: existingUpdateScheduleRows.length,
+    stale_update_schedule_rows: staleUpdateScheduleRows.length,
+    stale_update_schedule_deleted: staleUpdateScheduleResult.length
   };
 }
 
@@ -827,7 +917,8 @@ function parseUpdateScheduleRaw(raw, context) {
       [STAGING_FIELDS.live_flag]: Number(readAttr(tag, "data-live")) || 0,
       [STAGING_FIELDS.review_status]: "new",
       [STAGING_FIELDS.source_key]: key,
-      [STAGING_FIELDS.source]: "update_schedule.php"
+      [STAGING_FIELDS.source]: "update_schedule.php",
+      [STAGING_FIELDS.inactive]: false
     };
     rows.push(row);
   }
@@ -899,6 +990,12 @@ async function handle(req, res) {
     if (!token) return sendJson(res, 500, { ok: false, error: "missing AIRTABLE_TOKEN fallback" });
 
     const focusDay = await getFocusDay(baseId, showNo, token, query.get("focus_day") || body.focus_day);
+    const action = text(query.get("action") || body.action);
+    if (action === "reset-focus-update-schedule") {
+      const reset = await resetFocusUpdateSchedule(baseId, token, showNo, focusDay);
+      return sendJson(res, 200, { ok: true, action, ...reset });
+    }
+
     const batchSize = Math.max(1, asNumber(query.get("batch_size") || body.batch_size, 1));
     const windowMinutes = Math.max(1, asNumber(query.get("window_minutes") || body.window_minutes, 60));
     const ringDays = await airtableList(baseId, "get_ring_days", `{show_no}=${Number(showNo)}`, token);
@@ -1005,6 +1102,7 @@ async function handle(req, res) {
       if (shouldMarkFocusState && focus_state.skipped) {
         focus_state = await markStagingFocusState(baseId, token, showNo, focusDay);
       }
+      const reconcileResult = await reconcileBlockRows(baseId, token, showNo, row.ring_day_no, stagingRows);
       const updateScheduleRecords = await airtableUpsert(
         baseId,
         TABLE_UPDATE_SCHEDULE,
@@ -1020,6 +1118,7 @@ async function handle(req, res) {
           staging_rows: stagingRows.length,
           rekey: rekeyResult,
           staging_records: stagingRecords.length,
+          reconcile: reconcileResult,
           update_schedule_records: updateScheduleRecords.length,
           staging_links: stagingLinkResult
         });
@@ -1032,6 +1131,7 @@ async function handle(req, res) {
           staging_rows: stagingRows.length,
           rekey: rekeyResult,
           staging_records: stagingRecords.length,
+          reconcile: reconcileResult,
           update_schedule_records: updateScheduleRecords.length,
           class_start_records: 0,
           paused: "paused_no_locked_staging",
@@ -1058,6 +1158,7 @@ async function handle(req, res) {
           staging_rows: stagingRows.length,
           rekey: rekeyResult,
           staging_records: stagingRecords.length,
+          reconcile: reconcileResult,
           update_schedule_records: updateScheduleRecords.length,
           class_start_records: classStartRecords.length,
           staging_links: stagingLinkResult
@@ -1070,6 +1171,7 @@ async function handle(req, res) {
         staging_rows: stagingRows.length,
         rekey: rekeyResult,
         staging_records: stagingRecords.length,
+        reconcile: reconcileResult,
         update_schedule_records: updateScheduleRecords.length,
         class_start_records: classStartRecords.length,
         staging_links: stagingLinkResult

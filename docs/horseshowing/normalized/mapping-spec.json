@@ -1,0 +1,81 @@
+{
+  "driver_input": {
+    "fields": ["show_id", "show_start", "show_end", "focus_day"],
+    "rule": "focus_day is manual and is never replaced by system date"
+  },
+  "inactive_endpoints": [
+    "show.php",
+    "shows_happening.php",
+    "get_have_times.php",
+    "get_ring_day_oc.php"
+  ],
+  "endpoint_sets": {
+    "focus_day_not_system_day": [
+      "class_oog.php",
+      "get_ring_days.php",
+      "update_schedule.php",
+      "counts.php"
+    ],
+    "focus_day_is_system_day": [
+      "class_oog.php",
+      "get_ring_days.php",
+      "update_schedule.php",
+      "counts.php",
+      "get_rings.php",
+      "get_orders.php"
+    ]
+  },
+  "lookups": {
+    "rings": { "key": "ring_no", "type": "number" },
+    "ring_days": { "key": "ring_day_no", "type": "number", "airtable_table": "show_days" },
+    "classes": { "key": "class_no", "type": "number" },
+    "entries": { "key": "entry_no", "type": "number" },
+    "horses": { "key": "horse", "type": "text", "taggable": true },
+    "riders": { "key": "rider", "type": "text", "taggable": true },
+    "trainers": { "key": "trainer", "type": "text", "taggable": true }
+  },
+  "formula_fields": {
+    "class_number": "IF(FIND(\")\", {class_label}) > 0, VALUE(TRIM(LEFT({class_label}, FIND(\")\", {class_label}) - 1))))",
+    "class_payout": "IF(FIND(\"$\", {class_label}) > 0, LEFT(MID({class_label}, FIND(\"$\", {class_label}), LEN({class_label})), FIND(\" \", MID({class_label}, FIND(\"$\", {class_label}), LEN({class_label})) & \" \") - 1))",
+    "class_name": "derive from class_label after class_number and optional class_payout",
+    "days": "UPPER(LEFT({date_text}, 3))",
+    "iso_date": "parse date_text to YYYY-MM-DD",
+    "focus_day_key": "ring_day_no & \"|\" & days & \"|\" & iso_date",
+    "time": "normalize time_text to HH:MM:SS"
+  },
+  "payload_maps": {
+    "counts": {
+      "key": "class_key = show_no + \"|\" + class_no",
+      "fields": ["class_key", "show_no", "class_no", "class_number", "class_name", "entry_count"]
+    },
+    "get_ring_days": {
+      "links": {
+        "show_no": "shows.show_no",
+        "ring_no": "rings.ring_no",
+        "ring_day_no": "ring_days.ring_day_no"
+      },
+      "fields": ["show_no", "ring_no", "ring_name", "date_text", "ring_day_no", "dow", "iso_date", "focus_day_key"]
+    },
+    "update_schedule": {
+      "links": {
+        "show_no": "shows.show_no",
+        "ring_no": "rings.ring_no",
+        "class_no": "classes.class_no",
+        "ring_day_no": "ring_days.ring_day_no"
+      },
+      "fields": ["show_no", "ring_day_no", "ring_no", "ring_name", "date_text", "class_no", "event_id", "event_name", "class_number", "class_payout", "class_name", "time_text", "time", "dow", "focus_day", "iso_date", "entry_count", "event_type", "oc_id", "live_flag"]
+    },
+    "class_oog": {
+      "links": {
+        "ring_no": "rings.ring_no",
+        "ring_day_no": "ring_days.ring_day_no",
+        "class_no": "classes.class_no",
+        "entry_no": "entries.entry_no",
+        "horse": "horses.horse",
+        "rider": "riders.rider",
+        "trainer": "trainers.trainer"
+      },
+      "fields": ["ring", "ring_no", "ring_day_no", "class_order", "class_no", "class_label", "class_number", "class_payout", "class_name", "entry_order", "entry_no", "horse", "rider", "trainer", "source"]
+    }
+  }
+}

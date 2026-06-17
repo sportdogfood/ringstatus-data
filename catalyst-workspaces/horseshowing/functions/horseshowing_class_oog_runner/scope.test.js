@@ -7,12 +7,12 @@ const {
   classOogKey
 } = require("./scope");
 
-test("selectClassOogScope uses only update_schedule_staging.full_lock rows for focus day", () => {
+test("selectClassOogScope uses only update_schedule_staging.lock rows for focus day", () => {
   const rows = [
-    { record_id: "rec1", show_no: 14907, iso_date: "2026-06-17", class_no: 100, ring_day_no: 4224, ring_no: 685, full_lock: true },
-    { record_id: "rec2", show_no: 14907, iso_date: "2026-06-17", class_no: 101, ring_day_no: 4224, ring_no: 685, lock: true, full_lock: false },
-    { record_id: "rec3", show_no: 14907, iso_date: "2026-06-18", class_no: 102, ring_day_no: 4225, ring_no: 685, full_lock: true },
-    { record_id: "rec4", show_no: 14907, iso_date: "2026-06-17", class_no: 0, ring_day_no: 4224, ring_no: 685, full_lock: true }
+    { record_id: "rec1", show_no: 14907, iso_date: "2026-06-17", class_no: 100, ring_day_no: 4224, ring_no: 685, lock: true },
+    { record_id: "rec2", show_no: 14907, iso_date: "2026-06-17", class_no: 101, ring_day_no: 4224, ring_no: 685, lock: false, full_lock: true },
+    { record_id: "rec3", show_no: 14907, iso_date: "2026-06-18", class_no: 102, ring_day_no: 4225, ring_no: 685, lock: true },
+    { record_id: "rec4", show_no: 14907, iso_date: "2026-06-17", class_no: 0, ring_day_no: 4224, ring_no: 685, lock: true }
   ];
 
   const selected = selectClassOogScope(rows, { showNo: 14907, focusDay: "2026-06-17" });

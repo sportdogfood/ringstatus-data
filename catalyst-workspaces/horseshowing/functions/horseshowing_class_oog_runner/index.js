@@ -12,9 +12,11 @@ const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const HORSESHOWING_BASE_URL = "https://www.horseshowing.com";
 const DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36";
 const UPSTREAM_TIMEOUT_MS = 15000;
+const PROBE_TIMEOUT_MS = 5000;
 const TABLE_CLASS_OOG = "hs_class_oog";
 const TABLE_AIRTABLE_CLASS_OOG = "tblgUbX5n8GIuiqUI";
 const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
+const VIEW_UPDATE_SCHEDULE_STAGING_LOCK_SCHEDULE = "lock_schedule";
 const AIRTABLE_TABLES = {
   shows: "tblyjlXwdf0zg0mhn",
   focus_show: "tblQldkP8wwIRxd4z",
@@ -93,6 +95,10 @@ const WEC_LOG_FIELDS = {
   created_at: "fldQDsYQenI0uHARe"
 };
 
+const FOCUS_SHOW_FIELDS = {
+  is_pause: "fldgWn3BIdGzcGow1"
+};
+
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
@@ -128,6 +134,10 @@ function readBody(req) {
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function isFocusPaused(row) {
+  return row?.is_pause === true || row?.[FOCUS_SHOW_FIELDS.is_pause] === true;
 }
 
 function intOrNull(value) {
@@ -202,7 +212,7 @@ function mergeCookies(...cookieInputs) {
   return [...jar.entries()].map(([key, value]) => `${key}=${value}`).join("; ");
 }
 
-function requestTextViaHttps(url, { method = "GET", headers = {}, body = "" } = {}) {
+function requestTextViaHttps(url, { method = "GET", headers = {}, body = "", timeoutMs = UPSTREAM_TIMEOUT_MS } = {}) {
   return new Promise((resolve, reject) => {
     const request = https.request(url, { method, headers }, (response) => {
       let raw = "";
@@ -222,21 +232,22 @@ function requestTextViaHttps(url, { method = "GET", headers = {}, body = "" } = 
         });
       });
     });
-    request.setTimeout(UPSTREAM_TIMEOUT_MS, () => request.destroy(new Error("request timeout")));
+    request.setTimeout(timeoutMs, () => request.destroy(new Error("request timeout")));
     request.on("error", reject);
     if (body) request.write(body);
     request.end();
   });
 }
 
-async function requestText(url, { method = "GET", headers = {}, body = "", signal } = {}) {
+async function requestText(url, { method = "GET", headers = {}, body = "", signal, fallback = true } = {}) {
   try {
     return await fetch(url, { method, headers, body: body || undefined, signal });
   } catch (error) {
-    const fallback = await requestTextViaHttps(url, { method, headers, body });
-    fallback.transport = "https";
-    fallback.fetch_error = error.message;
-    return fallback;
+    if (!fallback) throw error;
+    const fallbackResponse = await requestTextViaHttps(url, { method, headers, body });
+    fallbackResponse.transport = "https";
+    fallbackResponse.fetch_error = error.message;
+    return fallbackResponse;
   }
 }
 
@@ -294,12 +305,19 @@ async function bootstrapCookie(showNo, phpSessionId = "") {
   return cookie;
 }
 
-async function airtableList(baseId, tableName, formula, token) {
+function classOogCookie(showNo, phpSessionId = "") {
+  let cookie = `HscomShowNo=${showNo}`;
+  if (text(phpSessionId)) cookie = mergeCookies(cookie, `PHPSESSID=${text(phpSessionId)}`);
+  return cookie;
+}
+
+async function airtableList(baseId, tableName, formula, token, options = {}) {
   const records = [];
   let offset = "";
   do {
     const url = new URL(`https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`);
     url.searchParams.set("pageSize", "100");
+    if (options.view) url.searchParams.set("view", options.view);
     if (formula) url.searchParams.set("filterByFormula", formula);
     if (offset) url.searchParams.set("offset", offset);
     const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
@@ -395,7 +413,12 @@ async function getFocusShow(baseId, showNo, token, overrideFocusDay) {
   if (!row) throw new Error(`No focus_show found for show_no=${showNo}${override ? ` focus_day=${override}` : " active=1"}`);
   const focusDay = yyyymmddToIso(row.focus_day);
   if (!focusDay) throw new Error(`focus_show has no focus_day for show_no=${showNo}`);
-  return { record_id: row.record_id, focus_day: focusDay, focus_day_key: text(row.focus_day_key || row.focus_show_key || "") };
+  return {
+    record_id: row.record_id,
+    focus_day: focusDay,
+    focus_day_key: text(row.focus_day_key || row.focus_show_key || ""),
+    is_pause: isFocusPaused(row)
+  };
 }
 
 async function getActiveTrainerNames(baseId, token) {
@@ -405,6 +428,31 @@ async function getActiveTrainerNames(baseId, token) {
 
 function filterRowsByActiveTrainer(rows, activeTrainerNames) {
   return rows.filter((row) => activeTrainerNames.has(text(row.trainer)));
+}
+
+function probeClassOogActiveTrainers(raw, activeTrainerNames) {
+  const $ = cheerio.load(raw || "");
+  const tableNode = $(".lg table.orders_table").first().length
+    ? $(".lg table.orders_table").first()
+    : $("table.orders_table").first();
+  const matches = [];
+  let upstreamRows = 0;
+  tableNode.find("tr").each((index, tr) => {
+    if (index === 0) return;
+    const cells = $(tr).find("td").map((_, td) => text($(td).text())).get();
+    if (cells.length < 4) return;
+    upstreamRows += 1;
+    const trainer = text(cells[4]);
+    if (!activeTrainerNames.has(trainer)) return;
+    matches.push({
+      entry_order: intOrNull(cells[0]),
+      entry_no: intOrNull(cells[1]),
+      horse: text(cells[2]),
+      rider: text(cells[3]),
+      trainer
+    });
+  });
+  return { upstream_rows: upstreamRows, active_trainer_rows: matches.length, matches };
 }
 
 async function getClassOogStats(baseId, showNo, focusDay, token) {
@@ -536,7 +584,9 @@ async function deleteAirtableRowsOutsideContexts(baseId, showNo, focusDay, allow
   return airtableDeleteRecords(baseId, TABLE_AIRTABLE_CLASS_OOG, stale, token);
 }
 
-async function fetchClassOog(showNo, classNo, cookie) {
+async function fetchClassOog(showNo, classNo, cookie, options = {}) {
+  const timeoutMs = Math.max(1000, Number(options.timeoutMs || UPSTREAM_TIMEOUT_MS));
+  const attempts = Math.max(1, Number(options.attempts || 2));
   const url = `${HORSESHOWING_BASE_URL}/class_oog.php?class_no=${encodeURIComponent(classNo)}`;
   const request = {
     method: "GET",
@@ -556,12 +606,14 @@ async function fetchClassOog(showNo, classNo, cookie) {
     }
   };
   let lastError;
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+      const timeout = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const response = await requestText(url, { ...request, signal: controller.signal });
+        const response = options.forceHttps
+          ? await requestTextViaHttps(url, { ...request, timeoutMs })
+          : await requestText(url, { ...request, signal: controller.signal, fallback: options.fallback !== false });
         const raw = await response.text();
         if (!response.ok) throw new Error(`class_oog.php HTTP ${response.status}: ${raw.slice(0, 300)}`);
         return { status: response.status, content_type: response.headers.get("content-type"), raw, attempts: attempt };
@@ -570,7 +622,7 @@ async function fetchClassOog(showNo, classNo, cookie) {
       }
     } catch (error) {
       lastError = error;
-      if (attempt < 2) await sleep(750 * attempt);
+      if (attempt < attempts) await sleep(750 * attempt);
     }
   }
   throw lastError;
@@ -639,6 +691,51 @@ function parseClassOogRows(raw, showNo, classInfo) {
     });
   });
   return rows;
+}
+
+function normalizeLocalClassOogRows(localRows, showNo, classInfo) {
+  const classLabel = text(classInfo.event_name || classInfo.class_label || classInfo.class_name || classInfo.class_no);
+  const classParts = classPartsFromLabel(classLabel);
+  const classNo = Number(classInfo.class_no);
+  const ringDayNo = intOrNull(classInfo.ring_day_no);
+  return (Array.isArray(localRows) ? localRows : [])
+    .filter((row) => Number(row.class_no) === classNo)
+    .filter((row) => intOrNull(row.ring_day_no ?? row.days) === ringDayNo)
+    .filter((row) => intOrNull(row.ring_no) === intOrNull(classInfo.ring_no))
+    .map((row) => {
+      const entryNo = intOrNull(row.entry_no);
+      return {
+        class_oog_key: text(row.class_oog_key) || classOogKey({ show_no: showNo, ring_day_no: ringDayNo, ring_no: classInfo.ring_no, class_no: classNo, entry_no: entryNo }),
+        show_no: Number(showNo),
+        ring: text(classInfo.ring_name || row.ring),
+        ring_no: intOrNull(classInfo.ring_no),
+        ring_day_no: ringDayNo,
+        staging_record_id: text(classInfo.staging_record_id || row.staging_record_id),
+        class_order: intOrNull(classInfo.class_order || row.class_order),
+        class_no: classNo,
+        class_label: classLabel,
+        class_number: classParts.classNumber,
+        class_payout: classParts.classPayout,
+        class_name: classParts.className,
+        entry_order: intOrNull(row.entry_order),
+        entry_no: entryNo,
+        horse: text(row.horse),
+        rider: text(row.rider),
+        trainer: text(row.trainer),
+        source_endpoint: "class_oog.php",
+        source_payload: JSON.stringify({
+          show_no: Number(showNo),
+          class_no: classNo,
+          entry_order: intOrNull(row.entry_order),
+          entry_no: entryNo,
+          horse: text(row.horse),
+          rider: text(row.rider),
+          trainer: text(row.trainer),
+          source: "local_html_probe"
+        })
+      };
+    })
+    .filter((row) => row.class_oog_key && row.entry_no);
 }
 
 async function getCatalystRowsByShowClass(app, showNo, classNo, ringDayNo, ringNo) {
@@ -799,20 +896,23 @@ async function writeRunLog(baseId, token, detail) {
   const classesSeen = Number(detail.classes_seen || classNos.length || 0);
   const rowsWritten = Number(detail.rows_written || 0);
   const upstreamRows = Number(detail.upstream_rows_total || 0);
-  const logKey = ["sync-class-oog", detail.show_no, detail.focus_day || "no-focus-day", classPart].join("|");
+  const checkName = detail.probe ? "class_oog_probe" : "sync-class-oog";
+  const logKey = [checkName, detail.show_no, detail.focus_day || "no-focus-day", classPart].join("|");
   await airtableCreate(baseId, TABLE_WEC_LOGS, {
     [WEC_LOG_FIELDS.log_key_run]: `${logKey}|${now}`,
     [WEC_LOG_FIELDS.log_key]: logKey,
     [WEC_LOG_FIELDS.workflow_lanes]: "Core",
     [WEC_LOG_FIELDS.log_type]: "core_class_oog",
-    [WEC_LOG_FIELDS.check_name]: "sync-class-oog",
+    [WEC_LOG_FIELDS.check_name]: checkName,
     [WEC_LOG_FIELDS.show_no]: Number(detail.show_no),
     [WEC_LOG_FIELDS.focus_day]: detail.focus_day || null,
     [WEC_LOG_FIELDS.status]: detail.ok ? "ok" : "error",
     [WEC_LOG_FIELDS.records_seen]: classesSeen,
     [WEC_LOG_FIELDS.records_changed]: rowsWritten,
     [WEC_LOG_FIELDS.summary]: detail.ok
-      ? `class_oog classes ${classesSeen}; upstream rows ${upstreamRows}; active rows ${rowsWritten}; catalyst deleted ${Number(detail.catalyst_deleted || 0)}; airtable deleted ${Number(detail.airtable_deleted || 0)}`
+      ? detail.probe
+        ? `class_oog probe classes ${classesSeen}; upstream rows ${upstreamRows}; matched classes ${Number(detail.matched_classes || 0)}; active rows ${Number(detail.active_trainer_rows || 0)}`
+        : `class_oog classes ${classesSeen}; upstream rows ${upstreamRows}; active rows ${rowsWritten}; catalyst deleted ${Number(detail.catalyst_deleted || 0)}; airtable deleted ${Number(detail.airtable_deleted || 0)}`
       : `class_oog failed at ${detail.phase || "unknown"}: ${detail.error}`,
     [WEC_LOG_FIELDS.payload_json]: JSON.stringify(payload, null, 2),
     [WEC_LOG_FIELDS.created_at]: now
@@ -832,6 +932,7 @@ async function handle(req, res) {
     const ringNo = intOrNull(query.get("ring_no") || body.ring_no);
     const classNos = parseNumberList(query.get("class_nos") || body.class_nos);
     const planOnly = text(query.get("plan") || body.plan) === "1";
+    const probeActiveTrainers = text(query.get("probe") || body.probe) === "active-trainers";
     const maxEntries = Math.max(1, asNumber(query.get("max_entries") || body.max_entries, 50));
     const offset = Math.max(0, asNumber(query.get("offset") || body.offset, 0));
     const limit = Math.max(1, asNumber(query.get("limit") || body.limit, 5));
@@ -860,11 +961,43 @@ async function handle(req, res) {
     const focusShow = await getFocusShow(baseId, showNo, token, focusDayOverride);
     runLogContext.focus_day = focusShow.focus_day;
     runLogContext.focus_show_record_id = focusShow.record_id;
+    if (focusShow.is_pause) {
+      const detail = {
+        ok: true,
+        paused: true,
+        reason: "focus_show.is_pause",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        focus_show_record_id: focusShow.record_id,
+        ring_no: ringNo,
+        offset,
+        limit,
+        only_locked: onlyLocked,
+        classes_seen: 0,
+        upstream_rows_total: 0,
+        rows_written: 0,
+        active_trainers: 0,
+        class_nos: []
+      };
+      phase = "write_wec_log_paused";
+      await writeRunLog(baseId, token, detail);
+      return sendJson(res, 200, {
+        ok: true,
+        paused: true,
+        reason: "focus_show.is_pause",
+        source_endpoint: "class_oog.php",
+        target_catalyst: TABLE_CLASS_OOG,
+        target_airtable: "class_oog",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        focus_show_record_id: focusShow.record_id
+      });
+    }
     phase = "read_active_trainers";
     const activeTrainerNames = await getActiveTrainerNames(baseId, token);
     if (!activeTrainerNames.size) throw new Error("No active trainers found; class_oog active-team write stopped");
     phase = "read_update_schedule_staging";
-    const stagingRows = await airtableList(baseId, "update_schedule_staging", `AND({show_no}=${Number(showNo)},{class_no}>0,{full_lock}=1)`, token);
+    const stagingRows = await airtableList(baseId, "update_schedule_staging", "", token, { view: VIEW_UPDATE_SCHEDULE_STAGING_LOCK_SCHEDULE });
     const uniqueByContext = new Map();
     const duplicateContexts = [];
     const allFocusStagingRows = selectClassOogScope(stagingRows, { showNo, focusDay: focusShow.focus_day })
@@ -935,6 +1068,193 @@ async function handle(req, res) {
         queue
       });
     }
+    if (probeActiveTrainers) {
+      const selected = classNos.length
+        ? classes.filter((row) => classNos.includes(Number(row.class_no)))
+        : classes.slice(offset, offset + limit);
+      phase = "prepare_class_oog_cookie";
+      const cookie = classOogCookie(showNo, phpSessionId);
+      const class_results = [];
+      const matchedClassNos = [];
+      let upstreamRowsTotal = 0;
+      let activeTrainerRows = 0;
+      for (const classInfo of selected) {
+        phase = `probe_class_oog_${classInfo.class_no}`;
+        try {
+          const fetched = await fetchClassOog(showNo, classInfo.class_no, cookie, { timeoutMs: UPSTREAM_TIMEOUT_MS, attempts: 1 });
+          const probe = probeClassOogActiveTrainers(fetched.raw, activeTrainerNames);
+          upstreamRowsTotal += probe.upstream_rows;
+          activeTrainerRows += probe.active_trainer_rows;
+          if (probe.active_trainer_rows > 0) matchedClassNos.push(Number(classInfo.class_no));
+          class_results.push({
+            class_no: classInfo.class_no,
+            ring_day_no: classInfo.ring_day_no,
+            ring_no: classInfo.ring_no,
+            upstream_status: fetched.status,
+            upstream_rows: probe.upstream_rows,
+            active_trainer_rows: probe.active_trainer_rows,
+            matches: probe.matches
+          });
+        } catch (error) {
+          class_results.push({
+            class_no: classInfo.class_no,
+            ring_day_no: classInfo.ring_day_no,
+            ring_no: classInfo.ring_no,
+            upstream_status: "error",
+            upstream_rows: 0,
+            active_trainer_rows: 0,
+            error: String(error?.message || error),
+            matches: []
+          });
+        }
+      }
+      await writeRunLog(baseId, token, {
+        ok: true,
+        probe: true,
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        ring_no: ringNo,
+        offset,
+        limit,
+        only_locked: onlyLocked,
+        focus_show_record_id: focusShow.record_id,
+        target_classes_total: classes.length,
+        classes_seen: selected.length,
+        class_nos: selected.map((row) => Number(row.class_no)),
+        upstream_rows_total: upstreamRowsTotal,
+        rows_written: 0,
+        matched_classes: matchedClassNos.length,
+        matched_class_nos: matchedClassNos,
+        active_trainer_rows: activeTrainerRows,
+        active_trainers: activeTrainerNames.size,
+        class_results
+      });
+      return sendJson(res, 200, {
+        ok: true,
+        action: "class-oog-probe-active-trainers",
+        source_endpoint: "class_oog.php",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        focus_show_record_id: focusShow.record_id,
+        ring_no: ringNo,
+        only_locked: onlyLocked,
+        target_classes_total: classes.length,
+        offset,
+        limit,
+        selected_classes: selected.length,
+        next_offset: offset + selected.length < classes.length ? offset + selected.length : null,
+        active_trainers: activeTrainerNames.size,
+        matched_classes: matchedClassNos.length,
+        matched_class_nos: matchedClassNos,
+        active_trainer_rows: activeTrainerRows,
+        upstream_rows_total: upstreamRowsTotal,
+        class_results
+      });
+    }
+    const localRows = Array.isArray(body.local_rows) ? body.local_rows : [];
+    if (localRows.length || text(query.get("source") || body.source) === "local_html_probe") {
+      const localClassNos = new Set(parseNumberList(body.class_nos || query.get("class_nos")));
+      for (const row of localRows) {
+        const classNo = intOrNull(row.class_no);
+        if (classNo) localClassNos.add(classNo);
+      }
+      const selected = classes.filter((row) => localClassNos.has(Number(row.class_no)));
+      const class_results = [];
+      let rowsWritten = 0;
+      let catalystInserted = 0;
+      let catalystUpdated = 0;
+      let catalystDeleted = 0;
+      let airtableRecords = 0;
+      let airtableDeletedTotal = 0;
+      let upstreamRowsTotal = 0;
+      for (const classInfo of selected) {
+        phase = `write_local_class_oog_${classInfo.class_no}`;
+        const rows = filterRowsByActiveTrainer(normalizeLocalClassOogRows(localRows, showNo, classInfo), activeTrainerNames);
+        phase = `write_local_catalyst_${classInfo.class_no}`;
+        const catalystResult = await upsertCatalystClassOog(app, showNo, classInfo.class_no, classInfo.ring_day_no, classInfo.ring_no, rows);
+        phase = `write_local_airtable_${classInfo.class_no}`;
+        const linkMaps = rows.length ? await buildLinkMaps(baseId, showNo, focusShow, rows, [classInfo], token) : {};
+        const airtableRows = toAirtableRows(rows, focusShow.focus_day, linkMaps);
+        const airtableResult = airtableRows.length
+          ? await airtableUpsert(baseId, TABLE_AIRTABLE_CLASS_OOG, AIRTABLE_OOG_FIELDS.mirror_class_oog_key, airtableRows, token)
+          : [];
+        const airtableDeleted = await deleteAirtableRowsOutsideKeys(
+          baseId,
+          showNo,
+          focusShow.focus_day,
+          classInfo.class_no,
+          classInfo.ring_day_no,
+          classInfo.ring_no,
+          new Set(rows.map((row) => row.class_oog_key)),
+          token
+        );
+        rowsWritten += rows.length;
+        upstreamRowsTotal += rows.length;
+        catalystInserted += catalystResult.inserted;
+        catalystUpdated += catalystResult.updated;
+        catalystDeleted += catalystResult.deleted;
+        airtableRecords += airtableResult.length;
+        airtableDeletedTotal += airtableDeleted;
+        class_results.push({
+          class_no: classInfo.class_no,
+          ring_day_no: classInfo.ring_day_no,
+          ring_no: classInfo.ring_no,
+          source: "local_html_probe",
+          upstream_rows: rows.length,
+          active_trainer_rows: rows.length,
+          catalyst_inserted: catalystResult.inserted,
+          catalyst_updated: catalystResult.updated,
+          catalyst_deleted: catalystResult.deleted,
+          airtable_records: airtableResult.length,
+          airtable_deleted: airtableDeleted
+        });
+      }
+      await writeRunLog(baseId, token, {
+        ok: true,
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        ring_no: ringNo,
+        offset,
+        limit,
+        only_locked: onlyLocked,
+        focus_show_record_id: focusShow.record_id,
+        target_classes_total: classes.length,
+        classes_seen: selected.length,
+        class_nos: selected.map((row) => Number(row.class_no)),
+        upstream_rows_total: upstreamRowsTotal,
+        rows_written: rowsWritten,
+        catalyst_inserted: catalystInserted,
+        catalyst_updated: catalystUpdated,
+        catalyst_deleted: catalystDeleted,
+        airtable_records: airtableRecords,
+        airtable_deleted: airtableDeletedTotal,
+        active_trainers: activeTrainerNames.size,
+        source: "local_html_probe",
+        class_results
+      });
+      return sendJson(res, 200, {
+        ok: true,
+        action: "class-oog-local-html-write",
+        source_endpoint: "class_oog.php",
+        source: "local_html_probe",
+        target_catalyst: TABLE_CLASS_OOG,
+        target_airtable: "class_oog",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        focus_show_record_id: focusShow.record_id,
+        only_locked: onlyLocked,
+        target_classes_total: classes.length,
+        selected_classes: selected.length,
+        rows_written: rowsWritten,
+        catalyst_inserted: catalystInserted,
+        catalyst_updated: catalystUpdated,
+        catalyst_deleted: catalystDeleted,
+        airtable_records: airtableRecords,
+        airtable_deleted: airtableDeletedTotal,
+        active_trainers: activeTrainerNames.size,
+        class_results
+      });
+    }
     phase = "cleanup_class_oog_scope";
     scopeCatalystDeleted = onlyLocked
       ? await deleteCatalystRowsOutsideContexts(app, showNo, focusRingDayNos, allowedContexts)
@@ -987,8 +1307,8 @@ async function handle(req, res) {
       }
     }
     const selected = classNos.length ? classes : classes.slice(offset, offset + limit);
-    phase = "bootstrap_cookie";
-    const cookie = await bootstrapCookie(showNo, phpSessionId);
+    phase = "prepare_class_oog_cookie";
+    const cookie = classOogCookie(showNo, phpSessionId);
     const class_results = [];
     let rowsWritten = 0;
     let catalystInserted = 0;
@@ -1133,4 +1453,5 @@ async function handle(req, res) {
   }
 }
 
+handle.__test__ = { isFocusPaused };
 module.exports = handle;

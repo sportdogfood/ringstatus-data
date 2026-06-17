@@ -44,7 +44,7 @@ function selectClassOogScope(rows, { showNo, focusDay }) {
   return rows.filter((row) => {
     if (intOrNull(row.show_no) !== intOrNull(showNo)) return false;
     if (yyyymmddToIso(row.iso_date) !== yyyymmddToIso(focusDay)) return false;
-    if (!truthy(row.full_lock)) return false;
+    if (!truthy(row.lock)) return false;
     if (!intOrNull(row.class_no)) return false;
     if (!intOrNull(row.ring_day_no)) return false;
     if (!intOrNull(row.ring_no)) return false;

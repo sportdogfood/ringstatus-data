@@ -14,6 +14,9 @@ function fakeApp(responses) {
           if (query.includes("FROM hs_class_times")) return responses.classTimes || [];
           if (query.includes("FROM hs_entry_go_times")) return responses.entryGoTimes || [];
           if (query.includes("FROM hs_entries")) return responses.entries || [];
+          if (query.includes("FROM hs_result_queue")) return responses.resultQueue || [];
+          if (query.includes("FROM hs_result_classes")) return responses.resultClasses || [];
+          if (query.includes("FROM hs_class_results")) return responses.classResults || [];
           throw new Error(`Unexpected query: ${query}`);
         }
       };
@@ -373,4 +376,130 @@ test("schedule-json prefers current class_start_times over stale Catalyst class 
   assert.equal(result[0].entry_count, 36);
   assert.equal(result[0].n_gone, 33);
   assert.equal(result[0].current_entry_no, "2526");
+});
+
+test("rich API joins schedule, entry, live, and result indexes for consumers", async () => {
+  const app = fakeApp({
+    classStartTimes: [{
+      hs_class_start_times: {
+        ROWID: "10",
+        show_no: "14907",
+        focus_day: "2026-06-17",
+        ring_no: "675",
+        ring_name: "INDOOR 1",
+        ring_day_no: "4224",
+        class_no: "29784",
+        class_name: "1.10m Jumper",
+        class_start_time: "10:45:00",
+        entry_count: "25",
+        n_gone: "12",
+        n_to_go: "13",
+        current_entry_no: "1296",
+        current_horse: "Calou Us",
+        live_source: "get_orders.php"
+      }
+    }],
+    classes: [{
+      hs_classes: {
+        ROWID: "20",
+        show_no: "14907",
+        class_no: "29784",
+        class_label: "624) 1.10m Jumper",
+        class_name: "1.10m Jumper",
+        entry_count: "25"
+      }
+    }],
+    classTimes: [{
+      hs_class_times: {
+        ROWID: "30",
+        show_no: "14907",
+        ring_day_no: "4224",
+        class_no: "29784",
+        entry_count: "25",
+        entries_gone: "12",
+        entries_to_go: "13",
+        current_entry_no: "1296",
+        current_horse: "Calou Us",
+        elapsed_seconds: "480",
+        source_endpoint: "get_orders.php"
+      }
+    }],
+    entryGoTimes: [{
+      hs_entry_go_times: {
+        ROWID: "40",
+        entry_go_key: "14907|2026-06-17|4224|29784|1296",
+        show_no: "14907",
+        focus_day: "2026-06-17",
+        ring_day_no: "4224",
+        class_no: "29784",
+        entry_no: "1296",
+        entry_order: "5",
+        horse: "Calou Us",
+        rider: "Tanner Korotkin",
+        trainer: "Alan Korotkin",
+        go_time: "10:53:00"
+      }
+    }],
+    resultQueue: [{
+      hs_result_queue: {
+        result_queue_key: "14907|2026-06-17|29784",
+        show_no: "14907",
+        focus_day: "2026-06-17",
+        class_no: "29784",
+        status: "completed",
+        result_rows: "25",
+        completed_at: "2026-06-17 22:10:14"
+      }
+    }],
+    resultClasses: [{
+      hs_result_classes: {
+        result_class_key: "14907|29784",
+        show_no: "14907",
+        focus_day: "2026-06-17",
+        class_no: "29784",
+        result_entry_count: "25",
+        completed_at: "2026-06-17 22:10:14"
+      }
+    }],
+    classResults: [{
+      hs_class_results: {
+        class_result_key: "14907|29784|1296|Calou Us|Tanner Korotkin",
+        show_no: "14907",
+        focus_day: "2026-06-17",
+        class_no: "29784",
+        entry_no: "1296",
+        horse: "Calou Us",
+        rider: "Tanner Korotkin",
+        score: "82",
+        completed_at: "2026-06-17 22:10:14"
+      }
+    }]
+  });
+
+  const result = await __test__.buildRichApiPayload(app, "14907", "2026-06-17", {
+    title: "WEC Ocala Summer Series 2 CSI2*",
+    showStartDate: "2026-06-17",
+    showEndDate: "2026-06-22",
+    activeTrainers: ["Alan Korotkin"],
+    hideClasses: [],
+    horseDisplays: { "Calou Us": "Calou" },
+    horseDisplayMeta: {},
+    trainerDisplays: { "Alan Korotkin": "CWF" },
+    ringDisplays: { "675": "INDR_1" },
+    reconcileEntryGoTimes: false
+  });
+
+  assert.equal(result.show_no, "14907");
+  assert.equal(result.sources.backbone, "update_schedule_staging.lock_schedule");
+  assert.equal(result.outputs.wec_mobile.rings.length, 1);
+  assert.equal(result.outputs.wec_mobile_pro.rings[0].classes[0].status, "completed");
+  assert.equal(result.outputs.wec_mobile_pro.rings[0].classes[0].entries[0].horse_display, "Calou");
+  assert.equal(result.outputs.wec_mobile_pro.rings[0].classes[0].results[0].score, "82");
+  assert.equal(result.outputs.wec_print.rows[0].status, "completed");
+  assert.equal(result.outputs.wec_alerts.classes[0].status, "completed");
+  assert.equal(result.indexes.by_ring.INDR_1[0], "29784");
+  assert.equal(result.indexes.by_class_no["29784"].status, "completed");
+  assert.equal(result.indexes.by_entry_no["1296"][0].horse_display, "Calou");
+  assert.equal(result.indexes.by_horse.calou[0].class_no, "29784");
+  assert.equal(result.indexes.by_rider["tanner korotkin"][0].entry_no, "1296");
 });

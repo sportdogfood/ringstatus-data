@@ -215,23 +215,80 @@ function buildClassAlerts(classStarts, now = new Date()) {
     const startMinutes = timeMinutes(row.class_start_time || row.display_time);
     if (startMinutes === null) continue;
     const timeTill = startMinutes - current.minutes;
-    if (!windows.includes(timeTill)) continue;
-    const alertType = `class_start_${timeTill}`;
-    alerts.push({
-      alert_key: `${row.show_no}|${row.focus_day}|${row.class_no}|${alertType}`,
-      show_no: numberOrNull(row.show_no),
-      focus_day: row.focus_day,
-      class_no: numberOrNull(row.class_no),
-      class_start_time: row.class_start_time,
-      alert_type: alertType,
-      alert_lane: "class_start_times",
-      time_till: timeTill,
-      target_time: `${row.focus_day} ${row.class_start_time}`,
-      alert_subject: row.class_name || `Class ${row.class_no}`,
-      message: `${row.display_time || row.class_start_time} ${row.class_name || ""}`.trim(),
-      status: "open",
-      source_table: "class_start_times"
-    });
+    for (const threshold of windows) {
+      if (!inAlertWindow(timeTill, threshold)) continue;
+      const alertType = `class_start_${threshold}`;
+      alerts.push({
+        alert_key: `${row.show_no}|${row.focus_day}|${row.class_no}|${alertType}`,
+        show_no: numberOrNull(row.show_no),
+        focus_day: row.focus_day,
+        class_no: numberOrNull(row.class_no),
+        class_start_time: row.class_start_time,
+        alert_type: alertType,
+        alert_lane: "class_start_times",
+        trigger_minutes: threshold,
+        time_till: timeTill,
+        target_time: `${row.focus_day} ${row.class_start_time}`,
+        alert_subject: row.class_name || `Class ${row.class_no}`,
+        message: `${row.display_time || row.class_start_time} ${row.class_name || ""}`.trim(),
+        status: "open",
+        source_table: "class_start_times"
+      });
+    }
+  }
+
+  return alerts;
+}
+
+function inAlertWindow(minutesUntil, threshold, windowMinutes = 12) {
+  if (minutesUntil === null || minutesUntil === undefined || !Number.isFinite(Number(minutesUntil))) return false;
+  return Number(minutesUntil) <= threshold && Number(minutesUntil) > threshold - windowMinutes;
+}
+
+function buildEntryAlerts(entryGoTimes, now = new Date()) {
+  const current = easternParts(now);
+  const windows = [40, 20];
+  const alerts = [];
+
+  for (const row of entryGoTimes) {
+    if (String(row.focus_day) !== current.date) continue;
+    const goMinutes = timeMinutes(row.entry_go_time);
+    if (goMinutes === null) continue;
+    const timeTill = goMinutes - current.minutes;
+    for (const threshold of windows) {
+      if (!inAlertWindow(timeTill, threshold)) continue;
+      const alertType = `entry_go_${threshold}`;
+      const horseDisplay = row.horse_display || row.horse || `Entry ${row.entry_no}`;
+      alerts.push({
+        alert_key: `${row.show_no}|${row.focus_day}|${row.class_no}|${row.entry_no}|${alertType}`,
+        show_no: numberOrNull(row.show_no),
+        focus_day: row.focus_day,
+        class_no: numberOrNull(row.class_no),
+        class_number: numberOrNull(row.class_number),
+        class_name: row.class_name || "",
+        entry_no: numberOrNull(row.entry_no),
+        entry_order: numberOrNull(row.entry_order),
+        horse: row.horse || "",
+        horse_display: horseDisplay,
+        rider: row.rider || "",
+        trainer: row.trainer || "",
+        trainer_display: row.trainer_display || row.trainer || "",
+        class_start_time: row.class_start_time || "",
+        entry_go_time: row.entry_go_time,
+        pace_seconds: numberOrNull(row.pace_seconds),
+        n_gone: numberOrNull(row.n_gone),
+        elapsed_seconds: numberOrNull(row.elapsed_seconds),
+        alert_type: alertType,
+        alert_lane: "entry_go_times",
+        trigger_minutes: threshold,
+        time_till: timeTill,
+        target_time: `${row.focus_day} ${row.entry_go_time}`,
+        alert_subject: `${horseDisplay} (${row.entry_no})`,
+        message: `${horseDisplay} entry ${row.entry_no} estimated go in about ${threshold} minutes.`,
+        status: "open",
+        source_table: "entry_go_times"
+      });
+    }
   }
 
   return alerts;
@@ -244,6 +301,7 @@ module.exports = {
   buildClassStartRows,
   matchGetOrdersToClassStart,
   buildClassAlerts,
+  buildEntryAlerts,
   airtableRecordLink,
   airtableRecordLinks,
   logTypeForAction,

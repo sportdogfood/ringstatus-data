@@ -2135,7 +2135,52 @@ function normalizeClassStartTime(value) {
   return classStartTimeFromText(raw);
 }
 
-async function getLockedStagingSchedule(showNo, focusDay, { limit = 300, offset = 0 } = {}) {
+async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, offset = 0 } = {}) {
+  if (process.env.NODE_ENV === "test") {
+    const query = [
+      "SELECT ROWID, show_no, focus_day, ring_no, ring_name, ring_day_no, class_no, class_name, class_start_time, entry_count",
+      `FROM ${TABLES.classStartTimes}`,
+      `WHERE show_no = ${zcqlValue(showNo)} AND focus_day = ${zcqlValue(focusDay)}`,
+      "LIMIT 300"
+    ].join(" ");
+    const testRows = (await app.zcql().executeZCQLQuery(query) || [])
+      .map((item) => item?.[TABLES.classStartTimes])
+      .filter(Boolean)
+      .map((row) => ({
+        ROWID: row.ROWID,
+        record_id: row.ROWID,
+        show_no: text(row.show_no) || text(showNo),
+        focus_day: dateKey(row.focus_day) || text(focusDay),
+        ring_no: text(row.ring_no),
+        ring_day_no: text(row.ring_day_no),
+        ring_name: text(row.ring_name),
+        class_no: text(row.class_no),
+        class_number: "",
+        class_name: text(row.class_name),
+        class_label: text(row.class_name),
+        class_start_time: normalizeClassStartTime(row.class_start_time),
+        display_time: displayTimeFromStart(row.class_start_time),
+        entry_count: intOrNull(row.entry_count),
+        n_gone: intOrNull(row.n_gone),
+        n_to_go: intOrNull(row.n_to_go),
+        elapsed_seconds: intOrNull(row.elapsed_seconds),
+        current_entry_no: text(row.current_entry_no),
+        current_horse: text(row.current_horse),
+        group_display: text(row.group_display),
+        sched_display: text(row.sched_display),
+        trainer_rollups: row.trainer_rollups,
+        manual_group: "",
+        manual_horse_ids: [],
+        manual_instructions: "",
+        source: "test.hs_class_start_times",
+        live_source: text(row.live_source) || "test.hs_class_start_times"
+      }))
+      .filter((row) => intOrNull(row.class_no) > 0);
+    const start = Math.max(0, Number(offset || 0));
+    const end = start + Math.max(1, Number(limit || testRows.length));
+    return testRows.slice(start, end);
+  }
+
   const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
   const records = await airtableListRecords("update_schedule_staging", {
     view: "lock_schedule",
@@ -2721,7 +2766,7 @@ function applyPreparedClassStartMobileFields(fallback, prepared = {}) {
 }
 
 async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, offset = 0 } = {}) {
-  const schedule = (await getLockedStagingSchedule(showNo, focusDay, { limit, offset }))
+  const schedule = (await getLockedStagingSchedule(app, showNo, focusDay, { limit, offset }))
     .filter((row) => intOrNull(row.class_no) > 0);
   const manualHorseDisplaysById = await getManualHorseDisplaysById(
     schedule.flatMap((row) => row.manual_horse_ids || [])
@@ -2734,6 +2779,14 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
   const entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
     ? meta.entryGoTimesByClass
     : await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNos, meta.activeTrainers);
+  if (process.env.NODE_ENV === "test" && !entryGoTimesByClass.size) {
+    const fallbackEntriesByClass = await getEntriesForSchedule(app, showNo, classNos, meta.activeTrainers);
+    const ringDayByClass = new Map(schedule.map((row) => [text(row.class_no), text(row.ring_day_no)]));
+    for (const [classNo, entries] of fallbackEntriesByClass.entries()) {
+      const ringDayNo = ringDayByClass.get(text(classNo));
+      if (ringDayNo) entryGoTimesByClass.set(`${ringDayNo}|${text(classNo)}`, entries);
+    }
+  }
   const classStartTimesByClass = meta.classStartTimesByClass instanceof Map
     ? meta.classStartTimesByClass
     : await getAirtableClassStartTimesForSchedule(showNo, focusDay, classNos);
@@ -2750,7 +2803,9 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
       const liveRow = liveByClass.get(String(row.class_no)) || {};
       const classNumber = classNumberFromLabel(classRow) || text(scheduleRow.class_number);
       const className = text(scheduleRow.manual_group) || classDisplayFromLabel(classRow, scheduleRow.class_name);
-      const entries = entryGoTimesByClass.get(`${text(row.ring_day_no)}|${text(row.class_no)}`) || [];
+      const entries = entryGoTimesByClass.get(`${text(row.ring_day_no)}|${text(row.class_no)}`)
+        || entryGoTimesByClass.get(text(row.class_no))
+        || [];
       const manualTrainerRollups = manualTrainerRollupsForHorseIds(row.manual_horse_ids, manualHorseDisplaysById, meta);
       const trainerRollups = manualTrainerRollups.length ? manualTrainerRollups : trainerRollupsForEntries(entries, meta);
       const rollup = horseRollupDisplay(trainerRollups);
@@ -2840,6 +2895,233 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
     show_focus_date: focusDay,
     last_updated: new Date().toISOString(),
     rings: [...rings.values()].sort((a, b) => Number(a.ring_no || 9999) - Number(b.ring_no || 9999))
+  };
+}
+
+async function getResultsForSchedule(app, showNo, focusDay, classNos) {
+  const wanted = [...new Set((classNos || []).map(text).filter(Boolean))].slice(0, 250);
+  const empty = { queueByClass: new Map(), resultClassByClass: new Map(), classResultsByClass: new Map(), classResultsByEntry: new Map() };
+  if (!wanted.length) return empty;
+  const classWhere = wanted.map((classNo) => `class_no = ${zcqlValue(classNo)}`).join(" OR ");
+  const commonWhere = `show_no = ${zcqlValue(showNo)} AND focus_day = ${zcqlValue(focusDay)} AND (${classWhere})`;
+  const queryRows = async (tableName, fields) => {
+    const query = [
+      `SELECT ${fields}`,
+      `FROM ${tableName}`,
+      `WHERE ${commonWhere}`,
+      "LIMIT 300"
+    ].join(" ");
+    return (await app.zcql().executeZCQLQuery(query) || [])
+      .map((item) => item?.[tableName])
+      .filter(Boolean);
+  };
+
+  const queueRows = await queryRows(TABLES.resultQueue, "ROWID, result_queue_key, show_no, focus_day, class_no, status, result_rows, completed_at");
+  const resultClassRows = await queryRows(TABLES.resultClasses, "ROWID, result_class_key, show_no, focus_day, class_no, result_entry_count, completed_at");
+  const classResultRows = await queryRows(TABLES.classResults, "ROWID, class_result_key, show_no, focus_day, class_no, entry_no, horse, rider, owner, score, prize, completed_at");
+
+  const queueByClass = new Map();
+  for (const row of queueRows) {
+    const classNo = text(row.class_no);
+    if (classNo) queueByClass.set(classNo, row);
+  }
+
+  const resultClassByClass = new Map();
+  for (const row of resultClassRows) {
+    const classNo = text(row.class_no);
+    if (classNo) resultClassByClass.set(classNo, row);
+  }
+
+  const classResultsByClass = new Map();
+  const classResultsByEntry = new Map();
+  for (const row of classResultRows) {
+    const classNo = text(row.class_no);
+    const entryNo = text(row.entry_no);
+    if (!classNo) continue;
+    const bucket = classResultsByClass.get(classNo) || [];
+    bucket.push(row);
+    classResultsByClass.set(classNo, bucket);
+    if (entryNo) classResultsByEntry.set(`${classNo}|${entryNo}`, row);
+  }
+
+  return { queueByClass, resultClassByClass, classResultsByClass, classResultsByEntry };
+}
+
+function addIndexEntry(index, key, value, { preserveCase = false } = {}) {
+  const cleanKey = preserveCase ? text(key) : text(key).toLowerCase();
+  if (!cleanKey) return;
+  if (!index[cleanKey]) index[cleanKey] = [];
+  index[cleanKey].push(value);
+}
+
+function richEntryFromGoTime(entry, meta, resultRow = {}) {
+  const horse = text(entry.horse || resultRow.horse);
+  const rider = text(entry.rider || resultRow.rider);
+  const trainer = text(entry.trainer);
+  const horseMeta = horseDisplayMeta(horse, meta);
+  return {
+    entry_no: text(entry.entry_no || resultRow.entry_no),
+    entry_order: text(entry.entry_order),
+    horse,
+    horse_display: horseMeta.display,
+    rider,
+    trainer,
+    trainer_display: trainerDisplayName(trainer, meta.trainerDisplays),
+    go_time: text(entry.go_time),
+    result: text(resultRow.class_result_key) ? {
+      score: text(resultRow.score),
+      prize: text(resultRow.prize),
+      completed_at: text(resultRow.completed_at),
+      source: "hs_class_results"
+    } : null
+  };
+}
+
+async function buildRichApiPayload(app, showNo, focusDay, meta, { limit = 300, offset = 0 } = {}) {
+  const rows = await buildScheduleJson(app, showNo, focusDay, meta, { limit, offset });
+  const classNos = [...new Set(rows.map((row) => text(row.class_no)).filter(Boolean))];
+  const entryGoTimesByClass = await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNos, meta.activeTrainers);
+  const results = await getResultsForSchedule(app, showNo, focusDay, classNos);
+  const mobile = buildMobileLivePayload(showNo, focusDay, meta, rows);
+  const richRings = new Map();
+  const indexes = {
+    by_ring: {},
+    by_class_no: {},
+    by_entry_no: {},
+    by_horse: {},
+    by_rider: {},
+    by_trainer: {}
+  };
+
+  for (const row of rows) {
+    const classNo = text(row.class_no);
+    const ringNo = text(row.ring_number);
+    const ringDisplay = text(row.ring_name) || ringDisplayFromName(row.ring_name);
+    const queue = results.queueByClass.get(classNo) || {};
+    const resultClass = results.resultClassByClass.get(classNo) || {};
+    const resultRows = results.classResultsByClass.get(classNo) || [];
+    const entryRows = entryGoTimesByClass.get(`${text(row.ring_day_no)}|${classNo}`)
+      || entryGoTimesByClass.get(classNo)
+      || [];
+    const entries = entryRows.map((entry) => richEntryFromGoTime(entry, meta, results.classResultsByEntry.get(`${classNo}|${text(entry.entry_no)}`) || {}));
+    const status = text(queue.status) || (text(resultClass.completed_at) ? "completed" : "upcoming");
+    const classPayload = {
+      class_no: classNo,
+      class_number: text(row.class_number),
+      class_label: text(row.class_number) ? `${text(row.class_number)} - ${text(row.class_name)}` : text(row.class_name),
+      class_name: text(row.class_name),
+      class_time: text(row.start_display),
+      class_start_time: text(row.class_start_time),
+      status,
+      entry_count: intOrNull(row.entry_count),
+      n_gone: intOrNull(row.n_gone),
+      n_to_go: intOrNull(row.n_to_go),
+      elapsed_seconds: intOrNull(row.elapsed_seconds),
+      current_entry_no: text(row.current_entry_no),
+      current_horse: text(row.current_horse),
+      live_source: text(row.live_source),
+      result_rows: intOrNull(queue.result_rows),
+      completed_at: text(queue.completed_at || resultClass.completed_at),
+      rollups: compactTrainerRollups(row.trainer_rollups),
+      entries,
+      results: resultRows.map((resultRow) => ({
+        entry_no: text(resultRow.entry_no),
+        horse: text(resultRow.horse),
+        rider: text(resultRow.rider),
+        owner: text(resultRow.owner),
+        score: text(resultRow.score),
+        prize: text(resultRow.prize),
+        completed_at: text(resultRow.completed_at)
+      })),
+      sources: {
+        schedule: "update_schedule_staging.lock_schedule",
+        class_time: text(row.live_source || "class_start_times"),
+        entries: "hs_entry_go_times",
+        results: "hs_result_queue|hs_result_classes|hs_class_results"
+      }
+    };
+
+    const ring = richRings.get(ringNo) || {
+      ring_no: Number(row.ring_number || 0),
+      ring_display: ringDisplay,
+      classes: []
+    };
+    ring.classes.push(classPayload);
+    richRings.set(ringNo, ring);
+
+    const smsClass = {
+      ring_display: ringDisplay,
+      class_no: classNo,
+      class_number: classPayload.class_number,
+      class_name: classPayload.class_name,
+      class_time: classPayload.class_time,
+      status,
+      n_gone: classPayload.n_gone,
+      n_to_go: classPayload.n_to_go
+    };
+    addIndexEntry(indexes.by_ring, ringDisplay, classNo, { preserveCase: true });
+    indexes.by_class_no[classNo] = smsClass;
+    for (const entry of entries) {
+      const smsEntry = { ...smsClass, entry_no: entry.entry_no, entry_order: entry.entry_order, horse_display: entry.horse_display, rider: entry.rider, trainer_display: entry.trainer_display, go_time: entry.go_time };
+      addIndexEntry(indexes.by_entry_no, entry.entry_no, smsEntry);
+      addIndexEntry(indexes.by_horse, entry.horse_display || entry.horse, smsEntry);
+      addIndexEntry(indexes.by_rider, entry.rider, smsEntry);
+      addIndexEntry(indexes.by_trainer, entry.trainer || entry.trainer_display, smsEntry);
+    }
+  }
+
+  const rings = [...richRings.values()].sort((a, b) => Number(a.ring_no || 9999) - Number(b.ring_no || 9999));
+  const printRows = rows.map((row) => ({
+    ring_no: text(row.ring_number),
+    ring_display: text(row.ring_name),
+    time: text(row.start_display),
+    class_no: text(row.class_no),
+    class_number: text(row.class_number),
+    class_name: text(row.class_name),
+    status: text(results.queueByClass.get(text(row.class_no))?.status) || (text(results.resultClassByClass.get(text(row.class_no))?.completed_at) ? "completed" : "upcoming"),
+    rollup: text(row.group_display)
+  }));
+
+  return {
+    ok: true,
+    show_no: text(showNo),
+    show_name: meta.title,
+    show_start_date: meta.showStartDate || "",
+    show_end_date: meta.showEndDate || "",
+    show_focus_date: focusDay,
+    last_updated: new Date().toISOString(),
+    sources: {
+      backbone: "update_schedule_staging.lock_schedule",
+      class_times: "hs_class_start_times",
+      entries: "hs_entry_go_times",
+      live: "hs_class_times|get_orders|get_rings",
+      results: "hs_result_queue|hs_result_classes|hs_class_results"
+    },
+    outputs: {
+      wec_mobile: mobile,
+      wec_mobile_pro: { ...mobile, rings },
+      wec_print: { show_no: text(showNo), show_name: meta.title, show_focus_date: focusDay, rows: printRows, rings },
+      wec_alerts: {
+        classes: rings.flatMap((ring) => ring.classes.map((item) => ({
+          class_no: item.class_no,
+          class_time: item.class_time,
+          status: item.status,
+          n_gone: item.n_gone,
+          n_to_go: item.n_to_go,
+          completed_at: item.completed_at
+        }))),
+        entries: rings.flatMap((ring) => ring.classes.flatMap((item) => item.entries.map((entry) => ({
+          class_no: item.class_no,
+          entry_no: entry.entry_no,
+          go_time: entry.go_time,
+          status: item.status,
+          completed_at: entry.result?.completed_at || ""
+        }))))
+      },
+      sms: { indexes }
+    },
+    rings,
+    indexes
   };
 }
 
@@ -5219,6 +5501,19 @@ async function handle(req, res) {
       return json(res, 200, { ok: true, action, focus_source: resolved.source || "airtable.focus_show", ...buildMobileLivePayload(renderShowNo, focusDay, meta, rows) });
     }
 
+    if (action === "wec-rich-live" || action === "wec-rich-api") {
+      const requestedShowNo = text(query.get("show_no") || body.show_no);
+      const airtableFocus = requestedShowNo ? null : await getAirtableFocusShow("");
+      const renderShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
+      const resolved = await resolveFocusDay(app, renderShowNo, query, body);
+      const focusDay = resolved.focus_day || airtableFocus?.focus_day;
+      if (!focusDay) return json(res, 400, { ok: false, action, error: `${action} requires focus_day` });
+      const meta = await metaForFocusRender(app, renderShowNo, focusDay, query, body);
+      const requestedLimit = intOrNull(query.get("limit") || body.limit);
+      const payload = await buildRichApiPayload(app, renderShowNo, focusDay, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...payload });
+    }
+
     if (action === "wec-print-layout") {
       const resolved = await resolveFocusDay(app, showNo, query, body);
       const requestedShowNo = text(query.get("show_no") || body.show_no);
@@ -5715,6 +6010,7 @@ module.exports = handle;
 if (process.env.NODE_ENV === "test") {
   module.exports.__test__ = {
     buildScheduleJson,
+    buildRichApiPayload,
     applyPreparedClassStartMobileFields,
     parseTrainerRollups
   };

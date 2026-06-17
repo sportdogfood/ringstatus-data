@@ -73,6 +73,10 @@ const WEC_LOG_FIELDS = {
   created_at: "fldQDsYQenI0uHARe"
 };
 
+const FOCUS_SHOW_FIELDS = {
+  is_pause: "fldgWn3BIdGzcGow1"
+};
+
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
@@ -108,6 +112,10 @@ function readBody(req) {
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function isFocusPaused(row) {
+  return row?.is_pause === true || row?.[FOCUS_SHOW_FIELDS.is_pause] === true;
 }
 
 function intOrNull(value) {
@@ -311,7 +319,7 @@ async function getFocusShow(baseId, showNo, token, overrideFocusDay) {
   if (!row) throw new Error(`No focus_show found for show_no=${showNo}${override ? ` focus_day=${override}` : " active=1"}`);
   const focusDay = yyyymmddToIso(row.focus_day);
   if (!focusDay) throw new Error(`focus_show has no focus_day for show_no=${showNo}`);
-  return { record_id: row.record_id, focus_day: focusDay };
+  return { record_id: row.record_id, focus_day: focusDay, is_pause: isFocusPaused(row) };
 }
 
 async function findRecordMap(baseId, tableName, keyField, values, token) {
@@ -650,6 +658,23 @@ async function handle(req, res) {
     const app = catalyst.initialize(req);
     phase = "read_focus_show";
     const focusShow = await getFocusShow(baseId, showNo, token, focusDayOverride);
+    if (focusShow.is_pause) {
+      const detail = {
+        ok: true,
+        paused: true,
+        reason: "focus_show.is_pause",
+        source: "update_schedule_staging.lock_schedule",
+        target_catalyst: TABLE_CLASS_START_TIMES,
+        target_airtable: "class_start_times",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        source_rows: 0,
+        source_keys: 0
+      };
+      phase = "write_wec_log_paused";
+      await writeRunLog(baseId, token, detail);
+      return sendJson(res, 200, detail);
+    }
     phase = "read_locked_update_schedule_staging";
     const stagingPairs = await getLockedStagingRows(baseId, showNo, focusShow.focus_day, token);
     const syncedAt = new Date().toISOString();
@@ -700,4 +725,5 @@ async function handle(req, res) {
   }
 }
 
+handle.__test__ = { isFocusPaused };
 module.exports = handle;

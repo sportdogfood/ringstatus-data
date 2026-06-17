@@ -51,6 +51,8 @@ const ENTRY_GO_FIELDS = {
   entry_go_time: "fldYQNMmMTFvVgoE6",
   entry_count: "fldKQJxjfp7wDcBEN",
   pace_seconds: "fldz7VgAf84pmiEHH",
+  n_gone: "fldUysZivDW5BIu51",
+  elapsed_seconds: "fld4alneTNoBZp092",
   time_till: "fldQtVA6Blb02g0fh",
   source: "fld3KEwtV3FA4EXLd",
   last_synced_at: "fld45Urn7mo8sw8KW",
@@ -74,6 +76,10 @@ const WEC_LOG_FIELDS = {
   summary: "fldFQ98C0DqANcDuC",
   payload_json: "fldJoJly55dFuacXz",
   created_at: "fldQDsYQenI0uHARe"
+};
+
+const FOCUS_SHOW_FIELDS = {
+  is_pause: "fldgWn3BIdGzcGow1"
 };
 
 function setCors(res) {
@@ -111,6 +117,10 @@ function readBody(req) {
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function isFocusPaused(row) {
+  return row?.is_pause === true || row?.[FOCUS_SHOW_FIELDS.is_pause] === true;
 }
 
 function intOrNull(value) {
@@ -207,6 +217,15 @@ function minutesTill(focusDay, timeValue) {
   return Math.round((target.getTime() - Date.now()) / 60000);
 }
 
+function paceFromClassStart(classStart) {
+  const nGone = intOrNull(classStart.n_gone);
+  const elapsedSeconds = intOrNull(classStart.elapsed_seconds);
+  if (nGone && nGone > 6 && elapsedSeconds && elapsedSeconds > 0) {
+    return Math.max(30, Math.round(elapsedSeconds / nGone));
+  }
+  return intOrNull(classStart.pace_seconds) || 120;
+}
+
 async function airtableList(baseId, tableName, formula, token) {
   const records = [];
   let offset = "";
@@ -268,7 +287,7 @@ async function getFocusShow(baseId, showNo, token, focusDayOverride = "") {
   if (!row) throw new Error(`No focus_show for show ${showNo}${focusDayOverride ? ` focus_day ${focusDayOverride}` : ""}`);
   const focusDay = yyyymmddToIso(row.focus_day);
   if (!focusDay) throw new Error(`focus_show ${row.record_id} has no focus_day`);
-  return { record_id: row.record_id, focus_day: focusDay };
+  return { record_id: row.record_id, focus_day: focusDay, is_pause: isFocusPaused(row) };
 }
 
 async function readLockedStaging(baseId, showNo, focusDay, token) {
@@ -311,27 +330,52 @@ async function readClassOog(baseId, showNo, focusDay, token) {
     `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableValue(focusDay)}),'day'))`,
     token
   );
-  return rows.filter((row) =>
-    intOrNull(row.class_no) &&
-    intOrNull(row.entry_order) &&
-    (Array.isArray(row["active (from trainers)"]) ? row["active (from trainers)"].some(Boolean) : true)
-  );
+  return rows.filter((row) => {
+    const activeLookup = row["active (from trainers)"];
+    const hasActiveTrainer = Array.isArray(activeLookup) && activeLookup.some(Boolean);
+    return intOrNull(row.class_no) &&
+      intOrNull(row.entry_order) &&
+      hasActiveTrainer;
+  });
 }
 
 function buildRows({ showNo, focusDay, focusShow, stagingByClass, classStartsByKey, classOogRows, syncedAt }) {
   const rows = [];
+  const skipped = {
+    missing_staging: 0,
+    missing_class_start_times: 0,
+    missing_class_start_time: 0,
+    missing_entry_order: 0
+  };
   for (const oog of classOogRows) {
     const classNo = intOrNull(oog.class_no);
     const ringDayNo = intOrNull(oog.ring_day_no || oog.days);
     const staging = stagingByClass.get(`${ringDayNo}|${classNo}`);
-    if (!staging) continue;
+    if (!staging) {
+      skipped.missing_staging += 1;
+      continue;
+    }
     const classStartKey = `${showNo}|${focusDay}|${ringDayNo}|${classNo}`;
     const classStart = classStartsByKey.get(classStartKey) || {};
+    if (!classStart.record_id) {
+      skipped.missing_class_start_times += 1;
+      continue;
+    }
     const entryNo = intOrNull(oog.entry_no);
     const entryOrder = intOrNull(oog.entry_order);
-    const paceSeconds = 120;
+    if (!entryOrder) {
+      skipped.missing_entry_order += 1;
+      continue;
+    }
+    const paceSeconds = paceFromClassStart(classStart);
+    const nGone = intOrNull(classStart.n_gone);
+    const elapsedSeconds = intOrNull(classStart.elapsed_seconds);
     const classStartTime = normalizeTime(classStart.class_start_time || staging.time_text);
-    const entryGoTime = entryOrder ? addSecondsToTime(classStartTime, Math.max(0, entryOrder - 1) * paceSeconds) : "";
+    if (!classStartTime) {
+      skipped.missing_class_start_time += 1;
+      continue;
+    }
+    const entryGoTime = addSecondsToTime(classStartTime, Math.max(0, entryOrder - 1) * paceSeconds);
     const key = entryNo
       ? `${showNo}|${focusDay}|${ringDayNo}|${classNo}|${entryNo}`
       : `${showNo}|${focusDay}|${ringDayNo}|${classNo}|${entryOrder}|${text(oog.horse).toLowerCase()}`;
@@ -357,10 +401,12 @@ function buildRows({ showNo, focusDay, focusShow, stagingByClass, classStartsByK
       entry_go_time: entryGoTime,
       entry_count: intOrNull(staging.entry_count || classStart.entry_count),
       pace_seconds: paceSeconds,
+      n_gone: nGone,
+      elapsed_seconds: elapsedSeconds,
       time_till: minutesTill(focusDay, entryGoTime),
-      source: "update_schedule_staging+class_oog",
+      source: ["update_schedule_staging", "class_oog", text(classStart.live_source)].filter(Boolean).join("+"),
       last_synced_at: syncedAt,
-      status: "upcoming",
+      status: "active",
       shows: link(first(staging.shows || oog.shows)),
       focus_show: link(focusShow.record_id),
       rings: link(first(staging.rings || oog.rings)),
@@ -380,7 +426,7 @@ function buildRows({ showNo, focusDay, focusShow, stagingByClass, classStartsByK
     Number(a.class_no || 0) - Number(b.class_no || 0) ||
     Number(a.entry_order || 9999) - Number(b.entry_order || 9999)
   );
-  return rows;
+  return { rows, skipped };
 }
 
 function toCatalystRow(row) {
@@ -496,6 +542,8 @@ function toAirtableRow(row) {
     [ENTRY_GO_FIELDS.entry_go_time]: row.entry_go_time,
     [ENTRY_GO_FIELDS.entry_count]: row.entry_count,
     [ENTRY_GO_FIELDS.pace_seconds]: row.pace_seconds,
+    [ENTRY_GO_FIELDS.n_gone]: row.n_gone,
+    [ENTRY_GO_FIELDS.elapsed_seconds]: row.elapsed_seconds,
     [ENTRY_GO_FIELDS.time_till]: row.time_till,
     [ENTRY_GO_FIELDS.source]: row.source,
     [ENTRY_GO_FIELDS.last_synced_at]: row.last_synced_at,
@@ -523,7 +571,7 @@ async function syncAirtable(baseId, token, showNo, focusDay, rows) {
   const activeKeys = new Set(rows.map((row) => text(row.entry_go_key)));
   const now = new Date().toISOString();
   const staleUpdates = existing
-    .filter((record) => !activeKeys.has(text(record.entry_go_key)) && text(record.status) !== "inactive")
+    .filter((record) => !activeKeys.has(text(record.entry_go_key || record.entry_go_key_mirror)) && text(record.status) !== "inactive")
     .map((record) => ({
       id: record.record_id,
       fields: {
@@ -545,8 +593,8 @@ async function verifyAirtable(baseId, token, showNo, focusDay, expectedKeys) {
     `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableValue(focusDay)}),'day'))`,
     token
   );
-  const active = rows.filter((row) => text(row.status) !== "inactive");
-  const activeKeys = new Set(active.map((row) => text(row.entry_go_key)));
+  const active = rows.filter((row) => text(row.status) === "active");
+  const activeKeys = new Set(active.map((row) => text(row.entry_go_key || row.entry_go_key_mirror)));
   const missingKeys = [...expectedKeys].filter((key) => !activeKeys.has(key));
   const extraKeys = [...activeKeys].filter((key) => !expectedKeys.has(key));
   const missingLinks = active.filter((row) =>
@@ -630,6 +678,29 @@ async function handle(req, res) {
     phase = "read_focus_show";
     const focusShow = await getFocusShow(baseId, showNo, token, focusDayOverride);
     runLogContext.focus_day = focusShow.focus_day;
+    if (focusShow.is_pause) {
+      const detail = {
+        ok: true,
+        paused: true,
+        reason: "focus_show.is_pause",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        source: "update_schedule_staging.locked+class_oog.active",
+        source_rows: 0,
+        rows_written: 0
+      };
+      phase = "write_wec_log_paused";
+      await writeRunLog(baseId, token, detail);
+      return sendJson(res, 200, {
+        ok: true,
+        paused: true,
+        reason: "focus_show.is_pause",
+        target_catalyst: TABLE_ENTRY_GO_TIMES,
+        target_airtable: "entry_go_times",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day
+      });
+    }
 
     phase = "read_locked_update_schedule_staging";
     const stagingByClass = await readLockedStaging(baseId, showNo, focusShow.focus_day, token);
@@ -639,7 +710,9 @@ async function handle(req, res) {
     const classOogRows = await readClassOog(baseId, showNo, focusShow.focus_day, token);
     phase = "build_entry_go_rows";
     const syncedAt = new Date().toISOString();
-    const rows = buildRows({ showNo, focusDay: focusShow.focus_day, focusShow, stagingByClass, classStartsByKey, classOogRows, syncedAt });
+    const built = buildRows({ showNo, focusDay: focusShow.focus_day, focusShow, stagingByClass, classStartsByKey, classOogRows, syncedAt });
+    const rows = built.rows;
+    const skipped = built.skipped;
     const expectedKeys = new Set(rows.map((row) => row.entry_go_key));
 
     phase = "sync_catalyst";
@@ -654,7 +727,8 @@ async function handle(req, res) {
       catalystVerify.extra_keys === 0 &&
       airtableVerify.missing_keys === 0 &&
       airtableVerify.extra_active_keys === 0 &&
-      airtableVerify.missing_required_links === 0;
+      airtableVerify.missing_required_links === 0 &&
+      Object.values(skipped).every((count) => Number(count || 0) === 0);
 
     phase = "write_wec_log";
     await writeRunLog(baseId, token, {
@@ -663,6 +737,7 @@ async function handle(req, res) {
       focus_day: focusShow.focus_day,
       source: "update_schedule_staging.locked+class_oog.active",
       source_rows: rows.length,
+      skipped,
       staging_classes: stagingByClass.size,
       class_oog_rows: classOogRows.length,
       rows_written: rows.length,
@@ -680,6 +755,7 @@ async function handle(req, res) {
       show_no: Number(showNo),
       focus_day: focusShow.focus_day,
       source_rows: rows.length,
+      skipped,
       staging_classes: stagingByClass.size,
       class_oog_rows: classOogRows.length,
       catalyst: catalystResult,
@@ -707,4 +783,5 @@ async function handle(req, res) {
   }
 }
 
+handle.__test__ = { isFocusPaused };
 module.exports = handle;

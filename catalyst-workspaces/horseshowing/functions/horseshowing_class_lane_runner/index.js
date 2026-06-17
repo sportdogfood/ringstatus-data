@@ -3,6 +3,7 @@ const {
   buildClassStartRows,
   matchGetOrdersToClassStart,
   buildClassAlerts,
+  buildEntryAlerts,
   truthy,
   airtableRecordLink,
   airtableRecordLinks,
@@ -19,6 +20,8 @@ const TABLES = {
   airtableClassStartTimes: "tblgOxoLf6r3xGWxB",
   airtableClassOog: "tblgUbX5n8GIuiqUI",
   airtableGetOrders: "tblxaVS0dtetxjiGZ",
+  airtableEntryGoTimes: "tblj1qWXAUS79jijF",
+  airtableAlertTemplates: "tblcHUmGzoWFOTvx2",
   airtableAlerts: "tblqkxLPy9zZ2FI6z",
   airtableLogs: "tblaA0n7QD7s5lIYm"
 };
@@ -26,7 +29,8 @@ const TABLES = {
 const FOCUS_SHOW_FIELDS = {
   show_no: "fldZ1Ym2XNz9IYbBo",
   focus_day: "fldW9urR1cuWf1K96",
-  active: "fldHqX6c9tVwc4WgH"
+  active: "fldHqX6c9tVwc4WgH",
+  is_pause: "fldgWn3BIdGzcGow1"
 };
 
 const STAGING_FIELDS = {
@@ -100,6 +104,31 @@ const GET_ORDERS_FIELDS = {
   elapsed: "fldl1WytMPEENPhmj"
 };
 
+const ENTRY_GO_FIELDS = {
+  entry_go_key: "fldRBul0TP6zQFzSX",
+  show_no: "fldYbrC3XUrWEB1nk",
+  focus_day: "fldV5YK4Skso0U25t",
+  ring_no: "fldp7C0JtYiT9TKsf",
+  ring_day_no: "fldLvJcrh5ufukbdQ",
+  class_no: "fldRtenp2KT6kxSwD",
+  class_number: "fldxwAR9fZEgKxAf5",
+  class_name: "fldzmdZLw25EGxfAa",
+  entry_no: "flda59MfCPviuf9CZ",
+  entry_order: "fldgEZbFPXdqzKGFS",
+  horse: "fldspWOxM6Vebcvl3",
+  horse_display: "fldXFYR9onEqDdC9t",
+  rider: "fldlIG9u6L9LItRVt",
+  trainer: "fldzvFMZSXLfsTDVv",
+  trainer_display: "fldt4NI8BmQxMTB7v",
+  class_start_time: "fld6KoEdi0T1pAxr7",
+  display_time: "fldHFFpNHVuxmTZ3D",
+  entry_go_time: "fldYQNMmMTFvVgoE6",
+  pace_seconds: "fldz7VgAf84pmiEHH",
+  n_gone: "fldUysZivDW5BIu51",
+  elapsed_seconds: "fld4alneTNoBZp092",
+  status: "fldd2hqbkYPzCaPxh"
+};
+
 const ALERT_FIELDS = {
   alert_key_run: "fldqmUWNw44ESEC72",
   alert_key: "fldVpNdCVtZBaMDFU",
@@ -112,12 +141,17 @@ const ALERT_FIELDS = {
   show_no: "fldZfl5FCkyAHmXYu",
   focus_day: "fldmsq7bV1rEFHRJi",
   payload_json: "fld7e5ZLz0TlLQ4Ru",
+  alert_templates: "fldfJBdTTdFZnKYFp",
   alert_lane: "fldyIMoAtIIXSsNMs",
   trigger_minutes: "fldmZj1QILG9elQNw",
   time_till: "fldUDFWSeugaQOoFF",
   target_time: "fldBZHfGEl4yipKQ7",
   alert_subject: "fldBUx8SiI1xyOudr",
   source_table: "fldn7yxOdsIB476Ou"
+};
+
+const ALERT_TEMPLATE_FIELDS = {
+  alerts: "fldIcmIlN17V6INLu"
 };
 
 const LOG_FIELDS = {
@@ -138,6 +172,14 @@ const LOG_FIELDS = {
 
 function text(value) {
   return value === null || value === undefined ? "" : String(value).trim();
+}
+
+function isFocusPaused(row) {
+  return truthy(row?.is_pause) || truthy(row?.[FOCUS_SHOW_FIELDS.is_pause]);
+}
+
+function shouldPauseAction(action, focus) {
+  return action !== "audit" && isFocusPaused(focus);
 }
 
 function asNumber(value) {
@@ -381,18 +423,23 @@ function cleanCatalystRow(row) {
 async function resolveFocus(baseId, token, query, body) {
   const requestedShowNo = text(query.get("show_no") || body.show_no);
   const requestedFocusDay = isoDate(query.get("focus_day") || body.focus_day);
-  if (requestedShowNo && requestedFocusDay) return { show_no: requestedShowNo, focus_day: requestedFocusDay, record_id: "" };
 
   const formula = requestedShowNo
     ? `AND({show_no}=${Number(requestedShowNo)},{active}=1)`
     : "{active}=1";
   const rows = await airtableList(baseId, "focus_show", token, { formula });
-  if (rows.length !== 1) throw new Error(`focus_show active rows must equal 1; found ${rows.length}`);
-  const fields = rows[0].fields || {};
+  const row = requestedFocusDay
+    ? rows.find((record) => isoDate((record.fields || {})[FOCUS_SHOW_FIELDS.focus_day]) === requestedFocusDay)
+    : rows[0];
+  if (!row || (!requestedFocusDay && rows.length !== 1)) {
+    throw new Error(`focus_show active rows must equal 1; found ${rows.length}`);
+  }
+  const fields = row.fields || {};
   return {
     show_no: requestedShowNo || text(fields[FOCUS_SHOW_FIELDS.show_no]),
     focus_day: requestedFocusDay || isoDate(fields[FOCUS_SHOW_FIELDS.focus_day]),
-    record_id: rows[0].id
+    record_id: row.id,
+    is_pause: isFocusPaused(fields)
   };
 }
 
@@ -479,6 +526,49 @@ async function readFocusClassStarts(baseId, token, showNo, focusDay) {
   });
 }
 
+async function readActiveEntryGoTimes(baseId, token, showNo, focusDay) {
+  const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{status}='active')`;
+  const rows = await airtableList(baseId, TABLES.airtableEntryGoTimes, token, { formula });
+  return rows.map((record) => {
+    const f = record.fields || {};
+    return {
+      record_id: record.id,
+      entry_go_key: text(f[ENTRY_GO_FIELDS.entry_go_key]),
+      show_no: asNumber(f[ENTRY_GO_FIELDS.show_no]),
+      focus_day: isoDate(f[ENTRY_GO_FIELDS.focus_day]),
+      ring_day_no: asNumber(f[ENTRY_GO_FIELDS.ring_day_no]),
+      ring_no: asNumber(f[ENTRY_GO_FIELDS.ring_no]),
+      class_no: asNumber(f[ENTRY_GO_FIELDS.class_no]),
+      class_number: asNumber(f[ENTRY_GO_FIELDS.class_number]),
+      class_name: text(f[ENTRY_GO_FIELDS.class_name]),
+      entry_no: asNumber(f[ENTRY_GO_FIELDS.entry_no]),
+      entry_order: asNumber(f[ENTRY_GO_FIELDS.entry_order]),
+      horse: text(f[ENTRY_GO_FIELDS.horse]),
+      horse_display: text(f[ENTRY_GO_FIELDS.horse_display]),
+      rider: text(f[ENTRY_GO_FIELDS.rider]),
+      trainer: text(f[ENTRY_GO_FIELDS.trainer]),
+      trainer_display: text(f[ENTRY_GO_FIELDS.trainer_display]),
+      class_start_time: text(f[ENTRY_GO_FIELDS.class_start_time]),
+      display_time: text(f[ENTRY_GO_FIELDS.display_time]),
+      entry_go_time: text(f[ENTRY_GO_FIELDS.entry_go_time]),
+      pace_seconds: asNumber(f[ENTRY_GO_FIELDS.pace_seconds]),
+      n_gone: asNumber(f[ENTRY_GO_FIELDS.n_gone]),
+      elapsed_seconds: asNumber(f[ENTRY_GO_FIELDS.elapsed_seconds]),
+      status: text(f[ENTRY_GO_FIELDS.status])
+    };
+  });
+}
+
+async function readAlertTemplateMap(baseId, token) {
+  const rows = await airtableList(baseId, TABLES.airtableAlertTemplates, token);
+  const byAlertType = new Map();
+  for (const record of rows) {
+    const alertType = text((record.fields || {})[ALERT_TEMPLATE_FIELDS.alerts]);
+    if (alertType) byAlertType.set(alertType, record.id);
+  }
+  return byAlertType;
+}
+
 async function readClassOogGroups(baseId, token, showNo, focusDay) {
   const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'))`;
   const rows = await airtableList(baseId, TABLES.airtableClassOog, token, { formula });
@@ -495,6 +585,27 @@ async function readClassOogGroups(baseId, token, showNo, focusDay) {
     }
   }
   return groups;
+}
+
+async function resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys) {
+  const formula = `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'),{status}='open',OR({alert_lane}='class_start_times',{alert_lane}='entry_go_times'))`;
+  const rows = await airtableList(baseId, TABLES.airtableAlerts, token, { formula });
+  const updates = rows
+    .filter((record) => !activeAlertKeys.has(text((record.fields || {})[ALERT_FIELDS.alert_key])))
+    .map((record) => ({
+      id: record.id,
+      fields: cleanFields({
+        [ALERT_FIELDS.status]: "resolved",
+        [ALERT_FIELDS.message]: "Resolved: alert window is no longer active.",
+        [ALERT_FIELDS.payload_json]: JSON.stringify({
+          show_no: Number(focus.show_no),
+          focus_day: focus.focus_day,
+          resolved_reason: "alert_window_inactive",
+          resolved_at: new Date().toISOString()
+        })
+      })
+    }));
+  return updates.length ? airtableUpdate(baseId, TABLES.airtableAlerts, updates, token) : [];
 }
 
 async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecordId) {
@@ -755,7 +866,16 @@ async function syncGetOrders(app, baseId, token, focus) {
 
 async function syncClassAlerts(baseId, token, focus, now = new Date()) {
   const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
-  const alerts = buildClassAlerts(classStarts, now);
+  const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day);
+  const classAlerts = buildClassAlerts(classStarts, now);
+  const entryAlerts = buildEntryAlerts(entryGoTimes, now);
+  const alerts = [...classAlerts, ...entryAlerts];
+  const activeAlertKeys = new Set(alerts.map((alert) => alert.alert_key));
+  const alertTemplateMap = await readAlertTemplateMap(baseId, token);
+  const missingTemplates = [...new Set(alerts.map((alert) => alert.alert_type).filter((alertType) => !alertTemplateMap.has(alertType)))];
+  if (missingTemplates.length) {
+    throw new Error(`Missing alert_templates rows for alert_type: ${missingTemplates.join(", ")}`);
+  }
   const airtableRows = alerts.map((alert) => cleanFields({
     [ALERT_FIELDS.alert_key_run]: `${alert.alert_key}|${new Date().toISOString()}`,
     [ALERT_FIELDS.alert_key]: alert.alert_key,
@@ -768,25 +888,27 @@ async function syncClassAlerts(baseId, token, focus, now = new Date()) {
     [ALERT_FIELDS.show_no]: alert.show_no,
     [ALERT_FIELDS.focus_day]: alert.focus_day,
     [ALERT_FIELDS.payload_json]: JSON.stringify(alert),
+    [ALERT_FIELDS.alert_templates]: airtableRecordLink(alertTemplateMap.get(alert.alert_type)),
     [ALERT_FIELDS.alert_lane]: alert.alert_lane,
-    [ALERT_FIELDS.trigger_minutes]: alert.time_till,
+    [ALERT_FIELDS.trigger_minutes]: alert.trigger_minutes ?? alert.time_till,
     [ALERT_FIELDS.time_till]: alert.time_till,
     [ALERT_FIELDS.target_time]: alert.target_time,
     [ALERT_FIELDS.alert_subject]: alert.alert_subject,
     [ALERT_FIELDS.source_table]: alert.source_table
   }));
   const upserts = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, airtableRows, token);
+  const resolved = await resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys);
   await logRun(baseId, token, {
     action: "class_alerts",
     showNo: focus.show_no,
     focusDay: focus.focus_day,
     status: "ok",
-    recordsSeen: classStarts.length,
-    recordsChanged: upserts.length,
-    summary: `class_alerts created/updated ${upserts.length}`,
-    payload: { class_start_times: classStarts.length, alerts: upserts.length }
+    recordsSeen: classStarts.length + entryGoTimes.length,
+    recordsChanged: upserts.length + resolved.length,
+    summary: `class_alerts created/updated ${upserts.length}; resolved ${resolved.length}; class ${classAlerts.length}; entry ${entryAlerts.length}`,
+    payload: { class_start_times: classStarts.length, entry_go_times: entryGoTimes.length, class_alerts: classAlerts.length, entry_alerts: entryAlerts.length, alerts: upserts.length, resolved: resolved.length }
   });
-  return { class_start_times: classStarts.length, alerts_upserted: upserts.length };
+  return { class_start_times: classStarts.length, entry_go_times: entryGoTimes.length, class_alerts: classAlerts.length, entry_alerts: entryAlerts.length, alerts_upserted: upserts.length, alerts_resolved: resolved.length };
 }
 
 async function auditLane(app, baseId, token, focus) {
@@ -824,6 +946,19 @@ async function auditLane(app, baseId, token, focus) {
 }
 
 async function runAction(req, action, app, baseId, token, focus, query, body) {
+  if (shouldPauseAction(action, focus)) {
+    await logRun(baseId, token, {
+      action,
+      showNo: focus.show_no,
+      focusDay: focus.focus_day,
+      status: "paused",
+      recordsSeen: 0,
+      recordsChanged: 0,
+      summary: `${action} paused by focus_show.is_pause`,
+      payload: { reason: "focus_show.is_pause", focus_show_record_id: focus.record_id }
+    });
+    return { paused: true, reason: "focus_show.is_pause", focus_show_record_id: focus.record_id };
+  }
   if (action === "sync-class-start-times") {
     return syncClassStartTimes(app, baseId, token, focus);
   }
@@ -878,4 +1013,5 @@ async function handle(req, res) {
   }
 }
 
+handle.__test__ = { isFocusPaused, shouldPauseAction };
 module.exports = handle;

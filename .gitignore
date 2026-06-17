@@ -1,0 +1,10 @@
+**/node_modules/
+
+# Local Catalyst workspace state and deployment secrets.
+**/.catalystrc
+**/catalyst-config.json
+**/_pull_probe_*/
+**/_iac_export_probe*/
+
+# Local runtime/log artifacts.
+*.log

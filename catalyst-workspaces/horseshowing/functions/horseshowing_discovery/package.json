@@ -1,0 +1,10 @@
+{
+  "name": "horseshowing_discovery",
+  "version": "0.1.0",
+  "main": "index.js",
+  "type": "module",
+  "author": "philip@sportdogfood.com",
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

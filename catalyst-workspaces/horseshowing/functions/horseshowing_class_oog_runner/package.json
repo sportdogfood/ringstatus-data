@@ -1,0 +1,10 @@
+{
+  "name": "horseshowing_class_oog_runner",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "philip@sportdogfood.com",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "zcatalyst-sdk-node": "^2.5.1"
+  }
+}

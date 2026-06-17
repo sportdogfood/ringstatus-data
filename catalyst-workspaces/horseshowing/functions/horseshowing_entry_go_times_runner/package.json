@@ -1,0 +1,8 @@
+{
+  "name": "horseshowing_entry_go_times_runner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "zcatalyst-sdk-node": "^2.3.5"
+  }
+}

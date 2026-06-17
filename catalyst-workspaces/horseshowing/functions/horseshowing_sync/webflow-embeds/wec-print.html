@@ -1,0 +1,1195 @@
+<script>window.RS_WEC_SCHEDULE_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-live";</script>
+<style>
+  :root{
+    --fg:#111;
+    --muted:#666;
+    --line:#111;
+    --border:#d0d0d0;
+    --ring:#815374;
+    --team-tint: rgba(204, 204, 204, 0.43);
+    --scale: 1;
+  }
+
+  *{box-sizing:border-box}
+
+  html,
+  body{
+    overflow:auto;
+  }
+
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color:var(--fg);
+    background:#fff;
+    min-width:calc(8.5in + 24px);
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .page{
+    width:8.5in;
+    height:11in;
+    padding:0.25in;
+    margin:12px auto;
+    background:#fff;
+    overflow:hidden;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:10px;
+    padding:0 0 6px 0;
+  }
+
+  .title{
+    font-weight:900;
+    font-size:14px;
+    line-height:1.1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .subtitle{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+
+  }
+
+  .controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:nowrap;
+  }
+
+  .btn{
+    border:1px solid var(--border);
+    background:#fff;
+    padding:3px 10px;
+    font-size:12px;
+    border-radius:6px;
+    cursor:pointer;
+    text-decoration:none;
+    color:inherit;
+    line-height:1;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .wrap{
+    transform:scale(var(--scale));
+    transform-origin:top left;
+    width:calc(100% / var(--scale));
+  }
+
+  .wrap.use-zoom{
+    transform:none;
+    width:auto;
+  }
+
+  .cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.12in;
+    align-items:start;
+  }
+
+  .col{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:0;
+  }
+
+  .ringWrap{
+    position:relative;
+    min-width:0;
+  }
+
+  .ringClose{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    width:22px;
+    height:22px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:#fff;
+    color:#111;
+    font-weight:900;
+    font-size:14px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:20;
+    opacity:1;
+    pointer-events:auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ring{
+    border:1px solid #000;
+    background:#fff;
+  }
+
+  .ring-head{
+    background:var(--ring);
+    color:#fff;
+    padding:4px 6px;
+    font-weight:900;
+    font-size:10px;
+    line-height:1.05;
+    letter-spacing:.02em;
+  }
+
+  .group.has-team{
+    background:var(--team-tint);
+  }
+
+  .group.has-team .group-head{
+    padding-bottom:2px;
+    padding-top:4px;
+  }
+
+  .group:not(.has-team) .group-head{
+    padding:0;
+  }
+
+  .gdisplay{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    font-size:11px;
+    font-weight:600;
+    text-align:left;
+    text-transform:uppercase;
+    margin-bottom:-6px;
+    margin-right:0;
+    margin-left:10px;
+    padding-right:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .gdisplay-line{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    min-width:0;
+  }
+
+  .gdisplay-badge{
+    flex:0 0 auto;
+    border:1px solid #815374;
+    border-radius:999px;
+    color:#815374;
+    background:#fff;
+    font-size:7px;
+    line-height:1;
+    font-weight:800;
+    letter-spacing:.03em;
+    padding:2px 4px 1px 4px;
+  }
+
+  .gdisplay-text{
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .gname{
+    font-weight:900;
+    font-size:10px;
+    line-height:1.1;
+    text-align:left;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    display:none;
+  }
+
+  .solid{
+    border-top:0 solid var(--line);
+    margin:0;
+  }
+
+  .class-list{
+    padding:3px 6px 4px 6px;
+    border-bottom:1px solid #8e8c8c;
+  }
+
+  .c{
+    display:grid;
+    grid-template-columns:46px 1fr;
+    column-gap:6px;
+    line-height:1.05;
+    padding:2px 0;
+    padding-right:0;
+  }
+
+  .t{
+    font-weight:600;
+    font-size:9px;
+    white-space:nowrap;
+  }
+
+  .n{
+    font-size:9px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .muted{color:var(--muted)}
+  .err{
+    white-space:pre-wrap;
+    color:#b00020;
+    padding:12px;
+    font-size:12px;
+  }
+
+  @media print{
+    @page{ size:Letter; margin:0.25in; }
+
+    html,
+    body{
+      overflow:visible;
+    }
+
+    body{
+      background:#fff;
+      min-width:0;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+  .group.has-team .group-head{
+  padding-top:4px;
+  padding-bottom:2px;
+		}
+
+		.gdisplay{
+  line-height:1.25;
+	margin-top:4px;
+	margin-bottom:-1px;
+		}
+
+
+
+
+    .controls,
+    .ringClose{
+      display:none !important;
+    }
+
+    .page{
+      width:auto;
+      height:auto;
+      padding:0;
+      margin:0;
+      overflow:visible;
+    }
+
+    .wrap.use-zoom{
+      zoom:var(--scale);
+    }
+
+    .wrap:not(.use-zoom){
+      transform:scale(var(--scale));
+      transform-origin:top left;
+      width:calc(100% / var(--scale));
+    }
+
+    .wrap{
+      transform:none !important;
+      width:auto !important;
+    }
+
+    .group.has-team{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    body.tight .ring-head{padding:3px 5px; font-size:9px;}
+    body.tight .gdisplay{font-size:9px; margin-bottom:-8px;}
+    body.tight .class-list{padding:1px 5px 2px 5px;}
+    body.tight .c{
+      grid-template-columns:42px 1fr;
+      column-gap:5px;
+      padding:1px 0;
+      padding-right:0;
+    }
+    body.tight .t{font-size:9px;}
+    body.tight .n{font-size:9px;}
+  }
+</style>
+<style>
+  :root{--ring:#815374;}
+  .title{font-size:16px;}
+  .subtitle{font-size:11px;}
+  .ring-head{font-size:12px;padding:5px 7px;}
+  .gdisplay{font-size:12px;margin-bottom:-7px;}
+  .class-list{padding:4px 7px 5px 7px;}
+  .c{grid-template-columns:54px 1fr;column-gap:7px;padding:3px 0;padding-right:0;}
+  .t,.n{font-size:10.5px;}
+  .group.has-team .group-head{padding-top:4px;padding-bottom:2px;}
+  .gdisplay,
+  body.tight .gdisplay{
+    margin-bottom:1px;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+  }
+  .gdisplay-text,
+  body.tight .gdisplay-text{
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+  }
+  .gdisplay-line{
+    display:block;
+    min-width:0;
+  }
+  .gdisplay-badge{
+    display:none;
+  }
+  .gdisplay-text{
+    display:inline;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    overflow-wrap:break-word;
+  }
+  body.tight .ring-head{
+    padding:3px 5px;
+    font-size:10px;
+  }
+  body.tight .class-list{
+    padding:1px 5px 1px 5px;
+  }
+  body.tight .c{
+    grid-template-columns:48px 1fr;
+    column-gap:5px;
+    padding:1px 0;
+    line-height:1.02;
+  }
+  body.tight .t,
+  body.tight .n{
+    font-size:9.5px;
+  }
+  body.tight .group.has-team .group-head{
+    padding-top:2px;
+    padding-bottom:1px;
+  }
+  body.tight .gdisplay{
+    font-size:9.5px;
+    line-height:1.1;
+  }
+</style>
+<div class="page" id="page">
+  <div class="topbar">
+    <div class="topbar-wrapper">
+      <div class="title" id="title">Schedule</div>
+      <div class="subtitle" id="subtitle"></div>
+    </div>
+    <div class="controls">
+      <a class="btn" id="btnPdf" href="#" target="_blank" rel="noopener">PDF</a>
+      <button class="btn" id="btnShare" type="button">Share</button>
+    </div>
+  </div>
+
+  <div class="wrap" id="wrap">
+    <div class="cols" id="cols">
+      <div class="col" id="colL"></div>
+      <div class="col" id="colR"></div>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const qs = new URLSearchParams(location.search);
+  const PDF_WORKER_BASE = "https://ringstatus-pdf.gombcg.workers.dev/";
+  const SCALE_FUDGE = 0.99;
+
+  const TENANT_SLUG_MAP = {
+    firefly: "40362",
+    cwf: "8778",
+    kvf: "34933",
+    jet: "7589"
+  };
+
+  const TENANT_CONFIG = {
+    "9999": { title: "Schedule", color: "#a6d0fc" },
+    "8778": { title: "CWF Schedule", color: "#a6d0fc" },
+    "40362": { title: "Firefly Schedule", color: "#99bf33" },
+    "7589": { title: "JET Schedule", color: "#a6d0fc" },
+    "34933": { title: "Kinvarra Farm", color: "#fe6503" }
+  };
+
+  function getInitialTenant() {
+    const tenantParam = String(qs.get("tenant") || "").trim().toLowerCase();
+
+    if (tenantParam && TENANT_SLUG_MAP[tenantParam]) return TENANT_SLUG_MAP[tenantParam];
+    if (tenantParam && TENANT_CONFIG[tenantParam]) return tenantParam;
+
+    return "8778";
+  }
+
+  let ACTIVE_TENANT = getInitialTenant();
+  let ACTIVE_TENANT_CONFIG = TENANT_CONFIG[ACTIVE_TENANT] || TENANT_CONFIG["9999"];
+  let SCHEDULE_URL = "";
+  let PRINT_LAYOUT_URL = "";
+  let TRIPS_URL = "";
+  let TENANT_SCHED_DISPLAY_KEY = "";
+
+  function applyTenant(tenant) {
+    const nextTenant = String(tenant || "").trim();
+    ACTIVE_TENANT = TENANT_CONFIG[nextTenant] ? nextTenant : "9999";
+    ACTIVE_TENANT_CONFIG = TENANT_CONFIG[ACTIVE_TENANT] || TENANT_CONFIG["9999"];
+
+    SCHEDULE_URL = window.RS_WEC_SCHEDULE_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-live";
+    PRINT_LAYOUT_URL = window.RS_WEC_PRINT_LAYOUT_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-layout";
+    TRIPS_URL = `https://ringstatus-proxy.gombcg.workers.dev/docs/${ACTIVE_TENANT}/schedules/trips.json`;
+    TENANT_SCHED_DISPLAY_KEY = ACTIVE_TENANT === "9999" ? "" : `${ACTIVE_TENANT}_sched_display`;
+  }
+
+  applyTenant(ACTIVE_TENANT);
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+
+  const toInt = (v) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  };
+
+  function extractRows(payload) {
+    if (Array.isArray(payload)) return payload;
+    if (payload && Array.isArray(payload.records)) return payload.records;
+    return [];
+  }
+
+  function fetchJsonBlocking(url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send(null);
+    const txt = xhr.responseText || "";
+    if (xhr.status < 200 || xhr.status >= 300) {
+      throw new Error(`Fetch failed ${xhr.status} for ${url}: ${txt.slice(0, 200)}`);
+    }
+    try {
+      return JSON.parse(txt);
+    } catch {
+      throw new Error(`Bad JSON in ${url}: ${txt.slice(0, 200)}`);
+    }
+  }
+
+  async function fetchJson(url) {
+    if (location.hostname === "ringstatus.com" || qs.get("pdf") === "1") {
+      return fetchJsonBlocking(url);
+    }
+    const res = await fetch(url, { cache: "no-store" });
+    const txt = await res.text();
+    if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}: ${txt.slice(0, 200)}`);
+    try {
+      return JSON.parse(txt);
+    } catch {
+      throw new Error(`Bad JSON in ${url}: ${txt.slice(0, 200)}`);
+    }
+  }
+
+  function groupBy(arr, keyFn) {
+    const map = new Map();
+    for (const item of arr) {
+      const key = keyFn(item);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(item);
+    }
+    return map;
+  }
+
+  function makeRingKey(ringNum, idx) {
+    const n = toInt(ringNum);
+    if (Number.isFinite(n) && n !== 9999) return String(n);
+    return `x${idx + 1}`;
+  }
+
+  function getGroupId(row) {
+    return String(row.class_group_id ?? row.classGroupId ?? "").trim();
+  }
+
+  function normScheduleDisplayValues(values) {
+    const out = [];
+    const seen = new Set();
+
+    values.forEach((v) => {
+      if (Array.isArray(v)) {
+        v.forEach((x) => {
+          const s = String(x ?? "").trim();
+          if (!s) return;
+          const k = s.toLowerCase();
+          if (seen.has(k)) return;
+          seen.add(k);
+          out.push(s);
+        });
+        return;
+      }
+
+      const s = String(v ?? "").trim();
+      if (!s) return;
+      const k = s.toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      out.push(s);
+    });
+
+    return out.join(", ");
+  }
+
+  function getScheduleGroupDisplay(items) {
+    const values = items.map((row) => (
+      TENANT_SCHED_DISPLAY_KEY
+        ? row?.[TENANT_SCHED_DISPLAY_KEY] ?? row?.sched_display ?? row?.group_display
+        : row?.sched_display ?? row?.group_display
+    ));
+    return normScheduleDisplayValues(values);
+  }
+
+  function withPrintParams(url) {
+    const u = new URL(url, location.href);
+    const focusDay = qs.get("focus_day");
+    const showNo = qs.get("show_no") || qs.get("show_id");
+    if (showNo) u.searchParams.set("show_no", showNo);
+    if (focusDay) u.searchParams.set("focus_day", focusDay);
+    return u.toString();
+  }
+
+  function extractHorseName(groupDisplayPart) {
+    const s = String(groupDisplayPart ?? "").trim();
+    if (!s) return "";
+    const idx = s.indexOf(" (");
+    return (idx > 0 ? s.slice(0, idx) : s).trim();
+  }
+
+  function normalizeHorseToken(horse) {
+    if (horse && typeof horse === "object") {
+      const label = String(horse.label || horse.display || horse.horse || "").trim();
+      const rawHorse = String(horse.horse || extractHorseName(label) || label).trim();
+      const display = String(horse.display || extractHorseName(label) || rawHorse).trim();
+      return {
+        label,
+        horse: rawHorse,
+        display
+      };
+    }
+    const label = String(horse || "").trim();
+    return {
+      label,
+      horse: extractHorseName(label),
+      display: extractHorseName(label) || label
+    };
+  }
+
+  function horseTokenText(horse) {
+    return normalizeHorseToken(horse).label;
+  }
+
+  function trainerRollupsForItems(items) {
+    const byTrainer = new Map();
+    for (const row of items) {
+      const raw = row && row.trainer_rollups;
+      const rollups = Array.isArray(raw) ? raw : [];
+      for (const item of rollups) {
+        const trainer = String(item.trainer_display || item.trainer || "").trim();
+        const horses = Array.isArray(item.horses) ? item.horses : [];
+        if (!trainer || !horses.length) continue;
+        const bucket = byTrainer.get(trainer) || [];
+        horses.forEach((horse) => {
+          const clean = horseTokenText(horse);
+          if (clean) bucket.push(clean);
+        });
+        byTrainer.set(trainer, bucket);
+      }
+    }
+    return Array.from(byTrainer.entries()).map(([trainer, horses]) => ({
+      trainer,
+      horses: Array.from(new Set(horses))
+    })).filter((item) => item.horses.length);
+  }
+
+  function trainerRollupKey(rollups) {
+    const normalized = (Array.isArray(rollups) ? rollups : [])
+      .map((item) => ({
+        trainer: String(item.trainer || "").trim().toLowerCase(),
+        horses: (Array.isArray(item.horses) ? item.horses : [])
+          .map((horse) => horseTokenText(horse).trim().toLowerCase())
+          .filter(Boolean)
+      }))
+      .filter((item) => item.trainer && item.horses.length)
+      .sort((a, b) => a.trainer.localeCompare(b.trainer));
+    return normalized.length ? JSON.stringify(normalized) : "";
+  }
+
+  function firstGroupTime(group) {
+    const row = (group && group.items && group.items[0]) || {};
+    return String(row.start_display ?? row.startDisplay ?? "").trim();
+  }
+
+  function coalesceSameTimeRollupGroups(groups) {
+    const out = [];
+    for (const group of groups || []) {
+      const prev = out[out.length - 1];
+      const key = trainerRollupKey(group.trainerRollups);
+      if (
+        prev &&
+        key &&
+        key === trainerRollupKey(prev.trainerRollups) &&
+        firstGroupTime(group) &&
+        firstGroupTime(group) === firstGroupTime(prev)
+      ) {
+        prev.gid = `${prev.gid}|${group.gid}`;
+        prev.items = prev.items.concat(group.items);
+        continue;
+      }
+      out.push(group);
+    }
+    return out;
+  }
+
+  function trainerRollupHtml(rollups, fallback) {
+    if (rollups && rollups.length) {
+      return rollups.map((item) => `
+        <div class="gdisplay-line">
+          <span class="gdisplay-badge">${esc(item.trainer)}</span>
+          <span class="gdisplay-text">${esc((item.horses || []).map(horseTokenText).filter(Boolean).join(", "))}</span>
+        </div>
+      `).join("");
+    }
+    return fallback ? `<div class="gdisplay-line"><span class="gdisplay-text">${esc(fallback)}</span></div>` : "";
+  }
+
+  function roundedTenMinuteTime(value) {
+    const raw = String(value || "").trim();
+    if (!raw || raw.toLowerCase() === "check time") return { key: raw.toLowerCase(), display: raw };
+    const m = raw.match(/^(\d{1,2})(?::?(\d{2}))?\s*([ap]m?)?$/i);
+    if (!m) return { key: raw.toLowerCase(), display: raw };
+
+    let hour = Number(m[1]);
+    const minute = Number(m[2] || 0);
+    const meridiemRaw = String(m[3] || "").toUpperCase();
+    const meridiem = meridiemRaw.startsWith("P") ? "PM" : meridiemRaw.startsWith("A") ? "AM" : "";
+    if (!Number.isFinite(hour) || !Number.isFinite(minute)) return { key: raw.toLowerCase(), display: raw };
+
+    let total = hour * 60 + minute;
+    if (meridiem === "PM" && hour < 12) total += 12 * 60;
+    if (meridiem === "AM" && hour === 12) total -= 12 * 60;
+
+    total = ((total % (24 * 60)) + (24 * 60)) % (24 * 60);
+
+    const outHour24 = Math.floor(total / 60);
+    const outMinute = total % 60;
+    const outMeridiem = outHour24 >= 12 ? "PM" : "AM";
+    let outHour = outHour24 % 12;
+    if (outHour === 0) outHour = 12;
+    const outDisplay = `${outHour}:${String(outMinute).padStart(2, "0")} ${outMeridiem}`;
+    return { key: `${outHour24}:${String(outMinute).padStart(2, "0")}`, display: outDisplay };
+  }
+
+  function classDisplayLabel(row) {
+    const rawName = String(row.class_name ?? row.className ?? row.name ?? "").trim();
+    const leadingLabel = rawName.match(/^([A-Za-z0-9]+)\)\s*(.+)$/);
+    if (leadingLabel) return `${leadingLabel[1]} - ${leadingLabel[2]}`.trim();
+    return rawName;
+  }
+
+  function normalizedDisplayClassText(row) {
+    return String(classDisplayLabel(row))
+      .replace(/^[A-Za-z0-9]+\s*-\s*/, "")
+      .replace(/\([^)]*\)/g, " ")
+      .replace(/['’]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase()
+      .slice(0, 15);
+  }
+
+  function classRenderKey(row) {
+    const ringNo = String(row.ring_no ?? row.ringNo ?? row.ring_number ?? row.ringNumber ?? "").trim();
+    const roundedTime = roundedTenMinuteTime(row.start_display ?? row.startDisplay ?? "").key;
+    const name15 = normalizedDisplayClassText(row);
+    return `display:${ringNo}|${roundedTime}|${name15}`;
+  }
+
+  function mergeClassRows(items) {
+    const merged = new Map();
+    for (const row of items || []) {
+      const key = classRenderKey(row);
+      if (!merged.has(key)) {
+        merged.set(key, Object.assign({}, row));
+        continue;
+      }
+      const existing = merged.get(key);
+      for (const field of ["start_display", "startDisplay", "start_display2", "startDisplay2", "class_name", "className", "name", "class_number", "classNumber"]) {
+        if (!String(existing[field] ?? "").trim() && String(row[field] ?? "").trim()) {
+          existing[field] = row[field];
+        }
+      }
+    }
+    return Array.from(merged.values());
+  }
+
+  function pxPerInch() {
+    const d = document.createElement("div");
+    d.style.width = "1in";
+    d.style.position = "absolute";
+    d.style.left = "-9999px";
+    d.style.top = "-9999px";
+    document.body.appendChild(d);
+    const ppi = d.offsetWidth || 96;
+    d.remove();
+    return ppi;
+  }
+
+  let PRINT_LAYOUT = null;
+
+  function ringRowCost(el) {
+    if (!el) return 0;
+    const groups = el.querySelectorAll(".group").length;
+    const classes = el.querySelectorAll(".c").length;
+    const teamLines = el.querySelectorAll(".gdisplay, .gdisplay-line, .team-line").length;
+    const cost = 2 + groups + classes + teamLines;
+    el.dataset.rowCost = String(cost);
+    return cost;
+  }
+
+  function placeRings(ringWrapEls) {
+    const L = document.getElementById("colL");
+    const R = document.getElementById("colR");
+    if (!L || !R) return;
+
+    L.innerHTML = "";
+    R.innerHTML = "";
+
+    if (!ringWrapEls || ringWrapEls.length === 0) return;
+
+    const costs = ringWrapEls.map((el) => ({ el, cost: ringRowCost(el) }));
+    const target = Math.ceil(costs.reduce((sum, item) => sum + item.cost, 0) / 2);
+    let leftCost = 0;
+    let usingRight = false;
+    for (const item of costs) {
+      if (!usingRight && L.children.length > 0 && leftCost + item.cost > target) {
+        usingRight = true;
+      }
+      if (usingRight) {
+        R.appendChild(item.el);
+      } else {
+        L.appendChild(item.el);
+        leftCost += item.cost;
+      }
+    }
+  }
+
+  function isIOS() {
+    const ua = navigator.userAgent || "";
+    const iOSUA = /iPad|iPhone|iPod/.test(ua);
+    const iPadOS13Plus = (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    return iOSUA || iPadOS13Plus;
+  }
+
+  function fitToOnePage() {
+    const wrap = document.getElementById("wrap");
+    const topbar = document.querySelector(".topbar");
+    const colL = document.getElementById("colL");
+    const colR = document.getElementById("colR");
+    if (!wrap || !topbar || !colL || !colR) return;
+
+    wrap.style.setProperty("--scale", "1");
+    wrap.classList.remove("use-zoom");
+    wrap.style.zoom = "";
+    document.body.classList.remove("tight");
+
+    const ppi = pxPerInch();
+    const pageH = (11 - 0.5) * ppi;
+    const pageW = (8.5 - 0.5) * ppi;
+
+    const availH = pageH - topbar.offsetHeight - 6;
+    const availW = pageW;
+
+    const needH = Math.max(colL.scrollHeight, colR.scrollHeight);
+    const needW = wrap.scrollWidth || wrap.getBoundingClientRect().width;
+
+    const scaleH = (needH > 0 && availH > 0) ? (availH / needH) : 1;
+    const scaleW = (needW > 0 && availW > 0) ? (availW / needW) : 1;
+
+    let scale = Math.min(1, scaleH, scaleW) * SCALE_FUDGE;
+    scale = Math.max(0.35, Math.min(1, scale));
+
+    if (scale < 0.60) document.body.classList.add("tight");
+
+    const canZoom = (!isIOS()) && ("zoom" in wrap.style);
+    if (canZoom) {
+      wrap.classList.add("use-zoom");
+      wrap.style.zoom = String(scale);
+    }
+    wrap.style.setProperty("--scale", String(scale));
+
+    if (document.body.classList.contains("tight")) {
+      const needH2 = Math.max(colL.scrollHeight, colR.scrollHeight);
+      let scale2 = Math.min(1, (availH / (needH2 || 1))) * SCALE_FUDGE;
+      scale2 = Math.max(0.35, Math.min(1, scale2));
+      if (canZoom) wrap.style.zoom = String(scale2);
+      wrap.style.setProperty("--scale", String(scale2));
+    }
+  }
+
+  const HIDDEN_RING_KEYS = new Set();
+  let RING_WRAPS = [];
+  let PDF_LINK_URL = "";
+  let IS_LOADING = false;
+
+  function parseHiddenFromUrl() {
+    const raw = (qs.get("hide") || "").trim();
+    if (!raw) return;
+    raw.split(",").map((s) => s.trim()).filter(Boolean).forEach((k) => HIDDEN_RING_KEYS.add(k));
+  }
+
+  function syncHiddenToUrl() {
+    const u = new URL(location.href);
+    if (HIDDEN_RING_KEYS.size) {
+      u.searchParams.set("hide", Array.from(HIDDEN_RING_KEYS).join(","));
+    } else {
+      u.searchParams.delete("hide");
+    }
+    history.replaceState(null, "", u.toString());
+  }
+
+  function buildPdfFilename() {
+    const title = (document.getElementById("title")?.textContent || "schedule").trim();
+    const subtitle = (document.getElementById("subtitle")?.textContent || "").trim();
+    const base = `${title}${subtitle ? " " + subtitle : ""}`
+      .replace(/\s+/g, " ")
+      .replace(/[^\w.\- ]+/g, "")
+      .trim()
+      .replace(/ +/g, "-")
+      .toLowerCase();
+    return `${base || "schedule"}-onepage.pdf`;
+  }
+
+  function buildPdfLink() {
+    const publicPrintUrl = window.RS_WEC_PRINT_URL || "https://ringstatus.com/wec-print";
+    const rawPageUrl = location.protocol === "file:"
+      ? `${publicPrintUrl}${location.search || ""}`
+      : location.href;
+    const pageUrlObj = new URL(rawPageUrl, location.href);
+    pageUrlObj.searchParams.set("pdf", "1");
+    const pageUrl = pageUrlObj.toString();
+    const filename = buildPdfFilename();
+    const params = new URLSearchParams({
+      url: pageUrl,
+      filename,
+      waitForSelector: "html[data-rs-pdf-ready=\"1\"]",
+      cacheTtl: "900"
+    });
+    return `${PDF_WORKER_BASE}?${params.toString()}`;
+  }
+
+  function syncPdfControls() {
+    PDF_LINK_URL = buildPdfLink();
+    const btnPdf = document.getElementById("btnPdf");
+    if (btnPdf) btnPdf.href = PDF_LINK_URL;
+  }
+
+  function buildShareText() {
+    const title = (document.getElementById("title")?.textContent || "WEC Schedule").trim();
+    const subtitle = (document.getElementById("subtitle")?.textContent || "").trim();
+    return {
+      title,
+      subject: `${title}${subtitle ? " " + subtitle : ""}`,
+      body: `PDF schedule:\n${PDF_LINK_URL}`
+    };
+  }
+
+  function relayoutVisibleRings() {
+    document.documentElement.dataset.rsPdfReady = "0";
+    window.RS_PDF_READY = false;
+    const visible = RING_WRAPS.filter((el) => !HIDDEN_RING_KEYS.has(String(el.dataset.ringKey || "")));
+    placeRings(visible);
+    fitToOnePage();
+    setTimeout(() => {
+      fitToOnePage();
+      document.documentElement.dataset.rsPdfReady = "1";
+      window.RS_PDF_READY = true;
+    }, 50);
+    syncHiddenToUrl();
+    syncPdfControls();
+  }
+
+  function buildRingElements(fullRows) {
+    const first = fullRows[0] || {};
+    const showId = first.show_id ?? first.showId ?? "";
+    const reportTitle =
+      first.show_days_report_title ??
+      ACTIVE_TENANT_CONFIG.title ??
+      first.show_report_title ??
+      (showId ? `Show ${showId}` : "Schedule");
+
+    const displayDate =
+      first.show_days_display_date ??
+      first.show_display_date ??
+      first.show_date ??
+      first.showDate ??
+      "";
+
+    const showDayKey =
+      first.show_day_key ??
+      first.showDayKey ??
+      first.show_days ??
+      first.showDays ??
+      "";
+
+    const titleEl = document.getElementById("title");
+    const subtitleEl = document.getElementById("subtitle");
+
+    if (titleEl) titleEl.textContent = String(reportTitle || "Schedule");
+
+    const subParts = [];
+    if (displayDate) subParts.push(String(displayDate));
+    if (showId !== "" && showId !== null && showId !== undefined) subParts.push(`show_id ${showId}`);
+    if (showDayKey) subParts.push(String(showDayKey));
+
+    if (subtitleEl) subtitleEl.textContent = subParts.join("   •   ");
+
+    const rings = Array.from(groupBy(fullRows, (r) => String(r.ring_number ?? r.ringNumber ?? "9999")).entries())
+      .map(([k, items]) => ({ ring_number: toInt(k) ?? 9999, items }))
+      .sort((a, b) => a.ring_number - b.ring_number);
+
+    const ringWraps = [];
+
+    for (let ringIdx = 0; ringIdx < rings.length; ringIdx++) {
+      const ring = rings[ringIdx];
+      const items0 = ring.items[0] || {};
+      const ringTitle =
+        items0.ring_name ??
+        items0.ringName ??
+        items0.ring_nickname ??
+        items0.ringNickname ??
+        "Ring";
+
+      const ringKey = makeRingKey(ring.ring_number, ringIdx);
+
+      let groups = Array.from(groupBy(ring.items, (r) => classRenderKey(r)).entries())
+        .map(([gid, items]) => {
+          const seq = toInt(items[0]?.class_group_sequence ?? items[0]?.classGroupSequence ?? 9999) ?? 9999;
+          const gname = items[0]?.group_group_name ?? items[0]?.group_name ?? items[0]?.groupName ?? "Group";
+          const gdisplay = getScheduleGroupDisplay(items);
+          const trainerRollups = trainerRollupsForItems(items);
+          return { gid, seq, gname, gdisplay, trainerRollups, items };
+        })
+        .sort((a, b) => a.seq - b.seq);
+      groups = coalesceSameTimeRollupGroups(groups);
+
+      const sec = document.createElement("section");
+      sec.className = "ring";
+      sec.innerHTML = `<div class="ring-head">${esc(ringTitle)}</div>`;
+      let lastRingTimeBucket = null;
+      const seenTimeClassKeys = new Set();
+
+      for (const g of groups) {
+        const hasTeam = !!g.gdisplay || (g.trainerRollups && g.trainerRollups.length);
+        const classes = mergeClassRows(g.items).sort((a, b) => {
+          const an = toInt(a.class_number ?? a.classNumber ?? 999999) ?? 999999;
+          const bn = toInt(b.class_number ?? b.classNumber ?? 999999) ?? 999999;
+          return an - bn;
+        });
+
+        let cl = "";
+        for (const c of classes) {
+          const roundedTime = roundedTenMinuteTime(c.start_display ?? c.startDisplay ?? "");
+          const time = roundedTime.display;
+          const duplicateKey = `${roundedTime.key}|${normalizedDisplayClassText(c)}`;
+          if (duplicateKey.trim() && seenTimeClassKeys.has(duplicateKey)) continue;
+          if (duplicateKey.trim()) seenTimeClassKeys.add(duplicateKey);
+          const showTime = (time && (hasTeam || roundedTime.key !== lastRingTimeBucket));
+          if (showTime) lastRingTimeBucket = roundedTime.key;
+
+          const label = classDisplayLabel(c);
+
+          cl += `<div class="c"><div class="t">${esc(showTime ? time : "")}</div><div class="n">${esc(label)}</div></div>`;
+        }
+
+        const gDiv = document.createElement("div");
+        gDiv.className = `group${hasTeam ? " has-team" : ""}`;
+        gDiv.innerHTML = `
+          <div class="group-head">
+            ${hasTeam ? `<div class="gdisplay">${trainerRollupHtml(g.trainerRollups, g.gdisplay)}</div>` : ``}
+            <div class="gname">${esc(g.gname)}</div>
+          </div>
+          <div class="solid"></div>
+          <div class="class-list">${cl || `<div class="muted">No classes scheduled.</div>`}</div>
+        `;
+        sec.appendChild(gDiv);
+      }
+
+      const wrap = document.createElement("div");
+      wrap.className = "ringWrap";
+      wrap.dataset.ringKey = ringKey;
+
+      const xBtn = document.createElement("button");
+      xBtn.type = "button";
+      xBtn.className = "ringClose";
+      xBtn.textContent = "×";
+      xBtn.setAttribute("aria-label", `Hide ${String(ringTitle)}`);
+      xBtn.addEventListener("click", () => {
+        HIDDEN_RING_KEYS.add(ringKey);
+        relayoutVisibleRings();
+      });
+
+      wrap.appendChild(xBtn);
+      wrap.appendChild(sec);
+      ringWraps.push(wrap);
+    }
+
+    return ringWraps;
+  }
+
+  async function renderTenant() {
+    if (IS_LOADING) return;
+    IS_LOADING = true;
+
+    try {
+      parseHiddenFromUrl();
+
+      const fullPayload = await fetchJson(withPrintParams(SCHEDULE_URL));
+      const fullRows = extractRows(fullPayload);
+      PRINT_LAYOUT = await fetchJson(withPrintParams(PRINT_LAYOUT_URL)).catch(() => null);
+
+      if (!Array.isArray(fullRows) || fullRows.length === 0) {
+        const colL = document.getElementById("colL");
+        if (colL) colL.innerHTML = `<div class="muted">No schedule rows.</div>`;
+        syncPdfControls();
+        return;
+      }
+
+      RING_WRAPS = buildRingElements(fullRows);
+      relayoutVisibleRings();
+      syncPdfControls();
+    } catch (err) {
+      const colL = document.getElementById("colL");
+      if (colL) {
+        colL.innerHTML = `<div class="err">${esc(String(err && err.stack ? err.stack : err))}</div>`;
+      }
+      syncPdfControls();
+    } finally {
+      IS_LOADING = false;
+    }
+  }
+
+  function bindTenantClicks() {
+    const gate = document.querySelector(".rs-pdf-gate");
+    const links = Array.from(document.querySelectorAll(".rs-print-link[data-tenant]"));
+
+    links.forEach((link) => {
+      if (link.dataset.rsTenantBound === "1") return;
+      link.dataset.rsTenantBound = "1";
+
+      link.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const tenant = String(link.dataset.tenant || "").trim();
+        if (!tenant) return;
+
+        if (gate) gate.classList.add("active");
+
+        const u = new URL(location.href);
+        u.searchParams.set("tenant", tenant);
+        history.replaceState(null, "", u.toString());
+
+        HIDDEN_RING_KEYS.clear();
+        applyTenant(tenant);
+        await renderTenant();
+      });
+    });
+  }
+
+  function bindStaticControls() {
+    const btnLink = document.getElementById("btnLink");
+    if (btnLink && btnLink.dataset.rsBound !== "1") {
+      btnLink.dataset.rsBound = "1";
+      btnLink.addEventListener("click", async () => {
+        syncPdfControls();
+        try {
+          await navigator.clipboard.writeText(PDF_LINK_URL);
+          const old = btnLink.textContent;
+          btnLink.textContent = "Copied";
+          setTimeout(() => { btnLink.textContent = old; }, 1200);
+        } catch {
+          window.prompt("Copy PDF link:", PDF_LINK_URL);
+        }
+      });
+    }
+
+    const btnShare = document.getElementById("btnShare");
+    if (btnShare && btnShare.dataset.rsBound !== "1") {
+      btnShare.dataset.rsBound = "1";
+      btnShare.addEventListener("click", async () => {
+        syncPdfControls();
+        const share = buildShareText();
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: share.title,
+              text: share.subject,
+              url: PDF_LINK_URL
+            });
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+          }
+        }
+        window.location.href = `mailto:?subject=${encodeURIComponent(share.subject)}&body=${encodeURIComponent(share.body)}`;
+      });
+    }
+
+    if (window.__RS_PDF_RESIZE_BOUND__ !== true) {
+      window.__RS_PDF_RESIZE_BOUND__ = true;
+      window.addEventListener("beforeprint", fitToOnePage);
+      window.addEventListener("resize", () => {
+        fitToOnePage();
+        syncPdfControls();
+      });
+    }
+  }
+
+  async function boot() {
+    bindTenantClicks();
+    bindStaticControls();
+
+    const gate = document.querySelector(".rs-pdf-gate");
+    if (ACTIVE_TENANT && ACTIVE_TENANT !== "9999" && gate) {
+      gate.classList.add("active");
+    }
+
+    await renderTenant();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+</script>

@@ -1,9 +1,17 @@
 const catalyst = require("zcatalyst-sdk-node");
 const cheerio = require("cheerio");
 const https = require("https");
+const {
+  classContextKey,
+  classOogKey,
+  selectClassOogScope,
+  stagingContextKey
+} = require("./scope");
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const HORSESHOWING_BASE_URL = "https://www.horseshowing.com";
+const DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36";
+const UPSTREAM_TIMEOUT_MS = 15000;
 const TABLE_CLASS_OOG = "hs_class_oog";
 const TABLE_AIRTABLE_CLASS_OOG = "tblgUbX5n8GIuiqUI";
 const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
@@ -33,7 +41,8 @@ const STAGING_FIELDS = {
   event_name: "flde1tofvuV34iKc6",
   class_name: "fldvV3xLV9PduvCrB",
   time_text: "fld2EahZkPs2SSVfN",
-  entry_count: "fldsiU6NKYacpz8CT"
+  entry_count: "fldsiU6NKYacpz8CT",
+  full_lock: "fldL8UsgATV34je1y"
 };
 
 const AIRTABLE_OOG_FIELDS = {
@@ -193,7 +202,7 @@ function mergeCookies(...cookieInputs) {
   return [...jar.entries()].map(([key, value]) => `${key}=${value}`).join("; ");
 }
 
-function requestText(url, { method = "GET", headers = {}, body = "" } = {}) {
+function requestTextViaHttps(url, { method = "GET", headers = {}, body = "" } = {}) {
   return new Promise((resolve, reject) => {
     const request = https.request(url, { method, headers }, (response) => {
       let raw = "";
@@ -213,11 +222,22 @@ function requestText(url, { method = "GET", headers = {}, body = "" } = {}) {
         });
       });
     });
-    request.setTimeout(6000, () => request.destroy(new Error("request timeout")));
+    request.setTimeout(UPSTREAM_TIMEOUT_MS, () => request.destroy(new Error("request timeout")));
     request.on("error", reject);
     if (body) request.write(body);
     request.end();
   });
+}
+
+async function requestText(url, { method = "GET", headers = {}, body = "", signal } = {}) {
+  try {
+    return await fetch(url, { method, headers, body: body || undefined, signal });
+  } catch (error) {
+    const fallback = await requestTextViaHttps(url, { method, headers, body });
+    fallback.transport = "https";
+    fallback.fetch_error = error.message;
+    return fallback;
+  }
 }
 
 function sleep(ms) {
@@ -234,27 +254,43 @@ async function bootstrapCookie(showNo, phpSessionId = "") {
       "accept-encoding": "identity",
       "accept-language": "en-US,en;q=0.9",
       referer: `${HORSESHOWING_BASE_URL}/showsel.php`,
-      "user-agent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "sec-fetch-dest": "document",
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-site": "same-origin",
+      "upgrade-insecure-requests": "1",
+      "user-agent": DEFAULT_USER_AGENT,
       cookie
     }
   };
   let response;
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
+    const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
     try {
-      response = await fetch(`${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`, { ...request, signal: controller.signal });
+      response = await requestText(`${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`, { ...request, signal: controller.signal });
     } finally {
       clearTimeout(timeout);
     }
-  } catch {
+    if (response.ok) cookie = mergeCookies(cookie, getSetCookies(response.headers));
+    const scheduleController = new AbortController();
+    const scheduleTimeout = setTimeout(() => scheduleController.abort(), UPSTREAM_TIMEOUT_MS);
     try {
-      response = await requestText(`${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`, request);
-    } catch {
-      return cookie;
+      const scheduleResponse = await requestText(`${HORSESHOWING_BASE_URL}/schedule.php`, {
+        method: "GET",
+        headers: {
+          ...request.headers,
+          referer: `${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`,
+          cookie
+        },
+        signal: scheduleController.signal
+      });
+      if (scheduleResponse.ok) cookie = mergeCookies(cookie, getSetCookies(scheduleResponse.headers));
+    } finally {
+      clearTimeout(scheduleTimeout);
     }
+  } catch {
+    return cookie;
   }
-  if (response.ok) cookie = mergeCookies(cookie, getSetCookies(response.headers));
   return cookie;
 }
 
@@ -423,18 +459,6 @@ function buildClassOogQueue(classes, activeClassNos, rowCounts, maxEntries) {
   return result;
 }
 
-function classContextKey(row) {
-  const ringDayNo = intOrNull(row.ring_day_no ?? row.days);
-  const classNo = intOrNull(row.class_no);
-  return ringDayNo && classNo ? `${ringDayNo}|${classNo}` : "";
-}
-
-function stagingContextKey(row) {
-  const ringDayNo = intOrNull(row.ring_day_no);
-  const classNo = intOrNull(row.class_no);
-  return ringDayNo && classNo ? `${ringDayNo}|${classNo}` : "";
-}
-
 async function findRecordMap(baseId, tableName, keyField, values, token) {
   const map = new Map();
   const keys = unique(values);
@@ -484,11 +508,11 @@ async function buildLinkMaps(baseId, showNo, focusShow, rows, selected, token) {
   return maps;
 }
 
-async function deleteAirtableRowsOutsideKeys(baseId, showNo, focusDay, classNo, ringDayNo, activeKeys, token) {
+async function deleteAirtableRowsOutsideKeys(baseId, showNo, focusDay, classNo, ringDayNo, ringNo, activeKeys, token) {
   const rows = await airtableList(
     baseId,
     "class_oog",
-    `AND({show_no}=${Number(showNo)},{class_no}=${Number(classNo)},{days}=${Number(ringDayNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableValue(focusDay)}),'day'))`,
+    `AND({show_no}=${Number(showNo)},{class_no}=${Number(classNo)},{days}=${Number(ringDayNo)},{ring_no}=${Number(ringNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableValue(focusDay)}),'day'))`,
     token
   );
   const stale = rows
@@ -523,17 +547,27 @@ async function fetchClassOog(showNo, classNo, cookie) {
       "cache-control": "no-cache",
       connection: "close",
       referer: `${HORSESHOWING_BASE_URL}/schedule.php`,
-      "user-agent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
+      "sec-fetch-dest": "document",
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-site": "same-origin",
+      "upgrade-insecure-requests": "1",
+      "user-agent": DEFAULT_USER_AGENT,
       cookie
     }
   };
   let lastError;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const response = await requestText(url, request);
-      const raw = await response.text();
-      if (!response.ok) throw new Error(`class_oog.php HTTP ${response.status}: ${raw.slice(0, 300)}`);
-      return { status: response.status, content_type: response.headers.get("content-type"), raw, attempts: attempt };
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+      try {
+        const response = await requestText(url, { ...request, signal: controller.signal });
+        const raw = await response.text();
+        if (!response.ok) throw new Error(`class_oog.php HTTP ${response.status}: ${raw.slice(0, 300)}`);
+        return { status: response.status, content_type: response.headers.get("content-type"), raw, attempts: attempt };
+      } finally {
+        clearTimeout(timeout);
+      }
     } catch (error) {
       lastError = error;
       if (attempt < 2) await sleep(750 * attempt);
@@ -575,7 +609,7 @@ function parseClassOogRows(raw, showNo, classInfo) {
     const classNo = Number(classInfo.class_no);
     const ringDayNo = intOrNull(classInfo.ring_day_no);
     rows.push({
-      class_oog_key: `${showNo}|${ringDayNo}|${classNo}|${entryNo}`,
+      class_oog_key: classOogKey({ show_no: showNo, ring_day_no: ringDayNo, ring_no: classInfo.ring_no, class_no: classNo, entry_no: entryNo }),
       show_no: Number(showNo),
       ring: text(classInfo.ring_name),
       ring_no: intOrNull(classInfo.ring_no),
@@ -607,12 +641,12 @@ function parseClassOogRows(raw, showNo, classInfo) {
   return rows;
 }
 
-async function getCatalystRowsByShowClass(app, showNo, classNo, ringDayNo) {
+async function getCatalystRowsByShowClass(app, showNo, classNo, ringDayNo, ringNo) {
   const rows = [];
   for (let offset = 0; ; offset += 200) {
     const query = [
       `SELECT * FROM ${TABLE_CLASS_OOG}`,
-      `WHERE show_no = ${Number(showNo)} AND class_no = ${Number(classNo)} AND ring_day_no = ${Number(ringDayNo)}`,
+      `WHERE show_no = ${Number(showNo)} AND class_no = ${Number(classNo)} AND ring_day_no = ${Number(ringDayNo)} AND ring_no = ${Number(ringNo)}`,
       `LIMIT 200 OFFSET ${offset}`
     ].join(" ");
     const page = (await app.zcql().executeZCQLQuery(query) || [])
@@ -666,10 +700,10 @@ function toCatalystClassOogRow(row) {
   return catalystRow;
 }
 
-async function upsertCatalystClassOog(app, showNo, classNo, ringDayNo, rows) {
+async function upsertCatalystClassOog(app, showNo, classNo, ringDayNo, ringNo, rows) {
   const catalystRows = rows.map(toCatalystClassOogRow);
   const existing = new Map();
-  for (const row of await getCatalystRowsByShowClass(app, showNo, classNo, ringDayNo)) {
+  for (const row of await getCatalystRowsByShowClass(app, showNo, classNo, ringDayNo, ringNo)) {
     if (text(row.class_oog_key)) existing.set(text(row.class_oog_key), row);
   }
   const activeKeys = new Set(catalystRows.map((row) => row.class_oog_key));
@@ -801,7 +835,7 @@ async function handle(req, res) {
     const maxEntries = Math.max(1, asNumber(query.get("max_entries") || body.max_entries, 50));
     const offset = Math.max(0, asNumber(query.get("offset") || body.offset, 0));
     const limit = Math.max(1, asNumber(query.get("limit") || body.limit, 5));
-    const onlyLocked = text(query.get("only_locked") || body.only_locked || "1") !== "0";
+    const onlyLocked = true;
     const phpSessionId = text(query.get("php_session_id") || body.php_session_id || process.env.HSCOM_PHPSESSID);
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
     const authHeader = text(req.headers?.["x-airtable-token"] || req.headers?.["X-Airtable-Token"] || req.headers?.authorization || req.headers?.Authorization);
@@ -830,20 +864,17 @@ async function handle(req, res) {
     const activeTrainerNames = await getActiveTrainerNames(baseId, token);
     if (!activeTrainerNames.size) throw new Error("No active trainers found; class_oog active-team write stopped");
     phase = "read_update_schedule_staging";
-    const stagingRows = await airtableList(baseId, "update_schedule_staging", `AND({show_no}=${Number(showNo)},{class_no}>0)`, token);
+    const stagingRows = await airtableList(baseId, "update_schedule_staging", `AND({show_no}=${Number(showNo)},{class_no}>0,{full_lock}=1)`, token);
     const uniqueByContext = new Map();
     const duplicateContexts = [];
-    const allFocusStagingRows = stagingRows
-      .filter((row) => yyyymmddToIso(row.iso_date) === focusShow.focus_day)
+    const allFocusStagingRows = selectClassOogScope(stagingRows, { showNo, focusDay: focusShow.focus_day })
       .sort((a, b) =>
         Number(a.ring_no || 0) - Number(b.ring_no || 0) ||
         Number(a.ring_day_no || 0) - Number(b.ring_day_no || 0) ||
         text(a.time_text).localeCompare(text(b.time_text)) ||
         Number(a.class_no || 0) - Number(b.class_no || 0)
       );
-    const focusStagingRows = onlyLocked
-      ? allFocusStagingRows.filter((row) => row.lock === true)
-      : allFocusStagingRows;
+    const focusStagingRows = allFocusStagingRows;
     for (const row of focusStagingRows) {
       const classNo = intOrNull(row.class_no);
       const ringDayNo = intOrNull(row.ring_day_no);
@@ -968,13 +999,14 @@ async function handle(req, res) {
     let upstreamRowsTotal = 0;
     let duplicateContextsCleared = 0;
     for (const duplicate of duplicateContextsToClear) {
-      const catalystResult = await upsertCatalystClassOog(app, showNo, duplicate.class_no, duplicate.ring_day_no, []);
+      const catalystResult = await upsertCatalystClassOog(app, showNo, duplicate.class_no, duplicate.ring_day_no, duplicate.ring_no, []);
       const airtableDeleted = await deleteAirtableRowsOutsideKeys(
         baseId,
         showNo,
         focusShow.focus_day,
         duplicate.class_no,
         duplicate.ring_day_no,
+        duplicate.ring_no,
         new Set(),
         token
       );
@@ -989,7 +1021,7 @@ async function handle(req, res) {
       const parsedRows = parseClassOogRows(fetched.raw, showNo, classInfo);
       const rows = filterRowsByActiveTrainer(parsedRows, activeTrainerNames);
       phase = `write_catalyst_${classInfo.class_no}`;
-      const catalystResult = await upsertCatalystClassOog(app, showNo, classInfo.class_no, classInfo.ring_day_no, rows);
+      const catalystResult = await upsertCatalystClassOog(app, showNo, classInfo.class_no, classInfo.ring_day_no, classInfo.ring_no, rows);
       phase = `write_airtable_${classInfo.class_no}`;
       const linkMaps = rows.length ? await buildLinkMaps(baseId, showNo, focusShow, rows, [classInfo], token) : {};
       const airtableRows = toAirtableRows(rows, focusShow.focus_day, linkMaps);
@@ -1002,6 +1034,7 @@ async function handle(req, res) {
         focusShow.focus_day,
         classInfo.class_no,
         classInfo.ring_day_no,
+        classInfo.ring_no,
         new Set(rows.map((row) => row.class_oog_key)),
         token
       );

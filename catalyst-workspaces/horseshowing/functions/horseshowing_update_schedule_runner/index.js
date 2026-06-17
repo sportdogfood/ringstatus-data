@@ -1,12 +1,14 @@
+const catalyst = require("zcatalyst-sdk-node");
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const DEFAULT_SYNC_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/";
 const HORSESHOWING_BASE_URL = "https://www.horseshowing.com";
 const UPSTREAM_TIMEOUT_MS = 20000;
 const https = require("https");
+const TABLE_CATALYST_UPDATE_SCHEDULE = "hs_update_schedule";
 const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
 const TABLE_UPDATE_SCHEDULE_STAGING = "tblzsoU59zmYxhPah";
 const TABLE_UPDATE_SCHEDULE = "tblzPWt9G3VBVqVi6";
-const TABLE_CLASS_START_TIMES = "tblgOxoLf6r3xGWxB";
+const TABLE_FOCUS_SHOW = "tblQldkP8wwIRxd4z";
 const WEC_LOG_FIELDS = {
   log_key_run: "fldlTpAEAqOF7lsFN",
   log_key: "fldtfwD9STjbiqZVL",
@@ -48,11 +50,18 @@ const STAGING_FIELDS = {
   lock: "fldtUb2tiJvBNHdsD",
   is_target: "fldPGbloe6fCajHH4",
   shows: "fldr7WPbgPFfPuctf",
+  focus_show: "fldg6ox15s03Sw9xk",
   classes: "fld57nJX8y2bOTMcw",
   ring_days: "fldTVsQTkDsDvKyPz",
   rings: "fldz3HXUIVufTOlYm",
   events: "flds4Y7IP8eN7JrP1",
-  show_days: "fldiW1dfQrPSFiNvv"
+  show_days: "fldiW1dfQrPSFiNvv",
+  full_lock: "fldL8UsgATV34je1y",
+  full_lockv2: "fldt5NXBS1P1s5bWf",
+  last_run_time: "fld1vf5NxKMesqzUX"
+};
+const FOCUS_SHOW_FIELDS = {
+  full_lock_count: "fldJvufgP7b76xL4x"
 };
 const UPDATE_SCHEDULE_FIELDS = {
   show_no: "fldmnARVSDUfJirnQ",
@@ -73,23 +82,6 @@ const UPDATE_SCHEDULE_FIELDS = {
   live_flag: "fldyzCrNuYLAFxh3N",
   source: "fldI9ua5MaB0R86NM",
   mirror_update_schedule_key: "fldy6FUgG1MkCL5tf"
-};
-const CLASS_START_FIELDS = {
-  class_start_key: "fldO5aTUlni7JdMIX",
-  class_no: "fldKYQonbwrWF5uCw",
-  show_no: "fldgDifl9IQuoeYyn",
-  focus_day: "fld3QiD3GGyeiiJBE",
-  ring_no: "fld2W7zzZA46trKPW",
-  ring_day_no: "flde2MALK8ybCvcGs",
-  class_number: "fld6N7n5mYGdIqm9f",
-  class_name: "fldnWNFxsrFAQh4oB",
-  class_start_time: "fldrgRZOX43NJyC41",
-  display_time: "fld2gZEInYk2vkRBk",
-  entry_count: "fldjFVCkr22lXinWd",
-  source: "fldeQ7UHJgPO9P8m4",
-  last_synced_at: "fld8eg6NkDv79UkVD",
-  class_start_key_mirror: "fldiDX0xpa4dfSaLm",
-  status: "fldocBXrphhGAq2TN"
 };
 
 function setCors(res) {
@@ -322,8 +314,88 @@ function truthy(value) {
   return raw === "true" || raw === "1" || raw === "yes";
 }
 
+function emptyLink(value) {
+  return !Array.isArray(value) || value.length === 0;
+}
+
+function stagingLinkMisses(row) {
+  const classNo = Number(row[STAGING_FIELDS.class_no]);
+  const expectsClass = Number.isFinite(classNo) && classNo > 0;
+  return {
+    shows: emptyLink(row[STAGING_FIELDS.shows]),
+    focus_show: emptyLink(row[STAGING_FIELDS.focus_show]),
+    classes: expectsClass && emptyLink(row[STAGING_FIELDS.classes]),
+    ring_days: emptyLink(row[STAGING_FIELDS.ring_days]),
+    rings: emptyLink(row[STAGING_FIELDS.rings]),
+    events: emptyLink(row[STAGING_FIELDS.events]),
+    show_days: emptyLink(row[STAGING_FIELDS.show_days])
+  };
+}
+
+function summarizeStagingLinkMisses(rows) {
+  const missing = { shows: 0, focus_show: 0, classes: 0, ring_days: 0, rings: 0, events: 0, show_days: 0 };
+  let rowsWithAnyMiss = 0;
+  for (const row of rows || []) {
+    const rowMissing = stagingLinkMisses(row);
+    if (Object.values(rowMissing).some(Boolean)) rowsWithAnyMiss += 1;
+    for (const [key, value] of Object.entries(rowMissing)) {
+      if (value) missing[key] += 1;
+    }
+  }
+  return { rows_with_any_link_miss: rowsWithAnyMiss, missing };
+}
+
+function summarizeFullLock(rows) {
+  const fullLockCount = (rows || []).filter((row) => truthy(row[STAGING_FIELDS.full_lock])).length;
+  return {
+    rows: (rows || []).length,
+    full_lock_count: fullLockCount,
+    pause_downstream: fullLockCount === 0
+  };
+}
+
+async function writeFocusShowFullLockCount(baseId, token, focusShowRows, fullLockCount) {
+  const focusShowId = focusShowRows?.[0]?.record_id || "";
+  if (!focusShowId) return { updated: 0, focus_show_record_id: "" };
+  const result = await airtableUpdate(baseId, TABLE_FOCUS_SHOW, [{
+    id: focusShowId,
+    fields: { [FOCUS_SHOW_FIELDS.full_lock_count]: fullLockCount }
+  }], token);
+  return { updated: result.length, focus_show_record_id: focusShowId };
+}
+
+async function stampStagingLastRun(baseId, token, rows, runTime) {
+  const updates = (rows || [])
+    .filter((row) => row.record_id)
+    .map((row) => ({
+      id: row.record_id,
+      fields: { [STAGING_FIELDS.last_run_time]: runTime }
+    }));
+  if (!updates.length) return 0;
+  const result = await airtableUpdate(baseId, TABLE_UPDATE_SCHEDULE_STAGING, updates, token);
+  return result.length;
+}
+
 function airtableString(value) {
   return text(value).replace(/'/g, "\\'");
+}
+
+function zcqlValue(value) {
+  if (value === null || value === undefined) return "null";
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return `'${String(value).replace(/'/g, "''")}'`;
+}
+
+function cleanRow(row) {
+  const clean = {};
+  for (const [key, value] of Object.entries(row)) {
+    if (value !== undefined && value !== null && value !== "") clean[key] = value;
+  }
+  return clean;
+}
+
+function rowChanged(existing, row) {
+  return Object.entries(row).some(([key, value]) => text(existing[key]) !== text(value));
 }
 
 async function airtableListByKeys(baseId, tableName, keyField, keys, token) {
@@ -428,22 +500,29 @@ async function airtableListUpdateScheduleFocusRows(baseId, token, showNo, focusD
   );
 }
 
+async function airtableListFocusShowRows(baseId, token, showNo, focusDay) {
+  return airtableListFieldIds(
+    baseId,
+    "focus_show",
+    `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableString(focusDay)}'),'day'))`,
+    token
+  );
+}
+
 async function resetFocusUpdateSchedule(baseId, token, showNo, focusDay) {
   const [stagingRows, updateRows] = await Promise.all([
     airtableListStagingFocusRows(baseId, token, showNo, focusDay),
     airtableListUpdateScheduleFocusRows(baseId, token, showNo, focusDay)
   ]);
-  const [stagingDeleted, updateDeleted] = await Promise.all([
-    airtableDelete(baseId, TABLE_UPDATE_SCHEDULE_STAGING, stagingRows.map((record) => record.record_id), token),
-    airtableDelete(baseId, TABLE_UPDATE_SCHEDULE, updateRows.map((record) => record.record_id), token)
-  ]);
+  const updateDeleted = await airtableDelete(baseId, TABLE_UPDATE_SCHEDULE, updateRows.map((record) => record.record_id), token);
   return {
     show_no: Number(showNo),
     focus_day: yyyymmddToIso(focusDay),
     update_schedule_seen: updateRows.length,
     update_schedule_deleted: updateDeleted.length,
     update_schedule_staging_seen: stagingRows.length,
-    update_schedule_staging_deleted: stagingDeleted.length
+    update_schedule_staging_deleted: 0,
+    update_schedule_staging_preserved: stagingRows.length
   };
 }
 
@@ -509,7 +588,7 @@ async function ensureStagingHelpers(baseId, token, stagingRows) {
   };
 }
 
-async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
+async function linkLockedStagingRows(baseId, token, showNo, focusDay, stagingRows) {
   const keys = (stagingRows || []).map((row) => row[STAGING_FIELDS.staging_key]);
   const stagingRecords = await airtableListByKeys(baseId, "update_schedule_staging", "staging_key", keys, token);
   const sourceByKey = stagingRowByKey(stagingRows);
@@ -517,6 +596,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
   const helperCreated = await ensureStagingHelpers(baseId, token, sourceRows);
   const [
     showRows,
+    focusShowRows,
     classRows,
     ringDayRows,
     ringRows,
@@ -524,6 +604,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
     showDayRows
   ] = await Promise.all([
     airtableList(baseId, "shows", `{show_no}=${Number(showNo)}`, token),
+    airtableListFocusShowRows(baseId, token, showNo, focusDay),
     airtableList(baseId, "classes", "", token),
     airtableList(baseId, "ring_days", "", token),
     airtableList(baseId, "rings", "", token),
@@ -532,6 +613,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
   ]);
   const helpers = {
     shows: indexBy(showRows, "show_no"),
+    focus_show: focusShowRows?.[0]?.record_id || "",
     classes: indexBy(classRows, "class_no"),
     ring_days: indexBy(ringDayRows, "ring_day_no"),
     rings: indexBy(ringRows, "ring_no"),
@@ -540,6 +622,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
   };
   const missing = {
     shows: 0,
+    focus_show: 0,
     classes: 0,
     ring_days: 0,
     rings: 0,
@@ -552,11 +635,13 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
     if (!source) continue;
     const expectedKey = updateScheduleKey(
       source[STAGING_FIELDS.show_no],
+      source[STAGING_FIELDS.ring_day_no],
       source[STAGING_FIELDS.ring_no],
       source[STAGING_FIELDS.event_id],
       source[STAGING_FIELDS.class_no]
     );
     const showId = helpers.shows.get(text(source[STAGING_FIELDS.show_no]));
+    const focusShowId = helpers.focus_show;
     const classNo = Number(source[STAGING_FIELDS.class_no]);
     const expectsClass = Number.isFinite(classNo) && classNo > 0;
     const classId = expectsClass ? helpers.classes.get(text(source[STAGING_FIELDS.class_no])) : "";
@@ -565,6 +650,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
     const eventId = helpers.events.get(text(source[STAGING_FIELDS.event_id]));
     const showDayId = helpers.show_days.get(showDayKey(source[STAGING_FIELDS.iso_date]));
     if (!showId) missing.shows += 1;
+    if (!focusShowId) missing.focus_show += 1;
     if (expectsClass && !classId) missing.classes += 1;
     if (!ringDayId) missing.ring_days += 1;
     if (!ringId) missing.rings += 1;
@@ -576,6 +662,7 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
         ...(expectedKey && text(record[STAGING_FIELDS.staging_key]) !== expectedKey ? { [STAGING_FIELDS.staging_key]: expectedKey } : {}),
         ...(expectedKey && text(record[STAGING_FIELDS.source_key]) !== expectedKey ? { [STAGING_FIELDS.source_key]: expectedKey } : {}),
         ...(showId ? { [STAGING_FIELDS.shows]: [showId] } : {}),
+        ...(focusShowId ? { [STAGING_FIELDS.focus_show]: [focusShowId] } : {}),
         ...(classId ? { [STAGING_FIELDS.classes]: [classId] } : {}),
         ...(ringDayId ? { [STAGING_FIELDS.ring_days]: [ringDayId] } : {}),
         ...(ringId ? { [STAGING_FIELDS.rings]: [ringId] } : {}),
@@ -591,16 +678,20 @@ async function linkLockedStagingRows(baseId, token, showNo, stagingRows) {
     .filter(Boolean);
   const lockedKeySet = new Set(lockedSources.map((source) => updateScheduleKey(
     source[STAGING_FIELDS.show_no],
+    source[STAGING_FIELDS.ring_day_no],
     source[STAGING_FIELDS.ring_no],
     source[STAGING_FIELDS.event_id],
     source[STAGING_FIELDS.class_no]
   )).filter(Boolean));
+  const fullLock = summarizeFullLock(stagingRecords);
   return {
     staged_records: stagingRecords.length,
     locked: stagingRecords.filter((record) => truthy(record[STAGING_FIELDS.lock])).length,
     target: lockedSources.length,
     linked: result.length,
-    paused: lockedSources.length === 0,
+    full_lock_count: fullLock.full_lock_count,
+    pause_downstream: fullLock.pause_downstream,
+    paused: fullLock.pause_downstream,
     missing,
     helper_created: helperCreated,
     locked_keys: [...lockedKeySet]
@@ -665,45 +756,27 @@ function selectBatch(rows, now, batchSize, windowMinutes, slotIndexInput) {
   };
 }
 
+function requestedRingDayNos(query, body) {
+  const raw = text(query.get("ring_day_no") || body.ring_day_no || query.get("ring_day_nos") || body.ring_day_nos);
+  if (!raw) return new Set();
+  return new Set(raw.split(",").map((value) => Number(text(value))).filter((value) => Number.isFinite(value) && value > 0));
+}
+
 async function fetchRaw(syncUrl, showNo, ringDayNo) {
   const probeParts = String(syncUrl || "").split("|");
   const probeMode = probeParts.includes("bootstrap-probe");
-  const htmlHeaders = {
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "accept-encoding": "identity",
-    "accept-language": "en-US,en;q=0.9",
-    "connection": "close",
-    "referer": `${HORSESHOWING_BASE_URL}/showsel.php`,
-    "user-agent": "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36",
-    "cookie": `HscomShowNo=${showNo}`
-  };
-  const showResponse = await requestText(`${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`, {
-    method: "GET",
-    headers: htmlHeaders
-  });
-  let cookie = mergeCookies(`HscomShowNo=${showNo}`, setCookieValues(showResponse));
-  const scheduleResponse = await requestText(`${HORSESHOWING_BASE_URL}/schedule.php`, {
-    method: "GET",
-    headers: {
-      ...htmlHeaders,
-      "referer": `${HORSESHOWING_BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`,
-      "cookie": cookie
-    }
-  });
-  cookie = mergeCookies(cookie, setCookieValues(scheduleResponse));
+  const cookie = `HscomShowNo=${showNo}`;
   if (probeMode) {
     return {
       ok: true,
       source: "bootstrap-probe",
       responses: [{
-        status: scheduleResponse.status,
-        content_type: scheduleResponse.headers.get("content-type"),
+        status: 200,
+        content_type: "application/json",
         raw: JSON.stringify({
-          show_status: showResponse.status,
-          schedule_status: scheduleResponse.status,
-          show_set_cookie_count: setCookieValues(showResponse).length,
-          schedule_set_cookie_count: setCookieValues(scheduleResponse).length,
-          cookie_names: cookie.split(";").map((part) => part.trim().split("=")[0]).filter(Boolean)
+          bootstrap_skipped: true,
+          reason: "update_schedule.php accepts direct POST with HscomShowNo cookie",
+          cookie_names: ["HscomShowNo"]
         })
       }]
     };
@@ -748,21 +821,16 @@ async function fetchRaw(syncUrl, showNo, ringDayNo) {
 }
 
 async function requestText(url, options = {}) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
-  try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } catch {
-    const { signal, ...fallbackOptions } = options;
-    return requestTextViaHttps(url, fallbackOptions);
-  } finally {
-    clearTimeout(timeout);
-  }
+  return requestTextViaHttps(url, options);
 }
 
 function requestTextViaHttps(url, options) {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
+    const headers = { ...(options.headers || {}) };
+    if (options.body && !headers["content-length"] && !headers["Content-Length"]) {
+      headers["content-length"] = Buffer.byteLength(String(options.body));
+    }
     const req = https.request({
       protocol: parsed.protocol,
       method: options.method || "GET",
@@ -771,7 +839,7 @@ function requestTextViaHttps(url, options) {
       path: `${parsed.pathname}${parsed.search}`,
       family: 4,
       timeout: UPSTREAM_TIMEOUT_MS,
-      headers: options.headers || {}
+      headers
     }, (res) => {
       let raw = "";
       res.setEncoding("utf8");
@@ -879,10 +947,15 @@ function displayTime(value) {
   return `${hour}:${minute}${match[3].toUpperCase()}`;
 }
 
-function updateScheduleKey(showNo, ringNo, eventId, classNo) {
-  const parts = [showNo, ringNo, eventId, classNo].map((value) => text(value));
+function classPayout(label) {
+  const match = htmlDecode(label).match(/\$[\d,]+/);
+  return match ? match[0] : "";
+}
+
+function updateScheduleKey(showNo, ringDayNo, ringNo, eventId, classNo) {
+  const parts = [showNo, ringDayNo, ringNo, eventId, classNo].map((value) => text(value));
   if (parts.some((part) => !part)) {
-    throw new Error(`Cannot form update_schedule key from show_no|ring_no|event_id|class_no: ${parts.join("|")}`);
+    throw new Error(`Cannot form update_schedule key from show_no|ring_day_no|ring_no|event_id|class_no: ${parts.join("|")}`);
   }
   return parts.join("|");
 }
@@ -897,7 +970,7 @@ function parseUpdateScheduleRaw(raw, context) {
     const classNoRaw = readAttr(tag, "data-class");
     const classNo = classNoRaw === "" ? null : Number(classNoRaw);
     const eventName = readAttr(tag, "data-name");
-    const key = updateScheduleKey(context.show_no, context.ring_no, eventId, classNo);
+    const key = updateScheduleKey(context.show_no, context.ring_day_no, context.ring_no, eventId, classNo);
     const row = {
       [STAGING_FIELDS.staging_key]: key,
       [STAGING_FIELDS.show_no]: Number(context.show_no),
@@ -918,7 +991,8 @@ function parseUpdateScheduleRaw(raw, context) {
       [STAGING_FIELDS.review_status]: "new",
       [STAGING_FIELDS.source_key]: key,
       [STAGING_FIELDS.source]: "update_schedule.php",
-      [STAGING_FIELDS.inactive]: false
+      [STAGING_FIELDS.inactive]: false,
+      [STAGING_FIELDS.last_run_time]: new Date().toISOString()
     };
     rows.push(row);
   }
@@ -947,35 +1021,112 @@ function stagingToUpdateScheduleRows(stagingRows) {
   }));
 }
 
-function stagingToClassStartRows(stagingRows, syncedAt) {
-  return stagingRows
-    .filter((row) => Number(row[STAGING_FIELDS.class_no]) > 0)
-    .map((row) => {
-      const focusDay = row[STAGING_FIELDS.iso_date];
-      const key = updateScheduleKey(
-        row[STAGING_FIELDS.show_no],
-        row[STAGING_FIELDS.ring_no],
-        row[STAGING_FIELDS.event_id],
-        row[STAGING_FIELDS.class_no]
-      );
-      return {
-        [CLASS_START_FIELDS.class_start_key]: key,
-        [CLASS_START_FIELDS.class_start_key_mirror]: key,
-        [CLASS_START_FIELDS.show_no]: row[STAGING_FIELDS.show_no],
-        [CLASS_START_FIELDS.focus_day]: focusDay,
-        [CLASS_START_FIELDS.ring_no]: row[STAGING_FIELDS.ring_no],
-        [CLASS_START_FIELDS.ring_day_no]: String(row[STAGING_FIELDS.ring_day_no]),
-        [CLASS_START_FIELDS.class_no]: row[STAGING_FIELDS.class_no],
-        [CLASS_START_FIELDS.class_number]: classNumber(row[STAGING_FIELDS.event_name]),
-        [CLASS_START_FIELDS.class_name]: row[STAGING_FIELDS.class_name],
-        [CLASS_START_FIELDS.class_start_time]: normalizeTime(row[STAGING_FIELDS.time_text]),
-        [CLASS_START_FIELDS.display_time]: displayTime(row[STAGING_FIELDS.time_text]),
-        [CLASS_START_FIELDS.entry_count]: row[STAGING_FIELDS.entry_count],
-        [CLASS_START_FIELDS.source]: "update_schedule.php",
-        [CLASS_START_FIELDS.last_synced_at]: syncedAt,
-        [CLASS_START_FIELDS.status]: row[STAGING_FIELDS.time_text] ? "upcoming" : "check_time"
-      };
+function stagingToCatalystUpdateScheduleRows(stagingRows) {
+  return stagingRows.map((row) => {
+    const timeText = row[STAGING_FIELDS.time_text];
+    const eventName = row[STAGING_FIELDS.event_name];
+    return cleanRow({
+      update_schedule_key: row[STAGING_FIELDS.staging_key],
+      show_no: row[STAGING_FIELDS.show_no],
+      ring_day_no: row[STAGING_FIELDS.ring_day_no],
+      ring_no: row[STAGING_FIELDS.ring_no],
+      ring_name: row[STAGING_FIELDS.ring_name],
+      date_text: row[STAGING_FIELDS.date_text],
+      class_no: row[STAGING_FIELDS.class_no],
+      event_id: row[STAGING_FIELDS.event_id],
+      event_name: eventName,
+      class_number: classNumber(eventName),
+      class_payout: classPayout(eventName),
+      class_name: row[STAGING_FIELDS.class_name],
+      time_text: timeText,
+      class_start_time: normalizeTime(timeText),
+      focus_day: row[STAGING_FIELDS.iso_date],
+      iso_date: row[STAGING_FIELDS.iso_date],
+      entry_count: row[STAGING_FIELDS.entry_count],
+      event_type: row[STAGING_FIELDS.event_type],
+      oc_id: row[STAGING_FIELDS.oc_id],
+      live_flag: row[STAGING_FIELDS.live_flag],
+      source_endpoint: "update_schedule.php",
+      source_payload: JSON.stringify({
+        update_schedule_key: row[STAGING_FIELDS.staging_key],
+        show_no: row[STAGING_FIELDS.show_no],
+        ring_day_no: row[STAGING_FIELDS.ring_day_no],
+        ring_no: row[STAGING_FIELDS.ring_no],
+        class_no: row[STAGING_FIELDS.class_no],
+        event_id: row[STAGING_FIELDS.event_id],
+        event_name: eventName,
+        time_text: timeText
+      })
     });
+  });
+}
+
+async function getCatalystUpdateScheduleRows(app, showNo, ringDayNo) {
+  const rows = [];
+  for (let offset = 0; ; offset += 200) {
+    const query = [
+      "SELECT ROWID, update_schedule_key, show_no, ring_day_no, ring_no, ring_name, date_text, class_no, event_id, event_name, class_number, class_payout, class_name, time_text, class_start_time, focus_day, iso_date, entry_count, event_type, oc_id, live_flag, source_endpoint, source_payload",
+      `FROM ${TABLE_CATALYST_UPDATE_SCHEDULE}`,
+      `WHERE show_no = ${zcqlValue(Number(showNo))} AND ring_day_no = ${zcqlValue(Number(ringDayNo))}`,
+      `LIMIT 200 OFFSET ${offset}`
+    ].join(" ");
+    const page = (await app.zcql().executeZCQLQuery(query) || [])
+      .map((item) => item?.[TABLE_CATALYST_UPDATE_SCHEDULE])
+      .filter(Boolean);
+    rows.push(...page);
+    if (page.length < 200) break;
+  }
+  return rows;
+}
+
+async function syncCatalystUpdateSchedule(app, showNo, ringDayNo, stagingRows) {
+  const existing = new Map((await getCatalystUpdateScheduleRows(app, showNo, ringDayNo))
+    .map((row) => [text(row.update_schedule_key), row]));
+  const incoming = stagingToCatalystUpdateScheduleRows(stagingRows);
+  const activeKeys = new Set(incoming.map((row) => text(row.update_schedule_key)));
+  const inserts = [];
+  const updates = [];
+  const deletes = [];
+
+  for (const row of incoming) {
+    const current = existing.get(text(row.update_schedule_key));
+    if (!current?.ROWID) {
+      inserts.push(row);
+      continue;
+    }
+    const { update_schedule_key, show_no, ring_day_no, ...mutable } = row;
+    if (rowChanged(current, mutable)) updates.push({ ...mutable, ROWID: current.ROWID });
+  }
+  for (const [key, current] of existing.entries()) {
+    if (!activeKeys.has(key) && current.ROWID) deletes.push(current.ROWID);
+  }
+
+  const table = app.datastore().table(TABLE_CATALYST_UPDATE_SCHEDULE);
+  let inserted = 0;
+  let updated = 0;
+  let deleted = 0;
+  for (let i = 0; i < inserts.length; i += 100) {
+    const batch = inserts.slice(i, i + 100);
+    if (batch.length) {
+      await table.insertRows(batch);
+      inserted += batch.length;
+    }
+  }
+  for (let i = 0; i < updates.length; i += 100) {
+    const batch = updates.slice(i, i + 100);
+    if (batch.length) {
+      await table.updateRows(batch);
+      updated += batch.length;
+    }
+  }
+  for (let i = 0; i < deletes.length; i += 100) {
+    const batch = deletes.slice(i, i + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return { existing: existing.size, incoming: incoming.length, inserted, updated, deleted };
 }
 
 async function handle(req, res) {
@@ -988,6 +1139,7 @@ async function handle(req, res) {
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
     const token = text(body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_WEC_TOKEN);
     if (!token) return sendJson(res, 500, { ok: false, error: "missing AIRTABLE_TOKEN fallback" });
+    const app = catalyst.initialize(req);
 
     const focusDay = await getFocusDay(baseId, showNo, token, query.get("focus_day") || body.focus_day);
     const action = text(query.get("action") || body.action);
@@ -995,25 +1147,78 @@ async function handle(req, res) {
       const reset = await resetFocusUpdateSchedule(baseId, token, showNo, focusDay);
       return sendJson(res, 200, { ok: true, action, ...reset });
     }
+    if (action === "link-update-schedule-staging-misses") {
+      const runTime = new Date().toISOString();
+      const stagingFocusRows = await airtableListStagingFocusRows(baseId, token, showNo, focusDay);
+      const before = summarizeStagingLinkMisses(stagingFocusRows);
+      const beforeFullLock = summarizeFullLock(stagingFocusRows);
+      const missRows = stagingFocusRows.filter((row) => Object.values(stagingLinkMisses(row)).some(Boolean));
+      const linkResult = missRows.length
+        ? await linkLockedStagingRows(baseId, token, showNo, focusDay, missRows)
+        : {
+          staged_records: stagingFocusRows.length,
+          locked: stagingFocusRows.filter((row) => truthy(row[STAGING_FIELDS.lock])).length,
+          target: beforeFullLock.full_lock_count,
+          linked: 0,
+          full_lock_count: beforeFullLock.full_lock_count,
+          pause_downstream: beforeFullLock.pause_downstream,
+          paused: beforeFullLock.pause_downstream,
+          missing: before.missing,
+          helper_created: {},
+          locked_keys: []
+        };
+      const lastRunUpdated = await stampStagingLastRun(baseId, token, stagingFocusRows, runTime);
+      const afterRows = await airtableListStagingFocusRows(baseId, token, showNo, focusDay);
+      const after = summarizeStagingLinkMisses(afterRows);
+      const fullLock = summarizeFullLock(afterRows);
+      const focusShowRows = await airtableListFocusShowRows(baseId, token, showNo, focusDay);
+      const focusShowFullLockCount = await writeFocusShowFullLockCount(baseId, token, focusShowRows, fullLock.full_lock_count);
+      return sendJson(res, 200, {
+        ok: true,
+        action,
+        show_no: Number(showNo),
+        focus_day: focusDay,
+        last_run_time: runTime,
+        scanned: stagingFocusRows.length,
+        misses_seen: before.rows_with_any_link_miss,
+        last_run_time_updated: lastRunUpdated,
+        link_result: linkResult,
+        before_full_lock: beforeFullLock,
+        full_lock: fullLock,
+        focus_show_full_lock_count: focusShowFullLockCount,
+        after
+      });
+    }
 
-    const batchSize = Math.max(1, asNumber(query.get("batch_size") || body.batch_size, 1));
+    const rawProbe = text(query.get("probe") || body.probe);
+    const requestedBatchSize = Math.max(1, asNumber(query.get("batch_size") || body.batch_size, 1));
+    const batchSize = rawProbe === "batch" ? requestedBatchSize : 1;
     const windowMinutes = Math.max(1, asNumber(query.get("window_minutes") || body.window_minutes, 60));
     const ringDays = await airtableList(baseId, "get_ring_days", `{show_no}=${Number(showNo)}`, token);
+    const requestedRingDays = requestedRingDayNos(query, body);
     const eligible = ringDays
-      .filter((row) => yyyymmddToIso(row.ISO || row.YYYYMMDD) >= focusDay)
+      .filter((row) => requestedRingDays.size
+        ? requestedRingDays.has(Number(row.ring_day_no))
+        : yyyymmddToIso(row.ISO || row.YYYYMMDD) === focusDay)
       .sort((a, b) =>
         yyyymmddToIso(a.ISO || a.YYYYMMDD).localeCompare(yyyymmddToIso(b.ISO || b.YYYYMMDD)) ||
         Number(a.ring_no || 0) - Number(b.ring_no || 0) ||
         Number(a.ring_day_no || 0) - Number(b.ring_day_no || 0)
       );
+    if (requestedRingDays.size && eligible.length !== requestedRingDays.size) {
+      const found = new Set(eligible.map((row) => Number(row.ring_day_no)));
+      const missing = [...requestedRingDays].filter((ringDayNo) => !found.has(ringDayNo));
+      throw new Error(`Requested ring_day_no not found in get_ring_days for show_no=${showNo}: ${missing.join(",")}`);
+    }
 
     const batch = selectBatch(eligible, new Date(), batchSize, windowMinutes, query.get("slot_index") || body.slot_index);
-    if (query.get("probe") === "batch" || body.probe === "batch") {
+    if (rawProbe === "batch") {
       return sendJson(res, 200, {
         ok: true,
         probe: "batch",
         show_no: Number(showNo),
         focus_day: focusDay,
+        selection_source: requestedRingDays.size ? "request.ring_day_no" : "focus_day",
         total_get_ring_days: ringDays.length,
         eligible_not_past_focus_day: eligible.length,
         selected_count: batch.selected.length,
@@ -1027,8 +1232,6 @@ async function handle(req, res) {
       });
     }
     const syncUrl = text(process.env.HORSESHOWING_SYNC_URL || body.sync_url || query.get("sync_url") || DEFAULT_SYNC_URL);
-    const rawProbe = query.get("probe") || body.probe;
-    const shouldMarkFocusState = query.get("mark_focus_state") === "1" || body.mark_focus_state === "1";
     let focus_state = { skipped: true };
     const raw_results = [];
     const log_results = [];
@@ -1099,10 +1302,11 @@ async function handle(req, res) {
         });
         continue;
       }
-      if (shouldMarkFocusState && focus_state.skipped) {
+      if (focus_state.skipped) {
         focus_state = await markStagingFocusState(baseId, token, showNo, focusDay);
       }
       const reconcileResult = await reconcileBlockRows(baseId, token, showNo, row.ring_day_no, stagingRows);
+      const catalystResult = await syncCatalystUpdateSchedule(app, showNo, row.ring_day_no, stagingRows);
       const updateScheduleRecords = await airtableUpsert(
         baseId,
         TABLE_UPDATE_SCHEDULE,
@@ -1111,7 +1315,7 @@ async function handle(req, res) {
         token
       );
       const stagingFocusRows = await airtableListStagingFocusRows(baseId, token, showNo, focusDay);
-      const stagingLinkResult = await linkLockedStagingRows(baseId, token, showNo, stagingFocusRows);
+      const stagingLinkResult = await linkLockedStagingRows(baseId, token, showNo, focusDay, stagingFocusRows);
       if (query.get("probe") === "update-write" || body.probe === "update-write") {
         log_results.push({
           ring_day_no: row.ring_day_no,
@@ -1119,6 +1323,7 @@ async function handle(req, res) {
           rekey: rekeyResult,
           staging_records: stagingRecords.length,
           reconcile: reconcileResult,
+          catalyst: catalystResult,
           update_schedule_records: updateScheduleRecords.length,
           staging_links: stagingLinkResult
         });
@@ -1132,35 +1337,9 @@ async function handle(req, res) {
           rekey: rekeyResult,
           staging_records: stagingRecords.length,
           reconcile: reconcileResult,
+          catalyst: catalystResult,
           update_schedule_records: updateScheduleRecords.length,
-          class_start_records: 0,
           paused: "paused_no_locked_staging",
-          staging_links: stagingLinkResult
-        });
-        continue;
-      }
-      const syncedAt = new Date().toISOString();
-      const lockedKeys = new Set(stagingLinkResult.locked_keys || []);
-      const classStartRows = stagingToClassStartRows(
-        stagingRows.filter((stagingRow) => lockedKeys.has(text(stagingRow[STAGING_FIELDS.staging_key]))),
-        syncedAt
-      );
-      const classStartRecords = await airtableUpsert(
-        baseId,
-        TABLE_CLASS_START_TIMES,
-        CLASS_START_FIELDS.class_start_key,
-        classStartRows,
-        token
-      );
-      if (query.get("probe") === "class-start-write" || body.probe === "class-start-write") {
-        log_results.push({
-          ring_day_no: row.ring_day_no,
-          staging_rows: stagingRows.length,
-          rekey: rekeyResult,
-          staging_records: stagingRecords.length,
-          reconcile: reconcileResult,
-          update_schedule_records: updateScheduleRecords.length,
-          class_start_records: classStartRecords.length,
           staging_links: stagingLinkResult
         });
         continue;
@@ -1172,11 +1351,16 @@ async function handle(req, res) {
         rekey: rekeyResult,
         staging_records: stagingRecords.length,
         reconcile: reconcileResult,
+        catalyst: catalystResult,
         update_schedule_records: updateScheduleRecords.length,
-        class_start_records: classStartRecords.length,
         staging_links: stagingLinkResult
       });
     }
+
+    const finalStagingFocusRows = await airtableListStagingFocusRows(baseId, token, showNo, focusDay);
+    const fullLock = summarizeFullLock(finalStagingFocusRows);
+    const focusShowRows = await airtableListFocusShowRows(baseId, token, showNo, focusDay);
+    const focusShowFullLockCount = await writeFocusShowFullLockCount(baseId, token, focusShowRows, fullLock.full_lock_count);
 
     return sendJson(res, 200, {
       ok: true,
@@ -1184,6 +1368,7 @@ async function handle(req, res) {
       target: "horseshowing_sync.fetch-update-schedule-raw",
       show_no: Number(showNo),
       focus_day: focusDay,
+      selection_source: requestedRingDays.size ? "request.ring_day_no" : "focus_day",
       total_get_ring_days: ringDays.length,
       eligible_not_past_focus_day: eligible.length,
       batch_size: batchSize,
@@ -1194,6 +1379,8 @@ async function handle(req, res) {
       selected_count: batch.selected.length,
       selected_ring_day_no: batch.selected.map((row) => row.ring_day_no),
       focus_state,
+      full_lock: fullLock,
+      focus_show_full_lock_count: focusShowFullLockCount,
       log_results,
       raw_results
     });

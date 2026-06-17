@@ -3,6 +3,7 @@ const catalyst = require("zcatalyst-sdk-node");
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const TABLE_CLASS_START_TIMES = "hs_class_start_times";
 const TABLE_AIRTABLE_CLASS_START_TIMES = "tblgOxoLf6r3xGWxB";
+const VIEW_UPDATE_SCHEDULE_STAGING_LOCK_SCHEDULE = "lock_schedule";
 const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
 
 const AIRTABLE_TABLES = {
@@ -201,8 +202,8 @@ function cleanRow(row) {
   return clean;
 }
 
-function updateScheduleKey(showNo, ringNo, eventId, classNo) {
-  const parts = [showNo, ringNo, eventId, classNo].map((value) => text(value));
+function updateScheduleKey(showNo, ringDayNo, ringNo, eventId, classNo) {
+  const parts = [showNo, ringDayNo, ringNo, eventId, classNo].map((value) => text(value));
   if (parts.some((part) => !part)) return "";
   return parts.join("|");
 }
@@ -211,12 +212,13 @@ function rowChanged(existing, row) {
   return Object.entries(row).some(([key, value]) => text(existing[key]) !== text(value));
 }
 
-async function airtableList(baseId, tableName, formula, token) {
+async function airtableList(baseId, tableName, formula, token, options = {}) {
   const records = [];
   let offset = "";
   do {
     const url = new URL(`https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`);
     url.searchParams.set("pageSize", "100");
+    if (options.view) url.searchParams.set("view", options.view);
     if (formula) url.searchParams.set("filterByFormula", formula);
     if (offset) url.searchParams.set("offset", offset);
     const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
@@ -378,16 +380,21 @@ async function buildLinkMaps(baseId, showNo, focusShow, rows, token) {
 }
 
 async function getLockedStagingRows(baseId, showNo, focusDay, token) {
-  const formula = `AND({show_no}=${Number(showNo)},{lock}=1,{class_no}>0,IS_SAME({iso_date},DATETIME_PARSE(${airtableValue(focusDay)}),'day'))`;
-  const rows = await airtableList(baseId, "update_schedule_staging", formula, token);
+  const rows = await airtableList(baseId, "update_schedule_staging", "", token, { view: VIEW_UPDATE_SCHEDULE_STAGING_LOCK_SCHEDULE });
   const byKey = new Map();
   for (const row of rows) {
+    if (Number(row.show_no) !== Number(showNo) || yyyymmddToIso(row.iso_date) !== focusDay) {
+      throw new Error(`lock_schedule row outside active show/focus_day: record=${row.record_id} show_no=${row.show_no} iso_date=${row.iso_date}`);
+    }
     const classNo = intOrNull(row.class_no);
     const ringNo = intOrNull(row.ring_no);
     const eventId = intOrNull(row.event_id);
-    if (!classNo || !ringNo || !eventId) continue;
-    const key = updateScheduleKey(showNo, ringNo, eventId, classNo);
-    if (!key) continue;
+    if (!classNo || !ringNo || !eventId) {
+      throw new Error(`lock_schedule row missing key field: record=${row.record_id} class_no=${row.class_no} ring_no=${row.ring_no} event_id=${row.event_id}`);
+    }
+    const key = updateScheduleKey(showNo, row.ring_day_no, ringNo, eventId, classNo);
+    if (!key) throw new Error(`lock_schedule row cannot form class_start key: record=${row.record_id}`);
+    if (byKey.has(key)) throw new Error(`lock_schedule duplicate class_start key: ${key}`);
     byKey.set(key, row);
   }
   return [...byKey.entries()]
@@ -416,7 +423,7 @@ function buildClassStartRows(stagingPairs, showNo, focusDay, syncedAt) {
       class_start_time: time,
       display_time: displayTime(row.time_text),
       entry_count: intOrNull(row.entry_count) || 0,
-      source: "update_schedule_staging",
+      source: "update_schedule_staging.lock_schedule",
       source_endpoint: "update_schedule.php",
       last_synced_at: syncedAt,
       status: time ? "upcoming" : "check_time"
@@ -667,7 +674,7 @@ async function handle(req, res) {
       && verifyAirtableResult.missing_required_links === 0;
     const detail = {
       ok,
-      source: "update_schedule_staging.locked",
+      source: "update_schedule_staging.lock_schedule",
       target_catalyst: TABLE_CLASS_START_TIMES,
       target_airtable: "class_start_times",
       show_no: Number(showNo),

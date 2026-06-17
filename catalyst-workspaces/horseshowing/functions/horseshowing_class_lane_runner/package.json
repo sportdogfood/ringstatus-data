@@ -1,9 +1,12 @@
 {
-  "name": "horseshowing_update_schedule_runner",
+  "name": "horseshowing_class_lane_runner",
   "version": "0.1.0",
   "main": "index.js",
   "author": "philip@sportdogfood.com",
   "dependencies": {
     "zcatalyst-sdk-node": "^2.5.1"
+  },
+  "scripts": {
+    "test": "node --test lane_core.test.js"
   }
 }

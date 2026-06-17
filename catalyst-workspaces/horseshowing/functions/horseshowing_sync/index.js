@@ -345,9 +345,6 @@ function requestTextViaHttps(url, { method = "GET", headers = {}, body, signal }
 }
 
 async function requestText(url, options = {}) {
-  if (new URL(url).hostname === new URL(BASE_URL).hostname) {
-    return requestTextViaHttps(url, options);
-  }
   try {
     return await fetch(url, options);
   } catch (error) {
@@ -363,19 +360,41 @@ async function bootstrapCookie(req, showNo, context) {
   if (!showNo) return "";
   if (context?.cookie && /PHPSESSID=/i.test(context.cookie)) return context.cookie;
   let cookie = `HscomShowNo=${showNo}`;
+  const showUrl = `${BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`;
   try {
-    const response = await requestText(`${BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`, {
+    const response = await requestText(showUrl, {
       method: "GET",
       headers: {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "accept-language": "en-US,en;q=0.9",
         "referer": `${BASE_URL}/showsel.php`,
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "same-origin",
+        "upgrade-insecure-requests": "1",
         "user-agent": getHeader(req, "user-agent") || DEFAULT_USER_AGENT,
         cookie
       }
     });
     if (response.ok) {
       cookie = mergeCookies(cookie, getSetCookies(response.headers));
+    }
+    const scheduleResponse = await requestText(`${BASE_URL}/schedule.php`, {
+      method: "GET",
+      headers: {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-language": "en-US,en;q=0.9",
+        "referer": showUrl,
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "same-origin",
+        "upgrade-insecure-requests": "1",
+        "user-agent": getHeader(req, "user-agent") || DEFAULT_USER_AGENT,
+        cookie
+      }
+    });
+    if (scheduleResponse.ok) {
+      cookie = mergeCookies(cookie, getSetCookies(scheduleResponse.headers));
     }
   } catch (error) {
     // Fall back to HscomShowNo; upstream will report the real failure if a session is required.
@@ -390,6 +409,9 @@ async function upstream(req, path, { method = "GET", showNo, body, context } = {
     "accept-language": "en-US,en;q=0.9",
     "origin": BASE_URL,
     "referer": `${BASE_URL}/schedule.php`,
+    "sec-fetch-dest": method === "POST" ? "empty" : "document",
+    "sec-fetch-mode": method === "POST" ? "cors" : "navigate",
+    "sec-fetch-site": "same-origin",
     "user-agent": getHeader(req, "user-agent") || DEFAULT_USER_AGENT,
     "x-requested-with": method === "POST" ? "XMLHttpRequest" : ""
   };
@@ -2116,7 +2138,8 @@ function normalizeClassStartTime(value) {
 async function getLockedStagingSchedule(showNo, focusDay, { limit = 300, offset = 0 } = {}) {
   const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
   const records = await airtableListRecords("update_schedule_staging", {
-    filterByFormula: `AND({show_no}=${showValue},{lock}=1,{class_no}>0,IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
+    view: "lock_schedule",
+    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
   });
   const rows = records
     .map((record) => {
@@ -2141,6 +2164,7 @@ async function getLockedStagingSchedule(showNo, focusDay, { limit = 300, offset 
         class_start_time: classStartTime,
         display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
         entry_count: intOrNull(fields.entry_count),
+        manual_group: fieldText(fields, ["manual_grpup", "manual_group"]),
         manual_horse_ids: linkedRecordIds(fields.horses),
         manual_instructions: fieldText(fields, ["manual-instructions", "manual_instructions", "manual instructions"]),
         source: "update_schedule_staging.locked",
@@ -2725,7 +2749,7 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
       const classRow = classesByNo.get(String(row.class_no)) || {};
       const liveRow = liveByClass.get(String(row.class_no)) || {};
       const classNumber = classNumberFromLabel(classRow) || text(scheduleRow.class_number);
-      const className = classDisplayFromLabel(classRow, scheduleRow.class_name);
+      const className = text(scheduleRow.manual_group) || classDisplayFromLabel(classRow, scheduleRow.class_name);
       const entries = entryGoTimesByClass.get(`${text(row.ring_day_no)}|${text(row.class_no)}`) || [];
       const manualTrainerRollups = manualTrainerRollupsForHorseIds(row.manual_horse_ids, manualHorseDisplaysById, meta);
       const trainerRollups = manualTrainerRollups.length ? manualTrainerRollups : trainerRollupsForEntries(entries, meta);

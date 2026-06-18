@@ -1,11 +1,36 @@
 #!/usr/bin/env node
 
 const { execFileSync } = require("node:child_process");
+const fs = require("node:fs");
 const path = require("node:path");
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const DEFAULT_SYNC_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/";
 const FOCUS_SHOW_TABLE = "focus_show";
+const LOG_DIR = path.join(__dirname, "logs");
+const RUN_LOG_PATH = path.join(LOG_DIR, "sync_focus_update_schedule_to_staging.log");
+const LAST_SUCCESS_PATH = path.join(LOG_DIR, "sync_focus_update_schedule_to_staging.last_success.json");
+
+function appendRunLog(status, details = {}) {
+  fs.mkdirSync(LOG_DIR, { recursive: true });
+  fs.appendFileSync(
+    RUN_LOG_PATH,
+    `${new Date().toISOString()} ${status} ${JSON.stringify(details)}\n`,
+    "utf8"
+  );
+}
+
+function writeLastSuccess(summary) {
+  fs.mkdirSync(LOG_DIR, { recursive: true });
+  fs.writeFileSync(
+    LAST_SUCCESS_PATH,
+    `${JSON.stringify({
+      ...summary,
+      success_at: new Date().toISOString()
+    }, null, 2)}\n`,
+    "utf8"
+  );
+}
 
 function parseArgs(argv) {
   const args = {};
@@ -187,9 +212,22 @@ async function main() {
     ring_day_nos: results.map((row) => row.ring_day_no)
   };
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+  return summary;
 }
 
-main().catch((error) => {
+appendRunLog("RUN", {
+  action: "sync-focus-update-schedule-to-staging",
+  argv: process.argv.slice(2)
+});
+
+main().then((summary) => {
+  appendRunLog("EXIT", summary);
+  writeLastSuccess(summary);
+}).catch((error) => {
+  appendRunLog("FAIL", {
+    action: "sync-focus-update-schedule-to-staging",
+    message: error.message
+  });
   process.stderr.write(`${error.stack || error.message}\n`);
   process.exitCode = 1;
 });

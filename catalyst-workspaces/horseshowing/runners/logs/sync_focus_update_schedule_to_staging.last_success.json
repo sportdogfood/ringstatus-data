@@ -1,7 +1,37 @@
-﻿{
-    "completed_at":  "2026-06-18T14:12:34.5393123-04:00",
-    "key":  "14907|2026-06-18",
-    "log_path":  "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\logs\\sync_focus_update_schedule_to_staging.log",
-    "focus_day":  "2026-06-18",
-    "show_no":  "14907"
+{
+  "ok": true,
+  "action": "sync-focus-update-schedule-to-staging",
+  "show_no": "14907",
+  "focus_day": "2026-06-18",
+  "ring_day_no_count": 10,
+  "raw_rows_stored": 10,
+  "parse_runs_completed": 10,
+  "hs_update_schedule_rows": 100,
+  "update_schedule_rows": 100,
+  "update_schedule_staging_rows": 100,
+  "parse_wec_log_rec_ids": [
+    "recO2QxTub5o0SV87",
+    "recmxj695TCnJEinJ",
+    "recfCuxm1xWlGMLik",
+    "recuVu8NBqjn0K4F2",
+    "recxywcasaWGqW71b",
+    "recu5HtsHIK3IRv6j",
+    "recdIWUAgbcGz94Nf",
+    "recmpZIbOgWauZzF0",
+    "recdtKxacfF78Layo",
+    "reca5ngLodKHGpF4u"
+  ],
+  "ring_day_nos": [
+    "4225",
+    "3937",
+    "4220",
+    "3943",
+    "3949",
+    "3955",
+    "3961",
+    "4306",
+    "4233",
+    "4301"
+  ],
+  "success_at": "2026-06-18T19:49:55.254Z"
 }

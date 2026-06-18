@@ -85,6 +85,7 @@ function buildClassStartRows(stagingRows) {
       const startTime = normalizeTime(row.time_text || row.time || row.class_start_time);
       const classNumber = numberOrNull(row.class_number) || classNumberFromLabel(label);
       return {
+        record_id: row.record_id,
         class_start_key: row.staging_key || classStartKey(row),
         show_no: numberOrNull(row.show_no),
         focus_day: row.focus_day || row.iso_date || row.focus_date,

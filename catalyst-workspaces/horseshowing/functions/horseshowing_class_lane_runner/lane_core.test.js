@@ -13,6 +13,7 @@ const {
 test("buildClassStartRows admits only full_lock staging rows and preserves class identity", () => {
   const rows = buildClassStartRows([
     {
+      record_id: "rec_locked_31001",
       staging_key: "14907|4224|665|9001|31001",
       show_no: 14907,
       focus_day: "2026-06-17",
@@ -51,6 +52,7 @@ test("buildClassStartRows admits only full_lock staging rows and preserves class
 
   assert.equal(rows.length, 1);
   assert.deepEqual(rows[0], {
+    record_id: "rec_locked_31001",
     class_start_key: "14907|4224|665|9001|31001",
     show_no: 14907,
     focus_day: "2026-06-17",

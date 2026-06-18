@@ -298,7 +298,8 @@ async function handle(req, res) {
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
     const query = parseQuery(req);
     const body = await readBody(req);
-    const showNo = text(query.get("show_no") || body.show_no || "14906");
+    const showNo = text(query.get("show_no") || body.show_no);
+    if (!showNo) return sendJson(res, 400, { ok: false, error: "show_no required" });
     const offset = Math.max(0, asNumber(query.get("counts_offset") || body.counts_offset, 0));
     const limit = Math.max(1, asNumber(query.get("counts_limit") || body.counts_limit, 100));
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);

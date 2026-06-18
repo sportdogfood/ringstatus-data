@@ -665,10 +665,7 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
 
 async function syncClassStartTimes(app, baseId, token, focus) {
   const stagingRows = await readLockedStaging(baseId, token, focus.show_no, focus.focus_day);
-  const classRows = buildClassStartRows(stagingRows).map((row, index) => ({
-    ...row,
-    record_id: stagingRows[index]?.record_id
-  }));
+  const classRows = buildClassStartRows(stagingRows);
   const airtableRows = await buildClassStartAirtableRows(baseId, token, classRows, focus.record_id);
   const airtableUpserts = await airtableUpsert(
     baseId,

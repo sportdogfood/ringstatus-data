@@ -794,7 +794,8 @@ async function handle(req, res) {
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
     query = parseQuery(req);
     body = await readBody(req);
-    const showNo = text(query.get("show_no") || body.show_no || "14907");
+    const showNo = text(query.get("show_no") || body.show_no);
+    if (!showNo) return sendJson(res, 400, { ok: false, error: "show_no required" });
     const focusDayOverride = text(query.get("focus_day") || body.focus_day);
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);

@@ -210,6 +210,7 @@ async function readBody(req) {
 
 function json(res, status, payload) {
   setCors(res);
+  res.statusCode = status;
   res.status?.(status);
   res.setHeader?.("content-type", "application/json; charset=utf-8");
   res.end(JSON.stringify(payload, null, 2));
@@ -217,6 +218,7 @@ function json(res, status, payload) {
 
 function sendText(res, status, body, contentType = "text/plain; charset=utf-8") {
   setCors(res);
+  res.statusCode = status;
   res.status?.(status);
   res.setHeader?.("content-type", contentType);
   res.end(body);
@@ -2071,13 +2073,15 @@ async function getAirtableEntryGoTimesForSchedule(showNo, focusDay, classNos, ac
     const records = await airtableListRecords("entry_go_times", {
       filterByFormula: `AND({show_no}=${showValue},IS_SAME({focus_day},'${String(focusDay).replace(/'/g, "\\'")}','day'))`
     });
-    return entryGoTimesByClassFromRecords(
+    const byClass = entryGoTimesByClassFromRecords(
       records.filter((record) =>
         wanted.has(text(record.fields?.class_no)) &&
         text(record.fields?.status).toLowerCase() !== "inactive"
       ),
       activeTrainers
     );
+    byClass.sourceFetched = true;
+    return byClass;
   } catch {
     return new Map();
   }
@@ -2290,16 +2294,19 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
 
 async function reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, classNos = []) {
   if (process.env.NODE_ENV === "test") return { rows: 0, updated: 0, skipped: 0 };
+  const wantedClassNos = new Set([...new Set(classNos.filter(Boolean).map(String))].slice(0, 250));
   const entryGoTimesByClass = await getAirtableEntryGoTimesForSchedule(showNo, focusDay, classNos, meta.activeTrainers);
-  if (!entryGoTimesByClass.size) return { rows: 0, updated: 0, skipped: 0 };
+  if (!entryGoTimesByClass.size && entryGoTimesByClass.sourceFetched !== true) return { rows: 0, updated: 0, skipped: 0, deleted: 0 };
 
   const table = app.datastore().table(TABLES.entryGoTimes);
   let inserted = 0;
   let updated = 0;
   let skipped = 0;
+  const activeKeys = new Set();
   for (const entries of entryGoTimesByClass.values()) {
     for (const entry of entries) {
       const key = entryGoKey(showNo, focusDay, entry);
+      activeKeys.add(key);
       const classNo = entry.class_no;
       const result = await upsert(app, TABLES.entryGoTimes, { entry_go_key: key }, {
         entry_go_key: key,
@@ -2317,7 +2324,26 @@ async function reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, clas
       else updated += 1;
     }
   }
-  return { rows: [...entryGoTimesByClass.values()].reduce((sum, rows) => sum + rows.length, 0), classes: entryGoTimesByClass.size, inserted, updated, skipped };
+  const existingRows = wantedClassNos.size
+    ? await getRowsByShow(app, TABLES.entryGoTimes, showNo, { limit: 5000 })
+    : [];
+  const staleIds = existingRows
+    .filter((row) =>
+      dateKey(row.focus_day) === text(focusDay) &&
+      wantedClassNos.has(text(row.class_no)) &&
+      !activeKeys.has(text(row.entry_go_key) || entryGoKey(showNo, focusDay, row))
+    )
+    .map((row) => row.ROWID)
+    .filter(Boolean);
+  let deleted = 0;
+  for (let index = 0; index < staleIds.length; index += 100) {
+    const batch = staleIds.slice(index, index + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return { rows: [...entryGoTimesByClass.values()].reduce((sum, rows) => sum + rows.length, 0), classes: entryGoTimesByClass.size, inserted, updated, skipped, deleted };
 }
 
 async function getEntriesForClasses(app, showNo, classNos) {
@@ -3747,6 +3773,78 @@ async function getAirtablePrintLayout(showNo, focusDay) {
   }
 }
 
+function derivePrintLayoutFromScheduleRows(showNo, focusDay, rows) {
+  const safeFocusDay = dateKey(focusDay);
+  const grouped = new Map();
+  for (const row of rows || []) {
+    const ringNo = text(row.ring_number ?? row.ring_no ?? row.ringNo);
+    if (!ringNo) continue;
+    if (!grouped.has(ringNo)) {
+      grouped.set(ringNo, {
+        ring_no: intOrNull(ringNo),
+        ring_name: text(row.ring_name ?? row.ring_display ?? row.ringDisplay),
+        rows: []
+      });
+    }
+    grouped.get(ringNo).rows.push(row);
+  }
+  const rings = [...grouped.values()]
+    .sort((a, b) => Number(a.ring_no || 9999) - Number(b.ring_no || 9999))
+    .map((ring) => {
+      const visibleRollups = ring.rows.filter((row) => text(row.group_display ?? row.rollup)).length;
+      return {
+        ring_group_key: `${showNo}|${safeFocusDay}|${ring.ring_no}`,
+        show_no: intOrNull(showNo),
+        focus_day: safeFocusDay,
+        ring_no: ring.ring_no,
+        ring_name: ring.ring_name,
+        source_rows: ring.rows.length,
+        hidden_rows: 0,
+        visible_classes: ring.rows.length,
+        visible_rollups: visibleRollups,
+        print_rows: 2 + ring.rows.length + visibleRollups,
+        portrait_col: null,
+        landscape_col: null,
+        source: "catalyst.wec-print-live"
+      };
+    });
+
+  const totalPrintRows = rings.reduce((sum, ring) => sum + ring.print_rows, 0);
+  const target = Math.ceil(totalPrintRows / 2);
+  let leftRows = 0;
+  let usingRight = false;
+  for (const ring of rings) {
+    if (!usingRight && leftRows > 0 && leftRows + ring.print_rows > target) usingRight = true;
+    ring.portrait_col = usingRight ? 2 : 1;
+    ring.landscape_col = ring.portrait_col;
+    if (!usingRight) leftRows += ring.print_rows;
+  }
+
+  return {
+    ok: true,
+    source: "catalyst.wec-print-live",
+    show_no: String(showNo),
+    focus_day: safeFocusDay,
+    print_meta: {
+      print_meta_key: `${showNo}|${safeFocusDay}`,
+      ring_group_count: rings.length,
+      visible_classes: rings.reduce((sum, ring) => sum + ring.visible_classes, 0),
+      visible_rollups: rings.reduce((sum, ring) => sum + ring.visible_rollups, 0),
+      total_print_rows: totalPrintRows,
+      portrait_summary: rings.map((ring) => `${ring.ring_name}:${ring.portrait_col}`).join("|"),
+      landscape_summary: rings.map((ring) => `${ring.ring_name}:${ring.landscape_col}`).join("|"),
+      source: "catalyst.wec-print-live"
+    },
+    rings,
+    placement: Object.fromEntries(rings.map((ring) => [String(ring.ring_no), {
+      portrait_col: ring.portrait_col,
+      landscape_col: ring.landscape_col,
+      print_rows: ring.print_rows,
+      ring_name: ring.ring_name
+    }]))
+  };
+}
+
 function splitAliasText(value) {
   return text(value)
     .split(/[,\n|]/)
@@ -5011,12 +5109,15 @@ async function handle(req, res) {
     const earlyRingDayNo = earlyQuery.get("ring_day_no");
     if ((earlyAction === "fetch-update-schedule-raw" || earlyAction === "sync-update-schedule-raw-full") && earlyRingDayNo) {
       const context = createWorkflowContext();
-      const earlyShowNo = earlyQuery.get("show_no") || "14905";
+      const earlyShowNo = earlyQuery.get("show_no");
+      if (!earlyShowNo) return json(res, 400, { ok: false, action: earlyAction, error: "show_no required" });
       const result = await fetchUpdateScheduleRawResponse(req, earlyShowNo, context, earlyRingDayNo);
       return json(res, 200, { ok: true, action: earlyAction, upstream_requests: context.upstreamRequests, ...result });
     }
     if (earlyAction === "probe-horseshowing-egress") {
-      const target = earlyQuery.get("target") || `${BASE_URL}/show.php?show=${encodeURIComponent(earlyQuery.get("show_no") || "14906")}`;
+      const probeShowNo = earlyQuery.get("show_no");
+      const target = earlyQuery.get("target") || (probeShowNo ? `${BASE_URL}/show.php?show=${encodeURIComponent(probeShowNo)}` : "");
+      if (!target) return json(res, 400, { ok: false, action: earlyAction, error: "target or show_no required" });
       const started = Date.now();
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000);
@@ -5051,7 +5152,7 @@ async function handle(req, res) {
     const bearerToken = authHeader.match(/^Bearer\s+(.+)$/i)?.[1] || "";
     runtimeAirtableToken = text(bearerToken || body.airtable_token || query.get("airtable_token") || AIRTABLE_TOKEN_FALLBACK);
     const action = query.get("action") || body.action || "sync-rings";
-    const showNo = query.get("show_no") || body.show_no || "14905";
+    const showNo = text(query.get("show_no") || body.show_no);
     const countsOffset = intOrNull(query.get("counts_offset") || body.counts_offset) || 0;
     const countsLimit = intOrNull(query.get("counts_limit") || body.counts_limit) || 100;
     const daysOffset = intOrNull(query.get("days_offset") || body.days_offset) || 0;
@@ -5069,6 +5170,22 @@ async function handle(req, res) {
 
     if (action === "wec-print-embed-html") {
       return sendText(res, 200, readEmbedAsset("wec-print.html"), "text/html; charset=utf-8");
+    }
+
+    const canResolveActiveFocusShow = new Set([
+      "schedule-json",
+      "wec-print-live",
+      "wec-schedule-live",
+      "reconcile-entry-rollups",
+      "wec-mobile-live",
+      "wec-rich-live",
+      "wec-rich-api",
+      "wec-print-layout",
+      "wec-print-pdf-url",
+      "prebuild-wec-print-pdf"
+    ]);
+    if (!showNo && !canResolveActiveFocusShow.has(action)) {
+      return json(res, 400, { ok: false, action, error: "show_no required" });
     }
 
     if (action === "seed-sample") {
@@ -5521,7 +5638,14 @@ async function handle(req, res) {
       const layoutShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
       const focusDay = resolved.focus_day || airtableFocus?.focus_day;
       if (!focusDay) return json(res, 400, { ok: false, action, error: "wec-print-layout requires focus_day" });
-      return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...(await getAirtablePrintLayout(layoutShowNo, focusDay)) });
+      const airtableLayout = await getAirtablePrintLayout(layoutShowNo, focusDay);
+      if (airtableLayout.ok && Array.isArray(airtableLayout.rings) && airtableLayout.rings.length > 0) {
+        return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...airtableLayout });
+      }
+      const meta = await metaForFocusRender(app, layoutShowNo, focusDay, query, body);
+      const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
+      const rows = await buildScheduleJson(app, layoutShowNo, focusDay, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...derivePrintLayoutFromScheduleRows(layoutShowNo, focusDay, rows) });
     }
 
     if (action === "wec-print-pdf-url") {

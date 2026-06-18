@@ -927,7 +927,8 @@ async function handle(req, res) {
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
     const query = parseQuery(req);
     const body = await readBody(req);
-    const showNo = text(query.get("show_no") || body.show_no || "14906");
+    const showNo = text(query.get("show_no") || body.show_no);
+    if (!showNo) return sendJson(res, 400, { ok: false, error: "show_no required" });
     const focusDayOverride = text(query.get("focus_day") || body.focus_day);
     const ringNo = intOrNull(query.get("ring_no") || body.ring_no);
     const classNos = parseNumberList(query.get("class_nos") || body.class_nos);

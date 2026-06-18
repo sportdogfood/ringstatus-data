@@ -1072,8 +1072,8 @@ async function handle(req, res) {
       const selected = classNos.length
         ? classes.filter((row) => classNos.includes(Number(row.class_no)))
         : classes.slice(offset, offset + limit);
-      phase = "prepare_class_oog_cookie";
-      const cookie = classOogCookie(showNo, phpSessionId);
+      phase = "bootstrap_class_oog_cookie";
+      const cookie = await bootstrapCookie(showNo, phpSessionId);
       const class_results = [];
       const matchedClassNos = [];
       let upstreamRowsTotal = 0;
@@ -1307,8 +1307,8 @@ async function handle(req, res) {
       }
     }
     const selected = classNos.length ? classes : classes.slice(offset, offset + limit);
-    phase = "prepare_class_oog_cookie";
-    const cookie = classOogCookie(showNo, phpSessionId);
+    phase = "bootstrap_class_oog_cookie";
+    const cookie = await bootstrapCookie(showNo, phpSessionId);
     const class_results = [];
     let rowsWritten = 0;
     let catalystInserted = 0;

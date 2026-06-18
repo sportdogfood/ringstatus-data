@@ -185,7 +185,12 @@ function logTypeForAction(action) {
     class_start_times: "class_start_times",
     class_oog_rollups: "core_class_oog",
     get_orders_class_start_enrichment: "get-orders",
-    class_alerts: "class_start_times"
+    class_alerts: "class_start_times",
+    "sync-class-start-times": "class_start_times",
+    "sync-class-oog-rollups": "core_class_oog",
+    "sync-get-orders": "get-orders",
+    "sync-class-alerts": "class_start_times",
+    run: "class_start_times"
   }[action] || action;
 }
 

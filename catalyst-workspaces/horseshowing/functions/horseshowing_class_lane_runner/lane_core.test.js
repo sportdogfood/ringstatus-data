@@ -107,6 +107,10 @@ test("logTypeForAction uses approved WEC log_type options", () => {
   assert.equal(logTypeForAction("class_oog_rollups"), "core_class_oog");
   assert.equal(logTypeForAction("get_orders_class_start_enrichment"), "get-orders");
   assert.equal(logTypeForAction("class_alerts"), "class_start_times");
+  assert.equal(logTypeForAction("sync-class-start-times"), "class_start_times");
+  assert.equal(logTypeForAction("sync-class-oog-rollups"), "core_class_oog");
+  assert.equal(logTypeForAction("sync-get-orders"), "get-orders");
+  assert.equal(logTypeForAction("sync-class-alerts"), "class_start_times");
 });
 
 test("compareKeySets identifies missing and extra keys", () => {

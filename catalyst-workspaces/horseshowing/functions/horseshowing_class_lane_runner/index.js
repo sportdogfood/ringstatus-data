@@ -182,6 +182,19 @@ function shouldPauseAction(action, focus) {
   return action !== "audit" && isFocusPaused(focus);
 }
 
+function pausedLogDetail(action, focus) {
+  return {
+    action,
+    showNo: focus.show_no,
+    focusDay: focus.focus_day,
+    status: "skipped",
+    recordsSeen: 0,
+    recordsChanged: 0,
+    summary: `${action} paused by focus_show.is_pause`,
+    payload: { paused: true, reason: "focus_show.is_pause", focus_show_record_id: focus.record_id }
+  };
+}
+
 function asNumber(value) {
   if (value === null || value === undefined || value === "") return null;
   const num = Number(value);
@@ -947,16 +960,7 @@ async function auditLane(app, baseId, token, focus) {
 
 async function runAction(req, action, app, baseId, token, focus, query, body) {
   if (shouldPauseAction(action, focus)) {
-    await logRun(baseId, token, {
-      action,
-      showNo: focus.show_no,
-      focusDay: focus.focus_day,
-      status: "paused",
-      recordsSeen: 0,
-      recordsChanged: 0,
-      summary: `${action} paused by focus_show.is_pause`,
-      payload: { reason: "focus_show.is_pause", focus_show_record_id: focus.record_id }
-    });
+    await logRun(baseId, token, pausedLogDetail(action, focus));
     return { paused: true, reason: "focus_show.is_pause", focus_show_record_id: focus.record_id };
   }
   if (action === "sync-class-start-times") {
@@ -1013,5 +1017,5 @@ async function handle(req, res) {
   }
 }
 
-handle.__test__ = { isFocusPaused, shouldPauseAction };
+handle.__test__ = { isFocusPaused, shouldPauseAction, pausedLogDetail };
 module.exports = handle;

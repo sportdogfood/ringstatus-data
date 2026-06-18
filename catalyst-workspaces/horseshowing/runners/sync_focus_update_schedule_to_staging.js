@@ -166,6 +166,14 @@ async function runStage2B(syncUrl, showNo, rawRecId) {
   return fetchJson(url.toString(), { timeout_ms: 120000 });
 }
 
+async function runStage2C(syncUrl, showNo, focusDay) {
+  const url = new URL(syncUrl);
+  url.searchParams.set("action", "sync-update-schedule-staging-from-mirror");
+  url.searchParams.set("show_no", showNo);
+  url.searchParams.set("focus_day", focusDay);
+  return fetchJson(url.toString(), { timeout_ms: 120000 });
+}
+
 async function main() {
   const args = parseArgs(process.argv);
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
@@ -193,10 +201,12 @@ async function main() {
       raw_rec_id: stored.raw_rec_id,
       parse_wec_log_rec_id: parsed.parse_wec_log_rec_id,
       hs_update_schedule_rows: Number(parsed.hs_update_schedule_rows || 0),
+      hs_update_schedule_stale_deleted: Number(parsed.hs_update_schedule_stale_deleted || 0),
       update_schedule_rows: Number(parsed.update_schedule_rows || 0),
-      update_schedule_staging_rows: Number(parsed.update_schedule_staging_rows || 0)
+      update_schedule_stale_deleted: Number(parsed.update_schedule_stale_deleted || 0)
     });
   }
+  const staged = await runStage2C(syncUrl, focus.show_no, focus.focus_day);
   const summary = {
     ok: true,
     action: "sync-focus-update-schedule-to-staging",
@@ -205,9 +215,13 @@ async function main() {
     ring_day_no_count: ringRows.length,
     raw_rows_stored: results.length,
     parse_runs_completed: results.length,
-    hs_update_schedule_rows: results.reduce((sum, row) => sum + row.hs_update_schedule_rows, 0),
-    update_schedule_rows: results.reduce((sum, row) => sum + row.update_schedule_rows, 0),
-    update_schedule_staging_rows: results.reduce((sum, row) => sum + row.update_schedule_staging_rows, 0),
+    hs_update_schedule_rows: Number(staged.hs_update_schedule_rows || 0),
+    update_schedule_rows: Number(staged.update_schedule_rows || 0),
+    update_schedule_staging_rows: Number(staged.update_schedule_staging_rows || 0),
+    payload_row_count: Number(staged.payload_rows || 0),
+    hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
+    update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
+    update_schedule_staging_stale_deleted: Number(staged.update_schedule_staging_stale_deleted || 0),
     parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
     ring_day_nos: results.map((row) => row.ring_day_no)
   };

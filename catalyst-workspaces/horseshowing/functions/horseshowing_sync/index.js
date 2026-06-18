@@ -3622,6 +3622,50 @@ async function airtableUpsertByFieldId(table, mergeFieldId, records) {
   return results;
 }
 
+async function airtableDeleteRecords(table, recordIds) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  let deleted = 0;
+  for (let index = 0; index < recordIds.length; index += 10) {
+    const chunk = recordIds.slice(index, index + 10).filter(Boolean);
+    if (!chunk.length) continue;
+    const url = new URL(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`);
+    for (const id of chunk) url.searchParams.append("records[]", id);
+    const response = await fetch(url.toString(), {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable delete ${table} failed ${response.status}: ${raw.slice(0, 500)}`);
+    deleted += (JSON.parse(raw).records || []).filter((record) => record.deleted).length;
+  }
+  return deleted;
+}
+
+function airtableScopedScheduleFormula(showNo, focusDay, ringDayNo = "") {
+  const clauses = [
+    `{show_no}=${Number(showNo)}`,
+    `IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`
+  ];
+  if (text(ringDayNo)) clauses.push(`{ring_day_no}=${Number(ringDayNo)}`);
+  return `AND(${clauses.join(",")})`;
+}
+
+async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKeys) {
+  const staleIds = (records || [])
+    .filter((record) => {
+      const key = text(record.fields?.[keyFieldId]);
+      return key && !activeKeys.has(key);
+    })
+    .map((record) => record.id)
+    .filter(Boolean);
+  return airtableDeleteRecords(table, staleIds);
+}
+
 function updateScheduleRawKey(showNo, focusDay, ringDayNo) {
   return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo);
 }
@@ -3677,6 +3721,75 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source]: "update_schedule.php",
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
+  };
+}
+
+function updateScheduleRowFromAirtableFields(fields) {
+  return {
+    update_schedule_key: text(fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]),
+    show_no: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.show_no],
+    class_no: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_no],
+    ring_day_no: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_day_no],
+    ring_no: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_no],
+    ring_name: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_name],
+    date_text: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.date_text],
+    iso_date: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.iso_date],
+    event_id: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_id],
+    event_name: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_name],
+    class_name: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_name],
+    time_text: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.time_text],
+    entry_count: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.entry_count],
+    event_type: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_type],
+    oc_id: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.oc_id],
+    live_flag: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.live_flag]
+  };
+}
+
+async function countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay) {
+  const rows = await getRowsByShow(app, TABLES.updateSchedule, showNo, { limit: 5000 });
+  return rows.filter((row) => dateKey(row.iso_date || row.date_text || row.day_label) === focusDay).length;
+}
+
+async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
+  const formula = airtableScopedScheduleFormula(showNo, focusDay);
+  const updateScheduleRecords = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_TABLE, {
+    filterByFormula: formula,
+    returnFieldsByFieldId: "true"
+  });
+  const runTime = new Date().toISOString();
+  const sourceRows = updateScheduleRecords
+    .map((record) => updateScheduleRowFromAirtableFields(record.fields || {}))
+    .filter((row) => text(row.update_schedule_key));
+  const activeKeys = new Set(sourceRows.map((row) => text(row.update_schedule_key)).filter(Boolean));
+  const stagingRecords = await airtableUpsertByFieldId(
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
+    sourceRows.map((row) => mapUpdateScheduleStagingFields(row, runTime))
+  );
+  const existingStaging = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: formula,
+    returnFieldsByFieldId: "true"
+  });
+  const staleDeleted = await deleteAirtableRowsNotInKeys(
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
+    existingStaging,
+    activeKeys
+  );
+  const finalStaging = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: formula,
+    returnFieldsByFieldId: "true"
+  });
+  const catalystRows = await countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay);
+  return {
+    show_no: showNo,
+    focus_day: focusDay,
+    payload_rows: sourceRows.length,
+    hs_update_schedule_rows: catalystRows,
+    update_schedule_rows: updateScheduleRecords.length,
+    update_schedule_staging_rows: finalStaging.length,
+    update_schedule_staging_upserts: stagingRecords.length,
+    update_schedule_staging_stale_deleted: staleDeleted
   };
 }
 
@@ -3738,16 +3851,23 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
     .map(updateScheduleSourceRow)
     .filter(Boolean);
   const catalystResult = await upsertSourceRowsFast(app, TABLES.updateSchedule, "update_schedule_key", sourceRows, { showNo });
+  const activeKeys = new Set(sourceRows.map((row) => text(row.update_schedule_key)).filter(Boolean));
+  const catalystStale = await deleteUpdateScheduleStaleForRingDay(app, showNo, ringDayNo, Array.from(activeKeys));
   const runTime = new Date().toISOString();
   const updateScheduleRecords = await airtableUpsertByFieldId(
     AIRTABLE_UPDATE_SCHEDULE_TABLE,
     AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key,
     sourceRows.map(mapUpdateScheduleMirrorFields)
   );
-  const stagingRecords = await airtableUpsertByFieldId(
-    AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
-    AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
-    sourceRows.map((row) => mapUpdateScheduleStagingFields(row, runTime))
+  const existingUpdateSchedule = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_TABLE, {
+    filterByFormula: airtableScopedScheduleFormula(showNo, focusDay, ringDayNo),
+    returnFieldsByFieldId: "true"
+  });
+  const updateScheduleStaleDeleted = await deleteAirtableRowsNotInKeys(
+    AIRTABLE_UPDATE_SCHEDULE_TABLE,
+    AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key,
+    existingUpdateSchedule,
+    activeKeys
   );
   const table = app.datastore().table(TABLES.updateScheduleRaw);
   await table.updateRow({
@@ -3776,8 +3896,9 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
       upstream_status: rawRow.upstream_status,
       parsed_rows: parsedRows.length,
       hs_update_schedule: catalystResult,
+      hs_update_schedule_stale: catalystStale,
       update_schedule_records: updateScheduleRecords.length,
-      update_schedule_staging_records: stagingRecords.length
+      update_schedule_stale_deleted: updateScheduleStaleDeleted
     }, null, 2),
     [AIRTABLE_WEC_LOG_FIELDS.created_at]: runTime
   });
@@ -3789,8 +3910,9 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
     ring_day_no: ringDayNo,
     parsed_rows: parsedRows.length,
     hs_update_schedule_rows: catalystResult.rows,
+    hs_update_schedule_stale_deleted: catalystStale.deleted || 0,
     update_schedule_rows: updateScheduleRecords.length,
-    update_schedule_staging_rows: stagingRecords.length
+    update_schedule_stale_deleted: updateScheduleStaleDeleted
   };
 }
 
@@ -6049,6 +6171,19 @@ async function handle(req, res) {
       const rawRecId = query.get("raw_rec_id") || body.raw_rec_id;
       if (!rawRecId) return json(res, 400, { ok: false, action, error: "parse-update-schedule-raw-chunk requires raw_rec_id" });
       const result = await parseStoredUpdateScheduleRawChunk(app, rawRecId);
+      return json(res, 200, { ok: true, action, ...result });
+    }
+
+    if (action === "sync-update-schedule-staging-from-mirror") {
+      const resolved = await resolveFocusDay(app, showNo, query, body);
+      if (!resolved.focus_day) {
+        return json(res, 400, {
+          ok: false,
+          action,
+          error: "sync-update-schedule-staging-from-mirror requires focus_day/focus_day_date in the request or hs_shows.focus_day_date"
+        });
+      }
+      const result = await syncUpdateScheduleStagingFromMirror(app, showNo, resolved.focus_day);
       return json(res, 200, { ok: true, action, ...result });
     }
 

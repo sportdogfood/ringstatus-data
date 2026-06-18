@@ -25,6 +25,7 @@ const TABLES = {
   classStartTimes: "hs_class_start_times",
   entryGoTimes: "hs_entry_go_times",
   updateSchedule: "hs_update_schedule",
+  updateScheduleRaw: "hs_update_schedule_raw",
   counts: "hs_counts",
   classOog: "hs_class_oog",
   getOrders: "hs_get_orders",
@@ -116,6 +117,50 @@ const AIRTABLE_WEC_LOG_FIELDS = {
   summary: "fldFQ98C0DqANcDuC",
   payload_json: "fldJoJly55dFuacXz",
   created_at: "fldQDsYQenI0uHARe"
+};
+const AIRTABLE_UPDATE_SCHEDULE_TABLE = "tblzPWt9G3VBVqVi6";
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE = "tblzsoU59zmYxhPah";
+const AIRTABLE_UPDATE_SCHEDULE_FIELDS = {
+  show_no: "fldmnARVSDUfJirnQ",
+  class_no: "fldwcTNbe428USaTR",
+  ring_day_no: "fldrP0ypNZ35aWoSZ",
+  ring_no: "fldW1hAOUHIUfJv0m",
+  ring_name: "fldy7IQAUzc25jW2y",
+  date_text: "fld0emVF1PzSrLVBq",
+  iso_date: "fldmezTiUj6scywI7",
+  event_id: "fld0tb7BhGfuhMKFJ",
+  event_name: "fld3JpzK6JVXbfMkX",
+  class_name: "fldZztQVbPJA3Gviv",
+  time_text: "fldoSFAVNYPiSdE2o",
+  entry_count: "fld2m7POOlVQ4xCZf",
+  event_type: "fldA9yOctFKtbTVti",
+  oc_id: "fldg19d9ACe9bGP08",
+  live_flag: "fldyzCrNuYLAFxh3N",
+  source: "fldI9ua5MaB0R86NM",
+  mirror_update_schedule_key: "fldy6FUgG1MkCL5tf"
+};
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS = {
+  staging_key: "fldFBo8SVsESz3Lm9",
+  show_no: "fldfMmNiM6yiZbp8O",
+  class_no: "flduv43XDZA8Z2rO4",
+  ring_day_no: "fldyJ89RRtoic3F8m",
+  ring_no: "fldivIFX6Mi3HEFH5",
+  ring_name: "fldBlOdFMhDE6pwcs",
+  date_text: "fldEmBE6oqw7YVzQt",
+  iso_date: "fld6RUZaBhxh0plgf",
+  event_id: "fld5prDB3w7mdg3JR",
+  event_name: "flde1tofvuV34iKc6",
+  class_name: "fldvV3xLV9PduvCrB",
+  time_text: "fld2EahZkPs2SSVfN",
+  entry_count: "fldsiU6NKYacpz8CT",
+  event_type: "fldAlM1wi08VAVK91",
+  oc_id: "fld70UVS6eQPjpNoN",
+  live_flag: "fldHBFrqtzvBiNTuh",
+  review_status: "fldNEtTH1zyeZUGaW",
+  source_key: "fldsBNOFbA5jNVIOD",
+  source: "fldhLoErq7yHgQpZJ",
+  inactive: "fld78Qo0RgOGbQfzK",
+  last_run_time: "fld1vf5NxKMesqzUX"
 };
 
 function text(value) {
@@ -3549,6 +3594,206 @@ async function airtableCreateRecord(table, fields) {
   return JSON.parse(raw).records?.[0] || null;
 }
 
+async function airtableUpsertByFieldId(table, mergeFieldId, records) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const results = [];
+  for (let index = 0; index < records.length; index += 10) {
+    const chunk = records.slice(index, index + 10).filter(Boolean);
+    if (!chunk.length) continue;
+    const response = await fetch(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`, {
+      method: "PATCH",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        records: chunk.map((fields) => ({ fields })),
+        performUpsert: { fieldsToMergeOn: [mergeFieldId] },
+        typecast: true
+      })
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable upsert ${table} failed ${response.status}: ${raw.slice(0, 500)}`);
+    results.push(...(JSON.parse(raw).records || []));
+  }
+  return results;
+}
+
+function updateScheduleRawKey(showNo, focusDay, ringDayNo) {
+  return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo);
+}
+
+function catalystDateTime(value = new Date()) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return catalystDateTime(new Date());
+  return date.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
+}
+
+function mapUpdateScheduleMirrorFields(row) {
+  return {
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]: row.update_schedule_key,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.show_no]: row.show_no,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_no]: row.class_no,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_day_no]: row.ring_day_no,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_no]: row.ring_no,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.ring_name]: row.ring_name,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.date_text]: row.date_text,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.iso_date]: row.iso_date,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_id]: row.event_id,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_name]: row.event_name,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_name]: row.class_name,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.time_text]: row.time_text,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.entry_count]: row.entry_count,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_type]: row.event_type,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.oc_id]: row.oc_id,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.live_flag]: row.live_flag,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.source]: "update_schedule.php"
+  };
+}
+
+function mapUpdateScheduleStagingFields(row, runTime) {
+  return {
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: row.update_schedule_key,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no]: row.show_no,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no]: row.class_no,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_day_no]: row.ring_day_no,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_no]: row.ring_no,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_name]: row.ring_name,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.date_text]: row.date_text,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.iso_date]: row.iso_date,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_id]: row.event_id,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_name]: row.event_name,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_name]: row.class_name,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.time_text]: row.time_text,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.entry_count]: row.entry_count,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_type]: row.event_type,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.oc_id]: row.oc_id,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.live_flag]: row.live_flag,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.review_status]: "new",
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key]: row.update_schedule_key,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source]: "update_schedule.php",
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
+  };
+}
+
+async function storeUpdateScheduleRaw(app, payload) {
+  const showNo = text(payload.show_no);
+  const focusDay = dateKey(payload.focus_day);
+  const ringDayNo = text(payload.ring_day_no);
+  const rawHtml = String(payload.raw_html || payload.raw || "");
+  if (!showNo) throw new Error("store-update-schedule-raw requires show_no");
+  if (!focusDay) throw new Error("store-update-schedule-raw requires focus_day");
+  if (!ringDayNo) throw new Error("store-update-schedule-raw requires ring_day_no");
+  if (!rawHtml) throw new Error("store-update-schedule-raw requires raw_html");
+  const rawKey = updateScheduleRawKey(showNo, focusDay, ringDayNo);
+  const row = {
+    raw_key: rawKey,
+    show_no: intValue(showNo),
+    focus_day: focusDay,
+    ring_day_no: intValue(ringDayNo),
+    ring_no: intValue(payload.ring_no),
+    ring_name: text(payload.ring_name),
+    day_label: text(payload.day_label),
+    raw_html: rawHtml,
+    upstream_status: intValue(payload.upstream_status) || 200,
+    fetched_at: catalystDateTime(payload.fetched_at || new Date()),
+    parse_status: "stored"
+  };
+  const result = await upsert(app, TABLES.updateScheduleRaw, { raw_key: rawKey }, row);
+  return {
+    raw_rec_id: result.row?.ROWID || null,
+    raw_key: rawKey,
+    ring_day_no: ringDayNo,
+    raw_length: rawHtml.length,
+    stored_action: result.action
+  };
+}
+
+async function getUpdateScheduleRawRow(app, rawRecId) {
+  const id = Number(rawRecId);
+  if (!Number.isFinite(id)) throw new Error("parse-update-schedule-raw-chunk requires numeric raw_rec_id");
+  const query = `SELECT ROWID, raw_key, show_no, focus_day, ring_day_no, ring_no, ring_name, day_label, raw_html, upstream_status FROM ${TABLES.updateScheduleRaw} WHERE ROWID = ${id} LIMIT 1`;
+  return (await app.zcql().executeZCQLQuery(query))?.[0]?.[TABLES.updateScheduleRaw] || null;
+}
+
+async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
+  const rawRow = await getUpdateScheduleRawRow(app, rawRecId);
+  if (!rawRow) throw new Error(`raw_rec_id not found: ${rawRecId}`);
+  const showNo = text(rawRow.show_no);
+  const focusDay = dateKey(rawRow.focus_day);
+  const ringDayNo = text(rawRow.ring_day_no);
+  const parsedRows = assignUpdateScheduleKeys(parseRingDayScheduleRows(rawRow.raw_html, showNo, ringDayNo)
+    .map((row) => ({
+      ...row,
+      ring_no: rawRow.ring_no,
+      ring_name: rawRow.ring_name,
+      day_label: rawRow.day_label,
+      source_endpoint: "update_schedule.php"
+    })));
+  const sourceRows = parsedRows
+    .map(updateScheduleSourceRow)
+    .filter(Boolean);
+  const catalystResult = await upsertSourceRowsFast(app, TABLES.updateSchedule, "update_schedule_key", sourceRows, { showNo });
+  const runTime = new Date().toISOString();
+  const updateScheduleRecords = await airtableUpsertByFieldId(
+    AIRTABLE_UPDATE_SCHEDULE_TABLE,
+    AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key,
+    sourceRows.map(mapUpdateScheduleMirrorFields)
+  );
+  const stagingRecords = await airtableUpsertByFieldId(
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
+    AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
+    sourceRows.map((row) => mapUpdateScheduleStagingFields(row, runTime))
+  );
+  const table = app.datastore().table(TABLES.updateScheduleRaw);
+  await table.updateRow({
+    ROWID: rawRow.ROWID,
+    parsed_at: catalystDateTime(runTime),
+    parse_status: "parsed"
+  });
+  const logType = "core_update_schedule";
+  const logKey = `${logType}|${showNo}|${focusDay || "no-focus-day"}|${ringDayNo}`;
+  const logRecord = await airtableCreateRecord(AIRTABLE_WEC_LOGS_TABLE, {
+    [AIRTABLE_WEC_LOG_FIELDS.log_key_run]: `${logKey}|${runTime}`,
+    [AIRTABLE_WEC_LOG_FIELDS.log_key]: logKey,
+    [AIRTABLE_WEC_LOG_FIELDS.workflow_lanes]: "Core",
+    [AIRTABLE_WEC_LOG_FIELDS.log_type]: logType,
+    [AIRTABLE_WEC_LOG_FIELDS.check_name]: "parse-update-schedule-raw-chunk",
+    [AIRTABLE_WEC_LOG_FIELDS.show_no]: Number(showNo),
+    [AIRTABLE_WEC_LOG_FIELDS.focus_day]: focusDay || null,
+    [AIRTABLE_WEC_LOG_FIELDS.status]: "ok",
+    [AIRTABLE_WEC_LOG_FIELDS.records_seen]: sourceRows.length,
+    [AIRTABLE_WEC_LOG_FIELDS.records_changed]: Number(catalystResult.inserted || 0) + Number(catalystResult.updated || 0),
+    [AIRTABLE_WEC_LOG_FIELDS.summary]: `parsed update_schedule raw ${ringDayNo}: ${sourceRows.length} rows`,
+    [AIRTABLE_WEC_LOG_FIELDS.payload_json]: JSON.stringify({
+      raw_rec_id: rawRow.ROWID,
+      raw_key: rawRow.raw_key,
+      ring_day_no: ringDayNo,
+      upstream_status: rawRow.upstream_status,
+      parsed_rows: parsedRows.length,
+      hs_update_schedule: catalystResult,
+      update_schedule_records: updateScheduleRecords.length,
+      update_schedule_staging_records: stagingRecords.length
+    }, null, 2),
+    [AIRTABLE_WEC_LOG_FIELDS.created_at]: runTime
+  });
+  return {
+    raw_rec_id: rawRow.ROWID,
+    parse_wec_log_rec_id: logRecord?.id || null,
+    show_no: showNo,
+    focus_day: focusDay,
+    ring_day_no: ringDayNo,
+    parsed_rows: parsedRows.length,
+    hs_update_schedule_rows: catalystResult.rows,
+    update_schedule_rows: updateScheduleRecords.length,
+    update_schedule_staging_rows: stagingRecords.length
+  };
+}
+
 function parseClockMinutes(value) {
   const raw = text(value).toLowerCase();
   if (!raw) return null;
@@ -5785,6 +6030,26 @@ async function handle(req, res) {
       if (!rows.length) return json(res, 400, { ok: false, action, error: "import-update-schedule-only requires rows array" });
       const result = await importUpdateScheduleOnly(app, showNo, rows);
       return json(res, 200, { ok: true, action, show_no: showNo, ...result });
+    }
+
+    if (action === "store-update-schedule-raw") {
+      const result = await storeUpdateScheduleRaw(app, {
+        ...body,
+        show_no: body.show_no || query.get("show_no"),
+        focus_day: body.focus_day || query.get("focus_day"),
+        ring_day_no: body.ring_day_no || query.get("ring_day_no"),
+        ring_no: body.ring_no || query.get("ring_no"),
+        ring_name: body.ring_name || query.get("ring_name"),
+        day_label: body.day_label || query.get("day_label")
+      });
+      return json(res, 200, { ok: true, action, ...result });
+    }
+
+    if (action === "parse-update-schedule-raw-chunk") {
+      const rawRecId = query.get("raw_rec_id") || body.raw_rec_id;
+      if (!rawRecId) return json(res, 400, { ok: false, action, error: "parse-update-schedule-raw-chunk requires raw_rec_id" });
+      const result = await parseStoredUpdateScheduleRawChunk(app, rawRecId);
+      return json(res, 200, { ok: true, action, ...result });
     }
 
     if (action === "replace-counts-only") {

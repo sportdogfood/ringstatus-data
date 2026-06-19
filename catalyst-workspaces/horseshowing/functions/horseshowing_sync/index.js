@@ -28,6 +28,7 @@ const TABLES = {
   updateScheduleRaw: "hs_update_schedule_raw",
   counts: "hs_counts",
   classOog: "hs_class_oog",
+  classOogRaw: "hs_class_oog_raw",
   getOrders: "hs_get_orders",
   getRings: "hs_get_rings",
   entries: "hs_entries",
@@ -3668,6 +3669,14 @@ async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKey
 
 function updateScheduleRawKey(showNo, focusDay, ringDayNo) {
   return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo);
+}
+
+function classOogRawKey(showNo, focusDay, ringDayNo, ringNo, classNo) {
+  return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo, ringNo, classNo);
+}
+
+function canonicalClassOogKey(showNo, focusDay, ringDayNo, ringNo, classNo, entryNo) {
+  return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo, ringNo, classNo, entryNo);
 }
 
 function catalystDateTime(value = new Date()) {

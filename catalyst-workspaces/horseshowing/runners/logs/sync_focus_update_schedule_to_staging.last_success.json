@@ -10,20 +10,20 @@
   "update_schedule_rows": 101,
   "update_schedule_staging_rows": 101,
   "payload_row_count": 101,
-  "hs_update_schedule_stale_deleted": 101,
+  "hs_update_schedule_stale_deleted": 43,
   "update_schedule_stale_deleted": 43,
   "update_schedule_staging_stale_deleted": 101,
   "parse_wec_log_rec_ids": [
-    "recwRLblzmNeR70Qc",
-    "recOVMcTfg8IAsd4m",
-    "recaLFs0xjYj2aDbJ",
-    "recXeSss3FughkeJu",
-    "recZQmnkOH0yInIGa",
-    "rec1vw6Lbu4pP4Uw6",
-    "recHXkNWMhbRgZQ0q",
-    "recSI3YZo6iirC2XJ",
-    "rec1B8jGUpGS44hhw",
-    "recKjwQ013oKVKAtX"
+    "reca9mFGYjJw4km16",
+    "recemKKwziANTNZFq",
+    "recgUY4WCJJ49gfOO",
+    "recrXeRc9qSw1zcpH",
+    "recflvE8OnrS40wgk",
+    "recKAtVWFSG2Xbt0W",
+    "reccGPSOkJkyfGPfc",
+    "recTa4CTEpChMvZaR",
+    "rec1fOloKag2dXebH",
+    "recktnUZxmMOSdq0K"
   ],
   "ring_day_nos": [
     "4226",
@@ -37,5 +37,5 @@
     "4234",
     "4302"
   ],
-  "success_at": "2026-06-18T23:04:10.189Z"
+  "success_at": "2026-06-19T02:24:16.528Z"
 }

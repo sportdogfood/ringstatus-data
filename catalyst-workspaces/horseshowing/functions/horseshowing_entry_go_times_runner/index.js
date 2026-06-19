@@ -670,7 +670,7 @@ async function handle(req, res) {
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
     const authHeader = text(req.headers?.["x-airtable-token"] || req.headers?.["X-Airtable-Token"] || req.headers?.authorization || req.headers?.Authorization);
     const bearerToken = authHeader.match(/^Bearer\s+(.+)$/i)?.[1] || "";
-    const token = text(bearerToken || body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_WEC_TOKEN);
+    const token = text(bearerToken || body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN);
     if (!token) return sendJson(res, 500, { ok: false, phase, error: "missing AIRTABLE_TOKEN fallback" });
     Object.assign(runLogContext, { baseId, token, show_no: Number(showNo), focus_day: yyyymmddToIso(focusDayOverride) });
 

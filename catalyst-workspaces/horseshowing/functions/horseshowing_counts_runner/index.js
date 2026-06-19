@@ -303,7 +303,7 @@ async function handle(req, res) {
     const offset = Math.max(0, asNumber(query.get("counts_offset") || body.counts_offset, 0));
     const limit = Math.max(1, asNumber(query.get("counts_limit") || body.counts_limit, 100));
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
-    const token = text(process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_WEC_TOKEN);
+    const token = text(process.env.AIRTABLE_TOKEN);
     if (!token) return sendJson(res, 500, { ok: false, error: "missing AIRTABLE_TOKEN fallback" });
 
     const app = catalyst.initialize(req);

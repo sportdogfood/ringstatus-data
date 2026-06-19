@@ -995,7 +995,7 @@ async function handle(req, res) {
     const body = await readBody(req);
     const authHeader = text(getHeader(req, "x-airtable-token") || getHeader(req, "authorization"));
     const bearerToken = authHeader.match(/^Bearer\s+(.+)$/i)?.[1] || "";
-    const token = text(bearerToken || body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_WEC_TOKEN);
+    const token = text(bearerToken || body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN);
     if (!token) return sendJson(res, 500, { ok: false, error: "missing AIRTABLE_TOKEN fallback" });
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
     const action = text(query.get("action") || body.action || "run");

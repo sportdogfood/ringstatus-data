@@ -177,8 +177,8 @@ async function runStage2C(syncUrl, showNo, focusDay) {
 async function main() {
   const args = parseArgs(process.argv);
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
-  const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_WEC_TOKEN;
-  if (!token) throw new Error("AIRTABLE_TOKEN or AIRTABLE_WEC_TOKEN required");
+  const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
+  if (!token) throw new Error("AIRTABLE_TOKEN required");
   const syncUrl = args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL;
   const runnerPath = args["stage2a-runner"] || path.join(__dirname, "fetch_update_schedule_raw.js");
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");

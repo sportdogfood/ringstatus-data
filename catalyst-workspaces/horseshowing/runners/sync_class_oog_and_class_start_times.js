@@ -1,0 +1,345 @@
+#!/usr/bin/env node
+
+const { execFileSync } = require("node:child_process");
+const path = require("node:path");
+
+const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
+const DEFAULT_SYNC_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/";
+const FOCUS_SHOW_TABLE = "focus_show";
+const TRAINERS_TABLE = "trainers";
+const STAGING_TABLE = "update_schedule_staging";
+
+function parseArgs(argv) {
+  const args = {};
+  for (const arg of argv.slice(2)) {
+    if (!arg.startsWith("--")) continue;
+    const eq = arg.indexOf("=");
+    if (eq === -1) args[arg.slice(2)] = "1";
+    else args[arg.slice(2, eq)] = arg.slice(eq + 1);
+  }
+  return args;
+}
+
+function text(value) {
+  return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function normalizeHelperKey(value) {
+  return text(value)
+    .replace(/[\u2018\u2019\u201B\u2032]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function dateKey(value) {
+  const raw = text(value);
+  if (!raw) return "";
+  const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const parsed = new Date(raw);
+  if (Number.isNaN(parsed.getTime())) return "";
+  return `${parsed.getUTCFullYear()}-${String(parsed.getUTCMonth() + 1).padStart(2, "0")}-${String(parsed.getUTCDate()).padStart(2, "0")}`;
+}
+
+function formulaValue(value) {
+  return `'${String(value ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`;
+}
+
+function truthy(value) {
+  return value === true || value === 1 || String(value ?? "").trim().toLowerCase() === "true";
+}
+
+async function fetchJson(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), Number(options.timeout_ms || 60000));
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    const raw = await response.text();
+    let payload;
+    try {
+      payload = JSON.parse(raw);
+    } catch {
+      throw new Error(`non-JSON response ${response.status}: ${raw.slice(0, 500)}`);
+    }
+    if (!response.ok || payload.ok === false) {
+      throw new Error(`HTTP ${response.status}: ${JSON.stringify(payload).slice(0, 800)}`);
+    }
+    return payload;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function airtableListAll(baseId, tableName, token, params = {}) {
+  const rows = [];
+  let offset = "";
+  do {
+    const url = new URL(`https://api.airtable.com/v0/${encodeURIComponent(baseId)}/${encodeURIComponent(tableName)}`);
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, value);
+    }
+    if (offset) url.searchParams.set("offset", offset);
+    const payload = await fetchJson(url.toString(), {
+      headers: { authorization: `Bearer ${token}` },
+      timeout_ms: 60000
+    });
+    rows.push(...(payload.records || []));
+    offset = payload.offset || "";
+  } while (offset);
+  return rows;
+}
+
+async function getActiveFocusShow(baseId, token, requestedShowNo = "") {
+  const formula = requestedShowNo
+    ? `AND({active}=1,{show_no}=${Number(requestedShowNo)})`
+    : "{active}=1";
+  const rows = await airtableListAll(baseId, FOCUS_SHOW_TABLE, token, {
+    maxRecords: "10",
+    filterByFormula: formula
+  });
+  const record = rows[0];
+  if (!record) throw new Error("active focus_show not found");
+  const fields = record.fields || {};
+  const showNo = text(fields.show_no);
+  const focusDay = dateKey(fields.focus_day);
+  if (!showNo || !focusDay) throw new Error("active focus_show missing show_no or focus_day");
+  if (!truthy(fields.is_lock)) throw new Error(`focus_day.is_lock is not true for show_no=${showNo} focus_day=${focusDay}`);
+  if (truthy(fields.is_pause)) throw new Error(`focus_show.is_pause is true for show_no=${showNo} focus_day=${focusDay}`);
+  return {
+    record_id: record.id,
+    show_no: showNo,
+    focus_day: focusDay,
+    is_lock: true,
+    is_pause: false
+  };
+}
+
+async function getActiveTrainers(baseId, token) {
+  const rows = await airtableListAll(baseId, TRAINERS_TABLE, token, {
+    filterByFormula: "{active}=TRUE()"
+  });
+  const trainers = rows
+    .map((record) => ({ id: record.id, name: text(record.fields?.trainer) }))
+    .filter((row) => row.name);
+  if (!trainers.length) throw new Error("no active trainers found");
+  const trainerRecordIds = {};
+  for (const row of trainers) {
+    trainerRecordIds[row.name] = row.id;
+    const key = normalizeHelperKey(row.name);
+    if (key) trainerRecordIds[key] = row.id;
+  }
+  return {
+    active_trainers: trainers.map((row) => row.name),
+    trainer_record_ids: trainerRecordIds
+  };
+}
+
+async function getLockedStagingRows(baseId, token, showNo, focusDay) {
+  const filterByFormula = [
+    "AND(",
+    `{show_no}=${Number(showNo)},`,
+    `IS_SAME({iso_date},DATETIME_PARSE(${formulaValue(focusDay)}),'day'),`,
+    "{is_lock}=1,",
+    "{class_no}>0",
+    ")"
+  ].join("");
+  const records = await airtableListAll(baseId, STAGING_TABLE, token, { filterByFormula });
+  const rows = records
+    .map((record) => {
+      const fields = record.fields || {};
+      return {
+        staging_record_id: record.id,
+        show_no: text(fields.show_no),
+        focus_day: focusDay,
+        ring_day_no: text(fields.ring_day_no),
+        ring_no: text(fields.ring_no),
+        ring_name: text(fields.ring_name),
+        class_no: text(fields.class_no),
+        class_label: text(fields.class_label || fields.event_name || fields.class_name),
+        class_name: text(fields.class_name || fields.event_name),
+        time_text: text(fields.time_text),
+        class_time_text: text(fields.time_text),
+        entry_count: fields.entry_count,
+        is_lock: truthy(fields.is_lock)
+      };
+    })
+    .filter((row) => row.show_no === showNo && row.ring_day_no && row.ring_no && row.class_no && row.is_lock);
+  if (!rows.length) throw new Error(`no locked update_schedule_staging rows for show_no=${showNo} focus_day=${focusDay}`);
+  return rows.sort((a, b) => `${a.ring_day_no}|${a.ring_no}|${a.class_no}`.localeCompare(`${b.ring_day_no}|${b.ring_no}|${b.class_no}`));
+}
+
+function runClassOogRawFetch({ runnerPath, syncUrl, showNo, focusDay, row }) {
+  const output = execFileSync(process.execPath, [
+    runnerPath,
+    `--show-no=${showNo}`,
+    `--focus-day=${focusDay}`,
+    `--ring-day-no=${row.ring_day_no}`,
+    `--ring-no=${row.ring_no}`,
+    `--ring-name=${row.ring_name || ""}`,
+    `--class-no=${row.class_no}`,
+    `--class-label=${row.class_label || ""}`,
+    `--staging-record-id=${row.staging_record_id || ""}`,
+    `--sync-url=${syncUrl}`
+  ], { encoding: "utf8", timeout: 120000 });
+  const payload = JSON.parse(output);
+  if (!payload.ok || !payload.raw_rec_id) {
+    throw new Error(`class_oog raw fetch/store failed for class_no=${row.class_no}: ${output.slice(0, 800)}`);
+  }
+  return payload;
+}
+
+async function parseClassOogRaw(syncUrl, showNo, rawRecId, activeTrainerData) {
+  const url = new URL(syncUrl);
+  url.searchParams.set("action", "parse-class-oog-raw-chunk");
+  url.searchParams.set("show_no", showNo);
+  url.searchParams.set("raw_rec_id", rawRecId);
+  return fetchJson(url.toString(), {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      raw_rec_id: rawRecId,
+      active_trainers: activeTrainerData.active_trainers,
+      trainer_record_ids: activeTrainerData.trainer_record_ids
+    }),
+    timeout_ms: 120000
+  });
+}
+
+async function syncClassStartTimes(syncUrl, showNo, focusDay, lockedRows) {
+  const url = new URL(syncUrl);
+  url.searchParams.set("action", "sync-class-start-times-from-locked-staging");
+  url.searchParams.set("show_no", showNo);
+  return fetchJson(url.toString(), {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      show_no: showNo,
+      focus_day: focusDay,
+      rows: lockedRows
+    }),
+    timeout_ms: 120000
+  });
+}
+
+async function exportCatalystRows(syncUrl, showNo, table) {
+  const rows = [];
+  for (let offset = 0; ; offset += 200) {
+    const url = new URL(syncUrl);
+    url.searchParams.set("action", "export-mirror-table");
+    url.searchParams.set("show_no", showNo);
+    url.searchParams.set("table", table);
+    url.searchParams.set("limit", "200");
+    url.searchParams.set("offset", String(offset));
+    const payload = await fetchJson(url.toString(), { timeout_ms: 60000 });
+    const page = payload.data || [];
+    rows.push(...page);
+    if (!payload.has_more || page.length < 200) break;
+  }
+  return rows;
+}
+
+async function main() {
+  const args = parseArgs(process.argv);
+  const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
+  const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
+  if (!token) throw new Error("AIRTABLE_TOKEN required");
+  const syncUrl = args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL;
+  const rawRunnerPath = args["class-oog-raw-runner"] || path.join(__dirname, "fetch_class_oog_raw.js");
+  const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
+  const activeTrainerData = await getActiveTrainers(baseId, token);
+  const lockedRows = await getLockedStagingRows(baseId, token, focus.show_no, focus.focus_day);
+  const seenClasses = new Set();
+  const targetRows = lockedRows.filter((row) => {
+    const key = `${row.show_no}|${row.focus_day}|${row.ring_day_no}|${row.ring_no}|${row.class_no}`;
+    if (seenClasses.has(key)) return false;
+    seenClasses.add(key);
+    return true;
+  });
+  const classOogRuns = [];
+  for (const row of targetRows) {
+    const stored = runClassOogRawFetch({
+      runnerPath: rawRunnerPath,
+      syncUrl,
+      showNo: focus.show_no,
+      focusDay: focus.focus_day,
+      row
+    });
+    const parsed = await parseClassOogRaw(syncUrl, focus.show_no, stored.raw_rec_id, activeTrainerData);
+    classOogRuns.push({
+      ring_day_no: row.ring_day_no,
+      ring_no: row.ring_no,
+      class_no: row.class_no,
+      raw_rec_id: stored.raw_rec_id,
+      parse_wec_log_rec_id: parsed.parse_wec_log_rec_id,
+      total_parsed_rows: Number(parsed.total_parsed_rows || parsed.parsed_rows || 0),
+      parsed_rows: Number(parsed.parsed_rows || 0),
+      matched_rows_by_trainer: parsed.matched_rows_by_trainer || {},
+      hs_class_oog_stale_deleted: Number(parsed.hs_class_oog_stale_deleted || 0),
+      class_oog_stale_deleted: Number(parsed.class_oog_stale_deleted || 0)
+    });
+  }
+  const matchedRowsByTrainer = Object.fromEntries(activeTrainerData.active_trainers.map((trainer) => [trainer, 0]));
+  for (const run of classOogRuns) {
+    for (const [trainer, count] of Object.entries(run.matched_rows_by_trainer || {})) {
+      matchedRowsByTrainer[trainer] = (matchedRowsByTrainer[trainer] || 0) + Number(count || 0);
+    }
+  }
+  const zeroMatchTrainers = activeTrainerData.active_trainers.filter((trainer) => !Number(matchedRowsByTrainer[trainer] || 0));
+  const zeroMatchExplanation = Object.fromEntries(zeroMatchTrainers.map((trainer) => [trainer, "no matching trainer rows were present in the fetched class_oog pages"]));
+  const classStart = await syncClassStartTimes(syncUrl, focus.show_no, focus.focus_day, lockedRows);
+  const catalystClassOogRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_oog"))
+    .filter((row) => dateKey(row.focus_day) === focus.focus_day);
+  const catalystClassStartRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_start_times"))
+    .filter((row) => dateKey(row.focus_day) === focus.focus_day);
+  const classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
+    filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
+  });
+  const classStartAirtableRows = await airtableListAll(baseId, "class_start_times", token, {
+    filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
+  });
+  const summary = {
+    ok: true,
+    action: "sync-class-oog-and-class-start-times",
+    show_no: focus.show_no,
+    focus_day: focus.focus_day,
+    focus_day_is_lock_checked: true,
+    focus_show_is_pause_checked: true,
+    update_schedule_staging_is_lock_checked: true,
+    active_trainers: activeTrainerData.active_trainers.length,
+    active_trainer_names: activeTrainerData.active_trainers,
+    trainer_normalization: "trim|lowercase|collapse_spaces|smart_apostrophe_normalized",
+    class_oog_target_classes: targetRows.length,
+    class_oog_raw_pages_stored: classOogRuns.length,
+    class_oog_parser_used: "parseClassOogRows",
+    total_parsed_oog_rows: classOogRuns.reduce((sum, row) => sum + Number(row.total_parsed_rows || 0), 0),
+    matched_oog_rows: classOogRuns.reduce((sum, row) => sum + Number(row.parsed_rows || 0), 0),
+    matched_rows_by_trainer: matchedRowsByTrainer,
+    zero_match_trainers: zeroMatchTrainers,
+    zero_match_trainers_explained: zeroMatchExplanation,
+    class_oog_canonical_key: "show_no|focus_day|ring_day_no|ring_no|class_no|entry_no",
+    hs_class_oog_count: catalystClassOogRows.length,
+    class_oog_count: classOogAirtableRows.length,
+    class_oog_counts_match: catalystClassOogRows.length === classOogAirtableRows.length,
+    class_oog_stale_deleted: classOogRuns.reduce((sum, row) => sum + row.hs_class_oog_stale_deleted + row.class_oog_stale_deleted, 0),
+    class_start_times_source: "locked update_schedule_staging",
+    class_start_times_target_classes: lockedRows.length,
+    hs_class_start_times_count: catalystClassStartRows.length,
+    class_start_times_count: classStartAirtableRows.length,
+    class_start_times_counts_match: catalystClassStartRows.length === classStartAirtableRows.length,
+    class_start_times_stale_deleted: Number(classStart.hs_class_start_times_stale_deleted || 0) + Number(classStart.class_start_times_stale_deleted || 0),
+    class_oog_parse_wec_log_rec_ids: classOogRuns.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
+    class_start_times_wec_log_rec_id: classStart.class_start_times_wec_log_rec_id || null,
+    target_class_keys: targetRows.map((row) => `${row.ring_day_no}|${row.ring_no}|${row.class_no}`)
+  };
+  if (!summary.class_oog_counts_match) throw new Error(`class_oog counts mismatch Catalyst=${summary.hs_class_oog_count} Airtable=${summary.class_oog_count}`);
+  if (!summary.class_start_times_counts_match) throw new Error(`class_start_times counts mismatch Catalyst=${summary.hs_class_start_times_count} Airtable=${summary.class_start_times_count}`);
+  process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+}
+
+main().catch((error) => {
+  process.stderr.write(`${error.stack || error.message}\n`);
+  process.exitCode = 1;
+});
+

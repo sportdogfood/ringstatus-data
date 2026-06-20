@@ -60,6 +60,10 @@ function dateKey(value) {
   return `${parsed.getUTCFullYear()}-${String(parsed.getUTCMonth() + 1).padStart(2, "0")}-${String(parsed.getUTCDate()).padStart(2, "0")}`;
 }
 
+function formulaValue(value) {
+  return JSON.stringify(text(value));
+}
+
 async function fetchJson(url, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Number(options.timeout_ms || 60000));
@@ -140,6 +144,74 @@ async function getStageOneRingRows(syncUrl, showNo, focusDay) {
     .sort((a, b) => `${a.ring_no}|${a.ring_day_no}`.localeCompare(`${b.ring_no}|${b.ring_day_no}`));
 }
 
+async function exportMirrorTable(syncUrl, showNo, tableName) {
+  const rows = [];
+  for (let offset = 0; ; offset += 200) {
+    const url = new URL(syncUrl);
+    url.searchParams.set("action", "export-mirror-table");
+    url.searchParams.set("show_no", showNo);
+    url.searchParams.set("table", tableName);
+    url.searchParams.set("limit", "200");
+    url.searchParams.set("offset", String(offset));
+    const payload = await fetchJson(url.toString(), { timeout_ms: 60000 });
+    const page = payload.data || [];
+    rows.push(...page);
+    if (!payload.has_more || page.length < 200) break;
+  }
+  return rows;
+}
+
+async function getCatalystUpdateScheduleRows(syncUrl, showNo, focusDay) {
+  const rows = await exportMirrorTable(syncUrl, showNo, "update_schedule");
+  return rows.filter((row) => text(row.show_no) === showNo && dateKey(row.focus_day || row.iso_date) === focusDay);
+}
+
+async function getAirtableUpdateScheduleRows(baseId, token, showNo, focusDay) {
+  const showValue = Number.isFinite(Number(showNo)) ? Number(showNo) : formulaValue(showNo);
+  return airtableListAll(baseId, "update_schedule", token, {
+    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${formulaValue(focusDay)}),'day'))`
+  });
+}
+
+function keyReport(keys) {
+  const counts = new Map();
+  for (const key of keys.map(text).filter(Boolean)) {
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return {
+    unique_count: counts.size,
+    duplicates: Array.from(counts.entries())
+      .filter(([, count]) => count > 1)
+      .map(([key, count]) => ({ key, count }))
+  };
+}
+
+function buildUpdateScheduleMirrorProof(catalystRows, airtableRows) {
+  const catalystKeys = catalystRows.map((row) => row.update_schedule_key);
+  const airtableKeys = airtableRows.map((record) => {
+    const fields = record.fields || {};
+    return fields.mirror_update_schedule_key || fields.update_schedule_key;
+  });
+  const catalystReport = keyReport(catalystKeys);
+  const airtableReport = keyReport(airtableKeys);
+  const catalystSet = new Set(catalystKeys.map(text).filter(Boolean));
+  const airtableSet = new Set(airtableKeys.map(text).filter(Boolean));
+  const missingInAirtable = Array.from(catalystSet).filter((key) => !airtableSet.has(key)).sort();
+  const extraInAirtable = Array.from(airtableSet).filter((key) => !catalystSet.has(key)).sort();
+  return {
+    hs_update_schedule_rows: catalystRows.length,
+    update_schedule_rows: airtableRows.length,
+    counts_match: catalystRows.length === airtableRows.length,
+    hs_update_schedule_unique_keys: catalystReport.unique_count,
+    update_schedule_unique_keys: airtableReport.unique_count,
+    keys_match: missingInAirtable.length === 0 && extraInAirtable.length === 0,
+    missing_in_update_schedule: missingInAirtable,
+    extra_in_update_schedule: extraInAirtable,
+    duplicate_hs_update_schedule_keys: catalystReport.duplicates,
+    duplicate_update_schedule_keys: airtableReport.duplicates
+  };
+}
+
 function runStage2A({ runnerPath, syncUrl, showNo, focusDay, row }) {
   const output = execFileSync(process.execPath, [
     runnerPath,
@@ -176,11 +248,14 @@ async function runStage2C(syncUrl, showNo, focusDay) {
 
 async function main() {
   const args = parseArgs(process.argv);
+  const mirrorOnly = args["mirror-only"] === "1" || args.mirror_only === "1";
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
   const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
   if (!token) throw new Error("AIRTABLE_TOKEN required");
   const syncUrl = args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL;
   const runnerPath = args["stage2a-runner"] || path.join(__dirname, "fetch_update_schedule_raw.js");
+  const runId = args["run-id"] || args.run_id || process.env.WEC_RUN_ID || "";
+  const runTime = args["run-time"] || args.run_time || process.env.WEC_RUN_TIME || "";
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const ringRows = await getStageOneRingRows(syncUrl, focus.show_no, focus.focus_day);
   if (!ringRows.length) {
@@ -206,10 +281,47 @@ async function main() {
       update_schedule_stale_deleted: Number(parsed.update_schedule_stale_deleted || 0)
     });
   }
+  if (mirrorOnly) {
+    const catalystRows = await getCatalystUpdateScheduleRows(syncUrl, focus.show_no, focus.focus_day);
+    const airtableRows = await getAirtableUpdateScheduleRows(baseId, token, focus.show_no, focus.focus_day);
+    const mirror = buildUpdateScheduleMirrorProof(catalystRows, airtableRows);
+    const summary = {
+      ok: mirror.counts_match
+        && mirror.keys_match
+        && mirror.duplicate_hs_update_schedule_keys.length === 0
+        && mirror.duplicate_update_schedule_keys.length === 0,
+      action: "sync-focus-update-schedule-mirror-only",
+      run_id: runId,
+      run_time: runTime,
+      cadence_owned: true,
+      stopped_at: "update_schedule",
+      update_schedule_staging_touched: false,
+      show_no: focus.show_no,
+      focus_day: focus.focus_day,
+      get_ring_days_count: ringRows.length,
+      ring_day_no_count: ringRows.length,
+      raw_rows_stored: results.length,
+      parse_runs_completed: results.length,
+      payload_row_count: results.reduce((sum, row) => sum + Number(row.update_schedule_rows || 0), 0),
+      hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
+      update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
+      records_deleted_from_update_schedule: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
+      parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
+      ring_day_nos: results.map((row) => row.ring_day_no),
+      ...mirror
+    };
+    process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+    if (!summary.ok) {
+      throw new Error("update_schedule mirror mismatch");
+    }
+    return summary;
+  }
   const staged = await runStage2C(syncUrl, focus.show_no, focus.focus_day);
   const summary = {
     ok: true,
     action: "sync-focus-update-schedule-to-staging",
+    run_id: runId,
+    run_time: runTime,
     show_no: focus.show_no,
     focus_day: focus.focus_day,
     ring_day_no_count: ringRows.length,
@@ -229,8 +341,13 @@ async function main() {
   return summary;
 }
 
+const startupArgs = parseArgs(process.argv);
+const startupAction = startupArgs["mirror-only"] === "1" || startupArgs.mirror_only === "1"
+  ? "sync-focus-update-schedule-mirror-only"
+  : "sync-focus-update-schedule-to-staging";
+
 appendRunLog("RUN", {
-  action: "sync-focus-update-schedule-to-staging",
+  action: startupAction,
   argv: process.argv.slice(2)
 });
 
@@ -239,7 +356,7 @@ main().then((summary) => {
   writeLastSuccess(summary);
 }).catch((error) => {
   appendRunLog("FAIL", {
-    action: "sync-focus-update-schedule-to-staging",
+    action: startupAction,
     message: error.message
   });
   process.stderr.write(`${error.stack || error.message}\n`);

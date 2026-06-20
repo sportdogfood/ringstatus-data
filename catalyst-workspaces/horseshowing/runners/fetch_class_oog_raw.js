@@ -59,6 +59,16 @@ async function bootstrapCookie(showNo, userAgent, suppliedCookie) {
     }
   });
   cookie = mergeCookies(cookie, setCookies(show.response));
+  const schedule = await fetchText(`${BASE_URL}/schedule.php`, {
+    headers: {
+      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "accept-encoding": "identity",
+      "accept-language": "en-US,en;q=0.9",
+      "user-agent": userAgent,
+      cookie
+    }
+  });
+  cookie = mergeCookies(cookie, setCookies(schedule.response));
   return cookie;
 }
 
@@ -66,8 +76,9 @@ async function fetchClassOogRaw({ showNo, classNo, cookie, userAgent }) {
   const result = await fetchText(`${BASE_URL}/class_oog.php?class_no=${encodeURIComponent(classNo)}`, {
     headers: {
       accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "accept-encoding": "identity",
       "accept-language": "en-US,en;q=0.9",
-      referer: `${BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`,
+      referer: `${BASE_URL}/schedule.php`,
       "user-agent": userAgent,
       cookie
     },
@@ -120,6 +131,9 @@ async function main() {
   ].filter(Boolean).join("; ");
   const cookie = await bootstrapCookie(showNo, userAgent, suppliedCookie);
   const upstream = await fetchClassOogRaw({ showNo, classNo, cookie, userAgent });
+  if (!String(upstream.raw_html || "").trim()) {
+    throw new Error(`class_oog.php returned empty raw_html class_no=${classNo} status=${upstream.status}`);
+  }
   const stored = await storeRaw({
     syncUrl: args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL,
     payload: {

@@ -1,0 +1,22 @@
+{
+  "status": "FAIL",
+  "active_show_no": "",
+  "active_focus_day": "",
+  "lanes_run": [],
+  "failed_step": "stage2",
+  "conflict_lane": "",
+  "blocker": "Stage 2 counts do not match",
+  "stage2": null,
+  "helper_before": null,
+  "class_oog_class_start_times": null,
+  "entry_go_times": null,
+  "helper_after": null,
+  "records_deleted_total": 0,
+  "links_cleared_total": 0,
+  "mobile_changed": "no",
+  "print_changed": "no",
+  "alerts_changed": "no",
+  "results_changed": "no",
+  "rich_api_changed": "no",
+  "sms_changed": "no"
+}

@@ -2362,12 +2362,11 @@ async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, of
 
   const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
   const records = await airtableListRecords("update_schedule_staging", {
-    view: "lock_schedule",
-    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
+    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'),NOT({inactive}),OR({confirm_lock}=1,{is_lock}=1,{lock}=1),LEN({ring_day_no}&'')>0,LEN({ring_no}&'')>0,{class_no}>0)`
   });
   const rows = records
-    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging.locked"))
-    .filter((row) => intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
+    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging.active_locked"))
+    .filter((row) => !row.inactive && intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
     .sort((a, b) => (
       Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
       Number(a.ring_day_no || 999999) - Number(b.ring_day_no || 999999) ||

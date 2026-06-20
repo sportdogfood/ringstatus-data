@@ -51,6 +51,16 @@ function truthy(value) {
   return value === true || value === 1 || String(value ?? "").trim().toLowerCase() === "true";
 }
 
+function canonicalClassKey(row) {
+  const showNo = text(row.show_no);
+  const focusDay = dateKey(row.focus_day || row.iso_date);
+  const ringDayNo = text(row.ring_day_no);
+  const ringNo = text(row.ring_no);
+  const classNo = text(row.class_no);
+  if (!showNo || !focusDay || !ringDayNo || !ringNo || !classNo) return "";
+  return `${showNo}|${focusDay}|${ringDayNo}|${ringNo}|${classNo}`;
+}
+
 async function fetchJson(url, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Number(options.timeout_ms || 60000));
@@ -141,11 +151,14 @@ async function getLockedStagingRows(baseId, token, showNo, focusDay) {
     "AND(",
     `{show_no}=${Number(showNo)},`,
     `IS_SAME({iso_date},DATETIME_PARSE(${formulaValue(focusDay)}),'day'),`,
-    "{is_lock}=1,",
+    "NOT({inactive}),",
+    "OR({confirm_lock}=1,{is_lock}=1,{lock}=1),",
+    "LEN({ring_day_no}&'')>0,",
+    "LEN({ring_no}&'')>0,",
     "{class_no}>0",
     ")"
   ].join("");
-  const records = await airtableListAll(baseId, STAGING_TABLE, token, { filterByFormula });
+  const records = await airtableListAll(baseId, STAGING_TABLE, token, { view: "class_oog", filterByFormula });
   const rows = records
     .map((record) => {
       const fields = record.fields || {};
@@ -162,12 +175,58 @@ async function getLockedStagingRows(baseId, token, showNo, focusDay) {
         time_text: text(fields.time_text),
         class_time_text: text(fields.time_text),
         entry_count: fields.entry_count,
-        is_lock: truthy(fields.is_lock)
+        inactive: truthy(fields.inactive),
+        confirm_lock: truthy(fields.confirm_lock),
+        is_lock: truthy(fields.is_lock),
+        lock: truthy(fields.lock)
       };
     })
-    .filter((row) => row.show_no === showNo && row.ring_day_no && row.ring_no && row.class_no && row.is_lock);
-  if (!rows.length) throw new Error(`no locked update_schedule_staging rows for show_no=${showNo} focus_day=${focusDay}`);
+    .filter((row) => row.show_no === showNo && row.ring_day_no && row.ring_no && row.class_no && !row.inactive && (row.confirm_lock || row.is_lock || row.lock));
+  if (!rows.length) throw new Error(`no active locked update_schedule_staging rows for show_no=${showNo} focus_day=${focusDay}`);
   return rows.sort((a, b) => `${a.ring_day_no}|${a.ring_no}|${a.class_no}`.localeCompare(`${b.ring_day_no}|${b.ring_no}|${b.class_no}`));
+}
+
+async function getStagingSourceStats(baseId, token, showNo, focusDay) {
+  const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : formulaValue(showNo);
+  const filterByFormula = `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${formulaValue(focusDay)}),'day'))`;
+  const records = await airtableListAll(baseId, STAGING_TABLE, token, { filterByFormula });
+  const activeGroups = new Map();
+  let activeCanonicalRows = 0;
+  let protectedStaleRows = 0;
+  let protectedStaleInactive = 0;
+  for (const record of records) {
+    const fields = record.fields || {};
+    const row = {
+      show_no: text(fields.show_no),
+      focus_day: dateKey(fields.focus_day || fields.iso_date) || focusDay,
+      ring_day_no: text(fields.ring_day_no),
+      ring_no: text(fields.ring_no),
+      class_no: text(fields.class_no),
+      inactive: truthy(fields.inactive),
+      confirm_lock: truthy(fields.confirm_lock),
+      is_lock: truthy(fields.is_lock),
+      lock: truthy(fields.lock)
+    };
+    if (row.inactive) {
+      protectedStaleRows += 1;
+      protectedStaleInactive += 1;
+      continue;
+    }
+    if (!(row.confirm_lock || row.is_lock || row.lock)) continue;
+    const key = canonicalClassKey(row);
+    if (!key) continue;
+    activeCanonicalRows += 1;
+    if (!activeGroups.has(key)) activeGroups.set(key, 0);
+    activeGroups.set(key, activeGroups.get(key) + 1);
+  }
+  return {
+    total_staging_rows: records.length,
+    active_canonical_rows: activeCanonicalRows,
+    unique_canonical_keys: activeGroups.size,
+    active_duplicate_groups: [...activeGroups.values()].filter((count) => count > 1).length,
+    protected_stale_rows: protectedStaleRows,
+    protected_stale_rows_inactive: protectedStaleInactive
+  };
 }
 
 function runClassOogRawFetch({ runnerPath, syncUrl, showNo, focusDay, row }) {
@@ -240,6 +299,17 @@ async function exportCatalystRows(syncUrl, showNo, table) {
   return rows;
 }
 
+function classKeyFromClassOogRow(row) {
+  const fields = row.fields || row;
+  return canonicalClassKey({
+    show_no: fields.show_no,
+    focus_day: fields.focus_day,
+    ring_day_no: fields.ring_day_no,
+    ring_no: fields.ring_no,
+    class_no: fields.class_no
+  });
+}
+
 async function main() {
   const args = parseArgs(process.argv);
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
@@ -250,6 +320,25 @@ async function main() {
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const activeTrainerData = await getActiveTrainers(baseId, token);
   const lockedRows = await getLockedStagingRows(baseId, token, focus.show_no, focus.focus_day);
+  const sourceStats = await getStagingSourceStats(baseId, token, focus.show_no, focus.focus_day);
+  if (args["verify-source-filter-only"] || args.verify_source_filter_only) {
+    process.stdout.write(`${JSON.stringify({
+      ok: sourceStats.active_canonical_rows === sourceStats.unique_canonical_keys && sourceStats.active_duplicate_groups === 0,
+      action: "verify-class-source-filter",
+      show_no: focus.show_no,
+      focus_day: focus.focus_day,
+      field_based_filter: "show_no + iso_date + inactive!=true + (confirm_lock OR is_lock OR lock) + ring_day_no + ring_no + class_no",
+      total_staging_rows: sourceStats.total_staging_rows,
+      active_canonical_rows: sourceStats.active_canonical_rows,
+      unique_canonical_keys: sourceStats.unique_canonical_keys,
+      active_duplicate_groups: sourceStats.active_duplicate_groups,
+      protected_stale_rows: sourceStats.protected_stale_rows,
+      protected_stale_rows_inactive: sourceStats.protected_stale_rows_inactive,
+      class_oog_source_rows: lockedRows.length,
+      class_start_times_source_rows: lockedRows.length
+    }, null, 2)}\n`);
+    return;
+  }
   const seenClasses = new Set();
   const targetRows = lockedRows.filter((row) => {
     const key = `${row.show_no}|${row.focus_day}|${row.ring_day_no}|${row.ring_no}|${row.class_no}`;
@@ -288,14 +377,62 @@ async function main() {
   }
   const zeroMatchTrainers = activeTrainerData.active_trainers.filter((trainer) => !Number(matchedRowsByTrainer[trainer] || 0));
   const zeroMatchExplanation = Object.fromEntries(zeroMatchTrainers.map((trainer) => [trainer, "no matching trainer rows were present in the fetched class_oog pages"]));
-  const classStart = await syncClassStartTimes(syncUrl, focus.show_no, focus.focus_day, lockedRows);
   const catalystClassOogRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_oog"))
-    .filter((row) => dateKey(row.focus_day) === focus.focus_day);
-  const catalystClassStartRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_start_times"))
     .filter((row) => dateKey(row.focus_day) === focus.focus_day);
   const classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
     filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
   });
+  if (args["class-oog-only"] || args.class_oog_only) {
+    const sourceKeys = new Set(targetRows.map(canonicalClassKey).filter(Boolean));
+    const targetKeys = new Set(classOogAirtableRows.map(classKeyFromClassOogRow).filter(Boolean));
+    const missingTargetRows = [...sourceKeys].filter((key) => !targetKeys.has(key)).sort();
+    const extraActiveTargetRows = [...targetKeys].filter((key) => !sourceKeys.has(key)).sort();
+    const summary = {
+      ok: missingTargetRows.length === 0
+        && extraActiveTargetRows.length === 0
+        && catalystClassOogRows.length === classOogAirtableRows.length,
+      action: "sync-class-oog-only",
+      source_view: "update_schedule_staging.class_oog",
+      target_table: "class_oog",
+      show_no: focus.show_no,
+      focus_day: focus.focus_day,
+      source_count: targetRows.length,
+      target_active_count: classOogAirtableRows.length,
+      keys_match: missingTargetRows.length === 0 && extraActiveTargetRows.length === 0,
+      missing_target_rows: missingTargetRows,
+      extra_active_target_rows: extraActiveTargetRows,
+      required_fields_populated: classOogAirtableRows.every((record) => {
+        const fields = record.fields || {};
+        return Boolean(fields.mirror_class_oog_key || fields.class_oog_key)
+          && Boolean(fields.show_no)
+          && Boolean(fields.focus_day)
+          && Boolean(fields.ring_day_no)
+          && Boolean(fields.ring_no)
+          && Boolean(fields.class_no);
+      }),
+      records_created: classOogRuns.reduce((sum, row) => sum + Number(row.parsed_rows || 0), 0),
+      records_updated: 0,
+      records_deleted: classOogRuns.reduce((sum, row) => sum + row.hs_class_oog_stale_deleted + row.class_oog_stale_deleted, 0),
+      hs_class_oog_count: catalystClassOogRows.length,
+      class_oog_count: classOogAirtableRows.length,
+      class_oog_counts_match: catalystClassOogRows.length === classOogAirtableRows.length,
+      class_start_times_run: false,
+      entry_go_times_run: false,
+      mobile_run: false,
+      print_run: false,
+      focus_day_is_pause_changed: false,
+      matched_rows_by_trainer: matchedRowsByTrainer,
+      zero_match_trainers: zeroMatchTrainers,
+      zero_match_trainers_explained: zeroMatchExplanation,
+      class_oog_parse_wec_log_rec_ids: classOogRuns.map((row) => row.parse_wec_log_rec_id).filter(Boolean)
+    };
+    process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+    if (!summary.ok) throw new Error("class_oog-only sync did not reconcile source and target");
+    return;
+  }
+  const classStart = await syncClassStartTimes(syncUrl, focus.show_no, focus.focus_day, lockedRows);
+  const catalystClassStartRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_start_times"))
+    .filter((row) => dateKey(row.focus_day) === focus.focus_day);
   const classStartAirtableRows = await airtableListAll(baseId, "class_start_times", token, {
     filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
   });

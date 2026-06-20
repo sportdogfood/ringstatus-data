@@ -1,8 +1,8 @@
 {
   "ok": true,
   "action": "sync-focus-update-schedule-mirror-only",
-  "run_id": "wec-stage1-stage2-20260620T181219768Z-d5ecc94b",
-  "run_time": "2026-06-20T18:12:19.768Z",
+  "run_id": "wec-stage1-stage2-20260620T194219478Z-403772de",
+  "run_time": "2026-06-20T19:42:19.478Z",
   "cadence_owned": true,
   "stopped_at": "update_schedule",
   "update_schedule_staging_touched": false,
@@ -13,19 +13,19 @@
   "raw_rows_stored": 9,
   "parse_runs_completed": 9,
   "payload_row_count": 115,
-  "hs_update_schedule_stale_deleted": 108,
-  "update_schedule_stale_deleted": 108,
-  "records_deleted_from_update_schedule": 108,
+  "hs_update_schedule_stale_deleted": 69,
+  "update_schedule_stale_deleted": 69,
+  "records_deleted_from_update_schedule": 69,
   "parse_wec_log_rec_ids": [
-    "recuEO0NaOFYRJoWM",
-    "recMPbMMC2honXTUo",
-    "recKkoZ5LyWk4ds73",
-    "recKni44iOcEjBLvg",
-    "rec5NvelWlnmDDTJe",
-    "reclGAz5dZkPWOfYm",
-    "recCj0E779jTuyAAw",
-    "recyEZxeWAAOscjnO",
-    "recIZCJFrsa53I4Ur"
+    "recCD6Gb6GtrzDiX8",
+    "recA0sN0rhsz5mM1f",
+    "recM4xyUCbepwPmrf",
+    "recauMuVjGhWwQDAc",
+    "rec28NBcqCNAGkBJ6",
+    "rec4TFJdJU5EnUzYS",
+    "reclRpM9nK2gcomux",
+    "recNWXjEjnJqOC9K8",
+    "reciO3ajHy2YW0eBd"
   ],
   "ring_day_nos": [
     "4227",
@@ -48,5 +48,5 @@
   "extra_in_update_schedule": [],
   "duplicate_hs_update_schedule_keys": [],
   "duplicate_update_schedule_keys": [],
-  "success_at": "2026-06-20T18:15:51.628Z"
+  "success_at": "2026-06-20T19:45:53.512Z"
 }

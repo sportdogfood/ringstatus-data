@@ -132,7 +132,13 @@ async function main() {
   const cookie = await bootstrapCookie(showNo, userAgent, suppliedCookie);
   const upstream = await fetchClassOogRaw({ showNo, classNo, cookie, userAgent });
   if (!String(upstream.raw_html || "").trim()) {
-    throw new Error(`class_oog.php returned empty raw_html class_no=${classNo} status=${upstream.status}`);
+    upstream.raw_html = [
+      "<!-- empty class_oog response",
+      `class_no=${classNo}`,
+      `status=${upstream.status}`,
+      `fetched_at=${new Date().toISOString()}`,
+      "-->",
+    ].join(" ");
   }
   const stored = await storeRaw({
     syncUrl: args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL,

@@ -1780,6 +1780,7 @@ async function exportMirrorTable(app, showNo, tableKey, limit = 100, offset = 0)
     update_schedule: TABLES.updateSchedule,
     counts: TABLES.counts,
     class_oog: TABLES.classOog,
+    class_oog_raw: TABLES.classOogRaw,
     class_times: TABLES.classTimes,
     class_start_times: TABLES.classStartTimes,
     entry_go_times: TABLES.entryGoTimes,

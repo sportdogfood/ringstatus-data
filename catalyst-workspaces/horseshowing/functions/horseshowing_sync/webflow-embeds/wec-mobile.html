@@ -704,6 +704,7 @@
   const PDF_WORKER_BASE = "https://ringstatus-pdf.gombcg.workers.dev/";
   const WEC_PRINT_URL = "https://ringstatus.com/wec-print";
   const WEC_EDIT_URL = window.RS_WEC_EDIT_URL || "https://ringstatus.com/test/wec-schedule/edit";
+  const HIDE_STORAGE_PREFIX = "rs_wec_mobile_hidden_classes";
 
   let activeHorse = "__all__";
   let activeStatus = "__all__";
@@ -719,6 +720,9 @@
   let hideMode = false;
   let emptyRetryTimer = null;
   const hideSelection = new Map();
+  let hiddenClassKeys = new Set();
+  let hideChangeBound = false;
+  let lastHideLogResult = null;
 
   const fmtTimeET = (ms)=>{
     return new Intl.DateTimeFormat("en-US", {
@@ -782,41 +786,112 @@
     if(link) link.href = buildPrintPdfUrl();
   }
 
+  function classHideStorageKey(showNo = currentShowNo, focusDay = currentFocusDay){
+    const show = String(showNo || "").trim() || "unknown-show";
+    const day = isoDate(focusDay) || String(focusDay || "").trim() || "unknown-day";
+    return `${HIDE_STORAGE_PREFIX}|${show}|${day}`;
+  }
+
+  function classHideKey(row){
+    const showNo = String(row?.show_no ?? row?.showNo ?? row?.show_id ?? row?.showId ?? currentShowNo ?? "").trim();
+    const focusDay = isoDate(row?.focus_day ?? row?.focusDay ?? row?.show_day_key ?? row?.showDayKey ?? currentFocusDay);
+    const ringDayNo = String(row?.ring_day_no ?? row?.ringDayNo ?? "").trim();
+    const ringNo = String(row?.ring_no ?? row?.ringNo ?? row?.ring_number ?? row?.ringNumber ?? "").trim();
+    const classNo = String(row?.class_no ?? row?.classNo ?? "").trim();
+    if(!showNo || !focusDay || !ringDayNo || !ringNo || !classNo) return "";
+    return `${showNo}|${focusDay}|${ringDayNo}|${ringNo}|${classNo}`;
+  }
+
+  function loadHiddenClassKeys(){
+    try{
+      const raw = window.localStorage?.getItem(classHideStorageKey()) || "[]";
+      const parsed = JSON.parse(raw);
+      hiddenClassKeys = new Set(Array.isArray(parsed) ? parsed.map(x => String(x || "").trim()).filter(Boolean) : []);
+    } catch {
+      hiddenClassKeys = new Set();
+    }
+    return hiddenClassKeys;
+  }
+
+  function saveHiddenClassKeys(){
+    try{
+      window.localStorage?.setItem(classHideStorageKey(), JSON.stringify(Array.from(hiddenClassKeys)));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function visibleRowsForDevice(rows){
+    if(!hiddenClassKeys.size) return rows;
+    return rows.filter(row => {
+      const key = classHideKey(row);
+      return !key || !hiddenClassKeys.has(key);
+    });
+  }
+
   function setHideMode(nextMode){
     hideMode = !!nextMode;
     if(!hideMode) hideSelection.clear();
     document.body.classList.toggle("is-hide-mode", hideMode);
     document.querySelectorAll(".hide-check").forEach(input => {
-      input.checked = hideSelection.has(input.dataset.classNo || "");
+      input.checked = hideSelection.has(input.dataset.classKey || "");
       input.closest(".c")?.classList.toggle("is-hide-selected", input.checked);
     });
   }
 
   function updateHideSelection(input){
-    const classNo = String(input?.dataset?.classNo || "").trim();
-    if(!classNo) return;
+    const classKey = String(input?.dataset?.classKey || "").trim();
+    if(!classKey) return;
+    const classNo = String(input.dataset.classNo || "").trim();
     const label = String(input.dataset.classLabel || "").trim();
-    if(input.checked) hideSelection.set(classNo, { class_no: classNo, class_label: label });
-    else hideSelection.delete(classNo);
+    if(input.checked) hideSelection.set(classKey, { hide_key: classKey, class_no: classNo, class_label: label });
+    else hideSelection.delete(classKey);
     input.closest(".c")?.classList.toggle("is-hide-selected", input.checked);
   }
 
+  async function logHideSelection(classes){
+    if(!classes.length || !currentShowNo || !currentFocusDay) return { attempted:false, ok:false, error:"missing_log_context" };
+    try{
+      const result = await postWecEdit({
+        action:"log-hide-classes",
+        show_no:currentShowNo,
+        focus_day:currentFocusDay,
+        classes,
+        source:"wec-mobile"
+      });
+      return { attempted:true, ok:true, result };
+    } catch (error) {
+      return { attempted:true, ok:false, error:String(error && error.message ? error.message : error) };
+    }
+  }
+
   async function saveHideSelection(){
-    if(!currentShowNo || hideSelection.size === 0) return;
+    if(!currentShowNo || !currentFocusDay || hideSelection.size === 0){
+      setHideMode(false);
+      return;
+    }
     const save = document.getElementById("hideSaveBtn");
     if(save) save.disabled = true;
     try{
-      await postWecEdit({
-        action:"hide-classes",
-        show_no:currentShowNo,
-        focus_day:currentFocusDay,
-        classes:Array.from(hideSelection.values()),
-        source:"wec-mobile"
+      const classes = Array.from(hideSelection.values());
+      classes.forEach(item => {
+        if(item.hide_key) hiddenClassKeys.add(item.hide_key);
       });
+      saveHiddenClassKeys();
+      lastHideLogResult = await logHideSelection(classes);
+      window.RS_WEC_LAST_HIDE_LOG_RESULT = lastHideLogResult;
+      if(lastHideLogResult.attempted && !lastHideLogResult.ok){
+        console.warn("[wec-mobile] hide log failed", lastHideLogResult.error);
+      }
       setHideMode(false);
-      currentDataUrl = null;
-      publishedAtMs = null;
-      await initialLoad();
+      if(lastRaw){
+        renderRows(parseJsonText(lastRaw, currentDataUrl || location.href));
+      } else {
+        currentDataUrl = null;
+        publishedAtMs = null;
+        await initialLoad();
+      }
     } finally {
       if(save) save.disabled = false;
     }
@@ -1195,11 +1270,14 @@
       }));
     }
 
-    document.addEventListener("change", event => {
-      const input = event.target && event.target.closest ? event.target.closest(".hide-check") : null;
-      if(!input) return;
-      updateHideSelection(input);
-    });
+    if(!hideChangeBound){
+      hideChangeBound = true;
+      document.addEventListener("change", event => {
+        const input = event.target && event.target.closest ? event.target.closest(".hide-check") : null;
+        if(!input) return;
+        updateHideSelection(input);
+      });
+    }
   }
 
   function rowDisplayTime(row){
@@ -1348,6 +1426,7 @@
 
           const label = classDisplayLabel(c);
           const classNo = String(c.class_no ?? c.classNo ?? "").trim();
+          const classKey = classHideKey(c);
           const classNumber = String(c.class_number ?? c.classNumber ?? "").trim();
           const duplicateKey = `${roundedTime.key}|${classNo || classNumber || normalizedDisplayClassText(c)}`;
           if(duplicateKey.trim() && seenNonTeamTimeClassKeys.has(duplicateKey)) continue;
@@ -1364,10 +1443,10 @@
           const diffClass = String(c.diff_class ?? c.diffClass ?? "").split(/\s+/).filter(x => /^diff-[a-z0-9_-]+$/i.test(x)).join(" ");
 
           cl += `
-            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}">
+            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}">
               <div class="t">${timeHtml}</div>
               <div class="n">${esc(label)}</div>
-              <div class="hide-cell"><input class="hide-check" type="checkbox" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" aria-label="Hide class ${esc(label)}"></div>
+              <div class="hide-cell"><input class="hide-check" type="checkbox" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" aria-label="Hide class ${esc(label)}"></div>
             </div>
           `;
         }
@@ -1600,8 +1679,10 @@
     }
 
     setHeader(rows);
+    loadHiddenClassKeys();
+    const rowsForDevice = visibleRowsForDevice(rows);
 
-    const ringEls = buildRings(rows);
+    const ringEls = buildRings(rowsForDevice);
 
     const container = document.getElementById("rings");
     container.innerHTML = "";
@@ -1610,6 +1691,7 @@
     buildBottomNav(ringEls);
     renderFilters();
     setupActiveRingObserver();
+    bindHideMode();
 
     const firstVisibleRing = Array.from(document.querySelectorAll("section.ring"))
       .find(sec => sec.style.display !== "none");

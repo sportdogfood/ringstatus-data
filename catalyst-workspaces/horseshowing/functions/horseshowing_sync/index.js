@@ -203,6 +203,19 @@ const AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS = {
 };
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS = new Set(
   Object.values(AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS)
+    .filter((fieldId) => fieldId !== AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive)
+);
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_NON_WRITABLE_PROTECTED_FIELD_IDS = new Set([
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.is_lock,
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.full_lock,
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.no_lock,
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.full_lockv2,
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.quick_lock,
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.lock
+].filter(Boolean));
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS = new Set(
+  [...AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS]
+    .filter((fieldId) => !AIRTABLE_UPDATE_SCHEDULE_STAGING_NON_WRITABLE_PROTECTED_FIELD_IDS.has(fieldId))
 );
 
 function text(value) {
@@ -1989,6 +2002,7 @@ function stagingScheduleRowFromRecord(record, showNo, focusDay, source = "update
     class_start_time: classStartTime,
     display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
     entry_count: intOrNull(fields.entry_count),
+    inactive: fields.inactive === true,
     manual_group: fieldText(fields, ["manual_grpup", "manual_group"]),
     manual_horse_ids: linkedRecordIds(fields.horses),
     manual_instructions: fieldText(fields, ["manual-instructions", "manual_instructions", "manual instructions"]),
@@ -2004,7 +2018,7 @@ async function getAllStagingScheduleRows(showNo, focusDay) {
   });
   return records
     .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging"))
-    .filter((row) => intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
+    .filter((row) => !row.inactive && intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
     .sort((a, b) => (
       Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
       Number(a.ring_day_no || 999999) - Number(b.ring_day_no || 999999) ||
@@ -2835,6 +2849,47 @@ function compactTrainerRollups(rollups) {
   return [...byTrainer.values()].filter((item) => item.horses.length);
 }
 
+function schedulePayloadClassKey(row, showNo, focusDay) {
+  return [
+    text(row.show_id || row.show_no || showNo),
+    text(row.show_day_key || row.focus_day || focusDay),
+    text(row.ring_day_no),
+    text(row.ring_number || row.ring_no),
+    text(row.class_no)
+  ].join("|");
+}
+
+function mergeSchedulePayloadRows(rows, showNo, focusDay) {
+  const byKey = new Map();
+  for (const row of rows || []) {
+    const key = schedulePayloadClassKey(row, showNo, focusDay);
+    if (!text(row.class_no) || byKey.has(key) === false) {
+      byKey.set(key, { ...row });
+      continue;
+    }
+    const existing = byKey.get(key);
+    const mergedRollups = compactTrainerRollups([
+      ...(existing.trainer_rollups || []),
+      ...(row.trainer_rollups || [])
+    ]);
+    existing.trainer_rollups = mergedRollups;
+    existing.group_display = horseRollupDisplay(mergedRollups) || existing.group_display || row.group_display;
+    existing.sched_display = existing.group_display || existing.sched_display || row.sched_display;
+    existing["8778_sched_display"] = existing.sched_display;
+    existing.sched_horses = mergedRollups
+      .flatMap((item) => item.horses || [])
+      .map((horse) => (horse && typeof horse === "object" ? text(horse.display || horse.horse) : text(horse)))
+      .filter(Boolean)
+      .join("|") || existing.sched_horses || row.sched_horses;
+    for (const [field, value] of Object.entries(row)) {
+      if (existing[field] === undefined || existing[field] === null || existing[field] === "") {
+        existing[field] = value;
+      }
+    }
+  }
+  return [...byKey.values()];
+}
+
 function trainerRollupDisplay(rollups) {
   return compactTrainerRollups(rollups)
     .map((item) => `${item.trainer_display}: ${(item.horses || []).map((horse) => (
@@ -3032,7 +3087,7 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
       }, scheduleRow);
     });
 
-  return rows
+  return mergeSchedulePayloadRows(rows, showNo, focusDay)
     .sort((a, b) => (
       Number(a.ring_number || 9999) - Number(b.ring_number || 9999) ||
       Number(a.class_group_sequence || 9999999999) - Number(b.class_group_sequence || 9999999999)
@@ -3736,6 +3791,33 @@ async function airtableUpsertByFieldId(table, mergeFieldId, records) {
   return results;
 }
 
+async function airtableUpdateRecordsById(table, records) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const results = [];
+  for (let index = 0; index < records.length; index += 10) {
+    const chunk = records.slice(index, index + 10).filter((record) => record?.id && record?.fields);
+    if (!chunk.length) continue;
+    const response = await fetch(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`, {
+      method: "PATCH",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        records: chunk.map((record) => ({ id: record.id, fields: record.fields })),
+        typecast: true
+      })
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable update ${table} failed ${response.status}: ${raw.slice(0, 500)}`);
+    results.push(...(JSON.parse(raw).records || []));
+  }
+  return results;
+}
+
 async function airtableDeleteRecords(table, recordIds) {
   const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
   if (!token) {
@@ -3806,6 +3888,191 @@ function assertNoProtectedStagingUpdateFields(fields) {
   return fields;
 }
 
+function updateScheduleStagingCanonicalKey(rowOrFields) {
+  const row = rowOrFields || {};
+  const get = (name, fieldId) => row[name] ?? row[fieldId];
+  return resultKey(
+    get("show_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no),
+    dateKey(get("focus_day", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.iso_date) || get("iso_date", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.iso_date) || get("date_text", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.date_text)),
+    get("ring_day_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_day_no),
+    get("ring_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_no),
+    get("class_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no)
+  );
+}
+
+function mergeUpdateScheduleRowsToClassGrain(rows) {
+  const byKey = new Map();
+  for (const row of rows || []) {
+    const key = updateScheduleStagingCanonicalKey(row);
+    if (!key) continue;
+    const existing = byKey.get(key);
+    if (!existing) {
+      byKey.set(key, { ...row, update_schedule_key: key, source_key: text(row.update_schedule_key) });
+      continue;
+    }
+    for (const [field, value] of Object.entries(row)) {
+      if ((existing[field] === null || existing[field] === undefined || existing[field] === "") && value !== null && value !== undefined && value !== "") {
+        existing[field] = value;
+      }
+    }
+    const currentEntryCount = intOrNull(existing.entry_count);
+    const nextEntryCount = intOrNull(row.entry_count);
+    if (nextEntryCount !== null && (currentEntryCount === null || nextEntryCount > currentEntryCount)) {
+      existing.entry_count = nextEntryCount;
+    }
+    existing.update_schedule_key = key;
+  }
+  return [...byKey.values()];
+}
+
+function stagingRecordCanonicalKey(record) {
+  return updateScheduleStagingCanonicalKey(record?.fields || {});
+}
+
+function stagingClassGrainStatus(records) {
+  const active = [];
+  const protectedStale = [];
+  const groups = new Map();
+  for (const record of records || []) {
+    const fields = record?.fields || {};
+    const key = stagingRecordCanonicalKey(record);
+    if (fields[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive] === true) {
+      protectedStale.push(record);
+      continue;
+    }
+    active.push(record);
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(record);
+  }
+  return {
+    active_count: active.length,
+    unique_keys: groups.size,
+    duplicate_groups: [...groups.values()].filter((group) => group.length > 1).length,
+    protected_stale_count: protectedStale.length
+  };
+}
+
+function protectedFieldMergeValue(current, incoming) {
+  if (!hasAirtableProtectedValue(incoming)) return { value: current, conflict: false, changed: false };
+  if (!hasAirtableProtectedValue(current)) return { value: incoming, conflict: false, changed: true };
+  if (Array.isArray(current) || Array.isArray(incoming)) {
+    const values = [...(Array.isArray(current) ? current : [current]), ...(Array.isArray(incoming) ? incoming : [incoming])]
+      .map((value) => text(value))
+      .filter(Boolean);
+    return { value: [...new Set(values)], conflict: false, changed: true };
+  }
+  if (typeof current === "boolean" || typeof incoming === "boolean") {
+    return { value: Boolean(current || incoming), conflict: false, changed: Boolean(current) !== Boolean(current || incoming) };
+  }
+  if (String(current) === String(incoming)) return { value: current, conflict: false, changed: false };
+  return { value: current, conflict: true, changed: false };
+}
+
+function protectedFieldScore(record) {
+  return protectedStagingFieldsPresent(record).length;
+}
+
+function chooseStagingSurvivor(records, key) {
+  return [...records].sort((a, b) => (
+    protectedFieldScore(b) - protectedFieldScore(a) ||
+    Number(text(b.fields?.[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]) === key) - Number(text(a.fields?.[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]) === key) ||
+    String(a.createdTime || "").localeCompare(String(b.createdTime || ""))
+  ))[0];
+}
+
+function buildStagingSurvivorMerge(group, survivor, key, activePayload) {
+  const merged = { ...(survivor.fields || {}) };
+  const conflicts = [];
+  for (const record of group) {
+    if (record.id === survivor.id) continue;
+    for (const fieldId of AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS) {
+      const result = protectedFieldMergeValue(merged[fieldId], record.fields?.[fieldId]);
+      if (result.conflict) {
+        conflicts.push({
+          field_id: fieldId,
+          survivor: merged[fieldId],
+          duplicate: record.fields?.[fieldId],
+          duplicate_record_id: record.id
+        });
+      } else if (result.changed) {
+        merged[fieldId] = result.value;
+      }
+    }
+  }
+  const updateFields = {
+    ...(activePayload || {}),
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: key
+  };
+  for (const fieldId of AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS) {
+    if (hasAirtableProtectedValue(merged[fieldId])) updateFields[fieldId] = merged[fieldId];
+  }
+  return { fields: updateFields, conflicts };
+}
+
+async function dedupeUpdateScheduleStagingClassGrain(records, activePayloadsByKey) {
+  const groups = new Map();
+  for (const record of records || []) {
+    const key = stagingRecordCanonicalKey(record);
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(record);
+  }
+  const updates = [];
+  const deleteIds = [];
+  const conflicts = [];
+  const processed = [];
+  let protectedValuesMerged = 0;
+  let checkboxTrueValuesPreserved = 0;
+  let linksUnioned = 0;
+  for (const [key, group] of groups.entries()) {
+    if (group.length < 2) continue;
+    const survivor = chooseStagingSurvivor(group, key);
+    const { fields, conflicts: groupConflicts } = buildStagingSurvivorMerge(group, survivor, key, activePayloadsByKey.get(key));
+    if (groupConflicts.length) {
+      conflicts.push({ key, survivor_record_id: survivor.id, conflicts: groupConflicts });
+      continue;
+    }
+    for (const fieldId of AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS) {
+      const value = fields[fieldId];
+      if (hasAirtableProtectedValue(value)) protectedValuesMerged += 1;
+      if (value === true) checkboxTrueValuesPreserved += 1;
+      if (Array.isArray(value) && value.length) linksUnioned += 1;
+    }
+    updates.push({ id: survivor.id, fields });
+    for (const record of group) {
+      if (record.id !== survivor.id) deleteIds.push(record.id);
+    }
+    processed.push({ key, survivor_record_id: survivor.id, duplicate_records: group.length - 1 });
+  }
+  if (conflicts.length) {
+    return {
+      status: "CONFLICT",
+      processed: processed.length,
+      merged: 0,
+      skipped_due_to_conflict: conflicts.length,
+      conflict_detail: conflicts,
+      protected_values_merged: protectedValuesMerged,
+      checkbox_true_values_preserved: checkboxTrueValuesPreserved,
+      links_unioned: linksUnioned,
+      deleted: 0
+    };
+  }
+  await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, updates);
+  const deleted = await airtableDeleteRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, deleteIds);
+  return {
+    status: "PASS",
+    processed: processed.length,
+    merged: processed.length,
+    skipped_due_to_conflict: 0,
+    conflict_detail: [],
+    protected_values_merged: protectedValuesMerged,
+    checkbox_true_values_preserved: checkboxTrueValuesPreserved,
+    links_unioned: linksUnioned,
+    deleted
+  };
+}
+
 async function deleteUnprotectedAirtableRowsNotInKeys(table, keyFieldId, records, activeKeys) {
   const stale = [];
   const protectedStale = [];
@@ -3819,10 +4086,15 @@ async function deleteUnprotectedAirtableRowsNotInKeys(table, keyFieldId, records
       stale.push(record.id);
     }
   }
+  const markedProtectedStale = await airtableUpdateRecordsById(table, protectedStale.map((record) => ({
+    id: record.id,
+    fields: { [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: true }
+  })));
   const deleted = await airtableDeleteRecords(table, stale.filter(Boolean));
   return {
     deleted,
     protected_stale_preserved: protectedStale.length,
+    protected_stale_marked: markedProtectedStale.length,
     protected_stale_records: protectedStale
   };
 }
@@ -3868,8 +4140,9 @@ function mapUpdateScheduleMirrorFields(row) {
 }
 
 function mapUpdateScheduleStagingFields(row, runTime) {
+  const stagingKey = updateScheduleStagingCanonicalKey(row);
   return assertNoProtectedStagingUpdateFields({
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: row.update_schedule_key,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: stagingKey,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no]: row.show_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no]: row.class_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_day_no]: row.ring_day_no,
@@ -3885,8 +4158,9 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_type]: row.event_type,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.oc_id]: row.oc_id,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.live_flag]: row.live_flag,
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key]: row.update_schedule_key,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key]: row.source_key || row.update_schedule_key,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source]: "update_schedule.php",
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
   });
 }
@@ -3927,11 +4201,45 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
   const sourceRows = updateScheduleRecords
     .map((record) => updateScheduleRowFromAirtableFields(record.fields || {}))
     .filter((row) => text(row.update_schedule_key));
-  const activeKeys = new Set(sourceRows.map((row) => text(row.update_schedule_key)).filter(Boolean));
+  const canonicalSourceRows = mergeUpdateScheduleRowsToClassGrain(sourceRows);
+  const activePayloadsByKey = new Map(canonicalSourceRows.map((row) => {
+    const fields = mapUpdateScheduleStagingFields(row, runTime);
+    return [text(fields[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]), fields];
+  }));
+  const activeKeys = new Set(canonicalSourceRows.map((row) => updateScheduleStagingCanonicalKey(row)).filter(Boolean));
+  const existingBeforeDedupe = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: formula,
+    returnFieldsByFieldId: "true"
+  });
+  const duplicateGroupsBefore = [...existingBeforeDedupe.reduce((groups, record) => {
+    const key = stagingRecordCanonicalKey(record);
+    if (!key) return groups;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(record);
+    return groups;
+  }, new Map()).values()].filter((group) => group.length > 1).length;
+  const dedupeResult = await dedupeUpdateScheduleStagingClassGrain(existingBeforeDedupe, activePayloadsByKey);
+  if (dedupeResult.status === "CONFLICT") {
+    return {
+      show_no: showNo,
+      focus_day: focusDay,
+      status: "CONFLICT",
+      payload_rows: canonicalSourceRows.length,
+      update_schedule_rows: updateScheduleRecords.length,
+      update_schedule_staging_rows_before: existingBeforeDedupe.length,
+      update_schedule_staging_unique_keys_before: activeKeys.size,
+      update_schedule_staging_duplicate_groups_before: duplicateGroupsBefore,
+      update_schedule_staging_dedupe_groups_processed: dedupeResult.processed,
+      update_schedule_staging_dedupe_groups_merged: dedupeResult.merged,
+      update_schedule_staging_dedupe_groups_skipped_due_to_conflict: dedupeResult.skipped_due_to_conflict,
+      update_schedule_staging_conflict_detail: dedupeResult.conflict_detail,
+      update_schedule_staging_dedupe_deleted: 0
+    };
+  }
   const stagingRecords = await airtableUpsertByFieldId(
     AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
     AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
-    sourceRows.map((row) => mapUpdateScheduleStagingFields(row, runTime))
+    canonicalSourceRows.map((row) => mapUpdateScheduleStagingFields(row, runTime))
   );
   const existingStaging = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
     filterByFormula: formula,
@@ -3947,18 +4255,35 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     filterByFormula: formula,
     returnFieldsByFieldId: "true"
   });
+  const finalClassGrainStatus = stagingClassGrainStatus(finalStaging);
   const catalystRows = await countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay);
   return {
     show_no: showNo,
     focus_day: focusDay,
-    payload_rows: sourceRows.length,
+    payload_rows: canonicalSourceRows.length,
     hs_update_schedule_rows: catalystRows,
     update_schedule_rows: updateScheduleRecords.length,
     update_schedule_staging_rows: finalStaging.length,
     update_schedule_staging_upserts: stagingRecords.length,
     update_schedule_staging_stale_deleted: staleResult.deleted,
     update_schedule_staging_protected_stale_preserved: staleResult.protected_stale_preserved,
-    update_schedule_staging_protected_stale_records: staleResult.protected_stale_records
+    update_schedule_staging_protected_stale_marked: staleResult.protected_stale_marked,
+    update_schedule_staging_protected_stale_records: staleResult.protected_stale_records,
+    update_schedule_staging_active_canonical_rows: finalClassGrainStatus.active_count,
+    update_schedule_staging_active_unique_keys: finalClassGrainStatus.unique_keys,
+    update_schedule_staging_active_duplicate_groups: finalClassGrainStatus.duplicate_groups,
+    update_schedule_staging_protected_stale_rows: finalClassGrainStatus.protected_stale_count,
+    update_schedule_staging_rows_before: existingBeforeDedupe.length,
+    update_schedule_staging_unique_keys_before: activeKeys.size,
+    update_schedule_staging_duplicate_groups_before: duplicateGroupsBefore,
+    update_schedule_staging_dedupe_groups_processed: dedupeResult.processed,
+    update_schedule_staging_dedupe_groups_merged: dedupeResult.merged,
+    update_schedule_staging_dedupe_groups_skipped_due_to_conflict: dedupeResult.skipped_due_to_conflict,
+    update_schedule_staging_conflict_detail: dedupeResult.conflict_detail,
+    update_schedule_staging_dedupe_deleted: dedupeResult.deleted,
+    update_schedule_staging_protected_values_merged: dedupeResult.protected_values_merged,
+    update_schedule_staging_checkbox_true_values_preserved: dedupeResult.checkbox_true_values_preserved,
+    update_schedule_staging_links_unioned: dedupeResult.links_unioned
   };
 }
 

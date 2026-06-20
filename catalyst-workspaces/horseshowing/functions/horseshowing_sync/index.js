@@ -163,6 +163,47 @@ const AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS = {
   inactive: "fld78Qo0RgOGbQfzK",
   last_run_time: "fld1vf5NxKMesqzUX"
 };
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS = {
+  shows: "fldr7WPbgPFfPuctf",
+  show_days: "fldiW1dfQrPSFiNvv",
+  focus_show: "fldg6ox15s03Sw9xk",
+  ring_days: "fldTVsQTkDsDvKyPz",
+  rings: "fldz3HXUIVufTOlYm",
+  events: "flds4Y7IP8eN7JrP1",
+  classes: "fld57nJX8y2bOTMcw",
+  grab: "fldvr5BoXVUMI7g12",
+  is_lock: "fldtUb2tiJvBNHdsD",
+  manual_lock: "flddGexUe4bp5dqCT",
+  full_lock: "fldL8UsgATV34je1y",
+  no_lock: "fldl0nWvRskwvfgrx",
+  second_trip: "fldzC5jKL08a6rmxM",
+  inactive: "fld78Qo0RgOGbQfzK",
+  class_start_times: "fldplhHfHHFb6y6kV",
+  class_oog: "fldKuuwOdclVN4nwX",
+  entry_go_times: "fld1n25ueoDvr5LUz",
+  priority: "fldKQihtS72TdHvsn",
+  class_left: "fldWRDx5sXYrKywD0",
+  dows: "fldfYkzXpXREAjVQV",
+  full_lockv2: "fldt5NXBS1P1s5bWf",
+  review_notes: "fld1srOFl2Tz2NcUE",
+  review_status: "fldNEtTH1zyeZUGaW",
+  update_schedule: "fldQmOVJvWzOIKXGx",
+  wec_logs: "fldf2uT0cdmrNBHyH",
+  horses: "fldtAjB9H2QA5tLV8",
+  barn_name: "fldvsnI5yDq14IuMI",
+  manual_instructions: "fldluSwhKkPjPcRtW",
+  manual_group: "fldd3teDvkVTxf5k3",
+  quick_lock: "fldfg64i7x6nWynZw",
+  lock: "fld6RM2CwUYf3GSGK",
+  confirm_lock: "fldmXG63Z9lld6dL0",
+  active_entries: "fldx5VQzmW1bbDXtD",
+  ring_names: "fldG3nhLK46f5AwBN",
+  second_trip_copy: "fldhm0o81Yt8pArFS",
+  active_entries_3: "fldZSmWFXhZn4MzUR"
+};
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS = new Set(
+  Object.values(AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS)
+);
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -1926,6 +1967,52 @@ async function getFocusSchedule(app, showNo, focusDay, { limit = 200, offset = 0
     ));
 }
 
+function stagingScheduleRowFromRecord(record, showNo, focusDay, source = "update_schedule_staging") {
+  const fields = record.fields || {};
+  const timeText = fieldText(fields, ["time_text", "display_time", "time"]);
+  const classStartTime = normalizeClassStartTime(fieldText(fields, ["class_start_time", "time"]) || timeText);
+  const className = fieldText(fields, ["class_name", "event_name", "class_label"]);
+  const classLabel = fieldText(fields, ["event_name", "class_label", "class_name"]);
+  const classNumber = fieldText(fields, ["class_number"]) || classNumberFromLabel({ class_label: classLabel });
+  return {
+    ROWID: record.id,
+    record_id: record.id,
+    show_no: fieldText(fields, ["show_no"]) || text(showNo),
+    focus_day: dateKey(fieldText(fields, ["focus_day", "iso_date"])) || text(focusDay),
+    ring_no: fieldText(fields, ["ring_no"]),
+    ring_day_no: fieldText(fields, ["ring_day_no", "days"]),
+    ring_name: fieldText(fields, ["ring_display", "ring_name", "ring_names", "ring", "rings"]),
+    class_no: fieldText(fields, ["class_no"]),
+    class_number: classNumber,
+    class_name: className,
+    class_label: className,
+    class_start_time: classStartTime,
+    display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
+    entry_count: intOrNull(fields.entry_count),
+    manual_group: fieldText(fields, ["manual_grpup", "manual_group"]),
+    manual_horse_ids: linkedRecordIds(fields.horses),
+    manual_instructions: fieldText(fields, ["manual-instructions", "manual_instructions", "manual instructions"]),
+    source,
+    live_source: source
+  };
+}
+
+async function getAllStagingScheduleRows(showNo, focusDay) {
+  const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
+  const records = await airtableListRecords("update_schedule_staging", {
+    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
+  });
+  return records
+    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging"))
+    .filter((row) => intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
+    .sort((a, b) => (
+      Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
+      Number(a.ring_day_no || 999999) - Number(b.ring_day_no || 999999) ||
+      Number(scheduleSortValue(a.class_start_time, a.class_number)) - Number(scheduleSortValue(b.class_start_time, b.class_number)) ||
+      Number(a.class_no || 0) - Number(b.class_no || 0)
+    ));
+}
+
 async function getStoredRingDayRows(app, showNo, focusDay) {
   const query = [
     "SELECT ROWID, show_no, ring_no, ring_day_no, ring_name, day_label, raw_json",
@@ -2112,6 +2199,7 @@ function entryGoTimesByClassFromRecords(records, activeTrainers = []) {
     if (text(fields.status).toLowerCase() === "inactive") continue;
     const classNo = text(fields.class_no);
     const ringDayNo = text(fields.ring_day_no || fields.days);
+    const ringNo = text(fields.ring_no);
     const trainer = text(fields.trainer);
     if (!classNo || !ringDayNo) continue;
     if (activeTrainerSet.size && !activeTrainerSet.has(trainer)) continue;
@@ -2120,6 +2208,7 @@ function entryGoTimesByClassFromRecords(records, activeTrainers = []) {
     bucket.push({
       show_no: text(fields.show_no),
       ring_day_no: ringDayNo,
+      ring_no: ringNo,
       class_no: classNo,
       entry_no: text(fields.entry_no),
       entry_order: text(fields.entry_order),
@@ -2263,35 +2352,7 @@ async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, of
     filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
   });
   const rows = records
-    .map((record) => {
-      const fields = record.fields || {};
-      const timeText = fieldText(fields, ["time_text", "display_time", "time"]);
-      const classStartTime = normalizeClassStartTime(fieldText(fields, ["class_start_time", "time"]) || timeText);
-      const className = fieldText(fields, ["class_name", "event_name", "class_label"]);
-      const classLabel = fieldText(fields, ["event_name", "class_label", "class_name"]);
-      const classNumber = fieldText(fields, ["class_number"]) || classNumberFromLabel({ class_label: classLabel });
-      return {
-        ROWID: record.id,
-        record_id: record.id,
-        show_no: fieldText(fields, ["show_no"]) || text(showNo),
-        focus_day: dateKey(fieldText(fields, ["focus_day", "iso_date"])) || text(focusDay),
-        ring_no: fieldText(fields, ["ring_no"]),
-        ring_day_no: fieldText(fields, ["ring_day_no", "days"]),
-        ring_name: fieldText(fields, ["ring_display", "ring_name", "ring_names", "ring", "rings"]),
-        class_no: fieldText(fields, ["class_no"]),
-        class_number: classNumber,
-        class_name: className,
-        class_label: className,
-        class_start_time: classStartTime,
-        display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
-        entry_count: intOrNull(fields.entry_count),
-        manual_group: fieldText(fields, ["manual_grpup", "manual_group"]),
-        manual_horse_ids: linkedRecordIds(fields.horses),
-        manual_instructions: fieldText(fields, ["manual-instructions", "manual_instructions", "manual instructions"]),
-        source: "update_schedule_staging.locked",
-        live_source: "update_schedule_staging.locked"
-      };
-    })
+    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging.locked"))
     .filter((row) => intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
     .sort((a, b) => (
       Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
@@ -2306,21 +2367,27 @@ async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, of
 
 function entryGoKey(showNo, focusDay, entry) {
   const ringDayNo = text(entry.ring_day_no || entry.days);
+  const ringNo = text(entry.ring_no);
   const classNo = text(entry.class_no);
   const entryNo = text(entry.entry_no);
-  if (entryNo) return `${showNo}|${focusDay}|${ringDayNo}|${classNo}|${entryNo}`;
-  return `${showNo}|${focusDay}|${ringDayNo}|${classNo}|${text(entry.entry_order)}|${text(entry.horse).toLowerCase()}`;
+  if (entryNo) return `${showNo}|${focusDay}|${ringDayNo}|${ringNo}|${classNo}|${entryNo}`;
+  return `${showNo}|${focusDay}|${ringDayNo}|${ringNo}|${classNo}|${text(entry.entry_order)}|${text(entry.horse).toLowerCase()}`;
 }
 
 function entryGoContext(row) {
   const parts = text(row.entry_go_key).split("|");
   let ringDayNo = text(row.ring_day_no || row.days);
+  let ringNo = text(row.ring_no);
   let classNo = text(row.class_no);
-  if (!ringDayNo && parts.length >= 5) {
+  if (parts.length >= 6) {
+    ringDayNo = ringDayNo || text(parts[2]);
+    ringNo = ringNo || text(parts[3]);
+    classNo = classNo || text(parts[4]);
+  } else if (!ringDayNo && parts.length >= 5) {
     ringDayNo = text(parts[2]);
     classNo = classNo || text(parts[3]);
   }
-  return { ringDayNo, classNo };
+  return { ringDayNo, ringNo, classNo };
 }
 
 async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNos, activeTrainers = []) {
@@ -2341,13 +2408,14 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
   for (const row of rows) {
     const trainer = text(row.trainer);
     if (activeTrainerSet.size && !activeTrainerSet.has(trainer)) continue;
-    const { ringDayNo, classNo } = entryGoContext(row);
+    const { ringDayNo, ringNo, classNo } = entryGoContext(row);
     if (!ringDayNo || !classNo) continue;
     const classKey = `${ringDayNo}|${classNo}`;
     const bucket = byClass.get(classKey) || [];
     bucket.push({
       show_no: text(row.show_no),
       ring_day_no: ringDayNo,
+      ring_no: ringNo,
       class_no: classNo,
       entry_no: text(row.entry_no),
       entry_order: text(row.entry_order),
@@ -2728,10 +2796,12 @@ function trainerRollupsForEntries(entries, meta) {
 function compactTrainerRollups(rollups) {
   const byTrainer = new Map();
   for (const item of rollups || []) {
+    const trainer = text(item.trainer);
     const trainerDisplay = text(item.trainer_display || item.trainer);
-    if (!trainerDisplay) continue;
-    const bucket = byTrainer.get(trainerDisplay) || {
-      trainer: text(item.trainer) || trainerDisplay,
+    const trainerKey = trainer || trainerDisplay;
+    if (!trainerKey) continue;
+    const bucket = byTrainer.get(trainerKey) || {
+      trainer: trainer || trainerDisplay,
       trainer_display: trainerDisplay,
       horses: []
     };
@@ -2760,7 +2830,7 @@ function compactTrainerRollups(rollups) {
       seen.add(key);
       return true;
     });
-    byTrainer.set(trainerDisplay, bucket);
+    byTrainer.set(trainerKey, bucket);
   }
   return [...byTrainer.values()].filter((item) => item.horses.length);
 }
@@ -2869,17 +2939,31 @@ function applyPreparedClassStartMobileFields(fallback, prepared = {}) {
 async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, offset = 0 } = {}) {
   const schedule = (await getLockedStagingSchedule(app, showNo, focusDay, { limit, offset }))
     .filter((row) => intOrNull(row.class_no) > 0);
+  const allStagingRows = offset === 0 ? await getAllStagingScheduleRows(showNo, focusDay) : schedule;
+  const allStagingClassNos = allStagingRows.map((row) => row.class_no).filter(Boolean);
   const manualHorseDisplaysById = await getManualHorseDisplaysById(
     schedule.flatMap((row) => row.manual_horse_ids || [])
   );
   const classNos = schedule.map((row) => row.class_no).filter(Boolean);
+  const entryClassNos = [...new Set([...classNos, ...allStagingClassNos].map(text).filter(Boolean))];
   if (meta.reconcileEntryGoTimes !== false && offset === 0 && !meta.entryGoTimesByClass) {
-    await reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, classNos);
+    await reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, entryClassNos);
   }
-  const classesByNo = await getClassesForSchedule(app, showNo, classNos);
+  const classesByNo = await getClassesForSchedule(app, showNo, entryClassNos);
   const entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
     ? meta.entryGoTimesByClass
-    : await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNos, meta.activeTrainers);
+    : await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, entryClassNos, meta.activeTrainers);
+  const scheduleKeys = new Set(schedule.map((row) => `${text(row.ring_day_no)}|${text(row.class_no)}`));
+  for (const row of allStagingRows) {
+    const key = `${text(row.ring_day_no)}|${text(row.class_no)}`;
+    if (scheduleKeys.has(key) || !entryGoTimesByClass.has(key)) continue;
+    schedule.push({
+      ...row,
+      source: "update_schedule_staging.entry_go_times",
+      live_source: "entry_go_times"
+    });
+    scheduleKeys.add(key);
+  }
   if (process.env.NODE_ENV === "test" && !entryGoTimesByClass.size) {
     const fallbackEntriesByClass = await getEntriesForSchedule(app, showNo, classNos, meta.activeTrainers);
     const ringDayByClass = new Map(schedule.map((row) => [text(row.class_no), text(row.ring_day_no)]));
@@ -3696,6 +3780,53 @@ async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKey
   return airtableDeleteRecords(table, staleIds);
 }
 
+function hasAirtableProtectedValue(value) {
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value !== 0;
+  if (typeof value === "string") {
+    const normalized = text(value).toLowerCase();
+    return Boolean(normalized && normalized !== "0" && normalized !== "false" && normalized !== "no");
+  }
+  return value !== null && value !== undefined;
+}
+
+function protectedStagingFieldsPresent(record) {
+  const fields = record?.fields || {};
+  return [...AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS]
+    .filter((fieldId) => hasAirtableProtectedValue(fields[fieldId]));
+}
+
+function assertNoProtectedStagingUpdateFields(fields) {
+  const protectedIds = Object.keys(fields || {})
+    .filter((fieldId) => AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS.has(fieldId));
+  if (protectedIds.length) {
+    throw new Error(`Stage 2C update payload includes protected update_schedule_staging fields: ${protectedIds.join(",")}`);
+  }
+  return fields;
+}
+
+async function deleteUnprotectedAirtableRowsNotInKeys(table, keyFieldId, records, activeKeys) {
+  const stale = [];
+  const protectedStale = [];
+  for (const record of records || []) {
+    const key = text(record.fields?.[keyFieldId]);
+    if (!key || activeKeys.has(key)) continue;
+    const protectedFields = protectedStagingFieldsPresent(record);
+    if (protectedFields.length) {
+      protectedStale.push({ id: record.id, key, protected_fields: protectedFields });
+    } else {
+      stale.push(record.id);
+    }
+  }
+  const deleted = await airtableDeleteRecords(table, stale.filter(Boolean));
+  return {
+    deleted,
+    protected_stale_preserved: protectedStale.length,
+    protected_stale_records: protectedStale
+  };
+}
+
 function updateScheduleRawKey(showNo, focusDay, ringDayNo) {
   return resultKey(showNo, dateKey(focusDay) || "no-focus-day", ringDayNo);
 }
@@ -3737,7 +3868,7 @@ function mapUpdateScheduleMirrorFields(row) {
 }
 
 function mapUpdateScheduleStagingFields(row, runTime) {
-  return {
+  return assertNoProtectedStagingUpdateFields({
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: row.update_schedule_key,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no]: row.show_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no]: row.class_no,
@@ -3754,12 +3885,10 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_type]: row.event_type,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.oc_id]: row.oc_id,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.live_flag]: row.live_flag,
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.review_status]: "new",
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key]: row.update_schedule_key,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source]: "update_schedule.php",
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
-  };
+  });
 }
 
 function updateScheduleRowFromAirtableFields(fields) {
@@ -3808,7 +3937,7 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     filterByFormula: formula,
     returnFieldsByFieldId: "true"
   });
-  const staleDeleted = await deleteAirtableRowsNotInKeys(
+  const staleResult = await deleteUnprotectedAirtableRowsNotInKeys(
     AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
     AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
     existingStaging,
@@ -3827,7 +3956,9 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     update_schedule_rows: updateScheduleRecords.length,
     update_schedule_staging_rows: finalStaging.length,
     update_schedule_staging_upserts: stagingRecords.length,
-    update_schedule_staging_stale_deleted: staleDeleted
+    update_schedule_staging_stale_deleted: staleResult.deleted,
+    update_schedule_staging_protected_stale_preserved: staleResult.protected_stale_preserved,
+    update_schedule_staging_protected_stale_records: staleResult.protected_stale_records
   };
 }
 

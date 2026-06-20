@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "active_show_no": "14907",
+  "active_focus_day": "2026-06-19",
+  "lanes_run": [
+    "stage2",
+    "helper_before",
+    "class_oog_class_start_times",
+    "entry_go_times",
+    "helper_after"
+  ],
+  "failed_step": "",
+  "conflict_lane": "",
+  "blocker": "",
+  "stage2": {
+    "payload_row_count": 101,
+    "hs_update_schedule_rows": 101,
+    "update_schedule_rows": 101,
+    "update_schedule_staging_rows": 101,
+    "counts_match": true
+  },
+  "helper_before": {
+    "pass": true,
+    "records_deleted": 0,
+    "links_cleared": 0
+  },
+  "class_oog": {
+    "count": 21,
+    "hs_count": 21,
+    "counts_match": true,
+    "by_trainer": {
+      "Alan Korotkin": 17,
+      "Victoria Sheehan": 2,
+      "Julie Burton": 1
+    }
+  },
+  "class_start_times": {
+    "count": 56,
+    "hs_count": 56,
+    "counts_match": true
+  },
+  "entry_go_times": {
+    "count": 21,
+    "class_oog_count_for_entry_comparison": 21,
+    "equals_class_oog": true,
+    "by_trainer": {
+      "Alan Korotkin": 18,
+      "Victoria Sheehan": 2,
+      "Julie Burton": 1
+    },
+    "trainer_counts_match": true
+  },
+  "helper_after": {
+    "pass": true,
+    "records_deleted": 0,
+    "links_cleared": 0
+  },
+  "records_deleted_total": 0,
+  "links_cleared_total": 0,
+  "mobile_changed": "no",
+  "print_changed": "no",
+  "alerts_changed": "no",
+  "results_changed": "no",
+  "rich_api_changed": "no",
+  "sms_changed": "no"
+}

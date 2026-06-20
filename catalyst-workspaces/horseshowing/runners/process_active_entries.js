@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
+const path = require("path");
+
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
+const LOG_DIR = path.join(__dirname, "logs");
+const RUN_LOG_PATH = path.join(LOG_DIR, "process_active_entries.log");
+const LAST_SUCCESS_PATH = path.join(LOG_DIR, "process_active_entries.last_success.json");
 
 const TABLES = {
   activeEntries: "active_entries",
@@ -81,6 +87,20 @@ function parseArgs(argv) {
     }
   }
   return args;
+}
+
+function appendLog(event, payload = {}) {
+  fs.mkdirSync(LOG_DIR, { recursive: true });
+  fs.appendFileSync(RUN_LOG_PATH, `${JSON.stringify({
+    ts: new Date().toISOString(),
+    event,
+    ...payload
+  })}\n`, "utf8");
+}
+
+function writeLastSuccess(payload) {
+  fs.mkdirSync(LOG_DIR, { recursive: true });
+  fs.writeFileSync(LAST_SUCCESS_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
 function airtableUrl(baseId, tableName) {
@@ -248,9 +268,13 @@ function buildResolution(entry, focus, data) {
     notes.push(`class match ${classMatch.status} for ${text(hints.classNo)}`);
   }
 
-  const trainerMatch = singleOrStatus(byNumber(data.trainers, ["trainer_no", "number", "trainer_id"], hints.trainerNo, { showNo: focus.show_no }));
+  const trainerCandidates = numberText(hints.trainerNo)
+    ? byNumber(data.trainers, ["trainer_no", "number", "trainer_id"], hints.trainerNo, { showNo: focus.show_no })
+    : byName(data.trainers, ["trainer", "trainer_name", "name"], hints.trainerNo);
+  const trainerMatch = singleOrStatus(trainerCandidates);
   if (trainerMatch.record) {
-    updates.trainer_no = Number(numberText(hints.trainerNo));
+    const trainerNo = numberText(hints.trainerNo);
+    if (trainerNo) updates.trainer_no = Number(trainerNo);
     updates.trainers = linked(trainerMatch.record.id);
   } else if (hints.trainerNo) {
     notes.push(`trainer match ${trainerMatch.status} for ${text(hints.trainerNo)}`);
@@ -317,6 +341,7 @@ function buildResolution(entry, focus, data) {
 }
 
 async function main() {
+  appendLog("RUN", { action: "process-active-entries" });
   const args = parseArgs(process.argv);
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
   const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
@@ -357,10 +382,14 @@ async function main() {
     duplicates_created: 0,
     records_deleted: 0
   };
+  appendLog("EXIT", summary);
+  writeLastSuccess(summary);
   console.log(JSON.stringify(summary, null, 2));
 }
 
 main().catch((error) => {
-  console.error(JSON.stringify({ ok: false, error: error.message }, null, 2));
+  const payload = { ok: false, action: "process-active-entries", error: error.message };
+  appendLog("FAIL", payload);
+  console.error(JSON.stringify(payload, null, 2));
   process.exit(1);
 });

@@ -129,6 +129,29 @@ async function airtableCreate(baseId, token, tableName, records) {
   return created;
 }
 
+async function airtableDelete(baseId, token, tableName, recordIds) {
+  let deleted = 0;
+  for (let index = 0; index < recordIds.length; index += 10) {
+    const batch = recordIds.slice(index, index + 10);
+    if (!batch.length) continue;
+    const url = new URL(`https://api.airtable.com/v0/${encodeURIComponent(baseId)}/${encodeURIComponent(tableName)}`);
+    for (const id of batch) url.searchParams.append("records[]", id);
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+    const body = await response.text();
+    if (!response.ok) {
+      throw new Error(`Airtable ${tableName} delete failed ${response.status}: ${body.slice(0, 1000)}`);
+    }
+    deleted += batch.length;
+  }
+  return deleted;
+}
+
 function getField(record, fieldName) {
   return record?.fields?.[fieldName];
 }
@@ -211,6 +234,19 @@ function classEntryLogicalKey(record, focus) {
     text(getField(record, "class_no")),
     text(getField(record, "entry_no"))
   ].join("|");
+}
+
+function protectedEntryGoRow(record) {
+  const protectedFields = [
+    "manual_lock",
+    "manual_override",
+    "confirm_lock",
+    "is_lock",
+    "lock",
+    "protected",
+    "is_protected"
+  ];
+  return protectedFields.some((field) => truthy(getField(record, field)));
 }
 
 function rowByClassStartKey(classStartRows) {
@@ -313,6 +349,7 @@ async function main() {
   const classStartRows = await airtableList(baseId, token, "class_start_times", { filterByFormula: formula });
   const entryBeforeRows = await airtableList(baseId, token, "entry_go_times", { filterByFormula: formula });
   const classStartByKey = rowByClassStartKey(classStartRows);
+  const currentClassOogKeys = new Set(classOogRows.map((row) => canonicalEntryGoKey(row, focus)).filter(Boolean));
   const existingByKey = new Map();
   const existingByLogical = new Map();
   for (const row of entryBeforeRows) {
@@ -356,6 +393,29 @@ async function main() {
 
   const updated = await airtablePatch(baseId, token, "entry_go_times", updates);
   const created = await airtableCreate(baseId, token, "entry_go_times", creates);
+  const entryAfterUpsertRows = await airtableList(baseId, token, "entry_go_times", { filterByFormula: formula });
+  const staleEntryRows = entryAfterUpsertRows
+    .map((row) => ({
+      row,
+      key: text(getField(row, "entry_go_key")) || classEntryLogicalKey(row, focus),
+      trainer: text(getField(row, "trainer")),
+      horse: text(getField(row, "horse")),
+      class_no: text(getField(row, "class_no")),
+      entry_no: text(getField(row, "entry_no"))
+    }))
+    .filter((item) => item.key && !currentClassOogKeys.has(item.key));
+  const protectedStaleRows = staleEntryRows.filter((item) => protectedEntryGoRow(item.row));
+  if (protectedStaleRows.length) {
+    throw new Error(`entry_go_times stale cleanup blocked by protected/manual rows: ${JSON.stringify(protectedStaleRows.slice(0, 20).map((item) => ({
+      record_id: item.row.id,
+      entry_go_key: item.key,
+      trainer: item.trainer,
+      horse: item.horse,
+      class_no: item.class_no,
+      entry_no: item.entry_no
+    })))}`);
+  }
+  const deleted = await airtableDelete(baseId, token, "entry_go_times", staleEntryRows.map((item) => item.row.id));
   const entryAfterRows = await airtableList(baseId, token, "entry_go_times", { filterByFormula: formula });
   const byTrainerAfter = trainerCounts(entryAfterRows);
   const byTrainerOog = trainerCounts(classOogRows);
@@ -372,6 +432,17 @@ async function main() {
     entry_go_times_count_before: entryBeforeRows.length,
     missing_entry_go_times_rows: missingAfter.length,
     missing_detail: missingAfter,
+    stale_entry_go_times_rows_found: staleEntryRows.length,
+    stale_entry_go_times_detail: staleEntryRows.map((item) => ({
+      record_id: item.row.id,
+      entry_go_key: item.key,
+      trainer: item.trainer,
+      horse: item.horse,
+      class_no: item.class_no,
+      entry_no: item.entry_no
+    })),
+    stale_rows_marked_inactive: 0,
+    stale_rows_deleted: deleted,
     entry_go_times_rows_created: created,
     entry_go_times_rows_updated: updated,
     class_oog_count_after: classOogRows.length,
@@ -380,7 +451,7 @@ async function main() {
     matched_rows_by_trainer_class_oog: byTrainerOog,
     matched_rows_by_trainer_entry_go_times: byTrainerAfter,
     skip_reasons: missingDetail,
-    records_deleted: 0,
+    records_deleted: deleted,
     links_cleared: 0
   };
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);

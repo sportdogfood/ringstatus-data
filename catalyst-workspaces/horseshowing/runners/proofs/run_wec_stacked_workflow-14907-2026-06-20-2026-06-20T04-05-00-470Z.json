@@ -1,0 +1,70 @@
+{
+  "status": "FAIL",
+  "active_show_no": "14907",
+  "active_focus_day": "2026-06-20",
+  "lanes_run": [
+    "stage2"
+  ],
+  "failed_step": "helper_before",
+  "conflict_lane": "",
+  "blocker": "child runner failed: Command failed: C:\\Program Files\\nodejs\\node.exe C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\repair_update_schedule_staging_links.js\n{\n  \"ok\": false,\n  \"error\": \"blocking helper-link misses found\",\n  \"blocking_misses\": [\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"rec1q8DGa92B9b49x\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"rec3PWR5VsAa6u86T\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"rec8wVPRrUBplyfoM\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recArZqqkUmJaddvh\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recKZYPVw1HrfwacI\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recMNEVjqHkyvqUSl\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recN1mnEjv1KEyxw9\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recN61d0IgH5U78as\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recPEms4ea9yTfrTm\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recTbFXNhehoC2aws\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recWpjaVXJEOkHZqA\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recWwadnT3IzA6htv\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recY0TBMlhK4lVp0a\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recYb8094jZDcZNcy\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recYpiGUKvS2iSj77\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recYqErfh9b6oAxIF\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recaEG6oii5pS3ODS\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recaZjj9jtDEptI0e\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"rechSv8VNhBbekQvj\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"reckuM3v5wjjYajXp\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recrJwvyHNyC6irVh\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recry6sb6myoatOON\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"rect4RbcCpt3qaQkI\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recuwQRHxck9nGLHS\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recv0kiZUlEMmZ0Fz\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recw1WKfSHY8YU1Yt\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"recydTko1FmgdT9D4\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    },\n    {\n      \"target_table\": \"class_oog\",\n      \"record_id\": \"reczOGzkXASwFRXrM\",\n      \"target_link_field\": \"ring_days\",\n      \"source_value\": \"\",\n      \"helper_table\": \"ring_days\",\n      \"helper_key_field\": \"ring_day_no\",\n      \"matches\": 0,\n      \"reason\": \"blank source value\"\n    }\n  ],\n  \"blocking_miss_count\": 28,\n  \"show_days_misses\": []\n}\n",
+  "stage2": {
+    "show_no": "14907",
+    "focus_day": "2026-06-20",
+    "payload_row_count": 115,
+    "hs_update_schedule_rows": 115,
+    "update_schedule_rows": 115,
+    "update_schedule_staging_rows": 115,
+    "counts_match": true,
+    "raw": {
+      "ok": true,
+      "action": "sync-focus-update-schedule-to-staging",
+      "show_no": "14907",
+      "focus_day": "2026-06-20",
+      "ring_day_no_count": 9,
+      "raw_rows_stored": 9,
+      "parse_runs_completed": 9,
+      "hs_update_schedule_rows": 115,
+      "update_schedule_rows": 115,
+      "update_schedule_staging_rows": 115,
+      "payload_row_count": 115,
+      "hs_update_schedule_stale_deleted": 0,
+      "update_schedule_stale_deleted": 0,
+      "update_schedule_staging_stale_deleted": 0,
+      "parse_wec_log_rec_ids": [
+        "recH6eYHzS7H347Yu",
+        "recwJb1yHEE4DfpMj",
+        "recOXKH4YXD9RfhtS",
+        "recaFvEl29PdsXUBR",
+        "recsXE5sa8UdA9o7t",
+        "recSbyG2QK6aZySda",
+        "recwgZLE9DNphJCN2",
+        "rece6EGWgpa7fXIuf",
+        "recMpPv5LOUAWe7y1"
+      ],
+      "ring_day_nos": [
+        "4227",
+        "3939",
+        "4222",
+        "3945",
+        "3951",
+        "3957",
+        "3963",
+        "4230",
+        "4303"
+      ]
+    }
+  },
+  "helper_before": null,
+  "class_oog_class_start_times": null,
+  "entry_go_times": null,
+  "helper_after": null,
+  "records_deleted_total": 0,
+  "links_cleared_total": 0,
+  "mobile_changed": "no",
+  "print_changed": "no",
+  "alerts_changed": "no",
+  "results_changed": "no",
+  "rich_api_changed": "no",
+  "sms_changed": "no"
+}

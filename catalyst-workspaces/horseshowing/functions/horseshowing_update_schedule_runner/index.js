@@ -635,9 +635,9 @@ async function linkLockedStagingRows(baseId, token, showNo, focusDay, stagingRow
     if (!source) continue;
     const expectedKey = updateScheduleKey(
       source[STAGING_FIELDS.show_no],
+      source[STAGING_FIELDS.iso_date],
       source[STAGING_FIELDS.ring_day_no],
       source[STAGING_FIELDS.ring_no],
-      source[STAGING_FIELDS.event_id],
       source[STAGING_FIELDS.class_no]
     );
     const showId = helpers.shows.get(text(source[STAGING_FIELDS.show_no]));
@@ -678,9 +678,9 @@ async function linkLockedStagingRows(baseId, token, showNo, focusDay, stagingRow
     .filter(Boolean);
   const lockedKeySet = new Set(lockedSources.map((source) => updateScheduleKey(
     source[STAGING_FIELDS.show_no],
+    source[STAGING_FIELDS.iso_date],
     source[STAGING_FIELDS.ring_day_no],
     source[STAGING_FIELDS.ring_no],
-    source[STAGING_FIELDS.event_id],
     source[STAGING_FIELDS.class_no]
   )).filter(Boolean));
   const fullLock = summarizeFullLock(stagingRecords);
@@ -952,10 +952,10 @@ function classPayout(label) {
   return match ? match[0] : "";
 }
 
-function updateScheduleKey(showNo, ringDayNo, ringNo, eventId, classNo) {
-  const parts = [showNo, ringDayNo, ringNo, eventId, classNo].map((value) => text(value));
+function updateScheduleKey(showNo, focusDay, ringDayNo, ringNo, classNo) {
+  const parts = [showNo, yyyymmddToIso(focusDay), ringDayNo, ringNo, classNo].map((value) => text(value));
   if (parts.some((part) => !part)) {
-    throw new Error(`Cannot form update_schedule key from show_no|ring_day_no|ring_no|event_id|class_no: ${parts.join("|")}`);
+    throw new Error(`Cannot form update_schedule key from show_no|focus_day|ring_day_no|ring_no|class_no: ${parts.join("|")}`);
   }
   return parts.join("|");
 }
@@ -970,7 +970,8 @@ function parseUpdateScheduleRaw(raw, context) {
     const classNoRaw = readAttr(tag, "data-class");
     const classNo = classNoRaw === "" ? null : Number(classNoRaw);
     const eventName = readAttr(tag, "data-name");
-    const key = updateScheduleKey(context.show_no, context.ring_day_no, context.ring_no, eventId, classNo);
+    const focusDay = yyyymmddToIso(context.ISO || context.YYYYMMDD) || null;
+    const key = updateScheduleKey(context.show_no, focusDay, context.ring_day_no, context.ring_no, classNo);
     const row = {
       [STAGING_FIELDS.staging_key]: key,
       [STAGING_FIELDS.show_no]: Number(context.show_no),
@@ -979,7 +980,7 @@ function parseUpdateScheduleRaw(raw, context) {
       [STAGING_FIELDS.ring_no]: Number(context.ring_no) || null,
       [STAGING_FIELDS.ring_name]: text(context.ring_name),
       [STAGING_FIELDS.date_text]: text(context.date_text),
-      [STAGING_FIELDS.iso_date]: yyyymmddToIso(context.ISO || context.YYYYMMDD) || null,
+      [STAGING_FIELDS.iso_date]: focusDay,
       [STAGING_FIELDS.event_id]: eventId,
       [STAGING_FIELDS.event_name]: eventName,
       [STAGING_FIELDS.class_name]: compactClassName(eventName),

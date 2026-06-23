@@ -1,30 +1,30 @@
 {
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
-  "run_id": "wec-stage1-stage2-20260621T030021112Z-aa1041ea",
-  "run_time": "2026-06-21T03:00:21.112Z",
+  "run_id": "wec-stage1-stage2-20260623T144220155Z-badd7672",
+  "run_time": "2026-06-23T14:42:20.155Z",
   "show_no": "14907",
   "focus_day": "2026-06-21",
   "ring_day_no_count": 9,
   "raw_rows_stored": 9,
   "parse_runs_completed": 9,
-  "hs_update_schedule_rows": 91,
-  "update_schedule_rows": 91,
-  "update_schedule_staging_rows": 89,
-  "payload_row_count": 80,
+  "hs_update_schedule_rows": 92,
+  "update_schedule_rows": 92,
+  "update_schedule_staging_rows": 90,
+  "payload_row_count": 81,
   "hs_update_schedule_stale_deleted": 0,
   "update_schedule_stale_deleted": 0,
   "update_schedule_staging_stale_deleted": 0,
   "parse_wec_log_rec_ids": [
-    "recM15tIBSuOxZaSH",
-    "reclOUGwnV5UY6MTJ",
-    "recEyOgQY05ZHxQYI",
-    "recd0qBl66uvDGUYs",
-    "recunDVgixPgNkIxT",
-    "reczzynB1bnhVLFdW",
-    "recBKtbXTUbS4xej1",
-    "recG00Tg0Oe2s7Cf9",
-    "rec0K0sIPpuXnuh1S"
+    "recPvDkGuSiikuwBI",
+    "recloZreSCidTEBM0",
+    "recj2ZkUV4fZDQdd9",
+    "recNeYOsnVXr9zNYk",
+    "recu2a9zs8u91UYOH",
+    "recNSeuegtmOG97br",
+    "recFiOEReGupRkow9",
+    "recMsidGsTUd5ZTlo",
+    "rec3phBR39WBT2DBZ"
   ],
   "ring_day_nos": [
     "4228",
@@ -37,5 +37,5 @@
     "4231",
     "4304"
   ],
-  "success_at": "2026-06-21T03:01:08.996Z"
+  "success_at": "2026-06-23T14:42:53.885Z"
 }

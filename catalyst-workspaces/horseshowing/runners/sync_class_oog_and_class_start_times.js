@@ -169,7 +169,7 @@ async function getActiveTrainers(baseId, token) {
   };
 }
 
-async function getLockedStagingRows(baseId, token, showNo, focusDay) {
+async function getLockedStagingRows(baseId, token, showNo, focusDay, sourceView = "class_oog") {
   const filterByFormula = [
     "AND(",
     `{show_no}=${Number(showNo)},`,
@@ -181,7 +181,7 @@ async function getLockedStagingRows(baseId, token, showNo, focusDay) {
     "{class_no}>0",
     ")"
   ].join("");
-  const records = await airtableListAll(baseId, STAGING_TABLE, token, { view: "class_oog", filterByFormula });
+  const records = await airtableListAll(baseId, STAGING_TABLE, token, { view: sourceView, filterByFormula });
   const rows = records
     .map((record) => {
       const fields = record.fields || {};
@@ -205,7 +205,7 @@ async function getLockedStagingRows(baseId, token, showNo, focusDay) {
       };
     })
     .filter((row) => row.show_no === showNo && row.ring_day_no && row.ring_no && row.class_no && !row.inactive && (row.confirm_lock || row.is_lock || row.lock));
-  if (!rows.length) throw new Error(`no active locked update_schedule_staging rows for show_no=${showNo} focus_day=${focusDay}`);
+  if (!rows.length) throw new Error(`no active locked update_schedule_staging rows in view ${sourceView} for show_no=${showNo} focus_day=${focusDay}`);
   return rows.sort((a, b) => `${a.ring_day_no}|${a.ring_no}|${a.class_no}`.localeCompare(`${b.ring_day_no}|${b.ring_no}|${b.class_no}`));
 }
 
@@ -406,7 +406,8 @@ async function main() {
   const rawRunnerPath = args["class-oog-raw-runner"] || path.join(__dirname, "fetch_class_oog_raw.js");
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const activeTrainerData = await getActiveTrainers(baseId, token);
-  const lockedRows = await getLockedStagingRows(baseId, token, focus.show_no, focus.focus_day);
+  const stagingSourceView = (args["class-start-times-only"] || args.class_start_times_only) ? "class_start_times" : "class_oog";
+  const lockedRows = await getLockedStagingRows(baseId, token, focus.show_no, focus.focus_day, stagingSourceView);
   const sourceStats = await getStagingSourceStats(baseId, token, focus.show_no, focus.focus_day);
   if (args["verify-source-filter-only"] || args.verify_source_filter_only) {
     process.stdout.write(`${JSON.stringify({

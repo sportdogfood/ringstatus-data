@@ -140,6 +140,10 @@ const AIRTABLE_UPDATE_SCHEDULE_FIELDS = {
   source: "fldI9ua5MaB0R86NM",
   mirror_update_schedule_key: "fldy6FUgG1MkCL5tf"
 };
+const AIRTABLE_UPDATE_SCHEDULE_MANUAL_FIELDS = {
+  confirm_delete: "fldO7jcDNNO6MBmxc"
+};
+const AIRTABLE_UPDATE_SCHEDULE_MANUAL_FIELD_IDS = new Set(Object.values(AIRTABLE_UPDATE_SCHEDULE_MANUAL_FIELDS));
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS = {
   staging_key: "fldFBo8SVsESz3Lm9",
   show_no: "fldfMmNiM6yiZbp8O",
@@ -1216,10 +1220,121 @@ function classOogSourceRow(row, classRow = null, classTimeRow = null) {
   };
 }
 
+function updateScheduleDuplicateRecord(row) {
+  return {
+    record_id: text(row.ROWID || row.id || row.record_id),
+    update_schedule_key: text(row.update_schedule_key),
+    show_no: text(row.show_no),
+    focus_day: text(row.focus_day || row.iso_date || row.date_text),
+    ring_day_no: text(row.ring_day_no),
+    ring_no: text(row.ring_no),
+    class_no: text(row.class_no),
+    event_id: text(row.event_id),
+    created_at: text(row.CREATEDTIME || row.CREATED_TIME || row.created_at || row.created_time),
+    updated_at: text(row.MODIFIEDTIME || row.MODIFIED_TIME || row.updated_at || row.updated_time),
+    completeness_score: [
+      row.show_no,
+      row.focus_day || row.iso_date || row.date_text,
+      row.ring_day_no,
+      row.ring_no,
+      row.class_no,
+      row.event_id,
+      row.class_name,
+      row.time_text
+    ].filter((value) => text(value)).length
+  };
+}
+
+function updateScheduleDuplicateCandidateReport(rows, keyField = "update_schedule_key") {
+  const groups = new Map();
+  for (const row of rows || []) {
+    const key = text(row?.[keyField]);
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  }
+  return Array.from(groups.entries())
+    .filter(([, group]) => group.length > 1)
+    .map(([key, group]) => {
+      const records = group.map(updateScheduleDuplicateRecord)
+        .sort((left, right) => {
+          if (right.completeness_score !== left.completeness_score) return right.completeness_score - left.completeness_score;
+          const rightTime = text(right.updated_at || right.created_at);
+          const leftTime = text(left.updated_at || left.created_at);
+          if (rightTime !== leftTime) return rightTime.localeCompare(leftTime);
+          return text(left.record_id).localeCompare(text(right.record_id));
+        });
+      const keep = records[0] || {};
+      return {
+        key,
+        count: group.length,
+        records,
+        proposed_keep_record_id: keep.record_id || null,
+        proposed_delete_record_ids: Array.from(new Set(records.slice(1).map((record) => record.record_id)))
+          .filter((recordId) => recordId && recordId !== keep.record_id)
+      };
+    });
+}
+
+function updateScheduleDuplicateAudit(rows, keyField = "update_schedule_key") {
+  const keys = (rows || []).map((row) => text(row?.[keyField])).filter(Boolean);
+  const unique = new Set(keys);
+  const duplicateCandidateReport = updateScheduleDuplicateCandidateReport(rows, keyField);
+  return {
+    total_rows: (rows || []).length,
+    keyed_rows: keys.length,
+    unique_keys: unique.size,
+    duplicate_keys: duplicateCandidateReport.length,
+    duplicate_record_instances: duplicateCandidateReport.reduce((sum, group) => sum + group.count, 0),
+    duplicate_candidate_report: duplicateCandidateReport
+  };
+}
+
+function assertNoDuplicateUpdateScheduleRows(rows, label, keyField = "update_schedule_key") {
+  const report = updateScheduleDuplicateCandidateReport(rows, keyField);
+  if (!report.length) return;
+  const preview = report.slice(0, 5);
+  throw new Error(`${label} contains duplicate ${keyField}: ${JSON.stringify(preview)}`);
+}
+
+async function getUpdateScheduleRowsByKey(app, key, limit = 50) {
+  const pageLimit = Math.max(1, Math.min(Number(limit) || 50, 100));
+  const query = `SELECT * FROM ${TABLES.updateSchedule} WHERE update_schedule_key = ${zcqlValue(key)} LIMIT ${pageLimit}`;
+  return (await app.zcql().executeZCQLQuery(query) || [])
+    .map((item) => item?.[TABLES.updateSchedule])
+    .filter(Boolean);
+}
+
+async function assertNoExistingUpdateScheduleDuplicateKey(app, key) {
+  const rows = await getUpdateScheduleRowsByKey(app, key, 50);
+  if (rows.length <= 1) return;
+  const report = updateScheduleDuplicateCandidateReport(rows);
+  throw new Error(`existing hs_update_schedule duplicate update_schedule_key blocks upsert: ${JSON.stringify(report.slice(0, 5))}`);
+}
+
+async function getUpdateScheduleRowsForAudit(app, showNo = "", { limit = 5000 } = {}) {
+  if (text(showNo)) {
+    return getRowsByShow(app, TABLES.updateSchedule, showNo, { limit: Math.max(1, Math.min(Number(limit) || 5000, 10000)) });
+  }
+  const rows = [];
+  const maxRows = Math.max(1, Math.min(Number(limit) || 5000, 10000));
+  for (let offset = 0; offset < maxRows; offset += 200) {
+    const pageLimit = Math.min(200, maxRows - offset);
+    const query = `SELECT * FROM ${TABLES.updateSchedule} LIMIT ${pageLimit} OFFSET ${offset}`;
+    const page = (await app.zcql().executeZCQLQuery(query) || [])
+      .map((item) => item?.[TABLES.updateSchedule])
+      .filter(Boolean);
+    rows.push(...page);
+    if (page.length < pageLimit) break;
+  }
+  return rows;
+}
+
 async function writeSourceMirrorRow(app, row) {
   if (row.source_endpoint === "update_schedule.php") {
     const sourceRow = updateScheduleSourceRow(row);
     if (!sourceRow) return null;
+    await assertNoExistingUpdateScheduleDuplicateKey(app, sourceRow.update_schedule_key);
     return upsert(app, TABLES.updateSchedule, { update_schedule_key: sourceRow.update_schedule_key }, sourceRow);
   }
   if (row.source_endpoint === "counts.php") {
@@ -1252,12 +1367,18 @@ async function upsertSourceRowsFast(app, tableName, keyField, sourceRows, { show
     .filter(Boolean)
     .map(cleanRowForDatastore);
   if (!incoming.length) return { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  if (tableName === TABLES.updateSchedule) {
+    assertNoDuplicateUpdateScheduleRows(incoming, "incoming hs_update_schedule source rows", keyField);
+  }
 
   const existingByKey = new Map();
   if (showNo) {
     const existingRows = await getRowsByShow(app, tableName, showNo, {
       limit: tableName === TABLES.classOog ? 10000 : 2000
     });
+    if (tableName === TABLES.updateSchedule) {
+      assertNoDuplicateUpdateScheduleRows(existingRows, "existing hs_update_schedule rows", keyField);
+    }
     for (const row of existingRows) {
       const key = text(row[keyField]);
       if (key) existingByKey.set(key, row);
@@ -4117,8 +4238,16 @@ function catalystDateTime(value = new Date()) {
   return date.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
 }
 
+function assertNoUpdateScheduleManualMirrorFields(fields) {
+  const blocked = Object.keys(fields || {}).filter((fieldId) => AIRTABLE_UPDATE_SCHEDULE_MANUAL_FIELD_IDS.has(fieldId));
+  if (blocked.length) {
+    throw new Error(`update_schedule mirror payload includes protected manual fields: ${blocked.join(",")}`);
+  }
+  return fields;
+}
+
 function mapUpdateScheduleMirrorFields(row) {
-  return {
+  return assertNoUpdateScheduleManualMirrorFields({
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]: row.update_schedule_key,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.show_no]: row.show_no,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_no]: row.class_no,
@@ -4136,7 +4265,7 @@ function mapUpdateScheduleMirrorFields(row) {
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.oc_id]: row.oc_id,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.live_flag]: row.live_flag,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.source]: "update_schedule.php"
-  };
+  });
 }
 
 function mapUpdateScheduleStagingFields(row, runTime) {
@@ -7382,6 +7511,18 @@ async function handle(req, res) {
         action,
         show_no: showNo,
         ...result
+      });
+    }
+
+    if (action === "audit-update-schedule-duplicates") {
+      const auditLimit = intOrNull(query.get("limit") || body.limit) || 5000;
+      const auditRows = await getUpdateScheduleRowsForAudit(app, showNo, { limit: auditLimit });
+      return json(res, 200, {
+        ok: true,
+        action,
+        show_no: showNo || null,
+        table: TABLES.updateSchedule,
+        ...updateScheduleDuplicateAudit(auditRows)
       });
     }
 

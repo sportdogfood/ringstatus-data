@@ -1,0 +1,101 @@
+{
+  "ok": true,
+  "gate": "hs_update_schedule_to_update_schedule_full_mirror_parity",
+  "mirror_type": "full-table",
+  "catalyst_table": "hs_update_schedule",
+  "airtable_table": "update_schedule",
+  "catalyst_full_count": 597,
+  "airtable_full_count": 597,
+  "mirror_key": "Catalyst update_schedule_key -> Airtable mirror_update_schedule_key, fallback update_schedule_key",
+  "mapped_fields": [
+    {
+      "catalyst": "show_no",
+      "airtable": "show_no"
+    },
+    {
+      "catalyst": "class_no",
+      "airtable": "class_no"
+    },
+    {
+      "catalyst": "ring_day_no",
+      "airtable": "ring_day_no"
+    },
+    {
+      "catalyst": "ring_no",
+      "airtable": "ring_no"
+    },
+    {
+      "catalyst": "ring_name",
+      "airtable": "ring_name"
+    },
+    {
+      "catalyst": "date_text",
+      "airtable": "date_text"
+    },
+    {
+      "catalyst": "iso_date",
+      "airtable": "iso_date"
+    },
+    {
+      "catalyst": "event_id",
+      "airtable": "event_id"
+    },
+    {
+      "catalyst": "event_name",
+      "airtable": "event_name"
+    },
+    {
+      "catalyst": "class_name",
+      "airtable": "class_name"
+    },
+    {
+      "catalyst": "time_text",
+      "airtable": "time_text"
+    },
+    {
+      "catalyst": "entry_count",
+      "airtable": "entry_count"
+    },
+    {
+      "catalyst": "event_type",
+      "airtable": "event_type"
+    },
+    {
+      "catalyst": "oc_id",
+      "airtable": "oc_id"
+    },
+    {
+      "catalyst": "live_flag",
+      "airtable": "live_flag"
+    },
+    {
+      "catalyst": "source_endpoint",
+      "airtable": "source"
+    }
+  ],
+  "missing_in_airtable_count": 0,
+  "extra_in_airtable_count": 0,
+  "mapped_field_mismatch_count": 0,
+  "duplicate_catalyst_key_count": 1,
+  "duplicate_airtable_key_count": 1,
+  "duplicate_count_mismatch_count": 0,
+  "checkpoint_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\logs\\verify-update-schedule-mirror-2026-06-23T20-23-22-622Z.checkpoints.jsonl",
+  "proof_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\proofs\\verify-update-schedule-mirror-2026-06-23T20-23-22-622Z.json",
+  "completed_at": "2026-06-23T20:23:28.416Z",
+  "missing_in_airtable": [],
+  "extra_in_airtable": [],
+  "mapped_field_mismatches": [],
+  "duplicate_catalyst_keys": [
+    {
+      "key": "14907|3949|689|61083|29943",
+      "count": 2
+    }
+  ],
+  "duplicate_airtable_keys": [
+    {
+      "key": "14907|3949|689|61083|29943",
+      "count": 2
+    }
+  ],
+  "duplicate_count_mismatches": []
+}

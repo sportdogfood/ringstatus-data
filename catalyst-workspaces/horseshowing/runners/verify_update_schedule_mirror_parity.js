@@ -323,6 +323,8 @@ async function main() {
     && comparison.extra_in_airtable.length === 0
     && comparison.mapped_field_mismatches.length === 0
     && comparison.duplicate_count_mismatches.length === 0
+    && comparison.duplicate_catalyst_keys.length === 0
+    && comparison.duplicate_airtable_keys.length === 0
     && catalystRows.length === airtableRows.length;
 
   const summary = {
@@ -340,6 +342,8 @@ async function main() {
     mapped_field_mismatch_count: comparison.mapped_field_mismatches.length,
     duplicate_catalyst_key_count: comparison.duplicate_catalyst_keys.length,
     duplicate_airtable_key_count: comparison.duplicate_airtable_keys.length,
+    duplicate_catalyst_record_instances: comparison.duplicate_catalyst_keys.reduce((sum, group) => sum + group.count, 0),
+    duplicate_airtable_record_instances: comparison.duplicate_airtable_keys.reduce((sum, group) => sum + group.count, 0),
     duplicate_count_mismatch_count: comparison.duplicate_count_mismatches.length,
     checkpoint_path: checkpointPath,
     proof_path: proofPath,

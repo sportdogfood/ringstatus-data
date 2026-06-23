@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "gate": "hs_update_schedule_to_update_schedule_mirror_remediation",
+  "dry_run": false,
+  "catalyst_rows_read": 597,
+  "airtable_rows_read_before": 161,
+  "creates_planned": 436,
+  "updates_planned": 0,
+  "deletes_planned": 0,
+  "records_created": 436,
+  "records_updated": 0,
+  "records_deleted": 0,
+  "checkpoint_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\logs\\remediate-update-schedule-mirror-2026-06-23T20-20-24-287Z.checkpoints.jsonl",
+  "proof_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\proofs\\remediate-update-schedule-mirror-2026-06-23T20-20-24-287Z.json",
+  "completed_at": "2026-06-23T20:20:47.350Z"
+}

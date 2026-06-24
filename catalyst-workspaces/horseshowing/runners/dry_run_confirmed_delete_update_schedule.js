@@ -76,7 +76,7 @@ async function readCatalystRows({ projectId, env, orgId, checkpointPath, showNo 
   const rows = [];
   for (let offset = 0, pageIndex = 0; ; offset += PAGE_SIZE, pageIndex += 1) {
     const where = showNo ? ` WHERE show_no = ${Number(showNo)}` : "";
-    const query = `SELECT * FROM ${CATALYST_TABLE}${where} LIMIT ${PAGE_SIZE} OFFSET ${offset}`;
+    const query = `SELECT * FROM ${CATALYST_TABLE}${where} ORDER BY ROWID ASC LIMIT ${PAGE_SIZE} OFFSET ${offset}`;
     const data = await api.query(query);
     const page = (data || []).map((item) => item?.[CATALYST_TABLE]).filter(Boolean);
     rows.push(...page);

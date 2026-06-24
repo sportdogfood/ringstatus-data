@@ -1,8 +1,8 @@
 {
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
-  "run_id": "wec-stage1-stage2-20260624T104521489Z-53e1b5ee",
-  "run_time": "2026-06-24T10:45:21.489Z",
+  "run_id": "wec-stage1-stage2-20260624T114823047Z-5ba77393",
+  "run_time": "2026-06-24T11:48:23.047Z",
   "show_no": "14907",
   "focus_day": "2026-06-21",
   "ring_day_no_count": 9,
@@ -16,15 +16,15 @@
   "update_schedule_stale_deleted": 0,
   "update_schedule_staging_stale_deleted": 0,
   "parse_wec_log_rec_ids": [
-    "rec9HNunHxMfua3KW",
-    "recpxeWuHGexe5o3e",
-    "recJHkFO8hzFwLyIF",
-    "recdOIaqj3vMUkhSq",
-    "recPwTgbitEL37Erw",
-    "recSh1BAUP31V30Fe",
-    "rec3Ml0c9CRxU1Iuz",
-    "rec49oYwor3YW0fSb",
-    "recv6HmwvY2kK02Tr"
+    "recCrF4v8YXfLqyDO",
+    "recmpFQOPc74i7tJc",
+    "recMWSMmR8mhYwMia",
+    "recVdn55jhYRQ8niX",
+    "recxjGMgIIM7Vrmbx",
+    "reccGHySU2TbeMq6x",
+    "recU6rKSJHgG6cihj",
+    "recf9cDHaUPTNb06n",
+    "recd8ANmvLJaGnw6C"
   ],
   "ring_day_nos": [
     "4228",
@@ -37,5 +37,5 @@
     "4231",
     "4304"
   ],
-  "success_at": "2026-06-24T10:46:19.122Z"
+  "success_at": "2026-06-24T11:49:18.308Z"
 }

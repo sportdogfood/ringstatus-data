@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "gate": "hs_update_schedule_duplicate_key_audit",
+  "dry_run": true,
+  "catalyst_table": "hs_update_schedule",
+  "show_no": null,
+  "total_rows": 597,
+  "keyed_rows": 597,
+  "unique_keys": 596,
+  "duplicate_keys": 1,
+  "duplicate_record_instances": 2,
+  "duplicate_candidate_report": [
+    {
+      "key": "14907|3949|689|61083|29943",
+      "count": 2,
+      "records": [
+        {
+          "record_id": "5614000000622232",
+          "update_schedule_key": "14907|3949|689|61083|29943",
+          "show_no": "14907",
+          "focus_day": "2026-06-18",
+          "ring_day_no": "3949",
+          "ring_no": "689",
+          "class_no": "29943",
+          "event_id": "61083",
+          "created_at": "2026-06-17 19:38:45:651",
+          "updated_at": "2026-06-17 19:38:45:651",
+          "completeness_score": 8
+        },
+        {
+          "record_id": "5614000000622232",
+          "update_schedule_key": "14907|3949|689|61083|29943",
+          "show_no": "14907",
+          "focus_day": "2026-06-18",
+          "ring_day_no": "3949",
+          "ring_no": "689",
+          "class_no": "29943",
+          "event_id": "61083",
+          "created_at": "2026-06-17 19:38:45:651",
+          "updated_at": "2026-06-17 19:38:45:651",
+          "completeness_score": 8
+        }
+      ],
+      "proposed_keep_record_id": "5614000000622232",
+      "proposed_delete_record_ids": []
+    }
+  ],
+  "records_changed": 0,
+  "records_deleted": 0,
+  "checkpoint_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\logs\\audit-update-schedule-duplicates-2026-06-24T11-02-25-803Z.checkpoints.jsonl",
+  "proof_path": "C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\proofs\\audit-update-schedule-duplicates-2026-06-24T11-02-25-803Z.json",
+  "completed_at": "2026-06-24T11:02:33.140Z"
+}

@@ -24,6 +24,7 @@ const FIELD_MAP = [
   ["iso_date", "iso_date", "date"],
   ["event_id", "event_id"],
   ["event_name", "event_name"],
+  ["class_payout", "class_payout"],
   ["class_name", "class_name"],
   ["time_text", "time_text"],
   ["entry_count", "entry_count"],

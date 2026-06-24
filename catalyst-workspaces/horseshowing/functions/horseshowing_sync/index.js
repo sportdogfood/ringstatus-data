@@ -121,6 +121,14 @@ const AIRTABLE_WEC_LOG_FIELDS = {
 };
 const AIRTABLE_UPDATE_SCHEDULE_TABLE = "tblzPWt9G3VBVqVi6";
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE = "tblzsoU59zmYxhPah";
+const AIRTABLE_GET_RING_DAYS_TABLE = "tblXGYMYDpXEx8hW2";
+const AIRTABLE_GET_RING_DAYS_FIELDS = {
+  ring_day_no: "fldVk4eZ01RhELuHx",
+  show_no: "fldb6pYIgKVTspy6t",
+  ring_no: "fldG3zFAphKcb7B8R",
+  ring_name: "fldXqNc4B7amGLm3I",
+  date_text: "fldCozI5UW14xfp7y"
+};
 const AIRTABLE_UPDATE_SCHEDULE_FIELDS = {
   show_no: "fldmnARVSDUfJirnQ",
   class_no: "fldwcTNbe428USaTR",
@@ -131,6 +139,7 @@ const AIRTABLE_UPDATE_SCHEDULE_FIELDS = {
   iso_date: "fldmezTiUj6scywI7",
   event_id: "fld0tb7BhGfuhMKFJ",
   event_name: "fld3JpzK6JVXbfMkX",
+  class_payout: "fldmjzC1XVF5WRPzD",
   class_name: "fldZztQVbPJA3Gviv",
   time_text: "fldoSFAVNYPiSdE2o",
   entry_count: "fld2m7POOlVQ4xCZf",
@@ -3972,6 +3981,16 @@ function airtableScopedScheduleFormula(showNo, focusDay, ringDayNo = "") {
   return `AND(${clauses.join(",")})`;
 }
 
+function airtableConfirmedDeleteFormula(showNo, focusDay = "", ringDayNo = "") {
+  const clauses = [
+    "{confirm_delete}=1",
+    `{show_no}=${Number(showNo)}`
+  ];
+  if (text(focusDay)) clauses.push(`IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`);
+  if (text(ringDayNo)) clauses.push(`{ring_day_no}=${Number(ringDayNo)}`);
+  return `AND(${clauses.join(",")})`;
+}
+
 async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKeys) {
   const staleIds = (records || [])
     .filter((record) => {
@@ -3981,6 +4000,108 @@ async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKey
     .map((record) => record.id)
     .filter(Boolean);
   return airtableDeleteRecords(table, staleIds);
+}
+
+function airtableUpdateScheduleRecordKey(record) {
+  const fields = record?.fields || {};
+  return text(fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key] || fields.mirror_update_schedule_key || fields.update_schedule_key);
+}
+
+async function readConfirmedDeleteUpdateScheduleRows(showNo, { focusDay = "", ringDayNo = "" } = {}) {
+  return airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_TABLE, {
+    filterByFormula: airtableConfirmedDeleteFormula(showNo, focusDay, ringDayNo),
+    returnFieldsByFieldId: "true"
+  });
+}
+
+async function buildConfirmedDeleteUpdateSchedulePlan(app, showNo, { focusDay = "", ringDayNo = "" } = {}) {
+  const rows = await readConfirmedDeleteUpdateScheduleRows(showNo, { focusDay, ringDayNo });
+  const candidates = [];
+  const missingKeys = [];
+  const missingCatalystMatches = [];
+  const duplicateCatalystKeyBlockers = [];
+  for (const record of rows) {
+    const key = airtableUpdateScheduleRecordKey(record);
+    if (!key) {
+      missingKeys.push({ airtable_record_id: record.id });
+      continue;
+    }
+    const matches = await getUpdateScheduleRowsByKey(app, key, 10);
+    if (!matches.length) {
+      missingCatalystMatches.push({ airtable_record_id: record.id, update_schedule_key: key });
+      candidates.push({ airtable_record_id: record.id, update_schedule_key: key, catalyst_row_ids: [] });
+      continue;
+    }
+    if (matches.length > 1) {
+      duplicateCatalystKeyBlockers.push({
+        airtable_record_id: record.id,
+        update_schedule_key: key,
+        catalyst_row_ids: matches.map((row) => text(row.ROWID)).filter(Boolean)
+      });
+      continue;
+    }
+    candidates.push({
+      airtable_record_id: record.id,
+      update_schedule_key: key,
+      catalyst_row_ids: matches.map((row) => text(row.ROWID)).filter(Boolean)
+    });
+  }
+  return {
+    confirmed_delete_rows: rows.length,
+    confirmed_delete_keys: rows.map(airtableUpdateScheduleRecordKey).filter(Boolean),
+    catalyst_delete_candidates: candidates,
+    missing_confirm_delete_keys: missingKeys,
+    missing_catalyst_matches: missingCatalystMatches,
+    duplicate_catalyst_key_blockers: duplicateCatalystKeyBlockers
+  };
+}
+
+async function deleteConfirmedUpdateScheduleCatalystRows(app, plan) {
+  if (plan.duplicate_catalyst_key_blockers?.length) {
+    throw new Error(`confirm_delete blocked by duplicate hs_update_schedule keys: ${JSON.stringify(plan.duplicate_catalyst_key_blockers.slice(0, 5))}`);
+  }
+  const rowIds = [...new Set((plan.catalyst_delete_candidates || [])
+    .flatMap((candidate) => candidate.catalyst_row_ids || [])
+    .map(text)
+    .filter(Boolean))];
+  const table = app.datastore().table(TABLES.updateSchedule);
+  let deleted = 0;
+  for (let index = 0; index < rowIds.length; index += 100) {
+    const batch = rowIds.slice(index, index + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return { deleted, catalyst_row_ids: rowIds };
+}
+
+async function applyUpdateScheduleConfirmDeleteGate(app, showNo, { focusDay = "", ringDayNo = "", execute = false } = {}) {
+  const plan = await buildConfirmedDeleteUpdateSchedulePlan(app, showNo, { focusDay, ringDayNo });
+  if (!plan.confirmed_delete_rows) {
+    return {
+      ...plan,
+      executed: false,
+      catalyst_rows_deleted: 0,
+      pending_approval: false
+    };
+  }
+  if (!execute) {
+    return {
+      ...plan,
+      executed: false,
+      catalyst_rows_deleted: 0,
+      pending_approval: true
+    };
+  }
+  const deletion = await deleteConfirmedUpdateScheduleCatalystRows(app, plan);
+  return {
+    ...plan,
+    executed: true,
+    catalyst_rows_deleted: deletion.deleted,
+    deleted_catalyst_row_ids: deletion.catalyst_row_ids,
+    pending_approval: false
+  };
 }
 
 function hasAirtableProtectedValue(value) {
@@ -4019,6 +4140,13 @@ function updateScheduleStagingCanonicalKey(rowOrFields) {
     get("ring_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_no),
     get("class_no", AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no)
   );
+}
+
+function hasValidStagingClassNo(rowOrFields) {
+  const row = rowOrFields || {};
+  const raw = row.class_no ?? row[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no];
+  const value = Number(raw);
+  return Number.isFinite(value) && value > 0;
 }
 
 function mergeUpdateScheduleRowsToClassGrain(rows) {
@@ -4246,6 +4374,32 @@ function assertNoUpdateScheduleManualMirrorFields(fields) {
   return fields;
 }
 
+function mapGetRingDayFields(row) {
+  const fields = {
+    [AIRTABLE_GET_RING_DAYS_FIELDS.ring_day_no]: intValue(row.ring_day_no),
+    [AIRTABLE_GET_RING_DAYS_FIELDS.show_no]: intValue(row.show_no),
+    [AIRTABLE_GET_RING_DAYS_FIELDS.ring_no]: intValue(row.ring_no),
+    [AIRTABLE_GET_RING_DAYS_FIELDS.ring_name]: text(row.ring_name),
+    [AIRTABLE_GET_RING_DAYS_FIELDS.date_text]: text(row.day_label || row.date_text)
+  };
+  return fields;
+}
+
+async function syncAirtableGetRingDayRows(showNo, rows) {
+  const sourceRows = rows
+    .filter((row) => intValue(row.show_no || showNo) === intValue(showNo))
+    .filter((row) => intValue(row.ring_day_no) > 0);
+  const upserts = await airtableUpsertByFieldId(
+    AIRTABLE_GET_RING_DAYS_TABLE,
+    AIRTABLE_GET_RING_DAYS_FIELDS.ring_day_no,
+    sourceRows.map(mapGetRingDayFields)
+  );
+  return {
+    get_ring_days_rows: sourceRows.length,
+    get_ring_days_upserts: upserts.length
+  };
+}
+
 function mapUpdateScheduleMirrorFields(row) {
   return assertNoUpdateScheduleManualMirrorFields({
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]: row.update_schedule_key,
@@ -4258,6 +4412,7 @@ function mapUpdateScheduleMirrorFields(row) {
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.iso_date]: row.iso_date,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_id]: row.event_id,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_name]: row.event_name,
+    [AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_payout]: row.class_payout,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_name]: row.class_name,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.time_text]: row.time_text,
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.entry_count]: row.entry_count,
@@ -4270,7 +4425,7 @@ function mapUpdateScheduleMirrorFields(row) {
 
 function mapUpdateScheduleStagingFields(row, runTime) {
   const stagingKey = updateScheduleStagingCanonicalKey(row);
-  return assertNoProtectedStagingUpdateFields({
+  const fields = {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: stagingKey,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no]: row.show_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.class_no]: row.class_no,
@@ -4287,11 +4442,14 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_type]: row.event_type,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.oc_id]: row.oc_id,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.live_flag]: row.live_flag,
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key]: row.source_key || row.update_schedule_key,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source]: "update_schedule.php",
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
-  });
+  };
+  if (hasValidStagingClassNo(row)) {
+    fields[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key] = stagingKey;
+  }
+  return assertNoProtectedStagingUpdateFields(fields);
 }
 
 function updateScheduleRowFromAirtableFields(fields) {
@@ -4306,6 +4464,7 @@ function updateScheduleRowFromAirtableFields(fields) {
     iso_date: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.iso_date],
     event_id: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_id],
     event_name: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.event_name],
+    class_payout: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_payout],
     class_name: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.class_name],
     time_text: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.time_text],
     entry_count: fields[AIRTABLE_UPDATE_SCHEDULE_FIELDS.entry_count],
@@ -4321,6 +4480,26 @@ async function countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay) {
 }
 
 async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
+  const confirmDelete = await buildConfirmedDeleteUpdateSchedulePlan(app, showNo, { focusDay });
+  if (confirmDelete.confirmed_delete_rows) {
+    return {
+      show_no: showNo,
+      focus_day: focusDay,
+      status: "BLOCKED",
+      blocker: "update_schedule confirm_delete rows remain; mirror/delete contract must pass before staging",
+      confirm_delete: {
+        ...confirmDelete,
+        executed: false,
+        catalyst_rows_deleted: 0,
+        pending_approval: true
+      },
+      payload_rows: 0,
+      update_schedule_rows: 0,
+      update_schedule_staging_rows: 0,
+      update_schedule_staging_upserts: 0,
+      update_schedule_staging_stale_deleted: 0
+    };
+  }
   const formula = airtableScopedScheduleFormula(showNo, focusDay);
   const updateScheduleRecords = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_TABLE, {
     filterByFormula: formula,
@@ -4456,7 +4635,7 @@ async function getUpdateScheduleRawRow(app, rawRecId) {
   return (await app.zcql().executeZCQLQuery(query))?.[0]?.[TABLES.updateScheduleRaw] || null;
 }
 
-async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
+async function parseStoredUpdateScheduleRawChunk(app, rawRecId, { executeConfirmDelete = false } = {}) {
   const rawRow = await getUpdateScheduleRawRow(app, rawRecId);
   if (!rawRow) throw new Error(`raw_rec_id not found: ${rawRecId}`);
   const showNo = text(rawRow.show_no);
@@ -4470,9 +4649,33 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
       day_label: rawRow.day_label,
       source_endpoint: "update_schedule.php"
     })));
-  const sourceRows = parsedRows
+  const sourceRowsBeforeConfirmDelete = parsedRows
     .map(updateScheduleSourceRow)
     .filter(Boolean);
+  const confirmDelete = await applyUpdateScheduleConfirmDeleteGate(app, showNo, {
+    focusDay,
+    ringDayNo,
+    execute: executeConfirmDelete
+  });
+  if (confirmDelete.pending_approval) {
+    return {
+      status: "BLOCKED",
+      blocker: "confirm_delete approval required before update_schedule mirror sync",
+      raw_rec_id: rawRow.ROWID,
+      show_no: showNo,
+      focus_day: focusDay,
+      ring_day_no: ringDayNo,
+      parsed_rows: parsedRows.length,
+      confirm_delete: confirmDelete,
+      hs_update_schedule_rows: 0,
+      hs_update_schedule_stale_deleted: 0,
+      update_schedule_rows: 0,
+      update_schedule_stale_deleted: 0
+    };
+  }
+  const confirmedDeleteKeys = new Set((confirmDelete.confirmed_delete_keys || []).map(text).filter(Boolean));
+  const sourceRows = sourceRowsBeforeConfirmDelete
+    .filter((row) => !confirmedDeleteKeys.has(text(row.update_schedule_key)));
   const catalystResult = await upsertSourceRowsFast(app, TABLES.updateSchedule, "update_schedule_key", sourceRows, { showNo });
   const activeKeys = new Set(sourceRows.map((row) => text(row.update_schedule_key)).filter(Boolean));
   const catalystStale = await deleteUpdateScheduleStaleForRingDay(app, showNo, ringDayNo, Array.from(activeKeys));
@@ -4518,6 +4721,7 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
       ring_day_no: ringDayNo,
       upstream_status: rawRow.upstream_status,
       parsed_rows: parsedRows.length,
+      confirm_delete: confirmDelete,
       hs_update_schedule: catalystResult,
       hs_update_schedule_stale: catalystStale,
       update_schedule_records: updateScheduleRecords.length,
@@ -4532,6 +4736,7 @@ async function parseStoredUpdateScheduleRawChunk(app, rawRecId) {
     focus_day: focusDay,
     ring_day_no: ringDayNo,
     parsed_rows: parsedRows.length,
+    confirm_delete: confirmDelete,
     hs_update_schedule_rows: catalystResult.rows,
     hs_update_schedule_stale_deleted: catalystStale.deleted || 0,
     update_schedule_rows: updateScheduleRecords.length,
@@ -5838,11 +6043,14 @@ async function syncCountRows(app, showNo, rows) {
 async function fetchAndSyncRingDays(req, app, showNo, context, { refreshExisting = false } = {}) {
   const upstreamResponse = await upstream(req, "/get_ring_days.php", { method: "GET", showNo, context });
   const rows = parseRingDayRows(upstreamResponse.raw, showNo);
+  const catalystSync = await syncRingDayRows(app, showNo, rows, { refreshExisting });
+  const airtableSync = await syncAirtableGetRingDayRows(showNo, rows);
   return {
     upstream_status: upstreamResponse.status,
     parsed_rows: rows.length,
     refresh_existing: refreshExisting,
-    ...(await syncRingDayRows(app, showNo, rows, { refreshExisting }))
+    ...catalystSync,
+    ...airtableSync
   };
 }
 
@@ -7194,7 +7402,14 @@ async function handle(req, res) {
     if (action === "parse-update-schedule-raw-chunk") {
       const rawRecId = query.get("raw_rec_id") || body.raw_rec_id;
       if (!rawRecId) return json(res, 400, { ok: false, action, error: "parse-update-schedule-raw-chunk requires raw_rec_id" });
-      const result = await parseStoredUpdateScheduleRawChunk(app, rawRecId);
+      const executeConfirmDelete = query.get("execute_confirm_delete") === "1"
+        || body.execute_confirm_delete === "1"
+        || body.execute_confirm_delete === true
+        || process.env.WEC_EXECUTE_CONFIRM_DELETE === "1";
+      const result = await parseStoredUpdateScheduleRawChunk(app, rawRecId, { executeConfirmDelete });
+      if (result.status === "BLOCKED") {
+        return json(res, 409, { ok: false, action, ...result });
+      }
       return json(res, 200, { ok: true, action, ...result });
     }
 
@@ -7246,6 +7461,9 @@ async function handle(req, res) {
         });
       }
       const result = await syncUpdateScheduleStagingFromMirror(app, showNo, resolved.focus_day);
+      if (result.status === "BLOCKED") {
+        return json(res, 409, { ok: false, action, ...result });
+      }
       return json(res, 200, { ok: true, action, ...result });
     }
 

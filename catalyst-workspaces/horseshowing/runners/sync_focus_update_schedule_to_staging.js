@@ -10,6 +10,25 @@ const FOCUS_SHOW_TABLE = "focus_show";
 const LOG_DIR = path.join(__dirname, "logs");
 const RUN_LOG_PATH = path.join(LOG_DIR, "sync_focus_update_schedule_to_staging.log");
 const LAST_SUCCESS_PATH = path.join(LOG_DIR, "sync_focus_update_schedule_to_staging.last_success.json");
+const UPDATE_SCHEDULE_FIELD_MAP = [
+  ["show_no", "show_no"],
+  ["class_no", "class_no"],
+  ["ring_day_no", "ring_day_no"],
+  ["ring_no", "ring_no"],
+  ["ring_name", "ring_name"],
+  ["date_text", "date_text"],
+  ["iso_date", "iso_date", "date"],
+  ["event_id", "event_id"],
+  ["event_name", "event_name"],
+  ["class_payout", "class_payout"],
+  ["class_name", "class_name"],
+  ["time_text", "time_text"],
+  ["entry_count", "entry_count"],
+  ["event_type", "event_type"],
+  ["oc_id", "oc_id"],
+  ["live_flag", "live_flag"],
+  ["source_endpoint", "source"]
+];
 
 function appendRunLog(status, details = {}) {
   fs.mkdirSync(LOG_DIR, { recursive: true });
@@ -186,6 +205,55 @@ function keyReport(keys) {
   };
 }
 
+function normalizeMirrorValue(value, kind = "") {
+  if (kind === "date") return dateKey(value);
+  return text(value);
+}
+
+function catalystUpdateScheduleComparable(row) {
+  const normalized = {};
+  for (const [catalystField, airtableField, kind] of UPDATE_SCHEDULE_FIELD_MAP) {
+    normalized[airtableField] = normalizeMirrorValue(row[catalystField], kind);
+  }
+  return normalized;
+}
+
+function airtableUpdateScheduleComparable(record) {
+  const fields = record.fields || {};
+  const normalized = {};
+  for (const [, airtableField, kind] of UPDATE_SCHEDULE_FIELD_MAP) {
+    normalized[airtableField] = normalizeMirrorValue(fields[airtableField], kind);
+  }
+  return normalized;
+}
+
+function updateScheduleFieldMismatches(catalystRows, airtableRows) {
+  const airtableByKey = new Map();
+  for (const record of airtableRows) {
+    const fields = record.fields || {};
+    const key = text(fields.mirror_update_schedule_key || fields.update_schedule_key);
+    if (key && !airtableByKey.has(key)) airtableByKey.set(key, record);
+  }
+  const mismatches = [];
+  for (const row of catalystRows) {
+    const key = text(row.update_schedule_key);
+    if (!key || !airtableByKey.has(key)) continue;
+    const catalystComparable = catalystUpdateScheduleComparable(row);
+    const airtableComparable = airtableUpdateScheduleComparable(airtableByKey.get(key));
+    const changed = Object.keys(catalystComparable)
+      .filter((field) => catalystComparable[field] !== airtableComparable[field]);
+    if (changed.length) {
+      mismatches.push({
+        key,
+        fields: changed,
+        catalyst: Object.fromEntries(changed.map((field) => [field, catalystComparable[field]])),
+        airtable: Object.fromEntries(changed.map((field) => [field, airtableComparable[field]]))
+      });
+    }
+  }
+  return mismatches;
+}
+
 function buildUpdateScheduleMirrorProof(catalystRows, airtableRows) {
   const catalystKeys = catalystRows.map((row) => row.update_schedule_key);
   const airtableKeys = airtableRows.map((record) => {
@@ -198,6 +266,7 @@ function buildUpdateScheduleMirrorProof(catalystRows, airtableRows) {
   const airtableSet = new Set(airtableKeys.map(text).filter(Boolean));
   const missingInAirtable = Array.from(catalystSet).filter((key) => !airtableSet.has(key)).sort();
   const extraInAirtable = Array.from(airtableSet).filter((key) => !catalystSet.has(key)).sort();
+  const mappedFieldMismatches = updateScheduleFieldMismatches(catalystRows, airtableRows);
   return {
     hs_update_schedule_rows: catalystRows.length,
     update_schedule_rows: airtableRows.length,
@@ -207,6 +276,7 @@ function buildUpdateScheduleMirrorProof(catalystRows, airtableRows) {
     keys_match: missingInAirtable.length === 0 && extraInAirtable.length === 0,
     missing_in_update_schedule: missingInAirtable,
     extra_in_update_schedule: extraInAirtable,
+    mapped_field_mismatches: mappedFieldMismatches,
     duplicate_hs_update_schedule_keys: catalystReport.duplicates,
     duplicate_update_schedule_keys: airtableReport.duplicates
   };
@@ -230,11 +300,12 @@ function runStage2A({ runnerPath, syncUrl, showNo, focusDay, row }) {
   return payload;
 }
 
-async function runStage2B(syncUrl, showNo, rawRecId) {
+async function runStage2B(syncUrl, showNo, rawRecId, { executeConfirmDelete = false } = {}) {
   const url = new URL(syncUrl);
   url.searchParams.set("action", "parse-update-schedule-raw-chunk");
   url.searchParams.set("show_no", showNo);
   url.searchParams.set("raw_rec_id", rawRecId);
+  if (executeConfirmDelete) url.searchParams.set("execute_confirm_delete", "1");
   return fetchJson(url.toString(), { timeout_ms: 120000 });
 }
 
@@ -256,6 +327,9 @@ async function main() {
   const runnerPath = args["stage2a-runner"] || path.join(__dirname, "fetch_update_schedule_raw.js");
   const runId = args["run-id"] || args.run_id || process.env.WEC_RUN_ID || "";
   const runTime = args["run-time"] || args.run_time || process.env.WEC_RUN_TIME || "";
+  const executeConfirmDelete = args["execute-confirm-delete"] === "1"
+    || args.execute_confirm_delete === "1"
+    || process.env.WEC_EXECUTE_CONFIRM_DELETE === "1";
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const ringRows = await getStageOneRingRows(syncUrl, focus.show_no, focus.focus_day);
   if (!ringRows.length) {
@@ -270,7 +344,7 @@ async function main() {
       focusDay: focus.focus_day,
       row
     });
-    const parsed = await runStage2B(syncUrl, focus.show_no, stored.raw_rec_id);
+    const parsed = await runStage2B(syncUrl, focus.show_no, stored.raw_rec_id, { executeConfirmDelete });
     results.push({
       ring_day_no: text(row.ring_day_no),
       raw_rec_id: stored.raw_rec_id,
@@ -278,7 +352,9 @@ async function main() {
       hs_update_schedule_rows: Number(parsed.hs_update_schedule_rows || 0),
       hs_update_schedule_stale_deleted: Number(parsed.hs_update_schedule_stale_deleted || 0),
       update_schedule_rows: Number(parsed.update_schedule_rows || 0),
-      update_schedule_stale_deleted: Number(parsed.update_schedule_stale_deleted || 0)
+      update_schedule_stale_deleted: Number(parsed.update_schedule_stale_deleted || 0),
+      confirm_delete_rows: Number(parsed.confirm_delete?.confirmed_delete_rows || 0),
+      confirm_delete_catalyst_rows_deleted: Number(parsed.confirm_delete?.catalyst_rows_deleted || 0)
     });
   }
   if (mirrorOnly) {
@@ -288,6 +364,7 @@ async function main() {
     const summary = {
       ok: mirror.counts_match
         && mirror.keys_match
+        && mirror.mapped_field_mismatches.length === 0
         && mirror.duplicate_hs_update_schedule_keys.length === 0
         && mirror.duplicate_update_schedule_keys.length === 0,
       action: "sync-focus-update-schedule-mirror-only",
@@ -305,6 +382,8 @@ async function main() {
       payload_row_count: results.reduce((sum, row) => sum + Number(row.update_schedule_rows || 0), 0),
       hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
       update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
+      confirm_delete_rows: results.reduce((sum, row) => sum + row.confirm_delete_rows, 0),
+      confirm_delete_catalyst_rows_deleted: results.reduce((sum, row) => sum + row.confirm_delete_catalyst_rows_deleted, 0),
       records_deleted_from_update_schedule: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
       parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
       ring_day_nos: results.map((row) => row.ring_day_no),
@@ -333,6 +412,8 @@ async function main() {
     payload_row_count: Number(staged.payload_rows || 0),
     hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
     update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
+    confirm_delete_rows: results.reduce((sum, row) => sum + row.confirm_delete_rows, 0),
+    confirm_delete_catalyst_rows_deleted: results.reduce((sum, row) => sum + row.confirm_delete_catalyst_rows_deleted, 0),
     update_schedule_staging_stale_deleted: Number(staged.update_schedule_staging_stale_deleted || 0),
     parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
     ring_day_nos: results.map((row) => row.ring_day_no)

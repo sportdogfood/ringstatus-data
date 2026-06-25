@@ -121,6 +121,7 @@ const AIRTABLE_WEC_LOG_FIELDS = {
 };
 const AIRTABLE_UPDATE_SCHEDULE_TABLE = "tblzPWt9G3VBVqVi6";
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE = "tblzsoU59zmYxhPah";
+const AIRTABLE_CLASS_OOG_STAGING_TABLE = "class_oog_staging";
 const AIRTABLE_GET_RING_DAYS_TABLE = "tblXGYMYDpXEx8hW2";
 const AIRTABLE_GET_RING_DAYS_FIELDS = {
   ring_day_no: "fldVk4eZ01RhELuHx",
@@ -233,6 +234,19 @@ const AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS = new Set(
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_STAGE2C_ALLOWED_PROTECTED_FIELD_IDS = new Set([
   AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.update_schedule
 ].filter(Boolean));
+const CLASS_OOG_STAGING_HELPER_MAPPINGS = [
+  { target_link_field: "shows", source_value_field: "show_no", helper_table: "shows", helper_key_field: "show_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
+  { target_link_field: "focus_show", source_value_field: "show_no+focus_day", helper_table: "focus_show", helper_key_field: "show_no+focus_day", helper_record_id_field: "rec_id", allow_silent_fail: false },
+  { target_link_field: "show_days", source_value_field: "focus_day", helper_table: "show_days", helper_key_field: "show_day", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "ring_days", source_value_field: "days", helper_table: "ring_days", helper_key_field: "ring_day_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
+  { target_link_field: "rings", source_value_field: "ring_no", helper_table: "rings", helper_key_field: "ring_no", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "classes", source_value_field: "class_no", helper_table: "classes", helper_key_field: "class_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
+  { target_link_field: "entries", source_value_field: "entry_no", helper_table: "entries", helper_key_field: "entry_no", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "events", source_value_field: "event_id", helper_table: "events", helper_key_field: "event_id", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "horses", source_value_field: "horse", helper_table: "horses", helper_key_field: "horse", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "riders", source_value_field: "rider", helper_table: "riders", helper_key_field: "rider", helper_record_id_field: "rec_id", allow_silent_fail: true },
+  { target_link_field: "trainers", source_value_field: "trainer", helper_table: "trainers", helper_key_field: "trainer", helper_record_id_field: "rec_id", allow_silent_fail: true }
+];
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -4698,7 +4712,7 @@ function stage2cHelperCreateFields(row, mapping, focus) {
     let value = stage2cRecordField(row, field);
     if (field === "show_day") value = `${focus.show_no}|${focus.focus_day}`;
     if (field === "dow_name") value = stage2cRecordField(row, "dow");
-    if (field === "class_label") value = stage2cRecordField(row, "event_name");
+    if (field === "class_label") value = stage2cRecordField(row, "event_name") || stage2cRecordField(row, "class_label");
     const coerced = stage2cCoerceHelperFieldValue(field, value);
     if (coerced !== null) fields[field] = coerced;
   }
@@ -4750,6 +4764,170 @@ function stage2cCompactMiss(miss) {
 function stage2cHelperLinkRelevant(row, targetLinkField) {
   if (targetLinkField !== "classes") return true;
   return Number(stage2cRecordField(row, "class_no")) > 0;
+}
+
+async function ensureClassOogStagingAllowedHelpers() {
+  const existing = await airtableListRecords("allowed_helpers", {
+    filterByFormula: `{target_table}='${AIRTABLE_CLASS_OOG_STAGING_TABLE}'`
+  });
+  const existingKeys = new Set(existing.map((record) => [
+    text(stage2cRecordField(record, "target_link_field")),
+    text(stage2cRecordField(record, "source_value_field")),
+    text(stage2cRecordField(record, "helper_table")),
+    text(stage2cRecordField(record, "helper_key_field"))
+  ].join("|")));
+  const created = [];
+  for (const mapping of CLASS_OOG_STAGING_HELPER_MAPPINGS) {
+    const key = [
+      mapping.target_link_field,
+      mapping.source_value_field,
+      mapping.helper_table,
+      mapping.helper_key_field
+    ].join("|");
+    if (existingKeys.has(key)) continue;
+    const record = await airtableCreateRecord("allowed_helpers", {
+      target_table: AIRTABLE_CLASS_OOG_STAGING_TABLE,
+      active: true,
+      target_link_field: mapping.target_link_field,
+      source_value_field: mapping.source_value_field,
+      helper_table: mapping.helper_table,
+      helper_key_field: mapping.helper_key_field,
+      helper_record_id_field: mapping.helper_record_id_field,
+      allow_silent_fail: mapping.allow_silent_fail,
+      notes: "WorkflowV4 class_oog_staging helper-link contract"
+    });
+    if (record?.id) created.push({ id: record.id, ...mapping });
+    existingKeys.add(key);
+  }
+  return {
+    expected_mappings: CLASS_OOG_STAGING_HELPER_MAPPINGS.length,
+    existing_mappings_before: existing.length,
+    created_mappings: created.length,
+    created_mapping_detail: created
+  };
+}
+
+async function repairAllowedHelperLinksForTarget(targetTable, showNo, focusDay) {
+  const focus = { show_no: text(showNo), focus_day: dateKey(focusDay) };
+  const rows = await airtableListRecords(targetTable, {
+    filterByFormula: `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focus.focus_day)}),'day'),NOT({inactive}=1))`
+  });
+  const allowedRows = (await airtableListRecords("allowed_helpers"))
+    .filter((row) => stage2cHelperTruthy(stage2cRecordField(row, "active")))
+    .filter((row) => text(stage2cRecordField(row, "target_table")) === targetTable);
+  const helperCache = new Map();
+  const updateMap = new Map();
+  const linksPopulatedByHelper = {};
+  const silentMisses = [];
+  const blockingMisses = [];
+  const skipped = [];
+  const helperRecordsCreatedByTable = {};
+  const helperRecordsCreated = [];
+  let notRelevant = 0;
+
+  for (const mapping of allowedRows) {
+    const targetLinkField = text(stage2cRecordField(mapping, "target_link_field"));
+    const sourceValueField = text(stage2cRecordField(mapping, "source_value_field"));
+    const helperTable = text(stage2cRecordField(mapping, "helper_table"));
+    const helperKeyField = text(stage2cRecordField(mapping, "helper_key_field"));
+    const allowSilentFail = stage2cHelperTruthy(stage2cRecordField(mapping, "allow_silent_fail"));
+    if (!targetLinkField || !sourceValueField || !helperTable || !helperKeyField) {
+      skipped.push({ mapping: mapping.id, reason: "missing required mapping field" });
+      continue;
+    }
+    let helperRows = helperCache.get(helperTable);
+    if (!helperRows) {
+      helperRows = await airtableListRecords(helperTable);
+      helperCache.set(helperTable, helperRows);
+    }
+    let helperIndex = stage2cBuildHelperIndex(helperRows, mapping, focus);
+    for (const row of rows) {
+      if (!stage2cLinkedFieldBlank(row, targetLinkField)) continue;
+      if (!stage2cHelperLinkRelevant(row, targetLinkField)) {
+        notRelevant += 1;
+        continue;
+      }
+      const sourceValues = stage2cTargetSourceValues(row, mapping, focus);
+      const sourceKeys = [...new Set(sourceValues.flatMap((value) => [normalizeHelperKey(value), stage2cNormalizeLoose(value)]).filter(Boolean))];
+      if (!sourceKeys.length) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: "", helper_table: helperTable, helper_key_field: helperKeyField, matches: 0, reason: "blank source value" };
+        if (allowSilentFail) silentMisses.push(miss); else blockingMisses.push(miss);
+        continue;
+      }
+      const matches = [];
+      for (const key of sourceKeys) {
+        for (const helperRow of helperIndex.get(key) || []) {
+          if (!matches.some((existing) => existing.id === helperRow.id)) matches.push(helperRow);
+        }
+      }
+      if (!matches.length) {
+        const created = await stage2cCreateHelperRecordForSource(row, mapping, focus);
+        if (created?.id) {
+          helperRows.push(created);
+          helperCache.set(helperTable, helperRows);
+          helperIndex = stage2cBuildHelperIndex(helperRows, mapping, focus);
+          helperRecordsCreated.push({ table: helperTable, id: created.id, target_link_field: targetLinkField, source_value: sourceValues[0] || "" });
+          helperRecordsCreatedByTable[helperTable] = (helperRecordsCreatedByTable[helperTable] || 0) + 1;
+          for (const key of sourceKeys) {
+            for (const helperRow of helperIndex.get(key) || []) {
+              if (!matches.some((existing) => existing.id === helperRow.id)) matches.push(helperRow);
+            }
+          }
+        }
+      }
+      if (matches.length !== 1) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: sourceValues.join(" | "), helper_table: helperTable, helper_key_field: helperKeyField, matches: matches.length, reason: matches.length ? "ambiguous match" : "no match" };
+        if (matches.length > 1 && !allowSilentFail) blockingMisses.push(miss); else silentMisses.push(miss);
+        continue;
+      }
+      const linkedId = stage2cHelperRecordId(matches[0], mapping);
+      if (!linkedId) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: sourceValues.join(" | "), helper_table: helperTable, helper_key_field: helperKeyField, matches: 1, reason: "helper record id missing" };
+        if (allowSilentFail) silentMisses.push(miss); else blockingMisses.push(miss);
+        continue;
+      }
+      if (!updateMap.has(row.id)) updateMap.set(row.id, {});
+      updateMap.get(row.id)[targetLinkField] = [linkedId];
+      linksPopulatedByHelper[targetLinkField] = (linksPopulatedByHelper[targetLinkField] || 0) + 1;
+    }
+  }
+
+  if (blockingMisses.length) {
+    return {
+      status: "BLOCKED",
+      target_table: targetTable,
+      rows_checked: rows.length,
+      records_updated: 0,
+      links_populated: 0,
+      links_populated_by_helper: linksPopulatedByHelper,
+      blocking_miss_count: blockingMisses.length,
+      blocking_misses: blockingMisses.slice(0, 50).map(stage2cCompactMiss),
+      silent_miss_count: silentMisses.length,
+      silent_misses: silentMisses.slice(0, 50).map(stage2cCompactMiss),
+      not_relevant: notRelevant,
+      mappings_skipped: skipped
+    };
+  }
+
+  const updates = [...updateMap.entries()].map(([id, fields]) => ({ id, fields }));
+  const updated = await airtableUpdateRecordsById(targetTable, updates);
+  return {
+    status: "PASS",
+    target_table: targetTable,
+    rows_checked: rows.length,
+    records_updated: updated.length,
+    links_populated: Object.values(linksPopulatedByHelper).reduce((sum, count) => sum + count, 0),
+    links_populated_by_helper: linksPopulatedByHelper,
+    helper_records_created: helperRecordsCreated.length,
+    helper_records_created_by_table: helperRecordsCreatedByTable,
+    helper_records_created_detail: helperRecordsCreated,
+    blocking_miss_count: 0,
+    blocking_misses: [],
+    silent_miss_count: silentMisses.length,
+    silent_misses: silentMisses.slice(0, 50).map(stage2cCompactMiss),
+    not_relevant: notRelevant,
+    mappings_skipped: skipped
+  };
 }
 
 async function repairUpdateScheduleStagingHelperLinks(showNo, focusDay) {
@@ -5342,6 +5520,286 @@ async function mirrorClassOogToAirtable(showNo, focusDay, ringDayNo, ringNo, cla
     filterByFormula: airtableClassOogFormula(showNo, focusDay)
   });
   return { records: records.length, stale_deleted: staleDeleted, final_count: finalRows.length };
+}
+
+function classOogStagingClassKeyFromFields(fields = {}) {
+  return resultKey(
+    fields.show_no,
+    dateKey(fields.focus_day),
+    fields.days,
+    fields.ring_no,
+    fields.class_no
+  );
+}
+
+function classOogStagingEntryKeyFromFields(fields = {}) {
+  return resultKey(
+    fields.show_no,
+    dateKey(fields.focus_day),
+    fields.days,
+    fields.ring_no,
+    fields.class_no,
+    fields.entry_no
+  );
+}
+
+function airtableClassOogStagingFormula(showNo, focusDay) {
+  return `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`;
+}
+
+function linkedFieldValue(fields, name) {
+  const ids = linkedRecordIds(fields?.[name]);
+  return ids.length ? ids : null;
+}
+
+function copyLinkedField(target, sourceFields, name) {
+  const ids = linkedFieldValue(sourceFields, name);
+  if (ids) target[name] = ids;
+}
+
+function comparableAirtableValue(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return value.name ?? value.id ?? JSON.stringify(value);
+  }
+  return value;
+}
+
+function sameAirtableValue(left, right) {
+  if (Array.isArray(left) || Array.isArray(right)) {
+    const leftIds = linkedRecordIds(Array.isArray(left) ? left : [left]).sort();
+    const rightIds = linkedRecordIds(Array.isArray(right) ? right : [right]).sort();
+    return leftIds.join("|") === rightIds.join("|");
+  }
+  const leftValue = comparableAirtableValue(left);
+  const rightValue = comparableAirtableValue(right);
+  const leftDate = dateKey(leftValue);
+  const rightDate = dateKey(rightValue);
+  if (leftDate || rightDate) return leftDate === rightDate;
+  return text(leftValue) === text(rightValue);
+}
+
+function classOogStagingFieldsChanged(existingFields = {}, nextFields = {}) {
+  return Object.entries(nextFields).some(([field, value]) => !sameAirtableValue(existingFields[field], value));
+}
+
+function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
+  const fields = sourceRecord?.fields || {};
+  const mirrorKey = text(fields.mirror_class_oog_key || fields.class_oog_key);
+  if (!mirrorKey) return null;
+  const payload = cleanPatch({
+    mirror_class_oog_key: mirrorKey,
+    show_no: intValue(fields.show_no),
+    focus_day: dateKey(fields.focus_day),
+    days: intValue(fields.days),
+    ring_no: intValue(fields.ring_no),
+    ring: text(fields.ring),
+    class_no: intValue(fields.class_no),
+    class_label: text(fields.class_label),
+    class_order: intValue(fields.class_order),
+    entry_order: intValue(fields.entry_order),
+    entry_no: intValue(fields.entry_no),
+    horse: text(fields.horse),
+    rider: text(fields.rider),
+    trainer: text(fields.trainer),
+    class_payout: text(fields.class_payout),
+    class_name: text(fields.class_name),
+    event_id: intValue(fields.event_id),
+    source: "class_oog",
+    active: true,
+    inactive: false,
+    class_oog: [sourceRecord.id]
+  });
+  const directStagingLinks = linkedFieldValue(fields, "update_schedule_staging");
+  if (directStagingLinks) {
+    payload.update_schedule_staging = directStagingLinks;
+  } else {
+    const classKey = classOogStagingClassKeyFromFields(payload);
+    const stagingRecordId = stagingRecordIdByClassKey.get(classKey);
+    if (stagingRecordId) payload.update_schedule_staging = [stagingRecordId];
+  }
+  copyLinkedField(payload, fields, "update_schedule");
+  for (const linkField of [
+    "shows",
+    "focus_show",
+    "show_days",
+    "ring_days",
+    "rings",
+    "ring_names",
+    "classes",
+    "entries",
+    "events",
+    "horses",
+    "riders",
+    "trainers"
+  ]) {
+    copyLinkedField(payload, fields, linkField);
+  }
+  return payload;
+}
+
+async function getActiveUpdateScheduleStagingClassIndex(showNo, focusDay) {
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'),NOT({inactive}=1))`
+  });
+  const index = new Map();
+  const duplicateKeys = [];
+  for (const row of rows) {
+    const fields = row.fields || {};
+    const key = resultKey(fields.show_no, dateKey(fields.iso_date), fields.ring_day_no, fields.ring_no, fields.class_no);
+    if (!key) continue;
+    if (index.has(key)) duplicateKeys.push(key);
+    else index.set(key, row.id);
+  }
+  return { rows, index, duplicateKeys: [...new Set(duplicateKeys)] };
+}
+
+async function markStaleClassOogStagingRowsInactive(showNo, focusDay, activeKeys) {
+  const rows = await airtableListRecords(AIRTABLE_CLASS_OOG_STAGING_TABLE, {
+    filterByFormula: `{show_no}=${Number(showNo)}`
+  });
+  const active = new Set([...activeKeys].map(text).filter(Boolean));
+  const stale = rows.filter((row) => {
+    const fields = row.fields || {};
+    const key = text(fields.mirror_class_oog_key || fields.class_oog_key);
+    const day = dateKey(fields.focus_day);
+    return fields.inactive !== true && (day !== focusDay || !active.has(key));
+  });
+  const updated = await airtableUpdateRecordsById(AIRTABLE_CLASS_OOG_STAGING_TABLE, stale.map((row) => ({
+    id: row.id,
+    fields: { inactive: true, active: false }
+  })));
+  return {
+    checked: rows.length,
+    marked_inactive: updated.length,
+    stale_detail: stale.slice(0, 50).map((row) => ({
+      record_id: row.id,
+      mirror_class_oog_key: text(row.fields?.mirror_class_oog_key || row.fields?.class_oog_key),
+      focus_day: dateKey(row.fields?.focus_day)
+    }))
+  };
+}
+
+function classOogStagingRequiredLinkStatus(rows) {
+  const active = rows.filter((row) => row.fields?.inactive !== true);
+  const classOogLinked = active.filter((row) => linkedRecordIds(row.fields?.class_oog).length > 0);
+  const stagingLinked = active.filter((row) => linkedRecordIds(row.fields?.update_schedule_staging).length > 0);
+  return {
+    active_rows_checked: active.length,
+    class_oog_linked: classOogLinked.length,
+    class_oog_missing: active.length - classOogLinked.length,
+    update_schedule_staging_linked: stagingLinked.length,
+    update_schedule_staging_missing: active.length - stagingLinked.length
+  };
+}
+
+async function syncClassOogStagingFromClassOog(showNo, focusDay) {
+  const safeFocusDay = dateKey(focusDay);
+  if (!text(showNo)) throw new Error("sync-class-oog-staging-from-class-oog requires show_no");
+  if (!safeFocusDay) throw new Error("sync-class-oog-staging-from-class-oog requires focus_day");
+  const helperMappings = await ensureClassOogStagingAllowedHelpers();
+  const stagingIndex = await getActiveUpdateScheduleStagingClassIndex(showNo, safeFocusDay);
+  if (stagingIndex.duplicateKeys.length) {
+    return {
+      status: "BLOCKED",
+      blocker: "duplicate active update_schedule_staging class keys block class_oog_staging handoff",
+      duplicate_update_schedule_staging_keys: stagingIndex.duplicateKeys
+    };
+  }
+  const sourceRows = await airtableListRecords("class_oog", {
+    filterByFormula: airtableClassOogFormula(showNo, safeFocusDay)
+  });
+  const sourcePayloads = sourceRows
+    .map((record) => mapClassOogToStagingFields(record, stagingIndex.index))
+    .filter(Boolean)
+    .filter((fields) => text(fields.mirror_class_oog_key) && text(fields.entry_no));
+  const activeKeys = new Set(sourcePayloads.map((fields) => text(fields.mirror_class_oog_key)));
+  const existingRows = await airtableListRecords(AIRTABLE_CLASS_OOG_STAGING_TABLE, {
+    filterByFormula: airtableClassOogStagingFormula(showNo, safeFocusDay)
+  });
+  const existingByKey = new Map(existingRows
+    .map((record) => [text(record.fields?.mirror_class_oog_key || record.fields?.class_oog_key), record])
+    .filter(([key]) => key));
+  const recordsCreated = sourcePayloads.filter((fields) => !existingByKey.has(text(fields.mirror_class_oog_key))).length;
+  const recordsChanged = sourcePayloads.filter((fields) => {
+    const existing = existingByKey.get(text(fields.mirror_class_oog_key));
+    return existing && classOogStagingFieldsChanged(existing.fields || {}, fields);
+  }).length;
+  const recordsUnchanged = sourcePayloads.length - recordsCreated - recordsChanged;
+  const upserted = await airtableUpsertByFieldId(
+    AIRTABLE_CLASS_OOG_STAGING_TABLE,
+    "mirror_class_oog_key",
+    sourcePayloads
+  );
+  const stale = await markStaleClassOogStagingRowsInactive(showNo, safeFocusDay, activeKeys);
+  const helperRepair = await repairAllowedHelperLinksForTarget(AIRTABLE_CLASS_OOG_STAGING_TABLE, showNo, safeFocusDay);
+  if (helperRepair.status === "BLOCKED") {
+    return {
+      status: "BLOCKED",
+      blocker: "class_oog_staging helper-link misses found",
+      show_no: showNo,
+      focus_day: safeFocusDay,
+      source_rows: sourceRows.length,
+      target_upserted: upserted.length,
+      helper_mappings: helperMappings,
+      helper_repair: helperRepair
+    };
+  }
+  const finalRows = await airtableListRecords(AIRTABLE_CLASS_OOG_STAGING_TABLE, {
+    filterByFormula: airtableClassOogStagingFormula(showNo, safeFocusDay)
+  });
+  const linkStatus = classOogStagingRequiredLinkStatus(finalRows);
+  const finalKeys = new Set(finalRows
+    .filter((row) => row.fields?.inactive !== true)
+    .map((row) => text(row.fields?.mirror_class_oog_key || row.fields?.class_oog_key))
+    .filter(Boolean));
+  const missingTargetRows = [...activeKeys].filter((key) => !finalKeys.has(key));
+  const extraTargetRows = [...finalKeys].filter((key) => !activeKeys.has(key));
+  const requiredLinksPass = linkStatus.class_oog_missing === 0 && linkStatus.update_schedule_staging_missing === 0;
+  const countsMatch = activeKeys.size === finalKeys.size && missingTargetRows.length === 0 && extraTargetRows.length === 0;
+  return {
+    status: countsMatch && requiredLinksPass ? "PASS" : "BLOCKED",
+    blocker: countsMatch && requiredLinksPass ? "" : "class_oog_staging reconciliation failed",
+    show_no: showNo,
+    focus_day: safeFocusDay,
+    source: "class_oog",
+    target: AIRTABLE_CLASS_OOG_STAGING_TABLE,
+    source_rows: sourceRows.length,
+    source_entry_keys: activeKeys.size,
+    target_active_rows: finalRows.filter((row) => row.fields?.inactive !== true).length,
+    target_active_keys: finalKeys.size,
+    records_created: recordsCreated,
+    records_updated: recordsChanged,
+    records_unchanged: recordsUnchanged,
+    records_marked_inactive: stale.marked_inactive,
+    stale_checked: stale.checked,
+    class_oog_link_evidence: {
+      linked: linkStatus.class_oog_linked,
+      missing: linkStatus.class_oog_missing
+    },
+    update_schedule_staging_link_evidence: {
+      linked: linkStatus.update_schedule_staging_linked,
+      missing: linkStatus.update_schedule_staging_missing
+    },
+    helper_link_evidence: {
+      mappings: helperMappings,
+      repair: helperRepair
+    },
+    entrywise_grain_evidence: {
+      source_entry_keys: activeKeys.size,
+      target_entry_keys: finalKeys.size,
+      missing_target_rows: missingTargetRows,
+      extra_target_rows: extraTargetRows
+    },
+    diff_evidence: {
+      new: recordsCreated,
+      changed: recordsChanged,
+      dropped: stale.marked_inactive,
+      unchanged: recordsUnchanged
+    },
+    protected_manual_field_evidence: {
+      fields_not_written: ["active_entries", "hide", "conflict", "counts", "result_classes", "class_start_times", "entry_go_times"]
+    }
+  };
 }
 
 async function parseStoredClassOogRawChunk(app, rawRecId, { activeTrainers = [], trainerRecordIds = {} } = {}) {
@@ -7919,6 +8377,22 @@ async function handle(req, res) {
         return json(res, 409, { ok: false, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
       }
       return json(res, 200, { ok: true, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
+    }
+
+    if (action === "sync-class-oog-staging-from-class-oog") {
+      const resolved = await resolveFocusDay(app, showNo, query, body);
+      if (!resolved.focus_day) {
+        return json(res, 400, {
+          ok: false,
+          action,
+          error: "sync-class-oog-staging-from-class-oog requires focus_day/focus_day_date in the request or hs_shows.focus_day_date"
+        });
+      }
+      const result = await syncClassOogStagingFromClassOog(showNo, resolved.focus_day);
+      if (result.status === "BLOCKED") {
+        return json(res, 409, { ok: false, action, ...result });
+      }
+      return json(res, 200, { ok: true, action, ...result });
     }
 
     if (action === "replace-counts-only") {

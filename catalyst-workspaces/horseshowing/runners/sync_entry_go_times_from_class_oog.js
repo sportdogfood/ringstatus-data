@@ -271,14 +271,16 @@ function includeField(fields, allowedFields, key, value) {
   fields[key] = value;
 }
 
-function buildEntryFields({ classOog, classStart, focus, allowedFields }) {
+function buildEntryFields({ sourceRow, focus, allowedFields }) {
   const fields = {};
-  const parts = classOogKeyParts(classOog);
-  const ringDayNo = text(getField(classOog, "days") || getField(classOog, "ring_day_no") || parts.ring_day_no);
-  const ringNo = text(getField(classOog, "ring_no") || parts.ring_no);
-  const classNo = text(getField(classOog, "class_no") || parts.class_no);
-  const entryNo = text(getField(classOog, "entry_no") || parts.entry_no);
-  const key = canonicalEntryGoKey(classOog, focus);
+  const parts = classOogKeyParts(sourceRow);
+  const ringDayNo = text(getField(sourceRow, "days") || getField(sourceRow, "ring_day_no") || parts.ring_day_no);
+  const ringNo = text(getField(sourceRow, "ring_no") || parts.ring_no);
+  const classNo = text(getField(sourceRow, "class_no") || parts.class_no);
+  const entryNo = text(getField(sourceRow, "entry_no") || parts.entry_no);
+  const key = canonicalEntryGoKey(sourceRow, focus);
+  const classStartTime = text(getField(sourceRow, "class_start_time") || getField(sourceRow, "class_start_time (from class_start_times)"));
+  const displayTime = text(getField(sourceRow, "display_time") || getField(sourceRow, "display_time (from class_start_times)"));
   includeField(fields, allowedFields, "entry_go_key", key);
   includeField(fields, allowedFields, "entry_go_key_mirror", key);
   includeField(fields, allowedFields, "show_no", Number(focus.show_no));
@@ -287,33 +289,33 @@ function buildEntryFields({ classOog, classStart, focus, allowedFields }) {
   includeField(fields, allowedFields, "ring_no", Number(ringNo));
   includeField(fields, allowedFields, "class_no", Number(classNo));
   includeField(fields, allowedFields, "entry_no", Number(entryNo));
-  includeField(fields, allowedFields, "entry_order", Number(getField(classOog, "entry_order")));
-  includeField(fields, allowedFields, "horse", text(getField(classOog, "horse")));
-  includeField(fields, allowedFields, "rider", text(getField(classOog, "rider")));
-  includeField(fields, allowedFields, "trainer", text(getField(classOog, "trainer")));
-  includeField(fields, allowedFields, "class_name", text(getField(classOog, "class_name") || getField(classOog, "class_label")));
-  includeField(fields, allowedFields, "class_number", Number(getField(classOog, "class_number")));
-  includeField(fields, allowedFields, "class_start_time", text(getField(classStart, "class_start_time")));
-  includeField(fields, allowedFields, "display_time", text(getField(classStart, "display_time")));
-  includeField(fields, allowedFields, "entry_count", Number(getField(classStart, "entry_count")));
-  includeField(fields, allowedFields, "n_gone", Number(getField(classStart, "n_gone")));
-  includeField(fields, allowedFields, "elapsed_seconds", Number(getField(classStart, "elapsed_seconds")));
-  includeField(fields, allowedFields, "pace_seconds", Number(getField(classStart, "pace_seconds")));
-  includeField(fields, allowedFields, "entry_go_time", text(getField(classStart, "display_time") || getField(classStart, "class_start_time")));
-  includeField(fields, allowedFields, "source", "class_oog");
+  includeField(fields, allowedFields, "entry_order", Number(getField(sourceRow, "entry_order")));
+  includeField(fields, allowedFields, "horse", text(getField(sourceRow, "horse")));
+  includeField(fields, allowedFields, "rider", text(getField(sourceRow, "rider")));
+  includeField(fields, allowedFields, "trainer", text(getField(sourceRow, "trainer")));
+  includeField(fields, allowedFields, "class_name", text(getField(sourceRow, "class_name") || getField(sourceRow, "class_label")));
+  includeField(fields, allowedFields, "class_number", Number(getField(sourceRow, "class_number")));
+  includeField(fields, allowedFields, "class_start_time", classStartTime);
+  includeField(fields, allowedFields, "display_time", displayTime);
+  includeField(fields, allowedFields, "entry_count", Number(getField(sourceRow, "entry_count")));
+  includeField(fields, allowedFields, "n_gone", Number(getField(sourceRow, "n_gone")));
+  includeField(fields, allowedFields, "elapsed_seconds", Number(getField(sourceRow, "elapsed_seconds")));
+  includeField(fields, allowedFields, "pace_seconds", Number(getField(sourceRow, "pace_seconds")));
+  includeField(fields, allowedFields, "entry_go_time", text(displayTime || classStartTime));
+  includeField(fields, allowedFields, "source", "class_oog_staging.entry_go_times");
   includeField(fields, allowedFields, "status", "active");
   includeField(fields, allowedFields, "last_synced_at", new Date().toISOString());
-  includeField(fields, allowedFields, "shows", firstLinked(classOog, "shows") ? [firstLinked(classOog, "shows")] : []);
-  includeField(fields, allowedFields, "focus_show", firstLinked(classOog, "focus_show") ? [firstLinked(classOog, "focus_show")] : [focus.record.id]);
-  includeField(fields, allowedFields, "ring_days", firstLinked(classOog, "ring_days") ? [firstLinked(classOog, "ring_days")] : []);
-  includeField(fields, allowedFields, "rings", firstLinked(classOog, "rings") ? [firstLinked(classOog, "rings")] : []);
-  includeField(fields, allowedFields, "classes", firstLinked(classOog, "classes") ? [firstLinked(classOog, "classes")] : []);
-  includeField(fields, allowedFields, "entries", firstLinked(classOog, "entries") ? [firstLinked(classOog, "entries")] : []);
-  includeField(fields, allowedFields, "horses", firstLinked(classOog, "horses") ? [firstLinked(classOog, "horses")] : []);
-  includeField(fields, allowedFields, "riders", firstLinked(classOog, "riders") ? [firstLinked(classOog, "riders")] : []);
-  includeField(fields, allowedFields, "trainers", firstLinked(classOog, "trainers") ? [firstLinked(classOog, "trainers")] : []);
-  includeField(fields, allowedFields, "class_oog", [classOog.id]);
-  if (classStart?.id) includeField(fields, allowedFields, "class_start_times", [classStart.id]);
+  includeField(fields, allowedFields, "shows", firstLinked(sourceRow, "shows") ? [firstLinked(sourceRow, "shows")] : []);
+  includeField(fields, allowedFields, "focus_show", firstLinked(sourceRow, "focus_show") ? [firstLinked(sourceRow, "focus_show")] : [focus.record.id]);
+  includeField(fields, allowedFields, "ring_days", firstLinked(sourceRow, "ring_days") ? [firstLinked(sourceRow, "ring_days")] : []);
+  includeField(fields, allowedFields, "rings", firstLinked(sourceRow, "rings") ? [firstLinked(sourceRow, "rings")] : []);
+  includeField(fields, allowedFields, "classes", firstLinked(sourceRow, "classes") ? [firstLinked(sourceRow, "classes")] : []);
+  includeField(fields, allowedFields, "entries", firstLinked(sourceRow, "entries") ? [firstLinked(sourceRow, "entries")] : []);
+  includeField(fields, allowedFields, "horses", firstLinked(sourceRow, "horses") ? [firstLinked(sourceRow, "horses")] : []);
+  includeField(fields, allowedFields, "riders", firstLinked(sourceRow, "riders") ? [firstLinked(sourceRow, "riders")] : []);
+  includeField(fields, allowedFields, "trainers", firstLinked(sourceRow, "trainers") ? [firstLinked(sourceRow, "trainers")] : []);
+  if (firstLinked(sourceRow, "class_oog")) includeField(fields, allowedFields, "class_oog", [firstLinked(sourceRow, "class_oog")]);
+  if (firstLinked(sourceRow, "class_start_times")) includeField(fields, allowedFields, "class_start_times", [firstLinked(sourceRow, "class_start_times")]);
   return fields;
 }
 
@@ -338,18 +340,13 @@ async function main() {
   const entryFields = meta.get("entry_go_times");
   if (!entryFields) throw new Error("entry_go_times table not found");
 
-  const trainerRows = await airtableList(baseId, token, "trainers", {
-    filterByFormula: "{active}=TRUE()"
-  });
-  const activeTrainers = trainerRows.map((row) => text(getField(row, "trainer"))).filter(Boolean);
-  const activeTrainerSet = new Set(activeTrainers.map(normalizeName));
   const formula = scopedFormula(focus.show_no, focus.focus_day);
-  const classOogRowsAll = await airtableList(baseId, token, "class_oog", { filterByFormula: formula });
-  const classOogRows = classOogRowsAll.filter((row) => activeTrainerSet.has(normalizeName(getField(row, "trainer"))));
-  const classStartRows = await airtableList(baseId, token, "class_start_times", { filterByFormula: formula });
+  const sourceRows = await airtableList(baseId, token, "class_oog_staging", {
+    view: "entry_go_times",
+    filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'),NOT({inactive}=1))`
+  });
   const entryBeforeRows = await airtableList(baseId, token, "entry_go_times", { filterByFormula: formula });
-  const classStartByKey = rowByClassStartKey(classStartRows);
-  const currentClassOogKeys = new Set(classOogRows.map((row) => canonicalEntryGoKey(row, focus)).filter(Boolean));
+  const currentSourceKeys = new Set(sourceRows.map((row) => canonicalEntryGoKey(row, focus)).filter(Boolean));
   const existingByKey = new Map();
   const existingByLogical = new Map();
   for (const row of entryBeforeRows) {
@@ -362,25 +359,19 @@ async function main() {
   const missingDetail = [];
   const creates = [];
   const updates = [];
-  for (const classOog of classOogRows) {
-    const canonicalKey = canonicalEntryGoKey(classOog, focus);
+  for (const sourceRow of sourceRows) {
+    const canonicalKey = canonicalEntryGoKey(sourceRow, focus);
     if (!canonicalKey) {
-      missingDetail.push({ class_oog_record_id: classOog.id, reason: "missing canonical key fields" });
+      missingDetail.push({ class_oog_staging_record_id: sourceRow.id, reason: "missing canonical key fields" });
       continue;
     }
-    const ringClassKey = [
-      text(getField(classOog, "days") || getField(classOog, "ring_day_no") || classOogKeyParts(classOog).ring_day_no),
-      text(getField(classOog, "ring_no") || classOogKeyParts(classOog).ring_no),
-      text(getField(classOog, "class_no") || classOogKeyParts(classOog).class_no)
-    ].join("|");
-    const classStart = classStartByKey.get(ringClassKey);
-    const legacyKeys = legacyEntryGoKeys(classOog, focus);
+    const legacyKeys = legacyEntryGoKeys(sourceRow, focus);
     const existing = existingByKey.get(canonicalKey)
       || legacyKeys.map((key) => existingByKey.get(key)).find(Boolean)
       || existingByLogical.get(canonicalKey);
-    const fields = buildEntryFields({ classOog, classStart, focus, allowedFields: entryFields });
+    const fields = buildEntryFields({ sourceRow, focus, allowedFields: entryFields });
     if (!fields.entry_go_key) {
-      missingDetail.push({ class_oog_record_id: classOog.id, reason: "entry_go_key could not be built" });
+      missingDetail.push({ class_oog_staging_record_id: sourceRow.id, reason: "entry_go_key could not be built" });
       continue;
     }
     if (existing) updates.push({ id: existing.id, fields });
@@ -403,7 +394,7 @@ async function main() {
       class_no: text(getField(row, "class_no")),
       entry_no: text(getField(row, "entry_no"))
     }))
-    .filter((item) => item.key && !currentClassOogKeys.has(item.key));
+    .filter((item) => item.key && !currentSourceKeys.has(item.key));
   const protectedStaleRows = staleEntryRows.filter((item) => protectedEntryGoRow(item.row));
   if (protectedStaleRows.length) {
     throw new Error(`entry_go_times stale cleanup blocked by protected/manual rows: ${JSON.stringify(protectedStaleRows.slice(0, 20).map((item) => ({
@@ -418,17 +409,20 @@ async function main() {
   const deleted = await airtableDelete(baseId, token, "entry_go_times", staleEntryRows.map((item) => item.row.id));
   const entryAfterRows = await airtableList(baseId, token, "entry_go_times", { filterByFormula: formula });
   const byTrainerAfter = trainerCounts(entryAfterRows);
-  const byTrainerOog = trainerCounts(classOogRows);
-  const missingAfter = classOogRows
+  const byTrainerSource = trainerCounts(sourceRows);
+  const entryAfterKeys = new Set(entryAfterRows.map((entry) => text(getField(entry, "entry_go_key"))).filter(Boolean));
+  const missingAfter = sourceRows
     .map((row) => canonicalEntryGoKey(row, focus))
-    .filter((key) => key && !entryAfterRows.some((entry) => text(getField(entry, "entry_go_key")) === key));
+    .filter((key) => key && !entryAfterKeys.has(key));
 
   const summary = {
-    ok: missingAfter.length === 0 && entryAfterRows.length === classOogRows.length,
+    ok: missingAfter.length === 0 && entryAfterRows.length === sourceRows.length && entryAfterRows.length === entryAfterKeys.size,
+    source: "class_oog_staging.entry_go_times",
     active_show_no: focus.show_no,
     active_focus_day: focus.focus_day,
-    active_trainers: activeTrainers,
-    class_oog_count_before: classOogRows.length,
+    source_rows: sourceRows.length,
+    class_oog_staging_count_before: sourceRows.length,
+    class_oog_count_before: sourceRows.length,
     entry_go_times_count_before: entryBeforeRows.length,
     missing_entry_go_times_rows: missingAfter.length,
     missing_detail: missingAfter,
@@ -445,11 +439,14 @@ async function main() {
     stale_rows_deleted: deleted,
     entry_go_times_rows_created: created,
     entry_go_times_rows_updated: updated,
-    class_oog_count_after: classOogRows.length,
+    class_oog_staging_count_after: sourceRows.length,
+    class_oog_count_after: sourceRows.length,
     entry_go_times_count_after: entryAfterRows.length,
-    counts_match: entryAfterRows.length === classOogRows.length,
-    matched_rows_by_trainer_class_oog: byTrainerOog,
+    counts_match: entryAfterRows.length === sourceRows.length,
+    matched_rows_by_trainer_class_oog_staging: byTrainerSource,
+    matched_rows_by_trainer_class_oog: byTrainerSource,
     matched_rows_by_trainer_entry_go_times: byTrainerAfter,
+    duplicate_entry_go_keys: entryAfterRows.length - entryAfterKeys.size,
     skip_reasons: missingDetail,
     records_deleted: deleted,
     links_cleared: 0

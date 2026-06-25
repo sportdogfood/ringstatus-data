@@ -121,7 +121,21 @@ const AIRTABLE_WEC_LOG_FIELDS = {
 };
 const AIRTABLE_UPDATE_SCHEDULE_TABLE = "tblzPWt9G3VBVqVi6";
 const AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE = "tblzsoU59zmYxhPah";
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_MOBILE_VIEW = "wec-classes_mobile";
 const AIRTABLE_CLASS_OOG_STAGING_TABLE = "class_oog_staging";
+const AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE = "barn_board_hot_patches";
+const AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS = {
+  board_line: "board_line",
+  ring_hint: "ring_hint",
+  time_hint: "time_hint",
+  class_name_hint: "class_name_hint",
+  horses: "horses",
+  entry_go_times: "entry_go_times",
+  match_status: "match_status",
+  hot_patch_active: "hot_patch_active",
+  release_status: "release_status",
+  focus_day: "focus_day"
+};
 const AIRTABLE_GET_RING_DAYS_TABLE = "tblXGYMYDpXEx8hW2";
 const AIRTABLE_GET_RING_DAYS_FIELDS = {
   ring_day_no: "fldVk4eZ01RhELuHx",
@@ -2508,13 +2522,11 @@ async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, of
     return testRows.slice(start, end);
   }
 
-  const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
   const records = await airtableListRecords("update_schedule_staging", {
-    filterByFormula: `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'),NOT({inactive}),OR({confirm_lock}=1,{is_lock}=1,{lock}=1),LEN({ring_day_no}&'')>0,LEN({ring_no}&'')>0,{class_no}>0)`
+    view: AIRTABLE_UPDATE_SCHEDULE_STAGING_MOBILE_VIEW
   });
   const rows = records
-    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, "update_schedule_staging.active_locked"))
-    .filter((row) => !row.inactive && intOrNull(row.class_no) > 0 && !isManualRemoveInstruction(row.manual_instructions))
+    .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, `update_schedule_staging.${AIRTABLE_UPDATE_SCHEDULE_STAGING_MOBILE_VIEW}`))
     .sort((a, b) => (
       Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
       Number(a.ring_day_no || 999999) - Number(b.ring_day_no || 999999) ||
@@ -2928,6 +2940,218 @@ function manualTrainerRollupsForHorseIds(horseRecordIds = [], horseDisplaysById 
   }];
 }
 
+function normalizedBarnBoardTime(value) {
+  const normalized = normalizeClassStartTime(value);
+  return text(normalized || value).toLowerCase();
+}
+
+function barnBoardClassHintMatches(hint, row) {
+  const needle = classNameKey(hint);
+  if (!needle) return false;
+  const candidates = [
+    row.class_name,
+    row.class_number,
+    row.class_no,
+    `${text(row.class_number)} ${text(row.class_name)}`,
+    `${text(row.class_number)} - ${text(row.class_name)}`
+  ].map(classNameKey).filter(Boolean);
+  return candidates.some((candidate) => candidate.includes(needle) || needle.includes(candidate));
+}
+
+function barnBoardRingHintMatches(hint, row) {
+  const raw = normalizeHelperKey(hint);
+  if (!raw) return false;
+  const numeric = raw.match(/\d+/)?.[0] || "";
+  const candidates = [
+    row.ring_no,
+    numeric ? row.ring_no : "",
+    `ring ${text(row.ring_no)}`,
+    `indoor ${text(row.ring_no)}`,
+    `indoor_${text(row.ring_no)}`
+  ].map(normalizeHelperKey).filter(Boolean);
+  return candidates.some((candidate) => candidate === raw || (numeric && candidate === numeric));
+}
+
+function barnBoardTimeHintMatches(hint, row) {
+  const raw = text(hint);
+  if (!raw) return false;
+  const normalized = normalizedBarnBoardTime(raw);
+  const candidates = [
+    row.entry_go_time,
+    row.display_time,
+    row.class_start_time
+  ].map(normalizedBarnBoardTime).filter(Boolean);
+  return candidates.includes(normalized);
+}
+
+function barnBoardEntryMatches(boardFields, entryFields) {
+  const horseIds = new Set(linkedRecordIds(boardFields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses]));
+  if (!horseIds.size) return false;
+  const entryHorseIds = linkedRecordIds(entryFields.horses);
+  if (!entryHorseIds.some((id) => horseIds.has(id))) return false;
+  return barnBoardRingHintMatches(boardFields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.ring_hint], entryFields)
+    && barnBoardTimeHintMatches(boardFields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.time_hint], entryFields)
+    && barnBoardClassHintMatches(boardFields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.class_name_hint], entryFields);
+}
+
+function barnBoardStatusPatch(matchRecord = null) {
+  if (matchRecord) {
+    return {
+      [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.entry_go_times]: [matchRecord.id],
+      [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status]: "matched",
+      [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active]: false,
+      [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status]: "released"
+    };
+  }
+  return {
+    [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status]: "hot_patch",
+    [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active]: true,
+    [AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status]: "active"
+  };
+}
+
+function barnBoardPatchNeedsUpdate(fields, patch) {
+  for (const [field, value] of Object.entries(patch)) {
+    const current = fields[field];
+    if (Array.isArray(value)) {
+      const currentIds = linkedRecordIds(current);
+      if (currentIds.length !== value.length || currentIds.some((id, index) => id !== value[index])) return true;
+    } else if (typeof value === "boolean") {
+      if (current !== value) return true;
+    } else if (text(current) !== text(value)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function getBarnBoardHotPatchRows(focusDay) {
+  const formula = `IS_SAME({${AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.focus_day}},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`;
+  try {
+    return await airtableListRecords(AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE, { filterByFormula: formula });
+  } catch (error) {
+    if (String(error.message || "").includes("TABLE_NOT_FOUND")) return [];
+    throw error;
+  }
+}
+
+async function getActiveEntryGoTimeRecordsForBarnBoard(showNo, focusDay) {
+  const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
+  const formula = `AND({show_no}=${showValue},IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'),OR({status}=BLANK(),{status}!='inactive'))`;
+  return airtableListRecords("entry_go_times", { filterByFormula: formula });
+}
+
+async function syncBarnBoardHotPatches(showNo, focusDay, { dryRun = false } = {}) {
+  const boardRows = await getBarnBoardHotPatchRows(focusDay);
+  const activeEntryRows = await getActiveEntryGoTimeRecordsForBarnBoard(showNo, focusDay);
+  const updates = [];
+  const matched = [];
+  const hotPatch = [];
+  const ambiguous = [];
+
+  for (const boardRow of boardRows) {
+    const fields = boardRow.fields || {};
+    if (text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status]).toLowerCase() === "released"
+      && !fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active]) {
+      continue;
+    }
+    const linkedEntryIds = linkedRecordIds(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.entry_go_times]);
+    const matches = linkedEntryIds.length
+      ? activeEntryRows.filter((entry) => linkedEntryIds.includes(entry.id)).slice(0, 2)
+      : activeEntryRows.filter((entry) => barnBoardEntryMatches(fields, entry.fields || {}));
+    if (matches.length === 1) {
+      const patch = barnBoardStatusPatch(matches[0]);
+      matched.push(boardRow.id);
+      if (barnBoardPatchNeedsUpdate(fields, patch)) updates.push({ id: boardRow.id, fields: patch });
+    } else if (matches.length > 1) {
+      ambiguous.push(boardRow.id);
+    } else {
+      const patch = barnBoardStatusPatch();
+      hotPatch.push(boardRow.id);
+      if (barnBoardPatchNeedsUpdate(fields, patch)) updates.push({ id: boardRow.id, fields: patch });
+    }
+  }
+
+  const changed = dryRun ? [] : await airtableUpdateRecordsById(AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE, updates);
+  return {
+    ok: true,
+    source: AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE,
+    focus_day: focusDay,
+    board_rows: boardRows.length,
+    active_entry_go_times: activeEntryRows.length,
+    matched: matched.length,
+    hot_patch: hotPatch.length,
+    ambiguous: ambiguous.length,
+    updates: updates.length,
+    records_changed: changed.length,
+    dry_run: !!dryRun
+  };
+}
+
+async function getActiveBarnBoardHotPatchScheduleRows(showNo, focusDay, meta = {}) {
+  const boardRows = await getBarnBoardHotPatchRows(focusDay);
+  const activeRows = boardRows.filter((record) => {
+    const fields = record.fields || {};
+    return fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active] === true
+      && text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status]).toLowerCase() === "hot_patch"
+      && text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status]).toLowerCase() !== "released"
+      && !linkedRecordIds(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.entry_go_times]).length;
+  });
+  const horseDisplaysById = await getManualHorseDisplaysById(
+    activeRows.flatMap((record) => linkedRecordIds(record.fields?.[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses]))
+  );
+  return activeRows.map((record, index) => {
+    const fields = record.fields || {};
+    const horseIds = linkedRecordIds(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses]);
+    const trainerRollups = manualTrainerRollupsForHorseIds(horseIds, horseDisplaysById, meta);
+    const rollup = horseRollupDisplay(trainerRollups);
+    const startTime = normalizeClassStartTime(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.time_hint]);
+    const ringHint = text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.ring_hint]);
+    const ringNumber = intOrNull(ringHint) || 9998;
+    const ringName = meta.ringDisplays?.[String(ringNumber)] || ringDisplayFromName(ringHint) || ringHint || "Barn Board";
+    const className = text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.class_name_hint]) || text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.board_line]) || "Barn board hot patch";
+    return {
+      show_id: showNo,
+      show_days_report_title: meta.title,
+      show_days_display_date: focusDay,
+      show_start_date: meta.showStartDate || "",
+      show_end_date: meta.showEndDate || "",
+      show_day_key: focusDay,
+      ring_number: ringNumber,
+      ring_name: ringName,
+      ring_day_no: `barn-board|${focusDay}|${ringHint || ringNumber}`,
+      class_group_id: `barn_board_hot_patch:${record.id}`,
+      class_group_sequence: scheduleSortValue(startTime, 9000 + index),
+      group_group_name: className,
+      class_no: `barn_board_hot_patch:${record.id}`,
+      class_number: "",
+      class_name: className,
+      start_display: displayTimeFromStart(startTime || fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.time_hint]),
+      class_start_time: startTime,
+      entry_count: horseIds.length || null,
+      n_gone: null,
+      n_to_go: null,
+      elapsed_seconds: null,
+      current_entry_no: "",
+      current_horse: "",
+      live_source: "barn_board_hot_patches",
+      group_display: rollup,
+      sched_display: rollup,
+      "8778_sched_display": rollup,
+      trainer_rollups: trainerRollups,
+      rollup_source: "barn_board_hot_patches",
+      sched_horses: compactTrainerRollups(trainerRollups)
+        .flatMap((item) => item.horses || [])
+        .map((horse) => (horse && typeof horse === "object" ? text(horse.display || horse.horse) : text(horse)))
+        .filter(Boolean)
+        .join("|"),
+      source: "barn_board_hot_patches",
+      hot_patch: true,
+      hot_patch_record_id: record.id
+    };
+  });
+}
+
 function trainerRollupsForEntries(entries, meta) {
   const byTrainer = new Map();
   for (const entry of entries || []) {
@@ -3139,15 +3363,12 @@ function applyPreparedClassStartMobileFields(fallback, prepared = {}) {
 }
 
 async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, offset = 0 } = {}) {
-  const schedule = (await getLockedStagingSchedule(app, showNo, focusDay, { limit, offset }))
-    .filter((row) => intOrNull(row.class_no) > 0);
-  const allStagingRows = offset === 0 ? await getAllStagingScheduleRows(showNo, focusDay) : schedule;
-  const allStagingClassNos = allStagingRows.map((row) => row.class_no).filter(Boolean);
+  const schedule = await getLockedStagingSchedule(app, showNo, focusDay, { limit, offset });
   const manualHorseDisplaysById = await getManualHorseDisplaysById(
     schedule.flatMap((row) => row.manual_horse_ids || [])
   );
   const classNos = schedule.map((row) => row.class_no).filter(Boolean);
-  const entryClassNos = [...new Set([...classNos, ...allStagingClassNos].map(text).filter(Boolean))];
+  const entryClassNos = [...new Set(classNos.map(text).filter(Boolean))];
   if (meta.reconcileEntryGoTimes !== false && offset === 0 && !meta.entryGoTimesByClass) {
     await reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, entryClassNos);
   }
@@ -3155,17 +3376,6 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
   const entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
     ? meta.entryGoTimesByClass
     : await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, entryClassNos, meta.activeTrainers);
-  const scheduleKeys = new Set(schedule.map((row) => `${text(row.ring_day_no)}|${text(row.class_no)}`));
-  for (const row of allStagingRows) {
-    const key = `${text(row.ring_day_no)}|${text(row.class_no)}`;
-    if (scheduleKeys.has(key) || !entryGoTimesByClass.has(key)) continue;
-    schedule.push({
-      ...row,
-      source: "update_schedule_staging.entry_go_times",
-      live_source: "entry_go_times"
-    });
-    scheduleKeys.add(key);
-  }
   if (process.env.NODE_ENV === "test" && !entryGoTimesByClass.size) {
     const fallbackEntriesByClass = await getEntriesForSchedule(app, showNo, classNos, meta.activeTrainers);
     const ringDayByClass = new Map(schedule.map((row) => [text(row.class_no), text(row.ring_day_no)]));
@@ -3234,7 +3444,11 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
       }, scheduleRow);
     });
 
-  return mergeSchedulePayloadRows(rows, showNo, focusDay)
+  const hotPatchRows = offset === 0
+    ? await getActiveBarnBoardHotPatchScheduleRows(showNo, focusDay, meta)
+    : [];
+
+  return mergeSchedulePayloadRows([...rows, ...hotPatchRows], showNo, focusDay)
     .sort((a, b) => (
       Number(a.ring_number || 9999) - Number(b.ring_number || 9999) ||
       Number(a.class_group_sequence || 9999999999) - Number(b.class_group_sequence || 9999999999)
@@ -8093,6 +8307,15 @@ async function handle(req, res) {
           .join("|")
       });
       return json(res, 200, { ok: true, action, show_no: showNo, focus_day: focusDay, horse_displays: Object.keys(horseDisplays).length, horse_display_meta: Object.keys(horseDisplayMeta).length, focus_show: focusShow, show });
+    }
+
+    if (action === "sync-barn-board-hot-patches") {
+      const resolved = await resolveFocusDay(app, showNo, query, body);
+      const focusDay = dateKey(query.get("focus_day") || body.focus_day || resolved.focus_day);
+      if (!focusDay) return json(res, 400, { ok: false, action, error: "sync-barn-board-hot-patches requires focus_day" });
+      const dryRun = boolOrNull(query.get("dry_run") || body.dry_run) === true;
+      const result = await syncBarnBoardHotPatches(showNo, focusDay, { dryRun });
+      return json(res, 200, { ok: true, action, show_no: showNo, ...result });
     }
 
     if (action === "schedule-json" || action === "wec-print-live" || action === "wec-schedule-live") {

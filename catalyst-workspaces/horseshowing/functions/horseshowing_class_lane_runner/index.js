@@ -22,6 +22,14 @@ const TABLES = {
   airtableClassOog: "tblgUbX5n8GIuiqUI",
   airtableGetOrders: "tblxaVS0dtetxjiGZ",
   airtableGetRings: "tblPWRF978F9YV3qW",
+  airtableShows: "tblyjlXwdf0zg0mhn",
+  airtableRingDays: "tblMw8DPVzlt3H8M7",
+  airtableRings: "tbl5WKTbwL6IVrjyI",
+  airtableRingNames: "tblcHfnJzCYLoBhjf",
+  airtableClasses: "tblhxn7Jhkcnetaq5",
+  airtableEntries: "tblrRnqH6utOdyhSk",
+  airtableHorses: "tblgWogH7B6Cvusvm",
+  airtableRingStatus: "tblP7h7fNmmZNmALW",
   airtableEntryGoTimes: "tblj1qWXAUS79jijF",
   airtableAlertTemplates: "tblcHUmGzoWFOTvx2",
   airtableAlerts: "tblqkxLPy9zZ2FI6z",
@@ -48,7 +56,13 @@ const STAGING_FIELDS = {
   class_name: "fldvV3xLV9PduvCrB",
   time_text: "fld2EahZkPs2SSVfN",
   entry_count: "fldsiU6NKYacpz8CT",
-  full_lock: "fldL8UsgATV34je1y"
+  full_lock: "fldL8UsgATV34je1y",
+  shows: "fldr7WPbgPFfPuctf",
+  focus_show: "fldg6ox15s03Sw9xk",
+  ring_days: "fldTVsQTkDsDvKyPz",
+  rings: "fldz3HXUIVufTOlYm",
+  events: "flds4Y7IP8eN7JrP1",
+  classes: "fld57nJX8y2bOTMcw"
 };
 
 const CLASS_START_FIELDS = {
@@ -59,6 +73,7 @@ const CLASS_START_FIELDS = {
   ring_no: "fld2W7zzZA46trKPW",
   rings: "fldIylu3s86XMkyVF",
   event_id: "fldiS6GqGV9SM0lyt",
+  events: "fldG0zhaNr27MXecv",
   class_no: "fldKYQonbwrWF5uCw",
   classes: "fldl8fAPABhnzoHhn",
   focus_day: "fld3QiD3GGyeiiJBE",
@@ -119,24 +134,46 @@ const GET_RINGS_FIELDS = {
   n_gone: "fldUtkHiu8JhGT0MO",
   timestamp: "fldJotd3vLHv16UzF",
   elapsed: "fld7PScHi1Rx9gFV0",
-  type: "fldKp21d0kHt3SXpu"
+  type: "fldKp21d0kHt3SXpu",
+  ring_name_normalized: "fldYq3BFkm1VeB5c6",
+  ring_visual_key: "fldbfXmdIDdj6wCDw",
+  horse_now: "fldU3UTNNo6KKgOOQ",
+  shows: "fldvp6ntjIHKNYPIo",
+  focus_show: "flduzDhPr1y0uAr5x",
+  ring_days: "fldgWdepPXM7JCLwH",
+  rings: "fldiSs4mrSTX115mg",
+  ring_names: "fldqAvVI3hEDDXLDd",
+  classes: "fldEh1oIZPmGUZxNe",
+  entries: "fldonSFYLsuAVrbmT",
+  horses: "fldz4k7FsEP74YLfa",
+  ring_status: "fld9AlEGjV7OkHH6Y"
 };
 
 const ENTRY_GO_FIELDS = {
   entry_go_key: "fldRBul0TP6zQFzSX",
+  class_start_times: "fldSArXSblE7U1H0s",
   show_no: "fldYbrC3XUrWEB1nk",
+  shows: "fldVQU3YGccKdKArv",
   focus_day: "fldV5YK4Skso0U25t",
+  focus_show: "fldapzivs4yDu15xc",
   ring_no: "fldp7C0JtYiT9TKsf",
+  rings: "flduLNNe6hHxm4Lch",
   ring_day_no: "fldLvJcrh5ufukbdQ",
+  ring_days: "fld7qexs3AaIRcWsu",
   class_no: "fldRtenp2KT6kxSwD",
+  classes: "fldlWPmzYpjExu8PY",
   class_number: "fldxwAR9fZEgKxAf5",
   class_name: "fldzmdZLw25EGxfAa",
   entry_no: "flda59MfCPviuf9CZ",
+  entries: "fldK0nv6HCMEl2qo2",
   entry_order: "fldgEZbFPXdqzKGFS",
   horse: "fldspWOxM6Vebcvl3",
+  horses: "fldsQOPqU9o9VwOqd",
   horse_display: "fldXFYR9onEqDdC9t",
   rider: "fldlIG9u6L9LItRVt",
+  riders: "fldT5EJMZxgTYEKFH",
   trainer: "fldzvFMZSXLfsTDVv",
+  trainers: "fldB60uaBtZJxK0gw",
   trainer_display: "fldt4NI8BmQxMTB7v",
   class_start_time: "fld6KoEdi0T1pAxr7",
   display_time: "fldHFFpNHVuxmTZ3D",
@@ -166,6 +203,15 @@ const ALERT_FIELDS = {
   target_time: "fldBZHfGEl4yipKQ7",
   alert_subject: "fldBUx8SiI1xyOudr",
   source_table: "fldn7yxOdsIB476Ou",
+  shows: "fldmWM1UaUT92gM9x",
+  focus_show: "fldEAydOTiIMSXPbh",
+  ring_days: "fldkZyuRFuwnI9RYd",
+  rings: "fldw1Q3Ngx8s57Mn7",
+  classes: "fldeD7vODmTvDoORa",
+  entries: "fld5Pipfp1qquBXzi",
+  horses: "fldfECzStfkd98xjj",
+  riders: "fldF8b3oWuhKpb66Q",
+  trainers: "fld44SFZFEs1ndM0m",
   class_start_times: "fldVO1mV5cGaMNeCa",
   entry_go_times: "fld4hVFO6C2pr9RER"
 };
@@ -308,6 +354,20 @@ async function airtableList(baseId, table, token, { formula = "", fields = [], r
     records.push(...(json.records || []));
     offset = json.offset || "";
   } while (offset);
+  return records;
+}
+
+async function airtableGetRecordsById(baseId, table, token, ids) {
+  const records = new Map();
+  for (const id of [...new Set((ids || []).filter(Boolean))]) {
+    const response = await fetch(`https://api.airtable.com/v0/${baseId}/${encodeURIComponent(table)}/${encodeURIComponent(id)}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable get ${table}/${id} HTTP ${response.status}: ${raw.slice(0, 500)}`);
+    const record = JSON.parse(raw);
+    records.set(record.id, record);
+  }
   return records;
 }
 
@@ -514,6 +574,52 @@ async function linkMap(baseId, token, tableName, keyName, keys) {
   return map;
 }
 
+function linkedIds(value) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => typeof item === "string" ? item : item?.id)
+    .filter(Boolean);
+}
+
+function sameLinkedIds(current, next) {
+  const left = linkedIds(current).sort();
+  const right = linkedIds(next).sort();
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+async function recordMapByKey(baseId, token, tableName, keyName, keys = null) {
+  const values = keys === null ? null : [...new Set((keys || []).map(text).filter(Boolean))];
+  const rows = [];
+  if (values === null) {
+    rows.push(...await airtableList(baseId, tableName, token, { returnFieldIds: false }));
+  } else {
+    for (let index = 0; index < values.length; index += 25) {
+      const chunk = values.slice(index, index + 25);
+      if (!chunk.length) continue;
+      const formula = chunk.length === 1
+        ? `{${keyName}}='${airtableQuote(chunk[0])}'`
+        : `OR(${chunk.map((key) => `{${keyName}}='${airtableQuote(key)}'`).join(",")})`;
+      rows.push(...await airtableList(baseId, tableName, token, { formula, returnFieldIds: false }));
+    }
+  }
+  const map = new Map();
+  const duplicateKeys = new Map();
+  const blankRows = [];
+  for (const row of rows) {
+    const key = text(row.fields?.[keyName]);
+    if (!key) {
+      blankRows.push(row.id);
+      continue;
+    }
+    if (map.has(key)) {
+      duplicateKeys.set(key, [...(duplicateKeys.get(key) || [map.get(key)]), row.id]);
+      continue;
+    }
+    map.set(key, row.id);
+  }
+  return { map, duplicateKeys, blankRows, rows };
+}
+
 async function readLockedStaging(baseId, token, showNo, focusDay) {
   const formula = `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{full_lock}=1)`;
   const rows = await airtableList(baseId, TABLES.airtableStaging, token, { formula });
@@ -533,7 +639,13 @@ async function readLockedStaging(baseId, token, showNo, focusDay) {
       class_name: text(f[STAGING_FIELDS.class_name] || f[STAGING_FIELDS.event_name]),
       time_text: text(f[STAGING_FIELDS.time_text]),
       entry_count: asNumber(f[STAGING_FIELDS.entry_count]),
-      full_lock: truthy(f[STAGING_FIELDS.full_lock])
+      full_lock: truthy(f[STAGING_FIELDS.full_lock]),
+      shows: f[STAGING_FIELDS.shows] || [],
+      focus_show: f[STAGING_FIELDS.focus_show] || [],
+      ring_days: f[STAGING_FIELDS.ring_days] || [],
+      rings: f[STAGING_FIELDS.rings] || [],
+      events: f[STAGING_FIELDS.events] || [],
+      classes: f[STAGING_FIELDS.classes] || []
     };
   });
 }
@@ -541,7 +653,7 @@ async function readLockedStaging(baseId, token, showNo, focusDay) {
 async function readFocusClassStarts(baseId, token, showNo, focusDay) {
   const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'))`;
   const rows = await airtableList(baseId, TABLES.airtableClassStartTimes, token, { formula });
-  return rows.map((record) => {
+  const classStarts = rows.map((record) => {
     const f = record.fields || {};
     return {
       record_id: record.id,
@@ -554,7 +666,31 @@ async function readFocusClassStarts(baseId, token, showNo, focusDay) {
       class_number: asNumber(f[CLASS_START_FIELDS.class_number]),
       class_name: text(f[CLASS_START_FIELDS.class_name]),
       class_start_time: text(f[CLASS_START_FIELDS.class_start_time]),
-      display_time: text(f[CLASS_START_FIELDS.display_time])
+      display_time: text(f[CLASS_START_FIELDS.display_time]),
+      update_schedule_staging: f[CLASS_START_FIELDS.update_schedule_staging] || [],
+      shows: f[CLASS_START_FIELDS.shows] || [],
+      focus_show: f[CLASS_START_FIELDS.focus_show] || [],
+      ring_days: f[CLASS_START_FIELDS.ring_days] || [],
+      rings: f[CLASS_START_FIELDS.rings] || [],
+      classes: f[CLASS_START_FIELDS.classes] || []
+    };
+  });
+  const stagingById = await airtableGetRecordsById(
+    baseId,
+    TABLES.airtableStaging,
+    token,
+    classStarts.flatMap((row) => row.update_schedule_staging || [])
+  );
+  return classStarts.map((row) => {
+    const stagingId = (row.update_schedule_staging || [])[0];
+    const stagingFields = stagingById.get(stagingId)?.fields || {};
+    return {
+      ...row,
+      shows: row.shows?.length ? row.shows : stagingFields[STAGING_FIELDS.shows] || [],
+      focus_show: row.focus_show?.length ? row.focus_show : stagingFields[STAGING_FIELDS.focus_show] || [],
+      ring_days: row.ring_days?.length ? row.ring_days : stagingFields[STAGING_FIELDS.ring_days] || [],
+      rings: row.rings?.length ? row.rings : stagingFields[STAGING_FIELDS.rings] || [],
+      classes: row.classes?.length ? row.classes : stagingFields[STAGING_FIELDS.classes] || []
     };
   });
 }
@@ -567,19 +703,29 @@ async function readActiveEntryGoTimes(baseId, token, showNo, focusDay) {
     return {
       record_id: record.id,
       entry_go_key: text(f[ENTRY_GO_FIELDS.entry_go_key]),
+      class_start_times: f[ENTRY_GO_FIELDS.class_start_times] || [],
       show_no: asNumber(f[ENTRY_GO_FIELDS.show_no]),
+      shows: f[ENTRY_GO_FIELDS.shows] || [],
       focus_day: isoDate(f[ENTRY_GO_FIELDS.focus_day]),
+      focus_show: f[ENTRY_GO_FIELDS.focus_show] || [],
       ring_day_no: asNumber(f[ENTRY_GO_FIELDS.ring_day_no]),
+      ring_days: f[ENTRY_GO_FIELDS.ring_days] || [],
       ring_no: asNumber(f[ENTRY_GO_FIELDS.ring_no]),
+      rings: f[ENTRY_GO_FIELDS.rings] || [],
       class_no: asNumber(f[ENTRY_GO_FIELDS.class_no]),
+      classes: f[ENTRY_GO_FIELDS.classes] || [],
       class_number: asNumber(f[ENTRY_GO_FIELDS.class_number]),
       class_name: text(f[ENTRY_GO_FIELDS.class_name]),
       entry_no: asNumber(f[ENTRY_GO_FIELDS.entry_no]),
+      entries: f[ENTRY_GO_FIELDS.entries] || [],
       entry_order: asNumber(f[ENTRY_GO_FIELDS.entry_order]),
       horse: text(f[ENTRY_GO_FIELDS.horse]),
+      horses: f[ENTRY_GO_FIELDS.horses] || [],
       horse_display: text(f[ENTRY_GO_FIELDS.horse_display]),
       rider: text(f[ENTRY_GO_FIELDS.rider]),
+      riders: f[ENTRY_GO_FIELDS.riders] || [],
       trainer: text(f[ENTRY_GO_FIELDS.trainer]),
+      trainers: f[ENTRY_GO_FIELDS.trainers] || [],
       trainer_display: text(f[ENTRY_GO_FIELDS.trainer_display]),
       class_start_time: text(f[ENTRY_GO_FIELDS.class_start_time]),
       display_time: text(f[ENTRY_GO_FIELDS.display_time]),
@@ -673,11 +819,12 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
       [CLASS_START_FIELDS.status]: row.status,
       [CLASS_START_FIELDS.last_synced_at]: new Date().toISOString(),
       [CLASS_START_FIELDS.update_schedule_staging]: airtableRecordLink(row.record_id),
-      [CLASS_START_FIELDS.shows]: airtableRecordLink(shows.get(text(row.show_no))),
-      [CLASS_START_FIELDS.focus_show]: airtableRecordLink(focusRecordId),
-      [CLASS_START_FIELDS.rings]: airtableRecordLink(rings.get(text(row.ring_no))),
-      [CLASS_START_FIELDS.ring_days]: airtableRecordLink(ringDays.get(text(row.ring_day_no))),
-      [CLASS_START_FIELDS.classes]: airtableRecordLink(classes.get(text(row.class_no))),
+      [CLASS_START_FIELDS.shows]: row.shows?.length ? airtableRecordLinks(row.shows) : airtableRecordLink(shows.get(text(row.show_no))),
+      [CLASS_START_FIELDS.focus_show]: row.focus_show?.length ? airtableRecordLinks(row.focus_show) : airtableRecordLink(focusRecordId),
+      [CLASS_START_FIELDS.rings]: row.rings?.length ? airtableRecordLinks(row.rings) : airtableRecordLink(rings.get(text(row.ring_no))),
+      [CLASS_START_FIELDS.ring_days]: row.ring_days?.length ? airtableRecordLinks(row.ring_days) : airtableRecordLink(ringDays.get(text(row.ring_day_no))),
+      [CLASS_START_FIELDS.events]: airtableRecordLinks(row.events),
+      [CLASS_START_FIELDS.classes]: row.classes?.length ? airtableRecordLinks(row.classes) : airtableRecordLink(classes.get(text(row.class_no))),
       [CLASS_START_FIELDS.class_oog]: airtableRecordLinks(oogGroup?.ids || [])
     });
   });
@@ -912,12 +1059,13 @@ async function syncGetOrders(app, baseId, token, focus) {
   return { orders: orders.length, matches: matches.length, airtable_updated: updated.length, catalyst_updated: catalystUpdates.length };
 }
 
-async function syncGetRings(app, baseId, token, focus) {
+async function readFocusGetRings(baseId, token, focus) {
   const ringFormula = `AND({show_no}='${airtableQuote(focus.show_no)}',IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
   const ringRecords = await airtableList(baseId, TABLES.airtableGetRings, token, { formula: ringFormula });
-  const rings = ringRecords.map((record) => {
+  return ringRecords.map((record) => {
     const f = record.fields || {};
     return {
+      record_id: record.id,
       show_no: asNumber(f[GET_RINGS_FIELDS.show_no]),
       focus_day: isoDate(f[GET_RINGS_FIELDS.focus_day]),
       ring_day_no: asNumber(f[GET_RINGS_FIELDS.ring_day_no]),
@@ -932,9 +1080,176 @@ async function syncGetRings(app, baseId, token, focus) {
       entry_text: text(f[GET_RINGS_FIELDS.entry_text]),
       current_entry_no: entryNoFromText(f[GET_RINGS_FIELDS.entry_text]),
       current_horse: horseFromEntryText(f[GET_RINGS_FIELDS.entry_text]),
-      type: text(f[GET_RINGS_FIELDS.type])
+      type: text(f[GET_RINGS_FIELDS.type]),
+      ring_name_normalized: text(f[GET_RINGS_FIELDS.ring_name_normalized]),
+      ring_visual_key: text(f[GET_RINGS_FIELDS.ring_visual_key]),
+      horse_now: text(f[GET_RINGS_FIELDS.horse_now]),
+      shows: linkedIds(f[GET_RINGS_FIELDS.shows]),
+      focus_show: linkedIds(f[GET_RINGS_FIELDS.focus_show]),
+      ring_days: linkedIds(f[GET_RINGS_FIELDS.ring_days]),
+      rings: linkedIds(f[GET_RINGS_FIELDS.rings]),
+      ring_names: linkedIds(f[GET_RINGS_FIELDS.ring_names]),
+      classes: linkedIds(f[GET_RINGS_FIELDS.classes]),
+      entries: linkedIds(f[GET_RINGS_FIELDS.entries]),
+      horses: linkedIds(f[GET_RINGS_FIELDS.horses]),
+      ring_status: linkedIds(f[GET_RINGS_FIELDS.ring_status])
     };
   });
+}
+
+function linkOrMissing(missing, row, field, value, recordId) {
+  if (!value || !recordId) {
+    missing.push({
+      record_id: row.record_id,
+      field,
+      value,
+      helper_record_id: recordId || "",
+      ring_visual_key: row.ring_visual_key,
+      ring_day_no: row.ring_day_no,
+      ring_no: row.ring_no,
+      class_no: row.class_no,
+      entry_no: row.current_entry_no,
+      horse_now: row.horse_now
+    });
+    return undefined;
+  }
+  return airtableRecordLink(recordId);
+}
+
+async function syncGetRingsLinks(baseId, token, focus) {
+  const rings = await readFocusGetRings(baseId, token, focus);
+  const showNos = rings.map((row) => row.show_no);
+  const ringDayNos = rings.map((row) => row.ring_day_no);
+  const ringNos = rings.map((row) => row.ring_no);
+  const ringNameNormalized = rings.map((row) => row.ring_name_normalized);
+  const classNos = rings.map((row) => row.class_no);
+  const entryNos = rings.map((row) => row.current_entry_no);
+  const horseNow = rings.map((row) => row.horse_now);
+  const ringVisualKeys = rings.map((row) => row.ring_visual_key);
+  const [
+    shows,
+    ringDays,
+    ringMap,
+    ringNames,
+    classes,
+    entries,
+    horses,
+    ringStatusAll
+  ] = await Promise.all([
+    linkMap(baseId, token, TABLES.airtableShows, "show_no", showNos),
+    linkMap(baseId, token, TABLES.airtableRingDays, "ring_day_no", ringDayNos),
+    linkMap(baseId, token, TABLES.airtableRings, "ring_no", ringNos),
+    recordMapByKey(baseId, token, TABLES.airtableRingNames, "ring_name", ringNameNormalized),
+    linkMap(baseId, token, TABLES.airtableClasses, "class_no", classNos),
+    linkMap(baseId, token, TABLES.airtableEntries, "entry_no", entryNos),
+    linkMap(baseId, token, TABLES.airtableHorses, "horse", horseNow),
+    recordMapByKey(baseId, token, TABLES.airtableRingStatus, "ring_visual_key", null)
+  ]);
+
+  if (ringStatusAll.blankRows.length || ringStatusAll.duplicateKeys.size) {
+    const detail = {
+      blank_ring_status_rows: ringStatusAll.blankRows.slice(0, 10),
+      duplicate_ring_visual_keys: Object.fromEntries([...ringStatusAll.duplicateKeys.entries()].slice(0, 10))
+    };
+    await logRun(baseId, token, {
+      action: "get_rings_linkback_enrichment",
+      showNo: focus.show_no,
+      focusDay: focus.focus_day,
+      status: "error",
+      recordsSeen: rings.length,
+      recordsChanged: 0,
+      summary: "get_rings ring_status ring_visual_key uniqueness failed",
+      payload: detail
+    });
+    throw new Error(`ring_status ring_visual_key uniqueness failed: ${JSON.stringify(detail)}`);
+  }
+
+  const missing = [];
+  const missingRingNameNormalized = [];
+  const missingHorseNow = [];
+  const updates = [];
+  for (const row of rings) {
+    const fields = cleanFields({
+      [GET_RINGS_FIELDS.shows]: linkOrMissing(missing, row, "shows", text(row.show_no), shows.get(text(row.show_no))),
+      [GET_RINGS_FIELDS.focus_show]: airtableRecordLink(focus.record_id),
+      [GET_RINGS_FIELDS.ring_days]: linkOrMissing(missing, row, "ring_days", text(row.ring_day_no), ringDays.get(text(row.ring_day_no))),
+      [GET_RINGS_FIELDS.rings]: linkOrMissing(missing, row, "rings", text(row.ring_no), ringMap.get(text(row.ring_no))),
+      [GET_RINGS_FIELDS.classes]: linkOrMissing(missing, row, "classes", text(row.class_no), classes.get(text(row.class_no))),
+      [GET_RINGS_FIELDS.entries]: linkOrMissing(missing, row, "entries", text(row.current_entry_no), entries.get(text(row.current_entry_no))),
+      [GET_RINGS_FIELDS.ring_status]: linkOrMissing(missing, row, "ring_status", row.ring_visual_key, ringStatusAll.map.get(row.ring_visual_key))
+    });
+    if (row.ring_name_normalized) {
+      fields[GET_RINGS_FIELDS.ring_names] = linkOrMissing(missing, row, "ring_names", row.ring_name_normalized, ringNames.map.get(row.ring_name_normalized));
+    } else {
+      missingRingNameNormalized.push({
+        record_id: row.record_id,
+        ring_day_no: row.ring_day_no,
+        ring_no: row.ring_no,
+        class_no: row.class_no
+      });
+    }
+    if (row.horse_now) {
+      fields[GET_RINGS_FIELDS.horses] = linkOrMissing(missing, row, "horses", row.horse_now, horses.get(row.horse_now));
+    } else {
+      missingHorseNow.push({
+        record_id: row.record_id,
+        ring_day_no: row.ring_day_no,
+        ring_no: row.ring_no,
+        class_no: row.class_no,
+        entry_no: row.current_entry_no
+      });
+    }
+    const changed = Object.entries(fields).some(([fieldId, next]) => !sameLinkedIds(row[Object.keys(GET_RINGS_FIELDS).find((name) => GET_RINGS_FIELDS[name] === fieldId)] || [], next));
+    if (changed) updates.push({ id: row.record_id, fields });
+  }
+
+  if (missing.length) {
+    await logRun(baseId, token, {
+      action: "get_rings_linkback_enrichment",
+      showNo: focus.show_no,
+      focusDay: focus.focus_day,
+      status: "error",
+      recordsSeen: rings.length,
+      recordsChanged: 0,
+      summary: `get_rings helper/linkback missing ${missing.length} required links`,
+      payload: {
+        missing: missing.slice(0, 25),
+        missing_ring_name_normalized: missingRingNameNormalized.slice(0, 25),
+        missing_horse_now: missingHorseNow.slice(0, 25)
+      }
+    });
+    throw new Error(`get_rings helper/linkback missing ${missing.length} required links`);
+  }
+
+  const updated = await airtableUpdate(baseId, TABLES.airtableGetRings, updates, token);
+  await logRun(baseId, token, {
+    action: "get_rings_linkback_enrichment",
+    showNo: focus.show_no,
+    focusDay: focus.focus_day,
+    status: "ok",
+    recordsSeen: rings.length,
+    recordsChanged: updated.length,
+    summary: `get_rings direct links updated ${updated.length}/${rings.length}`,
+    payload: {
+      rings: rings.length,
+      updated: updated.length,
+      ring_status_keys: ringStatusAll.map.size,
+      missing_ring_name_normalized: missingRingNameNormalized,
+      missing_horse_now: missingHorseNow
+    }
+  });
+  return {
+    rings: rings.length,
+    updated: updated.length,
+    ring_status_keys: ringStatusAll.map.size,
+    missing_ring_name_normalized: missingRingNameNormalized,
+    missing_horse_now: missingHorseNow
+  };
+}
+
+async function syncGetRings(app, baseId, token, focus) {
+  const linkback = await syncGetRingsLinks(baseId, token, focus);
+  const rings = await readFocusGetRings(baseId, token, focus);
   const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
   const matches = matchGetRingsToClassStart(rings, classStarts);
   const sourceKeys = rings.map(classScopeKey);
@@ -1019,6 +1334,7 @@ async function syncGetRings(app, baseId, token, focus) {
       target_unique_keys: new Set(targetKeys).size,
       duplicate_source_keys: duplicateKeys(sourceKeys),
       duplicate_target_keys: duplicateKeys(targetKeys),
+      get_rings_linkback: linkback,
       missing,
       extras
     }
@@ -1039,7 +1355,8 @@ async function syncGetRings(app, baseId, token, focus) {
   };
 }
 
-async function syncClassAlerts(baseId, token, focus, now = new Date()) {
+async function syncClassAlerts(baseId, token, focus, now = new Date(), options = {}) {
+  const dryRun = truthy(options.dryRun) || truthy(options.noSend) || truthy(options.candidateOnly);
   const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
   const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day);
   const classAlerts = buildClassAlerts(classStarts, now);
@@ -1048,7 +1365,7 @@ async function syncClassAlerts(baseId, token, focus, now = new Date()) {
   const activeAlertKeys = new Set(alerts.map((alert) => alert.alert_key));
   const alertTemplateMap = await readAlertTemplateMap(baseId, token);
   const missingTemplates = [...new Set(alerts.map((alert) => alert.alert_type).filter((alertType) => !alertTemplateMap.has(alertType)))];
-  if (missingTemplates.length) {
+  if (missingTemplates.length && !dryRun) {
     throw new Error(`Missing alert_templates rows for alert_type: ${missingTemplates.join(", ")}`);
   }
   const airtableRows = alerts.map((alert) => cleanFields({
@@ -1070,9 +1387,50 @@ async function syncClassAlerts(baseId, token, focus, now = new Date()) {
     [ALERT_FIELDS.target_time]: alert.target_time,
     [ALERT_FIELDS.alert_subject]: alert.alert_subject,
     [ALERT_FIELDS.source_table]: alert.source_table,
-    [ALERT_FIELDS.class_start_times]: alert.source_table === "class_start_times" ? airtableRecordLink(alert.class_start_times_record_id) : undefined,
+    [ALERT_FIELDS.shows]: airtableRecordLinks(alert.shows),
+    [ALERT_FIELDS.focus_show]: airtableRecordLinks(alert.focus_show),
+    [ALERT_FIELDS.ring_days]: airtableRecordLinks(alert.ring_days),
+    [ALERT_FIELDS.rings]: airtableRecordLinks(alert.rings),
+    [ALERT_FIELDS.classes]: airtableRecordLinks(alert.classes),
+    [ALERT_FIELDS.entries]: airtableRecordLinks(alert.entries),
+    [ALERT_FIELDS.horses]: airtableRecordLinks(alert.horses),
+    [ALERT_FIELDS.riders]: airtableRecordLinks(alert.riders),
+    [ALERT_FIELDS.trainers]: airtableRecordLinks(alert.trainers),
+    [ALERT_FIELDS.class_start_times]: alert.source_table === "class_start_times"
+      ? airtableRecordLink(alert.class_start_times_record_id)
+      : airtableRecordLinks(alert.class_start_times),
     [ALERT_FIELDS.entry_go_times]: alert.source_table === "entry_go_times" ? airtableRecordLink(alert.entry_go_times_record_id) : undefined
   }));
+  if (dryRun) {
+    const candidates = alerts.map((alert, index) => ({
+      alert_key: alert.alert_key,
+      alert_type: alert.alert_type,
+      alert_lane: alert.alert_lane,
+      source_table: alert.source_table,
+      time_till: alert.time_till,
+      target_time: alert.target_time,
+      alert_subject: alert.alert_subject,
+      class_start_times_record_id: alert.class_start_times_record_id || "",
+      entry_go_times_record_id: alert.entry_go_times_record_id || "",
+      class_start_times_link_payload: airtableRows[index][ALERT_FIELDS.class_start_times] || [],
+      entry_go_times_link_payload: airtableRows[index][ALERT_FIELDS.entry_go_times] || []
+    }));
+    return {
+      dry_run: true,
+      no_send: true,
+      now: now.toISOString(),
+      class_start_times: classStarts.length,
+      entry_go_times: entryGoTimes.length,
+      class_alerts: classAlerts.length,
+      entry_alerts: entryAlerts.length,
+      candidates,
+      missing_templates: missingTemplates,
+      airtable_upsert_skipped: true,
+      stale_resolution_skipped: true,
+      notifications_sent: 0,
+      records_changed: 0
+    };
+  }
   const upserts = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, airtableRows, token);
   const resolved = await resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys);
   await logRun(baseId, token, {
@@ -1136,12 +1494,18 @@ async function runAction(req, action, app, baseId, token, focus, query, body) {
   if (action === "sync-get-orders") {
     return syncGetOrders(app, baseId, token, focus);
   }
+  if (action === "sync-get-rings-linkback") {
+    return syncGetRingsLinks(baseId, token, focus);
+  }
   if (action === "sync-get-rings") {
     return syncGetRings(app, baseId, token, focus);
   }
   if (action === "sync-class-alerts") {
     const nowRaw = text(query.get("now") || body.now);
-    return syncClassAlerts(baseId, token, focus, nowRaw ? new Date(nowRaw) : new Date());
+    const dryRun = truthy(query.get("dry_run") || body.dry_run);
+    const noSend = truthy(query.get("no_send") || body.no_send);
+    const candidateOnly = truthy(query.get("candidate_only") || body.candidate_only);
+    return syncClassAlerts(baseId, token, focus, nowRaw ? new Date(nowRaw) : new Date(), { dryRun, noSend, candidateOnly });
   }
   if (action === "audit") {
     return auditLane(app, baseId, token, focus);

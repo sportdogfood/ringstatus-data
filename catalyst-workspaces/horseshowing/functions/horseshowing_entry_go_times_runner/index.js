@@ -60,7 +60,9 @@ const ENTRY_GO_FIELDS = {
   status: "fldd2hqbkYPzCaPxh",
   inactive_reason: "fldZs4oGxnMTtUHtC",
   inactive_at: "fldg1JSRC0F5EgYEg",
-  class_oog: "fldmr4DCDk2Jeq2lI"
+  class_oog: "fldmr4DCDk2Jeq2lI",
+  class_oog_staging: "fldaJCwVCQEW063NN",
+  update_schedule_staging: "fldP90dVCFlpMftcg"
 };
 
 const WEC_LOG_FIELDS = {
@@ -227,6 +229,10 @@ function paceFromClassStart(classStart) {
   return intOrNull(classStart.pace_seconds) || 120;
 }
 
+function classStartKey(showNo, focusDay, ringDayNo, ringNo, classNo) {
+  return [showNo, focusDay, ringDayNo, ringNo, classNo].map(text).join("|");
+}
+
 async function airtableList(baseId, tableName, formula, token, options = {}) {
   const records = [];
   let offset = "";
@@ -314,15 +320,18 @@ async function readClassStartTimes(baseId, showNo, focusDay, token) {
     token
   );
   const byKey = new Map();
+  const byRecordId = new Map();
   for (const row of rows) {
     if (text(row.status) === "inactive") continue;
     const ringDayNo = intOrNull(row.ring_day_no);
+    const ringNo = intOrNull(row.ring_no);
     const classNo = intOrNull(row.class_no);
-    if (!ringDayNo || !classNo) continue;
-    const key = `${showNo}|${focusDay}|${ringDayNo}|${classNo}`;
+    if (!ringDayNo || !ringNo || !classNo) continue;
+    const key = classStartKey(showNo, focusDay, ringDayNo, ringNo, classNo);
     byKey.set(key, row);
+    if (row.record_id) byRecordId.set(row.record_id, row);
   }
-  return byKey;
+  return { byKey, byRecordId, rows };
 }
 
 async function readClassOog(baseId, showNo, focusDay, token) {
@@ -362,12 +371,13 @@ function entryGoKeyFromClassOogStaging(row, showNo, focusDay) {
   return `${showNo}|${focusDay}|${ringDayNo}|${ringNo}|${classNo}|${entryNo}`;
 }
 
-function buildRows({ showNo, focusDay, focusShow, sourceRows, syncedAt }) {
+function buildRows({ showNo, focusDay, focusShow, sourceRows, classStartTimes, syncedAt }) {
   const rows = [];
   const skipped = {
     missing_identity: 0,
     missing_class_start_time: 0,
-    missing_entry_order: 0
+    missing_entry_order: 0,
+    missing_class_start_handoff: []
   };
   for (const source of sourceRows) {
     const key = entryGoKeyFromClassOogStaging(source, showNo, focusDay);
@@ -384,13 +394,36 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, syncedAt }) {
       skipped.missing_entry_order += 1;
       continue;
     }
-    const classStartValue = first(source["class_start_time (from class_start_times)"]) || source.class_start_time || "";
-    const displayValue = first(source["display_time (from class_start_times)"]) || source.display_time || "";
+    const linkedClassStartId = first(source.class_start_times);
+    const resolvedClassStart = (linkedClassStartId && classStartTimes?.byRecordId?.get(linkedClassStartId)) ||
+      classStartTimes?.byKey?.get(classStartKey(showNo, focusDay, ringDayNo, ringNo, classNo));
+    const classStartValue = first(source["class_start_time (from class_start_times)"]) ||
+      source.class_start_time ||
+      resolvedClassStart?.class_start_time ||
+      "";
+    const displayValue = first(source["display_time (from class_start_times)"]) ||
+      source.display_time ||
+      resolvedClassStart?.display_time ||
+      "";
     const classStartTime = normalizeTime(classStartValue);
-    if (!classStartTime) skipped.missing_class_start_time += 1;
-    const paceSeconds = intOrNull(source.pace_seconds) || 120;
-    const nGone = intOrNull(source.n_gone);
-    const elapsedSeconds = intOrNull(source.elapsed_seconds);
+    if (!classStartTime || !resolvedClassStart?.record_id) {
+      skipped.missing_class_start_time += 1;
+      skipped.missing_class_start_handoff.push({
+        class_oog_staging_record_id: source.record_id || "",
+        key,
+        ring_day_no: ringDayNo,
+        ring_no: ringNo,
+        class_no: classNo,
+        entry_no: entryNo,
+        class_start_times: linkedClassStartId || "",
+        resolved_class_start_times: resolvedClassStart?.record_id || "",
+        class_start_time: classStartTime || ""
+      });
+      continue;
+    }
+    const paceSeconds = intOrNull(source.pace_seconds) || paceFromClassStart(resolvedClassStart);
+    const nGone = intOrNull(source.n_gone) || intOrNull(resolvedClassStart.n_gone);
+    const elapsedSeconds = intOrNull(source.elapsed_seconds) || intOrNull(resolvedClassStart.elapsed_seconds);
     const entryGoTime = classStartTime ? addSecondsToTime(classStartTime, Math.max(0, entryOrder - 1) * paceSeconds) : "";
     rows.push({
       entry_go_key: key,
@@ -430,7 +463,9 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, syncedAt }) {
       riders: link(first(source.riders)),
       trainers: link(first(source.trainers)),
       class_oog: link(first(source.class_oog)),
-      class_start_times: link(first(source.class_start_times))
+      class_oog_staging: link(source.record_id),
+      update_schedule_staging: link(first(source.update_schedule_staging)),
+      class_start_times: link(resolvedClassStart.record_id)
     });
   }
   rows.sort((a, b) =>
@@ -563,7 +598,9 @@ function toAirtableRow(row) {
     [ENTRY_GO_FIELDS.status]: row.status,
     [ENTRY_GO_FIELDS.inactive_reason]: "",
     [ENTRY_GO_FIELDS.inactive_at]: "",
-    [ENTRY_GO_FIELDS.class_oog]: row.class_oog
+    [ENTRY_GO_FIELDS.class_oog]: row.class_oog,
+    [ENTRY_GO_FIELDS.class_oog_staging]: row.class_oog_staging,
+    [ENTRY_GO_FIELDS.update_schedule_staging]: row.update_schedule_staging
   };
 }
 
@@ -621,15 +658,19 @@ async function verifyAirtable(baseId, token, showNo, focusDay, expectedKeys) {
     !row.riders?.length ||
     !row.trainers?.length ||
     !row.class_oog?.length ||
+    !row.class_oog_staging?.length ||
+    !row.update_schedule_staging?.length ||
     !row.class_start_times?.length
   );
+  const missingTimes = active.filter((row) => !text(row.class_start_time) || !text(row.entry_go_time));
   return {
     total_rows: rows.length,
     active_rows: active.length,
     inactive_rows: rows.length - active.length,
     missing_keys: missingKeys.length,
     extra_active_keys: extraKeys.length,
-    missing_required_links: missingLinks.length
+    missing_required_links: missingLinks.length,
+    missing_timing_fields: missingTimes.length
   };
 }
 
@@ -718,12 +759,43 @@ async function handle(req, res) {
 
     phase = "read_class_oog_staging_entry_go_times";
     const sourceRows = await readClassOogStagingEntryRows(baseId, showNo, focusShow.focus_day, token);
+    phase = "read_class_start_times";
+    const classStartTimes = await readClassStartTimes(baseId, showNo, focusShow.focus_day, token);
     phase = "build_entry_go_rows";
     const syncedAt = new Date().toISOString();
-    const built = buildRows({ showNo, focusDay: focusShow.focus_day, focusShow, sourceRows, syncedAt });
+    const built = buildRows({ showNo, focusDay: focusShow.focus_day, focusShow, sourceRows, classStartTimes, syncedAt });
     const rows = built.rows;
     const skipped = built.skipped;
     const expectedKeys = new Set(rows.map((row) => row.entry_go_key));
+
+    if (Number(skipped.missing_class_start_time || 0) > 0) {
+      const detail = {
+        ok: false,
+        phase: "build_entry_go_rows",
+        error: "missing class_start_time handoff",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        source: "class_oog_staging.entry_go_times",
+        source_rows: sourceRows.length,
+        rows_written: 0,
+        skipped
+      };
+      phase = "write_wec_log_missing_class_start_time";
+      await writeRunLog(baseId, token, detail);
+      return sendJson(res, 200, {
+        ok: false,
+        phase: "build_entry_go_rows",
+        error: "missing class_start_time handoff",
+        source: "class_oog_staging.entry_go_times",
+        target_catalyst: TABLE_ENTRY_GO_TIMES,
+        target_airtable: "entry_go_times",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        source_rows: sourceRows.length,
+        rows_written: 0,
+        skipped
+      });
+    }
 
     phase = "sync_catalyst";
     const catalystResult = await syncCatalyst(app, showNo, focusShow.focus_day, rows);
@@ -738,8 +810,10 @@ async function handle(req, res) {
       airtableVerify.missing_keys === 0 &&
       airtableVerify.extra_active_keys === 0 &&
       airtableVerify.missing_required_links === 0 &&
+      airtableVerify.missing_timing_fields === 0 &&
       Number(skipped.missing_identity || 0) === 0 &&
-      Number(skipped.missing_entry_order || 0) === 0;
+      Number(skipped.missing_entry_order || 0) === 0 &&
+      Number(skipped.missing_class_start_time || 0) === 0;
 
     phase = "write_wec_log";
     await writeRunLog(baseId, token, {

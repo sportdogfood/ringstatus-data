@@ -230,6 +230,9 @@ const AIRTABLE_UPDATE_SCHEDULE_STAGING_WRITABLE_PROTECTED_FIELD_IDS = new Set(
   [...AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS]
     .filter((fieldId) => !AIRTABLE_UPDATE_SCHEDULE_STAGING_NON_WRITABLE_PROTECTED_FIELD_IDS.has(fieldId))
 );
+const AIRTABLE_UPDATE_SCHEDULE_STAGING_STAGE2C_ALLOWED_PROTECTED_FIELD_IDS = new Set([
+  AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.update_schedule
+].filter(Boolean));
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -4123,7 +4126,10 @@ function protectedStagingFieldsPresent(record) {
 
 function assertNoProtectedStagingUpdateFields(fields) {
   const protectedIds = Object.keys(fields || {})
-    .filter((fieldId) => AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS.has(fieldId));
+    .filter((fieldId) =>
+      AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELD_IDS.has(fieldId)
+      && !AIRTABLE_UPDATE_SCHEDULE_STAGING_STAGE2C_ALLOWED_PROTECTED_FIELD_IDS.has(fieldId)
+    );
   if (protectedIds.length) {
     throw new Error(`Stage 2C update payload includes protected update_schedule_staging fields: ${protectedIds.join(",")}`);
   }
@@ -4149,21 +4155,35 @@ function hasValidStagingClassNo(rowOrFields) {
   return Number.isFinite(value) && value > 0;
 }
 
+function sourceUpdateScheduleRecordIds(row) {
+  const ids = [
+    ...(Array.isArray(row?.update_schedule_record_ids) ? row.update_schedule_record_ids : []),
+    row?.update_schedule_record_id
+  ].map(text).filter(Boolean);
+  return [...new Set(ids)];
+}
+
 function mergeUpdateScheduleRowsToClassGrain(rows) {
   const byKey = new Map();
   for (const row of rows || []) {
     const key = updateScheduleStagingCanonicalKey(row);
     if (!key) continue;
     const existing = byKey.get(key);
+    const sourceIds = sourceUpdateScheduleRecordIds(row);
     if (!existing) {
-      byKey.set(key, { ...row, update_schedule_key: key, source_key: text(row.update_schedule_key) });
+      byKey.set(key, { ...row, update_schedule_key: key, source_key: text(row.update_schedule_key), update_schedule_record_ids: sourceIds });
       continue;
     }
     for (const [field, value] of Object.entries(row)) {
+      if (field === "update_schedule_record_id" || field === "update_schedule_record_ids") continue;
       if ((existing[field] === null || existing[field] === undefined || existing[field] === "") && value !== null && value !== undefined && value !== "") {
         existing[field] = value;
       }
     }
+    existing.update_schedule_record_ids = [...new Set([
+      ...sourceUpdateScheduleRecordIds(existing),
+      ...sourceIds
+    ])];
     const currentEntryCount = intOrNull(existing.entry_count);
     const nextEntryCount = intOrNull(row.entry_count);
     if (nextEntryCount !== null && (currentEntryCount === null || nextEntryCount > currentEntryCount)) {
@@ -4268,7 +4288,7 @@ async function dedupeUpdateScheduleStagingClassGrain(records, activePayloadsByKe
     groups.get(key).push(record);
   }
   const updates = [];
-  const deleteIds = [];
+  const duplicateInactiveUpdates = [];
   const conflicts = [];
   const processed = [];
   let protectedValuesMerged = 0;
@@ -4290,7 +4310,12 @@ async function dedupeUpdateScheduleStagingClassGrain(records, activePayloadsByKe
     }
     updates.push({ id: survivor.id, fields });
     for (const record of group) {
-      if (record.id !== survivor.id) deleteIds.push(record.id);
+      if (record.id !== survivor.id) {
+        duplicateInactiveUpdates.push({
+          id: record.id,
+          fields: { [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: true }
+        });
+      }
     }
     processed.push({ key, survivor_record_id: survivor.id, duplicate_records: group.length - 1 });
   }
@@ -4308,7 +4333,7 @@ async function dedupeUpdateScheduleStagingClassGrain(records, activePayloadsByKe
     };
   }
   await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, updates);
-  const deleted = await airtableDeleteRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, deleteIds);
+  const markedInactive = await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, duplicateInactiveUpdates);
   return {
     status: "PASS",
     processed: processed.length,
@@ -4318,12 +4343,13 @@ async function dedupeUpdateScheduleStagingClassGrain(records, activePayloadsByKe
     protected_values_merged: protectedValuesMerged,
     checkbox_true_values_preserved: checkboxTrueValuesPreserved,
     links_unioned: linksUnioned,
-    deleted
+    deleted: 0,
+    duplicate_rows_marked_inactive: markedInactive.length
   };
 }
 
-async function deleteUnprotectedAirtableRowsNotInKeys(table, keyFieldId, records, activeKeys) {
-  const stale = [];
+async function markStaleAirtableRowsInactiveNotInKeys(table, keyFieldId, records, activeKeys) {
+  const unprotectedStale = [];
   const protectedStale = [];
   for (const record of records || []) {
     const key = text(record.fields?.[keyFieldId]);
@@ -4332,19 +4358,21 @@ async function deleteUnprotectedAirtableRowsNotInKeys(table, keyFieldId, records
     if (protectedFields.length) {
       protectedStale.push({ id: record.id, key, protected_fields: protectedFields });
     } else {
-      stale.push(record.id);
+      unprotectedStale.push({ id: record.id, key, protected_fields: [] });
     }
   }
-  const markedProtectedStale = await airtableUpdateRecordsById(table, protectedStale.map((record) => ({
+  const staleRows = [...protectedStale, ...unprotectedStale];
+  const markedStale = await airtableUpdateRecordsById(table, staleRows.map((record) => ({
     id: record.id,
     fields: { [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: true }
   })));
-  const deleted = await airtableDeleteRecords(table, stale.filter(Boolean));
   return {
-    deleted,
+    deleted: 0,
     protected_stale_preserved: protectedStale.length,
-    protected_stale_marked: markedProtectedStale.length,
-    protected_stale_records: protectedStale
+    protected_stale_marked: protectedStale.length,
+    protected_stale_records: protectedStale,
+    unprotected_stale_marked: unprotectedStale.length,
+    stale_marked_inactive: markedStale.length
   };
 }
 
@@ -4446,10 +4474,21 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: false,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.last_run_time]: runTime
   };
+  const sourceRecordIds = sourceUpdateScheduleRecordIds(row);
+  if (sourceRecordIds.length) {
+    fields[AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.update_schedule] = sourceRecordIds;
+  }
   if (hasValidStagingClassNo(row)) {
     fields[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.source_key] = stagingKey;
   }
   return assertNoProtectedStagingUpdateFields(fields);
+}
+
+function updateScheduleRowFromAirtableRecord(record) {
+  const row = updateScheduleRowFromAirtableFields(record?.fields || {});
+  row.update_schedule_record_id = record?.id || "";
+  row.update_schedule_record_ids = row.update_schedule_record_id ? [row.update_schedule_record_id] : [];
+  return row;
 }
 
 function updateScheduleRowFromAirtableFields(fields) {
@@ -4474,12 +4513,373 @@ function updateScheduleRowFromAirtableFields(fields) {
   };
 }
 
+async function readActiveFocusShowControl(showNo, focusDay) {
+  const clauses = ["{active}=1"];
+  if (text(showNo)) clauses.push(`{show_no}=${Number(showNo)}`);
+  if (text(focusDay)) clauses.push(`IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`);
+  const rows = await airtableListRecords("focus_show", {
+    filterByFormula: `AND(${clauses.join(",")})`,
+    maxRecords: "10"
+  });
+  if (rows.length !== 1) {
+    return {
+      found: false,
+      record_count: rows.length,
+      is_pause: null,
+      is_lock: null,
+      run_id: "",
+      run_time: ""
+    };
+  }
+  const fields = rows[0].fields || {};
+  return {
+    found: true,
+    record_id: rows[0].id,
+    is_pause: boolOrNull(fields.is_pause) === true,
+    is_lock: boolOrNull(fields.is_lock) === true,
+    run_id: text(fields.run_id),
+    run_time: text(fields.run_time)
+  };
+}
+
+function sourceLinkStatus(records) {
+  const active = (records || []).filter((record) => record?.fields?.[AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive] !== true);
+  const linked = active.filter((record) => linkedRecordIds(record?.fields?.[AIRTABLE_UPDATE_SCHEDULE_STAGING_PROTECTED_FIELDS.update_schedule]).length > 0);
+  return {
+    active_rows_checked: active.length,
+    linked_rows: linked.length,
+    missing_links: active.length - linked.length
+  };
+}
+
+async function markOutOfFocusStagingRowsInactive(showNo, focusDay, focusControl) {
+  if (!(focusControl?.is_pause === true && focusControl?.is_lock === false)) {
+    return {
+      condition_met: false,
+      checked: 0,
+      marked_inactive: 0
+    };
+  }
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: `AND({show_no}=${Number(showNo)},NOT(IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')),NOT({inactive}=1))`,
+    returnFieldsByFieldId: "true"
+  });
+  const updated = await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, rows.map((record) => ({
+    id: record.id,
+    fields: { [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.inactive]: true }
+  })));
+  return {
+    condition_met: true,
+    checked: rows.length,
+    marked_inactive: updated.length
+  };
+}
+
+function stage2cHelperTruthy(value) {
+  if (value === true || value === 1) return true;
+  const clean = text(value).toLowerCase();
+  return clean === "1" || clean === "true" || clean === "yes" || clean === "checked";
+}
+
+function stage2cRecordField(row, fieldName) {
+  return row?.fields?.[fieldName];
+}
+
+function stage2cLinkedFieldBlank(row, fieldName) {
+  const value = stage2cRecordField(row, fieldName);
+  if (Array.isArray(value)) return linkedRecordIds(value).length === 0;
+  return value === undefined || value === null || text(value) === "";
+}
+
+function stage2cRowDate(row) {
+  for (const field of ["focus_day", "iso_date", "ISO", "date", "show_day_date", "day_label"]) {
+    const value = stage2cRecordField(row, field);
+    const day = dateKey(value);
+    if (day) return day;
+  }
+  const showDay = text(stage2cRecordField(row, "show_day"));
+  const compact = showDay.match(/(20\d{6})/);
+  if (compact) return `${compact[1].slice(0, 4)}-${compact[1].slice(4, 6)}-${compact[1].slice(6, 8)}`;
+  return "";
+}
+
+function stage2cYyyymmdd(value) {
+  return text(dateKey(value)).replace(/-/g, "");
+}
+
+function stage2cNormalizeLoose(value) {
+  return normalizeHelperKey(value).replace(/[^a-z0-9]+/g, "");
+}
+
+function stage2cHelperScopeMatches(row, focus) {
+  const showNo = text(stage2cRecordField(row, "show_no"));
+  if (showNo && showNo !== focus.show_no) return false;
+  const day = stage2cRowDate(row);
+  if (day && day !== focus.focus_day) return false;
+  return true;
+}
+
+function stage2cVariantsForValue(value, focus) {
+  const values = new Set();
+  const raw = text(value);
+  if (raw) values.add(raw);
+  if (/^\d+$/.test(raw) && raw.length !== 8) return [...values].filter(Boolean);
+  const day = dateKey(raw);
+  if (day) {
+    values.add(day);
+    values.add(stage2cYyyymmdd(day));
+    values.add(`${focus.show_no}|${day}`);
+    values.add(`${focus.show_no}|${stage2cYyyymmdd(day)}`);
+  }
+  return [...values].filter(Boolean);
+}
+
+function stage2cTargetSourceValues(row, mapping, focus) {
+  const sourceField = text(stage2cRecordField(mapping, "source_value_field"));
+  if (sourceField === "show_no+focus_day") return [`${focus.show_no}|${focus.focus_day}`, `${focus.show_no}|${stage2cYyyymmdd(focus.focus_day)}`];
+  if (sourceField === "focus_day") return stage2cVariantsForValue(focus.focus_day, focus);
+  if (sourceField === "show_day") return [`${focus.show_no}|${focus.focus_day}`, `${focus.show_no}|${stage2cYyyymmdd(focus.focus_day)}`, focus.focus_day, stage2cYyyymmdd(focus.focus_day)];
+  const direct = stage2cRecordField(row, sourceField);
+  if (text(direct)) return stage2cVariantsForValue(direct, focus);
+  if (["iso_date", "ISO", "date", "day_label"].includes(sourceField)) return stage2cVariantsForValue(focus.focus_day, focus);
+  return [];
+}
+
+function stage2cResolvedHelperKeyField(mapping) {
+  const helperTable = text(stage2cRecordField(mapping, "helper_table"));
+  const helperField = text(stage2cRecordField(mapping, "helper_key_field"));
+  const aliases = {
+    dows: { dow: "dow_name" }
+  };
+  return aliases[helperTable]?.[helperField] || helperField;
+}
+
+function stage2cHelperKeyValues(row, mapping, focus) {
+  const helperField = stage2cResolvedHelperKeyField(mapping);
+  if (helperField === "show_no+focus_day") {
+    return [`${text(stage2cRecordField(row, "show_no"))}|${stage2cRowDate(row)}`];
+  }
+  if (helperField === "focus_day") return stage2cVariantsForValue(stage2cRowDate(row) || stage2cRecordField(row, helperField), focus);
+  if (helperField === "show_day") return stage2cVariantsForValue(stage2cRecordField(row, helperField), focus);
+  return stage2cVariantsForValue(stage2cRecordField(row, helperField), focus);
+}
+
+function stage2cCoerceHelperFieldValue(field, value) {
+  const raw = text(value);
+  if (!raw) return null;
+  if (["show_no", "ring_no", "ring_day_no", "class_no", "class_number", "event_id", "event_type"].includes(field)) {
+    const parsed = intOrNull(raw);
+    return parsed === null ? null : parsed;
+  }
+  return raw;
+}
+
+function stage2cHelperCreateFields(row, mapping, focus) {
+  const helperTable = text(stage2cRecordField(mapping, "helper_table"));
+  const helperKeyField = stage2cResolvedHelperKeyField(mapping);
+  const sourceValues = stage2cTargetSourceValues(row, mapping, focus);
+  const sourceValue = sourceValues.find((value) => text(value));
+  if (!helperTable || !helperKeyField || !sourceValue) return {};
+
+  const allowlists = {
+    classes: ["class_no", "class_number", "class_payout", "class_name", "class_label"],
+    events: ["event_id"],
+    dows: ["dow_name"],
+    ring_days: ["ring_day_no", "date_text"],
+    rings: ["ring_no", "ring_name"],
+    shows: ["show_no"],
+    show_days: ["show_day"]
+  };
+  const fields = {};
+  const keyValue = stage2cCoerceHelperFieldValue(helperKeyField, sourceValue);
+  if (keyValue !== null) fields[helperKeyField] = keyValue;
+  for (const field of allowlists[helperTable] || []) {
+    if (field === helperKeyField) continue;
+    let value = stage2cRecordField(row, field);
+    if (field === "show_day") value = `${focus.show_no}|${focus.focus_day}`;
+    if (field === "dow_name") value = stage2cRecordField(row, "dow");
+    if (field === "class_label") value = stage2cRecordField(row, "event_name");
+    const coerced = stage2cCoerceHelperFieldValue(field, value);
+    if (coerced !== null) fields[field] = coerced;
+  }
+  return fields;
+}
+
+async function stage2cCreateHelperRecordForSource(row, mapping, focus) {
+  const helperTable = text(stage2cRecordField(mapping, "helper_table"));
+  const creatableTables = new Set(["classes", "events", "dows", "ring_days", "rings", "shows", "show_days"]);
+  if (!creatableTables.has(helperTable)) return null;
+  const fields = stage2cHelperCreateFields(row, mapping, focus);
+  if (!Object.keys(fields).length) return null;
+  return airtableCreateRecord(helperTable, fields);
+}
+
+function stage2cBuildHelperIndex(rows, mapping, focus) {
+  const index = new Map();
+  for (const row of rows || []) {
+    if (!stage2cHelperScopeMatches(row, focus)) continue;
+    for (const value of stage2cHelperKeyValues(row, mapping, focus)) {
+      for (const key of [normalizeHelperKey(value), stage2cNormalizeLoose(value)]) {
+        if (!key) continue;
+        if (!index.has(key)) index.set(key, []);
+        if (!index.get(key).some((existing) => existing.id === row.id)) index.get(key).push(row);
+      }
+    }
+  }
+  return index;
+}
+
+function stage2cHelperRecordId(row, mapping) {
+  const recordIdField = text(stage2cRecordField(mapping, "helper_record_id_field")) || "rec_id";
+  const value = text(stage2cRecordField(row, recordIdField));
+  return value.startsWith("rec") ? value : row.id;
+}
+
+function stage2cCompactMiss(miss) {
+  return {
+    record_id: miss.record_id,
+    target_link_field: miss.target_link_field,
+    source_value: miss.source_value,
+    helper_table: miss.helper_table,
+    helper_key_field: miss.helper_key_field,
+    matches: miss.matches,
+    reason: miss.reason
+  };
+}
+
+function stage2cHelperLinkRelevant(row, targetLinkField) {
+  if (targetLinkField !== "classes") return true;
+  return Number(stage2cRecordField(row, "class_no")) > 0;
+}
+
+async function repairUpdateScheduleStagingHelperLinks(showNo, focusDay) {
+  const focus = { show_no: text(showNo), focus_day: dateKey(focusDay) };
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
+    filterByFormula: `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focus.focus_day)}),'day'),NOT({inactive}=1))`
+  });
+  const allowedRows = (await airtableListRecords("allowed_helpers"))
+    .filter((row) => stage2cHelperTruthy(stage2cRecordField(row, "active")))
+    .filter((row) => text(stage2cRecordField(row, "target_table")) === "update_schedule_staging");
+  const helperCache = new Map();
+  const updateMap = new Map();
+  const linksPopulatedByHelper = {};
+  const silentMisses = [];
+  const blockingMisses = [];
+  const skipped = [];
+  const helperRecordsCreatedByTable = {};
+  const helperRecordsCreated = [];
+  let notRelevant = 0;
+
+  for (const mapping of allowedRows) {
+    const targetLinkField = text(stage2cRecordField(mapping, "target_link_field"));
+    const sourceValueField = text(stage2cRecordField(mapping, "source_value_field"));
+    const helperTable = text(stage2cRecordField(mapping, "helper_table"));
+    const helperKeyField = text(stage2cRecordField(mapping, "helper_key_field"));
+    const allowSilentFail = stage2cHelperTruthy(stage2cRecordField(mapping, "allow_silent_fail"));
+    if (!targetLinkField || !sourceValueField || !helperTable || !helperKeyField) {
+      skipped.push({ mapping: mapping.id, reason: "missing required mapping field" });
+      continue;
+    }
+    let helperRows = helperCache.get(helperTable);
+    if (!helperRows) {
+      helperRows = await airtableListRecords(helperTable);
+      helperCache.set(helperTable, helperRows);
+    }
+    let helperIndex = stage2cBuildHelperIndex(helperRows, mapping, focus);
+    for (const row of rows) {
+      if (!stage2cLinkedFieldBlank(row, targetLinkField)) continue;
+      if (!stage2cHelperLinkRelevant(row, targetLinkField)) {
+        notRelevant += 1;
+        continue;
+      }
+      const sourceValues = stage2cTargetSourceValues(row, mapping, focus);
+      const sourceKeys = [...new Set(sourceValues.flatMap((value) => [normalizeHelperKey(value), stage2cNormalizeLoose(value)]).filter(Boolean))];
+      if (!sourceKeys.length) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: "", helper_table: helperTable, helper_key_field: helperKeyField, matches: 0, reason: "blank source value" };
+        silentMisses.push(miss);
+        continue;
+      }
+      const matches = [];
+      for (const key of sourceKeys) {
+        for (const helperRow of helperIndex.get(key) || []) {
+          if (!matches.some((existing) => existing.id === helperRow.id)) matches.push(helperRow);
+        }
+      }
+      if (!matches.length) {
+        const created = await stage2cCreateHelperRecordForSource(row, mapping, focus);
+        if (created?.id) {
+          helperRows.push(created);
+          helperCache.set(helperTable, helperRows);
+          helperIndex = stage2cBuildHelperIndex(helperRows, mapping, focus);
+          helperRecordsCreated.push({ table: helperTable, id: created.id, target_link_field: targetLinkField, source_value: sourceValues[0] || "" });
+          helperRecordsCreatedByTable[helperTable] = (helperRecordsCreatedByTable[helperTable] || 0) + 1;
+          for (const key of sourceKeys) {
+            for (const helperRow of helperIndex.get(key) || []) {
+              if (!matches.some((existing) => existing.id === helperRow.id)) matches.push(helperRow);
+            }
+          }
+        }
+      }
+      if (matches.length !== 1) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: sourceValues.join(" | "), helper_table: helperTable, helper_key_field: helperKeyField, matches: matches.length, reason: matches.length ? "ambiguous match" : "no match" };
+        if (matches.length > 1 && !allowSilentFail) blockingMisses.push(miss); else silentMisses.push(miss);
+        continue;
+      }
+      const linkedId = stage2cHelperRecordId(matches[0], mapping);
+      if (!linkedId) {
+        const miss = { record_id: row.id, target_link_field: targetLinkField, source_value: sourceValues.join(" | "), helper_table: helperTable, helper_key_field: helperKeyField, matches: 1, reason: "helper record id missing" };
+        if (allowSilentFail) silentMisses.push(miss); else blockingMisses.push(miss);
+        continue;
+      }
+      if (!updateMap.has(row.id)) updateMap.set(row.id, {});
+      updateMap.get(row.id)[targetLinkField] = [linkedId];
+      linksPopulatedByHelper[targetLinkField] = (linksPopulatedByHelper[targetLinkField] || 0) + 1;
+    }
+  }
+
+  if (blockingMisses.length) {
+    return {
+      status: "BLOCKED",
+      rows_checked: rows.length,
+      records_updated: 0,
+      links_populated: 0,
+      links_populated_by_helper: linksPopulatedByHelper,
+      blocking_miss_count: blockingMisses.length,
+      blocking_misses: blockingMisses.slice(0, 50).map(stage2cCompactMiss),
+      silent_miss_count: silentMisses.length,
+      silent_misses: silentMisses.slice(0, 50).map(stage2cCompactMiss),
+      not_relevant: notRelevant,
+      mappings_skipped: skipped
+    };
+  }
+
+  const updates = [...updateMap.entries()].map(([id, fields]) => ({ id, fields }));
+  const updated = await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, updates);
+  return {
+    status: "PASS",
+    rows_checked: rows.length,
+    records_updated: updated.length,
+    links_populated: Object.values(linksPopulatedByHelper).reduce((sum, count) => sum + count, 0),
+    links_populated_by_helper: linksPopulatedByHelper,
+    helper_records_created: helperRecordsCreated.length,
+    helper_records_created_by_table: helperRecordsCreatedByTable,
+    helper_records_created_detail: helperRecordsCreated,
+    blocking_miss_count: 0,
+    blocking_misses: [],
+    silent_miss_count: silentMisses.length,
+    silent_misses: silentMisses.slice(0, 50).map(stage2cCompactMiss),
+    not_relevant: notRelevant,
+    mappings_skipped: skipped
+  };
+}
+
 async function countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay) {
   const rows = await getRowsByShow(app, TABLES.updateSchedule, showNo, { limit: 5000 });
   return rows.filter((row) => dateKey(row.iso_date || row.date_text || row.day_label) === focusDay).length;
 }
 
 async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
+  const focusControl = await readActiveFocusShowControl(showNo, focusDay);
   const confirmDelete = await buildConfirmedDeleteUpdateSchedulePlan(app, showNo, { focusDay });
   if (confirmDelete.confirmed_delete_rows) {
     return {
@@ -4507,7 +4907,7 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
   });
   const runTime = new Date().toISOString();
   const sourceRows = updateScheduleRecords
-    .map((record) => updateScheduleRowFromAirtableFields(record.fields || {}))
+    .map(updateScheduleRowFromAirtableRecord)
     .filter((row) => text(row.update_schedule_key));
   const canonicalSourceRows = mergeUpdateScheduleRowsToClassGrain(sourceRows);
   const activePayloadsByKey = new Map(canonicalSourceRows.map((row) => {
@@ -4553,30 +4953,67 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     filterByFormula: formula,
     returnFieldsByFieldId: "true"
   });
-  const staleResult = await deleteUnprotectedAirtableRowsNotInKeys(
+  const staleResult = await markStaleAirtableRowsInactiveNotInKeys(
     AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE,
     AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key,
     existingStaging,
     activeKeys
   );
+  const inactiveResult = await markOutOfFocusStagingRowsInactive(showNo, focusDay, focusControl);
+  const helperLinkResult = await repairUpdateScheduleStagingHelperLinks(showNo, focusDay);
+  if (helperLinkResult.status === "BLOCKED") {
+    return {
+      show_no: showNo,
+      focus_day: focusDay,
+      source: "airtable.update_schedule",
+      status: "BLOCKED",
+      blocker: "update_schedule_staging helper-link repair has blocking misses",
+      focus_show_control: focusControl,
+      payload_rows: canonicalSourceRows.length,
+      update_schedule_rows: updateScheduleRecords.length,
+      update_schedule_staging_rows_before: existingBeforeDedupe.length,
+      update_schedule_staging_upserts: stagingRecords.length,
+      update_schedule_staging_stale_deleted: staleResult.deleted,
+      update_schedule_staging_stale_marked_inactive: staleResult.stale_marked_inactive,
+      update_schedule_staging_out_of_focus_inactive_checked: inactiveResult.checked,
+      update_schedule_staging_out_of_focus_marked_inactive: inactiveResult.marked_inactive,
+      update_schedule_staging_helper_links: helperLinkResult
+    };
+  }
   const finalStaging = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
     filterByFormula: formula,
     returnFieldsByFieldId: "true"
   });
   const finalClassGrainStatus = stagingClassGrainStatus(finalStaging);
-  const catalystRows = await countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay);
+  const sourceLinks = sourceLinkStatus(finalStaging);
   return {
     show_no: showNo,
     focus_day: focusDay,
+    source: "airtable.update_schedule",
+    focus_show_control: focusControl,
     payload_rows: canonicalSourceRows.length,
-    hs_update_schedule_rows: catalystRows,
     update_schedule_rows: updateScheduleRecords.length,
     update_schedule_staging_rows: finalStaging.length,
     update_schedule_staging_upserts: stagingRecords.length,
     update_schedule_staging_stale_deleted: staleResult.deleted,
+    update_schedule_staging_stale_marked_inactive: staleResult.stale_marked_inactive,
+    update_schedule_staging_unprotected_stale_marked_inactive: staleResult.unprotected_stale_marked,
     update_schedule_staging_protected_stale_preserved: staleResult.protected_stale_preserved,
     update_schedule_staging_protected_stale_marked: staleResult.protected_stale_marked,
     update_schedule_staging_protected_stale_records: staleResult.protected_stale_records,
+    update_schedule_staging_out_of_focus_inactive_checked: inactiveResult.checked,
+    update_schedule_staging_out_of_focus_marked_inactive: inactiveResult.marked_inactive,
+    update_schedule_staging_helper_link_rows_checked: helperLinkResult.rows_checked,
+    update_schedule_staging_helper_link_records_updated: helperLinkResult.records_updated,
+    update_schedule_staging_helper_links_populated: helperLinkResult.links_populated,
+    update_schedule_staging_helper_links_by_field: helperLinkResult.links_populated_by_helper,
+    update_schedule_staging_helper_link_blocking_misses: helperLinkResult.blocking_miss_count,
+    update_schedule_staging_helper_link_silent_misses: helperLinkResult.silent_miss_count,
+    update_schedule_staging_helper_link_not_relevant: helperLinkResult.not_relevant,
+    update_schedule_staging_helper_link_mappings_skipped: helperLinkResult.mappings_skipped,
+    update_schedule_staging_source_link_rows_checked: sourceLinks.active_rows_checked,
+    update_schedule_staging_source_link_rows: sourceLinks.linked_rows,
+    update_schedule_staging_source_link_missing: sourceLinks.missing_links,
     update_schedule_staging_active_canonical_rows: finalClassGrainStatus.active_count,
     update_schedule_staging_active_unique_keys: finalClassGrainStatus.unique_keys,
     update_schedule_staging_active_duplicate_groups: finalClassGrainStatus.duplicate_groups,
@@ -4589,6 +5026,7 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     update_schedule_staging_dedupe_groups_skipped_due_to_conflict: dedupeResult.skipped_due_to_conflict,
     update_schedule_staging_conflict_detail: dedupeResult.conflict_detail,
     update_schedule_staging_dedupe_deleted: dedupeResult.deleted,
+    update_schedule_staging_dedupe_marked_inactive: dedupeResult.duplicate_rows_marked_inactive || 0,
     update_schedule_staging_protected_values_merged: dedupeResult.protected_values_merged,
     update_schedule_staging_checkbox_true_values_preserved: dedupeResult.checkbox_true_values_preserved,
     update_schedule_staging_links_unioned: dedupeResult.links_unioned
@@ -7465,6 +7903,22 @@ async function handle(req, res) {
         return json(res, 409, { ok: false, action, ...result });
       }
       return json(res, 200, { ok: true, action, ...result });
+    }
+
+    if (action === "repair-update-schedule-staging-helper-links") {
+      const resolved = await resolveFocusDay(app, showNo, query, body);
+      if (!resolved.focus_day) {
+        return json(res, 400, {
+          ok: false,
+          action,
+          error: "repair-update-schedule-staging-helper-links requires focus_day/focus_day_date in the request or hs_shows.focus_day_date"
+        });
+      }
+      const result = await repairUpdateScheduleStagingHelperLinks(showNo, resolved.focus_day);
+      if (result.status === "BLOCKED") {
+        return json(res, 409, { ok: false, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
+      }
+      return json(res, 200, { ok: true, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
     }
 
     if (action === "replace-counts-only") {

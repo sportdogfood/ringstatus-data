@@ -335,28 +335,6 @@ async function main() {
   if (!ringRows.length) {
     throw new Error(`no Stage 1 hs_rings rows for show_no=${focus.show_no} focus_day=${focus.focus_day}`);
   }
-  const results = [];
-  for (const row of ringRows) {
-    const stored = runStage2A({
-      runnerPath,
-      syncUrl,
-      showNo: focus.show_no,
-      focusDay: focus.focus_day,
-      row
-    });
-    const parsed = await runStage2B(syncUrl, focus.show_no, stored.raw_rec_id, { executeConfirmDelete });
-    results.push({
-      ring_day_no: text(row.ring_day_no),
-      raw_rec_id: stored.raw_rec_id,
-      parse_wec_log_rec_id: parsed.parse_wec_log_rec_id,
-      hs_update_schedule_rows: Number(parsed.hs_update_schedule_rows || 0),
-      hs_update_schedule_stale_deleted: Number(parsed.hs_update_schedule_stale_deleted || 0),
-      update_schedule_rows: Number(parsed.update_schedule_rows || 0),
-      update_schedule_stale_deleted: Number(parsed.update_schedule_stale_deleted || 0),
-      confirm_delete_rows: Number(parsed.confirm_delete?.confirmed_delete_rows || 0),
-      confirm_delete_catalyst_rows_deleted: Number(parsed.confirm_delete?.catalyst_rows_deleted || 0)
-    });
-  }
   if (mirrorOnly) {
     const catalystRows = await getCatalystUpdateScheduleRows(syncUrl, focus.show_no, focus.focus_day);
     const airtableRows = await getAirtableUpdateScheduleRows(baseId, token, focus.show_no, focus.focus_day);
@@ -377,16 +355,16 @@ async function main() {
       focus_day: focus.focus_day,
       get_ring_days_count: ringRows.length,
       ring_day_no_count: ringRows.length,
-      raw_rows_stored: results.length,
-      parse_runs_completed: results.length,
-      payload_row_count: results.reduce((sum, row) => sum + Number(row.update_schedule_rows || 0), 0),
-      hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
-      update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
-      confirm_delete_rows: results.reduce((sum, row) => sum + row.confirm_delete_rows, 0),
-      confirm_delete_catalyst_rows_deleted: results.reduce((sum, row) => sum + row.confirm_delete_catalyst_rows_deleted, 0),
-      records_deleted_from_update_schedule: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
-      parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
-      ring_day_nos: results.map((row) => row.ring_day_no),
+      raw_rows_stored: 0,
+      parse_runs_completed: 0,
+      payload_row_count: airtableRows.length,
+      hs_update_schedule_stale_deleted: 0,
+      update_schedule_stale_deleted: 0,
+      confirm_delete_rows: 0,
+      confirm_delete_catalyst_rows_deleted: 0,
+      records_deleted_from_update_schedule: 0,
+      parse_wec_log_rec_ids: [],
+      ring_day_nos: ringRows.map((row) => text(row.ring_day_no)).filter(Boolean),
       ...mirror
     };
     process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
@@ -399,24 +377,29 @@ async function main() {
   const summary = {
     ok: true,
     action: "sync-focus-update-schedule-to-staging",
+    source: "airtable.update_schedule",
     run_id: runId,
     run_time: runTime,
     show_no: focus.show_no,
     focus_day: focus.focus_day,
     ring_day_no_count: ringRows.length,
-    raw_rows_stored: results.length,
-    parse_runs_completed: results.length,
-    hs_update_schedule_rows: Number(staged.hs_update_schedule_rows || 0),
+    raw_rows_stored: 0,
+    parse_runs_completed: 0,
+    hs_update_schedule_rows: null,
     update_schedule_rows: Number(staged.update_schedule_rows || 0),
     update_schedule_staging_rows: Number(staged.update_schedule_staging_rows || 0),
     payload_row_count: Number(staged.payload_rows || 0),
-    hs_update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.hs_update_schedule_stale_deleted, 0),
-    update_schedule_stale_deleted: results.reduce((sum, row) => sum + row.update_schedule_stale_deleted, 0),
-    confirm_delete_rows: results.reduce((sum, row) => sum + row.confirm_delete_rows, 0),
-    confirm_delete_catalyst_rows_deleted: results.reduce((sum, row) => sum + row.confirm_delete_catalyst_rows_deleted, 0),
+    hs_update_schedule_stale_deleted: 0,
+    update_schedule_stale_deleted: 0,
+    confirm_delete_rows: 0,
+    confirm_delete_catalyst_rows_deleted: 0,
     update_schedule_staging_stale_deleted: Number(staged.update_schedule_staging_stale_deleted || 0),
-    parse_wec_log_rec_ids: results.map((row) => row.parse_wec_log_rec_id).filter(Boolean),
-    ring_day_nos: results.map((row) => row.ring_day_no)
+    update_schedule_staging_source_link_rows: Number(staged.update_schedule_staging_source_link_rows || 0),
+    update_schedule_staging_source_link_missing: Number(staged.update_schedule_staging_source_link_missing || 0),
+    update_schedule_staging_out_of_focus_marked_inactive: Number(staged.update_schedule_staging_out_of_focus_marked_inactive || 0),
+    parse_wec_log_rec_ids: [],
+    ring_day_nos: ringRows.map((row) => text(row.ring_day_no)).filter(Boolean),
+    stage2c: staged
   };
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
   return summary;

@@ -1504,8 +1504,12 @@ async function handle(req, res) {
       return sendJson(res, result.ok ? 200 : 409, result);
     }
     if (action === "reset-focus-update-schedule") {
-      const reset = await resetFocusUpdateSchedule(baseId, token, showNo, focusDay);
-      return sendJson(res, 200, { ok: true, action, ...reset });
+      return sendJson(res, 409, {
+        ok: false,
+        action,
+        error: "legacy reset-focus-update-schedule is disabled; update_schedule_staging must be refreshed from Airtable update_schedule via horseshowing_sync?action=sync-update-schedule-staging-from-mirror",
+        update_schedule_staging_touched: false
+      });
     }
     if (action === "link-update-schedule-staging-misses") {
       const runTime = new Date().toISOString();
@@ -1551,6 +1555,16 @@ async function handle(req, res) {
     }
 
     const rawProbe = text(query.get("probe") || body.probe);
+    const readOnlyRawProbes = new Set(["batch", "raw", "parse"]);
+    if (!readOnlyRawProbes.has(rawProbe)) {
+      return sendJson(res, 409, {
+        ok: false,
+        action,
+        error: "legacy raw update_schedule_staging writer is disabled; use horseshowing_sync?action=sync-update-schedule-staging-from-mirror",
+        update_schedule_staging_touched: false,
+        allowed_probes: [...readOnlyRawProbes]
+      });
+    }
     const requestedBatchSize = Math.max(1, asNumber(query.get("batch_size") || body.batch_size, 1));
     const batchSize = rawProbe === "batch" ? requestedBatchSize : 1;
     const windowMinutes = Math.max(1, asNumber(query.get("window_minutes") || body.window_minutes, 60));

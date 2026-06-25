@@ -1,14 +1,15 @@
 {
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
-  "run_id": "wec-stage1-stage2-20260624T203623242Z-554d778d",
-  "run_time": "2026-06-24T20:36:23.242Z",
+  "source": "airtable.update_schedule",
+  "run_id": "wec-stage1-stage2-20260624T235524425Z-77abe1b4",
+  "run_time": "2026-06-24T23:55:24.425Z",
   "show_no": "14907",
   "focus_day": "2026-06-21",
   "ring_day_no_count": 9,
-  "raw_rows_stored": 9,
-  "parse_runs_completed": 9,
-  "hs_update_schedule_rows": 92,
+  "raw_rows_stored": 0,
+  "parse_runs_completed": 0,
+  "hs_update_schedule_rows": null,
   "update_schedule_rows": 92,
   "update_schedule_staging_rows": 90,
   "payload_row_count": 81,
@@ -17,17 +18,10 @@
   "confirm_delete_rows": 0,
   "confirm_delete_catalyst_rows_deleted": 0,
   "update_schedule_staging_stale_deleted": 0,
-  "parse_wec_log_rec_ids": [
-    "rec6qNE9qSjunweUC",
-    "recqg5kBVBkHq86Wx",
-    "rec43GXNNnY3a0hZO",
-    "reclQxc7Mq2Blj4Pb",
-    "recWrbMH9Ti8WLOqq",
-    "recDZSullkgbQQA6Q",
-    "recBJPsh7pp6ptyek",
-    "recHswkLIRDmxy7SA",
-    "recr0lLiS67cMtBk8"
-  ],
+  "update_schedule_staging_source_link_rows": 81,
+  "update_schedule_staging_source_link_missing": 0,
+  "update_schedule_staging_out_of_focus_marked_inactive": 0,
+  "parse_wec_log_rec_ids": [],
   "ring_day_nos": [
     "4228",
     "3940",
@@ -39,5 +33,208 @@
     "4231",
     "4304"
   ],
-  "success_at": "2026-06-24T20:38:33.602Z"
+  "stage2c": {
+    "ok": true,
+    "action": "sync-update-schedule-staging-from-mirror",
+    "show_no": "14907",
+    "focus_day": "2026-06-21",
+    "source": "airtable.update_schedule",
+    "focus_show_control": {
+      "found": true,
+      "record_id": "recLh1GS3VPfTe1z2",
+      "is_pause": false,
+      "is_lock": true,
+      "run_id": "wec-stage1-stage2-20260624T235524425Z-77abe1b4",
+      "run_time": "2026-06-24T23:55:24.425Z"
+    },
+    "payload_rows": 81,
+    "update_schedule_rows": 92,
+    "update_schedule_staging_rows": 90,
+    "update_schedule_staging_upserts": 81,
+    "update_schedule_staging_stale_deleted": 0,
+    "update_schedule_staging_stale_marked_inactive": 9,
+    "update_schedule_staging_unprotected_stale_marked_inactive": 0,
+    "update_schedule_staging_protected_stale_preserved": 9,
+    "update_schedule_staging_protected_stale_marked": 9,
+    "update_schedule_staging_protected_stale_records": [
+      {
+        "id": "rec5IoZmDG8c0pl1U",
+        "key": "14907|2026-06-21|4304|751|30082",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldfg64i7x6nWynZw"
+        ]
+      },
+      {
+        "id": "rec5yTm1RtdTq8OkF",
+        "key": "14907|3946|688|63212|33638",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      },
+      {
+        "id": "rec8xJiBcWXaLItLl",
+        "key": "14907|3946|688|61283|29614",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK"
+        ]
+      },
+      {
+        "id": "recA2bbsYo2ATvWUe",
+        "key": "14907|3946|688|61284|29615",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      },
+      {
+        "id": "recBJb9FfngERaqxb",
+        "key": "14907|3946|688|63156|33618",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      },
+      {
+        "id": "recF3TPfIHHfFHsYh",
+        "key": "14907|3946|688|61282|29850",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      },
+      {
+        "id": "recS1K9uWbrUeUjRf",
+        "key": "14907|3946|688|63213|33639",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      },
+      {
+        "id": "recshtYSac86QkfcB",
+        "key": "14907|3946|688|63179|33634",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK"
+        ]
+      },
+      {
+        "id": "recyjM3zzEI3M88uN",
+        "key": "14907|3946|688|63180|33635",
+        "protected_fields": [
+          "fldr7WPbgPFfPuctf",
+          "fldiW1dfQrPSFiNvv",
+          "fldg6ox15s03Sw9xk",
+          "fldTVsQTkDsDvKyPz",
+          "fldz3HXUIVufTOlYm",
+          "flds4Y7IP8eN7JrP1",
+          "fld57nJX8y2bOTMcw",
+          "fldtUb2tiJvBNHdsD",
+          "fldNEtTH1zyeZUGaW",
+          "fld6RM2CwUYf3GSGK",
+          "fldhm0o81Yt8pArFS"
+        ]
+      }
+    ],
+    "update_schedule_staging_out_of_focus_inactive_checked": 0,
+    "update_schedule_staging_out_of_focus_marked_inactive": 0,
+    "update_schedule_staging_helper_link_rows_checked": 81,
+    "update_schedule_staging_helper_link_records_updated": 0,
+    "update_schedule_staging_helper_links_populated": 0,
+    "update_schedule_staging_helper_links_by_field": {},
+    "update_schedule_staging_helper_link_blocking_misses": 0,
+    "update_schedule_staging_helper_link_silent_misses": 81,
+    "update_schedule_staging_helper_link_not_relevant": 8,
+    "update_schedule_staging_helper_link_mappings_skipped": [],
+    "update_schedule_staging_source_link_rows_checked": 81,
+    "update_schedule_staging_source_link_rows": 81,
+    "update_schedule_staging_source_link_missing": 0,
+    "update_schedule_staging_active_canonical_rows": 81,
+    "update_schedule_staging_active_unique_keys": 81,
+    "update_schedule_staging_active_duplicate_groups": 0,
+    "update_schedule_staging_protected_stale_rows": 9,
+    "update_schedule_staging_rows_before": 90,
+    "update_schedule_staging_unique_keys_before": 81,
+    "update_schedule_staging_duplicate_groups_before": 0,
+    "update_schedule_staging_dedupe_groups_processed": 0,
+    "update_schedule_staging_dedupe_groups_merged": 0,
+    "update_schedule_staging_dedupe_groups_skipped_due_to_conflict": 0,
+    "update_schedule_staging_conflict_detail": [],
+    "update_schedule_staging_dedupe_deleted": 0,
+    "update_schedule_staging_dedupe_marked_inactive": 0,
+    "update_schedule_staging_protected_values_merged": 0,
+    "update_schedule_staging_checkbox_true_values_preserved": 0,
+    "update_schedule_staging_links_unioned": 0
+  },
+  "success_at": "2026-06-24T23:55:59.967Z"
 }

@@ -165,7 +165,9 @@ const ALERT_FIELDS = {
   time_till: "fldUDFWSeugaQOoFF",
   target_time: "fldBZHfGEl4yipKQ7",
   alert_subject: "fldBUx8SiI1xyOudr",
-  source_table: "fldn7yxOdsIB476Ou"
+  source_table: "fldn7yxOdsIB476Ou",
+  class_start_times: "fldVO1mV5cGaMNeCa",
+  entry_go_times: "fld4hVFO6C2pr9RER"
 };
 
 const ALERT_TEMPLATE_FIELDS = {
@@ -1067,7 +1069,9 @@ async function syncClassAlerts(baseId, token, focus, now = new Date()) {
     [ALERT_FIELDS.time_till]: alert.time_till,
     [ALERT_FIELDS.target_time]: alert.target_time,
     [ALERT_FIELDS.alert_subject]: alert.alert_subject,
-    [ALERT_FIELDS.source_table]: alert.source_table
+    [ALERT_FIELDS.source_table]: alert.source_table,
+    [ALERT_FIELDS.class_start_times]: alert.source_table === "class_start_times" ? airtableRecordLink(alert.class_start_times_record_id) : undefined,
+    [ALERT_FIELDS.entry_go_times]: alert.source_table === "entry_go_times" ? airtableRecordLink(alert.entry_go_times_record_id) : undefined
   }));
   const upserts = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, airtableRows, token);
   const resolved = await resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys);

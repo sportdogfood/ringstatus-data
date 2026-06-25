@@ -5,6 +5,7 @@ const {
   matchGetOrdersToClassStart,
   matchGetRingsToClassStart,
   buildClassAlerts,
+  buildEntryAlerts,
   airtableRecordLink,
   airtableRecordLinks,
   logTypeForAction,
@@ -107,7 +108,7 @@ test("matchGetRingsToClassStart enriches class_start_times by class_no without r
 
 test("buildClassAlerts creates class 60 and 30 minute windows from class_start_times", () => {
   const alerts = buildClassAlerts([
-    { class_start_key: "a", show_no: 14907, focus_day: "2026-06-17", class_no: 31001, class_name: "USHJA Hunter", display_time: "10:00A", class_start_time: "10:00:00" },
+    { record_id: "rec_class_start_1", class_start_key: "a", show_no: 14907, focus_day: "2026-06-17", class_no: 31001, class_name: "USHJA Hunter", display_time: "10:00A", class_start_time: "10:00:00" },
     { class_start_key: "b", show_no: 14907, focus_day: "2026-06-17", class_no: 31002, class_name: "Low Hunter", display_time: "10:30A", class_start_time: "10:30:00" }
   ], new Date("2026-06-17T09:00:00-04:00"));
 
@@ -115,6 +116,31 @@ test("buildClassAlerts creates class 60 and 30 minute windows from class_start_t
   assert.equal(alerts[0].alert_key, "14907|2026-06-17|31001|class_start_60");
   assert.equal(alerts[0].alert_type, "class_start_60");
   assert.equal(alerts[0].time_till, 60);
+  assert.equal(alerts[0].source_table, "class_start_times");
+  assert.equal(alerts[0].class_start_times_record_id, "rec_class_start_1");
+});
+
+test("buildEntryAlerts creates entry alerts from active entry_go_times rows with source record link id", () => {
+  const alerts = buildEntryAlerts([
+    {
+      record_id: "rec_entry_go_1",
+      show_no: 14907,
+      focus_day: "2026-06-17",
+      class_no: 31001,
+      class_number: 267,
+      class_name: "USHJA Hunter",
+      entry_no: 244,
+      entry_order: 3,
+      horse_display: "Rimini",
+      trainer_display: "CWF",
+      entry_go_time: "09:40:00"
+    }
+  ], new Date("2026-06-17T09:00:00-04:00"));
+
+  assert.equal(alerts.length, 1);
+  assert.equal(alerts[0].alert_key, "14907|2026-06-17|31001|244|entry_go_40");
+  assert.equal(alerts[0].source_table, "entry_go_times");
+  assert.equal(alerts[0].entry_go_times_record_id, "rec_entry_go_1");
 });
 
 test("airtableRecordLink returns Airtable linked-record IDs as strings", () => {

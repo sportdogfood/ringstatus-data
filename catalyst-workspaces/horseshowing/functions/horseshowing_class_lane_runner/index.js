@@ -23,6 +23,7 @@ const TABLES = {
   airtableGetOrders: "tblxaVS0dtetxjiGZ",
   airtableGetRings: "tblPWRF978F9YV3qW",
   airtableShows: "tblyjlXwdf0zg0mhn",
+  airtableShowDays: "tblqAdx2mA9qDw3KU",
   airtableRingDays: "tblMw8DPVzlt3H8M7",
   airtableRings: "tbl5WKTbwL6IVrjyI",
   airtableRingNames: "tblcHfnJzCYLoBhjf",
@@ -37,8 +38,10 @@ const TABLES = {
 };
 
 const FOCUS_SHOW_FIELDS = {
+  focus_day_key: "fldIyqZYNX8Bj6Drd",
   show_no: "fldZ1Ym2XNz9IYbBo",
   focus_day: "fldW9urR1cuWf1K96",
+  focus_show_key: "fldEBalhN3NswTQEg",
   active: "fldHqX6c9tVwc4WgH",
   is_pause: "fldgWn3BIdGzcGow1"
 };
@@ -108,6 +111,8 @@ const CLASS_OOG_FIELDS = {
 
 const GET_ORDERS_FIELDS = {
   focus_day: "fldUqGKwsCMT7Mife",
+  show_day: "fldmhieDzDw2FxPf6",
+  show_days: "fldUJasr2yadFfwtZ",
   show_no: "fldNrmCIspFnaMrSu",
   shows: "fld7xsiuCBHukUI2R",
   ring_no: "fldodPLuth9pAYgRE",
@@ -133,6 +138,8 @@ const GET_ORDERS_FIELDS = {
 
 const GET_RINGS_FIELDS = {
   focus_day: "fldXbenLpHK8XD9uQ",
+  show_day: "fldFw3gOyCMza7bYi",
+  show_days: "fldWNMipgPyDOuXCR",
   show_no: "fldk5B2101tYkVaDV",
   ring_no: "fldvPhQYpinwNYPKP",
   ring_day_no: "fldh7saao3sdocdcE",
@@ -584,6 +591,99 @@ async function linkMap(baseId, token, tableName, keyName, keys) {
   return map;
 }
 
+function compactDayToIso(value) {
+  const raw = text(value);
+  if (!raw) return "";
+  if (/^\d{4}-\d{2}-\d{2}/.test(raw)) return raw.slice(0, 10);
+  if (/^\d{8}$/.test(raw)) return `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}`;
+  return "";
+}
+
+function rowFocusDay(row) {
+  return compactDayToIso(row.focus_day) || compactDayToIso(row.show_day) || compactDayToIso(row.focus_day_key);
+}
+
+function rowShowNo(row, fallbackShowNo = "") {
+  return text(row.show_no || fallbackShowNo);
+}
+
+function rowFocusShowKeys(row, fallbackShowNo = "") {
+  const showNo = rowShowNo(row, fallbackShowNo);
+  const day = rowFocusDay(row);
+  if (!showNo || !day) return [];
+  return [`${showNo}|${day}`, `${showNo}|${ymd(day)}`];
+}
+
+function rowShowDayKeys(row) {
+  const values = new Set();
+  const raw = text(row.show_day);
+  if (raw) values.add(raw);
+  const day = rowFocusDay(row);
+  if (day) {
+    values.add(day);
+    values.add(ymd(day));
+    const showNo = rowShowNo(row);
+    if (showNo) {
+      values.add(`${showNo}|${day}`);
+      values.add(`${showNo}|${ymd(day)}`);
+    }
+  }
+  return [...values].filter(Boolean);
+}
+
+async function focusShowMapForRows(baseId, token, rows) {
+  const showNos = [...new Set((rows || []).map((row) => rowShowNo(row)).filter(Boolean))];
+  if (!showNos.length) return new Map();
+  const focusRows = [];
+  for (let index = 0; index < showNos.length; index += 25) {
+    const chunk = showNos.slice(index, index + 25);
+    const formula = chunk.length === 1
+      ? `{show_no}=${Number(chunk[0])}`
+      : `OR(${chunk.map((showNo) => `{show_no}=${Number(showNo)}`).join(",")})`;
+    focusRows.push(...await airtableList(baseId, TABLES.airtableFocusShow, token, { formula }));
+  }
+  const map = new Map();
+  for (const record of focusRows) {
+    const fields = record.fields || {};
+    const showNo = text(fields[FOCUS_SHOW_FIELDS.show_no]);
+    const day = compactDayToIso(fields[FOCUS_SHOW_FIELDS.focus_day]);
+    const rawKeys = [
+      fields[FOCUS_SHOW_FIELDS.focus_day_key],
+      fields[FOCUS_SHOW_FIELDS.focus_show_key],
+      day,
+      ymd(day)
+    ].map(text).filter(Boolean);
+    for (const rawKey of rawKeys) {
+      map.set(rawKey, record.id);
+      if (showNo) map.set(`${showNo}|${rawKey}`, record.id);
+    }
+    if (showNo && day) {
+      map.set(`${showNo}|${day}`, record.id);
+      map.set(`${showNo}|${ymd(day)}`, record.id);
+    }
+  }
+  return map;
+}
+
+function linkOrMissingFromValues(missing, row, field, values, map) {
+  for (const value of values || []) {
+    const recordId = map.get(text(value));
+    if (recordId) return airtableRecordLink(recordId);
+  }
+  missing.push({
+    record_id: row.record_id,
+    field,
+    value: (values || []).map(text).filter(Boolean).join(","),
+    ring_visual_key: row.ring_visual_key,
+    ring_day_no: row.ring_day_no,
+    ring_no: row.ring_no,
+    class_no: row.class_no,
+    entry_no: row.current_entry_no,
+    horse_now: row.horse_now
+  });
+  return undefined;
+}
+
 function linkedIds(value) {
   if (!Array.isArray(value)) return [];
   return value
@@ -660,8 +760,10 @@ async function readLockedStaging(baseId, token, showNo, focusDay) {
   });
 }
 
-async function readFocusClassStarts(baseId, token, showNo, focusDay) {
-  const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'))`;
+async function readFocusClassStarts(baseId, token, showNo, focusDay, { allShowDays = false } = {}) {
+  const formula = allShowDays
+    ? `{show_no}=${Number(showNo)}`
+    : `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'))`;
   const rows = await airtableList(baseId, TABLES.airtableClassStartTimes, token, { formula });
   const classStarts = rows.map((record) => {
     const f = record.fields || {};
@@ -984,29 +1086,193 @@ function duplicateKeys(keys) {
     .map(([key, count]) => ({ key, count }));
 }
 
-async function syncGetOrders(app, baseId, token, focus) {
-  const orderFormula = `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
+async function readFocusGetOrders(baseId, token, focus, { allShowDays = false } = {}) {
+  const orderFormula = allShowDays
+    ? `{show_no}=${Number(focus.show_no)}`
+    : `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
   const orderRecords = await airtableList(baseId, TABLES.airtableGetOrders, token, { formula: orderFormula });
-  const orders = orderRecords.map((record) => {
+  return orderRecords.map((record) => {
     const f = record.fields || {};
     return {
+      record_id: record.id,
       show_no: asNumber(f[GET_ORDERS_FIELDS.show_no]),
       focus_day: isoDate(f[GET_ORDERS_FIELDS.focus_day]),
+      show_day: text(f[GET_ORDERS_FIELDS.show_day]),
       ring_day_no: asNumber(f[GET_ORDERS_FIELDS.ring_day_no]),
       ring_no: asNumber(f[GET_ORDERS_FIELDS.ring_no]),
       class_no: asNumber(f[GET_ORDERS_FIELDS.class_no]),
       class_number: classNumberFromLabel(f[GET_ORDERS_FIELDS.class_text]),
+      ring_name_normalized: text(f[GET_ORDERS_FIELDS.ring_name_normalized]),
       n_gone: asNumber(f[GET_ORDERS_FIELDS.n_gone]),
       n_to_go: asNumber(f[GET_ORDERS_FIELDS.n_to_go]),
       total: asNumber(f[GET_ORDERS_FIELDS.total]),
       timestamp: asNumber(f[GET_ORDERS_FIELDS.timestamp]),
       elapsed: asNumber(f[GET_ORDERS_FIELDS.elapsed]),
-      current_entry_no: entryNoFromText(f[GET_ORDERS_FIELDS.entry_text]),
-      current_horse: horseFromEntryText(f[GET_ORDERS_FIELDS.entry_text])
+      current_entry_no: asNumber(f[GET_ORDERS_FIELDS.entry_no]) || entryNoFromText(f[GET_ORDERS_FIELDS.entry_text]),
+      current_horse: horseFromEntryText(f[GET_ORDERS_FIELDS.entry_text]),
+      class_start_times: linkedIds(f[GET_ORDERS_FIELDS.class_start_times]),
+      shows: linkedIds(f[GET_ORDERS_FIELDS.shows]),
+      show_days: linkedIds(f[GET_ORDERS_FIELDS.show_days]),
+      focus_show: linkedIds(f[GET_ORDERS_FIELDS.focus_show]),
+      ring_days: linkedIds(f[GET_ORDERS_FIELDS.ring_days]),
+      rings: linkedIds(f[GET_ORDERS_FIELDS.rings]),
+      ring_names: linkedIds(f[GET_ORDERS_FIELDS.ring_names]),
+      classes: linkedIds(f[GET_ORDERS_FIELDS.classes]),
+      entries: linkedIds(f[GET_ORDERS_FIELDS.entries])
     };
   });
-  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
+}
+
+async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false, allShowDays = false } = {}) {
+  const orders = await readFocusGetOrders(baseId, token, focus, { allShowDays });
+  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day, { allShowDays });
   const matches = matchGetOrdersToClassStart(orders, classStarts);
+  const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
+  const matchByOrderId = new Map(matches.map((match) => [match.order.record_id, match]));
+  const matchedOrderIds = new Set(matches.map((match) => match.order.record_id));
+  const [
+    shows,
+    showDays,
+    focusShows,
+    ringDays,
+    ringMap,
+    ringNames,
+    classes,
+    entries
+  ] = await Promise.all([
+    linkMap(baseId, token, TABLES.airtableShows, "show_no", orders.map((row) => row.show_no)),
+    linkMap(baseId, token, TABLES.airtableShowDays, "show_day", orders.flatMap(rowShowDayKeys)),
+    focusShowMapForRows(baseId, token, orders),
+    linkMap(baseId, token, TABLES.airtableRingDays, "ring_day_no", orders.map((row) => row.ring_day_no)),
+    linkMap(baseId, token, TABLES.airtableRings, "ring_no", orders.map((row) => row.ring_no)),
+    linkMap(baseId, token, TABLES.airtableRingNames, "ring_name", orders.map((row) => row.ring_name_normalized)),
+    linkMap(baseId, token, TABLES.airtableClasses, "class_no", orders.map((row) => row.class_no)),
+    linkMap(baseId, token, TABLES.airtableEntries, "entry_no", orders.map((row) => row.current_entry_no))
+  ]);
+
+  const missing = [];
+  const missingRingNameNormalized = [];
+  const unmatched = orders
+    .filter((row) => row.class_no && !matchedOrderIds.has(row.record_id))
+    .map((row) => ({
+      record_id: row.record_id,
+      show_no: row.show_no,
+      focus_day: row.focus_day,
+      ring_day_no: row.ring_day_no,
+      ring_no: row.ring_no,
+      class_no: row.class_no,
+      class_number: row.class_number
+    }));
+  const updates = [];
+  for (const order of orders) {
+    const match = matchByOrderId.get(order.record_id);
+    const start = match ? startsByKey.get(match.class_start_key) : null;
+    const fields = cleanFields({
+      [GET_ORDERS_FIELDS.class_start_times]: start?.record_id ? airtableRecordLink(start.record_id) : undefined,
+      [GET_ORDERS_FIELDS.shows]: start?.shows?.length
+        ? airtableRecordLinks(start.shows)
+        : linkOrMissing(missing, order, "shows", text(order.show_no), shows.get(text(order.show_no))),
+      [GET_ORDERS_FIELDS.show_days]: linkOrMissingFromValues(missing, order, "show_days", rowShowDayKeys(order), showDays),
+      [GET_ORDERS_FIELDS.focus_show]: linkOrMissingFromValues(missing, order, "focus_show", rowFocusShowKeys(order, focus.show_no), focusShows),
+      [GET_ORDERS_FIELDS.ring_days]: start?.ring_days?.length
+        ? airtableRecordLinks(start.ring_days)
+        : linkOrMissing(missing, order, "ring_days", text(order.ring_day_no), ringDays.get(text(order.ring_day_no))),
+      [GET_ORDERS_FIELDS.rings]: start?.rings?.length
+        ? airtableRecordLinks(start.rings)
+        : linkOrMissing(missing, order, "rings", text(order.ring_no), ringMap.get(text(order.ring_no))),
+      [GET_ORDERS_FIELDS.classes]: start?.classes?.length
+        ? airtableRecordLinks(start.classes)
+        : linkOrMissing(missing, order, "classes", text(order.class_no), classes.get(text(order.class_no))),
+      [GET_ORDERS_FIELDS.entries]: linkOrMissing(missing, order, "entries", text(order.current_entry_no), entries.get(text(order.current_entry_no)))
+    });
+    if (order.ring_name_normalized) {
+      fields[GET_ORDERS_FIELDS.ring_names] = linkOrMissing(
+        missing,
+        order,
+        "ring_names",
+        order.ring_name_normalized,
+        ringNames.get(order.ring_name_normalized)
+      );
+    } else {
+      missingRingNameNormalized.push({
+        record_id: order.record_id,
+        ring_day_no: order.ring_day_no,
+        ring_no: order.ring_no,
+        class_no: order.class_no
+      });
+    }
+    const currentByField = {
+      [GET_ORDERS_FIELDS.class_start_times]: order.class_start_times,
+      [GET_ORDERS_FIELDS.shows]: order.shows,
+      [GET_ORDERS_FIELDS.show_days]: order.show_days,
+      [GET_ORDERS_FIELDS.focus_show]: order.focus_show,
+      [GET_ORDERS_FIELDS.ring_days]: order.ring_days,
+      [GET_ORDERS_FIELDS.rings]: order.rings,
+      [GET_ORDERS_FIELDS.ring_names]: order.ring_names,
+      [GET_ORDERS_FIELDS.classes]: order.classes,
+      [GET_ORDERS_FIELDS.entries]: order.entries
+    };
+    const changed = Object.entries(fields).some(([fieldId, next]) => !sameLinkedIds(currentByField[fieldId] || [], next));
+    if (changed) updates.push({ id: order.record_id, fields });
+  }
+
+  if (missing.length) {
+    await logRun(baseId, token, {
+      action: "get_orders_linkback_enrichment",
+      showNo: focus.show_no,
+      focusDay: focus.focus_day,
+      status: "error",
+      recordsSeen: orders.length,
+      recordsChanged: 0,
+      summary: `get_orders helper/linkback missing ${missing.length} required links`,
+      payload: {
+        matches: matches.length,
+        unmatched: unmatched.slice(0, 25),
+        missing: missing.slice(0, 25),
+        missing_ring_name_normalized: missingRingNameNormalized.slice(0, 25)
+      }
+    });
+    throw new Error(`get_orders helper/linkback missing ${missing.length} required links`);
+  }
+
+  const updated = await airtableUpdate(baseId, TABLES.airtableGetOrders, updates, token);
+  await logRun(baseId, token, {
+    action: "get_orders_linkback_enrichment",
+    showNo: focus.show_no,
+    focusDay: focus.focus_day,
+    status: "ok",
+    recordsSeen: orders.length,
+      recordsChanged: updated.length,
+    summary: `get_orders direct links updated ${updated.length}/${orders.length}; matched ${matches.length}`,
+    payload: {
+      orders: orders.length,
+      all_show_days: allShowDays,
+      matches: matches.length,
+      updated: updated.length,
+      unmatched: unmatched.slice(0, 25),
+      missing_ring_name_normalized: missingRingNameNormalized
+    }
+  });
+  const result = {
+    orders: orders.length,
+    matches: matches.length,
+    updated: updated.length,
+    unmatched,
+    missing_ring_name_normalized: missingRingNameNormalized
+  };
+  if (includeOrders) {
+    result.orders_rows = orders;
+    result.class_starts = classStarts;
+    result.matches_rows = matches;
+  }
+  return result;
+}
+
+async function syncGetOrders(app, baseId, token, focus) {
+  const linkback = await syncGetOrdersLinks(baseId, token, focus, { includeOrders: true });
+  const orders = linkback.orders_rows;
+  const classStarts = linkback.class_starts;
+  const matches = linkback.matches_rows;
   const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
   const airtableUpdates = matches.map((match) => {
     const start = startsByKey.get(match.class_start_key);
@@ -1063,14 +1329,36 @@ async function syncGetOrders(app, baseId, token, focus) {
     recordsSeen: orders.length,
     recordsChanged: updated.length + catalystUpdates.length,
     summary: `get_orders matched ${matches.length} class_start_times rows`,
-    payload: { orders: orders.length, matches: matches.length, airtable_updated: updated.length, catalyst_updated: catalystUpdates.length }
+    payload: {
+      orders: orders.length,
+      matches: matches.length,
+      airtable_updated: updated.length,
+      catalyst_updated: catalystUpdates.length,
+      get_orders_linkback: {
+        updated: linkback.updated,
+        missing_ring_name_normalized: linkback.missing_ring_name_normalized,
+        unmatched: linkback.unmatched
+      }
+    }
   });
 
-  return { orders: orders.length, matches: matches.length, airtable_updated: updated.length, catalyst_updated: catalystUpdates.length };
+  return {
+    orders: orders.length,
+    matches: matches.length,
+    airtable_updated: updated.length,
+    catalyst_updated: catalystUpdates.length,
+    get_orders_linkback: {
+      updated: linkback.updated,
+      missing_ring_name_normalized: linkback.missing_ring_name_normalized,
+      unmatched: linkback.unmatched
+    }
+  };
 }
 
-async function readFocusGetRings(baseId, token, focus) {
-  const ringFormula = `AND({show_no}='${airtableQuote(focus.show_no)}',IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
+async function readFocusGetRings(baseId, token, focus, { allShowDays = false } = {}) {
+  const ringFormula = allShowDays
+    ? `{show_no}='${airtableQuote(focus.show_no)}'`
+    : `AND({show_no}='${airtableQuote(focus.show_no)}',IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
   const ringRecords = await airtableList(baseId, TABLES.airtableGetRings, token, { formula: ringFormula });
   return ringRecords.map((record) => {
     const f = record.fields || {};
@@ -1078,6 +1366,7 @@ async function readFocusGetRings(baseId, token, focus) {
       record_id: record.id,
       show_no: asNumber(f[GET_RINGS_FIELDS.show_no]),
       focus_day: isoDate(f[GET_RINGS_FIELDS.focus_day]),
+      show_day: text(f[GET_RINGS_FIELDS.show_day]),
       ring_day_no: asNumber(f[GET_RINGS_FIELDS.ring_day_no]),
       ring_no: asNumber(f[GET_RINGS_FIELDS.ring_no]),
       class_no: asNumber(f[GET_RINGS_FIELDS.class_no]),
@@ -1095,6 +1384,7 @@ async function readFocusGetRings(baseId, token, focus) {
       ring_visual_key: text(f[GET_RINGS_FIELDS.ring_visual_key]),
       horse_now: text(f[GET_RINGS_FIELDS.horse_now]),
       shows: linkedIds(f[GET_RINGS_FIELDS.shows]),
+      show_days: linkedIds(f[GET_RINGS_FIELDS.show_days]),
       focus_show: linkedIds(f[GET_RINGS_FIELDS.focus_show]),
       ring_days: linkedIds(f[GET_RINGS_FIELDS.ring_days]),
       rings: linkedIds(f[GET_RINGS_FIELDS.rings]),
@@ -1126,9 +1416,10 @@ function linkOrMissing(missing, row, field, value, recordId) {
   return airtableRecordLink(recordId);
 }
 
-async function syncGetRingsLinks(baseId, token, focus) {
-  const rings = await readFocusGetRings(baseId, token, focus);
+async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } = {}) {
+  const rings = await readFocusGetRings(baseId, token, focus, { allShowDays });
   const showNos = rings.map((row) => row.show_no);
+  const showDayValues = rings.flatMap(rowShowDayKeys);
   const ringDayNos = rings.map((row) => row.ring_day_no);
   const ringNos = rings.map((row) => row.ring_no);
   const ringNameNormalized = rings.map((row) => row.ring_name_normalized);
@@ -1138,6 +1429,8 @@ async function syncGetRingsLinks(baseId, token, focus) {
   const ringVisualKeys = rings.map((row) => row.ring_visual_key);
   const [
     shows,
+    showDays,
+    focusShows,
     ringDays,
     ringMap,
     ringNames,
@@ -1147,6 +1440,8 @@ async function syncGetRingsLinks(baseId, token, focus) {
     ringStatusAll
   ] = await Promise.all([
     linkMap(baseId, token, TABLES.airtableShows, "show_no", showNos),
+    linkMap(baseId, token, TABLES.airtableShowDays, "show_day", showDayValues),
+    focusShowMapForRows(baseId, token, rings),
     linkMap(baseId, token, TABLES.airtableRingDays, "ring_day_no", ringDayNos),
     linkMap(baseId, token, TABLES.airtableRings, "ring_no", ringNos),
     recordMapByKey(baseId, token, TABLES.airtableRingNames, "ring_name", ringNameNormalized),
@@ -1181,7 +1476,8 @@ async function syncGetRingsLinks(baseId, token, focus) {
   for (const row of rings) {
     const fields = cleanFields({
       [GET_RINGS_FIELDS.shows]: linkOrMissing(missing, row, "shows", text(row.show_no), shows.get(text(row.show_no))),
-      [GET_RINGS_FIELDS.focus_show]: airtableRecordLink(focus.record_id),
+      [GET_RINGS_FIELDS.show_days]: linkOrMissingFromValues(missing, row, "show_days", rowShowDayKeys(row), showDays),
+      [GET_RINGS_FIELDS.focus_show]: linkOrMissingFromValues(missing, row, "focus_show", rowFocusShowKeys(row, focus.show_no), focusShows),
       [GET_RINGS_FIELDS.ring_days]: linkOrMissing(missing, row, "ring_days", text(row.ring_day_no), ringDays.get(text(row.ring_day_no))),
       [GET_RINGS_FIELDS.rings]: linkOrMissing(missing, row, "rings", text(row.ring_no), ringMap.get(text(row.ring_no))),
       [GET_RINGS_FIELDS.classes]: linkOrMissing(missing, row, "classes", text(row.class_no), classes.get(text(row.class_no))),
@@ -1243,6 +1539,7 @@ async function syncGetRingsLinks(baseId, token, focus) {
     payload: {
       rings: rings.length,
       updated: updated.length,
+      all_show_days: allShowDays,
       ring_status_keys: ringStatusAll.map.size,
       missing_ring_name_normalized: missingRingNameNormalized,
       missing_horse_now: missingHorseNow
@@ -1501,11 +1798,16 @@ async function runAction(req, action, app, baseId, token, focus, query, body) {
   if (action === "sync-class-oog-rollups") {
     return syncClassOogRollups(app, baseId, token, focus);
   }
+  if (action === "sync-get-orders-linkback") {
+    const allShowDays = truthy(query.get("all_days") || body.all_days || query.get("all_show_days") || body.all_show_days);
+    return syncGetOrdersLinks(baseId, token, focus, { allShowDays });
+  }
   if (action === "sync-get-orders") {
     return syncGetOrders(app, baseId, token, focus);
   }
   if (action === "sync-get-rings-linkback") {
-    return syncGetRingsLinks(baseId, token, focus);
+    const allShowDays = truthy(query.get("all_days") || body.all_days || query.get("all_show_days") || body.all_show_days);
+    return syncGetRingsLinks(baseId, token, focus, { allShowDays });
   }
   if (action === "sync-get-rings") {
     return syncGetRings(app, baseId, token, focus);

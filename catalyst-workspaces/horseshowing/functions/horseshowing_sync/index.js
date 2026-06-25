@@ -4633,29 +4633,49 @@ function stage2cHelperScopeMatches(row, focus) {
   return true;
 }
 
-function stage2cVariantsForValue(value, focus) {
+function stage2cVariantsForValue(value, focus, showNoOverride = "") {
   const values = new Set();
   const raw = text(value);
   if (raw) values.add(raw);
   if (/^\d+$/.test(raw) && raw.length !== 8) return [...values].filter(Boolean);
   const day = dateKey(raw);
   if (day) {
+    const showNo = text(showNoOverride || focus.show_no);
     values.add(day);
     values.add(stage2cYyyymmdd(day));
-    values.add(`${focus.show_no}|${day}`);
-    values.add(`${focus.show_no}|${stage2cYyyymmdd(day)}`);
+    if (showNo) {
+      values.add(`${showNo}|${day}`);
+      values.add(`${showNo}|${stage2cYyyymmdd(day)}`);
+    }
   }
   return [...values].filter(Boolean);
 }
 
 function stage2cTargetSourceValues(row, mapping, focus) {
   const sourceField = text(stage2cRecordField(mapping, "source_value_field"));
-  if (sourceField === "show_no+focus_day") return [`${focus.show_no}|${focus.focus_day}`, `${focus.show_no}|${stage2cYyyymmdd(focus.focus_day)}`];
-  if (sourceField === "focus_day") return stage2cVariantsForValue(focus.focus_day, focus);
-  if (sourceField === "show_day") return [`${focus.show_no}|${focus.focus_day}`, `${focus.show_no}|${stage2cYyyymmdd(focus.focus_day)}`, focus.focus_day, stage2cYyyymmdd(focus.focus_day)];
+  const rowShowNo = text(stage2cRecordField(row, "show_no")) || text(focus.show_no);
+  const rowDate = stage2cRowDate(row);
+  if (sourceField === "show_no+focus_day") {
+    if (!rowShowNo || !rowDate) return [];
+    return [`${rowShowNo}|${rowDate}`, `${rowShowNo}|${stage2cYyyymmdd(rowDate)}`];
+  }
+  if (sourceField === "focus_day") return stage2cVariantsForValue(rowDate || stage2cRecordField(row, "focus_day"), focus, rowShowNo);
+  if (sourceField === "show_day") {
+    const showDay = text(stage2cRecordField(row, "show_day"));
+    const values = new Set(stage2cVariantsForValue(showDay || rowDate, focus, rowShowNo));
+    if (rowDate) {
+      values.add(rowDate);
+      values.add(stage2cYyyymmdd(rowDate));
+      if (rowShowNo) {
+        values.add(`${rowShowNo}|${rowDate}`);
+        values.add(`${rowShowNo}|${stage2cYyyymmdd(rowDate)}`);
+      }
+    }
+    return [...values].filter(Boolean);
+  }
   const direct = stage2cRecordField(row, sourceField);
-  if (text(direct)) return stage2cVariantsForValue(direct, focus);
-  if (["iso_date", "ISO", "date", "day_label"].includes(sourceField)) return stage2cVariantsForValue(focus.focus_day, focus);
+  if (text(direct)) return stage2cVariantsForValue(direct, focus, rowShowNo);
+  if (["iso_date", "ISO", "date", "day_label"].includes(sourceField)) return stage2cVariantsForValue(rowDate, focus, rowShowNo);
   return [];
 }
 
@@ -4673,9 +4693,10 @@ function stage2cHelperKeyValues(row, mapping, focus) {
   if (helperField === "show_no+focus_day") {
     return [`${text(stage2cRecordField(row, "show_no"))}|${stage2cRowDate(row)}`];
   }
-  if (helperField === "focus_day") return stage2cVariantsForValue(stage2cRowDate(row) || stage2cRecordField(row, helperField), focus);
-  if (helperField === "show_day") return stage2cVariantsForValue(stage2cRecordField(row, helperField), focus);
-  return stage2cVariantsForValue(stage2cRecordField(row, helperField), focus);
+  const rowShowNo = text(stage2cRecordField(row, "show_no")) || text(focus.show_no);
+  if (helperField === "focus_day") return stage2cVariantsForValue(stage2cRowDate(row) || stage2cRecordField(row, helperField), focus, rowShowNo);
+  if (helperField === "show_day") return stage2cVariantsForValue(stage2cRecordField(row, helperField) || stage2cRowDate(row), focus, rowShowNo);
+  return stage2cVariantsForValue(stage2cRecordField(row, helperField), focus, rowShowNo);
 }
 
 function stage2cCoerceHelperFieldValue(field, value) {
@@ -4710,7 +4731,7 @@ function stage2cHelperCreateFields(row, mapping, focus) {
   for (const field of allowlists[helperTable] || []) {
     if (field === helperKeyField) continue;
     let value = stage2cRecordField(row, field);
-    if (field === "show_day") value = `${focus.show_no}|${focus.focus_day}`;
+    if (field === "show_day") value = stage2cRecordField(row, "show_day") || stage2cYyyymmdd(stage2cRowDate(row));
     if (field === "dow_name") value = stage2cRecordField(row, "dow");
     if (field === "class_label") value = stage2cRecordField(row, "event_name") || stage2cRecordField(row, "class_label");
     const coerced = stage2cCoerceHelperFieldValue(field, value);

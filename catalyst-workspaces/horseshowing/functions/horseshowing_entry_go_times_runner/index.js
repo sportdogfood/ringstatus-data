@@ -7,6 +7,7 @@ const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
 
 const AIRTABLE_TABLES = {
   shows: "tblyjlXwdf0zg0mhn",
+  show_days: "tblqAdx2mA9qDw3KU",
   focus_show: "tblQldkP8wwIRxd4z",
   classes: "tblhxn7Jhkcnetaq5",
   rings: "tbl5WKTbwL6IVrjyI",
@@ -27,6 +28,7 @@ const ENTRY_GO_FIELDS = {
   show_no: "fldYbrC3XUrWEB1nk",
   shows: "fldVQU3YGccKdKArv",
   focus_day: "fldV5YK4Skso0U25t",
+  show_days: "fldGsTUFX0MmosfpT",
   focus_show: "fldapzivs4yDu15xc",
   ring_no: "fldp7C0JtYiT9TKsf",
   rings: "flduLNNe6hHxm4Lch",
@@ -429,7 +431,6 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, classStartTimes, s
       entry_go_key: key,
       show_no: Number(showNo),
       focus_day: focusDay,
-      focus_show_record_id: focusShow.record_id,
       ring_no: ringNo,
       ring_day_no: ringDayNo,
       class_no: classNo,
@@ -454,7 +455,8 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, classStartTimes, s
       last_synced_at: syncedAt,
       status: "active",
       shows: link(first(source.shows)),
-      focus_show: link(focusShow.record_id),
+      show_days: link(first(source.show_days)),
+      focus_show: link(first(source.focus_show)),
       rings: link(first(source.rings)),
       ring_days: link(first(source.ring_days)),
       classes: link(first(source.classes)),
@@ -565,6 +567,7 @@ function toAirtableRow(row) {
     [ENTRY_GO_FIELDS.show_no]: row.show_no,
     [ENTRY_GO_FIELDS.shows]: row.shows,
     [ENTRY_GO_FIELDS.focus_day]: row.focus_day,
+    [ENTRY_GO_FIELDS.show_days]: row.show_days,
     [ENTRY_GO_FIELDS.focus_show]: row.focus_show,
     [ENTRY_GO_FIELDS.ring_no]: row.ring_no,
     [ENTRY_GO_FIELDS.rings]: row.rings,
@@ -649,6 +652,7 @@ async function verifyAirtable(baseId, token, showNo, focusDay, expectedKeys) {
   const extraKeys = [...activeKeys].filter((key) => !expectedKeys.has(key));
   const missingLinks = active.filter((row) =>
     !row.shows?.length ||
+    !row.show_days?.length ||
     !row.focus_show?.length ||
     !row.classes?.length ||
     !row.rings?.length ||

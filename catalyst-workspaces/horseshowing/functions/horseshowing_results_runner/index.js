@@ -18,6 +18,8 @@ const AIRTABLE_TABLES = {
   result_classes: "tblWkg90eimLzzMHk",
   class_results: "tblnyxgTAf6QVFLEO",
   result_queue: "tblCHKu87YF5DYaqr",
+  wec_alerts: "tblqkxLPy9zZ2FI6z",
+  alert_templates: "tblcHUmGzoWFOTvx2",
   wec_logs: "tblaA0n7QD7s5lIYm"
 };
 
@@ -107,6 +109,40 @@ const RESULT_QUEUE_FIELDS = {
   source: "fldMloYxFPMm8uoPt",
   raw_json: "fldms216XQGSe0Y4T",
   class_oog_staging: "fldLUFcR7uOs08ymo"
+};
+
+const ALERT_TEMPLATE_FIELDS = {
+  alerts: "alerts",
+  model: "model"
+};
+
+const ALERT_FIELDS = {
+  alert_key_run: "fldqmUWNw44ESEC72",
+  alert_key: "fldVpNdCVtZBaMDFU",
+  severity: "fldKvdb52FCg2VRcJ",
+  alert_type: "fldvnYBU0FmHYnxOl",
+  message: "fldSPL7ywbch1kplg",
+  created_at: "fldqusD5FeihMgXhg",
+  status: "fldc5JuLx6UgvzDD0",
+  show_no: "fldZfl5FCkyAHmXYu",
+  focus_day: "fldmsq7bV1rEFHRJi",
+  payload_json: "fld7e5ZLz0TlLQ4Ru",
+  alert_templates: "fldfJBdTTdFZnKYFp",
+  alert_lane: "fldyIMoAtIIXSsNMs",
+  alert_subject: "fldBUx8SiI1xyOudr",
+  source_table: "fldn7yxOdsIB476Ou",
+  shows: "fldmWM1UaUT92gM9x",
+  focus_show: "fldEAydOTiIMSXPbh",
+  show_days: "fldlhQo9dYcvm6Dtg",
+  ring_days: "fldkZyuRFuwnI9RYd",
+  rings: "fldw1Q3Ngx8s57Mn7",
+  ring_names: "fldw7GT1cqpk6DA75",
+  classes: "fldeD7vODmTvDoORa",
+  entries: "fld5Pipfp1qquBXzi",
+  horses: "fldfECzStfkd98xjj",
+  riders: "fldF8b3oWuhKpb66Q",
+  trainers: "fld44SFZFEs1ndM0m",
+  class_results: "fldfSwZt4oT9hF393"
 };
 
 const WEC_LOG_FIELDS = {
@@ -351,6 +387,16 @@ function keyEvidence(rows, keyField) {
   };
 }
 
+function duplicateCount(values) {
+  const counts = new Map();
+  for (const value of values || []) {
+    const key = text(value);
+    if (!key) continue;
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return [...counts.values()].filter((count) => count > 1).length;
+}
+
 function payloadKeyEvidence(queueRows, resultClassRows, classResultRows) {
   const resultQueue = keyEvidence(queueRows, "result_queue_key");
   const resultClasses = keyEvidence(resultClassRows, "result_class_key");
@@ -560,6 +606,165 @@ async function getEntryGoTimeRows(baseId, showNo, focusDay, token) {
       entry_no: intOrNull(row.entry_no)
     }))
     .filter((row) => row.class_no && row.entry_no);
+}
+
+async function getClassResultsForAlerts(baseId, showNo, focusDay, token) {
+  const rows = await airtableList(
+    baseId,
+    AIRTABLE_TABLES.class_results,
+    activeFocusFormula(showNo, focusDay),
+    token
+  );
+  return rows
+    .map((row) => ({
+      record_id: row.record_id,
+      class_result_key: text(row.class_result_key),
+      show_no: row.show_no,
+      focus_day: row.focus_day,
+      class_no: row.class_no,
+      class_number: row.class_number,
+      class_name: text(row.class_name),
+      place: text(row.place),
+      entry_no: row.entry_no,
+      horse: text(row.horse),
+      rider: text(row.rider),
+      score: text(row.score),
+      prize: text(row.prize),
+      shows: links(row.shows),
+      focus_show: links(row.focus_show),
+      show_days: links(row.show_days),
+      ring_days: links(row.ring_days),
+      rings: links(row.rings),
+      ring_names: links(row.ring_names),
+      classes: links(row.classes),
+      entries: links(row.entries),
+      horses: links(row.horses),
+      riders: links(row.riders),
+      trainers: links(row.trainers)
+    }))
+    .filter((row) => row.class_result_key);
+}
+
+async function getResultAlertTemplateId(baseId, token) {
+  const rows = await airtableList(baseId, AIRTABLE_TABLES.alert_templates, "", token);
+  const resultTemplate = rows.find((row) => {
+    const alertName = text(row[ALERT_TEMPLATE_FIELDS.alerts]).toLowerCase();
+    const modelName = text(row[ALERT_TEMPLATE_FIELDS.model]).toLowerCase();
+    return alertName === "results" || modelName === "results";
+  });
+  if (!resultTemplate?.record_id) throw new Error("Missing alert_templates row for results");
+  return resultTemplate.record_id;
+}
+
+async function getScopedResultAlerts(baseId, showNo, focusDay, token) {
+  const formula = `AND({show_no}=${Number(showNo)}, ${airtableDateFormula("focus_day", focusDay)}, LEFT({alert_key}, 7)='result|')`;
+  const rows = await airtableList(baseId, AIRTABLE_TABLES.wec_alerts, formula, token);
+  return rows.map((row) => ({
+    record_id: row.record_id,
+    alert_key: text(row.alert_key),
+    class_results: links(row.class_results),
+    show_days: links(row.show_days),
+    ring_names: links(row.ring_names)
+  }));
+}
+
+function resultAlertKey(classResultKey) {
+  return `result|${text(classResultKey)}`;
+}
+
+function resultAlertSubject(row) {
+  const place = text(row.place);
+  const horse = text(row.horse);
+  const rider = text(row.rider);
+  const className = text(row.class_name);
+  return [`Result`, place ? `#${place}` : "", horse, rider ? `/ ${rider}` : "", className ? `- ${className}` : ""]
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function toResultAlertRow(row, templateId, runStamp) {
+  const alertKey = resultAlertKey(row.class_result_key);
+  return cleanFields({
+    [ALERT_FIELDS.alert_key_run]: `${alertKey}|${runStamp}`,
+    [ALERT_FIELDS.alert_key]: alertKey,
+    [ALERT_FIELDS.severity]: "info",
+    [ALERT_FIELDS.alert_type]: "results",
+    [ALERT_FIELDS.message]: resultAlertSubject(row),
+    [ALERT_FIELDS.created_at]: runStamp,
+    [ALERT_FIELDS.status]: "open",
+    [ALERT_FIELDS.show_no]: Number(row.show_no),
+    [ALERT_FIELDS.focus_day]: isoDate(row.focus_day),
+    [ALERT_FIELDS.payload_json]: safeJson({
+      source_table: "class_results",
+      class_result_key: row.class_result_key,
+      class_no: row.class_no,
+      entry_no: row.entry_no,
+      place: row.place,
+      horse: row.horse,
+      rider: row.rider,
+      score: row.score,
+      prize: row.prize
+    }),
+    [ALERT_FIELDS.alert_templates]: links([templateId]),
+    [ALERT_FIELDS.alert_lane]: "class_results",
+    [ALERT_FIELDS.alert_subject]: resultAlertSubject(row),
+    [ALERT_FIELDS.source_table]: "class_results",
+    [ALERT_FIELDS.shows]: links(row.shows),
+    [ALERT_FIELDS.focus_show]: links(row.focus_show),
+    [ALERT_FIELDS.show_days]: links(row.show_days),
+    [ALERT_FIELDS.ring_days]: links(row.ring_days),
+    [ALERT_FIELDS.rings]: links(row.rings),
+    [ALERT_FIELDS.ring_names]: links(row.ring_names),
+    [ALERT_FIELDS.classes]: links(row.classes),
+    [ALERT_FIELDS.entries]: links(row.entries),
+    [ALERT_FIELDS.horses]: links(row.horses),
+    [ALERT_FIELDS.riders]: links(row.riders),
+    [ALERT_FIELDS.trainers]: links(row.trainers),
+    [ALERT_FIELDS.class_results]: links([row.record_id])
+  });
+}
+
+async function writeResultAlertsForClassResults(baseId, token, showNo, focusDay, classResults, options = {}) {
+  const rows = (classResults || []).filter((row) => text(row.class_result_key) && text(row.record_id));
+  const templateId = await getResultAlertTemplateId(baseId, token);
+  const existingBefore = await getScopedResultAlerts(baseId, showNo, focusDay, token);
+  const existingKeys = new Set(existingBefore.map((row) => row.alert_key));
+  const runStamp = new Date().toISOString();
+  const alertRows = rows.map((row) => toResultAlertRow(row, templateId, runStamp));
+  const alertKeys = alertRows.map((row) => row[ALERT_FIELDS.alert_key]).filter(Boolean);
+  if (options.noWrite) {
+    return {
+      no_write: true,
+      result_alert_template_id: templateId,
+      source_rows: rows.length,
+      candidates: alertRows.length,
+      alert_keys: alertKeys,
+      created: 0,
+      updated: 0,
+      duplicate_alert_keys: duplicateCount(alertKeys),
+      notifications_sent: 0,
+      records_changed: 0
+    };
+  }
+  const upserts = await airtableUpsert(baseId, AIRTABLE_TABLES.wec_alerts, ALERT_FIELDS.alert_key, alertRows, token);
+  const existingAfter = await getScopedResultAlerts(baseId, showNo, focusDay, token);
+  return {
+    no_write: false,
+    result_alert_template_id: templateId,
+    source_rows: rows.length,
+    candidates: alertRows.length,
+    created: alertKeys.filter((key) => !existingKeys.has(key)).length,
+    updated: alertKeys.filter((key) => existingKeys.has(key)).length,
+    upserted: upserts.length,
+    duplicate_alert_keys: duplicateCount(existingAfter.map((row) => row.alert_key)),
+    class_results_links: existingAfter.filter((row) => alertKeys.includes(row.alert_key) && row.class_results.length).length,
+    show_days_links: existingAfter.filter((row) => alertKeys.includes(row.alert_key) && row.show_days.length).length,
+    ring_names_links: existingAfter.filter((row) => alertKeys.includes(row.alert_key) && row.ring_names.length).length,
+    notifications_sent: 0,
+    records_changed: upserts.length
+  };
 }
 
 class HorseShowingSession {
@@ -978,6 +1183,7 @@ async function handle(req, res) {
     if (!showNo) return sendJson(res, 400, { ok: false, error: "show_no required" });
     const focusDayOverride = text(query.get("focus_day") || body.focus_day);
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
+    const action = text(query.get("action") || body.action || "probe-results");
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);
     const limit = Math.max(1, Math.min(5, intOrNull(query.get("limit") || body.limit) || 1));
     noWrite = flagTrue(query.get("no_write") || body.no_write)
@@ -999,7 +1205,7 @@ async function handle(req, res) {
         ok: true,
         paused: true,
         reason: "focus_show.is_pause",
-        action: "probe-results",
+        action,
         source: RESULT_SOURCE,
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
@@ -1018,6 +1224,37 @@ async function handle(req, res) {
         await writeLog(baseId, token, detail);
       }
       return sendJson(res, 200, detail);
+    }
+
+    if (action === "sync-result-alerts") {
+      phase = "read_class_results_for_result_alerts";
+      const allClassResults = await getClassResultsForAlerts(baseId, showNo, focusShow.focus_day, token);
+      const classResultsPage = allClassResults.slice(offset, offset + limit);
+      phase = noWrite ? "dry_run_result_alerts" : "write_result_alerts";
+      const resultAlerts = await writeResultAlertsForClassResults(
+        baseId,
+        token,
+        showNo,
+        focusShow.focus_day,
+        classResultsPage,
+        { noWrite }
+      );
+      return sendJson(res, 200, {
+        ok: resultAlerts.duplicate_alert_keys === 0,
+        phase,
+        action,
+        source: "class_results",
+        target: "wec-alerts",
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        class_results_source_rows: allClassResults.length,
+        offset,
+        limit,
+        next_offset: offset + limit < allClassResults.length ? offset + limit : 0,
+        result_alerts: resultAlerts,
+        notifications_sent: 0,
+        downstream_run: false
+      });
     }
 
     phase = "read_source_class_oog_staging_active_entries";
@@ -1139,6 +1376,7 @@ async function handle(req, res) {
 
     phase = "write_catalyst_results";
     const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 } };
+    const insertedClassResultKeys = new Set();
     for (const row of resultClassRows) {
       const result = await upsertCatalyst(app, TABLES.resultClasses, "result_class_key", row);
       if (result.action === "inserted") catalystCounters.result_classes.inserted += 1;
@@ -1146,7 +1384,10 @@ async function handle(req, res) {
     }
     for (const row of classResultRows) {
       const result = await upsertCatalyst(app, TABLES.classResults, "class_result_key", row);
-      if (result.action === "inserted") catalystCounters.class_results.inserted += 1;
+      if (result.action === "inserted") {
+        catalystCounters.class_results.inserted += 1;
+        insertedClassResultKeys.add(text(row.class_result_key));
+      }
       if (result.action === "updated") catalystCounters.class_results.updated += 1;
     }
     for (const row of queueRows) {
@@ -1181,12 +1422,28 @@ async function handle(req, res) {
       classResultRows.map((row) => toAirtableClassResult(row, sourceEntryByClassEntry.get(`${text(row.class_no)}|${text(row.entry_no)}`), focusShow, entryGoTimeByClassEntry)),
       token
     );
+    let resultAlerts = {
+      source_rows: 0,
+      candidates: 0,
+      created: 0,
+      updated: 0,
+      upserted: 0,
+      duplicate_alert_keys: 0,
+      notifications_sent: 0,
+      records_changed: 0
+    };
+    if (insertedClassResultKeys.size) {
+      phase = "write_result_alerts_for_new_class_results";
+      const insertedClassResults = (await getClassResultsForAlerts(baseId, showNo, focusShow.focus_day, token))
+        .filter((row) => insertedClassResultKeys.has(text(row.class_result_key)));
+      resultAlerts = await writeResultAlertsForClassResults(baseId, token, showNo, focusShow.focus_day, insertedClassResults);
+    }
 
     phase = "verify_results";
     const verifyCatalystClasses = await catalystRows(app, TABLES.resultClasses, showNo, focusShow.focus_day);
     const verifyCatalystQueue = await catalystRows(app, TABLES.resultQueue, showNo, focusShow.focus_day);
     const completedClassCount = resultClassRows.length;
-    const changedRows = resultClassRows.length + classResultRows.length + queueRows.length;
+    const changedRows = resultClassRows.length + classResultRows.length + queueRows.length + resultAlerts.records_changed;
     const ok = verifyCatalystQueue.length >= queueRows.length
       && verifyCatalystClasses.filter((row) => parsedClassNos.has(text(row.class_no))).length >= completedClassCount;
     const detail = {
@@ -1216,7 +1473,8 @@ async function handle(req, res) {
       airtable: {
         result_classes: airtableResultClasses.length,
         class_results: airtableClassResults.length,
-        result_queue: airtableQueue.length
+        result_queue: airtableQueue.length,
+        wec_alerts: resultAlerts
       },
       verify: {
         catalyst_result_classes: verifyCatalystClasses.length,

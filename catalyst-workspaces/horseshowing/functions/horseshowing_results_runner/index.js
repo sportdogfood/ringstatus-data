@@ -13,12 +13,16 @@ const TABLES = {
 
 const AIRTABLE_TABLES = {
   focus_show: "tblQldkP8wwIRxd4z",
-  class_oog: "tblgUbX5n8GIuiqUI",
+  class_oog_staging: "class_oog_staging",
+  entry_go_times: "entry_go_times",
   result_classes: "tblWkg90eimLzzMHk",
   class_results: "tblnyxgTAf6QVFLEO",
   result_queue: "tblCHKu87YF5DYaqr",
   wec_logs: "tblaA0n7QD7s5lIYm"
 };
+
+const SOURCE_CLASS_OOG_STAGING_VIEW = "active_entries";
+const RESULT_SOURCE = "class_oog_staging.active_entries";
 
 const FOCUS_SHOW_FIELDS = {
   show_no: "show_no",
@@ -27,25 +31,6 @@ const FOCUS_SHOW_FIELDS = {
   shows: "shows",
   is_pause: "is_pause",
   is_pause_id: "fldgWn3BIdGzcGow1"
-};
-
-const CLASS_OOG_FIELDS = {
-  show_no: "fldDXivEZ0eidEJ6b",
-  focus_day: "fldC7MKhrW9PlglBq",
-  class_no: "fld6gnl7rJ0z8SWX6",
-  class_number: "fld4tTvM1i3nV5vsb",
-  class_name: "fldkpBpdlcP3SapRk",
-  entry_no: "fldCQiSaDvmsarXYu",
-  horse: "fldszG7lLOFg5SMNe",
-  rider: "fld85WfTfZvQPuic7",
-  trainer: "fld40yaYmp7Y5G1dv",
-  active: "fldfTmimL22O7Le1t",
-  lock: "fldono4ieXaXoMlmL",
-  hide: "fldm8XB4NKR8JY1AE",
-  classes: "fldZiHE2suY1dFA6f",
-  entries: "fldWH39c6ewlvG0CR",
-  horses: "fldp4KyA7AqCXUJli",
-  riders: "fldYJ7lsNfH2jSZVy"
 };
 
 const RESULT_CLASS_FIELDS = {
@@ -63,7 +48,9 @@ const RESULT_CLASS_FIELDS = {
   source: "fldiEMBFRqYegjZi1",
   raw_json: "fldTVnCFHn1KRygdt",
   classes: "fldOQtu66BjKZ9dKa",
-  class_oog: "fldUvtR0P3Q4culkP"
+  class_oog: "fldUvtR0P3Q4culkP",
+  result_queue: "fldH1FIhmG5tzVNei",
+  class_oog_staging: "fldxF7KyCoMKEBvmB"
 };
 
 const CLASS_RESULT_FIELDS = {
@@ -89,7 +76,14 @@ const CLASS_RESULT_FIELDS = {
   prize: "fldpjChiTQejMcINU",
   completed_at: "fldJsfY7Lkq8hkpiz",
   source: "fldQrPbHS3fZKpvTf",
-  raw_json: "fldMgGlzJvgRmNkpj"
+  raw_json: "fldMgGlzJvgRmNkpj",
+  class_oog_staging: "fldfpyPCwM1NW7omB",
+  entry_go_times: "fldGIJrHryJBDlLqG",
+  show_days: "fldzNNtTEXZEh6rIb",
+  ring_days: "fldqvByyGxzriJIqo",
+  rings: "fld0bbtjl1Wlq3Hi4",
+  ring_names: "fldIrnRDddBAf0SOx",
+  trainers: "fld0xZuCHqNSKB8sb"
 };
 
 const RESULT_QUEUE_FIELDS = {
@@ -111,7 +105,8 @@ const RESULT_QUEUE_FIELDS = {
   result_rows: "fldUR9n3Hxkn4G8JD",
   completed_at: "fldZ2vI9NrtVgiUp0",
   source: "fldMloYxFPMm8uoPt",
-  raw_json: "fldms216XQGSe0Y4T"
+  raw_json: "fldms216XQGSe0Y4T",
+  class_oog_staging: "fldLUFcR7uOs08ymo"
 };
 
 const WEC_LOG_FIELDS = {
@@ -165,6 +160,11 @@ function readBody(req) {
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function flagTrue(value) {
+  const raw = text(value).toLowerCase();
+  return value === true || raw === "1" || raw === "true" || raw === "yes";
 }
 
 function isFocusPaused(row) {
@@ -272,18 +272,16 @@ function links(value) {
   return ids.length ? ids : undefined;
 }
 
-function lookupTrue(value) {
-  if (value === true) return true;
-  if (Array.isArray(value)) return value.some(lookupTrue);
-  if (value && typeof value === "object") {
-    if (value.name) return String(value.name).toLowerCase() === "true";
-    if (value.valuesByLinkedRecordId) return Object.values(value.valuesByLinkedRecordId).some(lookupTrue);
-  }
-  return false;
-}
-
 function resultKey(...parts) {
   return parts.map((part) => text(part)).filter(Boolean).join("|");
+}
+
+function classEntryKey(row) {
+  return resultKey(row?.class_no, row?.entry_no);
+}
+
+function classResultSourceKey(row) {
+  return classEntryKey(row);
 }
 
 function airtableDateFormula(fieldName, iso) {
@@ -300,6 +298,115 @@ function cleanFields(fields) {
     if (value !== undefined && value !== "" && value !== null) clean[key] = value;
   }
   return clean;
+}
+
+function focusShowMatches(row, focusShow) {
+  return text(row?.show_no) === text(focusShow?.show_no) && isoDate(row?.focus_day) === isoDate(focusShow?.focus_day);
+}
+
+function focusShowLinksFor(row, focusShow) {
+  if (!focusShowMatches(row, focusShow)) return undefined;
+  return links(row?.focus_show) || links([focusShow.record_id]);
+}
+
+function ringNameLinksFor(row) {
+  return text(row?.ring_name_normalized) ? links(row?.ring_names) : undefined;
+}
+
+function appendLinks(target, values) {
+  for (const id of links(values) || []) {
+    if (!target.includes(id)) target.push(id);
+  }
+}
+
+function fieldValue(record, fieldId, fieldName) {
+  return record?.fields?.[fieldId] ?? record?.fields?.[fieldName];
+}
+
+function keyEvidence(rows, keyField) {
+  const counts = new Map();
+  const missing = [];
+  for (const row of rows || []) {
+    const key = text(row?.[keyField]);
+    if (!key) {
+      missing.push({
+        class_no: text(row?.class_no),
+        entry_no: text(row?.entry_no),
+        place: text(row?.place)
+      });
+      continue;
+    }
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  const duplicates = [...counts.entries()]
+    .filter(([, count]) => count > 1)
+    .map(([key, count]) => ({ key, count }));
+  return {
+    rows: (rows || []).length,
+    populated_keys: counts.size,
+    missing_keys: missing.length,
+    duplicate_keys: duplicates.length,
+    missing_examples: missing.slice(0, 10),
+    duplicate_examples: duplicates.slice(0, 10)
+  };
+}
+
+function payloadKeyEvidence(queueRows, resultClassRows, classResultRows) {
+  const resultQueue = keyEvidence(queueRows, "result_queue_key");
+  const resultClasses = keyEvidence(resultClassRows, "result_class_key");
+  const classResults = keyEvidence(classResultRows, "class_result_key");
+  return {
+    result_queue: resultQueue,
+    result_classes: resultClasses,
+    class_results: classResults,
+    total_missing_keys: resultQueue.missing_keys + resultClasses.missing_keys + classResults.missing_keys,
+    total_duplicate_keys: resultQueue.duplicate_keys + resultClasses.duplicate_keys + classResults.duplicate_keys
+  };
+}
+
+function sourceFieldEvidence(rows) {
+  const requiredFields = ["show_no", "focus_day", "class_no", "entry_no", "horse", "rider", "class_name"];
+  const requiredLinks = ["class_oog_ids"];
+  const missing = [];
+  for (const row of rows || []) {
+    const missingFields = [];
+    for (const field of requiredFields) {
+      if (!text(row?.[field])) missingFields.push(field);
+    }
+    for (const field of requiredLinks) {
+      if (!Array.isArray(row?.[field]) || row[field].length === 0) missingFields.push(field);
+    }
+    if (missingFields.length) {
+      missing.push({
+        record_id: row.record_id,
+        class_no: row.class_no,
+        entry_no: row.entry_no,
+        missing: missingFields
+      });
+    }
+  }
+  const classNameRawPopulated = (rows || []).filter((row) => text(row.class_name_raw)).length;
+  const classLabelFallbackRows = (rows || []).filter((row) => !text(row.class_name_raw) && text(row.class_label)).length;
+  return {
+    rows_checked: (rows || []).length,
+    required_fields: requiredFields,
+    required_links: requiredLinks,
+    missing_required_rows: missing.length,
+    missing_required_examples: missing.slice(0, 10),
+    class_name_raw_populated: classNameRawPopulated,
+    class_name_after_fallback_populated: (rows || []).filter((row) => text(row.class_name)).length,
+    class_label_fallback_rows: classLabelFallbackRows,
+    class_name_required_for_keys: false,
+    class_label_fallback_safe: true,
+    class_oog_backlink_rows: (rows || []).filter((row) => Array.isArray(row.class_oog_ids) && row.class_oog_ids.length).length,
+    optional_link_coverage: {
+      classes: (rows || []).filter((row) => Array.isArray(row.classes) && row.classes.length).length,
+      entries: (rows || []).filter((row) => Array.isArray(row.entries) && row.entries.length).length,
+      horses: (rows || []).filter((row) => Array.isArray(row.horses) && row.horses.length).length,
+      riders: (rows || []).filter((row) => Array.isArray(row.riders) && row.riders.length).length,
+      trainers: (rows || []).filter((row) => Array.isArray(row.trainers) && row.trainers.length).length
+    }
+  };
 }
 
 async function airtableList(baseId, tableIdOrName, formula, token, options = {}) {
@@ -371,39 +478,88 @@ async function getFocusShow(baseId, showNo, token, focusDayOverride) {
   if (!focusDay) throw new Error(`focus_show has no focus_day for show_no=${showNo}`);
   return {
     record_id: row.record_id,
+    show_no: Number(row[FOCUS_SHOW_FIELDS.show_no] || showNo),
     focus_day: focusDay,
     is_pause: isFocusPaused(row),
     shows: links(row[FOCUS_SHOW_FIELDS.shows])
   };
 }
 
-function classOogFormula(showNo, focusDay) {
+function activeFocusFormula(showNo, focusDay) {
   return `AND({show_no}=${Number(showNo)}, ${airtableDateFormula("focus_day", focusDay)})`;
 }
 
-async function getActiveLockedClassOogRows(baseId, showNo, focusDay, token) {
-  const rows = await airtableList(baseId, AIRTABLE_TABLES.class_oog, classOogFormula(showNo, focusDay), token, { returnFieldsByFieldId: true });
+async function getActiveClassOogStagingRows(baseId, showNo, focusDay, token) {
+  const rows = await airtableList(
+    baseId,
+    AIRTABLE_TABLES.class_oog_staging,
+    activeFocusFormula(showNo, focusDay),
+    token,
+    { view: SOURCE_CLASS_OOG_STAGING_VIEW }
+  );
+  const sourceRows = rows
+    .map((row) => {
+      const classOogIds = links(row.class_oog) || [];
+      const classNameRaw = text(row.class_name);
+      const classLabel = text(row.class_label);
+      return {
+        record_id: row.record_id,
+        show_no: row.show_no,
+        focus_day: row.focus_day,
+        class_no: intOrNull(row.class_no),
+        class_number: intOrNull(row.class_number),
+        class_name: text(classNameRaw || classLabel),
+        class_name_raw: classNameRaw,
+        class_label: classLabel,
+        class_name_source: classNameRaw ? "class_name" : (classLabel ? "class_label" : ""),
+        entry_no: intOrNull(row.entry_no),
+        horse: text(row.horse),
+        rider: text(row.rider),
+        trainer: text(row.trainer),
+        hide: row.hide === true,
+        classes: links(row.classes),
+        entries: links(row.entries),
+        horses: links(row.horses),
+        riders: links(row.riders),
+        trainers: links(row.trainers),
+        shows: links(row.shows),
+        focus_show: links(row.focus_show),
+        show_days: links(row.show_days),
+        ring_days: links(row.ring_days),
+        rings: links(row.rings),
+        ring_name_normalized: text(row.ring_name_normalized),
+        ring_names: links(row.ring_names),
+        class_oog_ids: classOogIds
+      };
+    })
+    .filter((row) => row.class_no && row.entry_no && !row.hide);
+  const missingClassOogLinks = sourceRows.filter((row) => !row.class_oog_ids.length);
+  if (missingClassOogLinks.length) {
+    throw new Error(`${RESULT_SOURCE} rows missing class_oog backlink: ${JSON.stringify(missingClassOogLinks.slice(0, 20).map((row) => ({
+      record_id: row.record_id,
+      class_no: row.class_no,
+      entry_no: row.entry_no
+    })))}`);
+  }
+  return sourceRows;
+}
+
+async function getEntryGoTimeRows(baseId, showNo, focusDay, token) {
+  const rows = await airtableList(
+    baseId,
+    AIRTABLE_TABLES.entry_go_times,
+    activeFocusFormula(showNo, focusDay),
+    token
+  );
   return rows
     .map((row) => ({
       record_id: row.record_id,
-      show_no: row[CLASS_OOG_FIELDS.show_no],
-      focus_day: row[CLASS_OOG_FIELDS.focus_day],
-      class_no: intOrNull(row[CLASS_OOG_FIELDS.class_no]),
-      class_number: intOrNull(row[CLASS_OOG_FIELDS.class_number]),
-      class_name: text(row[CLASS_OOG_FIELDS.class_name]),
-      entry_no: intOrNull(row[CLASS_OOG_FIELDS.entry_no]),
-      horse: text(row[CLASS_OOG_FIELDS.horse]),
-      rider: text(row[CLASS_OOG_FIELDS.rider]),
-      trainer: text(row[CLASS_OOG_FIELDS.trainer]),
-      active: lookupTrue(row[CLASS_OOG_FIELDS.active]),
-      lock: lookupTrue(row[CLASS_OOG_FIELDS.lock]),
-      hide: row[CLASS_OOG_FIELDS.hide] === true,
-      classes: links(row[CLASS_OOG_FIELDS.classes]),
-      entries: links(row[CLASS_OOG_FIELDS.entries]),
-      horses: links(row[CLASS_OOG_FIELDS.horses]),
-      riders: links(row[CLASS_OOG_FIELDS.riders])
+      show_no: row.show_no,
+      focus_day: row.focus_day,
+      class_no: intOrNull(row.class_no),
+      entry_no: intOrNull(row.entry_no)
     }))
-    .filter((row) => row.class_no && row.entry_no && row.active && row.lock && !row.hide);
+    .filter((row) => row.class_no && row.entry_no);
 }
 
 class HorseShowingSession {
@@ -610,13 +766,25 @@ function buildClassRows(classOogRows, skippedCompleted) {
       grouped.set(key, {
         class_no: key,
         sect_no: "",
+        show_no: row.show_no,
+        focus_day: row.focus_day,
         class_number: text(row.class_number),
         class_name: row.class_name,
         class_oog_ids: [],
-        classes: row.classes
+        class_oog_staging_ids: [],
+        classes: row.classes,
+        shows: row.shows,
+        focus_show: row.focus_show,
+        show_days: row.show_days,
+        ring_days: row.ring_days,
+        rings: row.rings,
+        ring_name_normalized: row.ring_name_normalized,
+        ring_names: row.ring_names
       });
     }
-    grouped.get(key).class_oog_ids.push(row.record_id);
+    const target = grouped.get(key);
+    appendLinks(target.class_oog_ids, row.class_oog_ids?.length ? row.class_oog_ids : [row.record_id]);
+    appendLinks(target.class_oog_staging_ids, [row.record_id]);
   }
   return [...grouped.values()];
 }
@@ -692,7 +860,8 @@ function resultQueueRow(showNo, focusDay, classRow, status, resultRows, now) {
   };
 }
 
-function toAirtableResultClass(row, sourceClass) {
+function toAirtableResultClass(row, sourceClass, resultQueueByKey) {
+  const queueKey = resultKey(row.show_no, row.focus_day, row.class_no || row.class_number);
   return cleanFields({
     [RESULT_CLASS_FIELDS.result_class_key]: row.result_class_key,
     [RESULT_CLASS_FIELDS.show_no]: Number(row.show_no),
@@ -708,16 +877,18 @@ function toAirtableResultClass(row, sourceClass) {
     [RESULT_CLASS_FIELDS.source]: row.source,
     [RESULT_CLASS_FIELDS.raw_json]: row.raw_json,
     [RESULT_CLASS_FIELDS.classes]: links(sourceClass?.classes),
-    [RESULT_CLASS_FIELDS.class_oog]: links(sourceClass?.class_oog_ids)
+    [RESULT_CLASS_FIELDS.class_oog]: links(sourceClass?.class_oog_ids),
+    [RESULT_CLASS_FIELDS.result_queue]: links([resultQueueByKey.get(queueKey)]),
+    [RESULT_CLASS_FIELDS.class_oog_staging]: links(sourceClass?.class_oog_staging_ids)
   });
 }
 
-function toAirtableClassResult(row, sourceEntry, focusShow) {
+function toAirtableClassResult(row, sourceEntry, focusShow, entryGoTimeByClassEntry) {
   return cleanFields({
     [CLASS_RESULT_FIELDS.class_result_key]: row.class_result_key,
     [CLASS_RESULT_FIELDS.show_no]: Number(row.show_no),
-    [CLASS_RESULT_FIELDS.shows]: links(focusShow.shows),
-    [CLASS_RESULT_FIELDS.focus_show]: links([focusShow.record_id]),
+    [CLASS_RESULT_FIELDS.shows]: links(sourceEntry?.shows || focusShow.shows),
+    [CLASS_RESULT_FIELDS.focus_show]: focusShowLinksFor(sourceEntry, focusShow),
     [CLASS_RESULT_FIELDS.focus_day]: row.focus_day,
     [CLASS_RESULT_FIELDS.class_no]: intOrNull(row.class_no),
     [CLASS_RESULT_FIELDS.classes]: links(sourceEntry?.classes),
@@ -736,7 +907,14 @@ function toAirtableClassResult(row, sourceEntry, focusShow) {
     [CLASS_RESULT_FIELDS.prize]: row.prize,
     [CLASS_RESULT_FIELDS.completed_at]: airtableDateTime(row.completed_at),
     [CLASS_RESULT_FIELDS.source]: row.source,
-    [CLASS_RESULT_FIELDS.raw_json]: row.raw_json
+    [CLASS_RESULT_FIELDS.raw_json]: row.raw_json,
+    [CLASS_RESULT_FIELDS.class_oog_staging]: links([sourceEntry?.record_id]),
+    [CLASS_RESULT_FIELDS.entry_go_times]: links([entryGoTimeByClassEntry.get(classResultSourceKey(row))]),
+    [CLASS_RESULT_FIELDS.show_days]: links(sourceEntry?.show_days),
+    [CLASS_RESULT_FIELDS.ring_days]: links(sourceEntry?.ring_days),
+    [CLASS_RESULT_FIELDS.rings]: links(sourceEntry?.rings),
+    [CLASS_RESULT_FIELDS.ring_names]: ringNameLinksFor(sourceEntry),
+    [CLASS_RESULT_FIELDS.trainers]: links(sourceEntry?.trainers)
   });
 }
 
@@ -745,7 +923,7 @@ function toAirtableQueue(row, sourceClass, focusShow) {
     [RESULT_QUEUE_FIELDS.result_queue_key]: row.result_queue_key,
     [RESULT_QUEUE_FIELDS.show_no]: Number(row.show_no),
     [RESULT_QUEUE_FIELDS.shows]: links(focusShow.shows),
-    [RESULT_QUEUE_FIELDS.focus_show]: links([focusShow.record_id]),
+    [RESULT_QUEUE_FIELDS.focus_show]: focusShowLinksFor(sourceClass, focusShow),
     [RESULT_QUEUE_FIELDS.focus_day]: row.focus_day,
     [RESULT_QUEUE_FIELDS.class_no]: intOrNull(row.class_no),
     [RESULT_QUEUE_FIELDS.classes]: links(sourceClass?.classes),
@@ -759,7 +937,8 @@ function toAirtableQueue(row, sourceClass, focusShow) {
     [RESULT_QUEUE_FIELDS.result_rows]: row.result_rows,
     [RESULT_QUEUE_FIELDS.completed_at]: airtableDateTime(row.completed_at),
     [RESULT_QUEUE_FIELDS.source]: row.source,
-    [RESULT_QUEUE_FIELDS.raw_json]: row.raw_json
+    [RESULT_QUEUE_FIELDS.raw_json]: row.raw_json,
+    [RESULT_QUEUE_FIELDS.class_oog_staging]: links(sourceClass?.class_oog_staging_ids)
   });
 }
 
@@ -789,6 +968,7 @@ async function handle(req, res) {
   let logContext = {};
   let query = new URLSearchParams();
   let body = {};
+  let noWrite = false;
   try {
     setCors(res);
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
@@ -800,6 +980,9 @@ async function handle(req, res) {
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);
     const limit = Math.max(1, Math.min(5, intOrNull(query.get("limit") || body.limit) || 1));
+    noWrite = flagTrue(query.get("no_write") || body.no_write)
+      || flagTrue(query.get("dry_run") || body.dry_run)
+      || flagTrue(query.get("dryRun") || body.dryRun);
     const baseId = text(process.env.WEC_AIRTABLE_BASE_ID || body.base_id || query.get("base_id") || DEFAULT_BASE_ID);
     const authHeader = text(req.headers?.["x-airtable-token"] || req.headers?.authorization || req.headers?.Authorization);
     const bearerToken = authHeader.match(/^Bearer\s+(.+)$/i)?.[1] || "";
@@ -817,21 +1000,28 @@ async function handle(req, res) {
         paused: true,
         reason: "focus_show.is_pause",
         action: "probe-results",
+        source: RESULT_SOURCE,
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
         source_rows: 0,
         changed_rows: 0,
         probed_classes: 0,
         completed_classes: 0,
-        class_results: 0
+        class_results: 0,
+        no_write: noWrite,
+        catalyst_writes: 0,
+        airtable_writes: 0,
+        wec_log_written: !noWrite
       };
-      phase = "write_wec_log_paused";
-      await writeLog(baseId, token, detail);
+      if (!noWrite) {
+        phase = "write_wec_log_paused";
+        await writeLog(baseId, token, detail);
+      }
       return sendJson(res, 200, detail);
     }
 
-    phase = "read_source_class_oog";
-    const classOogRows = await getActiveLockedClassOogRows(baseId, showNo, focusShow.focus_day, token);
+    phase = "read_source_class_oog_staging_active_entries";
+    const classOogRows = await getActiveClassOogStagingRows(baseId, showNo, focusShow.focus_day, token);
     const sourceClassNos = unique(classOogRows.map((row) => row.class_no));
 
     phase = "check_existing_result_classes";
@@ -841,6 +1031,9 @@ async function handle(req, res) {
     const classRows = allClassRows.slice(offset, offset + limit);
     const classByNo = new Map(classRows.map((row) => [text(row.class_no), row]));
     const sourceEntryByClassEntry = new Map(classOogRows.map((row) => [`${text(row.class_no)}|${text(row.entry_no)}`, row]));
+    phase = "read_entry_go_times_link_targets";
+    const entryGoTimeRows = await getEntryGoTimeRows(baseId, showNo, focusShow.focus_day, token);
+    const entryGoTimeByClassEntry = new Map(entryGoTimeRows.map((row) => [classEntryKey(row), row.record_id]));
 
     const now = catalystDateTime();
     if (!classRows.length) {
@@ -850,6 +1043,7 @@ async function handle(req, res) {
         action: "probe-results",
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
+        source: RESULT_SOURCE,
         source_rows: classOogRows.length,
         source_classes: sourceClassNos.length,
         skipped_completed: completedExisting.size,
@@ -860,9 +1054,14 @@ async function handle(req, res) {
         probed_classes: 0,
         completed_classes: 0,
         class_results: 0,
-        changed_rows: 0
+        changed_rows: 0,
+        no_write: noWrite,
+        source_field_evidence: sourceFieldEvidence(classOogRows),
+        catalyst_writes: 0,
+        airtable_writes: 0,
+        wec_log_written: !noWrite
       };
-      await writeLog(baseId, token, detail);
+      if (!noWrite) await writeLog(baseId, token, detail);
       return sendJson(res, 200, detail);
     }
 
@@ -885,6 +1084,59 @@ async function handle(req, res) {
       return resultQueueRow(showNo, focusShow.focus_day, { ...classRow, ...parsedClass }, status, resultRows, now);
     });
 
+    if (noWrite) {
+      phase = "no_write_verify_results";
+      const sourceEvidence = sourceFieldEvidence(classOogRows);
+      const keyEvidenceSummary = payloadKeyEvidence(queueRows, resultClassRows, classResultRows);
+      const ok = sourceEvidence.missing_required_rows === 0
+        && keyEvidenceSummary.total_missing_keys === 0
+        && keyEvidenceSummary.total_duplicate_keys === 0;
+      return sendJson(res, ok ? 200 : 500, {
+        ok,
+        phase,
+        action: "probe-results",
+        no_write: true,
+        dry_run: true,
+        source: RESULT_SOURCE,
+        result_source_endpoint: "show_results4.php",
+        target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
+        target_airtable: ["result_queue", "result_classes", "class_results"],
+        show_no: Number(showNo),
+        focus_day: focusShow.focus_day,
+        source_rows: classOogRows.length,
+        source_classes: sourceClassNos.length,
+        skipped_completed: completedExisting.size,
+        target_classes_total: allClassRows.length,
+        offset,
+        limit,
+        next_offset: offset + limit < allClassRows.length ? offset + limit : 0,
+        probed_classes: classRows.length,
+        parsed_blocks: fetched.parsed.blocks,
+        completed_classes: resultClassRows.length,
+        class_results: classResultRows.length,
+        queue_rows: queueRows.length,
+        changed_rows: 0,
+        source_field_evidence: sourceEvidence,
+        payload_key_evidence: keyEvidenceSummary,
+        class_oog_backlink_mapping: {
+          required: true,
+          source_field: "class_oog_staging.class_oog",
+          rows_with_backlink: sourceEvidence.class_oog_backlink_rows,
+          rows_checked: sourceEvidence.rows_checked
+        },
+        class_name_evidence: {
+          class_name_raw_populated: sourceEvidence.class_name_raw_populated,
+          class_name_after_fallback_populated: sourceEvidence.class_name_after_fallback_populated,
+          class_label_fallback_rows: sourceEvidence.class_label_fallback_rows,
+          class_name_required_for_keys: false,
+          class_label_fallback_safe: true
+        },
+        catalyst_writes: 0,
+        airtable_writes: 0,
+        wec_log_written: false
+      });
+    }
+
     phase = "write_catalyst_results";
     const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 } };
     for (const row of resultClassRows) {
@@ -904,25 +1156,29 @@ async function handle(req, res) {
     }
 
     phase = "write_airtable_results";
+    const airtableQueue = await airtableUpsert(
+      baseId,
+      AIRTABLE_TABLES.result_queue,
+      RESULT_QUEUE_FIELDS.result_queue_key,
+      queueRows.map((row) => toAirtableQueue(row, classByNo.get(text(row.class_no)), focusShow)),
+      token
+    );
+    const resultQueueByKey = new Map(airtableQueue.map((record) => [
+      text(fieldValue(record, RESULT_QUEUE_FIELDS.result_queue_key, "result_queue_key")),
+      record.id
+    ]));
     const airtableResultClasses = await airtableUpsert(
       baseId,
       AIRTABLE_TABLES.result_classes,
       RESULT_CLASS_FIELDS.result_class_key,
-      resultClassRows.map((row) => toAirtableResultClass(row, classByNo.get(text(row.class_no)))),
+      resultClassRows.map((row) => toAirtableResultClass(row, classByNo.get(text(row.class_no)), resultQueueByKey)),
       token
     );
     const airtableClassResults = await airtableUpsert(
       baseId,
       AIRTABLE_TABLES.class_results,
       CLASS_RESULT_FIELDS.class_result_key,
-      classResultRows.map((row) => toAirtableClassResult(row, sourceEntryByClassEntry.get(`${text(row.class_no)}|${text(row.entry_no)}`), focusShow)),
-      token
-    );
-    const airtableQueue = await airtableUpsert(
-      baseId,
-      AIRTABLE_TABLES.result_queue,
-      RESULT_QUEUE_FIELDS.result_queue_key,
-      queueRows.map((row) => toAirtableQueue(row, classByNo.get(text(row.class_no)), focusShow)),
+      classResultRows.map((row) => toAirtableClassResult(row, sourceEntryByClassEntry.get(`${text(row.class_no)}|${text(row.entry_no)}`), focusShow, entryGoTimeByClassEntry)),
       token
     );
 
@@ -937,7 +1193,7 @@ async function handle(req, res) {
       ok,
       phase,
       action: "probe-results",
-      source: "class_oog.active_locked",
+      source: RESULT_SOURCE,
       result_source_endpoint: "show_results4.php",
       target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
       target_airtable: ["result_queue", "result_classes", "class_results"],
@@ -973,7 +1229,7 @@ async function handle(req, res) {
   } catch (error) {
     try {
       const token = text(body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN);
-      if (token) {
+      if (token && !noWrite) {
         await writeLog(DEFAULT_BASE_ID, token, {
           ok: false,
           phase,

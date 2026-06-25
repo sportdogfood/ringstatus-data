@@ -234,6 +234,7 @@ function logTypeForAction(action) {
     "sync-get-orders": "get-orders",
     "sync-get-rings-linkback": "get-rings",
     "sync-get-rings": "get-rings",
+    "repair-active-focus-helper-links": "get-orders",
     "sync-class-alerts": "class_start_times",
     run: "class_start_times"
   }[action] || action;

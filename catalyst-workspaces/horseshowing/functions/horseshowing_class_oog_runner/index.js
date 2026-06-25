@@ -538,29 +538,19 @@ async function ensureRecordMap(baseId, tableId, tableName, keyField, values, tok
   return map;
 }
 
-async function focusShowMapByShowDay(baseId, showNo, showDayKeys, token) {
-  const rows = await airtableList(baseId, "focus_show", `{show_no}=${Number(showNo)}`, token);
-  const needed = new Set(showDayKeys.map(text).filter(Boolean));
+function activeFocusShowMap(showNo, focusShow) {
+  const day = yyyymmddToIso(focusShow.focus_day);
+  const compact = isoToYyyymmdd(day);
   const map = new Map();
-  for (const row of rows) {
-    const day = yyyymmddToIso(row.focus_day);
-    const rawKeys = unique([
-      row.focus_day_key,
-      row.focus_show_key,
-      row.YYYYMMDD,
-      day,
-      isoToYyyymmdd(day)
-    ]);
-    for (const rawKey of rawKeys) {
-      if (needed.has(rawKey)) map.set(`${showNo}|${rawKey}`, row.record_id);
-      if (needed.has(`${showNo}|${rawKey}`)) map.set(`${showNo}|${rawKey}`, row.record_id);
-    }
+  if (showNo && focusShow.record_id && day) {
+    map.set(`${showNo}|${day}`, focusShow.record_id);
+    map.set(`${showNo}|${compact}`, focusShow.record_id);
   }
   return map;
 }
 
 async function buildLinkMaps(baseId, showNo, focusShow, rows, selected, token) {
-  const showDayKeys = unique(selected.map((row) => isoToYyyymmdd(row.focus_day || focusShow.focus_day)));
+  const showDayKeys = unique(selected.map((row) => isoToYyyymmdd(row.focus_day)).filter(Boolean));
   const maps = {
     shows: await ensureRecordMap(baseId, AIRTABLE_TABLES.shows, "shows", "show_no", [showNo], token),
     classes: await ensureRecordMap(baseId, AIRTABLE_TABLES.classes, "classes", "class_no", rows.map((row) => row.class_no), token),
@@ -573,8 +563,7 @@ async function buildLinkMaps(baseId, showNo, focusShow, rows, selected, token) {
     ring_names: await ensureRecordMap(baseId, AIRTABLE_TABLES.ring_names, "ring_names", "ring_name", selected.map((row) => row.ring_name_normalized), token),
     show_days: await ensureRecordMap(baseId, AIRTABLE_TABLES.show_days, "show_days", "show_day", showDayKeys, token)
   };
-  maps.focus_show = await focusShowMapByShowDay(baseId, showNo, showDayKeys, token);
-  if (!maps.focus_show.size) maps.focus_show = new Map([[`${showNo}|${isoToYyyymmdd(focusShow.focus_day)}`, focusShow.record_id]]);
+  maps.focus_show = activeFocusShowMap(showNo, focusShow);
   return maps;
 }
 
@@ -685,6 +674,7 @@ function parseClassOogRows(raw, showNo, classInfo) {
     rows.push({
       class_oog_key: classOogKey({ show_no: showNo, ring_day_no: ringDayNo, ring_no: classInfo.ring_no, class_no: classNo, entry_no: entryNo }),
       show_no: Number(showNo),
+      focus_day: yyyymmddToIso(classInfo.focus_day),
       ring: text(classInfo.ring_name),
       ring_name_normalized: text(classInfo.ring_name_normalized),
       ring_no: intOrNull(classInfo.ring_no),
@@ -730,6 +720,7 @@ function normalizeLocalClassOogRows(localRows, showNo, classInfo) {
       return {
         class_oog_key: text(row.class_oog_key) || classOogKey({ show_no: showNo, ring_day_no: ringDayNo, ring_no: classInfo.ring_no, class_no: classNo, entry_no: entryNo }),
         show_no: Number(showNo),
+        focus_day: yyyymmddToIso(classInfo.focus_day || row.focus_day),
         ring: text(classInfo.ring_name || row.ring),
         ring_name_normalized: text(classInfo.ring_name_normalized || row.ring_name_normalized),
         ring_no: intOrNull(classInfo.ring_no),
@@ -878,9 +869,11 @@ async function upsertCatalystClassOog(app, showNo, classNo, ringDayNo, ringNo, r
 function toAirtableRows(rows, focusDay, linkMaps = {}) {
   return rows.map((row) => ({
     ...(() => {
-      const rowFocusDay = yyyymmddToIso(row.focus_day || focusDay);
+      const rowOwnFocusDay = yyyymmddToIso(row.focus_day);
+      const rowFocusDay = rowOwnFocusDay || yyyymmddToIso(focusDay);
       const showDayKey = isoToYyyymmdd(rowFocusDay);
-      const focusShowKey = `${row.show_no}|${showDayKey}`;
+      const activeFocusDay = yyyymmddToIso(focusDay);
+      const focusShowKey = rowOwnFocusDay && rowOwnFocusDay === activeFocusDay ? `${row.show_no}|${showDayKey}` : "";
       return {
     [AIRTABLE_OOG_FIELDS.mirror_class_oog_key]: row.class_oog_key,
     [AIRTABLE_OOG_FIELDS.show_no]: row.show_no,
@@ -1050,7 +1043,7 @@ async function handle(req, res) {
         ring_no: intOrNull(row.ring_no),
         ring_name: text(row.ring_name),
         ring_name_normalized: text(row.ring_name_normalized),
-        focus_day: focusShow.focus_day,
+        focus_day: yyyymmddToIso(row.iso_date) || focusShow.focus_day,
         time_text: text(row.time_text),
         event_name: text(row.event_name),
         class_name: text(row.class_name),

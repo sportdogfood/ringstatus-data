@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 const {
   buildClassStartRows,
   matchGetOrdersToClassStart,
+  matchGetRingsToClassStart,
   buildClassAlerts,
   airtableRecordLink,
   airtableRecordLinks,
@@ -87,6 +88,23 @@ test("matchGetOrdersToClassStart enriches class_start_times by class_no or class
   assert.equal(matches[1].updates.elapsed_seconds, 180);
 });
 
+test("matchGetRingsToClassStart enriches class_start_times by class_no without replacing source", () => {
+  const classStarts = [
+    { ROWID: "1", class_start_key: "a", show_no: 14907, focus_day: "2026-06-17", ring_day_no: 4224, ring_no: 665, class_no: 31001, class_number: 267 },
+    { ROWID: "2", class_start_key: "b", show_no: 14907, focus_day: "2026-06-17", ring_day_no: 4224, ring_no: 665, class_no: 31002, class_number: 268 }
+  ];
+  const matches = matchGetRingsToClassStart([
+    { show_no: 14907, focus_day: "2026-06-17", ring_day_no: 4224, ring_no: 665, class_no: 31001, n_gone: 4, n_to_go: 8, total: 12, elapsed: 720 },
+    { show_no: 14907, focus_day: "2026-06-17", ring_day_no: 4224, ring_no: 665, class_no: 99999, n_gone: 1, n_to_go: 11, total: 12, elapsed: 180 }
+  ], classStarts);
+
+  assert.equal(matches.length, 1);
+  assert.equal(matches[0].class_start_key, "a");
+  assert.equal(matches[0].updates.live_source, "get_rings");
+  assert.equal(matches[0].updates.elapsed_seconds, 720);
+});
+
+
 test("buildClassAlerts creates class 60 and 30 minute windows from class_start_times", () => {
   const alerts = buildClassAlerts([
     { class_start_key: "a", show_no: 14907, focus_day: "2026-06-17", class_no: 31001, class_name: "USHJA Hunter", display_time: "10:00A", class_start_time: "10:00:00" },
@@ -108,10 +126,12 @@ test("airtableRecordLink returns Airtable linked-record IDs as strings", () => {
 test("logTypeForAction uses approved WEC log_type options", () => {
   assert.equal(logTypeForAction("class_oog_rollups"), "core_class_oog");
   assert.equal(logTypeForAction("get_orders_class_start_enrichment"), "get-orders");
+  assert.equal(logTypeForAction("get_rings_class_start_enrichment"), "get-rings");
   assert.equal(logTypeForAction("class_alerts"), "class_start_times");
   assert.equal(logTypeForAction("sync-class-start-times"), "class_start_times");
   assert.equal(logTypeForAction("sync-class-oog-rollups"), "core_class_oog");
   assert.equal(logTypeForAction("sync-get-orders"), "get-orders");
+  assert.equal(logTypeForAction("sync-get-rings"), "get-rings");
   assert.equal(logTypeForAction("sync-class-alerts"), "class_start_times");
 });
 

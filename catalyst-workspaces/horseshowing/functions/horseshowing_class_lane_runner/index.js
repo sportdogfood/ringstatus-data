@@ -2,6 +2,7 @@ const catalyst = require("zcatalyst-sdk-node");
 const {
   buildClassStartRows,
   matchGetOrdersToClassStart,
+  matchGetRingsToClassStart,
   buildClassAlerts,
   buildEntryAlerts,
   truthy,
@@ -20,6 +21,7 @@ const TABLES = {
   airtableClassStartTimes: "tblgOxoLf6r3xGWxB",
   airtableClassOog: "tblgUbX5n8GIuiqUI",
   airtableGetOrders: "tblxaVS0dtetxjiGZ",
+  airtableGetRings: "tblPWRF978F9YV3qW",
   airtableEntryGoTimes: "tblj1qWXAUS79jijF",
   airtableAlertTemplates: "tblcHUmGzoWFOTvx2",
   airtableAlerts: "tblqkxLPy9zZ2FI6z",
@@ -102,6 +104,22 @@ const GET_ORDERS_FIELDS = {
   n_gone: "fldwwdq5bvOdYxAcM",
   timestamp: "fld84wGQJZNAsT9b4",
   elapsed: "fldl1WytMPEENPhmj"
+};
+
+const GET_RINGS_FIELDS = {
+  focus_day: "fldXbenLpHK8XD9uQ",
+  show_no: "fldk5B2101tYkVaDV",
+  ring_no: "fldvPhQYpinwNYPKP",
+  ring_day_no: "fldh7saao3sdocdcE",
+  class_no: "fldnER8imL8073cdn",
+  class_text: "fldOLZn3RmrwJk4f0",
+  entry_text: "fldpjPk9qhHZg1TwR",
+  total: "fldQoxHg3MaOSevXh",
+  n_to_go: "fldx4KC27sIAP3EMf",
+  n_gone: "fldUtkHiu8JhGT0MO",
+  timestamp: "fldJotd3vLHv16UzF",
+  elapsed: "fld7PScHi1Rx9gFV0",
+  type: "fldKp21d0kHt3SXpu"
 };
 
 const ENTRY_GO_FIELDS = {
@@ -789,6 +807,24 @@ function horseFromEntryText(value) {
   return match ? match[1].trim() : "";
 }
 
+function classScopeKey(row) {
+  return [
+    text(row.show_no),
+    text(row.focus_day),
+    text(row.ring_day_no),
+    text(row.ring_no),
+    text(row.class_no)
+  ].join("|");
+}
+
+function duplicateKeys(keys) {
+  const counts = new Map();
+  for (const key of keys.filter(Boolean)) counts.set(key, (counts.get(key) || 0) + 1);
+  return [...counts.entries()]
+    .filter(([, count]) => count > 1)
+    .map(([key, count]) => ({ key, count }));
+}
+
 async function syncGetOrders(app, baseId, token, focus) {
   const orderFormula = `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
   const orderRecords = await airtableList(baseId, TABLES.airtableGetOrders, token, { formula: orderFormula });
@@ -872,6 +908,133 @@ async function syncGetOrders(app, baseId, token, focus) {
   });
 
   return { orders: orders.length, matches: matches.length, airtable_updated: updated.length, catalyst_updated: catalystUpdates.length };
+}
+
+async function syncGetRings(app, baseId, token, focus) {
+  const ringFormula = `AND({show_no}='${airtableQuote(focus.show_no)}',IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'))`;
+  const ringRecords = await airtableList(baseId, TABLES.airtableGetRings, token, { formula: ringFormula });
+  const rings = ringRecords.map((record) => {
+    const f = record.fields || {};
+    return {
+      show_no: asNumber(f[GET_RINGS_FIELDS.show_no]),
+      focus_day: isoDate(f[GET_RINGS_FIELDS.focus_day]),
+      ring_day_no: asNumber(f[GET_RINGS_FIELDS.ring_day_no]),
+      ring_no: asNumber(f[GET_RINGS_FIELDS.ring_no]),
+      class_no: asNumber(f[GET_RINGS_FIELDS.class_no]),
+      class_number: classNumberFromLabel(f[GET_RINGS_FIELDS.class_text]),
+      n_gone: asNumber(f[GET_RINGS_FIELDS.n_gone]),
+      n_to_go: asNumber(f[GET_RINGS_FIELDS.n_to_go]),
+      total: asNumber(f[GET_RINGS_FIELDS.total]),
+      timestamp: asNumber(f[GET_RINGS_FIELDS.timestamp]),
+      elapsed: asNumber(f[GET_RINGS_FIELDS.elapsed]),
+      entry_text: text(f[GET_RINGS_FIELDS.entry_text]),
+      current_entry_no: entryNoFromText(f[GET_RINGS_FIELDS.entry_text]),
+      current_horse: horseFromEntryText(f[GET_RINGS_FIELDS.entry_text]),
+      type: text(f[GET_RINGS_FIELDS.type])
+    };
+  });
+  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
+  const matches = matchGetRingsToClassStart(rings, classStarts);
+  const sourceKeys = rings.map(classScopeKey);
+  const targetKeys = classStarts.map(classScopeKey);
+  const matchedKeys = new Set(matches.map((match) => classScopeKey(match.ring)));
+  const targetKeySet = new Set(targetKeys);
+  const missing = rings
+    .filter((row) => !targetKeySet.has(classScopeKey(row)))
+    .map((row) => ({
+      key: classScopeKey(row),
+      class_no: row.class_no,
+      class_number: row.class_number,
+      ring_day_no: row.ring_day_no,
+      ring_no: row.ring_no,
+      entry_text: row.entry_text
+    }));
+  const extras = classStarts
+    .filter((row) => matchedKeys.has(classScopeKey(row)) && !sourceKeys.includes(classScopeKey(row)))
+    .map((row) => classScopeKey(row));
+  const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
+  const airtableUpdates = matches.map((match) => {
+    const start = startsByKey.get(match.class_start_key);
+    return {
+      id: start.record_id,
+      fields: cleanFields({
+        [CLASS_START_FIELDS.n_gone]: match.updates.n_gone,
+        [CLASS_START_FIELDS.n_to_go]: match.updates.n_to_go,
+        [CLASS_START_FIELDS.elapsed_seconds]: match.updates.elapsed_seconds,
+        [CLASS_START_FIELDS.current_entry_no]: match.ring.current_entry_no,
+        [CLASS_START_FIELDS.current_horse]: match.ring.current_horse,
+        [CLASS_START_FIELDS.live_source]: "get_rings",
+        [CLASS_START_FIELDS.last_synced_at]: new Date().toISOString()
+      })
+    };
+  });
+  const updated = await airtableUpdate(baseId, TABLES.airtableClassStartTimes, airtableUpdates, token);
+
+  const catalystRows = await zcqlRows(
+    app,
+    TABLES.catalystClassStartTimes,
+    `show_no = ${zcqlValue(Number(focus.show_no))} AND focus_day = ${zcqlValue(focus.focus_day)}`,
+    { limit: 200, maxRows: 1000 }
+  );
+  const catalystByKey = new Map(catalystRows.map((row) => [text(row.class_start_key), row]));
+  const catalystUpdates = matches
+    .map((match) => {
+      const row = catalystByKey.get(match.class_start_key);
+      if (!row?.ROWID) return null;
+      return cleanCatalystRow({
+        ROWID: row.ROWID,
+        n_gone: match.updates.n_gone,
+        n_to_go: match.updates.n_to_go,
+        total: match.updates.total,
+        elapsed_seconds: match.updates.elapsed_seconds,
+        source_timestamp: match.updates.source_timestamp,
+        current_entry_no: match.ring.current_entry_no,
+        current_horse: match.ring.current_horse,
+        live_source: "get_rings",
+        last_synced_at: currentStamp()
+      });
+    })
+    .filter(Boolean);
+  for (let index = 0; index < catalystUpdates.length; index += 100) {
+    const chunk = catalystUpdates.slice(index, index + 100);
+    if (chunk.length) await app.datastore().table(TABLES.catalystClassStartTimes).updateRows(chunk);
+  }
+
+  await logRun(baseId, token, {
+    action: "get_rings_class_start_enrichment",
+    showNo: focus.show_no,
+    focusDay: focus.focus_day,
+    status: "ok",
+    recordsSeen: rings.length,
+    recordsChanged: updated.length + catalystUpdates.length,
+    summary: `get_rings matched ${matches.length} class_start_times rows`,
+    payload: {
+      rings: rings.length,
+      matches: matches.length,
+      airtable_updated: updated.length,
+      catalyst_updated: catalystUpdates.length,
+      source_unique_keys: new Set(sourceKeys).size,
+      target_unique_keys: new Set(targetKeys).size,
+      duplicate_source_keys: duplicateKeys(sourceKeys),
+      duplicate_target_keys: duplicateKeys(targetKeys),
+      missing,
+      extras
+    }
+  });
+
+  return {
+    rings: rings.length,
+    target_class_start_times: classStarts.length,
+    matches: matches.length,
+    airtable_updated: updated.length,
+    catalyst_updated: catalystUpdates.length,
+    source_unique_keys: new Set(sourceKeys).size,
+    target_unique_keys: new Set(targetKeys).size,
+    duplicate_source_keys: duplicateKeys(sourceKeys),
+    duplicate_target_keys: duplicateKeys(targetKeys),
+    missing,
+    extras
+  };
 }
 
 async function syncClassAlerts(baseId, token, focus, now = new Date()) {
@@ -968,6 +1131,9 @@ async function runAction(req, action, app, baseId, token, focus, query, body) {
   }
   if (action === "sync-get-orders") {
     return syncGetOrders(app, baseId, token, focus);
+  }
+  if (action === "sync-get-rings") {
+    return syncGetRings(app, baseId, token, focus);
   }
   if (action === "sync-class-alerts") {
     const nowRaw = text(query.get("now") || body.now);

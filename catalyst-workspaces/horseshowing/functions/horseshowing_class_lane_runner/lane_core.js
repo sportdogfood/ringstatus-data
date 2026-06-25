@@ -150,6 +150,44 @@ function matchGetOrdersToClassStart(orderRows, classStarts) {
     .filter(Boolean);
 }
 
+function matchGetRingsToClassStart(ringRows, classStarts) {
+  const byClassNo = new Map();
+  const byClassNumber = new Map();
+
+  for (const row of classStarts) {
+    const classNo = numberOrNull(row.class_no);
+    if (classNo) byClassNo.set(`${row.show_no}|${row.focus_day}|${classNo}`, row);
+    const classNumber = numberOrNull(row.class_number);
+    if (classNumber) {
+      byClassNumber.set(`${row.show_no}|${row.focus_day}|${row.ring_day_no}|${row.ring_no}|${classNumber}`, row);
+    }
+  }
+
+  return ringRows
+    .map((ring) => {
+      const classNo = numberOrNull(ring.class_no);
+      let target = classNo ? byClassNo.get(`${ring.show_no}|${ring.focus_day}|${classNo}`) : null;
+      const classNumber = numberOrNull(ring.class_number);
+      if (!target && classNumber) {
+        target = byClassNumber.get(`${ring.show_no}|${ring.focus_day}|${ring.ring_day_no}|${ring.ring_no}|${classNumber}`);
+      }
+      if (!target || !sameScope(ring, target)) return null;
+      return {
+        class_start_key: target.class_start_key,
+        ring,
+        updates: {
+          n_gone: numberOrNull(ring.n_gone),
+          n_to_go: numberOrNull(ring.n_to_go),
+          total: numberOrNull(ring.total),
+          elapsed_seconds: numberOrNull(ring.elapsed),
+          source_timestamp: numberOrNull(ring.timestamp),
+          live_source: "get_rings"
+        }
+      };
+    })
+    .filter(Boolean);
+}
+
 function easternParts(date) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
@@ -186,10 +224,12 @@ function logTypeForAction(action) {
     class_start_times: "class_start_times",
     class_oog_rollups: "core_class_oog",
     get_orders_class_start_enrichment: "get-orders",
+    get_rings_class_start_enrichment: "get-rings",
     class_alerts: "class_start_times",
     "sync-class-start-times": "class_start_times",
     "sync-class-oog-rollups": "core_class_oog",
     "sync-get-orders": "get-orders",
+    "sync-get-rings": "get-rings",
     "sync-class-alerts": "class_start_times",
     run: "class_start_times"
   }[action] || action;
@@ -306,6 +346,7 @@ module.exports = {
   displayTime,
   buildClassStartRows,
   matchGetOrdersToClassStart,
+  matchGetRingsToClassStart,
   buildClassAlerts,
   buildEntryAlerts,
   airtableRecordLink,

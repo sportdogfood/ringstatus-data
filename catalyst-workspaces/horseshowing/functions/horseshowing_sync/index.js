@@ -262,6 +262,38 @@ const CLASS_OOG_STAGING_HELPER_MAPPINGS = [
   { target_link_field: "trainers", source_value_field: "trainer", helper_table: "trainers", helper_key_field: "trainer", helper_record_id_field: "rec_id", allow_silent_fail: true }
 ];
 
+const UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS = [
+  "class_ranges",
+  "ages",
+  "sizes",
+  "skills",
+  "levels",
+  "disciplines",
+  "heights",
+  "rs_class_name"
+];
+const UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS = new Set([
+  "is_preflight",
+  "class_no",
+  "time_format",
+  "event_type",
+  "is_special",
+  "is_classic",
+  "is_medal",
+  "is_under_saddle",
+  "class_priority_order",
+  "class_priority_sort"
+]);
+const UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS = [
+  { table: "ages", keyField: "age", targetField: "ages" },
+  { table: "skills", keyField: "skill", targetField: "skills" },
+  { table: "levels", keyField: "level", targetField: "levels" },
+  { table: "sizes", keyField: "size", targetField: "sizes" },
+  { table: "heights", keyField: "height", targetField: "heights" },
+  { table: "disciplines", keyField: "discipline", targetField: "disciplines" }
+];
+const UPDATE_SCHEDULE_STAGING_RS_CLASS_NAME_ORDER = ["levels", "ages", "sizes", "skills", "disciplines", "heights"];
+
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
@@ -4177,6 +4209,21 @@ async function airtableListRecords(table, params = {}) {
     offset = payload.offset || "";
   } while (offset);
   return records;
+}
+
+async function airtableBaseMetadataTables() {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const response = await fetch(`https://api.airtable.com/v0/meta/bases/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/tables`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
+  const raw = await response.text();
+  if (!response.ok) throw new Error(`Airtable metadata failed ${response.status}: ${raw.slice(0, 500)}`);
+  return JSON.parse(raw).tables || [];
 }
 
 async function airtableCreateRecord(table, fields) {

@@ -5406,6 +5406,287 @@ async function repairUpdateScheduleStagingHelperLinks(showNo, focusDay) {
   };
 }
 
+function evaluatorNormalizeClassName(value) {
+  return text(value)
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[\u2018\u2019\u201B\u2032]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/[+&/()]/g, " ")
+    .replace(/[\u2010-\u2015-]/g, " ")
+    .replace(/['"]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function evaluatorUnique(values) {
+  const seen = new Set();
+  const unique = [];
+  for (const value of values || []) {
+    const clean = text(value);
+    const key = clean.toLowerCase();
+    if (!clean || seen.has(key)) continue;
+    seen.add(key);
+    unique.push(clean);
+  }
+  return unique;
+}
+
+function evaluatorSameLinkedIds(currentValue, targetIds) {
+  const current = linkedRecordIds(currentValue);
+  const target = (targetIds || []).map(text).filter(Boolean);
+  if (current.length !== target.length) return false;
+  return current.every((id, index) => id === target[index]);
+}
+
+function evaluatorStagingFieldChanged(currentValue, targetValue) {
+  if (Array.isArray(targetValue)) return !evaluatorSameLinkedIds(currentValue, targetValue);
+  return text(currentValue) !== text(targetValue);
+}
+
+function evaluatorFieldMap(table) {
+  return new Map((table?.fields || []).map((field) => [field.name, field]));
+}
+
+function evaluatorSchemaFailure(missingByTable) {
+  const missing = Object.entries(missingByTable)
+    .filter(([, fields]) => fields.length)
+    .map(([table, fields]) => `${table}: ${fields.join(", ")}`);
+  return missing;
+}
+
+function validateUpdateScheduleStagingEvaluatorSchema(tables) {
+  const tableMap = new Map((tables || []).map((table) => [table.name, table]));
+  const missingByTable = {};
+  const staging = tableMap.get("update_schedule_staging");
+  if (!staging) {
+    missingByTable.update_schedule_staging = ["table"];
+  } else {
+    const fields = evaluatorFieldMap(staging);
+    const required = [
+      "rec_id",
+      "ring_no",
+      "time_sort",
+      "class_number",
+      "class_number_range",
+      "class_name",
+      ...UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS
+    ];
+    missingByTable.update_schedule_staging = required.filter((field) => !fields.has(field));
+    for (const protectedField of UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS) {
+      if (UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS.includes(protectedField)) {
+        missingByTable.update_schedule_staging.push(`approved writer conflicts with protected field ${protectedField}`);
+      }
+    }
+  }
+
+  for (const helper of UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS) {
+    const table = tableMap.get(helper.table);
+    if (!table) {
+      missingByTable[helper.table] = ["table"];
+      continue;
+    }
+    const fields = evaluatorFieldMap(table);
+    const required = [helper.keyField, "term", "lower", "match_type", "match_pattern", "rec_id", "update_schedule_staging"];
+    missingByTable[helper.table] = required.filter((field) => !fields.has(field));
+  }
+
+  const classRanges = tableMap.get("class_ranges");
+  if (!classRanges) {
+    missingByTable.class_ranges = ["table"];
+  } else {
+    const fields = evaluatorFieldMap(classRanges);
+    missingByTable.class_ranges = ["class_number_range", "rec_id", "update_schedule_staging"].filter((field) => !fields.has(field));
+  }
+
+  const missing = evaluatorSchemaFailure(missingByTable);
+  return {
+    ok: missing.length === 0,
+    missing,
+    tableMap,
+    schema_evidence: {
+      update_schedule_staging: "rec_id, ring_no, time_sort, class_number, class_number_range, class_name, class_ranges, ages, sizes, skills, levels, disciplines, heights, rs_class_name",
+      helpers: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.map((helper) => `${helper.table}.${helper.keyField}`).join(", "),
+      class_ranges: "class_number_range, rec_id, update_schedule_staging"
+    }
+  };
+}
+
+function evaluatorHelperRowActive(row, helperSchema) {
+  if (!helperSchema.has("active")) return true;
+  return stage2cHelperTruthy(row?.fields?.active);
+}
+
+function evaluatorCompileRegex(pattern, helperTable, recordId, failures) {
+  const clean = text(pattern);
+  if (!clean) return null;
+  try {
+    return new RegExp(clean);
+  } catch (error) {
+    failures.push({ helper_table: helperTable, record_id: recordId, match_pattern: clean, error: error.message });
+    return null;
+  }
+}
+
+async function loadEvaluatorHelperRows(helper, helperSchema, invalidPatterns) {
+  const rows = (await airtableListRecords(helper.table))
+    .filter((row) => evaluatorHelperRowActive(row, helperSchema))
+    .filter((row) => text(row?.fields?.match_type).toLowerCase() === "regex");
+  return rows.map((row) => ({
+    row,
+    rec_id: text(row.fields?.rec_id) || row.id,
+    key_value: text(row.fields?.[helper.keyField]),
+    regex: evaluatorCompileRegex(row.fields?.match_pattern, helper.table, row.id, invalidPatterns)
+  })).filter((row) => row.regex && row.rec_id);
+}
+
+function evaluatorClassRangeIndex(rows) {
+  const index = new Map();
+  for (const row of rows || []) {
+    const key = text(row?.fields?.class_number_range);
+    const recId = text(row?.fields?.rec_id) || row.id;
+    if (!key || !recId) continue;
+    if (!index.has(key)) index.set(key, []);
+    index.get(key).push(recId);
+  }
+  return index;
+}
+
+async function evaluateUpdateScheduleStagingHelpers() {
+  const metadataTables = await airtableBaseMetadataTables();
+  const schema = validateUpdateScheduleStagingEvaluatorSchema(metadataTables);
+  if (!schema.ok) {
+    return {
+      status: "BLOCKED",
+      blocker: "update_schedule_staging evaluator schema contract mismatch",
+      rows_read: 0,
+      rows_processed: 0,
+      helper_tables_read: 0,
+      missing_or_different_fields: schema.missing,
+      schema_evidence: schema.schema_evidence,
+      records_updated: 0
+    };
+  }
+
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE);
+  const classRangeRows = await airtableListRecords("class_ranges");
+  const classRangeIndex = evaluatorClassRangeIndex(classRangeRows);
+  const invalidPatterns = [];
+  const helperRowsByTarget = {};
+  const helperReadCounts = {};
+  for (const helper of UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS) {
+    const helperSchema = evaluatorFieldMap(schema.tableMap.get(helper.table));
+    const helperRows = await loadEvaluatorHelperRows(helper, helperSchema, invalidPatterns);
+    helperRowsByTarget[helper.targetField] = { helper, rows: helperRows };
+    helperReadCounts[helper.table] = helperRows.length;
+  }
+  if (invalidPatterns.length) {
+    return {
+      status: "BLOCKED",
+      blocker: "invalid helper regex match_pattern",
+      rows_read: rows.length,
+      rows_processed: 0,
+      helper_tables_read: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.length + 1,
+      invalid_patterns: invalidPatterns.slice(0, 50),
+      records_updated: 0
+    };
+  }
+
+  const updates = [];
+  const linkEvidence = Object.fromEntries(UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.map((helper) => [helper.targetField, {
+    helper_table: helper.table,
+    rows_read: helperReadCounts[helper.table] || 0,
+    rows_with_matches: 0,
+    links_matched: 0
+  }]));
+  let classRangesAttempted = 0;
+  let classRangesMatched = 0;
+  let rsClassNameBuilt = 0;
+
+  for (const row of rows) {
+    const fields = row.fields || {};
+    const normalizedClassName = evaluatorNormalizeClassName(fields.class_name);
+    const targetFields = {};
+    const matchedKeyValuesByTarget = {};
+
+    const classNumberRange = text(fields.class_number_range);
+    if (classNumberRange) classRangesAttempted += 1;
+    const classRangeIds = classNumberRange ? evaluatorUnique(classRangeIndex.get(classNumberRange) || []) : [];
+    if (classRangeIds.length) classRangesMatched += 1;
+    targetFields.class_ranges = classRangeIds;
+
+    for (const targetField of ["ages", "skills", "levels", "sizes", "heights", "disciplines"]) {
+      const helperGroup = helperRowsByTarget[targetField];
+      const matches = [];
+      const keyValues = [];
+      if (normalizedClassName && helperGroup) {
+        for (const helperRow of helperGroup.rows) {
+          if (!helperRow.regex.test(normalizedClassName)) continue;
+          matches.push(helperRow.rec_id);
+          keyValues.push(helperRow.key_value);
+        }
+      }
+      const linkedIds = evaluatorUnique(matches);
+      const uniqueKeyValues = evaluatorUnique(keyValues);
+      targetFields[targetField] = linkedIds;
+      matchedKeyValuesByTarget[targetField] = uniqueKeyValues;
+      if (linkedIds.length) {
+        linkEvidence[targetField].rows_with_matches += 1;
+        linkEvidence[targetField].links_matched += linkedIds.length;
+      }
+    }
+
+    const rsClassNameTokens = evaluatorUnique(UPDATE_SCHEDULE_STAGING_RS_CLASS_NAME_ORDER
+      .flatMap((targetField) => matchedKeyValuesByTarget[targetField] || []));
+    targetFields.rs_class_name = rsClassNameTokens.join(" ");
+    if (targetFields.rs_class_name) rsClassNameBuilt += 1;
+
+    const changedFields = {};
+    for (const field of UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS) {
+      if (evaluatorStagingFieldChanged(fields[field], targetFields[field])) {
+        changedFields[field] = targetFields[field];
+      }
+    }
+    if (Object.keys(changedFields).length) updates.push({ id: row.id, fields: changedFields });
+  }
+
+  const forbiddenWrites = [...new Set(updates.flatMap((update) => Object.keys(update.fields)))
+    .filter((field) => !UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS.includes(field) || UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS.has(field))];
+  if (forbiddenWrites.length) {
+    return {
+      status: "BLOCKED",
+      blocker: "update_schedule_staging evaluator prepared forbidden fields",
+      rows_read: rows.length,
+      rows_processed: rows.length,
+      forbidden_writes: forbiddenWrites,
+      records_updated: 0
+    };
+  }
+
+  const updated = await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, updates);
+  return {
+    status: "PASS",
+    rows_read: rows.length,
+    rows_processed: rows.length,
+    helper_tables_read: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.length + 1,
+    helper_schema_evidence: schema.schema_evidence,
+    class_ranges: {
+      helper_rows_read: classRangeRows.length,
+      rows_with_class_number_range: classRangesAttempted,
+      rows_matched: classRangesMatched
+    },
+    helper_links: linkEvidence,
+    rs_class_name: {
+      rows_built: rsClassNameBuilt,
+      token_order: UPDATE_SCHEDULE_STAGING_RS_CLASS_NAME_ORDER
+    },
+    approved_fields_written: UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS,
+    protected_fields_unchanged: [...UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS],
+    records_updated: updated.length,
+    prepared_updates: updates.length
+  };
+}
+
 async function countCatalystUpdateScheduleForFocusDay(app, showNo, focusDay) {
   const rows = await getRowsByShow(app, TABLES.updateSchedule, showNo, { limit: 5000 });
   return rows.filter((row) => dateKey(row.iso_date || row.date_text || row.day_label) === focusDay).length;

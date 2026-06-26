@@ -278,7 +278,6 @@ const UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS = new Set([
   "time_format",
   "event_type",
   "is_special",
-  "is_classic",
   "is_medal",
   "is_under_saddle",
   "class_priority_order",
@@ -2216,8 +2215,18 @@ function stagingScheduleRowFromRecord(record, showNo, focusDay, source = "update
     time_text: timeText,
     time_sort: fieldText(fields, ["time_sort"]),
     display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
+    class_priority_sort: fieldText(fields, ["class_priority_sort"]),
+    this_disciplines: fieldText(fields, ["this_disciplines"]),
+    this_skills: fieldText(fields, ["this_skills"]),
+    this_ages: fieldText(fields, ["this_ages"]),
+    this_levels: fieldText(fields, ["this_levels"]),
+    this_sizes: fieldText(fields, ["this_sizes"]),
+    this_heights: fieldText(fields, ["this_heights"]),
     is_2nd_trip: boolOrNull(fields.is_2nd_trip) ?? boolOrNull(fields["2nd_trip"]) ?? false,
     is_medal: boolOrNull(fields.is_medal) ?? false,
+    is_under_saddle: boolOrNull(fields.is_under_saddle) ?? false,
+    is_hunter_classic: boolOrNull(fields.is_hunter_classic) ?? false,
+    is_jumper_classic: boolOrNull(fields.is_jumper_classic) ?? false,
     live_flag: fieldText(fields, ["live_flag"]),
     entry_count: intOrNull(fields.entry_count),
     inactive: fields.inactive === true,
@@ -3444,7 +3453,6 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
   if (meta.reconcileEntryGoTimes !== false && offset === 0 && !meta.entryGoTimesByClass) {
     await reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, entryClassNos);
   }
-  const classesByNo = await getClassesForSchedule(app, showNo, entryClassNos);
   let entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
     ? meta.entryGoTimesByClass
     : await getAirtableEntryGoTimesForSchedule(showNo, focusDay, entryClassNos, meta.activeTrainers);
@@ -3471,10 +3479,9 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
       const scheduleRingNo = text(preparedClassStart.ring_no) || text(row.ring_no);
       const scheduleRingDayNo = text(preparedClassStart.ring_day_no) || text(row.ring_day_no);
       const scheduleRingName = text(preparedClassStart.ring_name) || text(row.ring_name);
-      const classRow = classesByNo.get(String(row.class_no)) || {};
       const liveRow = liveByClass.get(String(row.class_no)) || {};
-      const classNumber = classNumberFromLabel(classRow) || text(scheduleRow.class_number);
-      const className = text(scheduleRow.manual_group) || classDisplayFromLabel(classRow, scheduleRow.class_name);
+      const classNumber = text(row.class_number);
+      const className = text(row.class_name);
       const entries = entryGoTimesByClass.get(`${text(row.ring_day_no)}|${text(row.class_no)}`)
         || entryGoTimesByClass.get(text(row.class_no))
         || [];
@@ -3508,8 +3515,18 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
         display_time: text(scheduleRow.display_time) || displayTimeFromStart(scheduleRow.class_start_time),
         time_text: text(row.time_text),
         time_sort: text(row.time_sort) || text(scheduleSortValue(scheduleRow.class_start_time, classNumber)),
+        class_priority_sort: text(row.class_priority_sort),
+        this_disciplines: text(row.this_disciplines),
+        this_skills: text(row.this_skills),
+        this_ages: text(row.this_ages),
+        this_levels: text(row.this_levels),
+        this_sizes: text(row.this_sizes),
+        this_heights: text(row.this_heights),
         is_2nd_trip: row.is_2nd_trip === true,
         is_medal: row.is_medal === true,
+        is_under_saddle: row.is_under_saddle === true,
+        is_hunter_classic: row.is_hunter_classic === true,
+        is_jumper_classic: row.is_jumper_classic === true,
         live_flag: text(row.live_flag),
         entry_count: intOrNull(liveRow.entry_count) ?? intOrNull(scheduleRow.entry_count),
         n_gone: intOrNull(liveRow.entries_gone) ?? intOrNull(scheduleRow.n_gone),
@@ -3590,8 +3607,18 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
       display_time: text(row.display_time || row.start_display),
       time_text: text(row.time_text),
       time_sort: text(row.time_sort || row.class_group_sequence),
+      class_priority_sort: text(row.class_priority_sort),
+      this_disciplines: text(row.this_disciplines),
+      this_skills: text(row.this_skills),
+      this_ages: text(row.this_ages),
+      this_levels: text(row.this_levels),
+      this_sizes: text(row.this_sizes),
+      this_heights: text(row.this_heights),
       is_2nd_trip: row.is_2nd_trip === true,
       is_medal: row.is_medal === true,
+      is_under_saddle: row.is_under_saddle === true,
+      is_hunter_classic: row.is_hunter_classic === true,
+      is_jumper_classic: row.is_jumper_classic === true,
       ring_name_prioritized: text(row.ring_name_prioritized),
       ring_name_normalized: text(row.ring_name_normalized),
       live_flag: text(row.live_flag),

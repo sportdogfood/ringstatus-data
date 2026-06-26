@@ -5794,6 +5794,27 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
       update_schedule_staging_helper_links: helperLinkResult
     };
   }
+  const evaluatorResult = await evaluateUpdateScheduleStagingHelpers();
+  if (evaluatorResult.status === "BLOCKED") {
+    return {
+      show_no: showNo,
+      focus_day: focusDay,
+      source: "airtable.update_schedule",
+      status: "BLOCKED",
+      blocker: "update_schedule_staging helper evaluator blocked",
+      focus_show_control: focusControl,
+      payload_rows: canonicalSourceRows.length,
+      update_schedule_rows: updateScheduleRecords.length,
+      update_schedule_staging_rows_before: existingBeforeDedupe.length,
+      update_schedule_staging_upserts: stagingRecords.length,
+      update_schedule_staging_stale_deleted: staleResult.deleted,
+      update_schedule_staging_stale_marked_inactive: staleResult.stale_marked_inactive,
+      update_schedule_staging_out_of_focus_inactive_checked: inactiveResult.checked,
+      update_schedule_staging_out_of_focus_marked_inactive: inactiveResult.marked_inactive,
+      update_schedule_staging_helper_links: helperLinkResult,
+      update_schedule_staging_helper_evaluator: evaluatorResult
+    };
+  }
   const finalStaging = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, {
     filterByFormula: formula,
     returnFieldsByFieldId: "true"
@@ -5825,6 +5846,12 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
     update_schedule_staging_helper_link_silent_misses: helperLinkResult.silent_miss_count,
     update_schedule_staging_helper_link_not_relevant: helperLinkResult.not_relevant,
     update_schedule_staging_helper_link_mappings_skipped: helperLinkResult.mappings_skipped,
+    update_schedule_staging_evaluator_rows_read: evaluatorResult.rows_read,
+    update_schedule_staging_evaluator_rows_processed: evaluatorResult.rows_processed,
+    update_schedule_staging_evaluator_records_updated: evaluatorResult.records_updated,
+    update_schedule_staging_evaluator_class_ranges: evaluatorResult.class_ranges,
+    update_schedule_staging_evaluator_helper_links: evaluatorResult.helper_links,
+    update_schedule_staging_evaluator_rs_class_name: evaluatorResult.rs_class_name,
     update_schedule_staging_source_link_rows_checked: sourceLinks.active_rows_checked,
     update_schedule_staging_source_link_rows: sourceLinks.linked_rows,
     update_schedule_staging_source_link_missing: sourceLinks.missing_links,
@@ -9023,6 +9050,14 @@ async function handle(req, res) {
         return json(res, 409, { ok: false, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
       }
       return json(res, 200, { ok: true, action, show_no: showNo, focus_day: resolved.focus_day, ...result });
+    }
+
+    if (action === "evaluate-update-schedule-staging-helpers") {
+      const result = await evaluateUpdateScheduleStagingHelpers();
+      if (result.status === "BLOCKED") {
+        return json(res, 409, { ok: false, action, ...result });
+      }
+      return json(res, 200, { ok: true, action, ...result });
     }
 
     if (action === "sync-class-oog-staging-from-class-oog") {

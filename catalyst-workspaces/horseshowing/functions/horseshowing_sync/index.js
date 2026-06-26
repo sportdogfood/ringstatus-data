@@ -284,15 +284,29 @@ const UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS = new Set([
   "class_priority_order",
   "class_priority_sort"
 ]);
-const UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS = [
-  { table: "ages", keyField: "age", targetField: "ages" },
-  { table: "skills", keyField: "skill", targetField: "skills" },
-  { table: "levels", keyField: "level", targetField: "levels" },
-  { table: "sizes", keyField: "size", targetField: "sizes" },
-  { table: "heights", keyField: "height", targetField: "heights" },
-  { table: "disciplines", keyField: "discipline", targetField: "disciplines" }
+const UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS = [
+  { table: "ages", keyField: "age", targetField: "ages", sourceField: "this_ages" },
+  { table: "skills", keyField: "skill", targetField: "skills", sourceField: "this_skills" },
+  { table: "levels", keyField: "level", targetField: "levels", sourceField: "this_levels" },
+  { table: "sizes", keyField: "size", targetField: "sizes", sourceField: "this_sizes" },
+  { table: "heights", keyField: "height", targetField: "heights", sourceField: "this_heights" },
+  { table: "disciplines", keyField: "discipline", targetField: "disciplines", sourceField: "this_disciplines" }
 ];
 const UPDATE_SCHEDULE_STAGING_RS_CLASS_NAME_ORDER = ["levels", "ages", "sizes", "skills", "disciplines", "heights"];
+const UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_FIELDS = [
+  "rec_id",
+  "ring_name_normalized",
+  "ring_name_prioritized",
+  "ring_no",
+  "time_sort",
+  "time_format",
+  "class_no",
+  "is_preflight",
+  "rs_class_name",
+  "left15",
+  "class_priority_sort"
+];
+const UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_WRITE_FIELDS = ["class_priority_sort"];
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -5406,17 +5420,22 @@ async function repairUpdateScheduleStagingHelperLinks(showNo, focusDay) {
   };
 }
 
-function evaluatorNormalizeClassName(value) {
+function evaluatorNormalizeFormulaValue(value) {
   return text(value)
     .normalize("NFKC")
-    .toLowerCase()
     .replace(/[\u2018\u2019\u201B\u2032]/g, "'")
     .replace(/[\u201C\u201D]/g, '"')
-    .replace(/[+&/()]/g, " ")
-    .replace(/[\u2010-\u2015-]/g, " ")
-    .replace(/['"]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/[\u2010-\u2015]/g, "-")
+    .replace(/[+'&."]/g, "-")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/-+/g, "-")
+    .trim()
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+}
+
+function evaluatorFormulaTokens(value) {
+  return evaluatorUnique(text(value).split(",").map((part) => part.trim()));
 }
 
 function evaluatorUnique(values) {
@@ -5465,11 +5484,8 @@ function validateUpdateScheduleStagingEvaluatorSchema(tables) {
     const fields = evaluatorFieldMap(staging);
     const required = [
       "rec_id",
-      "ring_no",
-      "time_sort",
-      "class_number",
       "class_number_range",
-      "class_name",
+      ...UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS.map((helper) => helper.sourceField),
       ...UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS
     ];
     missingByTable.update_schedule_staging = required.filter((field) => !fields.has(field));
@@ -5480,14 +5496,14 @@ function validateUpdateScheduleStagingEvaluatorSchema(tables) {
     }
   }
 
-  for (const helper of UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS) {
+  for (const helper of UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS) {
     const table = tableMap.get(helper.table);
     if (!table) {
       missingByTable[helper.table] = ["table"];
       continue;
     }
     const fields = evaluatorFieldMap(table);
-    const required = [helper.keyField, "term", "lower", "match_type", "match_pattern", "rec_id", "update_schedule_staging"];
+    const required = [helper.keyField, "rec_id", "update_schedule_staging"];
     missingByTable[helper.table] = required.filter((field) => !fields.has(field));
   }
 
@@ -5505,8 +5521,8 @@ function validateUpdateScheduleStagingEvaluatorSchema(tables) {
     missing,
     tableMap,
     schema_evidence: {
-      update_schedule_staging: "rec_id, ring_no, time_sort, class_number, class_number_range, class_name, class_ranges, ages, sizes, skills, levels, disciplines, heights, rs_class_name",
-      helpers: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.map((helper) => `${helper.table}.${helper.keyField}`).join(", "),
+      update_schedule_staging: "rec_id, class_number_range, this_ages, this_sizes, this_levels, this_skills, this_disciplines, this_heights, class_ranges, ages, sizes, skills, levels, disciplines, heights, rs_class_name",
+      helpers: UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS.map((helper) => `${helper.table}.${helper.keyField}`).join(", "),
       class_ranges: "class_number_range, rec_id, update_schedule_staging"
     }
   };
@@ -5517,27 +5533,19 @@ function evaluatorHelperRowActive(row, helperSchema) {
   return stage2cHelperTruthy(row?.fields?.active);
 }
 
-function evaluatorCompileRegex(pattern, helperTable, recordId, failures) {
-  const clean = text(pattern);
-  if (!clean) return null;
-  try {
-    return new RegExp(clean);
-  } catch (error) {
-    failures.push({ helper_table: helperTable, record_id: recordId, match_pattern: clean, error: error.message });
-    return null;
-  }
-}
-
-async function loadEvaluatorHelperRows(helper, helperSchema, invalidPatterns) {
+async function loadEvaluatorHelperRows(helper, helperSchema) {
   const rows = (await airtableListRecords(helper.table))
-    .filter((row) => evaluatorHelperRowActive(row, helperSchema))
-    .filter((row) => text(row?.fields?.match_type).toLowerCase() === "regex");
-  return rows.map((row) => ({
-    row,
-    rec_id: text(row.fields?.rec_id) || row.id,
-    key_value: text(row.fields?.[helper.keyField]),
-    regex: evaluatorCompileRegex(row.fields?.match_pattern, helper.table, row.id, invalidPatterns)
-  })).filter((row) => row.regex && row.rec_id);
+    .filter((row) => evaluatorHelperRowActive(row, helperSchema));
+  const index = new Map();
+  for (const row of rows) {
+    const keyValue = text(row.fields?.[helper.keyField]);
+    const normalized = evaluatorNormalizeFormulaValue(keyValue);
+    const recId = text(row.fields?.rec_id) || row.id;
+    if (!normalized || !recId) continue;
+    if (!index.has(normalized)) index.set(normalized, []);
+    index.get(normalized).push({ row, rec_id: recId, key_value: keyValue });
+  }
+  return { rows, index };
 }
 
 function evaluatorClassRangeIndex(rows) {
@@ -5550,6 +5558,187 @@ function evaluatorClassRangeIndex(rows) {
     index.get(key).push(recId);
   }
   return index;
+}
+
+function prioritySortNumber(value) {
+  const clean = text(value);
+  if (!clean) return Number.POSITIVE_INFINITY;
+  const parsed = Number(clean);
+  return Number.isFinite(parsed) ? parsed : Number.POSITIVE_INFINITY;
+}
+
+function prioritySortText(value) {
+  return text(value).toLowerCase();
+}
+
+function prioritySortCompareRows(a, b) {
+  return prioritySortText(a.fields.ring_name_prioritized).localeCompare(prioritySortText(b.fields.ring_name_prioritized))
+    || prioritySortNumber(a.fields.time_sort) - prioritySortNumber(b.fields.time_sort)
+    || prioritySortNumber(a.fields.class_no) - prioritySortNumber(b.fields.class_no)
+    || prioritySortText(a.fields.rec_id || a.id).localeCompare(prioritySortText(b.fields.rec_id || b.id));
+}
+
+function prioritySortBaseKey(fields) {
+  return [
+    prioritySortText(fields.ring_name_normalized),
+    text(fields.ring_no),
+    prioritySortText(fields.time_format),
+    text(fields.time_sort)
+  ].join("|");
+}
+
+function prioritySortIsPreflight(row) {
+  return stage2cHelperTruthy(row?.fields?.is_preflight);
+}
+
+function prioritySortFind(parent, index) {
+  let current = index;
+  while (parent[current] !== current) {
+    parent[current] = parent[parent[current]];
+    current = parent[current];
+  }
+  return current;
+}
+
+function prioritySortUnion(parent, left, right) {
+  const leftRoot = prioritySortFind(parent, left);
+  const rightRoot = prioritySortFind(parent, right);
+  if (leftRoot !== rightRoot) parent[rightRoot] = leftRoot;
+}
+
+function prioritySortAssignmentsForGroup(rows) {
+  const parent = rows.map((_, index) => index);
+  const byRsClassName = new Map();
+  const byLeft15 = new Map();
+  rows.forEach((row, index) => {
+    const rsClassName = prioritySortText(row.fields.rs_class_name);
+    const left15 = prioritySortText(row.fields.left15);
+    if (rsClassName) {
+      if (byRsClassName.has(rsClassName)) prioritySortUnion(parent, byRsClassName.get(rsClassName), index);
+      else byRsClassName.set(rsClassName, index);
+    }
+    if (left15) {
+      if (byLeft15.has(left15)) prioritySortUnion(parent, byLeft15.get(left15), index);
+      else byLeft15.set(left15, index);
+    }
+  });
+  const components = new Map();
+  rows.forEach((row, index) => {
+    const root = prioritySortFind(parent, index);
+    if (!components.has(root)) components.set(root, []);
+    components.get(root).push(row);
+  });
+  const assignments = new Map();
+  for (const componentRows of components.values()) {
+    componentRows.sort(prioritySortCompareRows);
+    componentRows.forEach((row, index) => assignments.set(row.id, index + 1));
+  }
+  return { assignments, component_count: components.size };
+}
+
+function validateUpdateScheduleStagingPrioritySortSchema(tables) {
+  const tableMap = new Map((tables || []).map((table) => [table.name, table]));
+  const staging = tableMap.get("update_schedule_staging");
+  if (!staging) {
+    return { ok: false, missing: ["update_schedule_staging: table"] };
+  }
+  const fields = evaluatorFieldMap(staging);
+  const missing = UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_FIELDS.filter((field) => !fields.has(field));
+  return {
+    ok: missing.length === 0,
+    missing: missing.length ? [`update_schedule_staging: ${missing.join(", ")}`] : [],
+    class_priority_order_present: fields.has("class_priority_order")
+  };
+}
+
+async function evaluateUpdateScheduleStagingPrioritySort() {
+  const metadataTables = await airtableBaseMetadataTables();
+  const schema = validateUpdateScheduleStagingPrioritySortSchema(metadataTables);
+  if (!schema.ok) {
+    return {
+      status: "BLOCKED",
+      blocker: "update_schedule_staging priority sort schema contract mismatch",
+      rows_read: 0,
+      rows_processed: 0,
+      missing_or_different_fields: schema.missing,
+      records_updated: 0
+    };
+  }
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE);
+  const preparedRows = rows.map((row) => ({ id: row.id, fields: row.fields || {} })).sort(prioritySortCompareRows);
+  const nonPreflightRows = preparedRows.filter((row) => !prioritySortIsPreflight(row));
+  const preflightRows = preparedRows.filter(prioritySortIsPreflight);
+  const grouped = new Map();
+  for (const row of nonPreflightRows) {
+    const ringGroup = prioritySortText(row.fields.ring_name_normalized) || "_blank_ring_name_normalized";
+    if (!grouped.has(ringGroup)) grouped.set(ringGroup, []);
+    grouped.get(ringGroup).push(row);
+  }
+
+  const targetById = new Map();
+  let comparableGroups = 0;
+  let comparisonComponents = 0;
+  for (const ringRows of grouped.values()) {
+    const baseGroups = new Map();
+    for (const row of ringRows) {
+      const key = prioritySortBaseKey(row.fields);
+      if (!baseGroups.has(key)) baseGroups.set(key, []);
+      baseGroups.get(key).push(row);
+    }
+    comparableGroups += baseGroups.size;
+    for (const baseRows of baseGroups.values()) {
+      const result = prioritySortAssignmentsForGroup(baseRows);
+      comparisonComponents += result.component_count;
+      for (const [id, value] of result.assignments.entries()) targetById.set(id, value);
+    }
+  }
+
+  const updates = [];
+  for (const row of nonPreflightRows) {
+    const target = targetById.get(row.id) || 1;
+    if (prioritySortNumber(row.fields.class_priority_sort) !== target) {
+      updates.push({ id: row.id, fields: { class_priority_sort: target } });
+    }
+  }
+  for (const row of preflightRows) {
+    if (text(row.fields.class_priority_sort)) {
+      updates.push({ id: row.id, fields: { class_priority_sort: null } });
+    }
+  }
+  const forbiddenWrites = [...new Set(updates.flatMap((update) => Object.keys(update.fields)))]
+    .filter((field) => !UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_WRITE_FIELDS.includes(field));
+  if (forbiddenWrites.length) {
+    return {
+      status: "BLOCKED",
+      blocker: "update_schedule_staging priority sort prepared forbidden fields",
+      rows_read: rows.length,
+      rows_processed: rows.length,
+      preflight_rows: preflightRows.length,
+      non_preflight_rows: nonPreflightRows.length,
+      forbidden_writes: forbiddenWrites,
+      records_updated: 0
+    };
+  }
+  const updated = await airtableUpdateRecordsById(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, updates);
+  return {
+    status: "PASS",
+    rows_read: rows.length,
+    rows_processed: rows.length,
+    preflight_rows: preflightRows.length,
+    non_preflight_rows: nonPreflightRows.length,
+    preflight_rows_cleared: updates.filter((update) => preflightRows.some((row) => row.id === update.id)).length,
+    non_preflight_rows_assigned: nonPreflightRows.length,
+    ring_groups: grouped.size,
+    comparable_groups: comparableGroups,
+    comparison_components: comparisonComponents,
+    sort_order: "ring_name_prioritized ASC, time_sort ASC, class_no ASC, rec_id ASC",
+    comparable_rule: "same ring_no and time_format; same priority group when same rs_class_name or same left15",
+    reset_rule: "ring, time_format, time_sort, rs_class_name/left15 comparison group",
+    approved_fields_written: UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_WRITE_FIELDS,
+    class_priority_order_present: schema.class_priority_order_present,
+    records_updated: updated.length,
+    prepared_updates: updates.length
+  };
 }
 
 async function evaluateUpdateScheduleStagingHelpers() {
@@ -5571,33 +5760,24 @@ async function evaluateUpdateScheduleStagingHelpers() {
   const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE);
   const classRangeRows = await airtableListRecords("class_ranges");
   const classRangeIndex = evaluatorClassRangeIndex(classRangeRows);
-  const invalidPatterns = [];
   const helperRowsByTarget = {};
   const helperReadCounts = {};
-  for (const helper of UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS) {
+  for (const helper of UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS) {
     const helperSchema = evaluatorFieldMap(schema.tableMap.get(helper.table));
-    const helperRows = await loadEvaluatorHelperRows(helper, helperSchema, invalidPatterns);
+    const helperRows = await loadEvaluatorHelperRows(helper, helperSchema);
     helperRowsByTarget[helper.targetField] = { helper, rows: helperRows };
-    helperReadCounts[helper.table] = helperRows.length;
-  }
-  if (invalidPatterns.length) {
-    return {
-      status: "BLOCKED",
-      blocker: "invalid helper regex match_pattern",
-      rows_read: rows.length,
-      rows_processed: 0,
-      helper_tables_read: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.length + 1,
-      invalid_patterns: invalidPatterns.slice(0, 50),
-      records_updated: 0
-    };
+    helperReadCounts[helper.table] = helperRows.rows.length;
   }
 
   const updates = [];
-  const linkEvidence = Object.fromEntries(UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.map((helper) => [helper.targetField, {
+  const linkEvidence = Object.fromEntries(UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS.map((helper) => [helper.targetField, {
     helper_table: helper.table,
+    source_field: helper.sourceField,
     rows_read: helperReadCounts[helper.table] || 0,
+    rows_with_formula_values: 0,
     rows_with_matches: 0,
-    links_matched: 0
+    links_matched: 0,
+    unmatched_values: []
   }]));
   let classRangesAttempted = 0;
   let classRangesMatched = 0;
@@ -5605,7 +5785,6 @@ async function evaluateUpdateScheduleStagingHelpers() {
 
   for (const row of rows) {
     const fields = row.fields || {};
-    const normalizedClassName = evaluatorNormalizeClassName(fields.class_name);
     const targetFields = {};
     const matchedKeyValuesByTarget = {};
 
@@ -5619,11 +5798,22 @@ async function evaluateUpdateScheduleStagingHelpers() {
       const helperGroup = helperRowsByTarget[targetField];
       const matches = [];
       const keyValues = [];
-      if (normalizedClassName && helperGroup) {
-        for (const helperRow of helperGroup.rows) {
-          if (!helperRow.regex.test(normalizedClassName)) continue;
-          matches.push(helperRow.rec_id);
-          keyValues.push(helperRow.key_value);
+      const formulaTokens = evaluatorFormulaTokens(fields[helperGroup?.helper?.sourceField]);
+      if (formulaTokens.length) linkEvidence[targetField].rows_with_formula_values += 1;
+      if (formulaTokens.length && helperGroup) {
+        for (const token of formulaTokens) {
+          const normalizedToken = evaluatorNormalizeFormulaValue(token);
+          const helperMatches = helperGroup.rows.index.get(normalizedToken) || [];
+          if (!helperMatches.length) {
+            if (!linkEvidence[targetField].unmatched_values.includes(token)) {
+              linkEvidence[targetField].unmatched_values.push(token);
+            }
+            continue;
+          }
+          for (const helperRow of helperMatches) {
+            matches.push(helperRow.rec_id);
+            keyValues.push(helperRow.key_value);
+          }
         }
       }
       const linkedIds = evaluatorUnique(matches);
@@ -5650,8 +5840,8 @@ async function evaluateUpdateScheduleStagingHelpers() {
     if (Object.keys(changedFields).length) updates.push({ id: row.id, fields: changedFields });
   }
 
-  const forbiddenWrites = [...new Set(updates.flatMap((update) => Object.keys(update.fields)))
-    .filter((field) => !UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS.includes(field) || UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS.has(field))];
+  const forbiddenWrites = [...new Set(updates.flatMap((update) => Object.keys(update.fields)))]
+    .filter((field) => !UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS.includes(field) || UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS.has(field));
   if (forbiddenWrites.length) {
     return {
       status: "BLOCKED",
@@ -5668,7 +5858,9 @@ async function evaluateUpdateScheduleStagingHelpers() {
     status: "PASS",
     rows_read: rows.length,
     rows_processed: rows.length,
-    helper_tables_read: UPDATE_SCHEDULE_STAGING_CLASS_NAME_HELPERS.length + 1,
+    helper_tables_read: UPDATE_SCHEDULE_STAGING_FORMULA_HELPERS.length + 1,
+    helper_source: "update_schedule_staging.this_* formula fields",
+    formula_delimiter: "comma",
     helper_schema_evidence: schema.schema_evidence,
     class_ranges: {
       helper_rows_read: classRangeRows.length,
@@ -9053,7 +9245,14 @@ async function handle(req, res) {
     }
 
     if (action === "evaluate-update-schedule-staging-helpers") {
-      const result = await evaluateUpdateScheduleStagingHelpers();
+      const prioritySortOnly = query.get("priority_sort_only") === "1"
+        || query.get("priority-sort-only") === "1"
+        || body.priority_sort_only === "1"
+        || body.priority_sort_only === 1
+        || body.priority_sort_only === true;
+      const result = prioritySortOnly
+        ? await evaluateUpdateScheduleStagingPrioritySort()
+        : await evaluateUpdateScheduleStagingHelpers();
       if (result.status === "BLOCKED") {
         return json(res, 409, { ok: false, action, ...result });
       }

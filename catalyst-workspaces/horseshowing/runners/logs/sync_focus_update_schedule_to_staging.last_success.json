@@ -2,8 +2,8 @@
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
   "source": "airtable.update_schedule",
-  "run_id": "wec-stage1-stage2-20260626T172111863Z-4cc67933",
-  "run_time": "2026-06-26T17:21:11.863Z",
+  "run_id": "wec-stage1-stage2-20260626T200609942Z-c8e5aaa1",
+  "run_time": "2026-06-26T20:06:09.942Z",
   "show_no": "14907",
   "focus_day": "2026-06-21",
   "ring_day_no_count": 9,
@@ -44,8 +44,8 @@
       "record_id": "recLh1GS3VPfTe1z2",
       "is_pause": false,
       "is_lock": true,
-      "run_id": "wec-stage1-stage2-20260626T172111863Z-4cc67933",
-      "run_time": "2026-06-26T17:21:11.863Z"
+      "run_id": "wec-stage1-stage2-20260626T200609942Z-c8e5aaa1",
+      "run_time": "2026-06-26T20:06:09.942Z"
     },
     "payload_rows": 81,
     "update_schedule_rows": 92,
@@ -225,6 +225,81 @@
     "update_schedule_staging_helper_link_silent_misses": 81,
     "update_schedule_staging_helper_link_not_relevant": 8,
     "update_schedule_staging_helper_link_mappings_skipped": [],
+    "update_schedule_staging_evaluator_rows_read": 90,
+    "update_schedule_staging_evaluator_rows_processed": 90,
+    "update_schedule_staging_evaluator_records_updated": 0,
+    "update_schedule_staging_evaluator_class_ranges": {
+      "helper_rows_read": 15,
+      "rows_with_class_number_range": 82,
+      "rows_matched": 82
+    },
+    "update_schedule_staging_evaluator_helper_links": {
+      "ages": {
+        "helper_table": "ages",
+        "source_field": "this_ages",
+        "rows_read": 6,
+        "rows_with_formula_values": 19,
+        "rows_with_matches": 19,
+        "links_matched": 19,
+        "unmatched_values": []
+      },
+      "skills": {
+        "helper_table": "skills",
+        "source_field": "this_skills",
+        "rows_read": 19,
+        "rows_with_formula_values": 39,
+        "rows_with_matches": 39,
+        "links_matched": 70,
+        "unmatched_values": []
+      },
+      "levels": {
+        "helper_table": "levels",
+        "source_field": "this_levels",
+        "rows_read": 20,
+        "rows_with_formula_values": 69,
+        "rows_with_matches": 69,
+        "links_matched": 113,
+        "unmatched_values": []
+      },
+      "sizes": {
+        "helper_table": "sizes",
+        "source_field": "this_sizes",
+        "rows_read": 3,
+        "rows_with_formula_values": 10,
+        "rows_with_matches": 10,
+        "links_matched": 14,
+        "unmatched_values": []
+      },
+      "heights": {
+        "helper_table": "heights",
+        "source_field": "this_heights",
+        "rows_read": 20,
+        "rows_with_formula_values": 28,
+        "rows_with_matches": 28,
+        "links_matched": 28,
+        "unmatched_values": []
+      },
+      "disciplines": {
+        "helper_table": "disciplines",
+        "source_field": "this_disciplines",
+        "rows_read": 3,
+        "rows_with_formula_values": 79,
+        "rows_with_matches": 79,
+        "links_matched": 79,
+        "unmatched_values": []
+      }
+    },
+    "update_schedule_staging_evaluator_rs_class_name": {
+      "rows_built": 82,
+      "token_order": [
+        "levels",
+        "ages",
+        "sizes",
+        "skills",
+        "disciplines",
+        "heights"
+      ]
+    },
     "update_schedule_staging_source_link_rows_checked": 81,
     "update_schedule_staging_source_link_rows": 81,
     "update_schedule_staging_source_link_missing": 0,
@@ -245,5 +320,5 @@
     "update_schedule_staging_checkbox_true_values_preserved": 0,
     "update_schedule_staging_links_unioned": 0
   },
-  "success_at": "2026-06-26T17:21:48.219Z"
+  "success_at": "2026-06-26T20:06:26.226Z"
 }

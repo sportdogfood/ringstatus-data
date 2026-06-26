@@ -2149,20 +2149,30 @@ function stagingScheduleRowFromRecord(record, showNo, focusDay, source = "update
   const className = fieldText(fields, ["class_name", "event_name", "class_label"]);
   const classLabel = fieldText(fields, ["event_name", "class_label", "class_name"]);
   const classNumber = fieldText(fields, ["class_number"]) || classNumberFromLabel({ class_label: classLabel });
+  const showDay = dateKey(fieldText(fields, ["show_day", "focus_day_key", "focus_day", "iso_date"])) || text(focusDay);
   return {
     ROWID: record.id,
     record_id: record.id,
     show_no: fieldText(fields, ["show_no"]) || text(showNo),
     focus_day: dateKey(fieldText(fields, ["focus_day", "iso_date"])) || text(focusDay),
+    show_day: showDay,
+    focus_day_key: showDay,
     ring_no: fieldText(fields, ["ring_no"]),
     ring_day_no: fieldText(fields, ["ring_day_no", "days"]),
     ring_name: fieldText(fields, ["ring_display", "ring_name", "ring_names", "ring", "rings"]),
+    ring_name_prioritized: fieldText(fields, ["ring_name_prioritized"]),
+    ring_name_normalized: fieldText(fields, ["ring_name_normalized"]),
     class_no: fieldText(fields, ["class_no"]),
     class_number: classNumber,
     class_name: className,
-    class_label: className,
+    class_label: classLabel,
     class_start_time: classStartTime,
+    time_text: timeText,
+    time_sort: fieldText(fields, ["time_sort"]),
     display_time: fieldText(fields, ["display_time"]) || displayTimeFromStart(classStartTime || timeText),
+    is_2nd_trip: boolOrNull(fields.is_2nd_trip) ?? boolOrNull(fields["2nd_trip"]) ?? false,
+    is_medal: boolOrNull(fields.is_medal) ?? false,
+    live_flag: fieldText(fields, ["live_flag"]),
     entry_count: intOrNull(fields.entry_count),
     inactive: fields.inactive === true,
     manual_group: fieldText(fields, ["manual_grpup", "manual_group"]),
@@ -2381,6 +2391,7 @@ function entryGoTimesByClassFromRecords(records, activeTrainers = []) {
     if (activeTrainerSet.size && !activeTrainerSet.has(trainer)) continue;
     const classKey = `${ringDayNo}|${classNo}`;
     const bucket = byClass.get(classKey) || [];
+    const entryGoTime = text(fields.entry_go_time || fields.go_time || fields.display_time);
     bucket.push({
       show_no: text(fields.show_no),
       ring_day_no: ringDayNo,
@@ -2390,7 +2401,14 @@ function entryGoTimesByClassFromRecords(records, activeTrainers = []) {
       entry_order: text(fields.entry_order),
       horse: text(fields.horse),
       rider: text(fields.rider),
-      trainer
+      trainer,
+      entry_rollup: text(fields.entry_rollup),
+      rider_display: fieldText(fields, ["rider_display (from riders)", "rider_display", "rider"]),
+      trainer_display: fieldText(fields, ["trainer_display", "trainer"]),
+      entry_go_time: entryGoTime,
+      class_start_time: text(fields.class_start_time),
+      time_till: text(fields.time_till),
+      go_time: entryGoTime
     });
     byClass.set(classKey, bucket);
   }
@@ -2456,6 +2474,8 @@ async function getAirtableClassStartTimesForSchedule(showNo, focusDay, classNos)
         pace_seconds: intOrNull(fields.pace_seconds),
         current_entry_no: text(fields.current_entry_no),
         current_horse: text(fields.current_horse),
+        rollup_label: text(fields.rollup_label),
+        entry_go_times_rollup: fields["Rollup (from entry_go_times)"] || fields.entry_go_times_rollup || "",
         live_source: text(fields.live_source || fields.source)
       };
       const ringClassKey = `${row.ring_day_no}|${classNo}`;
@@ -2595,7 +2615,13 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
       horse: text(row.horse),
       rider: text(row.rider),
       trainer,
-      go_time: text(row.go_time)
+      entry_rollup: text(row.entry_rollup),
+      rider_display: text(row.rider_display || row.rider),
+      trainer_display: text(row.trainer_display || row.trainer),
+      entry_go_time: text(row.entry_go_time || row.go_time),
+      class_start_time: text(row.class_start_time),
+      time_till: text(row.time_till),
+      go_time: text(row.entry_go_time || row.go_time)
     });
     byClass.set(classKey, bucket);
   }
@@ -3373,9 +3399,12 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
     await reconcileEntryGoTimesToCatalyst(app, showNo, focusDay, meta, entryClassNos);
   }
   const classesByNo = await getClassesForSchedule(app, showNo, entryClassNos);
-  const entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
+  let entryGoTimesByClass = meta.entryGoTimesByClass instanceof Map
     ? meta.entryGoTimesByClass
-    : await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, entryClassNos, meta.activeTrainers);
+    : await getAirtableEntryGoTimesForSchedule(showNo, focusDay, entryClassNos, meta.activeTrainers);
+  if (!entryGoTimesByClass.size && entryGoTimesByClass.sourceFetched !== true) {
+    entryGoTimesByClass = await getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, entryClassNos, meta.activeTrainers);
+  }
   if (process.env.NODE_ENV === "test" && !entryGoTimesByClass.size) {
     const fallbackEntriesByClass = await getEntriesForSchedule(app, showNo, classNos, meta.activeTrainers);
     const ringDayByClass = new Map(schedule.map((row) => [text(row.class_no), text(row.ring_day_no)]));
@@ -3412,18 +3441,30 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
         show_days_display_date: focusDay,
         show_start_date: meta.showStartDate || "",
         show_end_date: meta.showEndDate || "",
-        show_day_key: focusDay,
+        focus_day: text(row.focus_day) || focusDay,
+        show_day: text(row.show_day) || text(row.focus_day_key) || focusDay,
+        show_day_key: text(row.focus_day_key) || text(row.show_day) || focusDay,
         ring_number: Number(scheduleRingNo || 9999),
+        ring_no: scheduleRingNo,
         ring_name: meta.ringDisplays[String(scheduleRingNo)] || ringDisplayFromName(scheduleRingName),
         ring_day_no: scheduleRingDayNo,
+        ring_name_prioritized: text(row.ring_name_prioritized),
+        ring_name_normalized: text(row.ring_name_normalized),
         class_group_id: String(scheduleRow.class_no || row.ROWID),
         class_group_sequence: scheduleSortValue(scheduleRow.class_start_time, classNumber),
         group_group_name: className,
         class_no: scheduleRow.class_no,
         class_number: classNumber,
         class_name: className,
+        class_label: text(row.class_label) || text(scheduleRow.class_label) || className,
         start_display: displayTimeFromStart(scheduleRow.class_start_time),
         class_start_time: scheduleRow.class_start_time,
+        display_time: text(scheduleRow.display_time) || displayTimeFromStart(scheduleRow.class_start_time),
+        time_text: text(row.time_text),
+        time_sort: text(row.time_sort) || text(scheduleSortValue(scheduleRow.class_start_time, classNumber)),
+        is_2nd_trip: row.is_2nd_trip === true,
+        is_medal: row.is_medal === true,
+        live_flag: text(row.live_flag),
         entry_count: intOrNull(liveRow.entry_count) ?? intOrNull(scheduleRow.entry_count),
         n_gone: intOrNull(liveRow.entries_gone) ?? intOrNull(scheduleRow.n_gone),
         n_to_go: intOrNull(liveRow.entries_to_go) ?? intOrNull(scheduleRow.n_to_go),
@@ -3436,6 +3477,9 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
         "8778_sched_display": rollup,
         trainer_rollups: trainerRollups,
         rollup_source: manualTrainerRollups.length ? "update_schedule_staging.horses" : "entry_go_times",
+        rollup_label: text(scheduleRow.rollup_label),
+        entry_go_times_rollup: scheduleRow.entry_go_times_rollup,
+        entry_go_times: entries,
         sched_horses: compactTrainerRollups(trainerRollups)
           .flatMap((item) => item.horses || [])
           .map((horse) => (horse && typeof horse === "object" ? text(horse.display || horse.horse) : text(horse)))
@@ -3455,6 +3499,24 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
     ));
 }
 
+function compactMobileEntryPayload(entries) {
+  return (entries || []).map((entry) => ({
+    entry_rollup: text(entry.entry_rollup),
+    rider_display: text(entry.rider_display || entry.rider),
+    trainer_display: text(entry.trainer_display || entry.trainer),
+    entry_go_time: text(entry.entry_go_time || entry.go_time),
+    class_start_time: text(entry.class_start_time),
+    time_till: text(entry.time_till)
+  })).filter((entry) => (
+    entry.entry_rollup ||
+    entry.rider_display ||
+    entry.trainer_display ||
+    entry.entry_go_time ||
+    entry.class_start_time ||
+    entry.time_till
+  ));
+}
+
 function buildMobileLivePayload(showNo, focusDay, meta, rows) {
   const rings = new Map();
   for (const row of rows || []) {
@@ -3468,23 +3530,34 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
     const classNumberText = text(row.class_number);
     const classNameText = text(row.class_name);
     ring.classes.push({
+      show_no: text(row.show_id || showNo),
+      focus_day: text(row.focus_day || row.show_day_key || focusDay),
+      show_day: text(row.show_day || row.show_day_key || focusDay),
+      ring_day_no: text(row.ring_day_no),
+      ring_no: Number(row.ring_number || row.ring_no || 0),
       class_no: Number(row.class_no || 0),
       class_number: classNumberText,
-      class_label: classNumberText ? `${classNumberText} - ${classNameText}` : classNameText,
+      class_label: text(row.class_label) || (classNumberText ? `${classNumberText} - ${classNameText}` : classNameText),
       class_name: classNameText,
-      show_start_date: meta.showStartDate || row.show_start_date || "",
-      show_end_date: meta.showEndDate || row.show_end_date || "",
       class_time: row.start_display,
       class_start_time: row.class_start_time,
+      display_time: text(row.display_time || row.start_display),
+      time_text: text(row.time_text),
+      time_sort: text(row.time_sort || row.class_group_sequence),
+      is_2nd_trip: row.is_2nd_trip === true,
+      is_medal: row.is_medal === true,
+      ring_name_prioritized: text(row.ring_name_prioritized),
+      ring_name_normalized: text(row.ring_name_normalized),
+      live_flag: text(row.live_flag),
       entry_count: row.entry_count,
       n_gone: row.n_gone,
       n_to_go: row.n_to_go,
       elapsed_seconds: row.elapsed_seconds,
       current_entry_no: row.current_entry_no,
       current_horse: row.current_horse,
-      live_source: row.live_source,
-      diff_class: text(row.diff_class),
-      rollups: compactTrainerRollups(row.trainer_rollups)
+      rollup_label: text(row.rollup_label),
+      rollups: compactTrainerRollups(row.trainer_rollups),
+      entries: compactMobileEntryPayload(row.entry_go_times)
     });
     rings.set(ringNo, ring);
   }
@@ -8353,6 +8426,7 @@ async function handle(req, res) {
       const focusDay = resolved.focus_day || airtableFocus?.focus_day;
       if (!focusDay) return json(res, 400, { ok: false, action, error: "wec-mobile-live requires focus_day" });
       const meta = await metaForFocusRender(app, renderShowNo, focusDay, query, body);
+      meta.reconcileEntryGoTimes = false;
       const rows = await buildScheduleJson(app, renderShowNo, focusDay, meta, { limit: 300, offset: 0 });
       return json(res, 200, { ok: true, action, focus_source: resolved.source || "airtable.focus_show", ...buildMobileLivePayload(renderShowNo, focusDay, meta, rows) });
     }

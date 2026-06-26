@@ -219,6 +219,8 @@
   }
 
   body.is-hide-mode .hide-pill.is-start,
+  body.is-hide-mode #ignoreToggleBtn,
+  body.is-hide-mode #ignorePanel,
   body.is-hide-mode #printPdfLink{
     display:none;
   }
@@ -226,6 +228,23 @@
   body.is-hide-mode .hide-pill.is-save,
   body.is-hide-mode .hide-pill.is-cancel{
     display:inline-flex;
+  }
+
+  .ignore-panel{
+    display:none;
+    gap:6px;
+    padding-top:6px;
+    flex-wrap:wrap;
+  }
+
+  .ignore-panel.is-open{
+    display:flex;
+  }
+
+  .ignore-option.active{
+    background:#111;
+    color:#fff;
+    border-color:#111;
   }
 
   .filterbar{
@@ -668,8 +687,14 @@
           <button class="home-pill hide-pill is-start" id="hideModeBtn" type="button">Hide</button>
           <button class="home-pill hide-pill is-save" id="hideSaveBtn" type="button">Save</button>
           <button class="home-pill hide-pill is-cancel" id="hideCancelBtn" type="button">Cancel</button>
+          <button class="home-pill" id="ignoreToggleBtn" type="button" aria-expanded="false" aria-controls="ignorePanel">Ignore</button>
           <a class="home-pill" id="printPdfLink" href="https://ringstatus.com/wec-print" target="_blank" rel="noopener">Print</a>
         </div>
+      </div>
+      <div class="ignore-panel" id="ignorePanel" aria-label="Ignore Filters">
+        <button class="home-pill ignore-option" type="button" data-ignore-filter="is_2nd_trip">2nd Trip</button>
+        <button class="home-pill ignore-option" type="button" data-ignore-filter="is_medal">Medal</button>
+        <button class="home-pill ignore-clear" id="ignoreClearBtn" type="button">Clear</button>
       </div>
       <div class="subtitle-row">
         <div class="subtitle-edit-wrapper">
@@ -718,8 +743,10 @@
   let currentShowNo = "";
   let currentFocusDay = "";
   let hideMode = false;
+  let ignorePanelOpen = false;
   let emptyRetryTimer = null;
   const hideSelection = new Map();
+  const ignoredClassFlags = new Set();
   let hiddenClassKeys = new Set();
   let hideChangeBound = false;
   let lastHideLogResult = null;
@@ -744,6 +771,12 @@
     const n = Number(v);
     return Number.isFinite(n) ? n : null;
   };
+
+  function truthyFlag(value){
+    if(value === true || value === 1) return true;
+    const raw = String(value ?? "").trim().toLowerCase();
+    return raw === "true" || raw === "1" || raw === "yes";
+  }
 
   function isoDate(value){
     const raw = String(value ?? "").trim();
@@ -823,11 +856,82 @@
   }
 
   function visibleRowsForDevice(rows){
-    if(!hiddenClassKeys.size) return rows;
-    return rows.filter(row => {
-      const key = classHideKey(row);
-      return !key || !hiddenClassKeys.has(key);
-    });
+    let visible = rows;
+    if(hiddenClassKeys.size){
+      visible = visible.filter(row => {
+        const key = classHideKey(row);
+        return !key || !hiddenClassKeys.has(key);
+      });
+    }
+    if(ignoredClassFlags.size){
+      visible = visible.filter(row => {
+        if(ignoredClassFlags.has("is_2nd_trip") && truthyFlag(row?.is_2nd_trip ?? row?.is2ndTrip)) return false;
+        if(ignoredClassFlags.has("is_medal") && truthyFlag(row?.is_medal ?? row?.isMedal)) return false;
+        return true;
+      });
+    }
+    return visible;
+  }
+
+  function setIgnorePanelOpen(nextOpen){
+    ignorePanelOpen = !!nextOpen;
+    const panel = document.getElementById("ignorePanel");
+    const toggle = document.getElementById("ignoreToggleBtn");
+    if(panel) panel.classList.toggle("is-open", ignorePanelOpen);
+    if(toggle){
+      toggle.setAttribute("aria-expanded", ignorePanelOpen ? "true" : "false");
+      toggle.classList.toggle("active", ignorePanelOpen || ignoredClassFlags.size > 0);
+    }
+    updateIgnoreUI();
+  }
+
+  function updateIgnoreUI(){
+    for(const button of Array.from(document.querySelectorAll(".ignore-option"))){
+      const key = String(button.dataset.ignoreFilter || "").trim();
+      button.classList.toggle("active", ignoredClassFlags.has(key));
+    }
+    const toggle = document.getElementById("ignoreToggleBtn");
+    if(toggle) toggle.classList.toggle("active", ignorePanelOpen || ignoredClassFlags.size > 0);
+  }
+
+  function rerenderCurrentRows(){
+    if(lastRaw){
+      renderRows(parseJsonText(lastRaw, currentDataUrl || location.href));
+    }
+  }
+
+  function toggleIgnoreFilter(name){
+    const key = String(name || "").trim();
+    if(!key) return;
+    if(ignoredClassFlags.has(key)) ignoredClassFlags.delete(key);
+    else ignoredClassFlags.add(key);
+    updateIgnoreUI();
+    rerenderCurrentRows();
+  }
+
+  function clearIgnoreFilters(){
+    ignoredClassFlags.clear();
+    updateIgnoreUI();
+    rerenderCurrentRows();
+  }
+
+  function bindIgnoreControls(){
+    const toggle = document.getElementById("ignoreToggleBtn");
+    const clear = document.getElementById("ignoreClearBtn");
+    if(toggle && toggle.dataset.rsBound !== "1"){
+      toggle.dataset.rsBound = "1";
+      toggle.addEventListener("click", () => setIgnorePanelOpen(!ignorePanelOpen));
+    }
+    if(clear && clear.dataset.rsBound !== "1"){
+      clear.dataset.rsBound = "1";
+      clear.addEventListener("click", clearIgnoreFilters);
+    }
+    for(const button of Array.from(document.querySelectorAll(".ignore-option"))){
+      if(button.dataset.rsBound === "1") continue;
+      button.dataset.rsBound = "1";
+      button.addEventListener("click", () => toggleIgnoreFilter(button.dataset.ignoreFilter));
+    }
+    setIgnorePanelOpen(ignorePanelOpen);
   }
 
   function setHideMode(nextMode){
@@ -879,11 +983,8 @@
         if(item.hide_key) hiddenClassKeys.add(item.hide_key);
       });
       saveHiddenClassKeys();
-      lastHideLogResult = await logHideSelection(classes);
+      lastHideLogResult = { attempted:false, ok:true, source:"local_device_storage" };
       window.RS_WEC_LAST_HIDE_LOG_RESULT = lastHideLogResult;
-      if(lastHideLogResult.attempted && !lastHideLogResult.ok){
-        console.warn("[wec-mobile] hide log failed", lastHideLogResult.error);
-      }
       setHideMode(false);
       if(lastRaw){
         renderRows(parseJsonText(lastRaw, currentDataUrl || location.href));
@@ -1088,13 +1189,20 @@
           show_start_date: c.show_start_date || payload.show_start_date || "",
           show_end_date: c.show_end_date || payload.show_end_date || "",
           ring_number: ring.ring_no,
+          ring_no: c.ring_no ?? ring.ring_no,
+          ring_day_no: c.ring_day_no,
           ring_name: ring.ring_display,
+          ring_name_prioritized: c.ring_name_prioritized ?? ring.ring_name_prioritized ?? "",
+          ring_name_normalized: c.ring_name_normalized ?? ring.ring_name_normalized ?? "",
           class_group_id: String(c.class_no || ""),
           class_group_sequence: c.class_start_time || c.class_time || "",
           group_group_name: className,
           class_no: c.class_no,
           class_number: classNumber,
           class_name: className,
+          class_label: c.class_label,
+          is_2nd_trip: truthyFlag(c.is_2nd_trip),
+          is_medal: truthyFlag(c.is_medal),
           start_display: c.class_time,
           class_start_time: c.class_start_time,
           entry_count: c.entry_count,
@@ -1367,15 +1475,30 @@
 
   function buildRings(rows){
     const rings = Array.from(groupBy(rows, r => String(r.ring_number ?? r.ringNumber ?? "9999")).entries())
-      .map(([k, items]) => ({ ring_number: toInt(k) ?? 9999, items }))
-      .sort((a,b)=>a.ring_number - b.ring_number);
+      .map(([k, items]) => {
+        const first = items[0] || {};
+        return {
+          ring_number: toInt(k) ?? 9999,
+          ring_name_prioritized: String(first.ring_name_prioritized ?? first.ringNamePrioritized ?? "").trim(),
+          ring_title: String(first.ring_name ?? first.ringName ?? first.ring_nickname ?? first.ringNickname ?? "Ring").trim(),
+          items
+        };
+      })
+      .sort((a,b)=>{
+        if(a.ring_name_prioritized && b.ring_name_prioritized){
+          return a.ring_name_prioritized.localeCompare(b.ring_name_prioritized, undefined, { numeric:true, sensitivity:"base" });
+        }
+        if(a.ring_name_prioritized) return -1;
+        if(b.ring_name_prioritized) return 1;
+        return a.ring_title.localeCompare(b.ring_title, undefined, { numeric:true, sensitivity:"base" });
+      });
 
     const ringEls = [];
 
     for(let i=0;i<rings.length;i++){
       const ring = rings[i];
       const items0 = ring.items[0] || {};
-      const ringTitle = items0.ring_name ?? items0.ringName ?? items0.ring_nickname ?? items0.ringNickname ?? "Ring";
+      const ringTitle = ring.ring_title || (items0.ring_name ?? items0.ringName ?? items0.ring_nickname ?? items0.ringNickname ?? "Ring");
 
       const ringId = (Number.isFinite(ring.ring_number) && ring.ring_number !== 9999)
         ? `ring-${ring.ring_number}`
@@ -1443,7 +1566,7 @@
           const diffClass = String(c.diff_class ?? c.diffClass ?? "").split(/\s+/).filter(x => /^diff-[a-z0-9_-]+$/i.test(x)).join(" ");
 
           cl += `
-            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}">
+            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" data-is-2nd-trip="${truthyFlag(c.is_2nd_trip ?? c.is2ndTrip) ? "1" : "0"}" data-is-medal="${truthyFlag(c.is_medal ?? c.isMedal) ? "1" : "0"}">
               <div class="t">${timeHtml}</div>
               <div class="n">${esc(label)}</div>
               <div class="hide-cell"><input class="hide-check" type="checkbox" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" aria-label="Hide class ${esc(label)}"></div>
@@ -1692,6 +1815,7 @@
     renderFilters();
     setupActiveRingObserver();
     bindHideMode();
+    bindIgnoreControls();
 
     const firstVisibleRing = Array.from(document.querySelectorAll("section.ring"))
       .find(sec => sec.style.display !== "none");
@@ -1768,6 +1892,7 @@
     bindDateEdit();
     bindHorseEdits();
     bindHideMode();
+    bindIgnoreControls();
     await initialLoad();
     setInterval(pollForUpdates, POLL_MS);
   })().catch(err=>{

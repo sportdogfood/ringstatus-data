@@ -1281,7 +1281,6 @@ function countsSourceRow(row) {
 
 function classOogSourceRow(row, classRow = null, classTimeRow = null) {
   const classLabel = text(row.class_label || classRow?.class_label || classRow?.class_name || row.class_no);
-  const classParts = classPartsFromLabel(classLabel);
   const key = resultKey(row.show_no, row.class_no, row.current_entry_no || row.entry_no);
   if (!key) return null;
   return {
@@ -1292,9 +1291,9 @@ function classOogSourceRow(row, classRow = null, classTimeRow = null) {
     class_order: intValue(row.class_order || classTimeRow?.class_order),
     class_no: intValue(row.class_no),
     class_label: classLabel,
-    class_number: intValue(row.class_number || classParts.classNumber),
-    class_payout: text(row.class_payout || classParts.classPayout),
-    class_name: text(row.class_name || classParts.className),
+    class_number: intValue(row.class_number),
+    class_payout: text(row.class_payout),
+    class_name: text(row.class_name),
     entry_order: intValue(row.entry_order),
     entry_no: intValue(row.current_entry_no || row.entry_no),
     horse: text(row.current_horse || row.horse),
@@ -6298,7 +6297,6 @@ function classOogSourceRowCanonical(row, rawRow) {
   const ringNo = text(rawRow.ring_no);
   const classNo = text(row.class_no || rawRow.class_no);
   const classLabel = text(rawRow.class_label || row.class_label || classNo);
-  const classParts = classPartsFromLabel(classLabel);
   const key = canonicalClassOogKey(showNo, focusDay, ringDayNo, ringNo, classNo, entryNo);
   if (!key) return null;
   return {
@@ -6310,9 +6308,9 @@ function classOogSourceRowCanonical(row, rawRow) {
     ring_day_no: intValue(ringDayNo),
     class_no: intValue(classNo),
     class_label: classLabel,
-    class_number: intValue(row.class_number || classParts.classNumber),
-    class_payout: text(row.class_payout || classParts.classPayout),
-    class_name: text(row.class_name || classParts.className || classLabel),
+    class_number: intValue(row.class_number),
+    class_payout: text(row.class_payout),
+    class_name: text(row.class_name),
     entry_order: intValue(row.entry_order),
     entry_no: intValue(entryNo),
     horse: text(row.current_horse || row.horse),
@@ -6357,7 +6355,7 @@ function airtableClassOogFormula(showNo, focusDay, ringDayNo = "", ringNo = "", 
     `{show_no}=${Number(showNo)}`,
     `IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`
   ];
-  if (text(ringDayNo)) clauses.push(`{days}=${Number(ringDayNo)}`);
+  if (text(ringDayNo)) clauses.push(`{ring_day_no}=${Number(ringDayNo)}`);
   if (text(ringNo)) clauses.push(`{ring_no}=${Number(ringNo)}`);
   if (text(classNo)) clauses.push(`{class_no}=${Number(classNo)}`);
   return `AND(${clauses.join(",")})`;
@@ -6370,6 +6368,7 @@ function mapClassOogMirrorFields(row, trainerRecordIds = {}) {
     show_no: row.show_no,
     focus_day: row.focus_day,
     days: row.ring_day_no,
+    ring_day_no: row.ring_day_no,
     ring_no: row.ring_no,
     ring: row.ring,
     class_no: row.class_no,
@@ -6408,7 +6407,7 @@ function classOogStagingClassKeyFromFields(fields = {}) {
   return resultKey(
     fields.show_no,
     dateKey(fields.focus_day),
-    fields.days,
+    fields.ring_day_no,
     fields.ring_no,
     fields.class_no
   );
@@ -6418,7 +6417,7 @@ function classOogStagingEntryKeyFromFields(fields = {}) {
   return resultKey(
     fields.show_no,
     dateKey(fields.focus_day),
-    fields.days,
+    fields.ring_day_no,
     fields.ring_no,
     fields.class_no,
     fields.entry_no
@@ -6473,6 +6472,7 @@ function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
     show_no: intValue(fields.show_no),
     focus_day: dateKey(fields.focus_day),
     days: intValue(fields.days),
+    ring_day_no: intValue(fields.ring_day_no),
     ring_no: intValue(fields.ring_no),
     ring: text(fields.ring),
     class_no: intValue(fields.class_no),
@@ -6776,8 +6776,6 @@ async function parseStoredClassOogRawChunk(app, rawRecId, { activeTrainers = [],
 function classStartRowFromLockedStagingRow(row, focusDay) {
   const classStartTime = classStartTimeFromText(row.class_time_text || row.time_text);
   if (!focusDay || intOrNull(row.class_no) <= 0 || !classStartTime) return null;
-  const classLabel = text(row.class_label || row.class_name || row.event_name);
-  const classParts = classPartsFromLabel(classLabel);
   return {
     class_start_key: `${row.show_no}|${focusDay}|${row.ring_day_no}|${row.class_no}`,
     show_no: intValue(row.show_no),
@@ -6786,8 +6784,8 @@ function classStartRowFromLockedStagingRow(row, focusDay) {
     ring_no: intValue(row.ring_no),
     ring_name: text(row.ring_name),
     class_no: intValue(row.class_no),
-    class_name: text(row.class_name || classParts.className || classLabel),
-    class_number: intValue(classParts.classNumber || row.class_no),
+    class_name: text(row.class_name),
+    class_number: intValue(row.class_number || row.class_no),
     class_start_time: classStartTime,
     display_time: displayTimeFromStart(classStartTime),
     entry_count: intValue(row.entry_count),

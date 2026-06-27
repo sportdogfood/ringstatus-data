@@ -1,0 +1,1381 @@
+{
+  "status": "FAIL",
+  "final_status": "FAIL",
+  "final_pass": false,
+  "run_id": "wec-manual-proof-20260627201534263-217f8f39",
+  "run_time": "2026-06-27T20:15:34.263Z",
+  "caller_source": "manual_runner",
+  "proof_path_type": "manual_runner",
+  "active_show_no": "14907",
+  "active_focus_day": "2026-06-21",
+  "focus_day": "2026-06-21",
+  "source_control_record": "recLh1GS3VPfTe1z2",
+  "lanes_run": [
+    "stage2",
+    "helper_before"
+  ],
+  "lane_status": {
+    "schedule_staging": {
+      "lane": "schedule_staging",
+      "status": "PASS",
+      "rows_read": 81,
+      "rows_inserted": null,
+      "rows_updated": 81,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "helper_before": {
+      "lane": "helper_before",
+      "status": "PASS",
+      "rows_read": null,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "class_oog_class_start_times": {
+      "lane": "class_oog_class_start_times",
+      "status": "FAIL",
+      "rows_read": null,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": null,
+      "blocker": "child runner failed: Command failed: C:\\Program Files\\nodejs\\node.exe C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js --run-id=wec-manual-proof-20260627201534263-217f8f39 --run-time=2026-06-27T20:15:34.263Z\nTypeError: fetch failed\n    at node:internal/deps/undici/undici:14976:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async fetchText (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:43:22)\n    at async storeRaw (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:97:18)\n    at async main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:143:18)\nError: Command failed: C:\\Program Files\\nodejs\\node.exe C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js --show-no=14907 --focus-day=2026-06-21 --ring-day-no=3952 --ring-no=689 --ring-name=INDOOR 2 - Tracey --class-no=33556 --class-label= --staging-record-id=recr2bQE3uamAHaus --sync-url=https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/\nTypeError: fetch failed\n    at node:internal/deps/undici/undici:14976:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async fetchText (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:43:22)\n    at async storeRaw (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:97:18)\n    at async main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:143:18)\n\n    at genericNodeError (node:internal/errors:983:15)\n    at wrappedFn (node:internal/errors:537:14)\n    at checkExecSyncError (node:child_process:916:11)\n    at execFileSync (node:child_process:952:15)\n    at runClassOogRawFetch (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js:256:18)\n    at main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js:651:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n"
+    }
+  },
+  "failed_step": "class_oog_class_start_times",
+  "conflict_lane": "",
+  "blocker": "child runner failed: Command failed: C:\\Program Files\\nodejs\\node.exe C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js --run-id=wec-manual-proof-20260627201534263-217f8f39 --run-time=2026-06-27T20:15:34.263Z\nTypeError: fetch failed\n    at node:internal/deps/undici/undici:14976:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async fetchText (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:43:22)\n    at async storeRaw (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:97:18)\n    at async main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:143:18)\nError: Command failed: C:\\Program Files\\nodejs\\node.exe C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js --show-no=14907 --focus-day=2026-06-21 --ring-day-no=3952 --ring-no=689 --ring-name=INDOOR 2 - Tracey --class-no=33556 --class-label= --staging-record-id=recr2bQE3uamAHaus --sync-url=https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/\nTypeError: fetch failed\n    at node:internal/deps/undici/undici:14976:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async fetchText (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:43:22)\n    at async storeRaw (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:97:18)\n    at async main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\fetch_class_oog_raw.js:143:18)\n\n    at genericNodeError (node:internal/errors:983:15)\n    at wrappedFn (node:internal/errors:537:14)\n    at checkExecSyncError (node:child_process:916:11)\n    at execFileSync (node:child_process:952:15)\n    at runClassOogRawFetch (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js:256:18)\n    at main (C:\\Users\\gombc\\OneDrive - Sport Dog Food\\github\\repos\\ringstatus-data\\catalyst-workspaces\\horseshowing\\runners\\sync_class_oog_and_class_start_times.js:651:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n",
+  "stage2": {
+    "show_no": "14907",
+    "focus_day": "2026-06-21",
+    "run_id": "wec-manual-proof-20260627201534263-217f8f39",
+    "run_time": "2026-06-27T20:15:34.263Z",
+    "focus_show_record_id": "recLh1GS3VPfTe1z2",
+    "raw_update_schedule_rows": 92,
+    "canonical_source_rows": 81,
+    "active_staging_rows": 81,
+    "protected_stale_staging_rows": 9,
+    "total_staging_rows": 90,
+    "hs_update_schedule_rows_status": "not_applicable",
+    "non_mirror_counts_match": true,
+    "raw": {
+      "ok": true,
+      "action": "sync-focus-update-schedule-to-staging",
+      "source": "airtable.update_schedule",
+      "run_id": "wec-manual-proof-20260627201534263-217f8f39",
+      "run_time": "2026-06-27T20:15:34.263Z",
+      "focus_show_record_id": "recLh1GS3VPfTe1z2",
+      "source_control_record": "recLh1GS3VPfTe1z2",
+      "show_no": "14907",
+      "focus_day": "2026-06-21",
+      "rows_read": 81,
+      "rows_inserted": null,
+      "rows_updated": 81,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "ring_day_no_count": 9,
+      "raw_rows_stored": 0,
+      "parse_runs_completed": 0,
+      "hs_update_schedule_rows": null,
+      "update_schedule_rows": 92,
+      "update_schedule_staging_rows": 90,
+      "payload_row_count": 81,
+      "hs_update_schedule_stale_deleted": 0,
+      "update_schedule_stale_deleted": 0,
+      "confirm_delete_rows": 0,
+      "confirm_delete_catalyst_rows_deleted": 0,
+      "update_schedule_staging_stale_deleted": 0,
+      "update_schedule_staging_source_link_rows": 81,
+      "update_schedule_staging_source_link_missing": 0,
+      "update_schedule_staging_out_of_focus_marked_inactive": 0,
+      "parse_wec_log_rec_ids": [],
+      "ring_day_nos": [
+        "4228",
+        "3940",
+        "4223",
+        "3946",
+        "3952",
+        "3958",
+        "3964",
+        "4231",
+        "4304"
+      ],
+      "stage2c": {
+        "ok": true,
+        "action": "sync-update-schedule-staging-from-mirror",
+        "show_no": "14907",
+        "focus_day": "2026-06-21",
+        "source": "airtable.update_schedule",
+        "focus_show_control": {
+          "found": true,
+          "record_id": "recLh1GS3VPfTe1z2",
+          "is_pause": false,
+          "is_lock": true,
+          "run_id": "wec-stage1-stage2-20260627T201515247Z-1e742d1f",
+          "run_time": "2026-06-27T20:15:15.247Z"
+        },
+        "payload_rows": 81,
+        "update_schedule_rows": 92,
+        "update_schedule_staging_rows": 90,
+        "update_schedule_staging_upserts": 81,
+        "update_schedule_staging_stale_deleted": 0,
+        "update_schedule_staging_stale_marked_inactive": 9,
+        "update_schedule_staging_unprotected_stale_marked_inactive": 0,
+        "update_schedule_staging_protected_stale_preserved": 9,
+        "update_schedule_staging_protected_stale_marked": 9,
+        "update_schedule_staging_protected_stale_records": [
+          {
+            "id": "rec5IoZmDG8c0pl1U",
+            "key": "14907|2026-06-21|4304|751|30082",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldfg64i7x6nWynZw",
+              "fldG3nhLK46f5AwBN"
+            ]
+          },
+          {
+            "id": "rec5yTm1RtdTq8OkF",
+            "key": "14907|3946|688|63212|33638",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          },
+          {
+            "id": "rec8xJiBcWXaLItLl",
+            "key": "14907|3946|688|61283|29614",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN"
+            ]
+          },
+          {
+            "id": "recA2bbsYo2ATvWUe",
+            "key": "14907|3946|688|61284|29615",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          },
+          {
+            "id": "recBJb9FfngERaqxb",
+            "key": "14907|3946|688|63156|33618",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          },
+          {
+            "id": "recF3TPfIHHfFHsYh",
+            "key": "14907|3946|688|61282|29850",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          },
+          {
+            "id": "recS1K9uWbrUeUjRf",
+            "key": "14907|3946|688|63213|33639",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          },
+          {
+            "id": "recshtYSac86QkfcB",
+            "key": "14907|3946|688|63179|33634",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN"
+            ]
+          },
+          {
+            "id": "recyjM3zzEI3M88uN",
+            "key": "14907|3946|688|63180|33635",
+            "protected_fields": [
+              "fldr7WPbgPFfPuctf",
+              "fldiW1dfQrPSFiNvv",
+              "fldg6ox15s03Sw9xk",
+              "fldTVsQTkDsDvKyPz",
+              "fldz3HXUIVufTOlYm",
+              "flds4Y7IP8eN7JrP1",
+              "fld57nJX8y2bOTMcw",
+              "fldtUb2tiJvBNHdsD",
+              "fldNEtTH1zyeZUGaW",
+              "fld6RM2CwUYf3GSGK",
+              "fldG3nhLK46f5AwBN",
+              "fldhm0o81Yt8pArFS"
+            ]
+          }
+        ],
+        "update_schedule_staging_out_of_focus_inactive_checked": 0,
+        "update_schedule_staging_out_of_focus_marked_inactive": 0,
+        "update_schedule_staging_helper_link_rows_checked": 81,
+        "update_schedule_staging_helper_link_records_updated": 0,
+        "update_schedule_staging_helper_links_populated": 0,
+        "update_schedule_staging_helper_links_by_field": {},
+        "update_schedule_staging_helper_link_blocking_misses": 0,
+        "update_schedule_staging_helper_link_silent_misses": 81,
+        "update_schedule_staging_helper_link_not_relevant": 8,
+        "update_schedule_staging_helper_link_mappings_skipped": [],
+        "update_schedule_staging_evaluator_rows_read": 90,
+        "update_schedule_staging_evaluator_rows_processed": 90,
+        "update_schedule_staging_evaluator_records_updated": 0,
+        "update_schedule_staging_evaluator_class_ranges": {
+          "helper_rows_read": 15,
+          "rows_with_class_number_range": 82,
+          "rows_matched": 82
+        },
+        "update_schedule_staging_evaluator_helper_links": {
+          "ages": {
+            "helper_table": "ages",
+            "source_field": "this_ages",
+            "rows_read": 6,
+            "rows_with_formula_values": 19,
+            "rows_with_matches": 19,
+            "links_matched": 19,
+            "unmatched_values": []
+          },
+          "skills": {
+            "helper_table": "skills",
+            "source_field": "this_skills",
+            "rows_read": 19,
+            "rows_with_formula_values": 39,
+            "rows_with_matches": 39,
+            "links_matched": 70,
+            "unmatched_values": []
+          },
+          "levels": {
+            "helper_table": "levels",
+            "source_field": "this_levels",
+            "rows_read": 20,
+            "rows_with_formula_values": 69,
+            "rows_with_matches": 69,
+            "links_matched": 113,
+            "unmatched_values": []
+          },
+          "sizes": {
+            "helper_table": "sizes",
+            "source_field": "this_sizes",
+            "rows_read": 3,
+            "rows_with_formula_values": 10,
+            "rows_with_matches": 10,
+            "links_matched": 14,
+            "unmatched_values": []
+          },
+          "heights": {
+            "helper_table": "heights",
+            "source_field": "this_heights",
+            "rows_read": 20,
+            "rows_with_formula_values": 28,
+            "rows_with_matches": 28,
+            "links_matched": 28,
+            "unmatched_values": []
+          },
+          "disciplines": {
+            "helper_table": "disciplines",
+            "source_field": "this_disciplines",
+            "rows_read": 3,
+            "rows_with_formula_values": 79,
+            "rows_with_matches": 79,
+            "links_matched": 79,
+            "unmatched_values": []
+          }
+        },
+        "update_schedule_staging_evaluator_rs_class_name": {
+          "rows_built": 82,
+          "token_order": [
+            "levels",
+            "ages",
+            "sizes",
+            "skills",
+            "disciplines",
+            "heights"
+          ]
+        },
+        "update_schedule_staging_source_link_rows_checked": 81,
+        "update_schedule_staging_source_link_rows": 81,
+        "update_schedule_staging_source_link_missing": 0,
+        "update_schedule_staging_active_canonical_rows": 81,
+        "update_schedule_staging_active_unique_keys": 81,
+        "update_schedule_staging_active_duplicate_groups": 0,
+        "update_schedule_staging_protected_stale_rows": 9,
+        "update_schedule_staging_rows_before": 90,
+        "update_schedule_staging_unique_keys_before": 81,
+        "update_schedule_staging_duplicate_groups_before": 0,
+        "update_schedule_staging_dedupe_groups_processed": 0,
+        "update_schedule_staging_dedupe_groups_merged": 0,
+        "update_schedule_staging_dedupe_groups_skipped_due_to_conflict": 0,
+        "update_schedule_staging_conflict_detail": [],
+        "update_schedule_staging_dedupe_deleted": 0,
+        "update_schedule_staging_dedupe_marked_inactive": 0,
+        "update_schedule_staging_protected_values_merged": 0,
+        "update_schedule_staging_checkbox_true_values_preserved": 0,
+        "update_schedule_staging_links_unioned": 0
+      }
+    }
+  },
+  "helper_before": {
+    "pass": true,
+    "records_deleted": 0,
+    "links_cleared": 0,
+    "raw": {
+      "ok": true,
+      "action": "repair-allowed-helpers-links",
+      "active_show_no": "14907",
+      "active_focus_day": "2026-06-21",
+      "allowed_helpers_active_mappings": 53,
+      "target_tables_supported": [
+        "update_schedule_staging",
+        "class_oog",
+        "class_start_times",
+        "entry_go_times",
+        "get_rings",
+        "get_orders"
+      ],
+      "target_tables_repaired": [
+        "class_oog",
+        "entry_go_times"
+      ],
+      "rows_checked": {
+        "update_schedule_staging": 80,
+        "class_oog": 28,
+        "class_start_times": 72,
+        "entry_go_times": 28,
+        "get_rings": 50,
+        "get_orders": 55
+      },
+      "links_populated_by_table": {
+        "update_schedule_staging": 0,
+        "class_oog": 84,
+        "class_start_times": 0,
+        "entry_go_times": 1,
+        "get_rings": 0,
+        "get_orders": 0
+      },
+      "links_populated_by_helper": {
+        "rings": 28,
+        "entries": 29,
+        "classes": 28
+      },
+      "field_checks": {
+        "class_oog.class_order": true,
+        "class_start_times.n_gone": true,
+        "class_start_times.n_to_go": true,
+        "class_start_times.pace_seconds": true,
+        "class_start_times.current_entry_no": true,
+        "class_start_times.current_horse": true,
+        "get_rings.n_standings": true
+      },
+      "silent_misses": [
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec5yTm1RtdTq8OkF",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec8xJiBcWXaLItLl",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recA2bbsYo2ATvWUe",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recBJb9FfngERaqxb",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recF3TPfIHHfFHsYh",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recS1K9uWbrUeUjRf",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recshtYSac86QkfcB",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recyjM3zzEI3M88uN",
+          "target_link_field": "dows",
+          "source_value": "SUN | 14907|SUN",
+          "helper_table": "dows",
+          "helper_key_field": "dow",
+          "matches": 0,
+          "reason": "no match"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec0UgIqZ26YeaaCL",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec1IwTivRVrZSoz4",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec3DApVdhqA6ExQd",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec3nWmnUJYYfaOfq",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec3wM0lJxbtm6XrT",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec40kEVVcAgpvvSj",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec5yTm1RtdTq8OkF",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec6ki4JraadmYLiR",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec6obu9n0mg3HQPp",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec6wMTi94T8ngkdx",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec70SA6fouXL64so",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec7Vn8agAIMFIpk2",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec8DSIJN9YPVJNLs",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec8xJiBcWXaLItLl",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rec9IlghSjzUxH3WP",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recA2bbsYo2ATvWUe",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recAKL934Wv0n6ZOf",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recBAFXkaacspbQk6",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recBJb9FfngERaqxb",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recDb1KriPmKgom6d",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recE01IbexNyMdAlH",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recEE0XGtLpojB5Ti",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recEGlIGqROyJTmO6",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recF3TPfIHHfFHsYh",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recFRn6VS2Xv6o1vG",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recFWW7JMrzT5qgLa",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recJhmUjDcJytjhin",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recKNHa7257MfugYp",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recLRpEX6Tg8pqibU",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recMD9rCckKxV05f2",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recMvQEMZpFEXVU3E",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recNBNNImFBNik7UI",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recOiV1XJRY2mN7r3",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recOosMDPLY1a6hyD",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recQE0t2WUFrzHdrp",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recQyTXOofYpebYYs",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recS1K9uWbrUeUjRf",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recScXC7RkUzyvfZy",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recTHs9rlE3TdZsxS",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recU6iQjhLLW8XAb7",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recUJlC7mtKbWjMpp",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recV29DlLWajxHyAW",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recVmLrfTzVCOQwLJ",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recWS6RFHkC4nPMtw",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recZGBuxYy8f0ZVsX",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recaIfHYZCxXD27c3",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recanPvZRnGjwm7zF",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recbGFrLtYfjydSPk",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recdbSnoEOWlQkcVX",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rece5flUX5FlhmhSN",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "receBUrlJmuy3Wjcl",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recePbQCKAHXSqFPP",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recezo8ZDJZmDHbfp",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recgLXWeZthayOdtn",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rechGfkfR6nT7xyQC",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rechpxj7VQc8sMxCg",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recjgHE2qLoQX8L1M",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "reckh25BuDj84fHdC",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recktVMP67LQWWjaE",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recl86mYXE8eIHvCq",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "reclIWLoJREJiSerA",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "reclmU3OEHUhyacH1",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recmlZOBANYMiCDjC",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recnNZrFTB4XeT95Y",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recocaiC0dZJeJW4a",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recoiMHsuZLmUifLk",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recoifQEhDoWXwr6e",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recp22jGgcOqOJNkr",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recpZHMLF4e7a3Fx5",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recplIXPPh5RX5vw2",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recpu6UUNdWdma8kS",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recr2bQE3uamAHaus",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recshtYSac86QkfcB",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rectiu9JLtmGpDUUa",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "rectruKfAvA1FTJRd",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recuszMD016r85JhX",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recv0GNG7fpEgNwuf",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recwfViXjy6X3yINS",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recxX5Rjkd3HvdtSY",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        },
+        {
+          "target_table": "update_schedule_staging",
+          "record_id": "recyjM3zzEI3M88uN",
+          "target_link_field": "horses",
+          "source_value": "",
+          "helper_table": "horses",
+          "helper_key_field": "horse",
+          "matches": 0,
+          "reason": "blank source value"
+        }
+      ],
+      "silent_miss_count": 88,
+      "blocking_misses": [],
+      "show_days_misses": [],
+      "ambiguous_matches": [],
+      "ambiguous_match_count": 0,
+      "horse_duplicate_ambiguous_groups": [],
+      "records_updated": 29,
+      "rows_deleted": 0,
+      "links_cleared": 0,
+      "duplicate_helper_records_created": 0,
+      "mappings_skipped": [
+        {
+          "mapping": "rec8cs3aB8Ssr6yWW",
+          "target_table": "class_start_times",
+          "target_link_field": "horses",
+          "reason": "target link field not found"
+        },
+        {
+          "mapping": "recFDV5LebvdIFMmH",
+          "target_table": "class_start_times",
+          "target_link_field": "entries",
+          "reason": "target link field not found"
+        },
+        {
+          "mapping": "recYaFLfsAKXgHpar",
+          "target_table": "class_start_times",
+          "target_link_field": "show_days",
+          "reason": "target link field not found"
+        },
+        {
+          "mapping": "recZ30LxnvihHuoHK",
+          "target_table": "class_oog",
+          "target_link_field": "dows",
+          "reason": "target link field not found"
+        }
+      ]
+    }
+  },
+  "class_oog_class_start_times": null,
+  "entry_go_times": null,
+  "helper_after": null,
+  "records_deleted_total": 0,
+  "links_cleared_total": 0,
+  "publisher_included": false,
+  "publisher_placeholder_reason": "publisher not wired in manual proof path",
+  "mobile_changed": "no",
+  "print_changed": "no",
+  "alerts_changed": "no",
+  "results_changed": "no",
+  "rich_api_changed": "no",
+  "sms_changed": "no"
+}

@@ -2,8 +2,8 @@
   "ok": true,
   "action": "repair-allowed-helpers-links",
   "active_show_no": "14907",
-  "active_focus_day": "2026-06-20",
-  "allowed_helpers_active_mappings": 52,
+  "active_focus_day": "2026-06-21",
+  "allowed_helpers_active_mappings": 53,
   "target_tables_supported": [
     "update_schedule_staging",
     "class_oog",
@@ -14,12 +14,12 @@
   ],
   "target_tables_repaired": [],
   "rows_checked": {
-    "update_schedule_staging": 84,
-    "class_oog": 0,
-    "class_start_times": 0,
-    "entry_go_times": 0,
-    "get_rings": 0,
-    "get_orders": 0
+    "update_schedule_staging": 80,
+    "class_oog": 28,
+    "class_start_times": 72,
+    "entry_go_times": 28,
+    "get_rings": 50,
+    "get_orders": 55
   },
   "links_populated_by_table": {
     "update_schedule_staging": 0,
@@ -42,9 +42,9 @@
   "silent_misses": [
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec05SuxNDMCXq2mF",
+      "record_id": "rec5yTm1RtdTq8OkF",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -52,9 +52,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec0Yl5zwLKgw77Fb",
+      "record_id": "rec8xJiBcWXaLItLl",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -62,9 +62,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec0rLVswAv4owqLs",
+      "record_id": "recA2bbsYo2ATvWUe",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -72,9 +72,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec1F2XzGIarm0LFr",
+      "record_id": "recBJb9FfngERaqxb",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -82,9 +82,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec2YurYqvOz5Vo9V",
+      "record_id": "recF3TPfIHHfFHsYh",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -92,9 +92,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec40fI42GztER6HF",
+      "record_id": "recS1K9uWbrUeUjRf",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -102,9 +102,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec4BCL2ZYO71wrl2",
+      "record_id": "recshtYSac86QkfcB",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -112,9 +112,9 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec4kfGMjOW0t6bF3",
+      "record_id": "recyjM3zzEI3M88uN",
       "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
+      "source_value": "SUN | 14907|SUN",
       "helper_table": "dows",
       "helper_key_field": "dow",
       "matches": 0,
@@ -122,767 +122,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec6S2exEXQqhymWP",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "rec8G86AjsjAbrw5n",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "rec9gRR6m02V4lAe7",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "rec9i49h2WnCF7StB",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "rec9y8POV4oELY1OJ",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recAYSUy8WtFB79Cr",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recAhVf27TbtH7yPy",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recArEUryj86hToch",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recBKkqcssdTrEypJ",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recBh0iJTrzZ1bYKE",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recC9UYasbYgDsUWZ",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recCeOl50AnM5GAA9",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recCpX6GEowJyjhEI",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recD9URpx9j9RkZfx",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recDcWToam039adh5",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recF36dMz6WANMzVp",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recFwpXq2iFx8g0li",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recH7V0A4Unogo5hG",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recHCTSuRcG4GT2KA",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recI6z4g3RX5rNhou",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recIeJQWGAOfWkiqI",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recIihTJXc22gFId8",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recIlmh8Tko3REYxH",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recKgUsOHMNSDlIdW",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recLAvWeiX9SC7dLL",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recLUedei3KfQ9bTC",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recLbKoRdPJfhTslH",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recLkov4BS08aKyR9",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recMmzng5Ja6GpCd9",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recMv3N5bH3PIGcPG",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recNN6nNul3xSgkm2",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recNf1iJ2sl1ks6Yy",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recOw6E16hH5CxYx1",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recP9KbdiP1klcb8r",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recPhoN0Ryb9YHDfm",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recQKrMn5VocyW3h4",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recQQPrWNZdVUyP3R",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recRRolpv6tozbuaw",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recRbLfWYwVCoDrT7",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recS7wZEy33ARZzDi",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recV2QD5E2zQewCeZ",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recV6pqYNqTWMrmp8",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recVRvHBy4DTEUZ8X",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recWRKyqyeOF2vc3S",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recWv03alVLKIciCt",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recXS1aAoTgFmm3b6",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recYSfFr20REPglYv",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recYfzOJ3bOvifhFl",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recYzwIdcZXY5Svbz",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recZ10JVn0QomLH56",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recZy3Kijoq5Nt2pd",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recb23VZHuVarTMP3",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recbJagtcXOTRdzq6",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recbRmdtwBEGd4Irz",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "reccD48mvSB5HCL6C",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recdMIk97LPwQTDAo",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "receZVWKLh6GrllVu",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recekHRFADgnO3NNA",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recg3NAelEuNP0FC0",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recgnBphR6VI3utJs",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recgoFkkBPGglDEYY",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recheqyXSRko3Tdyu",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "reciz9HrnRToDemKu",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recnI8Dg8UXrf5pUS",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recowkiTXoD7mZzun",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recoy9Gp648uy41rY",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recqdDWGq0hoHgiy7",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recqpGHEkO4BBbmfm",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recr8u1kDoLCI0u0b",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recw8m19dAgwTrYYh",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recx77UJzA3EEl5rv",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recxmhEsLNk4EdO4a",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recyOA8I9FmPBWcqE",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recz2GQHXbXb0lL93",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "recz3L2mn3rklrLQA",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "reczaSrbOtl10lhGq",
-      "target_link_field": "dows",
-      "source_value": "SAT | 14907|SAT",
-      "helper_table": "dows",
-      "helper_key_field": "dow",
-      "matches": 0,
-      "reason": "no match"
-    },
-    {
-      "target_table": "update_schedule_staging",
-      "record_id": "rec05SuxNDMCXq2mF",
+      "record_id": "rec0UgIqZ26YeaaCL",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -892,7 +132,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec0Yl5zwLKgw77Fb",
+      "record_id": "rec1IwTivRVrZSoz4",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -902,7 +142,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec0rLVswAv4owqLs",
+      "record_id": "rec3DApVdhqA6ExQd",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -912,7 +152,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec1F2XzGIarm0LFr",
+      "record_id": "rec3nWmnUJYYfaOfq",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -922,7 +162,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec2YurYqvOz5Vo9V",
+      "record_id": "rec3wM0lJxbtm6XrT",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -932,7 +172,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec40fI42GztER6HF",
+      "record_id": "rec40kEVVcAgpvvSj",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -942,7 +182,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec4BCL2ZYO71wrl2",
+      "record_id": "rec5yTm1RtdTq8OkF",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -952,7 +192,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec4kfGMjOW0t6bF3",
+      "record_id": "rec6ki4JraadmYLiR",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -962,7 +202,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec6S2exEXQqhymWP",
+      "record_id": "rec6obu9n0mg3HQPp",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -972,7 +212,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec8G86AjsjAbrw5n",
+      "record_id": "rec6wMTi94T8ngkdx",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -982,7 +222,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec9gRR6m02V4lAe7",
+      "record_id": "rec70SA6fouXL64so",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -992,7 +232,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec9i49h2WnCF7StB",
+      "record_id": "rec7Vn8agAIMFIpk2",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -1002,7 +242,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "rec9y8POV4oELY1OJ",
+      "record_id": "rec8DSIJN9YPVJNLs",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -1012,7 +252,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "recAYSUy8WtFB79Cr",
+      "record_id": "rec8xJiBcWXaLItLl",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -1022,7 +262,7 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "recAhVf27TbtH7yPy",
+      "record_id": "rec9IlghSjzUxH3WP",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -1032,7 +272,647 @@
     },
     {
       "target_table": "update_schedule_staging",
-      "record_id": "recArEUryj86hToch",
+      "record_id": "recA2bbsYo2ATvWUe",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recAKL934Wv0n6ZOf",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recBAFXkaacspbQk6",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recBJb9FfngERaqxb",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recDb1KriPmKgom6d",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recE01IbexNyMdAlH",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recEE0XGtLpojB5Ti",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recEGlIGqROyJTmO6",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recF3TPfIHHfFHsYh",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recFRn6VS2Xv6o1vG",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recFWW7JMrzT5qgLa",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recJhmUjDcJytjhin",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recKNHa7257MfugYp",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recLRpEX6Tg8pqibU",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recMD9rCckKxV05f2",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recMvQEMZpFEXVU3E",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recNBNNImFBNik7UI",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recOiV1XJRY2mN7r3",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recOosMDPLY1a6hyD",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recQE0t2WUFrzHdrp",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recQyTXOofYpebYYs",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recS1K9uWbrUeUjRf",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recScXC7RkUzyvfZy",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recTHs9rlE3TdZsxS",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recU6iQjhLLW8XAb7",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recUJlC7mtKbWjMpp",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recV29DlLWajxHyAW",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recVmLrfTzVCOQwLJ",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recWS6RFHkC4nPMtw",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recZGBuxYy8f0ZVsX",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recaIfHYZCxXD27c3",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recanPvZRnGjwm7zF",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recbGFrLtYfjydSPk",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recdbSnoEOWlQkcVX",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "rece5flUX5FlhmhSN",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "receBUrlJmuy3Wjcl",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recePbQCKAHXSqFPP",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recezo8ZDJZmDHbfp",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recgLXWeZthayOdtn",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "rechGfkfR6nT7xyQC",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "rechpxj7VQc8sMxCg",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recjgHE2qLoQX8L1M",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "reckh25BuDj84fHdC",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recktVMP67LQWWjaE",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recl86mYXE8eIHvCq",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "reclIWLoJREJiSerA",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "reclmU3OEHUhyacH1",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recmlZOBANYMiCDjC",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recnNZrFTB4XeT95Y",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recocaiC0dZJeJW4a",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recoiMHsuZLmUifLk",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recoifQEhDoWXwr6e",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recp22jGgcOqOJNkr",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recpZHMLF4e7a3Fx5",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recplIXPPh5RX5vw2",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recpu6UUNdWdma8kS",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recr2bQE3uamAHaus",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recshtYSac86QkfcB",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "rectiu9JLtmGpDUUa",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "rectruKfAvA1FTJRd",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recuszMD016r85JhX",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recv0GNG7fpEgNwuf",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recwfViXjy6X3yINS",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recxX5Rjkd3HvdtSY",
+      "target_link_field": "horses",
+      "source_value": "",
+      "helper_table": "horses",
+      "helper_key_field": "horse",
+      "matches": 0,
+      "reason": "blank source value"
+    },
+    {
+      "target_table": "update_schedule_staging",
+      "record_id": "recyjM3zzEI3M88uN",
       "target_link_field": "horses",
       "source_value": "",
       "helper_table": "horses",
@@ -1041,7 +921,7 @@
       "reason": "blank source value"
     }
   ],
-  "silent_miss_count": 168,
+  "silent_miss_count": 88,
   "blocking_misses": [],
   "show_days_misses": [],
   "ambiguous_matches": [],
@@ -1053,33 +933,9 @@
   "duplicate_helper_records_created": 0,
   "mappings_skipped": [
     {
-      "mapping": "rec2ILVN1UL9WgkEP",
-      "target_table": "get_orders",
-      "target_link_field": "show_days",
-      "reason": "target link field not found"
-    },
-    {
-      "mapping": "rec3BfiuyRb1FPEhX",
-      "target_table": "class_oog",
-      "target_link_field": "events",
-      "reason": "target link field not found"
-    },
-    {
-      "mapping": "rec5FKz9jYjZTDZzT",
-      "target_table": "entry_go_times",
-      "target_link_field": "show_days",
-      "reason": "target link field not found"
-    },
-    {
       "mapping": "rec8cs3aB8Ssr6yWW",
       "target_table": "class_start_times",
       "target_link_field": "horses",
-      "reason": "target link field not found"
-    },
-    {
-      "mapping": "rec8srbHCkoQpGU46",
-      "target_table": "get_rings",
-      "target_link_field": "show_days",
       "reason": "target link field not found"
     },
     {
@@ -1101,5 +957,5 @@
       "reason": "target link field not found"
     }
   ],
-  "success_at": "2026-06-20T03:44:15.858Z"
+  "success_at": "2026-06-27T20:56:46.111Z"
 }

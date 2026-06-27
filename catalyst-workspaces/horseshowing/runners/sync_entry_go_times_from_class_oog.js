@@ -334,6 +334,8 @@ async function main() {
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
   const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
   if (!token) throw new Error("AIRTABLE_TOKEN required");
+  const runId = args["run-id"] || args.run_id || process.env.WEC_RUN_ID || "";
+  const runTime = args["run-time"] || args.run_time || process.env.WEC_RUN_TIME || "";
 
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const meta = await airtableMeta(baseId, token);
@@ -418,8 +420,17 @@ async function main() {
   const summary = {
     ok: missingAfter.length === 0 && entryAfterRows.length === sourceRows.length && entryAfterRows.length === entryAfterKeys.size,
     source: "class_oog_staging.entry_go_times",
+    run_id: runId,
+    run_time: runTime,
     active_show_no: focus.show_no,
     active_focus_day: focus.focus_day,
+    focus_show_record_id: focus.record.id,
+    source_control_record: focus.record.id,
+    rows_read: sourceRows.length,
+    rows_inserted: created,
+    rows_updated: updated,
+    rows_skipped_unchanged: null,
+    rows_deleted: deleted,
     source_rows: sourceRows.length,
     class_oog_staging_count_before: sourceRows.length,
     class_oog_count_before: sourceRows.length,

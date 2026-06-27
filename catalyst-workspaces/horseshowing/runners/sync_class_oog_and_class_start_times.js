@@ -65,6 +65,10 @@ function classOogRawKey(row) {
   return canonicalClassKey(row);
 }
 
+function rawRowParsed(row) {
+  return text(row?.parse_status).toLowerCase() === "parsed";
+}
+
 async function fetchJson(url, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Number(options.timeout_ms || 60000));
@@ -193,8 +197,8 @@ async function getLockedStagingRows(baseId, token, showNo, focusDay, sourceView 
         ring_no: text(fields.ring_no),
         ring_name: text(fields.ring_name),
         class_no: text(fields.class_no),
-        class_label: text(fields.class_label || fields.event_name || fields.class_name),
-        class_name: text(fields.class_name || fields.event_name),
+        class_label: text(fields.class_label),
+        class_name: text(fields.class_name),
         time_text: text(fields.time_text),
         class_time_text: text(fields.time_text),
         entry_count: fields.entry_count,
@@ -332,7 +336,7 @@ function classKeyFromClassOogRow(row) {
   return canonicalClassKey({
     show_no: fields.show_no,
     focus_day: fields.focus_day,
-    ring_day_no: fields.days,
+    ring_day_no: fields.ring_day_no,
     ring_no: fields.ring_no,
     class_no: fields.class_no
   });
@@ -364,6 +368,7 @@ function mapCatalystClassOogToAirtableFields(row, trainerRecordIds = {}) {
     show_no: optionalNumber(row.show_no),
     focus_day: dateKey(row.focus_day),
     days: optionalNumber(row.ring_day_no),
+    ring_day_no: optionalNumber(row.ring_day_no),
     ring_no: optionalNumber(row.ring_no),
     ring: text(row.ring),
     class_no: optionalNumber(row.class_no),
@@ -402,8 +407,13 @@ async function main() {
   const baseId = args["base-id"] || args.base_id || process.env.WEC_AIRTABLE_BASE_ID || DEFAULT_BASE_ID;
   const token = args["airtable-token"] || args.airtable_token || process.env.AIRTABLE_TOKEN;
   if (!token) throw new Error("AIRTABLE_TOKEN required");
+  const runId = args["run-id"] || args.run_id || process.env.WEC_RUN_ID || "";
+  const runTime = args["run-time"] || args.run_time || process.env.WEC_RUN_TIME || "";
   const syncUrl = args["sync-url"] || args.sync_url || DEFAULT_SYNC_URL;
   const rawRunnerPath = args["class-oog-raw-runner"] || path.join(__dirname, "fetch_class_oog_raw.js");
+  const forceRawRefetch = args["force-raw-refetch"] === "1"
+    || args.force_raw_refetch === "1"
+    || process.env.WEC_FORCE_CLASS_OOG_RAW_REFETCH === "1";
   const focus = await getActiveFocusShow(baseId, token, args["show-no"] || args.show_no || "");
   const activeTrainerData = await getActiveTrainers(baseId, token);
   const stagingSourceView = (args["class-start-times-only"] || args.class_start_times_only) ? "class_start_times" : "class_oog";
@@ -413,8 +423,12 @@ async function main() {
     process.stdout.write(`${JSON.stringify({
       ok: sourceStats.active_canonical_rows === sourceStats.unique_canonical_keys && sourceStats.active_duplicate_groups === 0,
       action: "verify-class-source-filter",
+      run_id: runId,
+      run_time: runTime,
       show_no: focus.show_no,
       focus_day: focus.focus_day,
+      focus_show_record_id: focus.record_id,
+      source_control_record: focus.record_id,
       field_based_filter: "show_no + iso_date + inactive!=true + (confirm_lock OR is_lock OR lock) + ring_day_no + ring_no + class_no",
       total_staging_rows: sourceStats.total_staging_rows,
       active_canonical_rows: sourceStats.active_canonical_rows,
@@ -446,10 +460,19 @@ async function main() {
     const summary = {
       ok: catalystClassStartRows.length === classStartAirtableRows.length && requiredFieldsPopulated,
       action: "sync-class-start-times-only",
+      run_id: runId,
+      run_time: runTime,
       source_view: "update_schedule_staging.class_start_times",
       target_table: "class_start_times",
       show_no: focus.show_no,
       focus_day: focus.focus_day,
+      focus_show_record_id: focus.record_id,
+      source_control_record: focus.record_id,
+      rows_read: lockedRows.length,
+      rows_inserted: null,
+      rows_updated: null,
+      rows_skipped_unchanged: null,
+      rows_deleted: Number(classStart.hs_class_start_times_stale_deleted || 0) + Number(classStart.class_start_times_stale_deleted || 0),
       source_count: lockedRows.length,
       target_active_count: classStartAirtableRows.length,
       required_fields_populated: requiredFieldsPopulated,
@@ -473,7 +496,12 @@ async function main() {
   if (args["class-oog-only"] || args.class_oog_only) {
     const rawRows = await getClassOogRawRows(syncUrl, focus.show_no, focus.focus_day);
     const rawByKey = new Map(rawRows.map((row) => [text(row.raw_key), row]).filter(([key]) => key));
-    const nextFetchRow = targetRows.find((row) => !rawByKey.has(classOogRawKey(row)));
+    const parsedRawKeys = new Set(targetRows
+      .map((row) => rawByKey.get(classOogRawKey(row)))
+      .filter(rawRowParsed)
+      .map((row) => text(row.raw_key))
+      .filter(Boolean));
+    const nextFetchRow = targetRows.find((row) => forceRawRefetch || !rawByKey.has(classOogRawKey(row)));
     if (nextFetchRow) {
       const stored = runClassOogRawFetch({
         runnerPath: rawRunnerPath,
@@ -485,14 +513,26 @@ async function main() {
       const summary = {
         ok: true,
         action: "sync-class-oog-only",
+        run_id: runId,
+        run_time: runTime,
         bounded_unit: "fetch",
         resumable: true,
         source_view: "update_schedule_staging.class_oog",
         target_table: "class_oog",
         show_no: focus.show_no,
         focus_day: focus.focus_day,
+        focus_show_record_id: focus.record_id,
+        source_control_record: focus.record_id,
+        rows_read: targetRows.length,
+        rows_inserted: null,
+        rows_updated: null,
+        rows_skipped_unchanged: null,
+        rows_deleted: null,
         source_count: targetRows.length,
         raw_rows_before: rawRows.length,
+        skipped_existing_raw: forceRawRefetch ? 0 : parsedRawKeys.size,
+        raw_fetches_attempted: 1,
+        raw_parse_runs_attempted: 0,
         raw_rec_id: stored.raw_rec_id,
         raw_key: stored.raw_key,
         ring_day_no: nextFetchRow.ring_day_no,
@@ -510,19 +550,31 @@ async function main() {
     const sourceKeys = new Set(targetRows.map(classOogRawKey).filter(Boolean));
     const nextRawRow = rawRows
       .filter((row) => sourceKeys.has(text(row.raw_key)))
-      .find((row) => text(row.parse_status).toLowerCase() !== "parsed");
+      .find((row) => !rawRowParsed(row));
     if (nextRawRow) {
       const parsed = await parseClassOogRaw(syncUrl, focus.show_no, nextRawRow.ROWID, activeTrainerData);
       const summary = {
         ok: true,
         action: "sync-class-oog-only",
+        run_id: runId,
+        run_time: runTime,
         bounded_unit: "parse",
         resumable: true,
         source_view: "update_schedule_staging.class_oog",
         target_table: "class_oog",
         show_no: focus.show_no,
         focus_day: focus.focus_day,
+        focus_show_record_id: focus.record_id,
+        source_control_record: focus.record_id,
+        rows_read: targetRows.length,
+        rows_inserted: null,
+        rows_updated: null,
+        rows_skipped_unchanged: null,
+        rows_deleted: Number(parsed.hs_class_oog_stale_deleted || 0) + Number(parsed.class_oog_stale_deleted || 0),
         source_count: targetRows.length,
+        skipped_existing_raw: forceRawRefetch ? 0 : parsedRawKeys.size,
+        raw_fetches_attempted: 0,
+        raw_parse_runs_attempted: 1,
         raw_rec_id: nextRawRow.ROWID,
         raw_key: nextRawRow.raw_key,
         ring_day_no: nextRawRow.ring_day_no,
@@ -568,14 +620,26 @@ async function main() {
         && catalystClassOogRows.length === classOogAirtableRows.length
         && requiredFieldsPopulated,
       action: "sync-class-oog-only",
+      run_id: runId,
+      run_time: runTime,
       bounded_unit: "complete",
       resumable: true,
       source_view: "update_schedule_staging.class_oog",
       target_table: "class_oog",
       show_no: focus.show_no,
       focus_day: focus.focus_day,
+      focus_show_record_id: focus.record_id,
+      source_control_record: focus.record_id,
+      rows_read: targetRows.length,
+      rows_inserted: reconciled.created.length,
+      rows_updated: null,
+      rows_skipped_unchanged: null,
+      rows_deleted: null,
       source_count: targetRows.length,
       raw_rows: rawRows.length,
+      skipped_existing_raw: forceRawRefetch ? 0 : parsedRawKeys.size,
+      raw_fetches_attempted: 0,
+      raw_parse_runs_attempted: 0,
       target_active_count: classOogAirtableRows.length,
       keys_match: extraActiveTargetRows.length === 0,
       extra_active_target_rows: extraActiveTargetRows,
@@ -604,20 +668,54 @@ async function main() {
     if (!summary.ok) throw new Error("class_oog-only sync did not reconcile source and target");
     return;
   }
+  const rawRows = await getClassOogRawRows(syncUrl, focus.show_no, focus.focus_day);
+  const rawByKey = new Map(rawRows.map((row) => [text(row.raw_key), row]).filter(([key]) => key));
+  let skippedExistingRaw = 0;
+  let rawFetchesAttempted = 0;
+  let rawParseRunsAttempted = 0;
   for (const row of targetRows) {
-    const stored = runClassOogRawFetch({
-      runnerPath: rawRunnerPath,
-      syncUrl,
-      showNo: focus.show_no,
-      focusDay: focus.focus_day,
-      row
-    });
-    const parsed = await parseClassOogRaw(syncUrl, focus.show_no, stored.raw_rec_id, activeTrainerData);
+    const rawKey = classOogRawKey(row);
+    const existingRaw = rawByKey.get(rawKey);
+    if (existingRaw && rawRowParsed(existingRaw) && !forceRawRefetch) {
+      skippedExistingRaw += 1;
+      classOogRuns.push({
+        ring_day_no: row.ring_day_no,
+        ring_no: row.ring_no,
+        class_no: row.class_no,
+        raw_rec_id: existingRaw.ROWID,
+        raw_key: existingRaw.raw_key,
+        parse_wec_log_rec_id: null,
+        total_parsed_rows: 0,
+        parsed_rows: 0,
+        matched_rows_by_trainer: {},
+        hs_class_oog_stale_deleted: 0,
+        class_oog_stale_deleted: 0,
+        skipped_existing_raw: true
+      });
+      continue;
+    }
+    let rawRecId = existingRaw?.ROWID;
+    let rawKeyForRun = existingRaw?.raw_key || rawKey;
+    if (!existingRaw || forceRawRefetch) {
+      rawFetchesAttempted += 1;
+      const stored = runClassOogRawFetch({
+        runnerPath: rawRunnerPath,
+        syncUrl,
+        showNo: focus.show_no,
+        focusDay: focus.focus_day,
+        row
+      });
+      rawRecId = stored.raw_rec_id;
+      rawKeyForRun = stored.raw_key;
+    }
+    rawParseRunsAttempted += 1;
+    const parsed = await parseClassOogRaw(syncUrl, focus.show_no, rawRecId, activeTrainerData);
     classOogRuns.push({
       ring_day_no: row.ring_day_no,
       ring_no: row.ring_no,
       class_no: row.class_no,
-      raw_rec_id: stored.raw_rec_id,
+      raw_rec_id: rawRecId,
+      raw_key: rawKeyForRun,
       parse_wec_log_rec_id: parsed.parse_wec_log_rec_id,
       total_parsed_rows: Number(parsed.total_parsed_rows || parsed.parsed_rows || 0),
       parsed_rows: Number(parsed.parsed_rows || 0),
@@ -648,8 +746,12 @@ async function main() {
   const summary = {
     ok: true,
     action: "sync-class-oog-and-class-start-times",
+    run_id: runId,
+    run_time: runTime,
     show_no: focus.show_no,
     focus_day: focus.focus_day,
+    focus_show_record_id: focus.record_id,
+    source_control_record: focus.record_id,
     focus_day_is_lock_checked: true,
     focus_show_is_pause_checked: true,
     update_schedule_staging_is_lock_checked: true,
@@ -657,7 +759,17 @@ async function main() {
     active_trainer_names: activeTrainerData.active_trainers,
     trainer_normalization: "trim|lowercase|collapse_spaces|smart_apostrophe_normalized",
     class_oog_target_classes: targetRows.length,
-    class_oog_raw_pages_stored: classOogRuns.length,
+    rows_read: targetRows.length,
+    rows_inserted: null,
+    rows_updated: null,
+    rows_skipped_unchanged: null,
+    rows_deleted: classOogRuns.reduce((sum, row) => sum + row.hs_class_oog_stale_deleted + row.class_oog_stale_deleted, 0)
+      + Number(classStart.hs_class_start_times_stale_deleted || 0)
+      + Number(classStart.class_start_times_stale_deleted || 0),
+    skipped_existing_raw: skippedExistingRaw,
+    raw_fetches_attempted: rawFetchesAttempted,
+    raw_parse_runs_attempted: rawParseRunsAttempted,
+    class_oog_raw_pages_stored: rawFetchesAttempted,
     class_oog_parser_used: "parseClassOogRows",
     total_parsed_oog_rows: classOogRuns.reduce((sum, row) => sum + Number(row.total_parsed_rows || 0), 0),
     matched_oog_rows: classOogRuns.reduce((sum, row) => sum + Number(row.parsed_rows || 0), 0),

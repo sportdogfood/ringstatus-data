@@ -218,30 +218,52 @@
     display:none;
   }
 
+  .hide-pill.is-clear{
+    display:none;
+  }
+
   body.is-hide-mode .hide-pill.is-start,
   body.is-hide-mode #ignoreToggleBtn,
+  body.is-hide-mode #filtersToggleBtn,
   body.is-hide-mode #ignorePanel,
+  body.is-hide-mode #filtersPanel,
   body.is-hide-mode #printPdfLink{
     display:none;
   }
 
   body.is-hide-mode .hide-pill.is-save,
-  body.is-hide-mode .hide-pill.is-cancel{
+  body.is-hide-mode .hide-pill.is-cancel,
+  body.is-hide-mode .hide-pill.is-clear{
     display:inline-flex;
   }
 
-  .ignore-panel{
+  .control-panel{
     display:none;
     gap:6px;
     padding-top:6px;
     flex-wrap:wrap;
   }
 
-  .ignore-panel.is-open{
+  .control-panel.is-open{
     display:flex;
   }
 
-  .ignore-option.active{
+  .control-panel-section{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+
+  .control-panel-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+  }
+
+  .ignore-option.active,
+  .filter-option.active{
     background:#111;
     color:#fff;
     border-color:#111;
@@ -687,15 +709,29 @@
           <button class="home-pill hide-pill is-start" id="hideModeBtn" type="button">Hide</button>
           <button class="home-pill hide-pill is-save" id="hideSaveBtn" type="button">Save</button>
           <button class="home-pill hide-pill is-cancel" id="hideCancelBtn" type="button">Cancel</button>
+          <button class="home-pill hide-pill is-clear" id="hideClearBtn" type="button">Clear</button>
           <button class="home-pill" id="ignoreToggleBtn" type="button" aria-expanded="false" aria-controls="ignorePanel">Ignore</button>
+          <button class="home-pill" id="filtersToggleBtn" type="button" aria-expanded="false" aria-controls="filtersPanel">Filters</button>
           <a class="home-pill" id="printPdfLink" href="https://ringstatus.com/wec-print" target="_blank" rel="noopener">Print</a>
         </div>
       </div>
-      <div class="ignore-panel" id="ignorePanel" aria-label="Ignore Filters">
-        <button class="home-pill ignore-option" type="button" data-ignore-filter="is_2nd_trip">2nd Trip</button>
-        <button class="home-pill ignore-option" type="button" data-ignore-filter="is_medal">Medal</button>
+      <div class="control-panel" id="ignorePanel" aria-label="Ignore Filters">
+        <div class="control-panel-section">
+          <span class="control-panel-label">Classics</span>
+          <button class="home-pill ignore-option" type="button" data-ignore-filter="is_jumper_classic">Jumper</button>
+          <button class="home-pill ignore-option" type="button" data-ignore-filter="is_hunter_classic">Hunter</button>
+        </div>
+        <div class="control-panel-section">
+          <span class="control-panel-label">Medal</span>
+          <button class="home-pill ignore-option" type="button" data-ignore-filter="is_medal">Medal</button>
+        </div>
+        <div class="control-panel-section">
+          <span class="control-panel-label">U/S</span>
+          <button class="home-pill ignore-option" type="button" data-ignore-filter="is_under_saddle">U/S</button>
+        </div>
         <button class="home-pill ignore-clear" id="ignoreClearBtn" type="button">Clear</button>
       </div>
+      <div class="control-panel" id="filtersPanel" aria-label="Class Filters"></div>
       <div class="subtitle-row">
         <div class="subtitle-edit-wrapper">
           <div class="subtitle" id="subtitle"></div>
@@ -744,9 +780,11 @@
   let currentFocusDay = "";
   let hideMode = false;
   let ignorePanelOpen = false;
+  let filtersPanelOpen = false;
   let emptyRetryTimer = null;
   const hideSelection = new Map();
   const ignoredClassFlags = new Set();
+  const activeClassFilters = new Map();
   let hiddenClassKeys = new Set();
   let hideChangeBound = false;
   let lastHideLogResult = null;
@@ -855,9 +893,37 @@
     }
   }
 
+  function splitFilterValues(value){
+    return String(value ?? "")
+      .split(/[|,;\n]/)
+      .map(item => item.trim())
+      .filter(Boolean);
+  }
+
+  function displayFilterLabel(group, value){
+    const raw = String(value || "").trim();
+    if(group === "this_sizes"){
+      const key = raw.toLowerCase();
+      if(key === "small") return "Sm";
+      if(key === "medium") return "Med";
+      if(key === "large") return "Lg";
+    }
+    return raw;
+  }
+
+  function rowMatchesActiveClassFilters(row){
+    for(const [field, selected] of activeClassFilters.entries()){
+      if(!selected || selected.size === 0) continue;
+      const values = splitFilterValues(row?.[field]).map(value => value.toLowerCase());
+      if(!values.some(value => selected.has(value))) return false;
+    }
+    return true;
+  }
+
   function visibleRowsForDevice(rows){
     let visible = rows;
-    if(hiddenClassKeys.size){
+    if(hideMode) return visible;
+    if(!hideMode && hiddenClassKeys.size){
       visible = visible.filter(row => {
         const key = classHideKey(row);
         return !key || !hiddenClassKeys.has(key);
@@ -865,10 +931,15 @@
     }
     if(ignoredClassFlags.size){
       visible = visible.filter(row => {
-        if(ignoredClassFlags.has("is_2nd_trip") && truthyFlag(row?.is_2nd_trip ?? row?.is2ndTrip)) return false;
+        if(ignoredClassFlags.has("is_jumper_classic") && truthyFlag(row?.is_jumper_classic ?? row?.isJumperClassic)) return false;
+        if(ignoredClassFlags.has("is_hunter_classic") && truthyFlag(row?.is_hunter_classic ?? row?.isHunterClassic)) return false;
         if(ignoredClassFlags.has("is_medal") && truthyFlag(row?.is_medal ?? row?.isMedal)) return false;
+        if(ignoredClassFlags.has("is_under_saddle") && truthyFlag(row?.is_under_saddle ?? row?.isUnderSaddle)) return false;
         return true;
       });
+    }
+    if(activeClassFilters.size){
+      visible = visible.filter(rowMatchesActiveClassFilters);
     }
     return visible;
   }
@@ -915,6 +986,87 @@
     rerenderCurrentRows();
   }
 
+  function setFiltersPanelOpen(nextOpen){
+    filtersPanelOpen = !!nextOpen;
+    const panel = document.getElementById("filtersPanel");
+    const toggle = document.getElementById("filtersToggleBtn");
+    if(panel) panel.classList.toggle("is-open", filtersPanelOpen);
+    if(toggle){
+      toggle.setAttribute("aria-expanded", filtersPanelOpen ? "true" : "false");
+      toggle.classList.toggle("active", filtersPanelOpen || activeClassFilters.size > 0);
+    }
+  }
+
+  function toggleClassFilter(field, value){
+    const key = String(field || "").trim();
+    const selectedValue = String(value || "").trim().toLowerCase();
+    if(!key || !selectedValue) return;
+    const selected = activeClassFilters.get(key) || new Set();
+    if(selected.has(selectedValue)) selected.delete(selectedValue);
+    else selected.add(selectedValue);
+    if(selected.size) activeClassFilters.set(key, selected);
+    else activeClassFilters.delete(key);
+    rerenderCurrentRows();
+  }
+
+  function filterChoicesFromRows(rows){
+    const groups = [
+      ["this_sizes", "Sizes"],
+      ["this_heights", "Heights"],
+      ["this_skills", "Skills"],
+      ["this_levels", "Levels"],
+      ["this_ages", "Ages"],
+      ["this_disciplines", "Disciplines"]
+    ];
+    return groups.map(([field, label]) => {
+      const values = new Map();
+      for(const row of rows || []){
+        for(const value of splitFilterValues(row?.[field])){
+          const key = value.toLowerCase();
+          if(!values.has(key)) values.set(key, value);
+        }
+      }
+      return {
+        field,
+        label,
+        values: Array.from(values.entries()).map(([key, value]) => ({ key, value }))
+          .sort((a,b) => displayFilterLabel(field, a.value).localeCompare(displayFilterLabel(field, b.value), undefined, { numeric:true, sensitivity:"base" }))
+      };
+    }).filter(group => group.values.length);
+  }
+
+  function pruneActiveClassFilters(groups){
+    const allowed = new Map(groups.map(group => [group.field, new Set(group.values.map(item => item.key))]));
+    for(const [field, selected] of Array.from(activeClassFilters.entries())){
+      const valid = allowed.get(field);
+      if(!valid){
+        activeClassFilters.delete(field);
+        continue;
+      }
+      for(const value of Array.from(selected)){
+        if(!valid.has(value)) selected.delete(value);
+      }
+      if(!selected.size) activeClassFilters.delete(field);
+    }
+  }
+
+  function renderClassFilterPanel(rows){
+    const panel = document.getElementById("filtersPanel");
+    if(!panel) return;
+    const groups = filterChoicesFromRows(rows);
+    pruneActiveClassFilters(groups);
+    panel.innerHTML = groups.map(group => `
+      <div class="control-panel-section" data-filter-group="${esc(group.field)}">
+        <span class="control-panel-label">${esc(group.label)}</span>
+        ${group.values.map(item => {
+          const active = activeClassFilters.get(group.field)?.has(item.key);
+          return `<button class="home-pill filter-option${active ? " active" : ""}" type="button" data-filter-field="${esc(group.field)}" data-filter-value="${esc(item.value)}">${esc(displayFilterLabel(group.field, item.value))}</button>`;
+        }).join("")}
+      </div>
+    `).join("");
+    setFiltersPanelOpen(filtersPanelOpen);
+  }
+
   function bindIgnoreControls(){
     const toggle = document.getElementById("ignoreToggleBtn");
     const clear = document.getElementById("ignoreClearBtn");
@@ -934,14 +1086,43 @@
     setIgnorePanelOpen(ignorePanelOpen);
   }
 
-  function setHideMode(nextMode){
-    hideMode = !!nextMode;
-    if(!hideMode) hideSelection.clear();
-    document.body.classList.toggle("is-hide-mode", hideMode);
+  function bindFilterControls(){
+    const toggle = document.getElementById("filtersToggleBtn");
+    if(toggle && toggle.dataset.rsBound !== "1"){
+      toggle.dataset.rsBound = "1";
+      toggle.addEventListener("click", () => setFiltersPanelOpen(!filtersPanelOpen));
+    }
+    for(const button of Array.from(document.querySelectorAll(".filter-option"))){
+      if(button.dataset.rsBound === "1") continue;
+      button.dataset.rsBound = "1";
+      button.addEventListener("click", () => toggleClassFilter(button.dataset.filterField, button.dataset.filterValue));
+    }
+    setFiltersPanelOpen(filtersPanelOpen);
+  }
+
+  function syncHideCheckboxes(){
     document.querySelectorAll(".hide-check").forEach(input => {
-      input.checked = hideSelection.has(input.dataset.classKey || "");
+      const key = input.dataset.classKey || "";
+      input.checked = hideSelection.has(key);
       input.closest(".c")?.classList.toggle("is-hide-selected", input.checked);
     });
+  }
+
+  function setHideMode(nextMode, { rerender = true } = {}){
+    const previous = hideMode;
+    hideMode = !!nextMode;
+    if(hideMode){
+      loadHiddenClassKeys();
+      hideSelection.clear();
+      hiddenClassKeys.forEach(key => {
+        if(key) hideSelection.set(key, { hide_key: key, class_no: "", class_label: "" });
+      });
+    } else {
+      hideSelection.clear();
+    }
+    document.body.classList.toggle("is-hide-mode", hideMode);
+    if(rerender && previous !== hideMode) rerenderCurrentRows();
+    else syncHideCheckboxes();
   }
 
   function updateHideSelection(input){
@@ -971,7 +1152,7 @@
   }
 
   async function saveHideSelection(){
-    if(!currentShowNo || !currentFocusDay || hideSelection.size === 0){
+    if(!currentShowNo || !currentFocusDay){
       setHideMode(false);
       return;
     }
@@ -979,9 +1160,7 @@
     if(save) save.disabled = true;
     try{
       const classes = Array.from(hideSelection.values());
-      classes.forEach(item => {
-        if(item.hide_key) hiddenClassKeys.add(item.hide_key);
-      });
+      hiddenClassKeys = new Set(classes.map(item => item.hide_key).filter(Boolean));
       saveHiddenClassKeys();
       lastHideLogResult = { attempted:false, ok:true, source:"local_device_storage" };
       window.RS_WEC_LAST_HIDE_LOG_RESULT = lastHideLogResult;
@@ -996,6 +1175,15 @@
     } finally {
       if(save) save.disabled = false;
     }
+  }
+
+  function clearHiddenClassKeys(){
+    hiddenClassKeys = new Set();
+    hideSelection.clear();
+    saveHiddenClassKeys();
+    lastHideLogResult = { attempted:false, ok:true, source:"local_device_storage_clear" };
+    window.RS_WEC_LAST_HIDE_LOG_RESULT = lastHideLogResult;
+    setHideMode(false);
   }
 
   function normRollup(s){
@@ -1203,6 +1391,15 @@
           class_label: c.class_label,
           is_2nd_trip: truthyFlag(c.is_2nd_trip),
           is_medal: truthyFlag(c.is_medal),
+          is_hunter_classic: truthyFlag(c.is_hunter_classic),
+          is_jumper_classic: truthyFlag(c.is_jumper_classic),
+          is_under_saddle: truthyFlag(c.is_under_saddle),
+          this_sizes: c.this_sizes,
+          this_heights: c.this_heights,
+          this_skills: c.this_skills,
+          this_levels: c.this_levels,
+          this_ages: c.this_ages,
+          this_disciplines: c.this_disciplines,
           start_display: c.class_time,
           class_start_time: c.class_start_time,
           entry_count: c.entry_count,
@@ -1360,6 +1557,7 @@
     const start = document.getElementById("hideModeBtn");
     const save = document.getElementById("hideSaveBtn");
     const cancel = document.getElementById("hideCancelBtn");
+    const clear = document.getElementById("hideClearBtn");
 
     if(start && start.dataset.rsBound !== "1"){
       start.dataset.rsBound = "1";
@@ -1369,6 +1567,11 @@
     if(cancel && cancel.dataset.rsBound !== "1"){
       cancel.dataset.rsBound = "1";
       cancel.addEventListener("click", () => setHideMode(false));
+    }
+
+    if(clear && clear.dataset.rsBound !== "1"){
+      clear.dataset.rsBound = "1";
+      clear.addEventListener("click", clearHiddenClassKeys);
     }
 
     if(save && save.dataset.rsBound !== "1"){
@@ -1566,7 +1769,7 @@
           const diffClass = String(c.diff_class ?? c.diffClass ?? "").split(/\s+/).filter(x => /^diff-[a-z0-9_-]+$/i.test(x)).join(" ");
 
           cl += `
-            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" data-is-2nd-trip="${truthyFlag(c.is_2nd_trip ?? c.is2ndTrip) ? "1" : "0"}" data-is-medal="${truthyFlag(c.is_medal ?? c.isMedal) ? "1" : "0"}">
+            <div class="c${usingTime2 ? " time2" : ""}${isCheckTime ? " check-time-row" : ""}${diffClass ? ` ${diffClass}` : ""}" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" data-is-2nd-trip="${truthyFlag(c.is_2nd_trip ?? c.is2ndTrip) ? "1" : "0"}" data-is-medal="${truthyFlag(c.is_medal ?? c.isMedal) ? "1" : "0"}" data-is-jumper-classic="${truthyFlag(c.is_jumper_classic ?? c.isJumperClassic) ? "1" : "0"}" data-is-hunter-classic="${truthyFlag(c.is_hunter_classic ?? c.isHunterClassic) ? "1" : "0"}" data-is-under-saddle="${truthyFlag(c.is_under_saddle ?? c.isUnderSaddle) ? "1" : "0"}">
               <div class="t">${timeHtml}</div>
               <div class="n">${esc(label)}</div>
               <div class="hide-cell"><input class="hide-check" type="checkbox" data-class-key="${esc(classKey)}" data-class-no="${esc(classNo)}" data-class-label="${esc(label)}" aria-label="Hide class ${esc(label)}"></div>
@@ -1717,6 +1920,13 @@
   function applyFilters(){
     const groups = Array.from(document.querySelectorAll(".group"));
 
+    if(hideMode){
+      groups.forEach(g => { g.style.display = ""; });
+      document.querySelectorAll("section.ring, #ringNav .nav-btn").forEach(el => { el.style.display = ""; });
+      setupActiveRingObserver();
+      return;
+    }
+
     const needHorse = activeHorse !== "__all__";
 
     const horseKey = String(activeHorse).toLowerCase();
@@ -1803,6 +2013,7 @@
 
     setHeader(rows);
     loadHiddenClassKeys();
+    renderClassFilterPanel(rows);
     const rowsForDevice = visibleRowsForDevice(rows);
 
     const ringEls = buildRings(rowsForDevice);
@@ -1816,6 +2027,8 @@
     setupActiveRingObserver();
     bindHideMode();
     bindIgnoreControls();
+    bindFilterControls();
+    syncHideCheckboxes();
 
     const firstVisibleRing = Array.from(document.querySelectorAll("section.ring"))
       .find(sec => sec.style.display !== "none");

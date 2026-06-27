@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "final_status": "PASS",
+  "final_pass": true,
+  "run_id": "wec-manual-proof-20260627205740413-f087cfd8",
+  "run_time": "2026-06-27T20:57:40.414Z",
+  "caller_source": "manual_runner",
+  "proof_path_type": "manual_runner",
+  "active_show_no": "14907",
+  "active_focus_day": "2026-06-21",
+  "focus_day": "2026-06-21",
+  "source_control_record": "recLh1GS3VPfTe1z2",
+  "lanes_run": [
+    "stage2",
+    "helper_before",
+    "class_oog_class_start_times",
+    "entry_go_times",
+    "helper_after"
+  ],
+  "lane_status": {
+    "schedule_staging": {
+      "lane": "schedule_staging",
+      "status": "PASS",
+      "rows_read": 81,
+      "rows_inserted": null,
+      "rows_updated": 81,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "helper_before": {
+      "lane": "helper_before",
+      "status": "PASS",
+      "rows_read": null,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "class_oog_class_start_times": {
+      "lane": "class_oog_class_start_times",
+      "status": "PASS",
+      "rows_read": 72,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "entry_go_times": {
+      "lane": "entry_go_times",
+      "status": "PASS",
+      "rows_read": 28,
+      "rows_inserted": 0,
+      "rows_updated": 28,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "helper_after": {
+      "lane": "helper_after",
+      "status": "PASS",
+      "rows_read": null,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": 0,
+      "blocker": null
+    },
+    "publisher": {
+      "lane": "publisher",
+      "status": "SKIPPED",
+      "rows_read": null,
+      "rows_inserted": null,
+      "rows_updated": null,
+      "rows_skipped_unchanged": null,
+      "rows_deleted": null,
+      "blocker": "publisher not wired in manual proof path"
+    }
+  },
+  "failed_step": "",
+  "conflict_lane": "",
+  "blocker": "",
+  "stage2": {
+    "raw_update_schedule_rows": 92,
+    "canonical_source_rows": 81,
+    "active_staging_rows": 81,
+    "protected_stale_staging_rows": 9,
+    "total_staging_rows": 90,
+    "hs_update_schedule_rows_status": "not_applicable",
+    "non_mirror_counts_match": true
+  },
+  "helper_before": {
+    "pass": true,
+    "records_deleted": 0,
+    "links_cleared": 0
+  },
+  "class_oog": {
+    "count": 28,
+    "hs_count": 28,
+    "counts_match": true,
+    "by_trainer": {
+      "Alan Korotkin": 0,
+      "Victoria Sheehan": 0,
+      "Julie Burton": 0
+    }
+  },
+  "class_start_times": {
+    "count": 72,
+    "hs_count": 72,
+    "counts_match": true
+  },
+  "entry_go_times": {
+    "count": 28,
+    "class_oog_count_for_entry_comparison": 28,
+    "equals_class_oog": true,
+    "by_trainer": {
+      "Alan Korotkin": 20,
+      "Julie Burton": 8
+    },
+    "trainer_counts_match": true
+  },
+  "helper_after": {
+    "pass": true,
+    "records_deleted": 0,
+    "links_cleared": 0
+  },
+  "records_deleted_total": 0,
+  "links_cleared_total": 0,
+  "publisher_included": false,
+  "publisher_placeholder_reason": "publisher not wired in manual proof path",
+  "mobile_changed": "no",
+  "print_changed": "no",
+  "alerts_changed": "no",
+  "results_changed": "no",
+  "rich_api_changed": "no",
+  "sms_changed": "no"
+}

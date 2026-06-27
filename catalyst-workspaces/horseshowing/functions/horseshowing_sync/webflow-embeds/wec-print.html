@@ -571,10 +571,8 @@
 
   function withPrintParams(url) {
     const u = new URL(url, location.href);
-    const focusDay = qs.get("focus_day");
     const showNo = qs.get("show_no") || qs.get("show_id");
     if (showNo) u.searchParams.set("show_no", showNo);
-    if (focusDay) u.searchParams.set("focus_day", focusDay);
     return u.toString();
   }
 

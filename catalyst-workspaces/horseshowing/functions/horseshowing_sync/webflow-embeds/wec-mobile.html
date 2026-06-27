@@ -828,18 +828,12 @@
   }
 
   function resolveDataUrl(){
-    const base = window.RS_WEC_SCHEDULE_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-mobile-live";
-    const focusDay = new URLSearchParams(location.search).get("focus_day");
-    if(!focusDay) return base;
-    const u = new URL(base, location.href);
-    u.searchParams.set("focus_day", focusDay);
-    return u.toString();
+    return window.RS_WEC_SCHEDULE_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-mobile-live";
   }
 
   function buildPrintPdfUrl(){
     const source = new URL(window.RS_WEC_PRINT_URL || WEC_PRINT_URL, location.href);
     const focusDay = new URLSearchParams(location.search).get("focus_day") || currentFocusDay || isoDate(document.getElementById("subtitle")?.textContent);
-    if(focusDay) source.searchParams.set("focus_day", focusDay);
     source.searchParams.set("pdf", "1");
     const filenameDay = focusDay || "schedule";
     const pdf = new URL(PDF_WORKER_BASE);

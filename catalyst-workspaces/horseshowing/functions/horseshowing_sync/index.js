@@ -6947,6 +6947,26 @@ async function getAirtableFocusShow(showNo = "") {
   };
 }
 
+async function getOutputFocusShow(showNo = "") {
+  const requestedShowNo = text(showNo);
+  const records = await airtableListRecords("focus_show");
+  const activeRows = records
+    .map((record) => ({ record_id: record.id, fields: record.fields || {} }))
+    .filter((row) => row.fields.active === true && dateKey(row.fields.focus_day));
+  const selected = requestedShowNo
+    ? activeRows.find((row) => text(row.fields.show_no) === requestedShowNo)
+    : activeRows[0];
+  if (!selected) return null;
+  return {
+    record_id: selected.record_id,
+    show_no: text(selected.fields.show_no),
+    focus_day: dateKey(selected.fields.focus_day),
+    show_name: text(selected.fields.show_name || selected.fields.name),
+    active: true,
+    source: "airtable.focus_show.active"
+  };
+}
+
 async function getAirtableFocusShowForDay(showNo, focusDay) {
   const safeFocusDay = dateKey(focusDay);
   const records = await airtableListRecords("focus_show", { filterByFormula: `{show_no}=${Number(showNo)}` });
@@ -8963,7 +8983,7 @@ async function handle(req, res) {
       return json(res, 200, { ok: true, action, show_no: showNo, ...result });
     }
 
-    if (action === "schedule-json" || action === "wec-print-live" || action === "wec-schedule-live") {
+    if (action === "schedule-json" || action === "wec-schedule-live") {
       const resolved = await resolveFocusDay(app, showNo, query, body);
       const requestedShowNo = text(query.get("show_no") || body.show_no);
       const airtableFocus = (!requestedShowNo || !resolved.focus_day) ? await getAirtableFocusShow(requestedShowNo) : null;
@@ -8973,6 +8993,17 @@ async function handle(req, res) {
       const meta = await metaForFocusRender(app, renderShowNo, focusDay, query, body);
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
       const rows = await buildScheduleJson(app, renderShowNo, focusDay, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      return json(res, 200, rows);
+    }
+
+    if (action === "wec-print-live") {
+      const requestedShowNo = text(query.get("show_no") || body.show_no);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-print-live requires active focus_show" });
+      const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
+      meta.reconcileEntryGoTimes = false;
+      const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
+      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
       return json(res, 200, rows);
     }
 
@@ -8992,15 +9023,12 @@ async function handle(req, res) {
 
     if (action === "wec-mobile-live") {
       const requestedShowNo = text(query.get("show_no") || body.show_no);
-      const airtableFocus = requestedShowNo ? null : await getAirtableFocusShow("");
-      const renderShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
-      const resolved = await resolveFocusDay(app, renderShowNo, query, body);
-      const focusDay = resolved.focus_day || airtableFocus?.focus_day;
-      if (!focusDay) return json(res, 400, { ok: false, action, error: "wec-mobile-live requires focus_day" });
-      const meta = await metaForFocusRender(app, renderShowNo, focusDay, query, body);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-mobile-live requires active focus_show" });
+      const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
-      const rows = await buildScheduleJson(app, renderShowNo, focusDay, meta, { limit: 300, offset: 0 });
-      return json(res, 200, { ok: true, action, focus_source: resolved.source || "airtable.focus_show", ...buildMobileLivePayload(renderShowNo, focusDay, meta, rows) });
+      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: 300, offset: 0 });
+      return json(res, 200, { ok: true, action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...buildMobileLivePayload(outputFocus.show_no, outputFocus.focus_day, meta, rows) });
     }
 
     if (action === "wec-rich-live" || action === "wec-rich-api") {
@@ -9017,51 +9045,47 @@ async function handle(req, res) {
     }
 
     if (action === "wec-print-layout") {
-      const resolved = await resolveFocusDay(app, showNo, query, body);
       const requestedShowNo = text(query.get("show_no") || body.show_no);
-      const airtableFocus = (!requestedShowNo || !resolved.focus_day) ? await getAirtableFocusShow(requestedShowNo) : null;
-      const layoutShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
-      const focusDay = resolved.focus_day || airtableFocus?.focus_day;
-      if (!focusDay) return json(res, 400, { ok: false, action, error: "wec-print-layout requires focus_day" });
-      const airtableLayout = await getAirtablePrintLayout(layoutShowNo, focusDay);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-print-layout requires active focus_show" });
+      const airtableLayout = await getAirtablePrintLayout(outputFocus.show_no, outputFocus.focus_day);
       if (airtableLayout.ok && Array.isArray(airtableLayout.rings) && airtableLayout.rings.length > 0) {
-        return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...airtableLayout });
+        return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...airtableLayout });
       }
-      const meta = await metaForFocusRender(app, layoutShowNo, focusDay, query, body);
+      const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
+      meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
-      const rows = await buildScheduleJson(app, layoutShowNo, focusDay, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
-      return json(res, 200, { action, focus_source: resolved.source || "airtable.focus_show", ...derivePrintLayoutFromScheduleRows(layoutShowNo, focusDay, rows) });
+      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...derivePrintLayoutFromScheduleRows(outputFocus.show_no, outputFocus.focus_day, rows) });
     }
 
     if (action === "wec-print-pdf-url") {
       const requestedShowNo = text(query.get("show_no") || body.show_no);
-      const airtableFocus = requestedShowNo ? null : await getAirtableFocusShow("");
-      const renderShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
-      const resolved = await resolveFocusDay(app, renderShowNo, query, body);
-      const focusDay = resolved.focus_day || airtableFocus?.focus_day;
-      if (!focusDay) return json(res, 400, { ok: false, action, error: "wec-print-pdf-url requires focus_day" });
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-print-pdf-url requires active focus_show" });
       return json(res, 200, {
         ok: true,
         action,
-        show_no: renderShowNo,
-        focus_day: focusDay,
-        pdf_url: buildWecPrintPdfUrl(renderShowNo, focusDay)
+        show_no: outputFocus.show_no,
+        focus_day: outputFocus.focus_day,
+        focus_source: outputFocus.source,
+        focus_show_record_id: outputFocus.record_id,
+        pdf_url: buildWecPrintPdfUrl(outputFocus.show_no, outputFocus.focus_day)
       });
     }
 
     if (action === "prebuild-wec-print-pdf") {
       const requestedShowNo = text(query.get("show_no") || body.show_no);
-      const airtableFocus = requestedShowNo ? null : await getAirtableFocusShow("");
-      const renderShowNo = requestedShowNo || airtableFocus?.show_no || showNo;
-      const resolved = await resolveFocusDay(app, renderShowNo, query, body);
-      const focusDay = resolved.focus_day || airtableFocus?.focus_day;
-      if (!focusDay) return json(res, 400, { ok: false, action, error: "prebuild-wec-print-pdf requires focus_day" });
-      const warmed = await warmWecPrintPdf(renderShowNo, focusDay);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "prebuild-wec-print-pdf requires active focus_show" });
+      const warmed = await warmWecPrintPdf(outputFocus.show_no, outputFocus.focus_day);
       return json(res, warmed.ok ? 200 : 502, {
         ok: warmed.ok,
         action,
-        show_no: renderShowNo,
-        focus_day: focusDay,
+        show_no: outputFocus.show_no,
+        focus_day: outputFocus.focus_day,
+        focus_source: outputFocus.source,
+        focus_show_record_id: outputFocus.record_id,
         ...warmed
       });
     }

@@ -722,12 +722,9 @@
           <button class="home-pill ignore-option" type="button" data-ignore-filter="is_hunter_classic">Hunter</button>
         </div>
         <div class="control-panel-section">
-          <span class="control-panel-label">Medal</span>
           <button class="home-pill ignore-option" type="button" data-ignore-filter="is_medal">Medal</button>
-        </div>
-        <div class="control-panel-section">
-          <span class="control-panel-label">U/S</span>
           <button class="home-pill ignore-option" type="button" data-ignore-filter="is_under_saddle">U/S</button>
+          <button class="home-pill ignore-option" type="button" data-ignore-filter="focus_priority">Focus</button>
         </div>
         <button class="home-pill ignore-clear" id="ignoreClearBtn" type="button">Clear</button>
       </div>
@@ -915,7 +912,7 @@
     for(const [field, selected] of activeClassFilters.entries()){
       if(!selected || selected.size === 0) continue;
       const values = splitFilterValues(row?.[field]).map(value => value.toLowerCase());
-      if(!values.some(value => selected.has(value))) return false;
+      if(values.some(value => selected.has(value))) return false;
     }
     return true;
   }
@@ -935,6 +932,7 @@
         if(ignoredClassFlags.has("is_hunter_classic") && truthyFlag(row?.is_hunter_classic ?? row?.isHunterClassic)) return false;
         if(ignoredClassFlags.has("is_medal") && truthyFlag(row?.is_medal ?? row?.isMedal)) return false;
         if(ignoredClassFlags.has("is_under_saddle") && truthyFlag(row?.is_under_saddle ?? row?.isUnderSaddle)) return false;
+        if(ignoredClassFlags.has("focus_priority") && String(row?.class_priority_sort ?? "").trim() !== "1") return false;
         return true;
       });
     }
@@ -1394,6 +1392,7 @@
           is_hunter_classic: truthyFlag(c.is_hunter_classic),
           is_jumper_classic: truthyFlag(c.is_jumper_classic),
           is_under_saddle: truthyFlag(c.is_under_saddle),
+          class_priority_sort: c.class_priority_sort,
           this_sizes: c.this_sizes,
           this_heights: c.this_heights,
           this_skills: c.this_skills,

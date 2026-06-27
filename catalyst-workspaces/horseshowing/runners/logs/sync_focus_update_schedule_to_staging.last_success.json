@@ -2,8 +2,8 @@
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
   "source": "airtable.update_schedule",
-  "run_id": "wec-stage1-stage2-20260627T001509787Z-33238ac5",
-  "run_time": "2026-06-27T00:15:09.787Z",
+  "run_id": "wec-stage1-stage2-20260627T015509449Z-765f029d",
+  "run_time": "2026-06-27T01:55:09.449Z",
   "show_no": "14907",
   "focus_day": "2026-06-21",
   "ring_day_no_count": 9,
@@ -44,8 +44,8 @@
       "record_id": "recLh1GS3VPfTe1z2",
       "is_pause": false,
       "is_lock": true,
-      "run_id": "wec-stage1-stage2-20260627T001509787Z-33238ac5",
-      "run_time": "2026-06-27T00:15:09.787Z"
+      "run_id": "wec-stage1-stage2-20260627T015509449Z-765f029d",
+      "run_time": "2026-06-27T01:55:09.449Z"
     },
     "payload_rows": 81,
     "update_schedule_rows": 92,
@@ -320,5 +320,5 @@
     "update_schedule_staging_checkbox_true_values_preserved": 0,
     "update_schedule_staging_links_unioned": 0
   },
-  "success_at": "2026-06-27T00:15:27.815Z"
+  "success_at": "2026-06-27T01:55:48.100Z"
 }

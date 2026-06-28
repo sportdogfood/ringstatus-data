@@ -3115,6 +3115,153 @@ async function getBarnBoardHotPatchRows(focusDay) {
   }
 }
 
+function compactBarnBoardList(value) {
+  if (Array.isArray(value)) return value.map(text).filter(Boolean);
+  return text(value).split(/[,\n|]/).map(text).filter(Boolean);
+}
+
+function barnBoardTruthy(value) {
+  if (Array.isArray(value)) return value.some(barnBoardTruthy);
+  const boolValue = boolOrNull(value);
+  if (boolValue !== null) return boolValue;
+  const raw = text(value).toLowerCase();
+  return raw === "checked" || raw === "yes";
+}
+
+function compactBarnBoardScheduleRow(record) {
+  const fields = record.fields || {};
+  return {
+    record_id: record.id,
+    show_no: text(fields.show_no),
+    focus_day: dateKey(fields.focus_day || fields.iso_date),
+    ring_name_normalized: text(fields.ring_name_normalized),
+    ring_no: text(fields.ring_no),
+    time_text: text(fields.time_text),
+    class_no: text(fields.class_no),
+    class_name: text(fields.class_name),
+    class_name_tokens: compactBarnBoardList(fields.class_name_tokens),
+    barn_from_entry_go_times: compactBarnBoardList(fields.barn_from_entry_go_times),
+    horse_from_entry_go_times: compactBarnBoardList(fields.horse_from_entry_go_times)
+  };
+}
+
+function barnBoardScheduleRowEligible(record) {
+  const fields = record.fields || {};
+  if (barnBoardTruthy(fields.preflight) || barnBoardTruthy(fields.is_preflight)) return false;
+  return Boolean(
+    text(fields.ring_no)
+    && text(fields.ring_name_normalized)
+    && text(fields.time_text)
+    && text(fields.class_no)
+    && text(fields.class_name)
+  );
+}
+
+function barnBoardMissingExpectedFields(records, expectedFields) {
+  return expectedFields.filter((field) => !records.some((record) => Object.prototype.hasOwnProperty.call(record.fields || {}, field)));
+}
+
+function compactBarnBoardHorse(record) {
+  const fields = record.fields || {};
+  const barnName = text(fields.barn_name || fields.barn || fields.Barn);
+  const horseName = text(fields.horse || fields.horse_name || fields.name || fields.Name);
+  const horseDisplay = text(fields.horse_display || fields.display || fields.display_name);
+  return {
+    record_id: record.id,
+    barn_name: barnName,
+    horse_display: horseDisplay,
+    horse: horseName,
+    display: barnName || horseDisplay || horseName
+  };
+}
+
+async function getBarnBoardActiveHorses(warnings) {
+  let records = [];
+  try {
+    records = await airtableListRecords("horses");
+  } catch (error) {
+    warnings.push({ code: "horses_read_failed", message: error.message });
+    return [];
+  }
+  const activeFieldNames = ["active", "is_active", "Active"];
+  const activeField = activeFieldNames.find((field) => records.some((record) => Object.prototype.hasOwnProperty.call(record.fields || {}, field)));
+  if (!activeField) warnings.push({ code: "horses_active_field_missing", message: "horses active field was not found; endpoint returned compact horse rows without an active-field filter" });
+  return records
+    .filter((record) => !activeField || barnBoardTruthy(record.fields?.[activeField]))
+    .map(compactBarnBoardHorse)
+    .filter((horse) => horse.display);
+}
+
+function compactBarnBoardHotPatch(record) {
+  const fields = record.fields || {};
+  return {
+    record_id: record.id,
+    board_line: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.board_line]),
+    ring_hint: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.ring_hint]),
+    time_hint: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.time_hint]),
+    class_name_hint: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.class_name_hint]),
+    match_status: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status]),
+    hot_patch_active: barnBoardTruthy(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active]),
+    release_status: text(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status]),
+    focus_day: dateKey(fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.focus_day])
+  };
+}
+
+async function buildBarnBoardFormOptions(requestedShowNo = "") {
+  const warnings = [];
+  const focusShow = await getOutputFocusShow(requestedShowNo);
+  if (!focusShow?.show_no || !focusShow?.focus_day) {
+    return {
+      ok: false,
+      error: "active focus_show not found",
+      requested_show_no: text(requestedShowNo) || null
+    };
+  }
+
+  const showValue = Number.isFinite(Number(focusShow.show_no)) ? String(Number(focusShow.show_no)) : airtableFormulaValue(focusShow.show_no);
+  const stagingFormula = `AND({show_no}=${showValue},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusShow.focus_day)}),'day'))`;
+  const expectedFields = [
+    "ring_name_normalized",
+    "ring_no",
+    "time_text",
+    "class_no",
+    "class_name",
+    "class_name_tokens",
+    "barn_from_entry_go_times",
+    "horse_from_entry_go_times"
+  ];
+  const scheduleRecords = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, { filterByFormula: stagingFormula });
+  const missingExpectedFields = barnBoardMissingExpectedFields(scheduleRecords, expectedFields);
+  for (const field of missingExpectedFields) {
+    warnings.push({ code: "missing_update_schedule_staging_field", field });
+  }
+  const eligibleRows = scheduleRecords
+    .filter(barnBoardScheduleRowEligible)
+    .map(compactBarnBoardScheduleRow);
+  const horses = await getBarnBoardActiveHorses(warnings);
+  const hotPatchRecords = await getBarnBoardHotPatchRows(focusShow.focus_day);
+  const hotPatches = hotPatchRecords.map(compactBarnBoardHotPatch);
+
+  return {
+    ok: true,
+    source: "airtable.read_only",
+    show_no: focusShow.show_no,
+    focus_day: focusShow.focus_day,
+    focus_show_record_id: focusShow.record_id,
+    rows: eligibleRows,
+    horses,
+    hot_patches: hotPatches,
+    counts: {
+      update_schedule_staging_rows_read: scheduleRecords.length,
+      eligible_update_schedule_staging_rows: eligibleRows.length,
+      horses_read: horses.length,
+      hot_patches_read: hotPatches.length,
+      missing_expected_fields: missingExpectedFields.length
+    },
+    warnings
+  };
+}
+
 async function getActiveEntryGoTimeRecordsForBarnBoard(showNo, focusDay) {
   const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
   const formula = `AND({show_no}=${showValue},IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'),OR({status}=BLANK(),{status}!='inactive'))`;
@@ -8577,10 +8724,16 @@ async function handle(req, res) {
       "wec-rich-api",
       "wec-print-layout",
       "wec-print-pdf-url",
-      "prebuild-wec-print-pdf"
+      "prebuild-wec-print-pdf",
+      "barn-board-form-options"
     ]);
     if (!showNo && !canResolveActiveFocusShow.has(action)) {
       return json(res, 400, { ok: false, action, error: "show_no required" });
+    }
+
+    if (action === "barn-board-form-options") {
+      const result = await buildBarnBoardFormOptions(showNo);
+      return json(res, result.ok ? 200 : 400, { action, ...result });
     }
 
     if (action === "seed-sample") {

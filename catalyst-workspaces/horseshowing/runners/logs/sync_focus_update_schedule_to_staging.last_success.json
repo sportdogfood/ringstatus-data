@@ -2,8 +2,8 @@
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
   "source": "airtable.update_schedule",
-  "run_id": "wec-stage1-stage2-20260629T172711820Z-08265040",
-  "run_time": "2026-06-29T17:27:11.820Z",
+  "run_id": "wec-stage1-stage2-20260629T231011825Z-5eaaddfb",
+  "run_time": "2026-06-29T23:10:11.825Z",
   "focus_show_record_id": "recLh1GS3VPfTe1z2",
   "source_control_record": "recLh1GS3VPfTe1z2",
   "show_no": "14907",
@@ -51,8 +51,8 @@
       "record_id": "recLh1GS3VPfTe1z2",
       "is_pause": false,
       "is_lock": true,
-      "run_id": "wec-stage1-stage2-20260629T172711820Z-08265040",
-      "run_time": "2026-06-29T17:27:11.820Z"
+      "run_id": "wec-stage1-stage2-20260629T231011825Z-5eaaddfb",
+      "run_time": "2026-06-29T23:10:11.825Z"
     },
     "payload_rows": 81,
     "update_schedule_rows": 92,
@@ -253,20 +253,23 @@
       "skills": {
         "helper_table": "skills",
         "source_field": "this_skills",
-        "rows_read": 19,
-        "rows_with_formula_values": 33,
-        "rows_with_matches": 33,
-        "links_matched": 63,
+        "rows_read": 21,
+        "rows_with_formula_values": 25,
+        "rows_with_matches": 25,
+        "links_matched": 44,
         "unmatched_values": []
       },
       "levels": {
         "helper_table": "levels",
         "source_field": "this_levels",
         "rows_read": 20,
-        "rows_with_formula_values": 69,
-        "rows_with_matches": 69,
-        "links_matched": 113,
-        "unmatched_values": []
+        "rows_with_formula_values": 56,
+        "rows_with_matches": 56,
+        "links_matched": 84,
+        "unmatched_values": [
+          "Childrens",
+          "AO"
+        ]
       },
       "sizes": {
         "helper_table": "sizes",
@@ -280,10 +283,10 @@
       "heights": {
         "helper_table": "heights",
         "source_field": "this_heights",
-        "rows_read": 24,
-        "rows_with_formula_values": 34,
-        "rows_with_matches": 34,
-        "links_matched": 34,
+        "rows_read": 29,
+        "rows_with_formula_values": 80,
+        "rows_with_matches": 80,
+        "links_matched": 126,
         "unmatched_values": []
       },
       "disciplines": {
@@ -327,5 +330,5 @@
     "update_schedule_staging_checkbox_true_values_preserved": 0,
     "update_schedule_staging_links_unioned": 0
   },
-  "success_at": "2026-06-29T17:27:47.205Z"
+  "success_at": "2026-06-29T23:10:51.835Z"
 }

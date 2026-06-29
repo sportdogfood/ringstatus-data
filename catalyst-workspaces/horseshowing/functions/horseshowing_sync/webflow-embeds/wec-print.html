@@ -37,29 +37,40 @@
 
   .topbar{
     display:flex;
-    align-items:flex-end;
+    align-items:center;
     justify-content:space-between;
-    gap:10px;
-    padding:0 0 6px 0;
+    gap:8px;
+    padding:0 0 3px 0;
+    min-width:0;
+  }
+
+  .topbar-wrapper{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    min-width:0;
+    flex:1 1 auto;
   }
 
   .title{
-    font-weight:900;
-    font-size:14px;
+    font-weight:800;
+    font-size:12px;
     line-height:1.1;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+    min-width:0;
   }
 
   .subtitle{
     color:var(--muted);
-    font-size:10px;
-    margin-top:2px;
+    font-size:8.5px;
+    margin-top:0;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-
+    text-align:right;
+    flex:0 0 auto;
   }
 
   .controls{
@@ -113,6 +124,8 @@
   .ringWrap{
     position:relative;
     min-width:0;
+    break-inside:avoid;
+    page-break-inside:avoid;
   }
 
   .ringClose{
@@ -141,6 +154,8 @@
   .ring{
     border:1px solid #000;
     background:#fff;
+    break-inside:avoid;
+    page-break-inside:avoid;
   }
 
   .ring-head{
@@ -158,8 +173,8 @@
   }
 
   .group.has-team .group-head{
-    padding-bottom:2px;
-    padding-top:4px;
+    padding-bottom:1px;
+    padding-top:2px;
   }
 
   .group:not(.has-team) .group-head{
@@ -169,12 +184,13 @@
   .gdisplay{
     display:flex;
     flex-direction:column;
-    gap:2px;
-    font-size:11px;
-    font-weight:600;
+    gap:1px;
+    font-size:8.5px;
+    font-weight:500;
+    line-height:1.06;
     text-align:left;
     text-transform:uppercase;
-    margin-bottom:-6px;
+    margin-bottom:-3px;
     margin-right:0;
     margin-left:10px;
     padding-right:0;
@@ -277,14 +293,14 @@
     }
 
   .group.has-team .group-head{
-  padding-top:4px;
-  padding-bottom:2px;
+  padding-top:2px;
+  padding-bottom:1px;
 		}
 
 		.gdisplay{
-  line-height:1.25;
-	margin-top:4px;
-	margin-bottom:-1px;
+  line-height:1.05;
+	margin-top:1px;
+	margin-bottom:-2px;
 		}
 
 
@@ -313,6 +329,30 @@
       width:calc(100% / var(--scale));
     }
 
+    .ringWrap,
+    .ring,
+    .group{
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    .c{
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    .topbar{
+      padding-bottom:2px;
+    }
+
+    .title{
+      font-size:11px;
+    }
+
+    .subtitle{
+      font-size:8px;
+    }
+
     .wrap{
       transform:none !important;
       width:auto !important;
@@ -324,7 +364,7 @@
     }
 
     body.tight .ring-head{padding:3px 5px; font-size:9px;}
-    body.tight .gdisplay{font-size:9px; margin-bottom:-8px;}
+    body.tight .gdisplay{font-size:8px; font-weight:500; line-height:1.04; margin-bottom:-4px;}
     body.tight .class-list{padding:1px 5px 2px 5px;}
     body.tight .c{
       grid-template-columns:42px 1fr;
@@ -351,17 +391,17 @@
 </style>
 <style>
   :root{--ring:#815374;}
-  .title{font-size:16px;}
-  .subtitle{font-size:11px;}
-  .ring-head{font-size:12px;padding:5px 7px;}
-  .gdisplay{font-size:12px;margin-bottom:-7px;}
-  .class-list{padding:4px 7px 5px 7px;}
-  .c{grid-template-columns:54px 1fr;column-gap:7px;padding:3px 0;padding-right:0;}
-  .t,.n{font-size:10.5px;}
-  .group.has-team .group-head{padding-top:4px;padding-bottom:2px;}
+  .title{font-size:12px;}
+  .subtitle{font-size:8.5px;}
+  .ring-head{font-size:11px;padding:4px 6px;}
+  .gdisplay{font-size:8.5px;font-weight:500;line-height:1.06;margin-bottom:-3px;}
+  .class-list{padding:3px 6px 4px 6px;}
+  .c{grid-template-columns:50px 1fr;column-gap:6px;padding:2px 0;padding-right:0;}
+  .t,.n{font-size:9.5px;}
+  .group.has-team .group-head{padding-top:2px;padding-bottom:1px;}
   .gdisplay,
   body.tight .gdisplay{
-    margin-bottom:1px;
+    margin-bottom:-2px;
     white-space:normal;
     overflow:visible;
     text-overflow:clip;
@@ -388,28 +428,29 @@
   }
   body.tight .ring-head{
     padding:3px 5px;
-    font-size:10px;
+    font-size:9px;
   }
   body.tight .class-list{
     padding:1px 5px 1px 5px;
   }
   body.tight .c{
-    grid-template-columns:48px 1fr;
+    grid-template-columns:44px 1fr;
     column-gap:5px;
     padding:1px 0;
     line-height:1.02;
   }
   body.tight .t,
   body.tight .n{
-    font-size:9.5px;
+    font-size:8.8px;
   }
   body.tight .group.has-team .group-head{
     padding-top:2px;
     padding-bottom:1px;
   }
   body.tight .gdisplay{
-    font-size:9.5px;
-    line-height:1.1;
+    font-size:7.8px;
+    font-weight:500;
+    line-height:1.04;
   }
 
   body.is-pdf .controls,
@@ -879,6 +920,58 @@
       if (canZoom) wrap.style.zoom = String(scale2);
       wrap.style.setProperty("--scale", String(scale2));
     }
+
+    return measurePrintFit({ ppi, availH, availW, needH, needW, scale });
+  }
+
+  function measurePrintFit(metrics = {}) {
+    const wrap = document.getElementById("wrap");
+    const topbar = document.querySelector(".topbar");
+    const columns = Array.from(document.querySelectorAll(".col")).filter((col) => col.offsetParent !== null);
+    const page = document.getElementById("page");
+    const ppi = metrics.ppi || pxPerInch();
+    const pageH = (11 - 0.5) * ppi;
+    const pageW = (8.5 - 0.5) * ppi;
+    const topbarH = topbar ? topbar.offsetHeight : 0;
+    const availableHeight = metrics.availH || (pageH - topbarH - 6);
+    const maxColumnHeight = columns.reduce((max, col) => Math.max(max, col.scrollHeight), 0);
+    const scaleRaw = getComputedStyle(wrap || document.documentElement).getPropertyValue("--scale") || "1";
+    const scale = Number(metrics.scale || scaleRaw || 1) || 1;
+    const scaledHeight = maxColumnHeight * scale;
+    const scaledPageContentHeight = ((topbarH + maxColumnHeight) * scale);
+    const pageCount = Math.max(1, Math.ceil(scaledPageContentHeight / pageH));
+    const columnOverflows = scaledHeight > availableHeight + 2;
+    const ringCount = document.querySelectorAll(".ringWrap").length;
+    const classCount = document.querySelectorAll(".c").length;
+    const orphanRisk = columns.some((col) => {
+      const rings = Array.from(col.querySelectorAll(".ringWrap"));
+      const last = rings[rings.length - 1];
+      if (!last) return false;
+      const classes = last.querySelectorAll(".c").length;
+      const rect = last.getBoundingClientRect();
+      const pageRect = page ? page.getBoundingClientRect() : { bottom: Number.POSITIVE_INFINITY };
+      return classes <= 1 && rect.bottom > pageRect.bottom - 6;
+    });
+    const fit = (!columnOverflows && pageCount <= 1 && !orphanRisk) ? "pass" : "fail";
+    const detail = {
+      fit,
+      page_count: pageCount,
+      scale: Number(scale.toFixed(4)),
+      topbar_height: topbarH,
+      max_column_height: maxColumnHeight,
+      scaled_height: Number(scaledHeight.toFixed(2)),
+      available_height: Number(availableHeight.toFixed(2)),
+      ring_count: ringCount,
+      class_count: classCount,
+      column_overflows: columnOverflows,
+      orphan_risk: orphanRisk
+    };
+    document.documentElement.dataset.rsPrintFit = fit;
+    document.documentElement.dataset.rsPageCount = String(pageCount);
+    document.documentElement.dataset.rsPrintFitDetail = JSON.stringify(detail);
+    if (fit !== "pass") console.warn("rs-print-fit", detail);
+    else console.info("rs-print-fit", detail);
+    return detail;
   }
 
   const HIDDEN_RING_KEYS = new Set();
@@ -947,9 +1040,14 @@
     window.RS_PDF_READY = false;
     const visible = RING_WRAPS.filter((el) => !HIDDEN_RING_KEYS.has(String(el.dataset.ringKey || "")));
     placeRings(visible);
-    fitToOnePage();
+    let fitDetail = fitToOnePage();
     setTimeout(() => {
-      fitToOnePage();
+      fitDetail = fitToOnePage();
+      if (fitDetail && fitDetail.fit !== "pass") {
+        document.documentElement.dataset.rsPdfPreflightWarning = "print_fit_failed";
+      } else {
+        delete document.documentElement.dataset.rsPdfPreflightWarning;
+      }
       document.documentElement.dataset.rsPdfReady = "1";
       if (!document.getElementById("rsPdfReady")) {
         const marker = document.createElement("div");

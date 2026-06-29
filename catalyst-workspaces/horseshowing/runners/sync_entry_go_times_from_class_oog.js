@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
+const FALLBACK_PACE_SECONDS = 180;
 
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
@@ -281,6 +282,7 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   const key = canonicalEntryGoKey(sourceRow, focus);
   const classStartTime = text(getField(sourceRow, "class_start_time") || getField(sourceRow, "class_start_time (from class_start_times)"));
   const displayTime = text(getField(sourceRow, "display_time") || getField(sourceRow, "display_time (from class_start_times)"));
+  const sourcePaceSeconds = Number(getField(sourceRow, "pace_seconds"));
   includeField(fields, allowedFields, "entry_go_key", key);
   includeField(fields, allowedFields, "entry_go_key_mirror", key);
   includeField(fields, allowedFields, "show_no", Number(focus.show_no));
@@ -300,9 +302,11 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "entry_count", Number(getField(sourceRow, "entry_count")));
   includeField(fields, allowedFields, "n_gone", Number(getField(sourceRow, "n_gone")));
   includeField(fields, allowedFields, "elapsed_seconds", Number(getField(sourceRow, "elapsed_seconds")));
-  includeField(fields, allowedFields, "pace_seconds", Number(getField(sourceRow, "pace_seconds")));
+  includeField(fields, allowedFields, "pace_seconds", sourcePaceSeconds || FALLBACK_PACE_SECONDS);
   includeField(fields, allowedFields, "entry_go_time", text(displayTime || classStartTime));
-  includeField(fields, allowedFields, "source", "class_oog_staging.entry_go_times");
+  includeField(fields, allowedFields, "source", sourcePaceSeconds
+    ? "class_oog_staging.entry_go_times.estimate"
+    : "class_oog_staging.entry_go_times.estimate_fallback_180");
   includeField(fields, allowedFields, "status", "active");
   includeField(fields, allowedFields, "last_synced_at", new Date().toISOString());
   includeField(fields, allowedFields, "shows", firstLinked(sourceRow, "shows") ? [firstLinked(sourceRow, "shows")] : []);

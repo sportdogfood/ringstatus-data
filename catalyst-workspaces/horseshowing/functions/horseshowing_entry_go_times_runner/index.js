@@ -4,6 +4,7 @@ const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const TABLE_ENTRY_GO_TIMES = "hs_entry_go_times";
 const TABLE_AIRTABLE_ENTRY_GO_TIMES = "tblj1qWXAUS79jijF";
 const TABLE_WEC_LOGS = "tblaA0n7QD7s5lIYm";
+const FALLBACK_PACE_SECONDS = 180;
 
 const AIRTABLE_TABLES = {
   shows: "tblyjlXwdf0zg0mhn",
@@ -223,12 +224,18 @@ function minutesTill(focusDay, timeValue) {
 }
 
 function paceFromClassStart(classStart) {
+  return paceFromClassStartDetail(classStart).seconds;
+}
+
+function paceFromClassStartDetail(classStart) {
   const nGone = intOrNull(classStart.n_gone);
   const elapsedSeconds = intOrNull(classStart.elapsed_seconds);
   if (nGone && nGone > 6 && elapsedSeconds && elapsedSeconds > 0) {
-    return Math.max(30, Math.round(elapsedSeconds / nGone));
+    return { seconds: Math.max(30, Math.round(elapsedSeconds / nGone)), source: "estimate_elapsed_n_gone" };
   }
-  return intOrNull(classStart.pace_seconds) || 120;
+  const configuredPace = intOrNull(classStart.pace_seconds);
+  if (configuredPace) return { seconds: configuredPace, source: "estimate_source_pace" };
+  return { seconds: FALLBACK_PACE_SECONDS, source: "estimate_fallback_180" };
 }
 
 function classStartKey(showNo, focusDay, ringDayNo, ringNo, classNo) {
@@ -423,7 +430,10 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, classStartTimes, s
       });
       continue;
     }
-    const paceSeconds = intOrNull(source.pace_seconds) || paceFromClassStart(resolvedClassStart);
+    const sourcePaceSeconds = intOrNull(source.pace_seconds);
+    const classStartPace = paceFromClassStartDetail(resolvedClassStart);
+    const paceSeconds = sourcePaceSeconds || classStartPace.seconds;
+    const paceSource = sourcePaceSeconds ? "estimate_source_pace" : classStartPace.source;
     const nGone = intOrNull(source.n_gone) || intOrNull(resolvedClassStart.n_gone);
     const elapsedSeconds = intOrNull(source.elapsed_seconds) || intOrNull(resolvedClassStart.elapsed_seconds);
     const entryGoTime = classStartTime ? addSecondsToTime(classStartTime, Math.max(0, entryOrder - 1) * paceSeconds) : "";
@@ -451,7 +461,7 @@ function buildRows({ showNo, focusDay, focusShow, sourceRows, classStartTimes, s
       n_gone: nGone,
       elapsed_seconds: elapsedSeconds,
       time_till: minutesTill(focusDay, entryGoTime),
-      source: "class_oog_staging.entry_go_times",
+      source: `class_oog_staging.entry_go_times.${paceSource}`,
       last_synced_at: syncedAt,
       status: "active",
       shows: link(first(source.shows)),

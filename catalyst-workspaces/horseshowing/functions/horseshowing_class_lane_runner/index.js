@@ -379,7 +379,7 @@ function cleanFields(fields) {
   return Object.fromEntries(Object.entries(fields).filter(([, value]) => value !== undefined));
 }
 
-async function airtableList(baseId, table, token, { formula = "", fields = [], returnFieldIds = true } = {}) {
+async function airtableList(baseId, table, token, { formula = "", view = "", fields = [], returnFieldIds = true } = {}) {
   const records = [];
   let offset = "";
   do {
@@ -387,6 +387,7 @@ async function airtableList(baseId, table, token, { formula = "", fields = [], r
     url.searchParams.set("pageSize", "100");
     if (offset) url.searchParams.set("offset", offset);
     if (formula) url.searchParams.set("filterByFormula", formula);
+    if (view) url.searchParams.set("view", view);
     if (returnFieldIds) url.searchParams.set("returnFieldsByFieldId", "true");
     for (const field of fields) url.searchParams.append("fields[]", field);
     const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
@@ -801,11 +802,11 @@ async function readLockedStaging(baseId, token, showNo, focusDay) {
   });
 }
 
-async function readFocusClassStarts(baseId, token, showNo, focusDay, { allShowDays = false } = {}) {
+async function readFocusClassStarts(baseId, token, showNo, focusDay, { allShowDays = false, view = "" } = {}) {
   const formula = allShowDays
     ? `{show_no}=${Number(showNo)}`
     : `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'))`;
-  const rows = await airtableList(baseId, TABLES.airtableClassStartTimes, token, { formula });
+  const rows = await airtableList(baseId, TABLES.airtableClassStartTimes, token, { formula, view });
   const classStarts = rows.map((record) => {
     const f = record.fields || {};
     return {
@@ -848,9 +849,9 @@ async function readFocusClassStarts(baseId, token, showNo, focusDay, { allShowDa
   });
 }
 
-async function readActiveEntryGoTimes(baseId, token, showNo, focusDay) {
+async function readActiveEntryGoTimes(baseId, token, showNo, focusDay, { view = "" } = {}) {
   const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{status}='active')`;
-  const rows = await airtableList(baseId, TABLES.airtableEntryGoTimes, token, { formula });
+  const rows = await airtableList(baseId, TABLES.airtableEntryGoTimes, token, { formula, view });
   return rows.map((record) => {
     const f = record.fields || {};
     return {
@@ -920,9 +921,14 @@ async function readClassOogGroups(baseId, token, showNo, focusDay) {
 }
 
 async function resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys) {
+  const updates = await buildStaleTimeAlertUpdates(baseId, token, focus, activeAlertKeys);
+  return updates.length ? airtableUpdate(baseId, TABLES.airtableAlerts, updates, token) : [];
+}
+
+async function buildStaleTimeAlertUpdates(baseId, token, focus, activeAlertKeys) {
   const formula = `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'),{status}='open',OR({alert_lane}='class_start_times',{alert_lane}='entry_go_times'))`;
   const rows = await airtableList(baseId, TABLES.airtableAlerts, token, { formula });
-  const updates = rows
+  return rows
     .filter((record) => !activeAlertKeys.has(text((record.fields || {})[ALERT_FIELDS.alert_key])))
     .map((record) => ({
       id: record.id,
@@ -937,7 +943,6 @@ async function resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys) {
         })
       })
     }));
-  return updates.length ? airtableUpdate(baseId, TABLES.airtableAlerts, updates, token) : [];
 }
 
 async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecordId) {
@@ -1959,12 +1964,112 @@ async function syncGetRings(app, baseId, token, focus) {
   };
 }
 
+const ALERT_CREATE_ONLY_FIELDS = new Set([
+  ALERT_FIELDS.alert_key_run,
+  ALERT_FIELDS.created_at,
+  ALERT_FIELDS.time_till,
+  ALERT_FIELDS.payload_json,
+]);
+
+const ALERT_LINK_FIELDS = new Set([
+  ALERT_FIELDS.alert_templates,
+  ALERT_FIELDS.shows,
+  ALERT_FIELDS.focus_show,
+  ALERT_FIELDS.ring_days,
+  ALERT_FIELDS.rings,
+  ALERT_FIELDS.classes,
+  ALERT_FIELDS.entries,
+  ALERT_FIELDS.horses,
+  ALERT_FIELDS.riders,
+  ALERT_FIELDS.trainers,
+  ALERT_FIELDS.class_start_times,
+  ALERT_FIELDS.entry_go_times,
+]);
+
+async function readExistingTimeAlerts(baseId, token, focus) {
+  const formula = `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focus.focus_day)}'),'day'),OR({alert_lane}='class_start_times',{alert_lane}='entry_go_times'))`;
+  const rows = await airtableList(baseId, TABLES.airtableAlerts, token, { formula });
+  const byKey = new Map();
+  const duplicateKeys = [];
+  for (const record of rows) {
+    const key = text((record.fields || {})[ALERT_FIELDS.alert_key]);
+    if (!key) continue;
+    if (byKey.has(key)) duplicateKeys.push(key);
+    else byKey.set(key, record);
+  }
+  return { rows, byKey, duplicateKeys };
+}
+
+function comparableValue(value) {
+  if (Array.isArray(value)) return value.map(comparableValue);
+  if (value && typeof value === "object") {
+    if ("id" in value) return value.id;
+    if ("name" in value) return value.name;
+  }
+  if (value === null || value === undefined) return "";
+  return value;
+}
+
+function comparableScalar(value) {
+  const normalized = comparableValue(value);
+  if (typeof normalized === "number") return String(normalized);
+  return text(normalized);
+}
+
+function alertFieldChanged(currentFields, fieldId, nextValue) {
+  if (ALERT_LINK_FIELDS.has(fieldId)) return !sameLinkedIds(currentFields[fieldId] || [], nextValue || []);
+  return comparableScalar(currentFields[fieldId]) !== comparableScalar(nextValue);
+}
+
+function alertUpdateFields(existing, nextFields) {
+  const current = existing.fields || {};
+  const fields = {};
+  for (const [fieldId, nextValue] of Object.entries(nextFields)) {
+    if (ALERT_CREATE_ONLY_FIELDS.has(fieldId)) continue;
+    if (fieldId === ALERT_FIELDS.status) {
+      const currentStatus = comparableScalar(current[fieldId]);
+      if (!currentStatus || currentStatus === "resolved") fields[fieldId] = "open";
+      continue;
+    }
+    if (alertFieldChanged(current, fieldId, nextValue)) fields[fieldId] = nextValue;
+  }
+  return cleanFields(fields);
+}
+
+function planAlertWrites(alertRows, existingAlerts) {
+  const creates = [];
+  const updates = [];
+  const unchanged = [];
+  const statusTransitions = [];
+
+  for (const fields of alertRows) {
+    const alertKey = text(fields[ALERT_FIELDS.alert_key]);
+    if (!alertKey) continue;
+    const existing = existingAlerts.byKey.get(alertKey);
+    if (!existing) {
+      creates.push(fields);
+      continue;
+    }
+    const patchFields = alertUpdateFields(existing, fields);
+    const patchFieldIds = Object.keys(patchFields);
+    if (!patchFieldIds.length) {
+      unchanged.push(alertKey);
+      continue;
+    }
+    const update = { id: existing.id, fields: patchFields };
+    updates.push(update);
+    if (patchFieldIds.includes(ALERT_FIELDS.status)) statusTransitions.push(alertKey);
+  }
+
+  return { creates, updates, unchanged, statusTransitions };
+}
+
 async function syncClassAlerts(baseId, token, focus, now = new Date(), options = {}) {
   const dryRun = truthy(options.dryRun) || truthy(options.noSend) || truthy(options.candidateOnly);
-  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
-  const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day);
-  const classAlerts = buildClassAlerts(classStarts, now);
-  const entryAlerts = buildEntryAlerts(entryGoTimes, now);
+  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
+  const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
+  const classAlerts = buildClassAlerts(classStarts, now, { windowed: false });
+  const entryAlerts = buildEntryAlerts(entryGoTimes, now, { windowed: false });
   const alerts = [...classAlerts, ...entryAlerts];
   const activeAlertKeys = new Set(alerts.map((alert) => alert.alert_key));
   const alertTemplateMap = await readAlertTemplateMap(baseId, token);
@@ -2005,6 +2110,9 @@ async function syncClassAlerts(baseId, token, focus, now = new Date(), options =
       : airtableRecordLinks(alert.class_start_times),
     [ALERT_FIELDS.entry_go_times]: alert.source_table === "entry_go_times" ? airtableRecordLink(alert.entry_go_times_record_id) : undefined
   }));
+  const existingAlerts = await readExistingTimeAlerts(baseId, token, focus);
+  const writePlan = planAlertWrites(airtableRows, existingAlerts);
+  const staleUpdates = await buildStaleTimeAlertUpdates(baseId, token, focus, activeAlertKeys);
   if (dryRun) {
     const candidates = alerts.map((alert, index) => ({
       alert_key: alert.alert_key,
@@ -2031,23 +2139,34 @@ async function syncClassAlerts(baseId, token, focus, now = new Date(), options =
       missing_templates: missingTemplates,
       airtable_upsert_skipped: true,
       stale_resolution_skipped: true,
+      would_create: writePlan.creates.length,
+      would_update: writePlan.updates.length,
+      would_unchanged: writePlan.unchanged.length,
+      would_status_transition: writePlan.statusTransitions.length,
+      would_resolve_stale: staleUpdates.length,
+      duplicate_existing_alert_keys: existingAlerts.duplicateKeys,
       notifications_sent: 0,
       records_changed: 0
     };
   }
-  const upserts = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, airtableRows, token);
-  const resolved = await resolveStaleTimeAlerts(baseId, token, focus, activeAlertKeys);
-  await logRun(baseId, token, {
-    action: "class_alerts",
-    showNo: focus.show_no,
-    focusDay: focus.focus_day,
-    status: "ok",
-    recordsSeen: classStarts.length + entryGoTimes.length,
-    recordsChanged: upserts.length + resolved.length,
-    summary: `class_alerts created/updated ${upserts.length}; resolved ${resolved.length}; class ${classAlerts.length}; entry ${entryAlerts.length}`,
-    payload: { class_start_times: classStarts.length, entry_go_times: entryGoTimes.length, class_alerts: classAlerts.length, entry_alerts: entryAlerts.length, alerts: upserts.length, resolved: resolved.length }
-  });
-  return { class_start_times: classStarts.length, entry_go_times: entryGoTimes.length, class_alerts: classAlerts.length, entry_alerts: entryAlerts.length, alerts_upserted: upserts.length, alerts_resolved: resolved.length };
+  const created = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, writePlan.creates, token);
+  const updated = writePlan.updates.length ? await airtableUpdate(baseId, TABLES.airtableAlerts, writePlan.updates, token) : [];
+  const resolved = staleUpdates.length ? await airtableUpdate(baseId, TABLES.airtableAlerts, staleUpdates, token) : [];
+  return {
+    class_start_times: classStarts.length,
+    entry_go_times: entryGoTimes.length,
+    class_alerts: classAlerts.length,
+    entry_alerts: entryAlerts.length,
+    alerts_created: created.length,
+    alerts_updated: updated.length,
+    alerts_unchanged: writePlan.unchanged.length,
+    alerts_status_transitioned: writePlan.statusTransitions.length,
+    alerts_resolved: resolved.length,
+    duplicate_existing_alert_keys: existingAlerts.duplicateKeys,
+    records_changed: created.length + updated.length + resolved.length,
+    notifications_sent: 0,
+    log_skipped: true
+  };
 }
 
 async function auditLane(app, baseId, token, focus) {

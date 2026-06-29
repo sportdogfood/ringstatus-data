@@ -256,18 +256,18 @@ function compareKeySets(expected, actual) {
   };
 }
 
-function buildClassAlerts(classStarts, now = new Date()) {
+function buildClassAlerts(classStarts, now = new Date(), { windowed = true } = {}) {
   const current = easternParts(now);
   const windows = [60, 30];
   const alerts = [];
 
   for (const row of classStarts) {
-    if (String(row.focus_day) !== current.date) continue;
+    if (windowed && String(row.focus_day) !== current.date) continue;
     const startMinutes = timeMinutes(row.class_start_time || row.display_time);
     if (startMinutes === null) continue;
     const timeTill = startMinutes - current.minutes;
     for (const threshold of windows) {
-      if (!inAlertWindow(timeTill, threshold)) continue;
+      if (windowed && !inAlertWindow(timeTill, threshold)) continue;
       const alertType = `class_start_${threshold}`;
       alerts.push({
         alert_key: `${row.show_no}|${row.focus_day}|${row.class_no}|${alertType}`,
@@ -302,18 +302,18 @@ function inAlertWindow(minutesUntil, threshold, windowMinutes = 12) {
   return Number(minutesUntil) <= threshold && Number(minutesUntil) > threshold - windowMinutes;
 }
 
-function buildEntryAlerts(entryGoTimes, now = new Date()) {
+function buildEntryAlerts(entryGoTimes, now = new Date(), { windowed = true } = {}) {
   const current = easternParts(now);
   const windows = [40, 20];
   const alerts = [];
 
   for (const row of entryGoTimes) {
-    if (String(row.focus_day) !== current.date) continue;
+    if (windowed && String(row.focus_day) !== current.date) continue;
     const goMinutes = timeMinutes(row.entry_go_time);
     if (goMinutes === null) continue;
     const timeTill = goMinutes - current.minutes;
     for (const threshold of windows) {
-      if (!inAlertWindow(timeTill, threshold)) continue;
+      if (windowed && !inAlertWindow(timeTill, threshold)) continue;
       const alertType = `entry_go_${threshold}`;
       const horseDisplay = row.horse_display || row.horse || `Entry ${row.entry_no}`;
       alerts.push({

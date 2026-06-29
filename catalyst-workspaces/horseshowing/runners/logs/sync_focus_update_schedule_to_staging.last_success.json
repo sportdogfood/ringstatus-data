@@ -2,8 +2,8 @@
   "ok": true,
   "action": "sync-focus-update-schedule-to-staging",
   "source": "airtable.update_schedule",
-  "run_id": "wec-stage1-stage2-20260629T030017968Z-a5683ef7",
-  "run_time": "2026-06-29T03:00:17.968Z",
+  "run_id": "wec-stage1-stage2-20260629T160913430Z-ceb028be",
+  "run_time": "2026-06-29T16:09:13.430Z",
   "focus_show_record_id": "recLh1GS3VPfTe1z2",
   "source_control_record": "recLh1GS3VPfTe1z2",
   "show_no": "14907",
@@ -51,8 +51,8 @@
       "record_id": "recLh1GS3VPfTe1z2",
       "is_pause": false,
       "is_lock": true,
-      "run_id": "wec-stage1-stage2-20260629T030017968Z-a5683ef7",
-      "run_time": "2026-06-29T03:00:17.968Z"
+      "run_id": "wec-stage1-stage2-20260629T160913430Z-ceb028be",
+      "run_time": "2026-06-29T16:09:13.430Z"
     },
     "payload_rows": 81,
     "update_schedule_rows": 92,
@@ -254,9 +254,9 @@
         "helper_table": "skills",
         "source_field": "this_skills",
         "rows_read": 19,
-        "rows_with_formula_values": 39,
-        "rows_with_matches": 39,
-        "links_matched": 70,
+        "rows_with_formula_values": 33,
+        "rows_with_matches": 33,
+        "links_matched": 63,
         "unmatched_values": []
       },
       "levels": {
@@ -297,7 +297,7 @@
       }
     },
     "update_schedule_staging_evaluator_rs_class_name": {
-      "rows_built": 82,
+      "rows_built": 80,
       "token_order": [
         "levels",
         "ages",
@@ -327,5 +327,5 @@
     "update_schedule_staging_checkbox_true_values_preserved": 0,
     "update_schedule_staging_links_unioned": 0
   },
-  "success_at": "2026-06-29T03:00:37.238Z"
+  "success_at": "2026-06-29T16:09:51.143Z"
 }

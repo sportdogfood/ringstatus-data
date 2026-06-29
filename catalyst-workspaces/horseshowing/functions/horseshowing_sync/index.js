@@ -4206,6 +4206,8 @@ function compactMobileEntryPayload(entries) {
     rider_display: text(entry.rider_display || entry.rider),
     trainer_display: text(entry.trainer_display || entry.trainer),
     entry_go_time: text(entry.entry_go_time || entry.go_time),
+    entry_go_time_label: "Estimated go time",
+    entry_go_time_source: "estimate",
     class_start_time: text(entry.class_start_time),
     time_till: text(entry.time_till)
   })).filter((entry) => (
@@ -4353,6 +4355,8 @@ function richEntryFromGoTime(entry, meta, resultRow = {}) {
     trainer,
     trainer_display: trainerDisplayName(trainer, meta.trainerDisplays),
     go_time: text(entry.go_time),
+    go_time_label: "Estimated go time",
+    go_time_source: "estimate",
     result: text(resultRow.class_result_key) ? {
       score: text(resultRow.score),
       prize: text(resultRow.prize),

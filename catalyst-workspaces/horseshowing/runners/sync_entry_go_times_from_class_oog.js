@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
-const FALLBACK_PACE_SECONDS = 180;
-
 function text(value) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
@@ -29,6 +27,39 @@ function truthy(value) {
   if (value === true || value === 1) return true;
   const clean = text(value).toLowerCase();
   return clean === "1" || clean === "true" || clean === "yes" || clean === "checked";
+}
+
+function intOrNull(value) {
+  const clean = text(value);
+  if (!clean) return null;
+  const parsed = Number(clean);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function normalizeTime(value) {
+  const clean = text(value);
+  if (!clean) return "";
+  const match = clean.match(/^(\d{1,2})(?::(\d{2}))?(?::(\d{2}))?\s*(AM|PM)?$/i);
+  if (!match) return clean;
+  let hour = Number(match[1]);
+  const minute = Number(match[2] || 0);
+  const second = Number(match[3] || 0);
+  const meridian = text(match[4]).toUpperCase();
+  if (meridian === "PM" && hour < 12) hour += 12;
+  if (meridian === "AM" && hour === 12) hour = 0;
+  return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
+}
+
+function addSecondsToTime(timeValue, seconds) {
+  const normalized = normalizeTime(timeValue);
+  const parts = normalized.match(/^(\d{2}):(\d{2}):(\d{2})$/);
+  if (!parts || !Number.isFinite(seconds)) return "";
+  const total = (Number(parts[1]) * 3600) + (Number(parts[2]) * 60) + Number(parts[3]) + seconds;
+  const wrapped = ((total % 86400) + 86400) % 86400;
+  const hour = Math.floor(wrapped / 3600);
+  const minute = Math.floor((wrapped % 3600) / 60);
+  const second = wrapped % 60;
+  return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
 }
 
 function formulaValue(value) {
@@ -272,6 +303,17 @@ function includeField(fields, allowedFields, key, value) {
   fields[key] = value;
 }
 
+function includeNullableField(fields, allowedFields, key, value) {
+  if (!allowedFields.has(key)) return;
+  if (value === undefined) return;
+  if (typeof value === "number" && !Number.isFinite(value)) return;
+  fields[key] = value;
+}
+
+function isFallbackPaceSource(value) {
+  return /fallback/i.test(text(value));
+}
+
 function buildEntryFields({ sourceRow, focus, allowedFields }) {
   const fields = {};
   const parts = classOogKeyParts(sourceRow);
@@ -280,9 +322,15 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   const classNo = text(getField(sourceRow, "class_no") || parts.class_no);
   const entryNo = text(getField(sourceRow, "entry_no") || parts.entry_no);
   const key = canonicalEntryGoKey(sourceRow, focus);
-  const classStartTime = text(getField(sourceRow, "class_start_time") || getField(sourceRow, "class_start_time (from class_start_times)"));
+  const classStartTime = normalizeTime(getField(sourceRow, "class_start_time") || getField(sourceRow, "class_start_time (from class_start_times)"));
   const displayTime = text(getField(sourceRow, "display_time") || getField(sourceRow, "display_time (from class_start_times)"));
-  const sourcePaceSeconds = Number(getField(sourceRow, "pace_seconds"));
+  const sourcePaceSeconds = !isFallbackPaceSource(getField(sourceRow, "source"))
+    ? intOrNull(getField(sourceRow, "pace_seconds"))
+    : null;
+  const entryOrder = intOrNull(getField(sourceRow, "entry_order"));
+  const entryGoTime = classStartTime && entryOrder && sourcePaceSeconds
+    ? addSecondsToTime(classStartTime, Math.max(0, entryOrder - 1) * sourcePaceSeconds)
+    : null;
   includeField(fields, allowedFields, "entry_go_key", key);
   includeField(fields, allowedFields, "entry_go_key_mirror", key);
   includeField(fields, allowedFields, "show_no", Number(focus.show_no));
@@ -291,7 +339,7 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "ring_no", Number(ringNo));
   includeField(fields, allowedFields, "class_no", Number(classNo));
   includeField(fields, allowedFields, "entry_no", Number(entryNo));
-  includeField(fields, allowedFields, "entry_order", Number(getField(sourceRow, "entry_order")));
+  includeField(fields, allowedFields, "entry_order", entryOrder);
   includeField(fields, allowedFields, "horse", text(getField(sourceRow, "horse")));
   includeField(fields, allowedFields, "rider", text(getField(sourceRow, "rider")));
   includeField(fields, allowedFields, "trainer", text(getField(sourceRow, "trainer")));
@@ -302,11 +350,11 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "entry_count", Number(getField(sourceRow, "entry_count")));
   includeField(fields, allowedFields, "n_gone", Number(getField(sourceRow, "n_gone")));
   includeField(fields, allowedFields, "elapsed_seconds", Number(getField(sourceRow, "elapsed_seconds")));
-  includeField(fields, allowedFields, "pace_seconds", sourcePaceSeconds || FALLBACK_PACE_SECONDS);
-  includeField(fields, allowedFields, "entry_go_time", text(displayTime || classStartTime));
+  includeNullableField(fields, allowedFields, "pace_seconds", sourcePaceSeconds || null);
+  includeNullableField(fields, allowedFields, "entry_go_time", entryGoTime);
   includeField(fields, allowedFields, "source", sourcePaceSeconds
-    ? "class_oog_staging.entry_go_times.estimate"
-    : "class_oog_staging.entry_go_times.estimate_fallback_180");
+    ? "class_oog_staging.entry_go_times.estimate_source_pace"
+    : "class_oog_staging.entry_go_times.insufficient_pace_data");
   includeField(fields, allowedFields, "status", "active");
   includeField(fields, allowedFields, "last_synced_at", new Date().toISOString());
   includeField(fields, allowedFields, "shows", firstLinked(sourceRow, "shows") ? [firstLinked(sourceRow, "shows")] : []);

@@ -2580,7 +2580,7 @@ function entryGoTimesByClassFromRecords(records, activeTrainers = []) {
     if (activeTrainerSet.size && !activeTrainerSet.has(trainer)) continue;
     const classKey = `${ringDayNo}|${classNo}`;
     const bucket = byClass.get(classKey) || [];
-    const entryGoTime = text(fields.entry_go_time || fields.go_time || fields.display_time);
+    const entryGoTime = text(fields.entry_go_time);
     bucket.push({
       show_no: text(fields.show_no),
       ring_day_no: ringDayNo,
@@ -2807,10 +2807,10 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
       entry_rollup: text(row.entry_rollup),
       rider_display: text(row.rider_display || row.rider),
       trainer_display: text(row.trainer_display || row.trainer),
-      entry_go_time: text(row.entry_go_time || row.go_time),
+      entry_go_time: text(row.entry_go_time),
       class_start_time: text(row.class_start_time),
       time_till: text(row.time_till),
-      go_time: text(row.entry_go_time || row.go_time)
+      go_time: text(row.entry_go_time)
     });
     byClass.set(classKey, bucket);
   }
@@ -4205,7 +4205,7 @@ function compactMobileEntryPayload(entries) {
     entry_rollup: text(entry.entry_rollup),
     rider_display: text(entry.rider_display || entry.rider),
     trainer_display: text(entry.trainer_display || entry.trainer),
-    entry_go_time: text(entry.entry_go_time || entry.go_time),
+    entry_go_time: text(entry.entry_go_time),
     entry_go_time_label: "Estimated go time",
     entry_go_time_source: "estimate",
     class_start_time: text(entry.class_start_time),
@@ -4354,7 +4354,7 @@ function richEntryFromGoTime(entry, meta, resultRow = {}) {
     rider,
     trainer,
     trainer_display: trainerDisplayName(trainer, meta.trainerDisplays),
-    go_time: text(entry.go_time),
+    go_time: text(entry.entry_go_time),
     go_time_label: "Estimated go time",
     go_time_source: "estimate",
     result: text(resultRow.class_result_key) ? {

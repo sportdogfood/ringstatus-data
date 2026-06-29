@@ -262,7 +262,7 @@
   }
 
   @media print{
-    @page{ size:Letter; margin:0.25in; }
+    @page{ size:Letter landscape; margin:0.25in; }
 
     html,
     body{
@@ -335,6 +335,19 @@
     body.tight .t{font-size:9px;}
     body.tight .n{font-size:9px;}
   }
+
+  @media print and (orientation: portrait){
+    @page{ size:Letter portrait; margin:0.25in; }
+
+    .cols{
+      grid-template-columns:1fr 1fr;
+      gap:0.09in;
+    }
+
+    #colR{
+      display:none;
+    }
+  }
 </style>
 <style>
   :root{--ring:#815374;}
@@ -403,6 +416,14 @@
   body.is-pdf .ringClose{
     display:none !important;
   }
+
+  body.pdf-portrait .cols{
+    grid-template-columns:1fr 1fr;
+  }
+
+  body.pdf-portrait #colR{
+    display:none;
+  }
 </style>
 <div class="page" id="page">
   <div class="topbar">
@@ -429,7 +450,8 @@
   const qs = new URLSearchParams(location.search);
   const SMARTBROWZ_PDF_URL = window.RS_WEC_SMARTBROWZ_PDF_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-smartbrowz-pdf";
   const SCALE_FUDGE = 0.99;
-  if (qs.get("pdf") === "1") document.body.classList.add("is-pdf");
+  const PRINT_ORIENTATION = qs.get("orientation") === "portrait" ? "portrait" : "landscape";
+  if (qs.get("pdf") === "1") document.body.classList.add("is-pdf", `pdf-${PRINT_ORIENTATION}`);
 
   const TENANT_SLUG_MAP = {
     firefly: "40362",
@@ -785,9 +807,9 @@
     const columns = [
       document.getElementById("colL"),
       document.getElementById("colM"),
-      document.getElementById("colR")
+      PRINT_ORIENTATION === "portrait" ? null : document.getElementById("colR")
     ].filter(Boolean);
-    if (columns.length < 3) return;
+    if (columns.length < 2) return;
 
     columns.forEach((column) => { column.innerHTML = ""; });
 

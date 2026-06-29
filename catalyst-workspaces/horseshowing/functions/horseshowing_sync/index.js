@@ -1072,6 +1072,7 @@ function buildWecPrintSmartBrowzTargetUrl(req, showNo) {
   target.searchParams.set("action", "wec-print-embed-html");
   target.searchParams.set("show_no", text(showNo));
   target.searchParams.set("pdf", "1");
+  target.searchParams.set("orientation", "landscape");
   return target.toString();
 }
 
@@ -1085,7 +1086,26 @@ function streamToBuffer(stream) {
 }
 
 async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
+  const requestStartedAt = new Date();
+  const startedMs = Date.now();
+  const timing = {
+    request_start: requestStartedAt.toISOString(),
+    focus_show_resolution_ms: null,
+    target_print_html_generation_ms: null,
+    target_print_html_status: null,
+    target_print_html_bytes: null,
+    smartbrowz_browser_start_ms: null,
+    smartbrowz_page_navigation_ms: null,
+    smartbrowz_wait_for_ready_ms: null,
+    smartbrowz_pdf_generation_ms: null,
+    smartbrowz_convert_to_pdf_ms: null,
+    pdf_stream_buffer_ms: null,
+    total_response_ms: null,
+    note: "Catalyst SmartBrowz convertToPdf exposes browser start, navigation, selector wait, and PDF rendering as one combined SDK call."
+  };
+  const focusStartedMs = Date.now();
   const outputFocus = await getOutputFocusShow(requestedShowNo);
+  timing.focus_show_resolution_ms = Date.now() - focusStartedMs;
   if (!outputFocus) return json(res, 400, { ok: false, action: "wec-print-smartbrowz-pdf", error: "wec-print-smartbrowz-pdf requires active focus_show" });
   const targetUrl = buildWecPrintSmartBrowzTargetUrl(req, outputFocus.show_no);
   const smartBrowz = typeof app.smartbrowz === "function" ? app.smartbrowz() : null;
@@ -1105,6 +1125,14 @@ async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
   }
 
   try {
+    const targetStartedMs = Date.now();
+    const targetResponse = await fetch(targetUrl, { method: "GET", headers: { accept: "text/html" } });
+    const targetHtml = await targetResponse.text();
+    timing.target_print_html_generation_ms = Date.now() - targetStartedMs;
+    timing.target_print_html_status = targetResponse.status;
+    timing.target_print_html_bytes = targetHtml.length;
+
+    const smartBrowzStartedMs = Date.now();
     const stream = await smartBrowz.convertToPdf(targetUrl, {
       pdf_options: {
         format: "Letter",
@@ -1120,7 +1148,12 @@ async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
         wait_until: "networkidle2"
       }
     });
+    timing.smartbrowz_convert_to_pdf_ms = Date.now() - smartBrowzStartedMs;
+    timing.smartbrowz_pdf_generation_ms = timing.smartbrowz_convert_to_pdf_ms;
+    const bufferStartedMs = Date.now();
     const pdf = await streamToBuffer(stream);
+    timing.pdf_stream_buffer_ms = Date.now() - bufferStartedMs;
+    timing.total_response_ms = Date.now() - startedMs;
     if (!pdf.length || pdf.slice(0, 5).toString("utf8") !== "%PDF-") {
       return json(res, 502, {
         ok: false,
@@ -1139,13 +1172,15 @@ async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
     res.statusCode = 200;
     res.status?.(200);
     res.setHeader?.("content-type", "application/pdf");
-    res.setHeader?.("content-disposition", `inline; filename="wec-${outputFocus.focus_day || "schedule"}-smartbrowz.pdf"`);
+    res.setHeader?.("content-disposition", `inline; filename="wec-${outputFocus.focus_day || "schedule"}-schedule.pdf"`);
     res.setHeader?.("x-wec-show-no", outputFocus.show_no);
     res.setHeader?.("x-wec-focus-day", outputFocus.focus_day);
     res.setHeader?.("x-wec-focus-source", outputFocus.source);
     res.setHeader?.("x-wec-smartbrowz-target", targetUrl);
+    res.setHeader?.("x-wec-pdf-timing", JSON.stringify(timing));
     return res.end(pdf);
   } catch (error) {
+    timing.total_response_ms = Date.now() - startedMs;
     return json(res, 502, {
       ok: false,
       action: "wec-print-smartbrowz-pdf",
@@ -1155,6 +1190,7 @@ async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
       focus_show_record_id: outputFocus.record_id,
       target_url: targetUrl,
       smartbrowz_available: true,
+      timing,
       error: String(error?.message || error),
       code: text(error?.code)
     });

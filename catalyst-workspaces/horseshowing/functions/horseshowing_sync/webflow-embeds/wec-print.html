@@ -427,7 +427,7 @@
 <script>
 (() => {
   const qs = new URLSearchParams(location.search);
-  const PDF_WORKER_BASE = "https://ringstatus-pdf.gombcg.workers.dev/";
+  const SMARTBROWZ_PDF_URL = window.RS_WEC_SMARTBROWZ_PDF_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-smartbrowz-pdf";
   const SCALE_FUDGE = 0.99;
   if (qs.get("pdf") === "1") document.body.classList.add("is-pdf");
 
@@ -894,25 +894,12 @@
   }
 
   function buildPdfLink() {
-    const publicPrintUrl = window.RS_WEC_PRINT_URL || "https://ringstatus.com/wec-print";
-    const rawPageUrl = location.protocol === "file:"
-      ? `${publicPrintUrl}${location.search || ""}`
-      : location.href;
-    const pageUrlObj = new URL(rawPageUrl, location.href);
+    const pdfUrl = new URL(SMARTBROWZ_PDF_URL, location.href);
     const resolvedShowNo = CURRENT_PRINT_SHOW_NO || qs.get("show_no") || qs.get("show_id") || "";
-    if (resolvedShowNo) pageUrlObj.searchParams.set("show_no", resolvedShowNo);
-    pageUrlObj.searchParams.delete("focus_day");
-    pageUrlObj.searchParams.delete("focus_day_date");
-    pageUrlObj.searchParams.set("pdf", "1");
-    const pageUrl = pageUrlObj.toString();
-    const filename = buildPdfFilename();
-    const params = new URLSearchParams({
-      url: pageUrl,
-      filename,
-      waitForSelector: "#rsPdfReady",
-      cacheTtl: "900"
-    });
-    return `${PDF_WORKER_BASE}?${params.toString()}`;
+    if (resolvedShowNo) pdfUrl.searchParams.set("show_no", resolvedShowNo);
+    pdfUrl.searchParams.delete("focus_day");
+    pdfUrl.searchParams.delete("focus_day_date");
+    return pdfUrl.toString();
   }
 
   function syncPdfControls() {

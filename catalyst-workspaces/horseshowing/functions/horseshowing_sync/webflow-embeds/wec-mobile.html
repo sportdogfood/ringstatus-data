@@ -759,8 +759,7 @@
   const PUBLISH_INTERVAL_MS = 8 * 60 * 1000;
   const EMPTY_RETRY_MS = 10 * 1000;
   const TIMEZONE = "America/New_York";
-  const PDF_WORKER_BASE = "https://ringstatus-pdf.gombcg.workers.dev/";
-  const WEC_PRINT_URL = "https://ringstatus.com/wec-print";
+  const SMARTBROWZ_PDF_URL = window.RS_WEC_SMARTBROWZ_PDF_URL || "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-smartbrowz-pdf";
   const WEC_EDIT_URL = window.RS_WEC_EDIT_URL || "https://ringstatus.com/test/wec-schedule/edit";
   const HIDE_STORAGE_PREFIX = "rs_wec_mobile_hidden_classes";
 
@@ -832,18 +831,11 @@
   }
 
   function buildPrintPdfUrl(){
-    const source = new URL(window.RS_WEC_PRINT_URL || WEC_PRINT_URL, location.href);
-    const focusDay = currentFocusDay || isoDate(document.getElementById("subtitle")?.textContent);
+    const pdf = new URL(SMARTBROWZ_PDF_URL, location.href);
     const showNo = currentShowNo || new URLSearchParams(location.search).get("show_no") || new URLSearchParams(location.search).get("show_id");
-    if(showNo) source.searchParams.set("show_no", showNo);
-    source.searchParams.delete("focus_day");
-    source.searchParams.delete("focus_day_date");
-    source.searchParams.set("pdf", "1");
-    const filenameDay = focusDay || "schedule";
-    const pdf = new URL(PDF_WORKER_BASE);
-    pdf.searchParams.set("url", source.toString());
-    pdf.searchParams.set("filename", `wec-${filenameDay}-schedule.pdf`);
-    pdf.searchParams.set("waitForSelector", "#rsPdfReady");
+    if(showNo) pdf.searchParams.set("show_no", showNo);
+    pdf.searchParams.delete("focus_day");
+    pdf.searchParams.delete("focus_day_date");
     return pdf.toString();
   }
 

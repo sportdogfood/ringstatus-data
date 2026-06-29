@@ -240,22 +240,32 @@ function renderHome(res, result) {
       text-transform: uppercase;
     }
     .toggle-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     .soft-toggle {
-      min-height: 30px;
+      max-width: 100%;
+      min-height: 29px;
       border: 1px solid var(--border-soft);
-      border-radius: var(--radius-md);
+      border-radius: 999px;
       background: #fff;
       color: var(--text-main);
       font: inherit;
-      font-size: var(--font-sm);
+      font-size: 11px;
       font-weight: 650;
+      line-height: 1.1;
+      padding: 4px 9px;
       cursor: pointer;
     }
-    .soft-toggle.is-on { background: #e8f3ff; border-color: #a6cbe8; }
+    .soft-toggle.is-on { background: #0c2438; border-color: #0c2438; color: #fff; }
+    .soft-toggle.is-muted { background: #f8fafc; color: var(--text-muted); }
+    .panel-note {
+      margin: -2px 0 7px;
+      color: var(--text-muted);
+      font-size: var(--font-xs);
+      line-height: 1.25;
+    }
     .rail {
       padding: 5px 7px 4px;
       border-top: 1px solid var(--border-soft);
@@ -396,6 +406,12 @@ function renderHome(res, result) {
     .class-row.has-rollup { background: var(--row-has-rollup-bg); }
     .class-row.is-current-class { background: #e8f3ff; box-shadow: inset 3px 0 0 #1b74aa; }
     .class-row.has-diff { background: var(--row-has-diff-bg); }
+    body.is-hide-mode .class-row { cursor: crosshair; }
+    .class-row.is-hide-selected {
+      background: #eef2f6;
+      box-shadow: inset 3px 0 0 #0c2438;
+      opacity: .72;
+    }
     .time-chip, .class-chip {
       display: inline-flex;
       align-items: center;
@@ -730,20 +746,24 @@ function renderHome(res, result) {
       </div>
       <section class="push-panel" id="gearPanel" aria-label="Preferences panel">
         <p class="panel-title">Preferences</p>
+        <p class="panel-note">Hide matching WEC-mobile ignore groups.</p>
         <div class="toggle-grid">
-          <button class="soft-toggle is-on" type="button" data-ui-toggle="compact">Compact rows</button>
-          <button class="soft-toggle" type="button" data-ui-toggle="rollups">Emphasize rollups</button>
-          <button class="soft-toggle" type="button" data-ui-toggle="diffs">Diff markers</button>
-          <button class="soft-toggle" type="button" data-ui-toggle="entries">Entry flyup</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="is_jumper_classic">Jumper classic</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="is_hunter_classic">Hunter classic</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="is_medal">Medal</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="is_under_saddle">Under saddle</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="is_handy">Handy</button>
+          <button class="soft-toggle" type="button" data-ignore-flag="focus_priority">Focus</button>
         </div>
       </section>
       <section class="push-panel" id="hidePanel" aria-label="Visibility panel">
-        <p class="panel-title">Visibility</p>
+        <p class="panel-title">Hide</p>
+        <p class="panel-note">Temporarily hide selected class rows in this prototype only.</p>
         <div class="toggle-grid">
-          <button class="soft-toggle" type="button" data-hide-flag="is_medal">Medal classes</button>
-          <button class="soft-toggle" type="button" data-hide-flag="is_under_saddle">Under saddle</button>
-          <button class="soft-toggle" type="button" data-hide-flag="is_jumper_classic">Jumper classics</button>
-          <button class="soft-toggle" type="button" data-hide-flag="is_hunter_classic">Hunter classics</button>
+          <button class="soft-toggle" id="hidePickBtn" type="button" data-hide-action="pick">Pick rows</button>
+          <button class="soft-toggle is-muted" type="button" data-hide-action="apply">Apply</button>
+          <button class="soft-toggle is-muted" type="button" data-hide-action="cancel">Cancel</button>
+          <button class="soft-toggle is-muted" type="button" data-hide-action="clear">Clear</button>
         </div>
       </section>
       <nav class="rail" aria-label="Ring anchors"><div class="rail-track" id="ringRail"></div></nav>
@@ -790,14 +810,15 @@ function renderHome(res, result) {
       ["this_disciplines", "Disciplines"],
       ["this_beginners", "Beginners"]
     ];
-    const HIDE_FLAGS = [
+    const IGNORE_FLAGS = [
       ["is_jumper_classic", "Jumper classic"],
       ["is_hunter_classic", "Hunter classic"],
       ["is_medal", "Medal"],
       ["is_under_saddle", "Under saddle"],
+      ["is_handy", "Handy"],
       ["focus_priority", "Focus priority"]
     ];
-    const state = { activeRing: "", horse: "", hiddenFlags: new Set(), classFilters: new Map(), rowsByKey: new Map() };
+    const state = { activeRing: "", horse: "", ignoreFlags: new Set(), classFilters: new Map(), rowsByKey: new Map(), hiddenClassKeys: new Set(), hideSelection: new Set(), hideMode: false };
 
     const truthy = (value) => value === true || value === 1 || String(value || "").toLowerCase() === "true" || String(value || "") === "1";
     const text = (value) => {
@@ -1021,7 +1042,8 @@ function renderHome(res, result) {
     }
 
     function rowAllowed(row) {
-      for (const flag of state.hiddenFlags) if (truthy(row[flag])) return false;
+      if (state.hiddenClassKeys.has(rowStableKey(row))) return false;
+      for (const flag of state.ignoreFlags) if (ignoreFlagMatches(row, flag)) return false;
       for (const [field, selected] of state.classFilters.entries()) {
         if (!selected || selected.size === 0) continue;
         const values = splitFilterValues(row?.[field]).map((value) => value.toLowerCase());
@@ -1032,6 +1054,15 @@ function renderHome(res, result) {
         if (!hay.includes(state.horse.toLowerCase())) return false;
       }
       return true;
+    }
+
+    function rowStableKey(row) {
+      return [row.ring_day_no || row.ring_no || "", row.class_no || "", row.class_name || ""].map(text).join("|");
+    }
+
+    function ignoreFlagMatches(row, flag) {
+      if (flag === "focus_priority") return text(row.class_priority_sort) === "1";
+      return truthy(row?.[flag]);
     }
 
     function renderRails() {
@@ -1072,7 +1103,7 @@ function renderHome(res, result) {
     }
 
     function activeFilterCount() {
-      let count = state.hiddenFlags.size;
+      let count = 0;
       for (const selected of state.classFilters.values()) count += selected.size;
       return count;
     }
@@ -1091,10 +1122,6 @@ function renderHome(res, result) {
     function renderFilterDrawer() {
       const body = document.getElementById("filterDrawerBody");
       if (!body) return;
-      const flagHtml = HIDE_FLAGS.map(([flag, label]) => {
-        const active = state.hiddenFlags.has(flag);
-        return '<button class="filter-chip' + (active ? ' is-active' : '') + '" type="button" data-hide-flag-chip="' + html(flag) + '">' + html(label) + '</button>';
-      }).join("");
       const groupHtml = filterChoicesFromRows(allClassRows()).map((group) => {
         return '<div class="filter-group" data-filter-group="' + html(group.field) + '">' +
           '<h3>' + html(group.label) + '</h3>' +
@@ -1105,7 +1132,6 @@ function renderHome(res, result) {
         '</div>';
       }).join("");
       body.innerHTML =
-        '<div class="filter-group"><h3>Class flags</h3><div class="filter-chip-grid">' + flagHtml + '</div></div>' +
         (groupHtml || '<p class="empty-state">No approved attribute filters are present in this payload.</p>');
       bindFilterDrawerControls();
       updateFilterCount();
@@ -1125,9 +1151,7 @@ function renderHome(res, result) {
     }
 
     function clearHideFilters() {
-      state.hiddenFlags.clear();
       state.classFilters.clear();
-      document.querySelectorAll("[data-hide-flag]").forEach((button) => button.classList.remove("is-on"));
       renderFilterDrawer();
       renderSchedule();
     }
@@ -1152,6 +1176,7 @@ function renderHome(res, result) {
           if (rowRollups.length) classList.push("has-rollup");
           if (isCurrentClass(row)) classList.push("is-current-class");
           if (hasDiff(row)) classList.push("has-diff");
+          if (state.hideSelection.has(rowStableKey(row))) classList.push("is-hide-selected");
           for (const diffClass of diffClasses(row)) classList.push(diffClass);
           return '<button class="' + classList.join(" ") + '" type="button" data-row-key="' + html(key) + '">' +
             '<span class="time-chip">' + html(shortTime(row) || "--") + '</span>' +
@@ -1225,13 +1250,23 @@ function renderHome(res, result) {
       const panel = document.getElementById(id);
       const button = document.getElementById(buttonId);
       const open = !panel.classList.contains("is-open");
+      document.querySelectorAll(".push-panel").forEach((item) => {
+        if (item !== panel) item.classList.remove("is-open");
+      });
+      ["gearBtn", "hideBtn"].forEach((id) => {
+        if (id !== buttonId) document.getElementById(id)?.setAttribute("aria-expanded", "false");
+      });
       panel.classList.toggle("is-open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
     }
 
     function bindClassRows() {
       document.querySelectorAll(".class-row[data-row-key]").forEach((button) => {
-        button.addEventListener("click", () => renderFlyup(state.rowsByKey.get(button.dataset.rowKey) || {}));
+        button.addEventListener("click", () => {
+          const row = state.rowsByKey.get(button.dataset.rowKey) || {};
+          if (state.hideMode) return toggleHideSelection(row);
+          renderFlyup(row);
+        });
       });
     }
 
@@ -1268,16 +1303,50 @@ function renderHome(res, result) {
       document.querySelectorAll("[data-filter-field]").forEach((button) => {
         button.addEventListener("click", () => toggleClassFilter(button.dataset.filterField, button.dataset.filterValue));
       });
-      document.querySelectorAll("[data-hide-flag-chip]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const flag = button.dataset.hideFlagChip;
-          if (state.hiddenFlags.has(flag)) state.hiddenFlags.delete(flag);
-          else state.hiddenFlags.add(flag);
-          document.querySelectorAll('[data-hide-flag="' + flag + '"]').forEach((toggle) => toggle.classList.toggle("is-on", state.hiddenFlags.has(flag)));
-          renderFilterDrawer();
-          renderSchedule();
-        });
-      });
+    }
+
+    function toggleIgnoreFlag(flag) {
+      if (state.ignoreFlags.has(flag)) state.ignoreFlags.delete(flag);
+      else state.ignoreFlags.add(flag);
+      document.querySelectorAll('[data-ignore-flag="' + flag + '"]').forEach((button) => button.classList.toggle("is-on", state.ignoreFlags.has(flag)));
+      renderSchedule();
+    }
+
+    function setHideMode(on) {
+      state.hideMode = !!on;
+      document.body.classList.toggle("is-hide-mode", state.hideMode);
+      const button = document.getElementById("hidePickBtn");
+      if (button) button.classList.toggle("is-on", state.hideMode);
+      renderSchedule();
+    }
+
+    function toggleHideSelection(row) {
+      const key = rowStableKey(row);
+      if (!key.trim()) return;
+      if (state.hideSelection.has(key)) state.hideSelection.delete(key);
+      else state.hideSelection.add(key);
+      renderSchedule();
+    }
+
+    function handleHideAction(action) {
+      if (action === "pick") return setHideMode(!state.hideMode);
+      if (action === "apply") {
+        for (const key of state.hideSelection) state.hiddenClassKeys.add(key);
+        state.hideSelection.clear();
+        setHideMode(false);
+        return renderSchedule();
+      }
+      if (action === "cancel") {
+        state.hideSelection.clear();
+        setHideMode(false);
+        return renderSchedule();
+      }
+      if (action === "clear") {
+        state.hiddenClassKeys.clear();
+        state.hideSelection.clear();
+        setHideMode(false);
+        return renderSchedule();
+      }
     }
 
     function bindBottomNav() {
@@ -1300,15 +1369,8 @@ function renderHome(res, result) {
     document.getElementById("clearFiltersBtn").addEventListener("click", clearHideFilters);
     document.getElementById("flyupClose").addEventListener("click", () => setFlyup(false));
     document.getElementById("scrim").addEventListener("click", () => { setDrawer(false); setFlyup(false); });
-    document.querySelectorAll("[data-ui-toggle]").forEach((button) => button.addEventListener("click", () => button.classList.toggle("is-on")));
-    document.querySelectorAll("[data-hide-flag]").forEach((button) => button.addEventListener("click", () => {
-      const flag = button.dataset.hideFlag;
-      if (state.hiddenFlags.has(flag)) state.hiddenFlags.delete(flag);
-      else state.hiddenFlags.add(flag);
-      button.classList.toggle("is-on", state.hiddenFlags.has(flag));
-      renderFilterDrawer();
-      renderSchedule();
-    }));
+    document.querySelectorAll("[data-ignore-flag]").forEach((button) => button.addEventListener("click", () => toggleIgnoreFlag(button.dataset.ignoreFlag)));
+    document.querySelectorAll("[data-hide-action]").forEach((button) => button.addEventListener("click", () => handleHideAction(button.dataset.hideAction)));
 
     const print = document.getElementById("printBtn");
     const pdf = new URL(SMARTBROWZ_PDF_URL, location.href);

@@ -1051,15 +1051,114 @@ function zcqlValue(value) {
 function buildWecPrintPdfUrl(showNo, focusDay, { cacheTtl = WEC_PDF_CACHE_TTL, includeShowNo = true } = {}) {
   const source = new URL(WEC_PUBLIC_PRINT_URL);
   if (showNo && includeShowNo) source.searchParams.set("show_no", String(showNo));
-  if (focusDay) source.searchParams.set("focus_day", String(focusDay));
   source.searchParams.set("pdf", "1");
 
   const pdf = new URL(WEC_PDF_WORKER_BASE);
   pdf.searchParams.set("url", source.toString());
   pdf.searchParams.set("filename", `wec-${focusDay || "schedule"}-schedule.pdf`);
-  pdf.searchParams.set("waitForSelector", 'html[data-rs-pdf-ready="1"]');
+  pdf.searchParams.set("waitForSelector", "#rsPdfReady");
   pdf.searchParams.set("cacheTtl", String(cacheTtl));
   return pdf.toString();
+}
+
+function buildCatalystFunctionBaseUrl(req) {
+  const host = text(getHeader(req, "host")) || "horseshowing-700800454.development.catalystserverless.com";
+  const proto = text(getHeader(req, "x-forwarded-proto")) || "https";
+  return `${proto}://${host}/server/horseshowing_sync/`;
+}
+
+function buildWecPrintSmartBrowzTargetUrl(req, showNo) {
+  const target = new URL(buildCatalystFunctionBaseUrl(req));
+  target.searchParams.set("action", "wec-print-embed-html");
+  target.searchParams.set("show_no", text(showNo));
+  target.searchParams.set("pdf", "1");
+  return target.toString();
+}
+
+function streamToBuffer(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on("data", (chunk) => chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)));
+    stream.on("end", () => resolve(Buffer.concat(chunks)));
+    stream.on("error", reject);
+  });
+}
+
+async function sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo) {
+  const outputFocus = await getOutputFocusShow(requestedShowNo);
+  if (!outputFocus) return json(res, 400, { ok: false, action: "wec-print-smartbrowz-pdf", error: "wec-print-smartbrowz-pdf requires active focus_show" });
+  const targetUrl = buildWecPrintSmartBrowzTargetUrl(req, outputFocus.show_no);
+  const smartBrowz = typeof app.smartbrowz === "function" ? app.smartbrowz() : null;
+  const smartBrowzAvailable = Boolean(smartBrowz?.convertToPdf);
+  if (!smartBrowzAvailable) {
+    return json(res, 501, {
+      ok: false,
+      action: "wec-print-smartbrowz-pdf",
+      show_no: outputFocus.show_no,
+      focus_day: outputFocus.focus_day,
+      focus_source: outputFocus.source,
+      focus_show_record_id: outputFocus.record_id,
+      target_url: targetUrl,
+      smartbrowz_available: false,
+      error: "Catalyst SDK does not expose app.smartbrowz().convertToPdf"
+    });
+  }
+
+  try {
+    const stream = await smartBrowz.convertToPdf(targetUrl, {
+      pdf_options: {
+        format: "Letter",
+        landscape: true,
+        print_background: true
+      },
+      page_options: {
+        javascript_enabled: true,
+        viewport: { width: 1280, height: 900 }
+      },
+      navigation_options: {
+        timeout: 60000,
+        wait_until: "networkidle2"
+      }
+    });
+    const pdf = await streamToBuffer(stream);
+    if (!pdf.length || pdf.slice(0, 5).toString("utf8") !== "%PDF-") {
+      return json(res, 502, {
+        ok: false,
+        action: "wec-print-smartbrowz-pdf",
+        show_no: outputFocus.show_no,
+        focus_day: outputFocus.focus_day,
+        focus_source: outputFocus.source,
+        focus_show_record_id: outputFocus.record_id,
+        target_url: targetUrl,
+        smartbrowz_available: true,
+        bytes: pdf.length,
+        error: "SmartBrowz response was not a valid PDF"
+      });
+    }
+    setCors(res);
+    res.statusCode = 200;
+    res.status?.(200);
+    res.setHeader?.("content-type", "application/pdf");
+    res.setHeader?.("content-disposition", `inline; filename="wec-${outputFocus.focus_day || "schedule"}-smartbrowz.pdf"`);
+    res.setHeader?.("x-wec-show-no", outputFocus.show_no);
+    res.setHeader?.("x-wec-focus-day", outputFocus.focus_day);
+    res.setHeader?.("x-wec-focus-source", outputFocus.source);
+    res.setHeader?.("x-wec-smartbrowz-target", targetUrl);
+    return res.end(pdf);
+  } catch (error) {
+    return json(res, 502, {
+      ok: false,
+      action: "wec-print-smartbrowz-pdf",
+      show_no: outputFocus.show_no,
+      focus_day: outputFocus.focus_day,
+      focus_source: outputFocus.source,
+      focus_show_record_id: outputFocus.record_id,
+      target_url: targetUrl,
+      smartbrowz_available: true,
+      error: String(error?.message || error),
+      code: text(error?.code)
+    });
+  }
 }
 
 async function warmWecPrintPdf(showNo, focusDay) {
@@ -3258,6 +3357,363 @@ async function buildBarnBoardFormOptions(requestedShowNo = "") {
       hot_patches_read: hotPatches.length,
       missing_expected_fields: missingExpectedFields.length
     },
+    warnings
+  };
+}
+
+function normalizeBarnBoardAuditValue(value) {
+  return text(value).toLowerCase();
+}
+
+function barnBoardAuditSearchMatches(searchText, input) {
+  const normalizedInput = normalizeBarnBoardAuditValue(input);
+  if (!normalizedInput) return false;
+  return normalizeBarnBoardAuditValue(searchText).includes(normalizedInput);
+}
+
+function uniqueBarnBoardAuditOptions(options) {
+  const seen = new Set();
+  const out = [];
+  for (const option of options || []) {
+    const keyValue = `${normalizeBarnBoardAuditValue(option.value || option.label)}|${normalizeBarnBoardAuditValue(option.search)}`;
+    if (!keyValue.trim() || seen.has(keyValue)) continue;
+    seen.add(keyValue);
+    out.push(option);
+  }
+  return out;
+}
+
+function matchBarnBoardAuditOption(input, options) {
+  const normalizedInput = normalizeBarnBoardAuditValue(input);
+  if (!normalizedInput) return { status: "MISSING", matches: [] };
+  const uniqueOptions = uniqueBarnBoardAuditOptions(options);
+  const exact = uniqueOptions.filter((option) => {
+    const labels = [option.label, option.value, ...(option.aliases || [])].map(normalizeBarnBoardAuditValue).filter(Boolean);
+    return labels.includes(normalizedInput);
+  });
+  if (exact.length === 1) return { status: "SUCCESS", matches: exact };
+  if (exact.length > 1) return { status: "AMBIGUOUS", matches: exact };
+  const partial = uniqueOptions.filter((option) => barnBoardAuditSearchMatches(option.search || option.label || option.value, input));
+  if (partial.length === 1) return { status: "SUCCESS", matches: partial };
+  if (partial.length > 1) return { status: "AMBIGUOUS", matches: partial };
+  return { status: "MISSING", matches: [] };
+}
+
+function parseBarnBoardAuditLine(line) {
+  if (typeof line === "string") {
+    const raw = text(line);
+    const delimiter = raw.includes("|") ? "|" : ",";
+    const [ring = "", time = "", className = "", horse = ""] = raw.split(delimiter).map(text);
+    return { input: raw, ring, time, className, horse };
+  }
+  const fields = line && typeof line === "object" ? line : {};
+  const ring = text(fields.ring);
+  const timeValue = text(fields.time);
+  const className = text(fields.class ?? fields.className ?? fields.class_name);
+  const horse = text(fields.horse);
+  return {
+    input: text(fields.input) || [ring, timeValue, className, horse].join(" | "),
+    ring,
+    time: timeValue,
+    className,
+    horse
+  };
+}
+
+function barnBoardAuditDisplayHorse(horse, activeHorses = []) {
+  const direct = activeHorses.find((item) => {
+    const values = [item.barn_name, item.horse_display, item.display, item.horse].map(normalizeBarnBoardAuditValue);
+    const target = normalizeBarnBoardAuditValue(horse);
+    return target && values.includes(target);
+  });
+  return text(direct?.barn_name || direct?.horse_display || direct?.display || horse);
+}
+
+function barnBoardAuditBoundHorseOptions(row, activeHorses = []) {
+  const barns = compactBarnBoardList(row.barn_from_entry_go_times);
+  const horses = compactBarnBoardList(row.horse_from_entry_go_times);
+  const options = [];
+  const length = Math.max(barns.length, horses.length);
+  for (let index = 0; index < length; index += 1) {
+    const barnName = text(barns[index]);
+    const horseName = text(horses[index] || barns[index]);
+    const display = barnName || barnBoardAuditDisplayHorse(horseName, activeHorses);
+    if (!display) continue;
+    options.push({
+      label: display,
+      value: display,
+      display,
+      horse: horseName,
+      bound: true,
+      search: [display, barnName, horseName].join(" "),
+      aliases: [barnName, horseName, display].filter(Boolean)
+    });
+  }
+  return uniqueBarnBoardAuditOptions(options);
+}
+
+function barnBoardAuditActiveHorseOptions(activeHorses = []) {
+  return uniqueBarnBoardAuditOptions(activeHorses.map((horse) => {
+    const display = text(horse.barn_name || horse.horse_display || horse.display || horse.horse);
+    return {
+      label: display,
+      value: display,
+      display,
+      horse: text(horse.horse),
+      bound: false,
+      search: [display, horse.barn_name, horse.horse_display, horse.display, horse.horse].join(" "),
+      aliases: [horse.barn_name, horse.horse_display, horse.display, horse.horse].map(text).filter(Boolean)
+    };
+  }).filter((horse) => horse.display));
+}
+
+function barnBoardAuditHotPatchMatches(line, hotPatches = []) {
+  const inputText = [line.input, line.ring, line.time, line.className, line.horse].map(normalizeBarnBoardAuditValue).join(" ");
+  return (hotPatches || []).some((patch) => {
+    const active = patch.hot_patch_active === true || normalizeBarnBoardAuditValue(patch.match_status) === "hot_patch";
+    if (!active) return false;
+    const patchText = [patch.board_line, patch.ring_hint, patch.time_hint, patch.class_name_hint].map(normalizeBarnBoardAuditValue).join(" ");
+    return patchText && inputText && inputText.includes(patchText);
+  });
+}
+
+function barnBoardAuditResult(input, status, reason, values = {}) {
+  return {
+    input: input.input,
+    ring: text(values.ring || input.ring),
+    time: text(values.time || input.time),
+    "class": text(values.className || input.className),
+    horse: text(values.horse || input.horse),
+    status,
+    reason
+  };
+}
+
+function resolveBarnBoardAuditLine(input, data) {
+  const rows = data.rows || [];
+  const activeHorses = data.horses || [];
+  const ringOptions = uniqueBarnBoardAuditOptions(rows.map((row) => ({
+    label: row.ring_name_normalized,
+    value: row.ring_name_normalized,
+    search: row.ring_name_normalized
+  })));
+  const ringMatch = matchBarnBoardAuditOption(input.ring, ringOptions);
+  if (ringMatch.status === "MISSING") return barnBoardAuditResult(input, "MISSING", "Ring could not be resolved.");
+  if (ringMatch.status === "AMBIGUOUS") return barnBoardAuditResult(input, "AMBIGUOUS", "Ring matched more than one option.");
+  const ring = ringMatch.matches[0].value;
+
+  const ringRows = rows.filter((row) => normalizeBarnBoardAuditValue(row.ring_name_normalized) === normalizeBarnBoardAuditValue(ring));
+  const timeOptions = uniqueBarnBoardAuditOptions(ringRows.map((row) => ({
+    label: row.time_text,
+    value: row.time_text,
+    search: row.time_text
+  })));
+  const timeMatch = matchBarnBoardAuditOption(input.time, timeOptions);
+  if (timeMatch.status === "MISSING") return barnBoardAuditResult(input, "MISSING", "Time could not be resolved for the selected ring.", { ring });
+  if (timeMatch.status === "AMBIGUOUS") return barnBoardAuditResult(input, "AMBIGUOUS", "Time matched more than one option for the selected ring.", { ring });
+  const timeValue = timeMatch.matches[0].value;
+
+  const classRows = ringRows.filter((row) => normalizeBarnBoardAuditValue(row.time_text) === normalizeBarnBoardAuditValue(timeValue));
+  const classOptions = uniqueBarnBoardAuditOptions(classRows.map((row) => ({
+    label: row.class_name,
+    value: row.class_name,
+    row,
+    search: [row.class_name, ...(row.class_name_tokens || [])].join(" "),
+    aliases: [row.class_name, ...(row.class_name_tokens || [])].filter(Boolean)
+  })));
+  const classMatch = matchBarnBoardAuditOption(input.className, classOptions);
+  if (classMatch.status === "MISSING") return barnBoardAuditResult(input, "MISSING", "Class could not be resolved for the selected ring and time.", { ring, time: timeValue });
+  if (classMatch.status === "AMBIGUOUS") return barnBoardAuditResult(input, "AMBIGUOUS", "Class matched more than one option for the selected ring and time.", { ring, time: timeValue });
+  const className = classMatch.matches[0].value;
+  const row = classMatch.matches[0].row;
+
+  const boundHorseMatch = matchBarnBoardAuditOption(input.horse, barnBoardAuditBoundHorseOptions(row, activeHorses));
+  if (boundHorseMatch.status === "SUCCESS") {
+    const horse = boundHorseMatch.matches[0].display;
+    const hotTag = barnBoardAuditHotPatchMatches({ ...input, ring, time: timeValue, className, horse }, data.hot_patches);
+    return barnBoardAuditResult(
+      input,
+      hotTag ? "HOT_TAG" : "SUCCESS",
+      hotTag ? "Line matches an active hot-patch/manual tag." : "Horse is bound to the resolved class.",
+      { ring, time: timeValue, className, horse }
+    );
+  }
+  if (boundHorseMatch.status === "AMBIGUOUS") {
+    return barnBoardAuditResult(input, "AMBIGUOUS", "Horse matched more than one bound horse for the resolved class.", { ring, time: timeValue, className });
+  }
+
+  const activeHorseMatch = matchBarnBoardAuditOption(input.horse, barnBoardAuditActiveHorseOptions(activeHorses));
+  if (activeHorseMatch.status === "SUCCESS") {
+    return barnBoardAuditResult(input, "MISMATCHED", "Horse exists but is not bound to the resolved class.", {
+      ring,
+      time: timeValue,
+      className,
+      horse: activeHorseMatch.matches[0].display
+    });
+  }
+  if (activeHorseMatch.status === "AMBIGUOUS") {
+    return barnBoardAuditResult(input, "AMBIGUOUS", "Horse matched more than one active horse.", { ring, time: timeValue, className });
+  }
+  return barnBoardAuditResult(input, "MISSING", "Horse could not be resolved.", { ring, time: timeValue, className });
+}
+
+async function auditBarnBoardLines(requestedShowNo = "", lines = []) {
+  const data = await buildBarnBoardFormOptions(requestedShowNo);
+  if (!data.ok) return data;
+  const parsedLines = (Array.isArray(lines) ? lines : [lines]).map(parseBarnBoardAuditLine).filter((line) => line.input);
+  const results = parsedLines.map((line) => resolveBarnBoardAuditLine(line, data));
+  const counts = {
+    lines_received: parsedLines.length,
+    lines_resolved: results.filter((result) => ["SUCCESS", "MISMATCHED", "HOT_TAG"].includes(result.status)).length,
+    success: results.filter((result) => result.status === "SUCCESS").length,
+    missing: results.filter((result) => result.status === "MISSING").length,
+    mismatched: results.filter((result) => result.status === "MISMATCHED").length,
+    ambiguous: results.filter((result) => result.status === "AMBIGUOUS").length,
+    hot_tag: results.filter((result) => result.status === "HOT_TAG").length
+  };
+  return {
+    ok: true,
+    show_no: data.show_no,
+    focus_day: data.focus_day,
+    focus_show_record_id: data.focus_show_record_id,
+    counts,
+    results,
+    warnings: data.warnings || []
+  };
+}
+
+function barnBoardHotPatchFieldMap(metadataTables = []) {
+  const table = (metadataTables || []).find((item) => item.name === AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE);
+  const fields = new Map();
+  for (const field of table?.fields || []) fields.set(field.name, field);
+  return fields;
+}
+
+function barnBoardSingleSelectHasChoice(field, choiceName) {
+  return (field?.options?.choices || []).some((choice) => text(choice.name).toLowerCase() === text(choiceName).toLowerCase());
+}
+
+function barnBoardAuditMatchStatusForSave(status) {
+  if (status === "SUCCESS") return "matched";
+  if (["MISMATCHED", "MISSING", "HOT_TAG"].includes(status)) return "hot_patch";
+  return "";
+}
+
+function barnBoardAuditHorseRecordId(horseName, data) {
+  const target = normalizeBarnBoardAuditValue(horseName);
+  if (!target) return "";
+  const horse = (data.horses || []).find((item) => {
+    const values = [item.barn_name, item.horse_display, item.display, item.horse].map(normalizeBarnBoardAuditValue);
+    return values.includes(target);
+  });
+  return text(horse?.record_id);
+}
+
+function barnBoardHotPatchSetField(fields, schema, fieldName, value, expectedTypes, warnings) {
+  const field = schema.get(fieldName);
+  if (!field) {
+    warnings.push({ code: "hot_patch_field_missing", field: fieldName });
+    return;
+  }
+  if (expectedTypes?.length && !expectedTypes.includes(field.type)) {
+    warnings.push({ code: "hot_patch_field_incompatible", field: fieldName, type: field.type });
+    return;
+  }
+  fields[fieldName] = value;
+}
+
+async function saveBarnBoardHotPatch(requestedShowNo = "", line = {}) {
+  const data = await buildBarnBoardFormOptions(requestedShowNo);
+  if (!data.ok) return data;
+  const parsed = parseBarnBoardAuditLine(line);
+  if (!parsed.input) {
+    return { ok: false, show_no: data.show_no, focus_day: data.focus_day, focus_show_record_id: data.focus_show_record_id, error: "line required", warnings: data.warnings || [] };
+  }
+  const resolved = resolveBarnBoardAuditLine(parsed, data);
+  if (resolved.status === "AMBIGUOUS") {
+    return {
+      ok: false,
+      show_no: data.show_no,
+      focus_day: data.focus_day,
+      focus_show_record_id: data.focus_show_record_id,
+      error: "AMBIGUOUS line requires explicit resolved choice before save",
+      result: resolved,
+      warnings: data.warnings || []
+    };
+  }
+  if (!["SUCCESS", "MISMATCHED", "MISSING", "HOT_TAG"].includes(resolved.status)) {
+    return {
+      ok: false,
+      show_no: data.show_no,
+      focus_day: data.focus_day,
+      focus_show_record_id: data.focus_show_record_id,
+      error: `Unsupported audit status for save: ${resolved.status}`,
+      result: resolved,
+      warnings: data.warnings || []
+    };
+  }
+
+  const warnings = [...(data.warnings || [])];
+  const schema = barnBoardHotPatchFieldMap(await airtableBaseMetadataTables());
+  const fields = {};
+  const boardLine = [resolved.ring, resolved.time, resolved.class, resolved.horse].map(text).join(" | ");
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.board_line, boardLine, ["singleLineText", "multilineText"], warnings);
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.ring_hint, resolved.ring, ["singleLineText", "multilineText"], warnings);
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.time_hint, resolved.time, ["singleLineText", "multilineText"], warnings);
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.class_name_hint, resolved.class, ["singleLineText", "multilineText"], warnings);
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.hot_patch_active, true, ["checkbox"], warnings);
+  barnBoardHotPatchSetField(fields, schema, AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.focus_day, data.focus_day, ["date"], warnings);
+
+  const matchStatus = barnBoardAuditMatchStatusForSave(resolved.status);
+  const matchStatusField = schema.get(AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status);
+  if (matchStatusField?.type === "singleSelect" && barnBoardSingleSelectHasChoice(matchStatusField, matchStatus)) {
+    fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status] = matchStatus;
+  } else {
+    warnings.push({ code: "hot_patch_field_incompatible", field: AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.match_status, status: resolved.status });
+  }
+
+  const releaseStatusField = schema.get(AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status);
+  if (releaseStatusField?.type === "singleSelect" && barnBoardSingleSelectHasChoice(releaseStatusField, "active")) {
+    fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status] = "active";
+  } else {
+    warnings.push({ code: "hot_patch_field_incompatible", field: AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.release_status });
+  }
+
+  const horseRecordId = barnBoardAuditHorseRecordId(resolved.horse, data);
+  const horsesField = schema.get(AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses);
+  if (horsesField?.type === "multipleRecordLinks" && horseRecordId) {
+    fields[AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses] = [horseRecordId];
+  } else if (horsesField) {
+    warnings.push({ code: "hot_patch_link_skipped", field: AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.horses, reason: horseRecordId ? "incompatible_field_type" : "no_safe_horse_record_id" });
+  }
+
+  if (schema.has(AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.entry_go_times)) {
+    warnings.push({ code: "hot_patch_link_skipped", field: AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS.entry_go_times, reason: "no_safe_entry_go_times_record_id_available" });
+  }
+
+  if (!Object.keys(fields).length) {
+    return {
+      ok: false,
+      show_no: data.show_no,
+      focus_day: data.focus_day,
+      focus_show_record_id: data.focus_show_record_id,
+      error: "No usable barn_board_hot_patches fields available for save",
+      result: resolved,
+      warnings
+    };
+  }
+
+  const record = await airtableCreateRecord(AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE, fields);
+  return {
+    ok: true,
+    show_no: data.show_no,
+    focus_day: data.focus_day,
+    focus_show_record_id: data.focus_show_record_id,
+    saved: true,
+    table: AIRTABLE_BARN_BOARD_HOT_PATCHES_TABLE,
+    record_id: record?.id || null,
+    result: resolved,
+    fields_written: Object.keys(fields),
     warnings
   };
 }
@@ -8724,8 +9180,11 @@ async function handle(req, res) {
       "wec-rich-api",
       "wec-print-layout",
       "wec-print-pdf-url",
+      "wec-print-smartbrowz-pdf",
       "prebuild-wec-print-pdf",
-      "barn-board-form-options"
+      "barn-board-form-options",
+      "barn-board-audit-lines",
+      "barn-board-save-hot-patch"
     ]);
     if (!showNo && !canResolveActiveFocusShow.has(action)) {
       return json(res, 400, { ok: false, action, error: "show_no required" });
@@ -8733,6 +9192,16 @@ async function handle(req, res) {
 
     if (action === "barn-board-form-options") {
       const result = await buildBarnBoardFormOptions(showNo);
+      return json(res, result.ok ? 200 : 400, { action, ...result });
+    }
+
+    if (action === "barn-board-audit-lines") {
+      const result = await auditBarnBoardLines(showNo, Array.isArray(body.lines) ? body.lines : []);
+      return json(res, result.ok ? 200 : 400, { action, ...result });
+    }
+
+    if (action === "barn-board-save-hot-patch") {
+      const result = await saveBarnBoardHotPatch(showNo, body.line || {});
       return json(res, result.ok ? 200 : 400, { action, ...result });
     }
 
@@ -9225,6 +9694,11 @@ async function handle(req, res) {
         focus_show_record_id: outputFocus.record_id,
         pdf_url: buildWecPrintPdfUrl(outputFocus.show_no, outputFocus.focus_day)
       });
+    }
+
+    if (action === "wec-print-smartbrowz-pdf") {
+      const requestedShowNo = text(query.get("show_no") || body.show_no);
+      return sendWecPrintSmartBrowzPdf(req, res, app, requestedShowNo || showNo);
     }
 
     if (action === "prebuild-wec-print-pdf") {

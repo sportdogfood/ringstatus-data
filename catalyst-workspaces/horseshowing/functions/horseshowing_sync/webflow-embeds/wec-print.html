@@ -98,8 +98,8 @@
 
   .cols{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0.12in;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:0.09in;
     align-items:start;
   }
 
@@ -398,6 +398,11 @@
     font-size:9.5px;
     line-height:1.1;
   }
+
+  body.is-pdf .controls,
+  body.is-pdf .ringClose{
+    display:none !important;
+  }
 </style>
 <div class="page" id="page">
   <div class="topbar">
@@ -414,6 +419,7 @@
   <div class="wrap" id="wrap">
     <div class="cols" id="cols">
       <div class="col" id="colL"></div>
+      <div class="col" id="colM"></div>
       <div class="col" id="colR"></div>
     </div>
   </div>
@@ -423,6 +429,7 @@
   const qs = new URLSearchParams(location.search);
   const PDF_WORKER_BASE = "https://ringstatus-pdf.gombcg.workers.dev/";
   const SCALE_FUDGE = 0.99;
+  if (qs.get("pdf") === "1") document.body.classList.add("is-pdf");
 
   const TENANT_SLUG_MAP = {
     firefly: "40362",
@@ -775,29 +782,26 @@
   }
 
   function placeRings(ringWrapEls) {
-    const L = document.getElementById("colL");
-    const R = document.getElementById("colR");
-    if (!L || !R) return;
+    const columns = [
+      document.getElementById("colL"),
+      document.getElementById("colM"),
+      document.getElementById("colR")
+    ].filter(Boolean);
+    if (columns.length < 3) return;
 
-    L.innerHTML = "";
-    R.innerHTML = "";
+    columns.forEach((column) => { column.innerHTML = ""; });
 
     if (!ringWrapEls || ringWrapEls.length === 0) return;
 
     const costs = ringWrapEls.map((el) => ({ el, cost: ringRowCost(el) }));
-    const target = Math.ceil(costs.reduce((sum, item) => sum + item.cost, 0) / 2);
-    let leftCost = 0;
-    let usingRight = false;
+    const colCosts = columns.map(() => 0);
     for (const item of costs) {
-      if (!usingRight && L.children.length > 0 && leftCost + item.cost > target) {
-        usingRight = true;
+      let targetIndex = 0;
+      for (let index = 1; index < columns.length; index += 1) {
+        if (colCosts[index] < colCosts[targetIndex]) targetIndex = index;
       }
-      if (usingRight) {
-        R.appendChild(item.el);
-      } else {
-        L.appendChild(item.el);
-        leftCost += item.cost;
-      }
+      columns[targetIndex].appendChild(item.el);
+      colCosts[targetIndex] += item.cost;
     }
   }
 
@@ -812,8 +816,9 @@
     const wrap = document.getElementById("wrap");
     const topbar = document.querySelector(".topbar");
     const colL = document.getElementById("colL");
+    const colM = document.getElementById("colM");
     const colR = document.getElementById("colR");
-    if (!wrap || !topbar || !colL || !colR) return;
+    if (!wrap || !topbar || !colL || !colM || !colR) return;
 
     wrap.style.setProperty("--scale", "1");
     wrap.classList.remove("use-zoom");
@@ -827,7 +832,7 @@
     const availH = pageH - topbar.offsetHeight - 6;
     const availW = pageW;
 
-    const needH = Math.max(colL.scrollHeight, colR.scrollHeight);
+    const needH = Math.max(colL.scrollHeight, colM.scrollHeight, colR.scrollHeight);
     const needW = wrap.scrollWidth || wrap.getBoundingClientRect().width;
 
     const scaleH = (needH > 0 && availH > 0) ? (availH / needH) : 1;
@@ -846,7 +851,7 @@
     wrap.style.setProperty("--scale", String(scale));
 
     if (document.body.classList.contains("tight")) {
-      const needH2 = Math.max(colL.scrollHeight, colR.scrollHeight);
+      const needH2 = Math.max(colL.scrollHeight, colM.scrollHeight, colR.scrollHeight);
       let scale2 = Math.min(1, (availH / (needH2 || 1))) * SCALE_FUDGE;
       scale2 = Math.max(0.35, Math.min(1, scale2));
       if (canZoom) wrap.style.zoom = String(scale2);
@@ -858,6 +863,7 @@
   let RING_WRAPS = [];
   let PDF_LINK_URL = "";
   let IS_LOADING = false;
+  let CURRENT_PRINT_SHOW_NO = qs.get("show_no") || qs.get("show_id") || "";
 
   function parseHiddenFromUrl() {
     const raw = (qs.get("hide") || "").trim();
@@ -893,13 +899,17 @@
       ? `${publicPrintUrl}${location.search || ""}`
       : location.href;
     const pageUrlObj = new URL(rawPageUrl, location.href);
+    const resolvedShowNo = CURRENT_PRINT_SHOW_NO || qs.get("show_no") || qs.get("show_id") || "";
+    if (resolvedShowNo) pageUrlObj.searchParams.set("show_no", resolvedShowNo);
+    pageUrlObj.searchParams.delete("focus_day");
+    pageUrlObj.searchParams.delete("focus_day_date");
     pageUrlObj.searchParams.set("pdf", "1");
     const pageUrl = pageUrlObj.toString();
     const filename = buildPdfFilename();
     const params = new URLSearchParams({
       url: pageUrl,
       filename,
-      waitForSelector: "html[data-rs-pdf-ready=\"1\"]",
+      waitForSelector: "#rsPdfReady",
       cacheTtl: "900"
     });
     return `${PDF_WORKER_BASE}?${params.toString()}`;
@@ -922,7 +932,9 @@
   }
 
   function relayoutVisibleRings() {
-    document.documentElement.dataset.rsPdfReady = "0";
+    delete document.documentElement.dataset.rsPdfReady;
+    delete document.documentElement.dataset.rsPdfError;
+    document.getElementById("rsPdfReady")?.remove();
     window.RS_PDF_READY = false;
     const visible = RING_WRAPS.filter((el) => !HIDDEN_RING_KEYS.has(String(el.dataset.ringKey || "")));
     placeRings(visible);
@@ -930,6 +942,12 @@
     setTimeout(() => {
       fitToOnePage();
       document.documentElement.dataset.rsPdfReady = "1";
+      if (!document.getElementById("rsPdfReady")) {
+        const marker = document.createElement("div");
+        marker.id = "rsPdfReady";
+        marker.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none;";
+        document.body.appendChild(marker);
+      }
       window.RS_PDF_READY = true;
     }, 50);
     syncHiddenToUrl();
@@ -939,6 +957,7 @@
   function buildRingElements(fullRows) {
     const first = fullRows[0] || {};
     const showId = first.show_id ?? first.showId ?? "";
+    CURRENT_PRINT_SHOW_NO = String(showId || CURRENT_PRINT_SHOW_NO || "").trim();
     const reportTitle =
       first.show_days_report_title ??
       ACTIVE_TENANT_CONFIG.title ??
@@ -1090,6 +1109,9 @@
       if (colL) {
         colL.innerHTML = `<div class="err">${esc(String(err && err.stack ? err.stack : err))}</div>`;
       }
+      delete document.documentElement.dataset.rsPdfReady;
+      document.documentElement.dataset.rsPdfError = "1";
+      document.getElementById("rsPdfReady")?.remove();
       syncPdfControls();
     } finally {
       IS_LOADING = false;

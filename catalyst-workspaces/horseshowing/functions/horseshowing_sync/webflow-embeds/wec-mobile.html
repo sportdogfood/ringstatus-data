@@ -833,13 +833,17 @@
 
   function buildPrintPdfUrl(){
     const source = new URL(window.RS_WEC_PRINT_URL || WEC_PRINT_URL, location.href);
-    const focusDay = new URLSearchParams(location.search).get("focus_day") || currentFocusDay || isoDate(document.getElementById("subtitle")?.textContent);
+    const focusDay = currentFocusDay || isoDate(document.getElementById("subtitle")?.textContent);
+    const showNo = currentShowNo || new URLSearchParams(location.search).get("show_no") || new URLSearchParams(location.search).get("show_id");
+    if(showNo) source.searchParams.set("show_no", showNo);
+    source.searchParams.delete("focus_day");
+    source.searchParams.delete("focus_day_date");
     source.searchParams.set("pdf", "1");
     const filenameDay = focusDay || "schedule";
     const pdf = new URL(PDF_WORKER_BASE);
     pdf.searchParams.set("url", source.toString());
     pdf.searchParams.set("filename", `wec-${filenameDay}-schedule.pdf`);
-    pdf.searchParams.set("waitForSelector", 'html[data-rs-pdf-ready="1"]');
+    pdf.searchParams.set("waitForSelector", "#rsPdfReady");
     return pdf.toString();
   }
 

@@ -6,6 +6,7 @@ const PORT = Number(process.env.X_ZOHO_CATALYST_LISTEN_PORT || process.env.PORT 
 const SHOW_NO = "14907";
 const DATA_SOURCE = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-mobile-live&show_no=14907";
 const SMARTBROWZ_PDF_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-smartbrowz-pdf&show_no=14907";
+const BUILD_MARKER = "wec-pro-contract-lock-20260629T000000Z";
 
 function send(res, status, body, contentType = "text/plain; charset=utf-8") {
   res.writeHead(status, {
@@ -62,7 +63,7 @@ function renderHome(res, result) {
   const showNo = payload.show_no || SHOW_NO;
   const payloadJson = JSON.stringify(payload).replace(/</g, "\\u003c");
   const html = `<!doctype html>
-<html lang="en">
+<html lang="en" data-wec-mobile-pro-build="${BUILD_MARKER}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -405,13 +406,8 @@ function renderHome(res, result) {
     .class-row:hover { background: var(--row-hover-bg); }
     .class-row.has-rollup { background: var(--row-has-rollup-bg); }
     .class-row.is-current-class { background: #e8f3ff; box-shadow: inset 3px 0 0 #1b74aa; }
+    .has-diff { background: var(--row-has-diff-bg); }
     .class-row.has-diff { background: var(--row-has-diff-bg); }
-    body.is-hide-mode .class-row { cursor: crosshair; }
-    .class-row.is-hide-selected {
-      background: #eef2f6;
-      box-shadow: inset 3px 0 0 #0c2438;
-      opacity: .72;
-    }
     .time-chip, .class-chip {
       display: inline-flex;
       align-items: center;
@@ -495,6 +491,11 @@ function renderHome(res, result) {
     .badge.status-placeholder, .badge.special-placeholder, .badge.type-placeholder { background: #f4f6f7; color: #8a97a3; }
     .badge.badge-empty { color: transparent; }
     .badge.diff-time { background: var(--diff-time-bg); color: #7b5200; }
+    .diff-time { background-color: var(--diff-time-bg); }
+    .diff-status { background-color: var(--diff-status-bg); }
+    .diff-go-time { background-color: var(--diff-go-time-bg); }
+    .diff-order { background-color: var(--diff-order-bg); }
+    .diff-result { background-color: var(--flyup-diff-bg); }
     .rollup-token {
       max-width: 100%;
       border-radius: 999px;
@@ -522,8 +523,8 @@ function renderHome(res, result) {
       position: fixed;
       z-index: var(--z-drawer);
       top: 0;
-      right: 0;
       width: min(86vw, 340px);
+      left: max(0px, calc(100vw - min(86vw, 340px)));
       height: 100vh;
       background: #fff;
       box-shadow: var(--drawer-shadow);
@@ -730,7 +731,7 @@ function renderHome(res, result) {
   </style>
 </head>
 <body>
-  <div class="app-shell" id="app">
+  <div class="app-shell" id="app" data-wec-mobile-pro-build="${BUILD_MARKER}">
     <header class="topbar">
       <div class="topbar-main">
         <div>
@@ -758,12 +759,9 @@ function renderHome(res, result) {
       </section>
       <section class="push-panel" id="hidePanel" aria-label="Visibility panel">
         <p class="panel-title">Hide</p>
-        <p class="panel-note">Temporarily hide selected class rows in this prototype only.</p>
+        <p class="panel-note">Current WEC-mobile hide persistence is not wired in this prototype. No local substitute is active.</p>
         <div class="toggle-grid">
-          <button class="soft-toggle" id="hidePickBtn" type="button" data-hide-action="pick">Pick rows</button>
-          <button class="soft-toggle is-muted" type="button" data-hide-action="apply">Apply</button>
-          <button class="soft-toggle is-muted" type="button" data-hide-action="cancel">Cancel</button>
-          <button class="soft-toggle is-muted" type="button" data-hide-action="clear">Clear</button>
+          <button class="soft-toggle is-muted" type="button" disabled>TODO: saved hide list</button>
         </div>
       </section>
       <nav class="rail" aria-label="Ring anchors"><div class="rail-track" id="ringRail"></div></nav>
@@ -776,7 +774,6 @@ function renderHome(res, result) {
       <button class="bottom-tab" type="button" data-bottom-action="rings">RINGS</button>
       <button class="bottom-tab" type="button" data-bottom-action="results">RESULTS</button>
       <button class="bottom-tab" type="button" data-bottom-action="alerts">ALERTS</button>
-      <button class="bottom-tab" type="button" data-bottom-action="filters">FILTERS</button>
     </nav>
     <p class="footer-note">Prototype only. Reads the approved Development WEC mobile payload. Controls are local UI only and do not save, send, or trigger external actions.</p>
   </div>
@@ -801,7 +798,6 @@ function renderHome(res, result) {
     const payload = JSON.parse(document.getElementById("schedulePayload").textContent || "{}");
     const SMARTBROWZ_PDF_URL = ${JSON.stringify(SMARTBROWZ_PDF_URL)};
     const FILTER_GROUPS = [
-      ["class_name_tokens", "Class tokens"],
       ["this_sizes", "Sizes"],
       ["this_heights", "Heights"],
       ["this_skills", "Skills"],
@@ -818,7 +814,7 @@ function renderHome(res, result) {
       ["is_handy", "Handy"],
       ["focus_priority", "Focus priority"]
     ];
-    const state = { activeRing: "", horse: "", ignoreFlags: new Set(), classFilters: new Map(), rowsByKey: new Map(), hiddenClassKeys: new Set(), hideSelection: new Set(), hideMode: false };
+    const state = { activeRing: "", horse: "", ignoreFlags: new Set(), classFilters: new Map(), rowsByKey: new Map() };
 
     const truthy = (value) => value === true || value === 1 || String(value || "").toLowerCase() === "true" || String(value || "") === "1";
     const text = (value) => {
@@ -879,7 +875,7 @@ function renderHome(res, result) {
       const classNo = text(row.class_no ?? row.classNo ?? "");
       const priority = text(row.class_priority_sort ?? row.classPrioritySort ?? "");
       if (classNo && priority) return classNo + "-" + priority;
-      return classNo || priority;
+      return "";
     }
 
     function classAuditHtml(row) {
@@ -910,8 +906,9 @@ function renderHome(res, result) {
         .replace(/\\s+([AP])$/i, "$1");
     }
 
-    function ringLabel(ring) {
-      return text(ring.ring_name_normalized || ring.ring_display || ring.ring_name || ring.ring_no || "Ring");
+    function ringLabel(ring, rows = []) {
+      const firstRow = Array.isArray(rows) ? rows.find(Boolean) || {} : {};
+      return text(firstRow.ring_name_normalized || ring.ring_name_normalized || ring.ring_display || ring.ring_name || ring.ring_no || "Ring");
     }
 
     function safeRingStatusToken(ring) {
@@ -946,6 +943,10 @@ function renderHome(res, result) {
       return text(value && typeof value === "object" ? value.go_in || value.goIn || value.entry_go_in : "");
     }
 
+    function entryGoTime(value) {
+      return text(value && typeof value === "object" ? value.entry_go_time || value.go_time || value.got_time : "");
+    }
+
     function rollups(row) {
       const source = Array.isArray(row.rollups) ? row.rollups : Array.isArray(row.trainer_rollups) ? row.trainer_rollups : [];
       const tokens = [];
@@ -978,6 +979,7 @@ function renderHome(res, result) {
             entry_no: entryNo(horse, item),
             horse: name.toUpperCase(),
             entry_order: entryOrder(horse, item),
+            entry_go_time: entryGoTime(horse),
             go_in: goIn(horse)
           });
         }
@@ -989,6 +991,7 @@ function renderHome(res, result) {
             entry_no: entryNo(row, row),
             horse: name.toUpperCase(),
             entry_order: entryOrder(row, row),
+            entry_go_time: entryGoTime(row),
             go_in: ""
           });
         }
@@ -1042,7 +1045,6 @@ function renderHome(res, result) {
     }
 
     function rowAllowed(row) {
-      if (state.hiddenClassKeys.has(rowStableKey(row))) return false;
       for (const flag of state.ignoreFlags) if (ignoreFlagMatches(row, flag)) return false;
       for (const [field, selected] of state.classFilters.entries()) {
         if (!selected || selected.size === 0) continue;
@@ -1069,7 +1071,7 @@ function renderHome(res, result) {
       const ringRail = document.getElementById("ringRail");
       ringRail.innerHTML = rings.map((ring, index) => {
         const id = ringId(ring, index);
-        const name = ringLabel(ring);
+        const name = ringLabel(ring, classRows(ring));
         return '<button class="pill' + (state.activeRing === id ? ' is-active' : '') + '" type="button" data-ring-target="' + html(id) + '">' + html(name) + '</button>';
       }).join("");
 
@@ -1166,7 +1168,7 @@ function renderHome(res, result) {
       const sections = rings.map((ring, ringIndex) => {
         const rows = classRows(ring).filter(rowAllowed);
         const id = ringId(ring, ringIndex);
-        const name = ringLabel(ring);
+        const name = ringLabel(ring, classRows(ring));
         const ringStatus = safeRingStatusToken(ring);
         const rowHtml = rows.map((row, rowIndex) => {
           const key = rowKey(row, ringIndex, rowIndex);
@@ -1176,7 +1178,6 @@ function renderHome(res, result) {
           if (rowRollups.length) classList.push("has-rollup");
           if (isCurrentClass(row)) classList.push("is-current-class");
           if (hasDiff(row)) classList.push("has-diff");
-          if (state.hideSelection.has(rowStableKey(row))) classList.push("is-hide-selected");
           for (const diffClass of diffClasses(row)) classList.push(diffClass);
           return '<button class="' + classList.join(" ") + '" type="button" data-row-key="' + html(key) + '">' +
             '<span class="time-chip">' + html(shortTime(row) || "--") + '</span>' +
@@ -1204,22 +1205,15 @@ function renderHome(res, result) {
       const rowRollups = rollups(row);
       const entries = entryLines(row);
       const tokens = classNameTokens(row);
-      const diff = hasDiff(row);
       const flyupBadges = [statusBadge(row), specialBadge(row), typeBadge(row)].map(badgeHtml).join("");
       document.getElementById("flyupTitle").textContent = title;
       const audit = classAuditHtml(row);
-      const entrySummary = [
-        text(row.entry_count ?? row.entryCount ?? "") ? "entries " + text(row.entry_count ?? row.entryCount ?? "") : "",
-        text(row.n_gone ?? row.nGone ?? "") ? "gone " + text(row.n_gone ?? row.nGone ?? "") : "",
-        text(row.n_to_go ?? row.nToGo ?? "") ? "to go " + text(row.n_to_go ?? row.nToGo ?? "") : ""
-      ].filter(Boolean).join(" · ");
       document.getElementById("flyupBody").innerHTML =
         '<div class="flyup-row"><span class="flyup-row-label">Ring</span><span class="flyup-row-main">' + html(row.ring_name_normalized || row.ring_name || row.ring_no || "Unavailable") + '</span><span></span><span></span><span></span></div>' +
         '<div class="flyup-row"><span class="flyup-row-label">Time</span><span class="flyup-row-main">' + html(shortTime(row) || "Not set") + '</span><span></span><span></span><span></span></div>' +
         '<div class="flyup-row"><span class="flyup-row-label">Class</span><span class="flyup-row-main">' + html((row.class_number || row.classNumber || "") ? text(row.class_number || row.classNumber) + " " : "") + html(title) + audit + tokenStripHtml(tokens) + '</span>' + flyupBadges + '</div>' +
-        '<div class="detail-section"><h3>Entry</h3>' + (entrySummary ? '<p class="empty-state">' + html(entrySummary) + '</p>' : '') + (entries.length ? entries.map((entry) => '<div class="entry-line"><span class="entry-order">' + html(entry.entry_order || entry.entry_no || "-") + '</span><span class="entry-copy rollup-token">' + html(entry.horse) + (entry.entry_no ? ' <span class="class-audit-id">#' + html(entry.entry_no) + '</span>' : '') + '</span><span class="entry-meta">' + html(entry.go_in || "") + '</span></div>').join("") : rowRollups.length ? rowRollups.slice(0, 10).map((horse) => '<div class="entry-line"><span class="entry-order">-</span><span class="entry-copy rollup-token">' + html(horse) + '</span><span class="entry-meta"></span></div>').join("") : '<p class="empty-state">Entry details unavailable in this payload. TODO: confirm approved entry fields.</p>') + '</div>' +
-        '<div class="detail-section"><h3>Result</h3><p class="empty-state">No approved result fields are present in this payload.</p></div>' +
-        (diff ? '<div class="detail-section"><h3>Diffs</h3><div class="entry-line has-diff diff-time diff-status diff-go-time diff-order diff-result"><span class="entry-order">!</span><span class="entry-copy">' + html(text(row.diff_class || row.diffClass || "Diff marker present")) + '</span><span class="entry-meta"></span></div></div>' : '');
+        '<div class="detail-section"><h3>Entry</h3>' + (entries.length ? entries.map((entry) => '<div class="entry-line"><span class="entry-order">' + html(entry.entry_no || entry.entry_order || "-") + '</span><span class="entry-copy rollup-token">' + html(entry.horse) + (entry.entry_order ? ' <span class="class-audit-id">(' + html(entry.entry_order) + ')</span>' : '') + '</span><span class="entry-meta">' + html([entry.entry_go_time, entry.go_in].filter(Boolean).join(" ")) + '</span></div>').join("") : rowRollups.length ? rowRollups.slice(0, 10).map((horse) => '<div class="entry-line"><span class="entry-order">-</span><span class="entry-copy rollup-token">' + html(horse) + '</span><span class="entry-meta"></span></div>').join("") : '<p class="empty-state">Entry details unavailable in this payload. TODO: confirm approved entry fields.</p>') + '</div>' +
+        '<div class="detail-section"><h3>Result</h3><p class="empty-state">No approved result fields are present in this payload.</p></div>';
       setFlyup(true);
     }
 
@@ -1262,11 +1256,7 @@ function renderHome(res, result) {
 
     function bindClassRows() {
       document.querySelectorAll(".class-row[data-row-key]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const row = state.rowsByKey.get(button.dataset.rowKey) || {};
-          if (state.hideMode) return toggleHideSelection(row);
-          renderFlyup(row);
-        });
+        button.addEventListener("click", () => renderFlyup(state.rowsByKey.get(button.dataset.rowKey) || {}));
       });
     }
 
@@ -1312,51 +1302,12 @@ function renderHome(res, result) {
       renderSchedule();
     }
 
-    function setHideMode(on) {
-      state.hideMode = !!on;
-      document.body.classList.toggle("is-hide-mode", state.hideMode);
-      const button = document.getElementById("hidePickBtn");
-      if (button) button.classList.toggle("is-on", state.hideMode);
-      renderSchedule();
-    }
-
-    function toggleHideSelection(row) {
-      const key = rowStableKey(row);
-      if (!key.trim()) return;
-      if (state.hideSelection.has(key)) state.hideSelection.delete(key);
-      else state.hideSelection.add(key);
-      renderSchedule();
-    }
-
-    function handleHideAction(action) {
-      if (action === "pick") return setHideMode(!state.hideMode);
-      if (action === "apply") {
-        for (const key of state.hideSelection) state.hiddenClassKeys.add(key);
-        state.hideSelection.clear();
-        setHideMode(false);
-        return renderSchedule();
-      }
-      if (action === "cancel") {
-        state.hideSelection.clear();
-        setHideMode(false);
-        return renderSchedule();
-      }
-      if (action === "clear") {
-        state.hiddenClassKeys.clear();
-        state.hideSelection.clear();
-        setHideMode(false);
-        return renderSchedule();
-      }
-    }
-
     function bindBottomNav() {
       document.querySelectorAll("[data-bottom-action]").forEach((button) => {
         button.addEventListener("click", () => {
           document.querySelectorAll("[data-bottom-action]").forEach((item) => item.classList.toggle("is-active", item === button));
           const action = button.dataset.bottomAction;
-          if (action === "filters") return setDrawer(true);
           if (action === "rings") return document.getElementById("ringRail").scrollIntoView({ behavior: "smooth", block: "center" });
-          if (action === "time" || action === "start") return document.getElementById("schedule").scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
     }
@@ -1370,7 +1321,6 @@ function renderHome(res, result) {
     document.getElementById("flyupClose").addEventListener("click", () => setFlyup(false));
     document.getElementById("scrim").addEventListener("click", () => { setDrawer(false); setFlyup(false); });
     document.querySelectorAll("[data-ignore-flag]").forEach((button) => button.addEventListener("click", () => toggleIgnoreFlag(button.dataset.ignoreFlag)));
-    document.querySelectorAll("[data-hide-action]").forEach((button) => button.addEventListener("click", () => handleHideAction(button.dataset.hideAction)));
 
     const print = document.getElementById("printBtn");
     const pdf = new URL(SMARTBROWZ_PDF_URL, location.href);
@@ -1415,6 +1365,9 @@ const server = http.createServer(async (req, res) => {
         service: "wec-mobile-pro-appsail-prototype",
         show_no: SHOW_NO,
         data_source: DATA_SOURCE,
+        build_marker: BUILD_MARKER,
+        working_directory: process.cwd(),
+        served_file: __filename,
         writes: false
       });
     }

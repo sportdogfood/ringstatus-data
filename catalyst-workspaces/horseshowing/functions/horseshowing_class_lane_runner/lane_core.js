@@ -99,7 +99,7 @@ function buildClassStartRows(stagingRows) {
         class_start_time: startTime,
         display_time: startTime ? displayTime(startTime) : "check time",
         entry_count: numberOrNull(row.entry_count),
-        source: "update_schedule_staging.full_lock",
+        source: "update_schedule_staging.lock",
         status: startTime ? "upcoming" : "check_time"
       };
     });

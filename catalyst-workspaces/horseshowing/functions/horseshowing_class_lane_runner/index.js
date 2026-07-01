@@ -60,7 +60,7 @@ const STAGING_FIELDS = {
   class_name: "fldvV3xLV9PduvCrB",
   time_text: "fld2EahZkPs2SSVfN",
   entry_count: "fldsiU6NKYacpz8CT",
-  full_lock: "fldL8UsgATV34je1y",
+  full_lock: "fld6RM2CwUYf3GSGK",
   shows: "fldr7WPbgPFfPuctf",
   show_day: "fldluxeWNNmRpmLhi",
   show_days: "fldiW1dfQrPSFiNvv",
@@ -773,7 +773,7 @@ async function recordMapByKey(baseId, token, tableName, keyName, keys = null) {
 }
 
 async function readLockedStaging(baseId, token, showNo, focusDay) {
-  const formula = `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{full_lock}=1)`;
+  const formula = `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{lock}=1)`;
   const rows = await airtableList(baseId, TABLES.airtableStaging, token, { formula });
   return rows.map((record) => {
     const f = record.fields || {};
@@ -945,7 +945,7 @@ async function buildStaleTimeAlertUpdates(baseId, token, focus, activeAlertKeys)
     }));
 }
 
-async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecordId) {
+async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecordId, focusDay) {
   const showNos = sourceRows.map((row) => row.show_no);
   const ringNos = sourceRows.map((row) => row.ring_no);
   const ringDayNos = sourceRows.map((row) => row.ring_day_no);
@@ -955,7 +955,7 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
     linkMap(baseId, token, "rings", "ring_no", ringNos),
     linkMap(baseId, token, "ring_days", "ring_day_no", ringDayNos),
     linkMap(baseId, token, "classes", "class_no", classNos),
-    readClassOogGroups(baseId, token, sourceRows[0]?.show_no, sourceRows[0]?.focus_day)
+    readClassOogGroups(baseId, token, sourceRows[0]?.show_no, focusDay)
   ]);
 
   return sourceRows.map((row) => {
@@ -991,7 +991,7 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
 async function syncClassStartTimes(app, baseId, token, focus) {
   const stagingRows = await readLockedStaging(baseId, token, focus.show_no, focus.focus_day);
   const classRows = buildClassStartRows(stagingRows);
-  const airtableRows = await buildClassStartAirtableRows(baseId, token, classRows, focus.record_id);
+  const airtableRows = await buildClassStartAirtableRows(baseId, token, classRows, focus.record_id, focus.focus_day);
   const airtableUpserts = await airtableUpsert(
     baseId,
     TABLES.airtableClassStartTimes,
@@ -1046,7 +1046,7 @@ async function syncClassStartTimes(app, baseId, token, focus) {
     recordsSeen: stagingRows.length,
     recordsChanged: airtableUpserts.length + airtableDeletes.length,
     summary: `class_start_times source ${stagingRows.length}; airtable upsert ${airtableUpserts.length}; catalyst inserted ${catalystResult.inserted}; updated ${catalystResult.updated}; stale ${catalystResult.deleted}`,
-    payload: { source: "update_schedule_staging.full_lock", stale_airtable_deleted: airtableDeletes.length, catalyst: catalystResult }
+    payload: { source: "update_schedule_staging.lock", stale_airtable_deleted: airtableDeletes.length, catalyst: catalystResult }
   });
 
   return {

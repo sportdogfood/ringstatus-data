@@ -12,7 +12,7 @@ const {
   compareKeySets
 } = require("./lane_core");
 
-test("buildClassStartRows admits only full_lock staging rows and preserves class identity", () => {
+test("buildClassStartRows admits only locked staging rows and preserves class identity", () => {
   const rows = buildClassStartRows([
     {
       record_id: "rec_locked_31001",
@@ -68,7 +68,7 @@ test("buildClassStartRows admits only full_lock staging rows and preserves class
     class_start_time: "08:15:00",
     display_time: "8:15A",
     entry_count: 12,
-    source: "update_schedule_staging.full_lock",
+    source: "update_schedule_staging.lock",
     status: "upcoming"
   });
 });

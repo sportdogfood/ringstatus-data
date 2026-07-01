@@ -6355,7 +6355,7 @@ function validateUpdateScheduleStagingPrioritySortSchema(tables) {
   };
 }
 
-async function evaluateUpdateScheduleStagingPrioritySort() {
+async function evaluateUpdateScheduleStagingPrioritySort(scope = {}) {
   const metadataTables = await airtableBaseMetadataTables();
   const schema = validateUpdateScheduleStagingPrioritySortSchema(metadataTables);
   if (!schema.ok) {
@@ -6368,7 +6368,12 @@ async function evaluateUpdateScheduleStagingPrioritySort() {
       records_updated: 0
     };
   }
-  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE);
+  const showNo = text(scope.show_no);
+  const focusDay = dateKey(scope.focus_day);
+  const filterByFormula = showNo && focusDay
+    ? `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
+    : "";
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, { filterByFormula });
   const preparedRows = rows.map((row) => ({ id: row.id, fields: row.fields || {} })).sort(prioritySortCompareRows);
   const nonPreflightRows = preparedRows.filter((row) => !prioritySortIsPreflight(row));
   const preflightRows = preparedRows.filter(prioritySortIsPreflight);
@@ -6441,7 +6446,10 @@ async function evaluateUpdateScheduleStagingPrioritySort() {
     approved_fields_written: UPDATE_SCHEDULE_STAGING_PRIORITY_SORT_WRITE_FIELDS,
     class_priority_order_present: schema.class_priority_order_present,
     records_updated: updated.length,
-    prepared_updates: updates.length
+    prepared_updates: updates.length,
+    show_no: showNo || "",
+    focus_day: focusDay || "",
+    scoped: Boolean(filterByFormula)
   };
 }
 
@@ -10046,8 +10054,12 @@ async function handle(req, res) {
         || body.priority_sort_only === "1"
         || body.priority_sort_only === 1
         || body.priority_sort_only === true;
+      const prioritySortScope = {
+        show_no: showNo,
+        focus_day: dateKey(query.get("focus_day") || body.focus_day || body.focus_day_date)
+      };
       const result = prioritySortOnly
-        ? await evaluateUpdateScheduleStagingPrioritySort()
+        ? await evaluateUpdateScheduleStagingPrioritySort(prioritySortScope)
         : await evaluateUpdateScheduleStagingHelpers();
       if (result.status === "BLOCKED") {
         return json(res, 409, { ok: false, action, ...result });

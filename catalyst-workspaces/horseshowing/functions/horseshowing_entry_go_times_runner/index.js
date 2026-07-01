@@ -666,31 +666,47 @@ async function verifyAirtable(baseId, token, showNo, focusDay, expectedKeys) {
   const activeKeys = new Set(active.map((row) => text(row.entry_go_key || row.entry_go_key_mirror)));
   const missingKeys = [...expectedKeys].filter((key) => !activeKeys.has(key));
   const extraKeys = [...activeKeys].filter((key) => !expectedKeys.has(key));
-  const missingLinks = active.filter((row) =>
+  const missingRequiredLinks = active.filter((row) =>
     !row.shows?.length ||
     !row.show_days?.length ||
     !row.focus_show?.length ||
     !row.classes?.length ||
     !row.rings?.length ||
     !row.ring_days?.length ||
-    !row.entries?.length ||
-    !row.horses?.length ||
-    !row.riders?.length ||
-    !row.trainers?.length ||
     !row.class_oog?.length ||
     !row.class_oog_staging?.length ||
     !row.update_schedule_staging?.length ||
     !row.class_start_times?.length
   );
-  const missingTimes = active.filter((row) => !text(row.class_start_time) || !text(row.entry_go_time));
+  const optionalHelperMisses = active.filter((row) =>
+    !row.entries?.length ||
+    !row.horses?.length ||
+    !row.riders?.length ||
+    !row.trainers?.length
+  );
+  const missingClassStartTimes = active.filter((row) => !text(row.class_start_time));
+  const blankEntryGoTimes = active.filter((row) => !text(row.entry_go_time));
+  const blankEntryGoTimesInsufficientPace = blankEntryGoTimes
+    .filter((row) => /insufficient_pace_data/i.test(text(row.source)));
+  const unexpectedBlankEntryGoTimes = blankEntryGoTimes
+    .filter((row) => !/insufficient_pace_data/i.test(text(row.source)));
+  const fallbackEntryGoTimes = active.filter((row) =>
+    text(row.entry_go_time) && /fallback/i.test(text(row.source))
+  );
   return {
     total_rows: rows.length,
     active_rows: active.length,
     inactive_rows: rows.length - active.length,
     missing_keys: missingKeys.length,
     extra_active_keys: extraKeys.length,
-    missing_required_links: missingLinks.length,
-    missing_timing_fields: missingTimes.length
+    missing_required_links: missingRequiredLinks.length,
+    optional_helper_misses: optionalHelperMisses.length,
+    missing_class_start_time_fields: missingClassStartTimes.length,
+    blank_entry_go_time_fields: blankEntryGoTimes.length,
+    blank_entry_go_time_insufficient_pace: blankEntryGoTimesInsufficientPace.length,
+    unexpected_blank_entry_go_time_fields: unexpectedBlankEntryGoTimes.length,
+    fallback_entry_go_times: fallbackEntryGoTimes.length,
+    missing_timing_fields: missingClassStartTimes.length + unexpectedBlankEntryGoTimes.length
   };
 }
 

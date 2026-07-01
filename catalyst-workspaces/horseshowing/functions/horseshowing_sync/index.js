@@ -1663,28 +1663,26 @@ async function replaceClassOogClassRows(app, showNo, classNo, rows, classRow = n
     ? await upsertSourceRowsFast(app, TABLES.classOog, "class_oog_key", sourceRows, { showNo })
     : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
   const activeKeys = new Set(sourceRows.map((row) => text(row.class_oog_key)).filter(Boolean));
-  const table = app.datastore().table(TABLES.classOog);
   const existingRows = await getRowsByShow(app, TABLES.classOog, showNo, { limit: 10000 });
   const classNoText = text(classNo);
-  const staleIds = existingRows
+  const staleRows = existingRows
     .filter((row) => {
       const key = text(row.class_oog_key);
       const keyClassNo = key.split("|")[1] || "";
       return key
         && (text(row.class_no) === classNoText || keyClassNo === classNoText)
         && !activeKeys.has(key);
-    })
-    .map((row) => row.ROWID)
-    .filter(Boolean);
-  let deleted = 0;
-  for (let index = 0; index < staleIds.length; index += 100) {
-    const batch = staleIds.slice(index, index + 100);
-    if (batch.length) {
-      await table.deleteRows(batch);
-      deleted += batch.length;
-    }
-  }
-  return { ...result, deleted };
+    });
+  const confirmedKeys = await classOogConfirmDeleteKeySet(showNo, { classNo });
+  const staleDeletePlan = classOogCatalystDeletePlan(staleRows, confirmedKeys);
+  const staleDeleteResult = await executeCatalystClassOogDeletePlan(app, staleDeletePlan);
+  return {
+    ...result,
+    deleted: staleDeleteResult.deleted,
+    stale_delete_candidates: staleDeletePlan.candidates,
+    stale_delete_skipped: staleDeletePlan.skipped,
+    stale_delete_skip_reason: staleDeletePlan.skip_reason
+  };
 }
 
 async function backfillSourceMirrors(app, showNo, sources = ["update_schedule.php", "get_orders.php", "get_rings.php"], limitPerSource = 300, startOffset = 0) {
@@ -7016,24 +7014,24 @@ function classOogSourceRowCanonical(row, rawRow) {
 async function deleteCatalystClassOogStaleForClass(app, showNo, focusDay, ringDayNo, ringNo, classNo, activeKeys) {
   const rows = await getRowsByShow(app, TABLES.classOog, showNo, { limit: 10000 });
   const active = new Set((activeKeys || []).map(text).filter(Boolean));
-  const staleIds = rows
+  const staleRows = rows
     .filter((row) => dateKey(row.focus_day) === focusDay)
     .filter((row) => text(row.ring_day_no) === text(ringDayNo))
     .filter((row) => text(row.ring_no) === text(ringNo))
     .filter((row) => text(row.class_no) === text(classNo))
-    .filter((row) => !active.has(text(row.class_oog_key)))
-    .map((row) => row.ROWID)
-    .filter(Boolean);
-  let deleted = 0;
-  const table = app.datastore().table(TABLES.classOog);
-  for (let index = 0; index < staleIds.length; index += 100) {
-    const batch = staleIds.slice(index, index + 100);
-    if (batch.length) {
-      await table.deleteRows(batch);
-      deleted += batch.length;
-    }
-  }
-  return { scanned: rows.length, deleted };
+    .filter((row) => !active.has(text(row.class_oog_key)));
+  const confirmedKeys = await classOogConfirmDeleteKeySet(showNo, { focusDay, ringDayNo, ringNo, classNo });
+  const plan = classOogCatalystDeletePlan(staleRows, confirmedKeys);
+  const deletion = await executeCatalystClassOogDeletePlan(app, plan);
+  return {
+    scanned: rows.length,
+    deleted: deletion.deleted,
+    candidates: plan.candidates,
+    deletable: plan.deletable,
+    skipped: plan.skipped,
+    skipped_reason: plan.skip_reason,
+    skipped_detail: plan.skipped_detail
+  };
 }
 
 function airtableClassOogFormula(showNo, focusDay, ringDayNo = "", ringNo = "", classNo = "") {
@@ -7045,6 +7043,70 @@ function airtableClassOogFormula(showNo, focusDay, ringDayNo = "", ringNo = "", 
   if (text(ringNo)) clauses.push(`{ring_no}=${Number(ringNo)}`);
   if (text(classNo)) clauses.push(`{class_no}=${Number(classNo)}`);
   return `AND(${clauses.join(",")})`;
+}
+
+function airtableConfirmedClassOogFormula(showNo, { focusDay = "", ringDayNo = "", ringNo = "", classNo = "", key = "" } = {}) {
+  const clauses = [
+    "{confirm_delete}=1",
+    `{show_no}=${Number(showNo)}`
+  ];
+  if (text(focusDay)) clauses.push(`IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day')`);
+  if (text(ringDayNo)) clauses.push(`{ring_day_no}=${Number(ringDayNo)}`);
+  if (text(ringNo)) clauses.push(`{ring_no}=${Number(ringNo)}`);
+  if (text(classNo)) clauses.push(`{class_no}=${Number(classNo)}`);
+  if (text(key)) clauses.push(`{mirror_class_oog_key}=${airtableFormulaValue(key)}`);
+  return `AND(${clauses.join(",")})`;
+}
+
+function classOogMirrorRecordKey(record) {
+  const fields = record?.fields || {};
+  return text(fields.mirror_class_oog_key || fields.class_oog_key);
+}
+
+async function readConfirmedDeleteClassOogRows(showNo, filters = {}) {
+  return airtableListRecords("class_oog", {
+    filterByFormula: airtableConfirmedClassOogFormula(showNo, filters)
+  });
+}
+
+async function classOogConfirmDeleteKeySet(showNo, filters = {}) {
+  const rows = await readConfirmedDeleteClassOogRows(showNo, filters);
+  return new Set(rows.map(classOogMirrorRecordKey).filter(Boolean));
+}
+
+function classOogCatalystDeletePlan(staleRows, confirmedKeys) {
+  const confirmed = confirmedKeys instanceof Set ? confirmedKeys : new Set();
+  const candidates = (staleRows || [])
+    .map((row) => ({
+      row_id: text(row.ROWID),
+      class_oog_key: text(row.class_oog_key)
+    }))
+    .filter((row) => row.row_id && row.class_oog_key);
+  const deletableRows = candidates.filter((row) => confirmed.has(row.class_oog_key));
+  const skippedRows = candidates.filter((row) => !confirmed.has(row.class_oog_key));
+  return {
+    candidates: candidates.length,
+    deletable: deletableRows.length,
+    skipped: skippedRows.length,
+    skip_reason: skippedRows.length ? "confirm_delete_missing_or_false" : "",
+    catalyst_row_ids: deletableRows.map((row) => row.row_id),
+    skipped_detail: skippedRows.slice(0, 50)
+  };
+}
+
+async function executeCatalystClassOogDeletePlan(app, plan, { execute = true } = {}) {
+  const rowIds = [...new Set((plan?.catalyst_row_ids || []).map(text).filter(Boolean))];
+  if (!execute || !rowIds.length) return { deleted: 0, catalyst_row_ids: rowIds };
+  const table = app.datastore().table(TABLES.classOog);
+  let deleted = 0;
+  for (let index = 0; index < rowIds.length; index += 100) {
+    const batch = rowIds.slice(index, index + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return { deleted, catalyst_row_ids: rowIds };
 }
 
 function mapClassOogMirrorFields(row, trainerRecordIds = {}) {
@@ -7082,11 +7144,21 @@ async function mirrorClassOogToAirtable(showNo, focusDay, ringDayNo, ringNo, cla
   const existing = await airtableListRecords("class_oog", {
     filterByFormula: airtableClassOogFormula(showNo, focusDay, ringDayNo, ringNo, classNo)
   });
-  const staleDeleted = await deleteAirtableRowsNotInKeys("class_oog", "mirror_class_oog_key", existing, activeKeys);
+  const staleRows = existing.filter((record) => {
+    const key = classOogMirrorRecordKey(record);
+    return key && !activeKeys.has(key);
+  });
   const finalRows = await airtableListRecords("class_oog", {
     filterByFormula: airtableClassOogFormula(showNo, focusDay)
   });
-  return { records: records.length, stale_deleted: staleDeleted, final_count: finalRows.length };
+  return {
+    records: records.length,
+    stale_deleted: 0,
+    stale_delete_candidates: staleRows.length,
+    stale_delete_skipped: staleRows.length,
+    stale_delete_skip_reason: staleRows.length ? "mirror_only_no_airtable_delete" : "",
+    final_count: finalRows.length
+  };
 }
 
 function classOogStagingClassKeyFromFields(fields = {}) {
@@ -9172,17 +9244,36 @@ async function replaceClassOogOnly(app, showNo, rows) {
   const sourceRows = (rows || []).map((row) => classOogSourceRow({ ...row, show_no: row.show_no || showNo })).filter(Boolean);
   const result = await upsertSourceRowsFast(app, TABLES.classOog, "class_oog_key", sourceRows, { showNo });
   const activeKeys = new Set(sourceRows.map((row) => text(row.class_oog_key)).filter(Boolean));
+  const existingRows = await getRowsByShow(app, TABLES.classOog, showNo, { limit: 10000 });
+  const staleRows = existingRows.filter((row) => {
+    const key = text(row.class_oog_key);
+    return key && !activeKeys.has(key);
+  });
+  const confirmedKeys = await classOogConfirmDeleteKeySet(showNo);
+  const staleDeletePlan = classOogCatalystDeletePlan(staleRows, confirmedKeys);
+  const staleDeleteResult = await executeCatalystClassOogDeletePlan(app, staleDeletePlan);
   return {
     ...result,
-    deleted: await deleteSourceRowsNotInKeys(app, TABLES.classOog, "class_oog_key", showNo, activeKeys)
+    deleted: staleDeleteResult.deleted,
+    stale_delete_candidates: staleDeletePlan.candidates,
+    stale_delete_skipped: staleDeletePlan.skipped,
+    stale_delete_skip_reason: staleDeletePlan.skip_reason
   };
 }
 
 async function deleteClassOogKey(app, key) {
   const existing = await findOne(app, TABLES.classOog, { class_oog_key: key });
   if (!existing?.ROWID) return { deleted: 0 };
-  await app.datastore().table(TABLES.classOog).deleteRow(existing.ROWID);
-  return { deleted: 1 };
+  const showNo = text(existing.show_no || text(key).split("|")[0]);
+  const confirmedKeys = await classOogConfirmDeleteKeySet(showNo, { key });
+  const plan = classOogCatalystDeletePlan([existing], confirmedKeys);
+  const deletion = await executeCatalystClassOogDeletePlan(app, plan);
+  return {
+    deleted: deletion.deleted,
+    stale_delete_candidates: plan.candidates,
+    stale_delete_skipped: plan.skipped,
+    stale_delete_skip_reason: plan.skip_reason
+  };
 }
 
 async function getClassPage(app, showNo, offset, limit) {

@@ -252,7 +252,7 @@ const CLASS_OOG_STAGING_HELPER_MAPPINGS = [
   { target_link_field: "shows", source_value_field: "show_no", helper_table: "shows", helper_key_field: "show_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
   { target_link_field: "focus_show", source_value_field: "show_no+focus_day", helper_table: "focus_show", helper_key_field: "show_no+focus_day", helper_record_id_field: "rec_id", allow_silent_fail: false },
   { target_link_field: "show_days", source_value_field: "focus_day", helper_table: "show_days", helper_key_field: "show_day", helper_record_id_field: "rec_id", allow_silent_fail: true },
-  { target_link_field: "ring_days", source_value_field: "days", helper_table: "ring_days", helper_key_field: "ring_day_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
+  { target_link_field: "ring_days", source_value_field: "ring_day_no", helper_table: "ring_days", helper_key_field: "ring_day_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
   { target_link_field: "rings", source_value_field: "ring_no", helper_table: "rings", helper_key_field: "ring_no", helper_record_id_field: "rec_id", allow_silent_fail: true },
   { target_link_field: "classes", source_value_field: "class_no", helper_table: "classes", helper_key_field: "class_no", helper_record_id_field: "rec_id", allow_silent_fail: false },
   { target_link_field: "entries", source_value_field: "entry_no", helper_table: "entries", helper_key_field: "entry_no", helper_record_id_field: "rec_id", allow_silent_fail: true },
@@ -5829,6 +5829,19 @@ async function ensureClassOogStagingAllowedHelpers() {
   const existing = await airtableListRecords("allowed_helpers", {
     filterByFormula: `{target_table}='${AIRTABLE_CLASS_OOG_STAGING_TABLE}'`
   });
+  const obsolete = existing.filter((record) =>
+    stage2cHelperTruthy(stage2cRecordField(record, "active"))
+    && text(stage2cRecordField(record, "target_link_field")) === "ring_days"
+    && text(stage2cRecordField(record, "source_value_field")) === "days"
+    && text(stage2cRecordField(record, "helper_table")) === "ring_days"
+    && text(stage2cRecordField(record, "helper_key_field")) === "ring_day_no"
+  );
+  if (obsolete.length) {
+    await airtableUpdateRecordsById("allowed_helpers", obsolete.map((record) => ({
+      id: record.id,
+      fields: { active: false }
+    })));
+  }
   const existingKeys = new Set(existing.map((record) => [
     text(stage2cRecordField(record, "target_link_field")),
     text(stage2cRecordField(record, "source_value_field")),
@@ -5861,6 +5874,7 @@ async function ensureClassOogStagingAllowedHelpers() {
   return {
     expected_mappings: CLASS_OOG_STAGING_HELPER_MAPPINGS.length,
     existing_mappings_before: existing.length,
+    obsolete_mappings_disabled: obsolete.length,
     created_mappings: created.length,
     created_mapping_detail: created
   };
@@ -7131,12 +7145,13 @@ function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
   const fields = sourceRecord?.fields || {};
   const mirrorKey = text(fields.mirror_class_oog_key || fields.class_oog_key);
   if (!mirrorKey) return null;
+  const ringDayNo = intValue(fields.ring_day_no || fields.days);
   const payload = cleanPatch({
     mirror_class_oog_key: mirrorKey,
     show_no: intValue(fields.show_no),
     focus_day: dateKey(fields.focus_day),
-    days: intValue(fields.days),
-    ring_day_no: intValue(fields.ring_day_no),
+    days: ringDayNo,
+    ring_day_no: ringDayNo,
     ring_no: intValue(fields.ring_no),
     ring: text(fields.ring),
     class_no: intValue(fields.class_no),

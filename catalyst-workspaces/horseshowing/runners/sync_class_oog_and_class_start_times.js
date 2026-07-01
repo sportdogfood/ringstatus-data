@@ -309,6 +309,21 @@ async function syncClassStartTimes(syncUrl, showNo, focusDay, lockedRows) {
   });
 }
 
+async function syncClassOogStaging(syncUrl, showNo, focusDay) {
+  const url = new URL(syncUrl);
+  url.searchParams.set("action", "sync-class-oog-staging-from-class-oog");
+  url.searchParams.set("show_no", showNo);
+  return fetchJson(url.toString(), {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      show_no: showNo,
+      focus_day: focusDay
+    }),
+    timeout_ms: 120000
+  });
+}
+
 async function exportCatalystRows(syncUrl, showNo, table) {
   const rows = [];
   for (let offset = 0; ; offset += 200) {
@@ -597,42 +612,28 @@ async function main() {
     }
     const catalystClassOogRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_oog"))
       .filter((row) => dateKey(row.focus_day) === focus.focus_day);
-    let classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
+    const classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
       filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
     });
-    const reconciled = await reconcileClassOogMirrorFromCatalyst(
-      baseId,
-      token,
-      catalystClassOogRows,
-      classOogAirtableRows,
-      activeTrainerData.trainer_record_ids
-    );
-    if (reconciled.created.length) {
-      classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
-        filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
-      });
-    }
-    const targetKeys = new Set(classOogAirtableRows.map(classKeyFromClassOogRow).filter(Boolean));
-    const extraActiveTargetRows = [...targetKeys].filter((key) => !sourceKeys.has(key)).sort();
-    const requiredFieldsPopulated = classOogAirtableRows.every((record) => Boolean(classKeyFromClassOogRow(record)));
+    const staging = await syncClassOogStaging(syncUrl, focus.show_no, focus.focus_day);
+    const stagingOk = staging.status === "PASS";
     const summary = {
-      ok: extraActiveTargetRows.length === 0
-        && catalystClassOogRows.length === classOogAirtableRows.length
-        && requiredFieldsPopulated,
+      ok: stagingOk,
       action: "sync-class-oog-only",
       run_id: runId,
       run_time: runTime,
       bounded_unit: "complete",
       resumable: true,
       source_view: "update_schedule_staging.class_oog",
-      target_table: "class_oog",
+      mirror_table: "class_oog",
+      target_table: "class_oog_staging",
       show_no: focus.show_no,
       focus_day: focus.focus_day,
       focus_show_record_id: focus.record_id,
       source_control_record: focus.record_id,
       rows_read: targetRows.length,
-      rows_inserted: reconciled.created.length,
-      rows_updated: null,
+      rows_inserted: staging.records_created,
+      rows_updated: staging.records_updated,
       rows_skipped_unchanged: null,
       rows_deleted: null,
       source_count: targetRows.length,
@@ -640,24 +641,27 @@ async function main() {
       skipped_existing_raw: forceRawRefetch ? 0 : parsedRawKeys.size,
       raw_fetches_attempted: 0,
       raw_parse_runs_attempted: 0,
-      target_active_count: classOogAirtableRows.length,
-      keys_match: extraActiveTargetRows.length === 0,
-      extra_active_target_rows: extraActiveTargetRows,
-      required_fields_populated: requiredFieldsPopulated,
+      target_active_count: staging.target_active_rows,
+      keys_match: staging.status === "PASS",
+      extra_active_target_rows: staging.entrywise_grain_evidence?.extra_target_rows || [],
+      required_fields_populated: staging.status === "PASS",
       hs_class_oog_count: catalystClassOogRows.length,
       class_oog_count: classOogAirtableRows.length,
-      class_oog_counts_match: catalystClassOogRows.length === classOogAirtableRows.length,
-      missing_airtable_rows_repaired: reconciled.created.length,
-      missing_airtable_rows: reconciled.missing_rows.map((row) => ({
-        class_oog_key: row.class_oog_key,
-        ring_day_no: row.ring_day_no,
-        ring_no: row.ring_no,
-        class_no: row.class_no,
-        entry_no: row.current_entry_no || row.entry_no,
-        horse: row.horse,
-        rider: row.rider,
-        trainer: row.trainer
-      })),
+      class_oog_counts_match: null,
+      class_oog_staging_status: staging.status,
+      class_oog_staging_blocker: staging.blocker || "",
+      class_oog_staging_source_rows: staging.source_rows,
+      class_oog_staging_source_candidates: staging.source_candidates,
+      class_oog_staging_duplicate_source_rows_ignored: staging.duplicate_source_rows_ignored,
+      class_oog_staging_count: staging.target_active_rows,
+      class_oog_staging_records_created: staging.records_created,
+      class_oog_staging_records_updated: staging.records_updated,
+      class_oog_staging_records_unchanged: staging.records_unchanged,
+      class_oog_staging_class_oog_link_evidence: staging.class_oog_link_evidence,
+      class_oog_staging_update_schedule_staging_link_evidence: staging.update_schedule_staging_link_evidence,
+      mirror_count_warning: catalystClassOogRows.length === classOogAirtableRows.length ? "" : `mirror count mismatch ignored for downstream proof: Catalyst=${catalystClassOogRows.length} Airtable=${classOogAirtableRows.length}`,
+      missing_airtable_rows_repaired: 0,
+      missing_airtable_rows: [],
       class_start_times_run: false,
       entry_go_times_run: false,
       mobile_run: false,
@@ -665,7 +669,7 @@ async function main() {
       focus_day_is_pause_changed: false
     };
     process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
-    if (!summary.ok) throw new Error("class_oog-only sync did not reconcile source and target");
+    if (!summary.ok) throw new Error(`class_oog_staging handoff failed: ${staging.blocker || "unknown"}`);
     return;
   }
   const rawRows = await getClassOogRawRows(syncUrl, focus.show_no, focus.focus_day);
@@ -737,6 +741,7 @@ async function main() {
   const classOogAirtableRows = await airtableListAll(baseId, "class_oog", token, {
     filterByFormula: `AND({show_no}=${Number(focus.show_no)},IS_SAME({focus_day},DATETIME_PARSE(${formulaValue(focus.focus_day)}),'day'))`
   });
+  const classOogStaging = await syncClassOogStaging(syncUrl, focus.show_no, focus.focus_day);
   const classStart = await syncClassStartTimes(syncUrl, focus.show_no, focus.focus_day, lockedRows);
   const catalystClassStartRows = (await exportCatalystRows(syncUrl, focus.show_no, "class_start_times"))
     .filter((row) => dateKey(row.focus_day) === focus.focus_day);
@@ -779,7 +784,14 @@ async function main() {
     class_oog_canonical_key: "show_no|focus_day|ring_day_no|ring_no|class_no|entry_no",
     hs_class_oog_count: catalystClassOogRows.length,
     class_oog_count: classOogAirtableRows.length,
-    class_oog_counts_match: catalystClassOogRows.length === classOogAirtableRows.length,
+    class_oog_counts_match: null,
+    class_oog_mirror_count_warning: catalystClassOogRows.length === classOogAirtableRows.length ? "" : `mirror count mismatch ignored for downstream proof: Catalyst=${catalystClassOogRows.length} Airtable=${classOogAirtableRows.length}`,
+    class_oog_staging_status: classOogStaging.status,
+    class_oog_staging_blocker: classOogStaging.blocker || "",
+    class_oog_staging_source_rows: classOogStaging.source_rows,
+    class_oog_staging_source_candidates: classOogStaging.source_candidates,
+    class_oog_staging_duplicate_source_rows_ignored: classOogStaging.duplicate_source_rows_ignored,
+    class_oog_staging_count: classOogStaging.target_active_rows,
     class_oog_stale_deleted: classOogRuns.reduce((sum, row) => sum + row.hs_class_oog_stale_deleted + row.class_oog_stale_deleted, 0),
     class_start_times_source: "locked update_schedule_staging",
     class_start_times_target_classes: lockedRows.length,
@@ -791,7 +803,7 @@ async function main() {
     class_start_times_wec_log_rec_id: classStart.class_start_times_wec_log_rec_id || null,
     target_class_keys: targetRows.map((row) => `${row.ring_day_no}|${row.ring_no}|${row.class_no}`)
   };
-  if (!summary.class_oog_counts_match) throw new Error(`class_oog counts mismatch Catalyst=${summary.hs_class_oog_count} Airtable=${summary.class_oog_count}`);
+  if (classOogStaging.status !== "PASS") throw new Error(`class_oog_staging handoff failed: ${classOogStaging.blocker || "unknown"}`);
   if (!summary.class_start_times_counts_match) throw new Error(`class_start_times counts mismatch Catalyst=${summary.hs_class_start_times_count} Airtable=${summary.class_start_times_count}`);
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 }

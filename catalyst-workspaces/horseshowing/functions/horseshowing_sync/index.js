@@ -7161,7 +7161,7 @@ function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
     days: ringDayNo,
     ring_day_no: ringDayNo,
     ring_no: intValue(fields.ring_no),
-    ring: text(fields.ring),
+    ring: text(fields.ring || fields.ring_name),
     class_no: intValue(fields.class_no),
     class_label: text(fields.class_label),
     class_order: intValue(fields.class_order),
@@ -7186,7 +7186,6 @@ function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
     const stagingRecordId = stagingRecordIdByClassKey.get(classKey);
     if (stagingRecordId) payload.update_schedule_staging = [stagingRecordId];
   }
-  copyLinkedField(payload, fields, "update_schedule");
   for (const linkField of [
     "shows",
     "focus_show",
@@ -7277,17 +7276,45 @@ async function syncClassOogStagingFromClassOog(showNo, focusDay) {
   const sourceRows = await airtableListRecords("class_oog", {
     filterByFormula: airtableClassOogFormula(showNo, safeFocusDay)
   });
-  const sourcePayloads = sourceRows
-    .map((record) => mapClassOogToStagingFields(record, stagingIndex.index))
-    .filter(Boolean)
-    .filter((fields) => text(fields.mirror_class_oog_key) && text(fields.entry_no));
-  const activeKeys = new Set(sourcePayloads.map((fields) => text(fields.mirror_class_oog_key)));
   const existingRows = await airtableListRecords(AIRTABLE_CLASS_OOG_STAGING_TABLE, {
     filterByFormula: airtableClassOogStagingFormula(showNo, safeFocusDay)
   });
   const existingByKey = new Map(existingRows
     .map((record) => [text(record.fields?.mirror_class_oog_key || record.fields?.class_oog_key), record])
     .filter(([key]) => key));
+  const sourceCandidates = sourceRows
+    .map((record) => mapClassOogToStagingFields(record, stagingIndex.index))
+    .filter(Boolean)
+    .filter((fields) => text(fields.mirror_class_oog_key) && text(fields.entry_no));
+  const candidatesByEntryKey = new Map();
+  const duplicateSourceRowsIgnored = [];
+  for (const fields of sourceCandidates) {
+    const entryKey = classOogStagingEntryKeyFromFields(fields);
+    if (!entryKey) continue;
+    const current = candidatesByEntryKey.get(entryKey);
+    if (!current) {
+      candidatesByEntryKey.set(entryKey, fields);
+      continue;
+    }
+    const currentHasExistingStaging = existingByKey.has(text(current.mirror_class_oog_key));
+    const nextHasExistingStaging = existingByKey.has(text(fields.mirror_class_oog_key));
+    if (!currentHasExistingStaging && nextHasExistingStaging) {
+      duplicateSourceRowsIgnored.push({
+        entry_key: entryKey,
+        ignored_mirror_class_oog_key: text(current.mirror_class_oog_key),
+        kept_mirror_class_oog_key: text(fields.mirror_class_oog_key)
+      });
+      candidatesByEntryKey.set(entryKey, fields);
+    } else {
+      duplicateSourceRowsIgnored.push({
+        entry_key: entryKey,
+        ignored_mirror_class_oog_key: text(fields.mirror_class_oog_key),
+        kept_mirror_class_oog_key: text(current.mirror_class_oog_key)
+      });
+    }
+  }
+  const sourcePayloads = [...candidatesByEntryKey.values()];
+  const activeKeys = new Set(sourcePayloads.map((fields) => text(fields.mirror_class_oog_key)));
   const recordsCreated = sourcePayloads.filter((fields) => !existingByKey.has(text(fields.mirror_class_oog_key))).length;
   const recordsChanged = sourcePayloads.filter((fields) => {
     const existing = existingByKey.get(text(fields.mirror_class_oog_key));
@@ -7333,6 +7360,9 @@ async function syncClassOogStagingFromClassOog(showNo, focusDay) {
     source: "class_oog",
     target: AIRTABLE_CLASS_OOG_STAGING_TABLE,
     source_rows: sourceRows.length,
+    source_candidates: sourceCandidates.length,
+    duplicate_source_rows_ignored: duplicateSourceRowsIgnored.length,
+    duplicate_source_row_detail: duplicateSourceRowsIgnored.slice(0, 50),
     source_entry_keys: activeKeys.size,
     target_active_rows: finalRows.filter((row) => row.fields?.inactive !== true).length,
     target_active_keys: finalKeys.size,

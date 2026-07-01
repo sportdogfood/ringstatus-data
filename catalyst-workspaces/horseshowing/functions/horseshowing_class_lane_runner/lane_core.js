@@ -297,9 +297,9 @@ function buildClassAlerts(classStarts, now = new Date(), { windowed = true } = {
   return alerts;
 }
 
-function inAlertWindow(minutesUntil, threshold, windowMinutes = 12) {
+function inAlertWindow(minutesUntil, threshold) {
   if (minutesUntil === null || minutesUntil === undefined || !Number.isFinite(Number(minutesUntil))) return false;
-  return Number(minutesUntil) <= threshold && Number(minutesUntil) > threshold - windowMinutes;
+  return Number(minutesUntil) <= threshold;
 }
 
 function buildEntryAlerts(entryGoTimes, now = new Date(), { windowed = true } = {}) {

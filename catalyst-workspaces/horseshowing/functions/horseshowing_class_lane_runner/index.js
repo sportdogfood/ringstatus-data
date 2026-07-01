@@ -38,6 +38,15 @@ const TABLES = {
   airtableLogs: "tblaA0n7QD7s5lIYm"
 };
 
+const ENTRY_FIELDS = {
+  entry_no: "fldBsb34haUaEecGT",
+  horse: "fldYRHg1TIDaD3TR4"
+};
+
+const HORSE_FIELDS = {
+  horse: "fldP3vOT3rz8ZVEAI"
+};
+
 const FOCUS_SHOW_FIELDS = {
   focus_day_key: "fldIyqZYNX8Bj6Drd",
   show_no: "fldZ1Ym2XNz9IYbBo",
@@ -147,7 +156,11 @@ const GET_ORDERS_FIELDS = {
   class_text: "fldMFQJ9dMqKp4WMG",
   entry_no: "fldNQXtbVgOCJimk9",
   entries: "fldCcFR3KuXBcb4W3",
+  entry_no_now: "fldx49Sk6SFk0lZL6",
+  entries_now: "fldlbbjRWoxmvmWFK",
   entry_text: "fldO5cnADy7JGghrh",
+  horse_now: "fldy8DwH1fCkteEkm",
+  horses_now: "fldhQ8TXRZKZ4AXDt",
   focus_show: "fldUCCyskXbQWXdas",
   ring_name_normalized: "fldPH5ET9OiFCsbln",
   ring_names: "flduBgftsNmg7r2wH",
@@ -177,7 +190,10 @@ const GET_RINGS_FIELDS = {
   type: "fldKp21d0kHt3SXpu",
   ring_name_normalized: "fldYq3BFkm1VeB5c6",
   ring_visual_key: "fldbfXmdIDdj6wCDw",
+  entry_no_now: "fldXtAweqIMrqLwow",
+  entries_now: "flden983eKDPtUbxx",
   horse_now: "fldU3UTNNo6KKgOOQ",
+  horses_now: "fldIKEr7M1DntAkGj",
   shows: "fldvp6ntjIHKNYPIo",
   focus_show: "flduzDhPr1y0uAr5x",
   ring_days: "fldgWdepPXM7JCLwH",
@@ -617,6 +633,24 @@ async function linkMap(baseId, token, tableName, keyName, keys) {
   return map;
 }
 
+async function allowedHelperMap(baseId, token, tableId, keyName, keyFieldId, keys, { cast = (value) => value } = {}) {
+  const values = [...new Set((keys || []).map(text).filter(Boolean))];
+  const map = await linkMap(baseId, token, tableId, keyName, values);
+  const created = [];
+  const warnings = [];
+  for (const value of values) {
+    if (map.has(value)) continue;
+    try {
+      const record = await airtableCreate(baseId, tableId, { [keyFieldId]: cast(value) }, token);
+      map.set(value, record.id);
+      created.push({ value, record_id: record.id });
+    } catch (error) {
+      warnings.push({ value, table: tableId, key: keyName, error: error.message });
+    }
+  }
+  return { map, created, warnings };
+}
+
 function compactDayToIso(value) {
   const raw = text(value);
   if (!raw) return "";
@@ -950,16 +984,14 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
   const ringNos = sourceRows.map((row) => row.ring_no);
   const ringDayNos = sourceRows.map((row) => row.ring_day_no);
   const classNos = sourceRows.map((row) => row.class_no);
-  const [shows, rings, ringDays, classes, classOogGroups] = await Promise.all([
+  const [shows, rings, ringDays, classes] = await Promise.all([
     linkMap(baseId, token, "shows", "show_no", showNos),
     linkMap(baseId, token, "rings", "ring_no", ringNos),
     linkMap(baseId, token, "ring_days", "ring_day_no", ringDayNos),
-    linkMap(baseId, token, "classes", "class_no", classNos),
-    readClassOogGroups(baseId, token, sourceRows[0]?.show_no, focusDay)
+    linkMap(baseId, token, "classes", "class_no", classNos)
   ]);
 
   return sourceRows.map((row) => {
-    const oogGroup = classOogGroups.get(`${row.show_no}|${row.ring_day_no}|${row.class_no}`);
     return cleanFields({
       [CLASS_START_FIELDS.class_start_key]: row.class_start_key,
       [CLASS_START_FIELDS.show_no]: row.show_no,
@@ -982,8 +1014,7 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
       [CLASS_START_FIELDS.rings]: row.rings?.length ? airtableRecordLinks(row.rings) : airtableRecordLink(rings.get(text(row.ring_no))),
       [CLASS_START_FIELDS.ring_days]: row.ring_days?.length ? airtableRecordLinks(row.ring_days) : airtableRecordLink(ringDays.get(text(row.ring_day_no))),
       [CLASS_START_FIELDS.events]: airtableRecordLinks(row.events),
-      [CLASS_START_FIELDS.classes]: row.classes?.length ? airtableRecordLinks(row.classes) : airtableRecordLink(classes.get(text(row.class_no))),
-      [CLASS_START_FIELDS.class_oog]: airtableRecordLinks(oogGroup?.ids || [])
+      [CLASS_START_FIELDS.classes]: row.classes?.length ? airtableRecordLinks(row.classes) : airtableRecordLink(classes.get(text(row.class_no)))
     });
   });
 }
@@ -1058,49 +1089,26 @@ async function syncClassStartTimes(app, baseId, token, focus) {
 }
 
 async function syncClassOogRollups(app, baseId, token, focus) {
-  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day);
-  const groups = await readClassOogGroups(baseId, token, focus.show_no, focus.focus_day);
-  const airtableUpdates = classStarts.map((row) => {
-    const group = groups.get(`${row.show_no}|${row.ring_day_no}|${row.class_no}`) || { ids: [], active: 0, total: 0 };
-    return {
-      id: row.record_id,
-      fields: cleanFields({ [CLASS_START_FIELDS.class_oog]: airtableRecordLinks(group.ids) || [] })
-    };
-  });
-  const updated = await airtableUpdate(baseId, TABLES.airtableClassStartTimes, airtableUpdates, token);
-
-  const catalystRows = await zcqlRows(
-    app,
-    TABLES.catalystClassStartTimes,
-    `show_no = ${zcqlValue(Number(focus.show_no))} AND focus_day = ${zcqlValue(focus.focus_day)}`,
-    { limit: 200, maxRows: 1000 }
-  );
-  const updates = catalystRows.map((row) => {
-    const group = groups.get(`${row.show_no}|${row.ring_day_no}|${row.class_no}`) || { active: 0, total: 0 };
-    return {
-      ROWID: row.ROWID,
-      class_oog_rows: group.total,
-      active_oog_rows: group.active,
-      class_oog_refreshed_at: currentStamp()
-    };
-  });
-  for (let index = 0; index < updates.length; index += 100) {
-    const chunk = updates.slice(index, index + 100);
-    if (chunk.length) await app.datastore().table(TABLES.catalystClassStartTimes).updateRows(chunk);
-  }
-
   await logRun(baseId, token, {
     action: "class_oog_rollups",
     showNo: focus.show_no,
     focusDay: focus.focus_day,
     status: "ok",
-    recordsSeen: classStarts.length,
-    recordsChanged: updated.length + updates.length,
-    summary: `class_oog linked to ${updated.length} class_start_times rows`,
-    payload: { class_start_times: classStarts.length, class_oog_groups: groups.size, catalyst_updates: updates.length }
+    recordsSeen: 0,
+    recordsChanged: 0,
+    summary: "class_oog mirror rollups skipped; downstream contract uses class_oog_staging",
+    payload: {
+      skipped: true,
+      reason: "class_oog is mirror-only and must not enrich downstream class_start_times"
+    }
   });
 
-  return { class_start_times: classStarts.length, class_oog_groups: groups.size, airtable_updated: updated.length, catalyst_updated: updates.length };
+  return {
+    skipped: true,
+    reason: "class_oog is mirror-only and must not enrich downstream class_start_times",
+    airtable_updated: 0,
+    catalyst_updated: 0
+  };
 }
 
 function entryNoFromText(value) {
@@ -1154,8 +1162,8 @@ async function readFocusGetOrders(baseId, token, focus, { allShowDays = false } 
       total: asNumber(f[GET_ORDERS_FIELDS.total]),
       timestamp: asNumber(f[GET_ORDERS_FIELDS.timestamp]),
       elapsed: asNumber(f[GET_ORDERS_FIELDS.elapsed]),
-      current_entry_no: asNumber(f[GET_ORDERS_FIELDS.entry_no]) || entryNoFromText(f[GET_ORDERS_FIELDS.entry_text]),
-      current_horse: horseFromEntryText(f[GET_ORDERS_FIELDS.entry_text]),
+      current_entry_no: asNumber(f[GET_ORDERS_FIELDS.entry_no_now]) || asNumber(f[GET_ORDERS_FIELDS.entry_no]) || entryNoFromText(f[GET_ORDERS_FIELDS.entry_text]),
+      current_horse: text(f[GET_ORDERS_FIELDS.horse_now]) || horseFromEntryText(f[GET_ORDERS_FIELDS.entry_text]),
       class_start_times: linkedIds(f[GET_ORDERS_FIELDS.class_start_times]),
       shows: linkedIds(f[GET_ORDERS_FIELDS.shows]),
       show_days: linkedIds(f[GET_ORDERS_FIELDS.show_days]),
@@ -1164,7 +1172,9 @@ async function readFocusGetOrders(baseId, token, focus, { allShowDays = false } 
       rings: linkedIds(f[GET_ORDERS_FIELDS.rings]),
       ring_names: linkedIds(f[GET_ORDERS_FIELDS.ring_names]),
       classes: linkedIds(f[GET_ORDERS_FIELDS.classes]),
-      entries: linkedIds(f[GET_ORDERS_FIELDS.entries])
+      entries: linkedIds(f[GET_ORDERS_FIELDS.entries]),
+      entries_now: linkedIds(f[GET_ORDERS_FIELDS.entries_now]),
+      horses_now: linkedIds(f[GET_ORDERS_FIELDS.horses_now])
     };
   });
 }
@@ -1176,6 +1186,8 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
   const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
   const matchByOrderId = new Map(matches.map((match) => [match.order.record_id, match]));
   const matchedOrderIds = new Set(matches.map((match) => match.order.record_id));
+  const entryNos = orders.map((row) => row.current_entry_no);
+  const horseNow = orders.map((row) => row.current_horse);
   const [
     shows,
     showDays,
@@ -1183,7 +1195,9 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
     ringMap,
     ringNames,
     classes,
-    entries
+    entries,
+    entriesNow,
+    horsesNow
   ] = await Promise.all([
     linkMap(baseId, token, TABLES.airtableShows, "show_no", orders.map((row) => row.show_no)),
     linkMap(baseId, token, TABLES.airtableShowDays, "show_day", orders.flatMap(rowShowDayKeys)),
@@ -1191,10 +1205,13 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
     linkMap(baseId, token, TABLES.airtableRings, "ring_no", orders.map((row) => row.ring_no)),
     linkMap(baseId, token, TABLES.airtableRingNames, "ring_name", orders.map((row) => row.ring_name_normalized)),
     linkMap(baseId, token, TABLES.airtableClasses, "class_no", orders.map((row) => row.class_no)),
-    linkMap(baseId, token, TABLES.airtableEntries, "entry_no", orders.map((row) => row.current_entry_no))
+    linkMap(baseId, token, TABLES.airtableEntries, "entry_no", entryNos),
+    allowedHelperMap(baseId, token, TABLES.airtableEntries, "entry_no", ENTRY_FIELDS.entry_no, entryNos, { cast: (value) => Number(value) }),
+    allowedHelperMap(baseId, token, TABLES.airtableHorses, "horse", HORSE_FIELDS.horse, horseNow)
   ]);
 
   const missing = [];
+  const optionalWarnings = [...entriesNow.warnings, ...horsesNow.warnings];
   const missingRingNameNormalized = [];
   const unmatched = orders
     .filter((row) => row.class_no && !matchedOrderIds.has(row.record_id))
@@ -1227,7 +1244,9 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
       [GET_ORDERS_FIELDS.classes]: start?.classes?.length
         ? airtableRecordLinks(start.classes)
         : linkOrMissing(missing, order, "classes", text(order.class_no), classes.get(text(order.class_no))),
-      [GET_ORDERS_FIELDS.entries]: linkOrMissing(missing, order, "entries", text(order.current_entry_no), entries.get(text(order.current_entry_no)))
+      [GET_ORDERS_FIELDS.entries]: optionalLink(entries.get(text(order.current_entry_no))),
+      [GET_ORDERS_FIELDS.entries_now]: optionalLink(entriesNow.map.get(text(order.current_entry_no))),
+      [GET_ORDERS_FIELDS.horses_now]: optionalLink(horsesNow.map.get(text(order.current_horse)))
     });
     if (order.ring_name_normalized) {
       fields[GET_ORDERS_FIELDS.ring_names] = linkOrMissing(
@@ -1255,7 +1274,9 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
       [GET_ORDERS_FIELDS.rings]: order.rings,
       [GET_ORDERS_FIELDS.ring_names]: order.ring_names,
       [GET_ORDERS_FIELDS.classes]: order.classes,
-      [GET_ORDERS_FIELDS.entries]: order.entries
+      [GET_ORDERS_FIELDS.entries]: order.entries,
+      [GET_ORDERS_FIELDS.entries_now]: order.entries_now,
+      [GET_ORDERS_FIELDS.horses_now]: order.horses_now
     };
     const changed = Object.entries(fields).some(([fieldId, next]) => !sameLinkedIds(currentByField[fieldId] || [], next));
     if (changed) updates.push({ id: order.record_id, fields });
@@ -1274,7 +1295,8 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
         matches: matches.length,
         unmatched: unmatched.slice(0, 25),
         missing: missing.slice(0, 25),
-        missing_ring_name_normalized: missingRingNameNormalized.slice(0, 25)
+        missing_ring_name_normalized: missingRingNameNormalized.slice(0, 25),
+        optional_helper_warnings: optionalWarnings.slice(0, 25)
       }
     });
     throw new Error(`get_orders helper/linkback missing ${missing.length} required links`);
@@ -1294,6 +1316,9 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
       all_show_days: allShowDays,
       matches: matches.length,
       updated: updated.length,
+      entries_now_created: entriesNow.created.length,
+      horses_now_created: horsesNow.created.length,
+      optional_helper_warnings: optionalWarnings,
       unmatched: unmatched.slice(0, 25),
       missing_ring_name_normalized: missingRingNameNormalized
     }
@@ -1302,6 +1327,9 @@ async function syncGetOrdersLinks(baseId, token, focus, { includeOrders = false,
     orders: orders.length,
     matches: matches.length,
     updated: updated.length,
+    entries_now_created: entriesNow.created.length,
+    horses_now_created: horsesNow.created.length,
+    optional_helper_warnings: optionalWarnings,
     unmatched,
     missing_ring_name_normalized: missingRingNameNormalized
   };
@@ -1319,7 +1347,7 @@ async function syncGetOrders(app, baseId, token, focus) {
   const classStarts = linkback.class_starts;
   const matches = linkback.matches_rows;
   const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
-  const airtableUpdates = matches.map((match) => {
+  const airtableUpdates = uniqueUpdatesById(matches.map((match) => {
     const start = startsByKey.get(match.class_start_key);
     return {
       id: start.record_id,
@@ -1333,7 +1361,7 @@ async function syncGetOrders(app, baseId, token, focus) {
         [CLASS_START_FIELDS.last_synced_at]: new Date().toISOString()
       })
     };
-  });
+  }));
   const updated = await airtableUpdate(baseId, TABLES.airtableClassStartTimes, airtableUpdates, token);
 
   const catalystRows = await zcqlRows(
@@ -1343,7 +1371,7 @@ async function syncGetOrders(app, baseId, token, focus) {
     { limit: 200, maxRows: 1000 }
   );
   const catalystByKey = new Map(catalystRows.map((row) => [text(row.class_start_key), row]));
-  const catalystUpdates = matches
+  const catalystUpdates = uniqueUpdatesById(matches
     .map((match) => {
       const row = catalystByKey.get(match.class_start_key);
       if (!row?.ROWID) return null;
@@ -1360,7 +1388,7 @@ async function syncGetOrders(app, baseId, token, focus) {
         last_synced_at: currentStamp()
       });
     })
-    .filter(Boolean);
+    .filter(Boolean));
   for (let index = 0; index < catalystUpdates.length; index += 100) {
     const chunk = catalystUpdates.slice(index, index + 100);
     if (chunk.length) await app.datastore().table(TABLES.catalystClassStartTimes).updateRows(chunk);
@@ -1422,8 +1450,8 @@ async function readFocusGetRings(baseId, token, focus, { allShowDays = false } =
       timestamp: asNumber(f[GET_RINGS_FIELDS.timestamp]),
       elapsed: asNumber(f[GET_RINGS_FIELDS.elapsed]),
       entry_text: text(f[GET_RINGS_FIELDS.entry_text]),
-      current_entry_no: entryNoFromText(f[GET_RINGS_FIELDS.entry_text]),
-      current_horse: horseFromEntryText(f[GET_RINGS_FIELDS.entry_text]),
+      current_entry_no: asNumber(f[GET_RINGS_FIELDS.entry_no_now]) || entryNoFromText(f[GET_RINGS_FIELDS.entry_text]),
+      current_horse: text(f[GET_RINGS_FIELDS.horse_now]) || horseFromEntryText(f[GET_RINGS_FIELDS.entry_text]),
       type: text(f[GET_RINGS_FIELDS.type]),
       ring_name_normalized: text(f[GET_RINGS_FIELDS.ring_name_normalized]),
       ring_visual_key: text(f[GET_RINGS_FIELDS.ring_visual_key]),
@@ -1436,7 +1464,9 @@ async function readFocusGetRings(baseId, token, focus, { allShowDays = false } =
       ring_names: linkedIds(f[GET_RINGS_FIELDS.ring_names]),
       classes: linkedIds(f[GET_RINGS_FIELDS.classes]),
       entries: linkedIds(f[GET_RINGS_FIELDS.entries]),
+      entries_now: linkedIds(f[GET_RINGS_FIELDS.entries_now]),
       horses: linkedIds(f[GET_RINGS_FIELDS.horses]),
+      horses_now: linkedIds(f[GET_RINGS_FIELDS.horses_now]),
       ring_status: linkedIds(f[GET_RINGS_FIELDS.ring_status])
     };
   });
@@ -1461,6 +1491,19 @@ function linkOrMissing(missing, row, field, value, recordId) {
   return airtableRecordLink(recordId);
 }
 
+function optionalLink(recordId) {
+  return recordId ? airtableRecordLink(recordId) : undefined;
+}
+
+function uniqueUpdatesById(updates) {
+  const byId = new Map();
+  for (const update of updates || []) {
+    const id = text(update?.id || update?.ROWID);
+    if (id) byId.set(id, update);
+  }
+  return [...byId.values()];
+}
+
 async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } = {}) {
   const rings = await readFocusGetRings(baseId, token, focus, { allShowDays });
   const showNos = rings.map((row) => row.show_no);
@@ -1481,6 +1524,8 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
     classes,
     entries,
     horses,
+    entriesNow,
+    horsesNow,
     ringStatusAll
   ] = await Promise.all([
     linkMap(baseId, token, TABLES.airtableShows, "show_no", showNos),
@@ -1491,6 +1536,8 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
     linkMap(baseId, token, TABLES.airtableClasses, "class_no", classNos),
     linkMap(baseId, token, TABLES.airtableEntries, "entry_no", entryNos),
     linkMap(baseId, token, TABLES.airtableHorses, "horse", horseNow),
+    allowedHelperMap(baseId, token, TABLES.airtableEntries, "entry_no", ENTRY_FIELDS.entry_no, entryNos, { cast: (value) => Number(value) }),
+    allowedHelperMap(baseId, token, TABLES.airtableHorses, "horse", HORSE_FIELDS.horse, horseNow),
     recordMapByKey(baseId, token, TABLES.airtableRingStatus, "ring_visual_key", null)
   ]);
 
@@ -1513,6 +1560,7 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
   }
 
   const missing = [];
+  const optionalWarnings = [...entriesNow.warnings, ...horsesNow.warnings];
   const missingRingNameNormalized = [];
   const missingHorseNow = [];
   const updates = [];
@@ -1524,7 +1572,8 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
       [GET_RINGS_FIELDS.ring_days]: linkOrMissing(missing, row, "ring_days", text(row.ring_day_no), ringDays.get(text(row.ring_day_no))),
       [GET_RINGS_FIELDS.rings]: linkOrMissing(missing, row, "rings", text(row.ring_no), ringMap.get(text(row.ring_no))),
       [GET_RINGS_FIELDS.classes]: linkOrMissing(missing, row, "classes", text(row.class_no), classes.get(text(row.class_no))),
-      [GET_RINGS_FIELDS.entries]: linkOrMissing(missing, row, "entries", text(row.current_entry_no), entries.get(text(row.current_entry_no))),
+      [GET_RINGS_FIELDS.entries]: optionalLink(entries.get(text(row.current_entry_no))),
+      [GET_RINGS_FIELDS.entries_now]: optionalLink(entriesNow.map.get(text(row.current_entry_no))),
       [GET_RINGS_FIELDS.ring_status]: linkOrMissing(missing, row, "ring_status", row.ring_visual_key, ringStatusAll.map.get(row.ring_visual_key))
     });
     if (row.ring_name_normalized) {
@@ -1539,7 +1588,8 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
       });
     }
     if (row.horse_now) {
-      fields[GET_RINGS_FIELDS.horses] = linkOrMissing(missing, row, "horses", row.horse_now, horses.get(row.horse_now));
+      fields[GET_RINGS_FIELDS.horses] = optionalLink(horses.get(row.horse_now));
+      fields[GET_RINGS_FIELDS.horses_now] = optionalLink(horsesNow.map.get(row.horse_now));
     } else {
       missingHorseNow.push({
         record_id: row.record_id,
@@ -1565,7 +1615,8 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
       payload: {
         missing: missing.slice(0, 25),
         missing_ring_name_normalized: missingRingNameNormalized.slice(0, 25),
-        missing_horse_now: missingHorseNow.slice(0, 25)
+        missing_horse_now: missingHorseNow.slice(0, 25),
+        optional_helper_warnings: optionalWarnings.slice(0, 25)
       }
     });
     throw new Error(`get_rings helper/linkback missing ${missing.length} required links`);
@@ -1585,6 +1636,9 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
       updated: updated.length,
       all_show_days: allShowDays,
       ring_status_keys: ringStatusAll.map.size,
+      entries_now_created: entriesNow.created.length,
+      horses_now_created: horsesNow.created.length,
+      optional_helper_warnings: optionalWarnings,
       missing_ring_name_normalized: missingRingNameNormalized,
       missing_horse_now: missingHorseNow
     }
@@ -1593,6 +1647,9 @@ async function syncGetRingsLinks(baseId, token, focus, { allShowDays = false } =
     rings: rings.length,
     updated: updated.length,
     ring_status_keys: ringStatusAll.map.size,
+    entries_now_created: entriesNow.created.length,
+    horses_now_created: horsesNow.created.length,
+    optional_helper_warnings: optionalWarnings,
     missing_ring_name_normalized: missingRingNameNormalized,
     missing_horse_now: missingHorseNow
   };
@@ -1879,7 +1936,7 @@ async function syncGetRings(app, baseId, token, focus) {
     .filter((row) => matchedKeys.has(classScopeKey(row)) && !sourceKeys.includes(classScopeKey(row)))
     .map((row) => classScopeKey(row));
   const startsByKey = new Map(classStarts.map((row) => [row.class_start_key, row]));
-  const airtableUpdates = matches.map((match) => {
+  const airtableUpdates = uniqueUpdatesById(matches.map((match) => {
     const start = startsByKey.get(match.class_start_key);
     return {
       id: start.record_id,
@@ -1893,7 +1950,7 @@ async function syncGetRings(app, baseId, token, focus) {
         [CLASS_START_FIELDS.last_synced_at]: new Date().toISOString()
       })
     };
-  });
+  }));
   const updated = await airtableUpdate(baseId, TABLES.airtableClassStartTimes, airtableUpdates, token);
 
   const catalystRows = await zcqlRows(
@@ -1903,7 +1960,7 @@ async function syncGetRings(app, baseId, token, focus) {
     { limit: 200, maxRows: 1000 }
   );
   const catalystByKey = new Map(catalystRows.map((row) => [text(row.class_start_key), row]));
-  const catalystUpdates = matches
+  const catalystUpdates = uniqueUpdatesById(matches
     .map((match) => {
       const row = catalystByKey.get(match.class_start_key);
       if (!row?.ROWID) return null;
@@ -1920,7 +1977,7 @@ async function syncGetRings(app, baseId, token, focus) {
         last_synced_at: currentStamp()
       });
     })
-    .filter(Boolean);
+    .filter(Boolean));
   for (let index = 0; index < catalystUpdates.length; index += 100) {
     const chunk = catalystUpdates.slice(index, index + 100);
     if (chunk.length) await app.datastore().table(TABLES.catalystClassStartTimes).updateRows(chunk);
@@ -2065,11 +2122,11 @@ function planAlertWrites(alertRows, existingAlerts) {
 }
 
 async function syncClassAlerts(baseId, token, focus, now = new Date(), options = {}) {
-  const dryRun = truthy(options.dryRun) || truthy(options.noSend) || truthy(options.candidateOnly);
+  const dryRun = truthy(options.dryRun) || truthy(options.candidateOnly);
   const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
   const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
-  const classAlerts = buildClassAlerts(classStarts, now, { windowed: false });
-  const entryAlerts = buildEntryAlerts(entryGoTimes, now, { windowed: false });
+  const classAlerts = buildClassAlerts(classStarts, now);
+  const entryAlerts = buildEntryAlerts(entryGoTimes, now);
   const alerts = [...classAlerts, ...entryAlerts];
   const activeAlertKeys = new Set(alerts.map((alert) => alert.alert_key));
   const alertTemplateMap = await readAlertTemplateMap(baseId, token);

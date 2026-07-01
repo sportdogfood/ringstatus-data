@@ -8500,15 +8500,16 @@ async function syncCountRows(app, showNo, rows) {
   };
 }
 
-async function fetchAndSyncRingDays(req, app, showNo, context, { refreshExisting = false } = {}) {
+async function fetchAndSyncRingDays(req, app, showNo, context, { focusDay = "", refreshExisting = false } = {}) {
   const upstreamResponse = await upstream(req, "/get_ring_days.php", { method: "GET", showNo, context });
   const rows = parseRingDayRows(upstreamResponse.raw, showNo);
   const catalystSync = await syncRingDayRows(app, showNo, rows, { refreshExisting });
   const airtableSync = await syncAirtableGetRingDayRows(showNo, rows);
-  const materializedRows = await countStoredRingDayRows(app, showNo);
+  const materializedRows = await countStoredRingDayRows(app, showNo, focusDay);
   return {
     upstream_status: upstreamResponse.status,
     parsed_rows: rows.length,
+    materialized_focus_day: dateKey(focusDay),
     materialized_ring_day_rows: materializedRows,
     refresh_existing: refreshExisting,
     ...catalystSync,
@@ -9866,10 +9867,11 @@ async function handle(req, res) {
 
     if (action === "sync-ring-days") {
       const context = createWorkflowContext();
+      const focusDay = dateKey(query.get("focus_day") || query.get("focus_day_date") || body.focus_day || body.focus_day_date);
       const result = await fetchAndSyncRingDays(req, app, showNo, context, {
+        focusDay,
         refreshExisting: query.get("refresh_existing") === "1" || body.refresh_existing === "1"
       });
-      const focusDay = dateKey(query.get("focus_day") || query.get("focus_day_date") || body.focus_day || body.focus_day_date);
       const now = new Date().toISOString();
       const logType = "get_ring_days";
       const logKey = `${logType}|${showNo}|${focusDay || "no-focus-day"}`;

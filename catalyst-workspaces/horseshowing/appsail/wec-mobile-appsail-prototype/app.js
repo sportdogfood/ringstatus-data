@@ -5,8 +5,7 @@ const http = require("http");
 const PORT = Number(process.env.X_ZOHO_CATALYST_LISTEN_PORT || process.env.PORT || 9000);
 const SHOW_NO = "14907";
 const DATA_SOURCE = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-mobile-live&show_no=14907";
-const SMARTBROWZ_PDF_URL = "https://horseshowing-700800454.development.catalystserverless.com/server/horseshowing_sync/?action=wec-print-smartbrowz-pdf&show_no=14907";
-const BUILD_MARKER = "wec-pro-contract-lock-20260629T000000Z";
+const BUILD_MARKER = "WEC-MOBILE-PRO-HARD-RESET-V1";
 
 function send(res, status, body, contentType = "text/plain; charset=utf-8") {
   res.writeHead(status, {
@@ -60,673 +59,423 @@ async function fetchSchedule() {
 function renderHome(res, result) {
   const payload = result.payload || {};
   const focusDay = payload.show_focus_date || payload.focus_day || "";
-  const showNo = payload.show_no || SHOW_NO;
   const payloadJson = JSON.stringify(payload).replace(/</g, "\\u003c");
   const html = `<!doctype html>
 <html lang="en" data-wec-mobile-pro-build="${BUILD_MARKER}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WEC Mobile Pro AppSail Prototype</title>
+  <title>WEC Mobile Pro</title>
   <style>
     :root {
       color-scheme: light;
-      --surface-page: #f4f6f8;
-      --surface-shell: #ffffff;
-      --surface-raised: #fbfcfd;
-      --surface-panel: #eef2f6;
-      --border-soft: #d7dee8;
-      --border-strong: #0e243a;
-      --text-strong: #071d34;
-      --text-main: #17283a;
-      --text-muted: #647387;
-      --ring-header-bg: #0f304c;
-      --ring-header-text: #ffffff;
-      --row-bg: #ffffff;
-      --row-alt-bg: #f8fafc;
-      --row-hover-bg: #edf6ff;
-      --row-active-bg: #e8f3ff;
-      --row-has-rollup-bg: #f1f8f4;
-      --badge-status-soon-bg: #dfeeff;
-      --badge-status-now-bg: #e5f7eb;
-      --badge-status-done-bg: #eceff3;
-      --badge-special-classic-bg: #e4f6eb;
-      --badge-special-handy-bg: #edf0ff;
-      --badge-special-medal-bg: #fff2d9;
-      --badge-special-under-saddle-bg: #f0e8ff;
-      --badge-type-hunter-bg: #e8f5ef;
-      --badge-type-jumper-bg: #ffe9e9;
-      --badge-type-equitation-bg: #e8eefb;
-      --badge-detail-bg: #eef2f6;
-      --diff-time-bg: #fff3d5;
-      --diff-status-bg: #ffe6ec;
-      --diff-go-time-bg: #e3f7ff;
-      --diff-order-bg: #eee7ff;
-      --row-has-diff-bg: #fff9e9;
-      --flyup-diff-bg: #fff1cf;
-      --rollup-bg: #e9f5ed;
-      --rollup-text: #214b35;
-      --drawer-shadow: 0 18px 60px rgba(8, 25, 43, .26);
-      --flyup-shadow: 0 -18px 54px rgba(8, 25, 43, .28);
+      --bg: #f3f5f7;
+      --panel: #ffffff;
+      --panel-2: #f8fafc;
+      --line: #d9e0e8;
+      --line-strong: #0d2944;
+      --ink: #071d34;
+      --text: #18293b;
+      --muted: #667789;
+      --quiet: #8a98a8;
+      --accent: #0d2944;
+      --accent-2: #eef3f8;
+      --active: #102b44;
+      --disabled: #eef1f4;
+      --row-hover: #edf3f8;
+      --row-rollup: #f6f8fa;
+      --token: #eceff2;
+      --token-border: #d7dde4;
+      --badge-entries: #dfe8f1;
+      --badge-gone: #e4ece7;
+      --shadow: 0 18px 48px rgba(8, 24, 40, .24);
+      --radius-xs: 4px;
       --radius-sm: 7px;
       --radius-md: 12px;
-      --radius-lg: 18px;
-      --space-1: 4px;
-      --space-2: 8px;
-      --space-3: 12px;
-      --space-4: 16px;
-      --space-5: 20px;
-      --font-xs: 10px;
+      --tap: 38px;
+      --font-xs: 9px;
       --font-sm: 11px;
       --font-md: 13px;
-      --font-lg: 16px;
-      --font-xl: 20px;
-      --z-header: 20;
-      --z-bottom-nav: 25;
-      --z-scrim: 50;
-      --z-drawer: 60;
-      --z-flyup: 70;
+      --font-lg: 17px;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
     body {
-      margin: 0;
-      background: var(--surface-page);
-      color: var(--text-main);
+      background: var(--bg);
+      color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: var(--font-md);
       letter-spacing: 0;
-      overflow-x: hidden;
     }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    button:focus-visible, a:focus-visible { outline: 3px solid rgba(23, 91, 145, .35); outline-offset: 2px; }
+    button, a { -webkit-tap-highlight-color: transparent; font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid rgba(13, 41, 68, .25); outline-offset: 2px; }
     .app-shell {
       width: min(100%, 760px);
-      margin: 0 auto;
       min-height: 100vh;
-      background: var(--surface-shell);
-      box-shadow: 0 0 0 1px rgba(10, 31, 51, .05);
+      margin: 0 auto;
+      background: var(--panel);
+      box-shadow: 0 0 0 1px rgba(8, 24, 40, .05);
     }
     .topbar {
       position: sticky;
       top: 0;
-      z-index: var(--z-header);
+      z-index: 20;
       background: rgba(255, 255, 255, .97);
-      border-bottom: 1px solid var(--border-soft);
-      backdrop-filter: saturate(150%) blur(10px);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px) saturate(140%);
     }
     .topbar-main {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 7px;
       align-items: center;
-      padding: 7px 9px 6px;
+      gap: 8px;
+      padding: 8px 9px 7px;
     }
-    h1 {
+    .brand-title {
       margin: 0;
-      color: var(--text-strong);
+      color: var(--ink);
       font-size: 17px;
-      line-height: 1.05;
-      font-weight: 740;
+      line-height: 1.08;
+      font-weight: 760;
       text-transform: uppercase;
     }
-    .date-line {
-      margin-top: 3px;
-      color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1.15;
-      font-weight: 540;
-    }
-    .iconbar {
-      display: grid;
-      grid-auto-flow: column;
-      gap: 5px;
-    }
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--border-soft);
+    .brand-date { margin-top: 2px; color: var(--muted); font-size: 13px; font-weight: 520; }
+    .iconbar { display: grid; grid-auto-flow: column; gap: 6px; }
+    .btn, .icon-btn, .chip, .nav-btn {
+      border: 1px solid var(--token-border);
+      background: var(--panel);
+      color: var(--text);
       border-radius: 999px;
-      background: linear-gradient(180deg, #fff, #f7f9fb);
-      color: var(--text-main);
+      min-height: var(--tap);
+      cursor: pointer;
+      transition: background .12s ease, color .12s ease, border-color .12s ease;
+    }
+    .btn { padding: 0 14px; font-size: 12px; font-weight: 760; }
+    .btn.primary { background: var(--active); color: #fff; border-color: var(--active); }
+    .icon-btn {
+      width: var(--tap);
       display: inline-grid;
       place-items: center;
-      cursor: pointer;
-      box-shadow: 0 1px 2px rgba(16, 37, 57, .08);
-      position: relative;
+      box-shadow: 0 1px 2px rgba(8, 24, 40, .06);
     }
-    .icon-btn[aria-expanded="true"], .icon-btn.is-active {
-      background: var(--row-active-bg);
-      border-color: #a8cbe9;
-      color: #0b5b92;
-    }
-    .icon {
-      width: 18px;
-      height: 18px;
-      display: block;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .filter-count {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      min-width: 17px;
-      height: 17px;
-      padding: 0 4px;
-      border-radius: 999px;
-      border: 1px solid #fff;
-      background: #0c2438;
+    .icon-btn[aria-expanded="true"], .chip.is-on, .nav-btn.is-active {
+      background: var(--active);
+      border-color: var(--active);
       color: #fff;
-      font-size: 10px;
-      font-weight: 760;
-      line-height: 16px;
-      text-align: center;
     }
-    .push-panel {
+    .icon-btn:disabled, .btn:disabled, .chip:disabled, .nav-btn:disabled {
+      background: var(--disabled);
+      color: var(--quiet);
+      cursor: not-allowed;
+      opacity: .72;
+    }
+    .icon { width: 18px; height: 18px; display: block; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .panel {
       display: none;
-      border-top: 1px solid var(--border-soft);
-      background: var(--surface-panel);
-      padding: 6px 9px 7px;
+      padding: 9px;
+      border-top: 1px solid var(--line);
+      background: var(--panel-2);
     }
-    .push-panel.is-open { display: block; }
-    .panel-title {
-      margin: 0 0 8px;
-      color: var(--text-strong);
-      font-size: var(--font-sm);
-      font-weight: 740;
-      text-transform: uppercase;
-    }
-    .toggle-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .soft-toggle {
-      max-width: 100%;
-      min-height: 29px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--text-main);
-      font: inherit;
-      font-size: 11px;
-      font-weight: 650;
-      line-height: 1.1;
-      padding: 4px 9px;
-      cursor: pointer;
-    }
-    .soft-toggle.is-on { background: #0c2438; border-color: #0c2438; color: #fff; }
-    .soft-toggle.is-muted { background: #f8fafc; color: var(--text-muted); }
-    .panel-note {
-      margin: -2px 0 7px;
-      color: var(--text-muted);
-      font-size: var(--font-xs);
-      line-height: 1.25;
-    }
+    .panel.is-open { display: block; }
+    .panel-title { margin: 0 0 7px; color: var(--ink); font-size: 11px; font-weight: 780; text-transform: uppercase; }
+    .panel-note { margin: 0 0 8px; color: var(--muted); font-size: 11px; line-height: 1.3; }
     .rail {
       padding: 5px 7px 4px;
-      border-top: 1px solid var(--border-soft);
-      background: #fff;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
     }
-    .rail + .rail { padding-top: 2px; }
     .rail-track {
       display: flex;
       gap: 5px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
-      padding-bottom: 2px;
       scrollbar-width: none;
+      padding-bottom: 1px;
     }
     .rail-track::-webkit-scrollbar { display: none; }
-    .bottom-nav {
-      position: sticky;
-      bottom: 0;
-      z-index: var(--z-bottom-nav);
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 1px;
-      border-top: 1px solid var(--border-soft);
-      background: #dfe5ec;
-    }
-    .bottom-tab {
-      min-width: 0;
-      min-height: 34px;
-      border: 0;
-      background: #fff;
-      color: var(--text-muted);
-      font-size: 9px;
-      font-weight: 720;
-      line-height: 1;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .bottom-tab.is-active {
-      background: var(--ring-header-bg);
-      color: #fff;
-    }
-    .pill {
+    .chip {
       flex: 0 0 auto;
-      min-width: 49px;
-      min-height: 29px;
-      padding: 0 9px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 640;
-      cursor: pointer;
-    }
-    .pill.is-active { background: var(--ring-header-bg); border-color: var(--ring-header-bg); color: #fff; }
-    .pill.is-placeholder { color: #8492a3; background: #f8fafc; }
-    .schedule {
-      padding: 5px 0 22px;
-      background: var(--surface-shell);
-    }
-    .status-note {
-      margin: 0 7px 5px;
-      color: var(--text-muted);
-      font-size: var(--font-sm);
-      line-height: 1.35;
-    }
-    .ring-card {
-      margin: 0 0 7px;
-      border-top: 2px solid var(--border-strong);
-      border-bottom: 2px solid var(--border-strong);
-      background: #fff;
-      scroll-margin-top: 126px;
-    }
-    .ring-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: var(--space-2);
-      padding: 5px 7px 6px;
-    }
-    .ring-name {
-      margin: 0;
-      color: var(--text-strong);
-      font-size: 17px;
-      line-height: 1.05;
-      font-weight: 790;
-      text-transform: uppercase;
-    }
-    .ring-summary {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-    }
-    .ring-status-token {
-      min-width: 0;
-      min-height: 20px;
-      padding: 0 7px;
-      border-radius: 999px;
-      display: none;
-      place-items: center;
-      background: #fff3d5;
-      color: #795200;
-      font-size: var(--font-xs);
-      font-weight: 650;
-    }
-    .ring-status-token.has-value { display: inline-grid; }
-    .summary-chip {
-      min-width: 32px;
-      height: 20px;
-      border-radius: 999px;
-      display: inline-grid;
-      place-items: center;
-      background: #d9f0de;
-      color: #244532;
-      font-size: var(--font-xs);
-      font-weight: 640;
-    }
-    .class-list { border-top: 1px solid var(--border-soft); }
-    .class-row {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 51px minmax(0, 1fr) 22px 22px 22px;
-      gap: 3px;
-      align-items: center;
+      min-width: 50px;
       min-height: 31px;
-      padding: 2px 4px 2px 6px;
-      border: 0;
-      border-bottom: 1px solid var(--border-soft);
-      background: var(--row-bg);
-      color: var(--text-main);
-      text-align: left;
-      font: inherit;
-      cursor: pointer;
-    }
-    .class-row:nth-child(2n) { background: var(--row-alt-bg); }
-    .class-row:hover { background: var(--row-hover-bg); }
-    .class-row.has-rollup { background: var(--row-has-rollup-bg); }
-    .class-row.is-current-class { background: #e8f3ff; box-shadow: inset 3px 0 0 #1b74aa; }
-    .has-diff { background: var(--row-has-diff-bg); }
-    .class-row.has-diff { background: var(--row-has-diff-bg); }
-    .time-chip, .class-chip {
+      padding: 0 10px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 23px;
-      border-radius: var(--radius-sm);
-      background: #e7e9ea;
-      color: #071d34;
       font-size: 11px;
-      font-weight: 610;
+      font-weight: 700;
       white-space: nowrap;
     }
-    .class-main {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
+    .chip.small { min-height: 28px; min-width: 0; padding: 0 9px; font-size: 10px; }
+    .chip.subtle { background: var(--accent-2); color: var(--muted); }
+    .main { padding-bottom: 52px; }
+    .view { display: none; }
+    .view.is-active { display: block; }
+    .start-view { padding: 10px 9px 60px; background: var(--bg); }
+    .identity {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 9px;
     }
-    .row-rollups {
-      display: none;
-      min-width: 0;
-      gap: 3px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .class-row.has-rollup .row-rollups { display: flex; }
-    .class-name {
-      min-width: 0;
-      color: var(--text-strong);
-      font-size: 12px;
-      line-height: 1.15;
-      font-weight: 590;
+    .identity h2 { margin: 0; color: var(--ink); font-size: 20px; line-height: 1.05; font-weight: 790; }
+    .identity p { margin: 3px 0 10px; color: var(--muted); font-size: 13px; font-weight: 610; }
+    .section {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius-md);
+      margin: 0 0 9px;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
-    .class-audit-id {
-      font-size: 7px;
-      font-weight: 500;
-      opacity: .55;
-      letter-spacing: .01em;
-      white-space: nowrap;
-    }
-    .token-strip {
+    .section-head {
+      min-height: 34px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 3px;
-      margin-top: 4px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
-    .class-token {
-      border-radius: 999px;
-      background: #eef3f8;
-      color: #395069;
-      padding: 2px 6px;
-      font-size: 10px;
-      font-weight: 650;
-      line-height: 1.1;
+    .section-body { padding: 9px; }
+    .chip-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .session-line {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 8px;
+      min-height: 27px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
     }
-    .badge {
-      width: 22px;
-      height: 22px;
-      padding: 0;
-      border-radius: 5px;
-      display: inline-grid;
-      place-items: center;
-      font-size: 10px;
-      font-weight: 650;
-      color: var(--text-main);
-      border: 1px solid rgba(0, 0, 0, .06);
+    .session-line:last-child { border-bottom: 0; }
+    .session-label { color: var(--muted); font-size: 10px; font-weight: 780; text-transform: uppercase; }
+    .session-value { min-width: 0; color: var(--ink); font-weight: 640; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .schedule-view { background: var(--panel); }
+    .status-note {
+      margin: 0;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.25;
     }
-    .badge.special-classic { background: var(--badge-special-classic-bg); color: #04784a; }
-    .badge.special-handy { background: var(--badge-special-handy-bg); color: #3450a0; }
-    .badge.special-medal { background: var(--badge-special-medal-bg); color: #8a5a00; }
-    .badge.special-under-saddle { background: var(--badge-special-under-saddle-bg); color: #6e4db1; }
-    .badge.type-hunter { background: var(--badge-type-hunter-bg); color: #15724f; }
-    .badge.type-jumper { background: var(--badge-type-jumper-bg); color: #9a3144; }
-    .badge.type-equitation { background: var(--badge-type-equitation-bg); color: #37517f; }
-    .badge.status-soon { background: var(--badge-status-soon-bg); color: #1d5f94; }
-    .badge.status-now { background: var(--badge-status-now-bg); color: #13724a; }
-    .badge.status-done { background: var(--badge-status-done-bg); color: #4f5b67; }
-    .badge.status-placeholder, .badge.special-placeholder, .badge.type-placeholder { background: #f4f6f7; color: #8a97a3; }
-    .badge.badge-empty { color: transparent; }
-    .badge.diff-time { background: var(--diff-time-bg); color: #7b5200; }
-    .diff-time { background-color: var(--diff-time-bg); }
-    .diff-status { background-color: var(--diff-status-bg); }
-    .diff-go-time { background-color: var(--diff-go-time-bg); }
-    .diff-order { background-color: var(--diff-order-bg); }
-    .diff-result { background-color: var(--flyup-diff-bg); }
+    .ring-container {
+      margin: 0;
+      border-bottom: 2px solid var(--line-strong);
+      background: var(--panel);
+      scroll-margin-top: 122px;
+    }
+    .ring-header {
+      min-height: 35px;
+      display: flex;
+      align-items: center;
+      padding: 7px 9px 6px;
+      border-bottom: 2px solid var(--line-strong);
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .list-container { border-bottom: 1px solid var(--line); }
+    .class-line {
+      width: 100%;
+      min-height: 33px;
+      display: grid;
+      grid-template-columns: 53px minmax(0, 1fr) 28px 28px;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 7px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      text-align: left;
+    }
+    .class-line:nth-child(2n) { background: #fbfcfd; }
+    .class-line.has-rollup { background: var(--row-rollup); }
+    .class-line:hover { background: var(--row-hover); }
+    .time-token, .badge {
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--token-border);
+      background: var(--token);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 720;
+      white-space: nowrap;
+    }
+    .time-token { padding: 0 6px; }
+    .badge { width: 28px; padding: 0; }
+    .badge.entries { background: var(--badge-entries); color: #153f62; }
+    .badge.gone { background: var(--badge-gone); color: #25533a; }
+    .badge.is-empty { visibility: hidden; }
+    .class-main { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+    .rollup-line { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
     .rollup-token {
       max-width: 100%;
+      min-height: 17px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--token-border);
       border-radius: 999px;
-      padding: 1px 6px;
-      background: var(--rollup-bg);
-      color: var(--rollup-text);
-      font-size: 12px;
-      font-weight: 680;
+      background: #f0f2f4;
+      color: #27384a;
+      padding: 0 6px;
+      font-size: 10px;
+      font-weight: 760;
+      line-height: 1;
       text-transform: uppercase;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .class-title {
+      min-width: 0;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 680;
+      line-height: 1.15;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .audit-key {
+      margin-left: 4px;
+      color: var(--quiet);
+      font-size: 7px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .bottom-nav {
+      position: sticky;
+      bottom: 0;
+      z-index: 22;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+      padding: 6px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(10px);
+    }
+    .nav-btn {
+      min-width: 0;
+      min-height: 36px;
+      font-size: 10px;
+      font-weight: 790;
+      letter-spacing: .02em;
+      text-transform: uppercase;
     }
     .scrim {
       position: fixed;
       inset: 0;
-      z-index: var(--z-scrim);
-      background: rgba(7, 24, 39, .34);
+      z-index: 50;
+      background: rgba(7, 24, 39, .35);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .18s ease;
+      transition: opacity .16s ease;
     }
     .scrim.is-open { opacity: 1; pointer-events: auto; }
-    .drawer {
+    .sheet {
       position: fixed;
-      z-index: var(--z-drawer);
-      top: 0;
-      width: min(86vw, 340px);
-      left: max(0px, calc(100vw - min(86vw, 340px)));
-      height: 100vh;
-      background: #fff;
-      box-shadow: var(--drawer-shadow);
-      transform: translateX(104%);
-      transition: transform .22s ease;
-      padding: 14px;
-      overflow-y: auto;
-    }
-    .drawer.is-open { transform: translateX(0); }
-    .drawer-head, .flyup-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .drawer h2, .flyup h2 {
-      margin: 0;
-      color: var(--text-strong);
-      font-size: 16px;
-      line-height: 1.1;
-    }
-    .close-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: #fff;
-      color: var(--text-main);
-      font-size: 18px;
-      cursor: pointer;
-    }
-    .filter-group { margin: 0 0 12px; }
-    .filter-group h3 {
-      margin: 0 0 8px;
-      font-size: var(--font-sm);
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .drawer-note {
-      margin: -2px 0 12px;
-      color: var(--text-muted);
-      font-size: var(--font-xs);
-      line-height: 1.28;
-    }
-    .filter-actions {
-      display: flex;
-      gap: 8px;
-      margin: 0 0 14px;
-    }
-    .drawer-action {
-      min-height: 32px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--text-main);
-      padding: 0 12px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .drawer-action.is-primary {
-      background: #0c2438;
-      border-color: #0c2438;
-      color: #fff;
-    }
-    .filter-chip-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .filter-chip {
-      max-width: 100%;
-      min-height: 30px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--text-main);
-      padding: 4px 9px;
-      font-size: 12px;
-      font-weight: 650;
-      line-height: 1.1;
-      cursor: pointer;
-    }
-    .filter-chip.is-active {
-      border-color: #0c2438;
-      background: #0c2438;
-      color: #fff;
-    }
-    .check-line {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 32px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .flyup {
-      position: fixed;
-      z-index: var(--z-flyup);
+      z-index: 60;
       left: 50%;
       bottom: 0;
       width: min(100%, 760px);
-      max-height: 82vh;
-      transform: translate(-50%, 105%);
-      background: #fff;
-      border-radius: 18px 18px 0 0;
-      box-shadow: var(--flyup-shadow);
-      transition: transform .24s ease;
+      max-height: 84vh;
       overflow-y: auto;
-      padding: 12px 12px 18px;
+      transform: translate(-50%, 105%);
+      transition: transform .2s ease;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-bottom: 0;
+      border-radius: 16px 16px 0 0;
+      box-shadow: var(--shadow);
+      padding: 8px;
     }
-    .flyup.is-open { transform: translate(-50%, 0); }
-    .flyup-row {
+    .sheet.is-open { transform: translate(-50%, 0); }
+    .sheet-head {
+      min-height: 40px;
       display: grid;
-      grid-template-columns: 51px minmax(0, 1fr) 22px 22px 22px;
-      gap: 3px;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      min-height: 31px;
-      padding: 2px 0;
-      border-bottom: 1px solid var(--border-soft);
+      gap: 8px;
+      padding: 0 2px 7px;
+      border-bottom: 1px solid var(--line);
     }
-    .flyup-row-label {
-      color: var(--text-muted);
-      font-size: var(--font-xs);
-      font-weight: 760;
-      text-transform: uppercase;
-    }
-    .flyup-row-main {
-      min-width: 0;
-      color: var(--text-strong);
-      font-size: 12px;
-      font-weight: 610;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .detail-grid {
-      display: grid;
-      grid-template-columns: 78px minmax(0, 1fr);
-      gap: 6px 10px;
-      font-size: 12px;
-      line-height: 1.22;
-    }
-    .detail-label {
-      color: var(--text-muted);
-      font-size: var(--font-xs);
-      font-weight: 760;
-      text-transform: uppercase;
-    }
-    .detail-value { color: var(--text-strong); font-weight: 610; }
-    .detail-section {
-      margin-top: 11px;
-      border-top: 1px solid var(--border-soft);
-      padding-top: 9px;
-    }
-    .detail-section h3 {
-      margin: 0 0 8px;
-      font-size: var(--font-sm);
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .flyup-badges {
+    .sheet-title { margin: 0; color: var(--ink); font-size: 15px; font-weight: 790; line-height: 1.15; }
+    .sheet-close { width: 36px; min-height: 36px; }
+    .fly-section { margin-top: 8px; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--panel); }
+    .fly-label {
+      min-height: 28px;
       display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
+      align-items: center;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 820;
+      text-transform: uppercase;
     }
-    .entry-line {
+    .fly-row {
+      min-height: 32px;
       display: grid;
-      grid-template-columns: 34px minmax(0, 1fr) 34px;
-      gap: 6px;
-      padding: 6px;
-      border-radius: var(--radius-md);
-      background: var(--surface-raised);
-      margin-bottom: 5px;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
     }
-    .entry-line.has-diff { background: var(--flyup-diff-bg); }
-    .entry-order { font-weight: 680; color: var(--text-strong); }
-    .entry-copy { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .entry-meta { color: var(--text-muted); font-size: var(--font-xs); text-align: right; }
-    .empty-state {
-      padding: 18px 12px;
-      color: var(--text-muted);
-      font-size: var(--font-sm);
-      line-height: 1.35;
+    .fly-row:last-child { border-bottom: 0; }
+    .fly-key { color: var(--muted); font-size: 10px; font-weight: 760; text-transform: uppercase; }
+    .fly-value { min-width: 0; color: var(--ink); font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tag-strip { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .class-tag {
+      min-height: 18px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--token-border);
+      background: var(--accent-2);
+      color: #35485c;
+      padding: 0 6px;
+      font-size: 10px;
+      font-weight: 720;
     }
-    .footer-note {
-      padding: 0 12px 24px;
-      color: var(--text-muted);
-      font-size: var(--font-xs);
-      line-height: 1.35;
+    .entry-line, .result-line {
+      min-height: 32px;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      gap: 7px;
+      align-items: center;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
     }
+    .entry-line:last-child, .result-line:last-child { border-bottom: 0; }
+    .entry-order { color: var(--ink); font-weight: 760; }
+    .entry-horse { min-width: 0; color: var(--ink); font-weight: 680; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-transform: uppercase; }
+    .result-copy { min-width: 0; color: var(--ink); font-weight: 680; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .entry-meta { color: var(--muted); font-size: 10px; font-weight: 680; }
+    .empty-row { padding: 12px 8px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .build-marker { display: block; padding: 8px; color: var(--quiet); font-size: 9px; font-weight: 750; letter-spacing: .04em; }
     @media (min-width: 560px) {
-      .topbar-main { padding-inline: 12px; }
-      .icon-btn { width: 38px; height: 38px; }
-      .rail { padding-inline: 12px; }
-      .class-row, .flyup-row { grid-template-columns: 55px minmax(0, 1fr) 23px 23px 23px; padding-inline: 9px 6px; }
-      .ring-head { padding-inline: 12px; }
-      .status-note, .footer-note { margin-inline: 12px; padding-inline: 0; }
+      .topbar-main, .rail, .status-note { padding-inline: 12px; }
+      .class-line { grid-template-columns: 58px minmax(0, 1fr) 30px 30px; padding-inline: 10px; }
+      .ring-header { padding-inline: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      *, *::before, *::after { transition-duration: .01ms !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
@@ -735,605 +484,536 @@ function renderHome(res, result) {
     <header class="topbar">
       <div class="topbar-main">
         <div>
-          <h1>${esc(payload.show_name || "WEC Mobile Pro")}</h1>
-          <div class="date-line">${esc(focusDay || "focus day unavailable")}</div>
+          <h1 class="brand-title">${esc(payload.show_name || "WEC Mobile Pro")}</h1>
+          <div class="brand-date">${esc(focusDay || "focus day unavailable")}</div>
         </div>
-        <div class="iconbar" aria-label="Schedule controls">
-          <button class="icon-btn" id="gearBtn" type="button" aria-label="Open preferences" aria-expanded="false" aria-controls="gearPanel">${iconGear()}</button>
-          <button class="icon-btn" id="hideBtn" type="button" aria-label="Open visibility controls" aria-expanded="false" aria-controls="hidePanel">${iconEyeOff()}</button>
-          <button class="icon-btn" id="filterBtn" type="button" aria-label="Open hide filters" aria-expanded="false">${iconFilter()}<span class="filter-count" id="filterCount" hidden>0</span></button>
-          <a class="icon-btn" id="printBtn" aria-label="Open print PDF" href="${esc(SMARTBROWZ_PDF_URL)}" target="_blank" rel="noopener">${iconPrint()}</a>
+        <div class="iconbar" aria-label="Top controls">
+          <button class="icon-btn" id="gearBtn" type="button" aria-label="Preferences">${iconGear()}</button>
+          <button class="icon-btn" id="hideBtn" type="button" aria-label="Hide TODO">${iconEyeOff()}</button>
+          <button class="icon-btn" id="filterBtn" type="button" aria-label="Filter TODO">${iconFilter()}</button>
+          <button class="icon-btn" id="printBtn" type="button" aria-label="Print TODO" disabled>${iconPrint()}</button>
         </div>
       </div>
-      <section class="push-panel" id="gearPanel" aria-label="Preferences panel">
-        <p class="panel-title">Preferences</p>
-        <p class="panel-note">Hide matching WEC-mobile ignore groups.</p>
-        <div class="toggle-grid">
-          <button class="soft-toggle" type="button" data-ignore-flag="is_jumper_classic">Jumper classic</button>
-          <button class="soft-toggle" type="button" data-ignore-flag="is_hunter_classic">Hunter classic</button>
-          <button class="soft-toggle" type="button" data-ignore-flag="is_medal">Medal</button>
-          <button class="soft-toggle" type="button" data-ignore-flag="is_under_saddle">Under saddle</button>
-          <button class="soft-toggle" type="button" data-ignore-flag="is_handy">Handy</button>
-          <button class="soft-toggle" type="button" data-ignore-flag="focus_priority">Focus</button>
-        </div>
+      <section class="panel" id="todoPanel" aria-label="TODO panel">
+        <p class="panel-title" id="todoTitle">TODO</p>
+        <p class="panel-note" id="todoText">This control is visual only in the hard reset prototype.</p>
       </section>
-      <section class="push-panel" id="hidePanel" aria-label="Visibility panel">
-        <p class="panel-title">Hide</p>
-        <p class="panel-note">Current WEC-mobile hide persistence is not wired in this prototype. No local substitute is active.</p>
-        <div class="toggle-grid">
-          <button class="soft-toggle is-muted" type="button" disabled>TODO: saved hide list</button>
-        </div>
-      </section>
-      <nav class="rail" aria-label="Ring anchors"><div class="rail-track" id="ringRail"></div></nav>
-      <nav class="rail" aria-label="Horse filters"><div class="rail-track" id="horseRail"></div></nav>
+      <nav class="rail" aria-label="Ring rail"><div class="rail-track" id="ringRail"></div></nav>
+      <nav class="rail" aria-label="Horse rail"><div class="rail-track" id="horseRail"></div></nav>
     </header>
-    <main class="schedule" id="schedule"></main>
+    <main class="main">
+      <section class="view start-view" id="startView" aria-label="Start">
+        <div class="identity">
+          <h2>RingStatus.com</h2>
+          <p>Your Show Day Schedule - Fast!</p>
+          <button class="btn primary" id="startSessionBtn" type="button">Start Session</button>
+        </div>
+        <section class="section">
+          <div class="section-head"><span>Active Horses</span><span id="horseCountLabel"></span></div>
+          <div class="section-body"><div class="chip-grid" id="horseRoster"></div></div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span>Preferences</span></div>
+          <div class="section-body">
+            <p class="panel-title">Hide Classics</p>
+            <div class="chip-grid" id="prefClassics"></div>
+            <p class="panel-title" style="margin-top:10px;">Hide Medals</p>
+            <div class="chip-grid" id="prefMedals"></div>
+            <p class="panel-title" style="margin-top:10px;">Hide More</p>
+            <div class="chip-grid" id="prefMore"></div>
+            <p class="panel-title" style="margin-top:10px;">Show Only</p>
+            <div class="chip-grid" id="prefShow"></div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span>Session Details</span></div>
+          <div class="section-body" id="sessionDetails"></div>
+        </section>
+      </section>
+      <section class="view schedule-view is-active" id="ringsView" aria-label="Rings">
+        <p class="status-note">Focus source ${esc(payload.focus_source || "unknown")} | show_no ${esc(payload.show_no || SHOW_NO)} | read-only Development payload</p>
+        <div id="schedule"></div>
+      </section>
+    </main>
     <nav class="bottom-nav" aria-label="Primary mobile sections">
-      <button class="bottom-tab is-active" type="button" data-bottom-action="start">START</button>
-      <button class="bottom-tab" type="button" data-bottom-action="time">TIME</button>
-      <button class="bottom-tab" type="button" data-bottom-action="rings">RINGS</button>
-      <button class="bottom-tab" type="button" data-bottom-action="results">RESULTS</button>
-      <button class="bottom-tab" type="button" data-bottom-action="alerts">ALERTS</button>
+      <button class="nav-btn" type="button" data-view="start">START</button>
+      <button class="nav-btn" type="button" data-view="time" disabled>TIME</button>
+      <button class="nav-btn is-active" type="button" data-view="rings">RINGS</button>
+      <button class="nav-btn" type="button" data-view="results" disabled>RESULTS</button>
+      <button class="nav-btn" type="button" data-view="alerts" disabled>ALERTS</button>
     </nav>
-    <p class="footer-note">Prototype only. Reads the approved Development WEC mobile payload. Controls are local UI only and do not save, send, or trigger external actions.</p>
+    <span class="build-marker">${BUILD_MARKER}</span>
   </div>
   <div class="scrim" id="scrim" hidden></div>
-  <aside class="drawer" id="filterDrawer" aria-label="Hide by Attribute drawer" aria-hidden="true">
-    <div class="drawer-head"><h2>Hide by Attribute</h2><button class="close-btn" id="drawerClose" type="button" aria-label="Close filters">x</button></div>
-    <p class="drawer-note">Selected values hide matching classes. This is UI-only and does not save or update source data.</p>
-    <div class="filter-actions">
-      <button class="drawer-action" id="clearFiltersBtn" type="button">Clear</button>
-      <button class="drawer-action is-primary" id="applyFiltersBtn" type="button">Done</button>
+  <section class="sheet" id="flyup" aria-label="Class detail" aria-hidden="true">
+    <div class="sheet-head">
+      <h2 class="sheet-title" id="flyupTitle">Class detail</h2>
+      <button class="btn sheet-close" id="flyupClose" type="button" aria-label="Close">X</button>
     </div>
-    <div id="filterDrawerBody"></div>
-  </aside>
-  <section class="flyup" id="flyup" aria-label="Class detail flyup" aria-hidden="true">
-    <div class="flyup-head"><h2 id="flyupTitle">Class detail</h2><button class="close-btn" id="flyupClose" type="button" aria-label="Close class details">x</button></div>
     <div id="flyupBody"></div>
   </section>
   <script id="schedulePayload" type="application/json">${payloadJson}</script>
   <script>
-    // TODO: confirm final rollup fields.
-    // TODO: confirm final flyup fields.
+    const BUILD_MARKER = ${JSON.stringify(BUILD_MARKER)};
     const payload = JSON.parse(document.getElementById("schedulePayload").textContent || "{}");
-    const SMARTBROWZ_PDF_URL = ${JSON.stringify(SMARTBROWZ_PDF_URL)};
-    const FILTER_GROUPS = [
-      ["this_sizes", "Sizes"],
-      ["this_heights", "Heights"],
-      ["this_skills", "Skills"],
-      ["this_levels", "Levels"],
-      ["this_ages", "Ages"],
-      ["this_disciplines", "Disciplines"],
-      ["this_beginners", "Beginners"]
-    ];
-    const IGNORE_FLAGS = [
-      ["is_jumper_classic", "Jumper classic"],
-      ["is_hunter_classic", "Hunter classic"],
-      ["is_medal", "Medal"],
-      ["is_under_saddle", "Under saddle"],
-      ["is_handy", "Handy"],
-      ["focus_priority", "Focus priority"]
-    ];
-    const state = { activeRing: "", horse: "", ignoreFlags: new Set(), classFilters: new Map(), rowsByKey: new Map() };
-
-    const truthy = (value) => value === true || value === 1 || String(value || "").toLowerCase() === "true" || String(value || "") === "1";
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const STATE_KEY = "wec-mobile-pro-hard-reset-v1";
+    const SESSION_DAYS = 6;
+    const state = loadState();
     const text = (value) => {
       if (Array.isArray(value)) return value.map(text).filter(Boolean).join(", ");
-      if (value && typeof value === "object") {
-        return text(value.barn_name || value.horse_display || value.horse || value.name || value.label || value.entry_display || value.class_name || value.value || "");
-      }
+      if (value && typeof value === "object") return text(value.barn_name || value.horse_display || value.horse || value.name || value.label || value.entry_display || value.value || "");
       return String(value ?? "").trim();
     };
-    const html = (value) => text(value).replace(/[&<>"']/g, (char) => {
-      if (char === "&") return "&amp;";
-      if (char === "<") return "&lt;";
-      if (char === ">") return "&gt;";
-      if (char === '"') return "&quot;";
-      return "&#39;";
-    });
+    const html = (value) => text(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    const truthy = (value) => value === true || value === 1 || String(value || "").toLowerCase() === "true" || String(value || "") === "1";
     const rings = Array.isArray(payload.rings) ? payload.rings : [];
+    const prefDefs = {
+      classics: [
+        { key: "hide_jumper_classic", label: "Jumper", field: "is_jumper_classic" },
+        { key: "hide_hunter_classic", label: "Hunter", field: "is_hunter_classic" }
+      ],
+      medals: [
+        { key: "hide_seat", label: "Seat", medal: "seat" },
+        { key: "hide_ncea", label: "NCEA", medal: "ncea" },
+        { key: "hide_maclay", label: "Maclay", medal: "maclay" },
+        { key: "hide_nhs", label: "NHS", medal: "nhs" },
+        { key: "hide_ariat", label: "Ariat", medal: "ariat" }
+      ],
+      more: [
+        { key: "hide_under_saddle", label: "Under saddle", field: "is_under_saddle" },
+        { key: "hide_handy", label: "Handy", field: "is_handy" },
+        { key: "hide_beginner", label: "Beginner", field: "is_beginner" }
+      ],
+      show: [
+        { key: "show_focus", label: "Focus", showOnly: "focus" },
+        { key: "show_team", label: "Team", showOnly: "team" }
+      ]
+    };
 
-    function allClassRows() {
-      return rings.flatMap((ring) => classRows(ring));
+    function freshState() {
+      const now = Date.now();
+      return {
+        session_started: false,
+        session_started_at: "",
+        session_expires_at: new Date(now + SESSION_DAYS * DAY_MS).toISOString(),
+        inactive_horses: [],
+        preferences: {},
+        manual_hidden_class_keys: [],
+        filter_selections: {}
+      };
     }
 
-    function splitFilterValues(value) {
-      return String(value ?? "")
-        .split(/[|,;\\n]/)
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
-
-    function displayFilterLabel(group, value) {
-      const raw = String(value || "").trim();
-      if (group === "this_sizes") {
-        const key = raw.toLowerCase();
-        if (key === "small") return "Sm";
-        if (key === "medium") return "Med";
-        if (key === "large") return "Lg";
+    function loadState() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(STATE_KEY) || "null");
+        if (!raw || !raw.session_expires_at || Date.now() > Date.parse(raw.session_expires_at)) return freshState();
+        return { ...freshState(), ...raw, preferences: raw.preferences || {}, inactive_horses: raw.inactive_horses || [] };
+      } catch {
+        return freshState();
       }
-      return raw;
+    }
+
+    function saveState() {
+      localStorage.setItem(STATE_KEY, JSON.stringify(state));
+    }
+
+    function splitValues(value) {
+      return text(value).split(/[|,;\\n]/).map((item) => item.trim()).filter(Boolean);
+    }
+
+    function sortPriority(value) {
+      const raw = text(value);
+      const numeric = Number(raw);
+      return Number.isFinite(numeric) ? numeric : raw.toLowerCase();
+    }
+
+    function ringSortKey(ring) {
+      const rows = classRows(ring);
+      const row = rows.find(Boolean) || {};
+      return sortPriority(row.ring_name_prioritized || ring.ring_name_prioritized || ring.ring_priority || ring.ring_no || "");
+    }
+
+    function ringLabel(ring) {
+      const rows = classRows(ring);
+      const row = rows.find(Boolean) || {};
+      return text(row.ring_name_normalized || ring.ring_name_normalized || ring.ring_display || ring.ring_name || ring.ring_no || "Ring");
     }
 
     function ringId(ring, index) {
-      return "ring-" + String(ring.ring_no || ring.ring_key || ring.ring_name || index).replace(/[^a-z0-9_-]+/gi, "-");
+      return "ring-" + text(ringSortKey(ring) || ringLabel(ring) || index).replace(/[^a-z0-9_-]+/gi, "-");
     }
 
     function classRows(ring) {
       return Array.isArray(ring.classes) ? ring.classes : [];
     }
 
-    function rowKey(row, ringIndex, rowIndex) {
-      return String(row.class_key || row.class_no || row.class_id || ringIndex + "-" + rowIndex);
+    function allRows() {
+      return rings.flatMap((ring) => classRows(ring));
     }
 
     function classTitle(row) {
-      return text(row.class_name || row.class_display || row.rs_class_name || row.class_label || "Class");
+      return text(row.class_name || "Class");
     }
 
-    function classAuditId(row) {
-      const classNo = text(row.class_no ?? row.classNo ?? "");
-      const priority = text(row.class_priority_sort ?? row.classPrioritySort ?? "");
-      if (classNo && priority) return classNo + "-" + priority;
-      return "";
+    function auditKey(row) {
+      return [row.ring_name_prioritized, row.class_no, row.class_priority_sort].map(text).filter(Boolean).join(" | ");
     }
 
-    function classAuditHtml(row) {
-      const audit = classAuditId(row);
-      return audit ? ' <span class="class-audit-id">(' + html(audit) + ')</span>' : "";
-    }
-
-    function classNameTokens(row) {
-      const raw = row.class_name_tokens ?? row.classNameTokens ?? "";
-      return splitFilterValues(raw).slice(0, 18);
-    }
-
-    function tokenStripHtml(tokens) {
-      return tokens && tokens.length
-        ? '<div class="token-strip">' + tokens.map((token) => '<span class="class-token">' + html(token) + '</span>').join("") + '</div>'
-        : "";
+    function rowKey(row, ringIndex, rowIndex) {
+      return [row.ring_name_prioritized, row.class_no, row.class_priority_sort, rowIndex].map(text).filter(Boolean).join("|") || String(ringIndex) + "-" + String(rowIndex);
     }
 
     function timeText(row) {
-      return text(row.time_text || row.class_time_text || row.start_time_text || row.start_time || row.time || "");
+      return text(row.display_time || row.time_text || row.class_time_text || row.start_time || row.time || "");
     }
 
     function shortTime(row) {
-      return timeText(row)
-        .replace(/\\s+/g, " ")
-        .replace(/\\bAM\\b/i, "A")
-        .replace(/\\bPM\\b/i, "P")
-        .replace(/\\s+([AP])$/i, "$1");
+      return timeText(row).replace(/\\s+/g, " ").replace(/\\bAM\\b/i, "A").replace(/\\bPM\\b/i, "P").replace(/\\s+([AP])$/i, "$1");
     }
 
-    function ringLabel(ring, rows = []) {
-      const firstRow = Array.isArray(rows) ? rows.find(Boolean) || {} : {};
-      return text(firstRow.ring_name_normalized || ring.ring_name_normalized || ring.ring_display || ring.ring_name || ring.ring_no || "Ring");
-    }
-
-    function safeRingStatusToken(ring) {
-      // TODO: wire only when a proven fresh ring lateness/status source is present in the approved payload.
-      return "";
-    }
-
-    function isCurrentClass(row) {
-      // TODO: wire only when fresh/proven current-class data is present in the approved payload.
-      return false;
+    function numeric(value) {
+      const raw = text(value);
+      if (!raw) return null;
+      const n = Number(raw);
+      return Number.isFinite(n) ? n : null;
     }
 
     function horseName(value) {
-      return text(value && typeof value === "object"
-        ? value.barn_name || value.horse_display || value.horse || value.name || value.label || value.entry_display || value.value
-        : value);
+      return text(value && typeof value === "object" ? value.barn_name || value.horse_display || value.horse || value.name || value.label || value.entry_display || value.value : value);
     }
 
     function entryOrder(value, row) {
-      return text((value && typeof value === "object"
-        ? value.entry_order || value.order || value.order_of_go || value.draw || value.entry_no
-        : "") || row.entry_order || row.order || row.order_of_go || row.draw || row.entry_no);
+      return text((value && typeof value === "object" ? value.entry_order || value.order || value.order_of_go || value.draw || value.entry_no : "") || row.entry_order || row.order || row.order_of_go || row.draw || row.entry_no);
     }
 
     function entryNo(value, row) {
-      return text((value && typeof value === "object"
-        ? value.entry_no || value.entryNo || value.entry_number
-        : "") || row.entry_no || row.entryNo || row.entry_number);
-    }
-
-    function goIn(value) {
-      return text(value && typeof value === "object" ? value.go_in || value.goIn || value.entry_go_in : "");
+      return text((value && typeof value === "object" ? value.entry_no || value.entryNo || value.entry_number : "") || row.entry_no || row.entryNo || row.entry_number);
     }
 
     function entryGoTime(value) {
       return text(value && typeof value === "object" ? value.entry_go_time || value.go_time || value.got_time : "");
     }
 
+    function goIn(value) {
+      return text(value && typeof value === "object" ? value.go_in || value.goIn || value.entry_go_in : "");
+    }
+
     function rollups(row) {
-      const source = Array.isArray(row.rollups) ? row.rollups : Array.isArray(row.trainer_rollups) ? row.trainer_rollups : [];
-      const tokens = [];
+      const source = Array.isArray(row.rollups) ? row.rollups : [];
+      const out = [];
       for (const item of source) {
         const horses = Array.isArray(item.horses) ? item.horses : [item.horse || item.horse_display || item.barn_name || item.name || item.label].filter(Boolean);
         for (const horse of horses) {
           const name = horseName(horse);
           if (!name) continue;
           const order = entryOrder(horse, item);
-          tokens.push(order ? (name + " (" + order + ")").toUpperCase() : name.toUpperCase());
+          out.push((order ? name + " (" + order + ")" : name).toUpperCase());
         }
       }
-      if (!tokens.length) {
-        const name = horseName(row.horse_display || row.horse || row.barn_name || row.entry_display || row.current_entry_text);
-        const order = entryOrder(row, row);
-        if (name) tokens.push(order ? (name + " (" + order + ")").toUpperCase() : name.toUpperCase());
+      return Array.from(new Set(out)).slice(0, 12);
+    }
+
+    function rowHorseNames(row) {
+      const names = new Set();
+      const add = (value) => {
+        const name = horseName(value);
+        if (name) names.add(name);
+      };
+      if (Array.isArray(row.rollups)) {
+        row.rollups.forEach((item) => {
+          if (Array.isArray(item.horses)) item.horses.forEach(add);
+          else add(item.horse || item.horse_display || item.barn_name || item.name || item.label);
+        });
       }
-      return Array.from(new Set(tokens)).slice(0, 12);
+      if (Array.isArray(row.entries)) row.entries.forEach(add);
+      [row.horse_display, row.horse, row.barn_name, row.entry_display, row.current_entry_text].forEach((value) => splitValues(value).forEach(add));
+      return Array.from(names).filter(Boolean);
     }
 
     function entryLines(row) {
+      const source = [];
+      if (Array.isArray(row.entries)) source.push(...row.entries);
+      if (Array.isArray(row.rollups)) {
+        for (const item of row.rollups) {
+          const horses = Array.isArray(item.horses) ? item.horses : [item.horse || item.horse_display || item.barn_name || item.name || item.label].filter(Boolean);
+          horses.forEach((horse) => source.push({ ...item, horse }));
+        }
+      }
       const lines = [];
-      const source = Array.isArray(row.rollups) ? row.rollups : Array.isArray(row.trainer_rollups) ? row.trainer_rollups : [];
       for (const item of source) {
-        const horses = Array.isArray(item.horses) ? item.horses : [item.horse || item.horse_display || item.barn_name || item.name || item.label].filter(Boolean);
-        for (const horse of horses) {
-          const name = horseName(horse);
-          if (!name) continue;
-          lines.push({
-            entry_no: entryNo(horse, item),
-            horse: name.toUpperCase(),
-            entry_order: entryOrder(horse, item),
-            entry_go_time: entryGoTime(horse),
-            go_in: goIn(horse)
-          });
-        }
+        const name = horseName(item.horse || item);
+        if (!name) continue;
+        lines.push({
+          entry_no: entryNo(item, item),
+          horse: name.toUpperCase(),
+          entry_order: entryOrder(item.horse || item, item),
+          entry_go_time: entryGoTime(item.horse || item),
+          go_in: goIn(item.horse || item)
+        });
       }
-      if (!lines.length) {
-        const name = horseName(row.horse_display || row.horse || row.barn_name || row.entry_display || row.current_entry_text);
-        if (name) {
-          lines.push({
-            entry_no: entryNo(row, row),
-            horse: name.toUpperCase(),
-            entry_order: entryOrder(row, row),
-            entry_go_time: entryGoTime(row),
-            go_in: ""
-          });
-        }
+      return lines.slice(0, 20);
+    }
+
+    function classTags(row) {
+      const seen = new Set();
+      const tags = [];
+      for (const token of splitValues(row.class_name_tokens)) {
+        const key = token.toLowerCase();
+        if (!key || seen.has(key)) continue;
+        if (/^\\d{1,2}:\\d{2}\\s*[ap]m?$/i.test(key)) continue;
+        if (key === "ariat") continue;
+        seen.add(key);
+        tags.push(token);
+        if (tags.length >= 4) break;
       }
-      return lines.slice(0, 12);
+      return tags;
     }
 
-    function horseTokens(row) {
-      const tokens = new Set();
-      for (const value of [row.entry_display, row.current_entry_text, row.horse_display, row.horse, row.entries, row.barn_name]) {
-        text(value).split(/[|,]/).map((part) => part.trim()).filter(Boolean).forEach((part) => tokens.add(part));
+    function roster() {
+      const horses = new Set();
+      allRows().forEach((row) => rowHorseNames(row).forEach((horse) => horses.add(horse)));
+      return Array.from(horses).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+    }
+
+    function horseActive(name) {
+      return !state.inactive_horses.includes(name);
+    }
+
+    function setHorseActive(name, active) {
+      const set = new Set(state.inactive_horses);
+      if (active) set.delete(name);
+      else set.add(name);
+      state.inactive_horses = Array.from(set);
+      saveState();
+      renderAll();
+    }
+
+    function rowAllowedByHorses(row) {
+      const horses = rowHorseNames(row);
+      if (!horses.length) return true;
+      return horses.some(horseActive);
+    }
+
+    function skillHas(row, needle) {
+      return splitValues(row.this_skills).some((value) => value.toLowerCase().includes(needle));
+    }
+
+    function preferenceHides(row) {
+      const prefs = state.preferences || {};
+      for (const group of [prefDefs.classics, prefDefs.more]) {
+        for (const pref of group) if (prefs[pref.key] && pref.field && truthy(row[pref.field])) return true;
       }
-      for (const rollup of Array.isArray(row.trainer_rollups) ? row.trainer_rollups : Array.isArray(row.rollups) ? row.rollups : []) {
-        for (const horse of Array.isArray(rollup.horses) ? rollup.horses : []) tokens.add(horseName(horse));
+      for (const pref of prefDefs.medals) {
+        if (!prefs[pref.key]) continue;
+        if (truthy(row.is_medal) && skillHas(row, pref.medal)) return true;
       }
-      return Array.from(tokens).filter(Boolean).slice(0, 18);
+      return false;
     }
 
-    function hasDiff(row) {
-      return !!text(row.diff_class || row.diffClass || row.diff_status || row.diff_time || row.diff_entries);
-    }
-
-    function diffClasses(row) {
-      const raw = text(row.diff_class || row.diffClass || "");
-      return raw.split(/\\s+/).filter((item) => /^diff-[a-z0-9_-]+$/i.test(item));
-    }
-
-    function statusBadge(row) {
-      // TODO: keep placeholder until a proven WEC status source is present in the approved payload.
-      return ["", "status-placeholder badge-empty", "No approved status source"];
-    }
-
-    function specialBadge(row) {
-      if (truthy(row.is_jumper_classic) || truthy(row.is_hunter_classic)) return ["C", "special-classic", "Classic candidate"];
-      if (truthy(row.is_handy)) return ["H", "special-handy", "Handy candidate"];
-      if (truthy(row.is_medal)) return ["M", "special-medal", "Medal candidate"];
-      if (truthy(row.is_under_saddle)) return ["U", "special-under-saddle", "Under saddle candidate"];
-      return ["", "special-placeholder badge-empty", "No approved special source"];
-    }
-
-    function typeBadge(row) {
-      if (truthy(row.is_hunter)) return ["H", "type-hunter", "Hunter type candidate"];
-      if (truthy(row.is_jumper)) return ["J", "type-jumper", "Jumper type candidate"];
-      if (truthy(row.is_equitation)) return ["E", "type-equitation", "Equitation type candidate"];
-      return ["", "type-placeholder badge-empty", "No approved type source"];
-    }
-
-    function badgeHtml(badge) {
-      const [label, cls, title] = badge;
-      return '<span class="badge ' + html(cls) + '" title="' + html(title) + '">' + html(label) + '</span>';
-    }
-
-    function rowAllowed(row) {
-      for (const flag of state.ignoreFlags) if (ignoreFlagMatches(row, flag)) return false;
-      for (const [field, selected] of state.classFilters.entries()) {
-        if (!selected || selected.size === 0) continue;
-        const values = splitFilterValues(row?.[field]).map((value) => value.toLowerCase());
-        if (values.some((value) => selected.has(value))) return false;
-      }
-      if (state.horse) {
-        const hay = horseTokens(row).join(" ").toLowerCase();
-        if (!hay.includes(state.horse.toLowerCase())) return false;
-      }
+    function preferenceShowAllows(row) {
+      const prefs = state.preferences || {};
+      if (prefs.show_focus && !truthy(row.is_focus)) return false;
+      if (prefs.show_team && !rollups(row).length) return false;
       return true;
     }
 
-    function rowStableKey(row) {
-      return [row.ring_day_no || row.ring_no || "", row.class_no || "", row.class_name || ""].map(text).join("|");
+    function visibleRow(row) {
+      return rowAllowedByHorses(row) && !preferenceHides(row) && preferenceShowAllows(row);
     }
 
-    function ignoreFlagMatches(row, flag) {
-      if (flag === "focus_priority") return text(row.class_priority_sort) === "1";
-      return truthy(row?.[flag]);
+    function badge1(row) {
+      const value = numeric(row.entry_count);
+      return value === null ? "" : '<span class="badge entries" title="entries">' + html(value) + '</span>';
+    }
+
+    function badge2(row) {
+      const value = numeric(row.n_gone);
+      return value === null ? '<span class="badge gone is-empty"></span>' : '<span class="badge gone" title="n_gone">' + html(value) + '</span>';
+    }
+
+    function rowHtml(row, ringIndex, rowIndex) {
+      const key = rowKey(row, ringIndex, rowIndex);
+      const rowRollups = rollups(row);
+      const audit = auditKey(row);
+      return '<button class="class-line' + (rowRollups.length ? ' has-rollup' : '') + '" type="button" data-row-key="' + html(key) + '">' +
+        '<span class="time-token">' + html(shortTime(row) || "--") + '</span>' +
+        '<span class="class-main">' +
+          (rowRollups.length ? '<span class="rollup-line">' + rowRollups.map((item) => '<span class="rollup-token">' + html(item) + '</span>').join("") + '</span>' : '') +
+          '<span class="class-title">' + html(classTitle(row)) + (audit ? '<span class="audit-key">' + html(audit) + '</span>' : '') + '</span>' +
+        '</span>' +
+        badge1(row) +
+        badge2(row) +
+      '</button>';
+    }
+
+    function orderedRings() {
+      return rings.map((ring, index) => ({ ring, index })).sort((a, b) => {
+        const av = ringSortKey(a.ring);
+        const bv = ringSortKey(b.ring);
+        if (typeof av === "number" && typeof bv === "number") return av - bv;
+        return String(av).localeCompare(String(bv), undefined, { numeric: true, sensitivity: "base" });
+      });
+    }
+
+    function renderRings() {
+      const schedule = document.getElementById("schedule");
+      if (!rings.length) {
+        schedule.innerHTML = '<p class="empty-row">No rings returned from the read-only WEC mobile payload.</p>';
+        return;
+      }
+      schedule.innerHTML = orderedRings().map(({ ring, index }) => {
+        const id = ringId(ring, index);
+        const rows = classRows(ring).filter(visibleRow);
+        const body = rows.map((row, rowIndex) => rowHtml(row, index, rowIndex)).join("");
+        return '<section class="ring-container" id="' + html(id) + '" data-ring-section="' + html(id) + '">' +
+          '<div class="ring-header">' + html(ringLabel(ring)) + '</div>' +
+          '<div class="list-container">' + (body || '<p class="empty-row">No visible classes after local preferences.</p>') + '</div>' +
+        '</section>';
+      }).join("");
+      document.querySelectorAll(".class-line[data-row-key]").forEach((button) => {
+        button.addEventListener("click", () => openFlyup(button.dataset.rowKey));
+      });
     }
 
     function renderRails() {
       const ringRail = document.getElementById("ringRail");
-      ringRail.innerHTML = rings.map((ring, index) => {
+      ringRail.innerHTML = orderedRings().map(({ ring, index }) => {
         const id = ringId(ring, index);
-        const name = ringLabel(ring, classRows(ring));
-        return '<button class="pill' + (state.activeRing === id ? ' is-active' : '') + '" type="button" data-ring-target="' + html(id) + '">' + html(name) + '</button>';
+        return '<button class="chip" type="button" data-ring-target="' + html(id) + '">' + html(ringLabel(ring)) + '</button>';
       }).join("");
-
-      const horseSet = new Set();
-      rings.forEach((ring) => classRows(ring).forEach((row) => horseTokens(row).forEach((horse) => horseSet.add(horse))));
-      const horses = Array.from(horseSet).slice(0, 20);
-      const horseRail = document.getElementById("horseRail");
-      if (!horses.length) {
-        horseRail.innerHTML = '<button class="pill is-placeholder" type="button" disabled>Horse filters unresolved</button>';
-      } else {
-        horseRail.innerHTML = horses.map((horse) => '<button class="pill' + (state.horse === horse ? ' is-active' : '') + '" type="button" data-horse-filter="' + html(horse) + '">' + html(horse) + '</button>').join("");
-      }
+      ringRail.querySelectorAll("[data-ring-target]").forEach((button) => {
+        button.addEventListener("click", () => document.getElementById(button.dataset.ringTarget)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+      });
+      const horses = roster().slice(0, 24);
+      document.getElementById("horseRail").innerHTML = horses.length
+        ? horses.map((horse) => '<button class="chip small ' + (horseActive(horse) ? '' : 'subtle') + '" type="button" disabled>' + html(horse) + '</button>').join("")
+        : '<button class="chip small subtle" type="button" disabled>Horses unavailable</button>';
     }
 
-    function filterChoicesFromRows(rows) {
-      return FILTER_GROUPS.map(([field, label]) => {
-        const values = new Map();
-        for (const row of rows || []) {
-          for (const value of splitFilterValues(row?.[field])) {
-            const key = value.toLowerCase();
-            if (!values.has(key)) values.set(key, value);
-          }
-        }
-        return {
-          field,
-          label,
-          values: Array.from(values.entries()).map(([key, value]) => ({ key, value }))
-            .sort((a, b) => displayFilterLabel(field, a.value).localeCompare(displayFilterLabel(field, b.value), undefined, { numeric: true, sensitivity: "base" }))
-        };
-      }).filter((group) => group.values.length);
+    function renderStart() {
+      const horses = roster();
+      document.getElementById("horseCountLabel").textContent = horses.filter(horseActive).length + "/" + horses.length + " active";
+      document.getElementById("horseRoster").innerHTML = horses.length
+        ? horses.map((horse) => '<button class="chip ' + (horseActive(horse) ? 'is-on' : 'subtle') + '" type="button" data-horse-toggle="' + html(horse) + '">' + html(horse) + '</button>').join("")
+        : '<span class="chip subtle">No horses in current payload</span>';
+      document.querySelectorAll("[data-horse-toggle]").forEach((button) => {
+        button.addEventListener("click", () => setHorseActive(button.dataset.horseToggle, !horseActive(button.dataset.horseToggle)));
+      });
+      renderPrefGroup("prefClassics", prefDefs.classics);
+      renderPrefGroup("prefMedals", prefDefs.medals);
+      renderPrefGroup("prefMore", prefDefs.more);
+      renderPrefGroup("prefShow", prefDefs.show);
+      document.getElementById("sessionDetails").innerHTML =
+        detailLine("Started", state.session_started ? "Yes" : "No") +
+        detailLine("Started at", state.session_started_at || "—") +
+        detailLine("Expires at", state.session_expires_at || "—") +
+        detailLine("Storage", "localStorage only") +
+        detailLine("Source", "wec-mobile-live&show_no=14907");
     }
 
-    function activeFilterCount() {
-      let count = 0;
-      for (const selected of state.classFilters.values()) count += selected.size;
-      return count;
+    function detailLine(label, value) {
+      return '<div class="session-line"><span class="session-label">' + html(label) + '</span><span class="session-value">' + html(value) + '</span></div>';
     }
 
-    function updateFilterCount() {
-      const count = activeFilterCount();
-      const badge = document.getElementById("filterCount");
-      const button = document.getElementById("filterBtn");
-      if (badge) {
-        badge.hidden = count === 0;
-        badge.textContent = String(count);
-      }
-      if (button) button.classList.toggle("is-active", count > 0);
+    function renderPrefGroup(id, prefs) {
+      const target = document.getElementById(id);
+      target.innerHTML = prefs.map((pref) => '<button class="chip small ' + (state.preferences[pref.key] ? 'is-on' : '') + '" type="button" data-pref-key="' + html(pref.key) + '">' + html(pref.label) + '</button>').join("");
+      target.querySelectorAll("[data-pref-key]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = button.dataset.prefKey;
+          state.preferences[key] = !state.preferences[key];
+          saveState();
+          renderAll();
+        });
+      });
     }
 
-    function renderFilterDrawer() {
-      const body = document.getElementById("filterDrawerBody");
-      if (!body) return;
-      const groupHtml = filterChoicesFromRows(allClassRows()).map((group) => {
-        return '<div class="filter-group" data-filter-group="' + html(group.field) + '">' +
-          '<h3>' + html(group.label) + '</h3>' +
-          '<div class="filter-chip-grid">' + group.values.map((item) => {
-            const active = state.classFilters.get(group.field)?.has(item.key);
-            return '<button class="filter-chip' + (active ? ' is-active' : '') + '" type="button" data-filter-field="' + html(group.field) + '" data-filter-value="' + html(item.value) + '">' + html(displayFilterLabel(group.field, item.value)) + '</button>';
-          }).join("") + '</div>' +
-        '</div>';
-      }).join("");
-      body.innerHTML =
-        (groupHtml || '<p class="empty-state">No approved attribute filters are present in this payload.</p>');
-      bindFilterDrawerControls();
-      updateFilterCount();
+    function setView(view) {
+      const active = view === "start" ? "start" : "rings";
+      document.getElementById("startView").classList.toggle("is-active", active === "start");
+      document.getElementById("ringsView").classList.toggle("is-active", active === "rings");
+      document.querySelectorAll("[data-view]").forEach((button) => button.classList.toggle("is-active", button.dataset.view === active));
     }
 
-    function toggleClassFilter(field, value) {
-      const key = String(field || "").trim();
-      const selectedValue = String(value || "").trim().toLowerCase();
-      if (!key || !selectedValue) return;
-      const selected = state.classFilters.get(key) || new Set();
-      if (selected.has(selectedValue)) selected.delete(selectedValue);
-      else selected.add(selectedValue);
-      if (selected.size) state.classFilters.set(key, selected);
-      else state.classFilters.delete(key);
-      renderFilterDrawer();
-      renderSchedule();
+    function startSession() {
+      const now = Date.now();
+      state.session_started = true;
+      state.session_started_at = new Date(now).toISOString();
+      state.session_expires_at = new Date(now + SESSION_DAYS * DAY_MS).toISOString();
+      saveState();
+      renderAll();
+      setView("rings");
     }
 
-    function clearHideFilters() {
-      state.classFilters.clear();
-      renderFilterDrawer();
-      renderSchedule();
+    function allRowsByKey() {
+      const map = new Map();
+      orderedRings().forEach(({ ring, index }) => classRows(ring).forEach((row, rowIndex) => map.set(rowKey(row, index, rowIndex), row)));
+      return map;
     }
 
-    function renderSchedule() {
-      state.rowsByKey.clear();
-      const schedule = document.getElementById("schedule");
-      if (!rings.length) {
-        schedule.innerHTML = '<p class="empty-state">No rings returned from the read-only WEC mobile payload.</p>';
-        return;
-      }
-      const sections = rings.map((ring, ringIndex) => {
-        const rows = classRows(ring).filter(rowAllowed);
-        const id = ringId(ring, ringIndex);
-        const name = ringLabel(ring, classRows(ring));
-        const ringStatus = safeRingStatusToken(ring);
-        const rowHtml = rows.map((row, rowIndex) => {
-          const key = rowKey(row, ringIndex, rowIndex);
-          state.rowsByKey.set(key, row);
-          const rowRollups = rollups(row);
-          const classList = ["class-row"];
-          if (rowRollups.length) classList.push("has-rollup");
-          if (isCurrentClass(row)) classList.push("is-current-class");
-          if (hasDiff(row)) classList.push("has-diff");
-          for (const diffClass of diffClasses(row)) classList.push(diffClass);
-          return '<button class="' + classList.join(" ") + '" type="button" data-row-key="' + html(key) + '">' +
-            '<span class="time-chip">' + html(shortTime(row) || "--") + '</span>' +
-            '<span class="class-main">' +
-              (rowRollups.length ? '<span class="row-rollups">' + rowRollups.map((item) => '<span class="rollup-token">' + html(item) + '</span>').join("") + '</span>' : '') +
-              '<span class="class-name">' + html(classTitle(row)) + classAuditHtml(row) + '</span>' +
-            '</span>' +
-            badgeHtml(statusBadge(row)) +
-            badgeHtml(specialBadge(row)) +
-            badgeHtml(typeBadge(row)) +
-            '</button>';
-        }).join("");
-        return '<section class="ring-card" id="' + html(id) + '" data-ring-section="' + html(id) + '">' +
-          '<div class="ring-head"><h2 class="ring-name">' + html(name) + '</h2><div class="ring-summary">' + (ringStatus ? '<span class="ring-status-token has-value">' + html(ringStatus) + '</span>' : '<span class="ring-status-token" aria-hidden="true"></span>') + '<span class="summary-chip">' + rows.length + '</span><span class="summary-chip">' + classRows(ring).length + '</span></div></div>' +
-          '<div class="class-list">' + (rowHtml || '<p class="empty-state">No classes match current UI filters.</p>') + '</div>' +
-          '</section>';
-      }).join("");
-      schedule.innerHTML = '<p class="status-note">Focus source ' + html(payload.focus_source || "unknown") + ' | show_no ' + html(payload.show_no || "${esc(showNo)}") + ' | ' + rings.length + ' rings</p>' + sections;
-      bindClassRows();
-      observeRings();
-    }
-
-    function renderFlyup(row) {
-      const title = classTitle(row);
-      const rowRollups = rollups(row);
+    function openFlyup(key) {
+      const row = allRowsByKey().get(key);
+      if (!row) return;
+      const tags = classTags(row);
       const entries = entryLines(row);
-      const tokens = classNameTokens(row);
-      const flyupBadges = [statusBadge(row), specialBadge(row), typeBadge(row)].map(badgeHtml).join("");
-      document.getElementById("flyupTitle").textContent = title;
-      const audit = classAuditHtml(row);
+      const audit = auditKey(row);
+      document.getElementById("flyupTitle").textContent = classTitle(row);
       document.getElementById("flyupBody").innerHTML =
-        '<div class="flyup-row"><span class="flyup-row-label">Ring</span><span class="flyup-row-main">' + html(row.ring_name_normalized || row.ring_name || row.ring_no || "Unavailable") + '</span><span></span><span></span><span></span></div>' +
-        '<div class="flyup-row"><span class="flyup-row-label">Time</span><span class="flyup-row-main">' + html(shortTime(row) || "Not set") + '</span><span></span><span></span><span></span></div>' +
-        '<div class="flyup-row"><span class="flyup-row-label">Class</span><span class="flyup-row-main">' + html((row.class_number || row.classNumber || "") ? text(row.class_number || row.classNumber) + " " : "") + html(title) + audit + tokenStripHtml(tokens) + '</span>' + flyupBadges + '</div>' +
-        '<div class="detail-section"><h3>Entry</h3>' + (entries.length ? entries.map((entry) => '<div class="entry-line"><span class="entry-order">' + html(entry.entry_no || entry.entry_order || "-") + '</span><span class="entry-copy rollup-token">' + html(entry.horse) + (entry.entry_order ? ' <span class="class-audit-id">(' + html(entry.entry_order) + ')</span>' : '') + '</span><span class="entry-meta">' + html([entry.entry_go_time, entry.go_in].filter(Boolean).join(" ")) + '</span></div>').join("") : rowRollups.length ? rowRollups.slice(0, 10).map((horse) => '<div class="entry-line"><span class="entry-order">-</span><span class="entry-copy rollup-token">' + html(horse) + '</span><span class="entry-meta"></span></div>').join("") : '<p class="empty-state">Entry details unavailable in this payload. TODO: confirm approved entry fields.</p>') + '</div>' +
-        '<div class="detail-section"><h3>Result</h3><p class="empty-state">No approved result fields are present in this payload.</p></div>';
+        sectionHtml("Ring", detailLine("Ring", row.ring_name_normalized || "—")) +
+        sectionHtml("Time", detailLine("Time", timeText(row) || "—")) +
+        sectionHtml("Class",
+          detailLine("Class", classTitle(row)) +
+          detailLine("Audit", audit || "—") +
+          detailLine("Class no", row.class_no || "—") +
+          detailLine("Priority", row.class_priority_sort || "—") +
+          '<div class="fly-row"><span class="fly-key">Tags</span><span class="fly-value"><span class="tag-strip">' + (tags.length ? tags.map((tag) => '<span class="class-tag">' + html(tag) + '</span>').join("") : '<span class="class-tag">—</span>') + '</span></span></div>' +
+          detailLine("Entries", numeric(row.entry_count) === null ? "—" : row.entry_count) +
+          detailLine("Gone", numeric(row.n_gone) === null ? "—" : row.n_gone)
+        ) +
+        sectionHtml("Entry", entries.length ? entries.map((entry) =>
+          '<div class="entry-line"><span class="entry-order">' + html(entry.entry_no || entry.entry_order || "—") + '</span><span class="entry-horse">' + html(entry.horse) + '</span><span class="entry-meta">' + html([entry.entry_go_time || "—", entry.go_in].filter(Boolean).join(" ")) + '</span></div>'
+        ).join("") : '<p class="empty-row">Entry details unavailable in this payload.</p>') +
+        sectionHtml("Result", '<div class="result-line"><span></span><span class="result-copy">No approved result source is built yet.</span><span></span></div>');
       setFlyup(true);
+    }
+
+    function sectionHtml(label, body) {
+      return '<section class="fly-section"><div class="fly-label">' + html(label) + '</div>' + body + '</section>';
     }
 
     function setFlyup(open) {
       const flyup = document.getElementById("flyup");
       const scrim = document.getElementById("scrim");
-      if (!open && flyup.contains(document.activeElement)) document.activeElement.blur();
       flyup.classList.toggle("is-open", open);
       flyup.setAttribute("aria-hidden", open ? "false" : "true");
-      scrim.hidden = false;
-      scrim.classList.toggle("is-open", open || document.getElementById("filterDrawer").classList.contains("is-open"));
-      if (!open && !document.getElementById("filterDrawer").classList.contains("is-open")) scrim.hidden = true;
+      scrim.hidden = !open;
+      scrim.classList.toggle("is-open", open);
     }
 
-    function setDrawer(open) {
-      const drawer = document.getElementById("filterDrawer");
-      const scrim = document.getElementById("scrim");
-      if (!open && drawer.contains(document.activeElement)) document.activeElement.blur();
-      drawer.classList.toggle("is-open", open);
-      drawer.setAttribute("aria-hidden", open ? "false" : "true");
-      document.getElementById("filterBtn").setAttribute("aria-expanded", open ? "true" : "false");
-      scrim.hidden = false;
-      scrim.classList.toggle("is-open", open || document.getElementById("flyup").classList.contains("is-open"));
-      if (!open && !document.getElementById("flyup").classList.contains("is-open")) scrim.hidden = true;
+    function openTodo(title, message) {
+      const panel = document.getElementById("todoPanel");
+      const open = panel.classList.contains("is-open") && document.getElementById("todoTitle").textContent === title;
+      document.getElementById("todoTitle").textContent = title;
+      document.getElementById("todoText").textContent = message;
+      panel.classList.toggle("is-open", !open);
     }
 
-    function togglePanel(id, buttonId) {
-      const panel = document.getElementById(id);
-      const button = document.getElementById(buttonId);
-      const open = !panel.classList.contains("is-open");
-      document.querySelectorAll(".push-panel").forEach((item) => {
-        if (item !== panel) item.classList.remove("is-open");
-      });
-      ["gearBtn", "hideBtn"].forEach((id) => {
-        if (id !== buttonId) document.getElementById(id)?.setAttribute("aria-expanded", "false");
-      });
-      panel.classList.toggle("is-open", open);
-      button.setAttribute("aria-expanded", open ? "true" : "false");
+    function renderAll() {
+      renderRails();
+      renderStart();
+      renderRings();
     }
 
-    function bindClassRows() {
-      document.querySelectorAll(".class-row[data-row-key]").forEach((button) => {
-        button.addEventListener("click", () => renderFlyup(state.rowsByKey.get(button.dataset.rowKey) || {}));
-      });
-    }
-
-    function observeRings() {
-      const observer = new IntersectionObserver((entries) => {
-        const hit = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!hit) return;
-        state.activeRing = hit.target.id;
-        renderRails();
-        bindRails();
-      }, { rootMargin: "-42% 0px -50% 0px", threshold: [0, .2, .45] });
-      document.querySelectorAll("[data-ring-section]").forEach((section) => observer.observe(section));
-    }
-
-    function bindRails() {
-      document.querySelectorAll("[data-ring-target]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const target = document.getElementById(button.dataset.ringTarget);
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      });
-      document.querySelectorAll("[data-horse-filter]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const horse = button.dataset.horseFilter || "";
-          state.horse = state.horse === horse ? "" : horse;
-          renderRails();
-          bindRails();
-          renderSchedule();
-        });
-      });
-    }
-
-    function bindFilterDrawerControls() {
-      document.querySelectorAll("[data-filter-field]").forEach((button) => {
-        button.addEventListener("click", () => toggleClassFilter(button.dataset.filterField, button.dataset.filterValue));
-      });
-    }
-
-    function toggleIgnoreFlag(flag) {
-      if (state.ignoreFlags.has(flag)) state.ignoreFlags.delete(flag);
-      else state.ignoreFlags.add(flag);
-      document.querySelectorAll('[data-ignore-flag="' + flag + '"]').forEach((button) => button.classList.toggle("is-on", state.ignoreFlags.has(flag)));
-      renderSchedule();
-    }
-
-    function bindBottomNav() {
-      document.querySelectorAll("[data-bottom-action]").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.querySelectorAll("[data-bottom-action]").forEach((item) => item.classList.toggle("is-active", item === button));
-          const action = button.dataset.bottomAction;
-          if (action === "rings") return document.getElementById("ringRail").scrollIntoView({ behavior: "smooth", block: "center" });
-        });
-      });
-    }
-
-    document.getElementById("gearBtn").addEventListener("click", () => togglePanel("gearPanel", "gearBtn"));
-    document.getElementById("hideBtn").addEventListener("click", () => togglePanel("hidePanel", "hideBtn"));
-    document.getElementById("filterBtn").addEventListener("click", () => setDrawer(true));
-    document.getElementById("drawerClose").addEventListener("click", () => setDrawer(false));
-    document.getElementById("applyFiltersBtn").addEventListener("click", () => setDrawer(false));
-    document.getElementById("clearFiltersBtn").addEventListener("click", clearHideFilters);
+    document.getElementById("gearBtn").addEventListener("click", () => setView("start"));
+    document.getElementById("hideBtn").addEventListener("click", () => openTodo("Hide", "Manual class hiding is TODO and is not persisted in this task."));
+    document.getElementById("filterBtn").addEventListener("click", () => openTodo("Filter", "Filter drawer behavior is TODO and is not persisted in this task."));
+    document.getElementById("startSessionBtn").addEventListener("click", startSession);
+    document.querySelector('[data-view="start"]').addEventListener("click", () => setView("start"));
+    document.querySelector('[data-view="rings"]').addEventListener("click", () => setView("rings"));
     document.getElementById("flyupClose").addEventListener("click", () => setFlyup(false));
-    document.getElementById("scrim").addEventListener("click", () => { setDrawer(false); setFlyup(false); });
-    document.querySelectorAll("[data-ignore-flag]").forEach((button) => button.addEventListener("click", () => toggleIgnoreFlag(button.dataset.ignoreFlag)));
-
-    const print = document.getElementById("printBtn");
-    const pdf = new URL(SMARTBROWZ_PDF_URL, location.href);
-    pdf.searchParams.set("show_no", payload.show_no || "${esc(showNo)}");
-    pdf.searchParams.delete("focus_day");
-    pdf.searchParams.delete("focus_day_date");
-    print.href = pdf.toString();
-
-    renderRails();
-    bindRails();
-    bindBottomNav();
-    renderFilterDrawer();
-    renderSchedule();
+    document.getElementById("scrim").addEventListener("click", () => setFlyup(false));
+    renderAll();
   </script>
 </body>
 </html>`;
@@ -1360,7 +1040,7 @@ const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
     if (url.pathname === "/health") {
-      return json(res, 200, {
+      json(res, 200, {
         ok: true,
         service: "wec-mobile-pro-appsail-prototype",
         show_no: SHOW_NO,
@@ -1370,29 +1050,22 @@ const server = http.createServer(async (req, res) => {
         served_file: __filename,
         writes: false
       });
-    }
-    if (url.pathname === "/favicon.ico") {
-      res.writeHead(204);
-      return res.end();
+      return;
     }
     if (url.pathname === "/api/schedule") {
-      const result = await fetchSchedule();
-      return json(res, result.ok ? 200 : 502, result);
+      json(res, 200, await fetchSchedule());
+      return;
     }
     if (url.pathname === "/" || url.pathname === "/wec-mobile-pro") {
-      const result = await fetchSchedule();
-      return renderHome(res, result);
+      renderHome(res, await fetchSchedule());
+      return;
     }
-    return json(res, 404, { ok: false, error: "not found" });
+    json(res, 404, { ok: false, error: "not_found" });
   } catch (error) {
-    return json(res, 500, { ok: false, error: String(error?.message || error) });
+    json(res, 500, { ok: false, error: String(error && error.message ? error.message : error) });
   }
 });
 
 server.listen(PORT, () => {
-  console.log(`wec-mobile-pro-appsail-prototype listening on ${PORT}`);
-});
-
-process.on("SIGTERM", () => {
-  server.close(() => process.exit(0));
+  console.log(`WEC mobile AppSail prototype listening on ${PORT}`);
 });

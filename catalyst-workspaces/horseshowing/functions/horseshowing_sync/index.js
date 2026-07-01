@@ -479,7 +479,7 @@ function mergeCookies(...cookieInputs) {
 }
 
 function createWorkflowContext() {
-  return { cookie: "", upstreamRequests: 0 };
+  return { cookie: "", upstreamRequests: 0, sourceSequence: [] };
 }
 
 function sleep(ms) {
@@ -579,6 +579,7 @@ async function bootstrapCookie(req, showNo, context) {
   let cookie = `HscomShowNo=${showNo}`;
   const showUrl = `${BASE_URL}/show.php?show=${encodeURIComponent(showNo)}`;
   try {
+    if (context) context.sourceSequence.push({ method: "GET", path: "/show.php", show_no: text(showNo) });
     const response = await requestText(showUrl, {
       method: "GET",
       headers: {
@@ -596,6 +597,7 @@ async function bootstrapCookie(req, showNo, context) {
     if (response.ok) {
       cookie = mergeCookies(cookie, getSetCookies(response.headers));
     }
+    if (context) context.sourceSequence.push({ method: "GET", path: "/schedule.php", show_no: text(showNo) });
     const scheduleResponse = await requestText(`${BASE_URL}/schedule.php`, {
       method: "GET",
       headers: {
@@ -653,6 +655,7 @@ async function upstream(req, path, { method = "GET", showNo, body, context } = {
     const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
     try {
       if (context) context.upstreamRequests++;
+      if (context) context.sourceSequence.push({ method, path, show_no: text(showNo) });
       const response = await requestText(`${BASE_URL}${path}`, { method, headers: requestHeaders, body, signal: controller.signal });
       const raw = await response.text();
       if (!response.ok) throw new Error(`upstream ${path} HTTP ${response.status}: ${raw.slice(0, 200)}`);
@@ -2321,6 +2324,13 @@ async function getFocusSchedule(app, showNo, focusDay, { limit = 200, offset = 0
     ));
 }
 
+function stagingRecordMatchesFocus(record, showNo, focusDay) {
+  const fields = record.fields || {};
+  const rowShowNo = fieldText(fields, ["show_no"]);
+  const rowFocusDay = dateKey(fieldText(fields, ["focus_day", "iso_date"]));
+  return rowShowNo === text(showNo) && rowFocusDay === dateKey(focusDay);
+}
+
 function stagingScheduleRowFromRecord(record, showNo, focusDay, source = "update_schedule_staging") {
   const fields = record.fields || {};
   const timeText = fieldText(fields, ["time_text", "display_time", "time"]);
@@ -2409,6 +2419,13 @@ async function getStoredRingDayRows(app, showNo, focusDay) {
     }))
     .filter((row) => dateKey(row.day_label) === focusDay)
     .sort((a, b) => `${a.ring_no}|${a.ring_day_no}`.localeCompare(`${b.ring_no}|${b.ring_day_no}`));
+}
+
+async function countStoredRingDayRows(app, showNo, focusDay = "") {
+  const rows = focusDay
+    ? await getStoredRingDayRows(app, showNo, dateKey(focusDay))
+    : await getStoredAllRingDayRows(app, showNo);
+  return rows.length;
 }
 
 async function getStoredAllRingDayRows(app, showNo) {
@@ -2736,6 +2753,7 @@ async function getLockedStagingSchedule(app, showNo, focusDay, { limit = 300, of
     view: AIRTABLE_UPDATE_SCHEDULE_STAGING_MOBILE_VIEW
   });
   const rows = records
+    .filter((record) => stagingRecordMatchesFocus(record, showNo, focusDay))
     .map((record) => stagingScheduleRowFromRecord(record, showNo, focusDay, `update_schedule_staging.${AIRTABLE_UPDATE_SCHEDULE_STAGING_MOBILE_VIEW}`))
     .sort((a, b) => (
       Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
@@ -8487,9 +8505,11 @@ async function fetchAndSyncRingDays(req, app, showNo, context, { refreshExisting
   const rows = parseRingDayRows(upstreamResponse.raw, showNo);
   const catalystSync = await syncRingDayRows(app, showNo, rows, { refreshExisting });
   const airtableSync = await syncAirtableGetRingDayRows(showNo, rows);
+  const materializedRows = await countStoredRingDayRows(app, showNo);
   return {
     upstream_status: upstreamResponse.status,
     parsed_rows: rows.length,
+    materialized_ring_day_rows: materializedRows,
     refresh_existing: refreshExisting,
     ...catalystSync,
     ...airtableSync
@@ -9669,6 +9689,18 @@ async function handle(req, res) {
       meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
       const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      if (!rows.length) {
+        return json(res, 200, {
+          ok: false,
+          action,
+          show_no: outputFocus.show_no,
+          focus_day: outputFocus.focus_day,
+          focus_source: outputFocus.source,
+          focus_show_record_id: outputFocus.record_id,
+          reason: "no_current_focus_rows",
+          rows: []
+        });
+      }
       return json(res, 200, rows);
     }
 
@@ -9693,6 +9725,18 @@ async function handle(req, res) {
       const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
       const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: 300, offset: 0 });
+      if (!rows.length) {
+        return json(res, 200, {
+          ok: false,
+          action,
+          focus_source: outputFocus.source,
+          focus_show_record_id: outputFocus.record_id,
+          show_no: outputFocus.show_no,
+          focus_day: outputFocus.focus_day,
+          reason: "no_current_focus_rows",
+          rings: []
+        });
+      }
       return json(res, 200, { ok: true, action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...buildMobileLivePayload(outputFocus.show_no, outputFocus.focus_day, meta, rows) });
     }
 
@@ -9721,6 +9765,20 @@ async function handle(req, res) {
       meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
       const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      if (!rows.length) {
+        return json(res, 200, {
+          ok: false,
+          action,
+          focus_source: outputFocus.source,
+          focus_show_record_id: outputFocus.record_id,
+          show_no: outputFocus.show_no,
+          focus_day: outputFocus.focus_day,
+          reason: "no_current_focus_rows",
+          print_meta: null,
+          rings: [],
+          placement: {}
+        });
+      }
       return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...derivePrintLayoutFromScheduleRows(outputFocus.show_no, outputFocus.focus_day, rows) });
     }
 
@@ -9830,14 +9888,16 @@ async function handle(req, res) {
         [AIRTABLE_WEC_LOG_FIELDS.payload_json]: JSON.stringify({
           action,
           upstream_requests: context.upstreamRequests,
+          source_request_sequence: context.sourceSequence,
           upstream_status: result.upstream_status,
           parsed_rows: result.parsed_rows,
+          materialized_ring_day_rows: result.materialized_ring_day_rows,
           refresh_existing: result.refresh_existing,
           counters: result.counters
         }, null, 2),
         [AIRTABLE_WEC_LOG_FIELDS.created_at]: now
       });
-      return json(res, 200, { ok: true, action, upstream_requests: context.upstreamRequests, wec_log_rec_id: logRecord?.id || null, ...result });
+      return json(res, 200, { ok: true, action, upstream_requests: context.upstreamRequests, source_request_sequence: context.sourceSequence, wec_log_rec_id: logRecord?.id || null, ...result });
     }
 
     if (action === "sync-counts") {

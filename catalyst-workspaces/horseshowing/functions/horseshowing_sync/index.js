@@ -881,6 +881,20 @@ function dateKey(value) {
   return `${year}-${month}-${day}`;
 }
 
+function displayDateText(value) {
+  const key = dateKey(value);
+  if (!key) return text(value);
+  const parsed = new Date(`${key}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return text(value);
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  }).format(parsed);
+}
+
 function cleanPatch(values) {
   const patch = {};
   for (const [key, value] of Object.entries(values)) {
@@ -5503,6 +5517,7 @@ function mapUpdateScheduleMirrorFields(row) {
 
 function mapUpdateScheduleStagingFields(row, runTime) {
   const stagingKey = updateScheduleStagingCanonicalKey(row);
+  const displayDate = displayDateText(row.iso_date || row.date_text);
   const fields = {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.staging_key]: stagingKey,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.show_no]: row.show_no,
@@ -5510,7 +5525,7 @@ function mapUpdateScheduleStagingFields(row, runTime) {
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_day_no]: row.ring_day_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_no]: row.ring_no,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.ring_name]: row.ring_name,
-    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.date_text]: row.date_text,
+    [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.date_text]: displayDate,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.iso_date]: row.iso_date,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_id]: row.event_id,
     [AIRTABLE_UPDATE_SCHEDULE_STAGING_FIELDS.event_name]: row.event_name,
@@ -6451,7 +6466,7 @@ async function evaluateUpdateScheduleStagingPrioritySort(scope = {}) {
   };
 }
 
-async function evaluateUpdateScheduleStagingHelpers() {
+async function evaluateUpdateScheduleStagingHelpers(scope = {}) {
   const metadataTables = await airtableBaseMetadataTables();
   const schema = validateUpdateScheduleStagingEvaluatorSchema(metadataTables);
   if (!schema.ok) {
@@ -6467,7 +6482,12 @@ async function evaluateUpdateScheduleStagingHelpers() {
     };
   }
 
-  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE);
+  const showNo = text(scope.show_no);
+  const focusDay = dateKey(scope.focus_day);
+  const filterByFormula = showNo && focusDay
+    ? `AND({show_no}=${Number(showNo)},IS_SAME({iso_date},DATETIME_PARSE(${airtableFormulaValue(focusDay)}),'day'))`
+    : "";
+  const rows = await airtableListRecords(AIRTABLE_UPDATE_SCHEDULE_STAGING_TABLE, { filterByFormula });
   const classRangeRows = await airtableListRecords("class_ranges");
   const classRangeIndex = evaluatorClassRangeIndex(classRangeRows);
   const helperRowsByTarget = {};
@@ -6585,7 +6605,10 @@ async function evaluateUpdateScheduleStagingHelpers() {
     approved_fields_written: UPDATE_SCHEDULE_STAGING_EVALUATOR_FIELDS,
     protected_fields_unchanged: [...UPDATE_SCHEDULE_STAGING_EVALUATOR_PROTECTED_FIELDS],
     records_updated: updated.length,
-    prepared_updates: updates.length
+    prepared_updates: updates.length,
+    show_no: showNo || "",
+    focus_day: focusDay || "",
+    scoped: Boolean(filterByFormula)
   };
 }
 
@@ -6696,7 +6719,7 @@ async function syncUpdateScheduleStagingFromMirror(app, showNo, focusDay) {
       update_schedule_staging_helper_links: helperLinkResult
     };
   }
-  const evaluatorResult = await evaluateUpdateScheduleStagingHelpers();
+  const evaluatorResult = await evaluateUpdateScheduleStagingHelpers({ show_no: showNo, focus_day: focusDay });
   if (evaluatorResult.status === "BLOCKED") {
     return {
       show_no: showNo,

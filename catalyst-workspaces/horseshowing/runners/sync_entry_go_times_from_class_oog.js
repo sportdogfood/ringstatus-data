@@ -15,6 +15,15 @@ function dateKey(value) {
   return parsed.toISOString().slice(0, 10);
 }
 
+function compactDateKey(value) {
+  return dateKey(value).replace(/-/g, "");
+}
+
+function showFocusKey(showNo, focusDay) {
+  const key = compactDateKey(focusDay);
+  return text(showNo) && key ? `${text(showNo)}|${key}` : "";
+}
+
 function normalizeName(value) {
   return text(value)
     .replace(/[\u2018\u2019\u201B\u2032]/g, "'")
@@ -335,6 +344,9 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "entry_go_key_mirror", key);
   includeField(fields, allowedFields, "show_no", Number(focus.show_no));
   includeField(fields, allowedFields, "focus_day", focus.focus_day);
+  includeField(fields, allowedFields, "iso_date", focus.focus_day);
+  includeField(fields, allowedFields, "focus_day_key", compactDateKey(focus.focus_day));
+  includeField(fields, allowedFields, "show_focus_key", showFocusKey(focus.show_no, focus.focus_day));
   includeField(fields, allowedFields, "ring_day_no", Number(ringDayNo));
   includeField(fields, allowedFields, "ring_no", Number(ringNo));
   includeField(fields, allowedFields, "class_no", Number(classNo));
@@ -347,6 +359,13 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "class_number", Number(getField(sourceRow, "class_number")));
   includeField(fields, allowedFields, "class_start_time", classStartTime);
   includeField(fields, allowedFields, "display_time", displayTime);
+  includeField(fields, allowedFields, "date_text", text(getField(sourceRow, "date_text")));
+  includeField(fields, allowedFields, "day_text", text(getField(sourceRow, "day_text")));
+  includeField(fields, allowedFields, "time_text", text(getField(sourceRow, "time_text") || displayTime));
+  includeField(fields, allowedFields, "ring_name_normalized", text(getField(sourceRow, "ring_name_normalized")));
+  includeField(fields, allowedFields, "ring_visual_key", text(getField(sourceRow, "ring_visual_key")));
+  includeField(fields, allowedFields, "class_visual_key", text(getField(sourceRow, "class_visual_key")));
+  includeField(fields, allowedFields, "entry_visual_key", text(getField(sourceRow, "entry_visual_key")));
   includeField(fields, allowedFields, "entry_count", Number(getField(sourceRow, "entry_count")));
   includeField(fields, allowedFields, "n_gone", Number(getField(sourceRow, "n_gone")));
   includeField(fields, allowedFields, "elapsed_seconds", Number(getField(sourceRow, "elapsed_seconds")));
@@ -359,6 +378,7 @@ function buildEntryFields({ sourceRow, focus, allowedFields }) {
   includeField(fields, allowedFields, "last_synced_at", new Date().toISOString());
   includeField(fields, allowedFields, "shows", firstLinked(sourceRow, "shows") ? [firstLinked(sourceRow, "shows")] : []);
   includeField(fields, allowedFields, "focus_show", firstLinked(sourceRow, "focus_show") ? [firstLinked(sourceRow, "focus_show")] : [focus.record.id]);
+  includeField(fields, allowedFields, "is_active_focus_day", true);
   includeField(fields, allowedFields, "ring_days", firstLinked(sourceRow, "ring_days") ? [firstLinked(sourceRow, "ring_days")] : []);
   includeField(fields, allowedFields, "rings", firstLinked(sourceRow, "rings") ? [firstLinked(sourceRow, "rings")] : []);
   includeField(fields, allowedFields, "classes", firstLinked(sourceRow, "classes") ? [firstLinked(sourceRow, "classes")] : []);

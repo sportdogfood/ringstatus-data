@@ -5611,6 +5611,50 @@ async function countStoredGetRingDayRows(app, showNo, focusDay = "") {
   return rows.map((item) => item?.[TABLES.getRingDays]).filter(Boolean).length;
 }
 
+async function getStoredGetRingDayRows(app, showNo, focusDay = "") {
+  const safeFocusDay = dateKey(focusDay);
+  const clauses = [
+    `show_no = ${zcqlValue(intValue(showNo))}`
+  ];
+  if (safeFocusDay) clauses.push(`iso_date = ${zcqlValue(safeFocusDay)}`);
+  const query = [
+    "SELECT ROWID, ring_day_no, ring_no, ring_name, date_text, iso_date, focus_day_key, show_no",
+    `FROM ${TABLES.getRingDays}`,
+    `WHERE ${clauses.join(" AND ")}`,
+    "LIMIT 300"
+  ].join(" ");
+  const rows = await app.zcql().executeZCQLQuery(query) || [];
+  return rows
+    .map((item) => item?.[TABLES.getRingDays])
+    .filter(Boolean)
+    .map((row) => ({
+      row_id: row.ROWID,
+      show_no: text(row.show_no || showNo),
+      ring_day_no: text(row.ring_day_no),
+      ring_no: text(row.ring_no),
+      ring_name: text(row.ring_name),
+      day_label: text(row.date_text || row.iso_date),
+      iso_date: dateKey(row.iso_date || row.date_text),
+      focus_day_key: text(row.focus_day_key)
+    }))
+    .filter((row) => intValue(row.ring_day_no) > 0)
+    .sort((a, b) => `${a.ring_no}|${a.ring_day_no}`.localeCompare(`${b.ring_no}|${b.ring_day_no}`));
+}
+
+async function countStoredUpdateScheduleRows(app, showNo, focusDay = "") {
+  const safeFocusDay = dateKey(focusDay);
+  const rows = await getPagedRowsFiltered(
+    app,
+    TABLES.updateSchedule,
+    (row) => (
+      text(row.show_no) === text(showNo)
+      && (!safeFocusDay || dateKey(row.iso_date || row.date_text) === safeFocusDay)
+    ),
+    { maxRows: 5000 }
+  );
+  return rows.rows.length;
+}
+
 async function writeStageHeartbeat(app, heartbeatId, patch) {
   const payload = cleanRowForDatastore({
     heartbeat_id: heartbeatId,
@@ -5911,6 +5955,213 @@ async function runWecStep1HeartbeatGetRingDays(req, app, action, query, body) {
     get_rings_run: false,
     alerts_run: false,
     ...result
+  };
+}
+
+async function runWecStep2UpdateScheduleOnly(req, app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0,
+      get_ring_days_run: false,
+      update_schedule_run: false,
+      downstream_run: false
+    };
+  }
+
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step2-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const focusDayKey = focusDay.replace(/-/g, "");
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const cadenceWindow = text(query.get("cadence_window") || body.cadence_window || "");
+  const basePatch = {
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDayKey,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch: "step2_update_schedule",
+    blocker: "",
+    parsed_rows: 0,
+    materialized_hs_get_ring_days_rows: 0,
+    materialized_ring_day_rows: 0,
+    source_sequence_json: JSON.stringify([], null, 2)
+  };
+
+  if (activeFocus.is_pause) {
+    const payload = {
+      action,
+      focus_source: activeFocus.source,
+      cadence_window: cadenceWindow,
+      trigger_reason: "focus_show.is_pause",
+      source_fetch_run: false,
+      upstream_requests: 0,
+      get_ring_days_run: false,
+      update_schedule_run: false,
+      downstream_run: false
+    };
+    const pausedPatch = {
+      ...basePatch,
+      status: "skipped",
+      blocker: "focus_show.is_pause",
+      payload_json: JSON.stringify(payload, null, 2)
+    };
+    await writeStageHeartbeat(app, heartbeatId, pausedPatch);
+    await writeRawAirtableHeartbeat(heartbeatId, {
+      ...pausedPatch,
+      run_time: runTime
+    });
+    return {
+      ok: true,
+      status_code: 200,
+      action,
+      status: "skipped",
+      blocker: "focus_show.is_pause",
+      heartbeat_id: heartbeatId,
+      run_id: runId,
+      run_time: runTime,
+      focus_source: activeFocus.source,
+      focus_show_record_id: activeFocus.focus_show_record_id,
+      show_no: activeFocus.show_no,
+      focus_day: focusDay,
+      is_pause: activeFocus.is_pause,
+      is_lock: activeFocus.is_lock,
+      live_enrichment: activeFocus.live_enrichment,
+      cadence_window: cadenceWindow,
+      trigger_reason: "focus_show.is_pause",
+      source_fetch_run: false,
+      upstream_requests: 0,
+      source_request_sequence: [],
+      hs_get_ring_days_count: 0,
+      update_schedule_run: false,
+      downstream_run: false,
+      get_orders_run: false,
+      get_rings_run: false,
+      alerts_run: false
+    };
+  }
+
+  const ringDayRows = await getStoredGetRingDayRows(app, activeFocus.show_no, focusDay);
+  const runningPayload = {
+    action,
+    focus_source: activeFocus.source,
+    cadence_window: cadenceWindow,
+    trigger_reason: ringDayRows.length ? "current_hs_get_ring_days_available" : "missing_current_hs_get_ring_days",
+    source_fetch_run: Boolean(ringDayRows.length),
+    get_ring_days_run: false,
+    update_schedule_run: Boolean(ringDayRows.length),
+    downstream_run: false,
+    hs_get_ring_days_count: ringDayRows.length
+  };
+  await writeStageHeartbeat(app, heartbeatId, {
+    ...basePatch,
+    status: "running",
+    materialized_hs_get_ring_days_rows: ringDayRows.length,
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...basePatch,
+    run_time: runTime,
+    status: "running",
+    materialized_hs_get_ring_days_rows: ringDayRows.length,
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+
+  const context = createWorkflowContext();
+  const schedules = [];
+  let blocker = "";
+  if (!ringDayRows.length) {
+    blocker = "missing_current_hs_get_ring_days";
+  } else {
+    for (const ringDayRow of ringDayRows) {
+      try {
+        schedules.push(await fetchAndSyncUpdateScheduleOnly(req, app, activeFocus.show_no, ringDayRow, context, { replace: false }));
+      } catch (error) {
+        blocker = `update_schedule_failed:${ringDayRow.ring_day_no}:${String(error?.message || error)}`;
+        break;
+      }
+    }
+  }
+
+  const parsedRows = schedules.reduce((sum, item) => sum + Number(item.parsed_rows || 0), 0);
+  const updateScheduleCount = await countStoredUpdateScheduleRows(app, activeFocus.show_no, focusDay);
+  if (!blocker && !parsedRows) blocker = "update_schedule_source_empty";
+  if (!blocker && !updateScheduleCount) blocker = "hs_update_schedule_materialization_empty";
+
+  const finalPayload = {
+    action,
+    focus_source: activeFocus.source,
+    cadence_window: cadenceWindow,
+    trigger_reason: ringDayRows.length ? "current_hs_get_ring_days_available" : "missing_current_hs_get_ring_days",
+    upstream_requests: context.upstreamRequests,
+    source_request_sequence: context.sourceSequence,
+    source_fetch_run: Boolean(ringDayRows.length),
+    get_ring_days_run: false,
+    hs_get_ring_days_count: ringDayRows.length,
+    update_schedule_run: Boolean(ringDayRows.length),
+    update_schedule_ring_day_requests: schedules.length,
+    update_schedule_parsed_rows: parsedRows,
+    hs_update_schedule_count: updateScheduleCount,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    alerts_run: false,
+    schedules
+  };
+  const finalPatch = {
+    ...basePatch,
+    status: blocker ? "fail" : "pass",
+    blocker,
+    parsed_rows: parsedRows,
+    materialized_hs_get_ring_days_rows: ringDayRows.length,
+    source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+    payload_json: JSON.stringify(finalPayload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, finalPatch);
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...finalPatch,
+    run_time: runTime
+  });
+
+  return {
+    ok: !blocker,
+    status_code: blocker ? 500 : 200,
+    action,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    cadence_window: cadenceWindow,
+    trigger_reason: finalPayload.trigger_reason,
+    source_fetch_run: Boolean(ringDayRows.length),
+    upstream_requests: context.upstreamRequests,
+    source_request_sequence: context.sourceSequence,
+    hs_get_ring_days_count: ringDayRows.length,
+    update_schedule_run: Boolean(ringDayRows.length),
+    update_schedule_ring_day_requests: schedules.length,
+    update_schedule_parsed_rows: parsedRows,
+    hs_update_schedule_count: updateScheduleCount,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    alerts_run: false,
+    schedules
   };
 }
 
@@ -9892,6 +10143,7 @@ async function handle(req, res) {
       "prebuild-wec-print-pdf",
       "wec-heartbeat-only",
       "wec-step1-heartbeat-get-ring-days",
+      "wec-step2-update-schedule-only",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -10518,6 +10770,11 @@ async function handle(req, res) {
 
     if (action === "wec-step1-heartbeat-get-ring-days") {
       const result = await runWecStep1HeartbeatGetRingDays(req, app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-step2-update-schedule-only") {
+      const result = await runWecStep2UpdateScheduleOnly(req, app, action, query, body);
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 

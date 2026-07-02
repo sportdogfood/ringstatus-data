@@ -136,9 +136,26 @@ async function airtableMeta(baseId, token) {
   const body = await response.text();
   if (!response.ok) throw new Error(`Airtable meta failed ${response.status}: ${body.slice(0, 1000)}`);
   const payload = JSON.parse(body);
+  const computedTypes = new Set([
+    "autoNumber",
+    "barcode",
+    "button",
+    "count",
+    "createdBy",
+    "createdTime",
+    "externalSyncSource",
+    "formula",
+    "lastModifiedBy",
+    "lastModifiedTime",
+    "lookup",
+    "multipleLookupValues",
+    "rollup"
+  ]);
   return new Map((payload.tables || []).map((table) => [
     table.name,
-    new Set((table.fields || []).map((field) => field.name))
+    new Set((table.fields || [])
+      .filter((field) => !computedTypes.has(field.type))
+      .map((field) => field.name))
   ]));
 }
 

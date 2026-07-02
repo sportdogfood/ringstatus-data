@@ -998,6 +998,7 @@ async function buildClassStartAirtableRows(baseId, token, sourceRows, focusRecor
       [CLASS_START_FIELDS.focus_day]: row.focus_day,
       [CLASS_START_FIELDS.ring_day_no]: row.ring_day_no,
       [CLASS_START_FIELDS.ring_no]: row.ring_no,
+      ring: row.ring_name,
       [CLASS_START_FIELDS.event_id]: row.event_id,
       [CLASS_START_FIELDS.class_no]: row.class_no,
       [CLASS_START_FIELDS.class_number]: row.class_number,

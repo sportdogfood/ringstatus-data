@@ -898,8 +898,29 @@ async function syncUpdateScheduleMirrorFromCatalyst(app, baseId, token, showNo, 
   const finalAirtableRows = await airtableListAllUpdateScheduleRows(baseId, token, "", "");
   const finalConfirmDeleteRows = await airtableListConfirmedDeleteRows(baseId, token, "", "", "");
   const parity = updateScheduleMirrorParity(finalCatalystRows, finalAirtableRows);
+  const blockingParityIssues = parity.missing_in_airtable.length > 0
+    || parity.extra_in_airtable.length > 0
+    || parity.mapped_field_mismatches.length > 0
+    || parity.airtable_duplicate_keys.length > 0;
+  const parityWarnings = [];
+  if (parity.catalyst_duplicate_keys.length > 0) {
+    parityWarnings.push({
+      type: "source_duplicate_keys",
+      severity: "warning",
+      keys: parity.catalyst_duplicate_keys
+    });
+  }
+  if (parity.catalyst_count !== parity.airtable_count && !blockingParityIssues) {
+    parityWarnings.push({
+      type: "mirror_count_mismatch_warning",
+      severity: "warning",
+      catalyst_count: parity.catalyst_count,
+      airtable_count: parity.airtable_count
+    });
+  }
+  const ok = !blockingParityIssues && finalConfirmDeleteRows.length === 0;
   return {
-    ok: parity.ok && finalConfirmDeleteRows.length === 0,
+    ok,
     action: "sync-update-schedule-mirror",
     source: TABLE_CATALYST_UPDATE_SCHEDULE,
     target: "update_schedule",
@@ -915,6 +936,8 @@ async function syncUpdateScheduleMirrorFromCatalyst(app, baseId, token, showNo, 
     airtable_count: parity.airtable_count,
     confirm_delete_rows_after: finalConfirmDeleteRows.length,
     mirror_parity: parity,
+    mirror_parity_blocking: blockingParityIssues,
+    warnings: parityWarnings,
     update_schedule_staging_touched: false,
     downstream_run: false
   };

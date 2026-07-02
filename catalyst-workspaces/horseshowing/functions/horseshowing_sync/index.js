@@ -16,6 +16,7 @@ const WEC_PDF_CACHE_TTL = 900;
 
 const TABLES = {
   shows: "hs_shows",
+  heartbeat: "hs_heartbeat",
   focusShow: "hs_focus_show",
   days: "hs_days",
   ringDays: "hs_ring_days",
@@ -26,6 +27,7 @@ const TABLES = {
   entryGoTimes: "hs_entry_go_times",
   updateSchedule: "hs_update_schedule",
   updateScheduleRaw: "hs_update_schedule_raw",
+  getRingDays: "hs_get_ring_days",
   counts: "hs_counts",
   classOog: "hs_class_oog",
   classOogRaw: "hs_class_oog_raw",
@@ -137,6 +139,8 @@ const AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS = {
   focus_day: "focus_day"
 };
 const AIRTABLE_GET_RING_DAYS_TABLE = "tblXGYMYDpXEx8hW2";
+const AIRTABLE_RAW_HEARTBEAT_TABLE = "hs_heartbeat";
+const AIRTABLE_RAW_GET_RING_DAYS_TABLE = "hs_get_ring_days";
 const AIRTABLE_GET_RING_DAYS_FIELDS = {
   ring_day_no: "fldVk4eZ01RhELuHx",
   show_no: "fldb6pYIgKVTspy6t",
@@ -5477,6 +5481,31 @@ function mapGetRingDayFields(row) {
   return fields;
 }
 
+function normalizedWecRingName(value) {
+  const raw = text(value).toUpperCase();
+  const match = raw.match(/GRAND|ANNEX|STADIUM|INDOOR [1-6]|HUNTER 2/);
+  return match?.[0] || "";
+}
+
+function prioritizedWecRingName(value) {
+  const raw = text(value).toUpperCase();
+  const match = raw.match(/WEC GRAND ARENA|ANNEX RING|\bANNEX\b|STADIUM|INDOOR [1-6]|HUNTER 2/);
+  const key = match?.[0] || "";
+  return ({
+    "WEC GRAND ARENA": 1,
+    "ANNEX RING": 2,
+    ANNEX: 2,
+    STADIUM: 3,
+    "INDOOR 1": 11,
+    "INDOOR 2": 12,
+    "INDOOR 3": 13,
+    "INDOOR 4": 14,
+    "INDOOR 5": 15,
+    "INDOOR 6": 16,
+    "HUNTER 2": 22
+  })[key] || null;
+}
+
 async function syncAirtableGetRingDayRows(showNo, rows) {
   const sourceRows = rows
     .filter((row) => intValue(row.show_no || showNo) === intValue(showNo))
@@ -5490,6 +5519,114 @@ async function syncAirtableGetRingDayRows(showNo, rows) {
     get_ring_days_rows: sourceRows.length,
     get_ring_days_upserts: upserts.length
   };
+}
+
+function mapRawAirtableGetRingDayFields(row, showNo, { heartbeatId = "", runId = "" } = {}) {
+  const isoDate = dateKey(row.day_label || row.date_text);
+  const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
+  const ringDayNo = intValue(row.ring_day_no);
+  const ringNo = intValue(row.ring_no);
+  return {
+    ring_day_key: resultKey(showNo, ringDayNo, ringNo),
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    show_no: intValue(row.show_no || showNo),
+    focus_day: isoDate,
+    focus_day_key: focusDayKey,
+    show_focus_key: focusDayKey ? `${showNo}|${focusDayKey}` : "",
+    ring_day_no: ringDayNo,
+    ring_no: ringNo,
+    ring_name: text(row.ring_name),
+    ring_name_normalized: normalizedWecRingName(row.ring_name),
+    ring_name_prioritized: prioritizedWecRingName(row.ring_name),
+    date_text: isoDate ? displayDateText(isoDate) : text(row.day_label || row.date_text),
+    iso_date: isoDate,
+    source_endpoint: "get_ring_days.php",
+    source_row_json: sourcePayload({ ...row, source_endpoint: "get_ring_days.php" })
+  };
+}
+
+async function syncRawAirtableGetRingDayRows(showNo, rows, options = {}) {
+  const sourceRows = (rows || [])
+    .filter((row) => intValue(row.show_no || showNo) === intValue(showNo))
+    .filter((row) => intValue(row.ring_day_no) > 0)
+    .map((row) => mapRawAirtableGetRingDayFields(row, showNo, options));
+  const upserts = await airtableUpsertByFieldId(
+    AIRTABLE_RAW_GET_RING_DAYS_TABLE,
+    "ring_day_key",
+    sourceRows
+  );
+  return {
+    airtable_hs_get_ring_days_rows: sourceRows.length,
+    airtable_hs_get_ring_days_upserts: upserts.length
+  };
+}
+
+function getRingDaySourceRow(row, showNo) {
+  const isoDate = dateKey(row.day_label || row.date_text);
+  const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
+  const dateParts = datePartsFromLabel(row.day_label || row.date_text);
+  const ringDayNo = intValue(row.ring_day_no);
+  if (!ringDayNo) return null;
+  return {
+    ring_day_no: ringDayNo,
+    show_no: intValue(row.show_no || showNo),
+    ring_no: intValue(row.ring_no),
+    ring_name: text(row.ring_name),
+    date_text: isoDate ? displayDateText(isoDate) : text(row.day_label || row.date_text),
+    dow: dateParts.dow,
+    iso_date: isoDate,
+    focus_day_key: focusDayKey,
+    source_payload: sourcePayload({ ...row, source_endpoint: "get_ring_days.php" })
+  };
+}
+
+async function syncCatalystGetRingDayRows(app, showNo, rows) {
+  const sourceRows = (rows || [])
+    .filter((row) => intValue(row.show_no || showNo) === intValue(showNo))
+    .map((row) => getRingDaySourceRow(row, showNo))
+    .filter(Boolean);
+  const result = await upsertSourceRowsFast(app, TABLES.getRingDays, "ring_day_no", sourceRows, { showNo });
+  return {
+    hs_get_ring_days_rows: result.rows,
+    hs_get_ring_days_inserted: result.inserted,
+    hs_get_ring_days_updated: result.updated,
+    hs_get_ring_days_skipped: result.skipped
+  };
+}
+
+async function countStoredGetRingDayRows(app, showNo, focusDay = "") {
+  const safeFocusDay = dateKey(focusDay);
+  const clauses = [
+    `show_no = ${zcqlValue(intValue(showNo))}`
+  ];
+  if (safeFocusDay) clauses.push(`iso_date = ${zcqlValue(safeFocusDay)}`);
+  const query = [
+    "SELECT ROWID, ring_day_no, show_no, iso_date",
+    `FROM ${TABLES.getRingDays}`,
+    `WHERE ${clauses.join(" AND ")}`,
+    "LIMIT 300"
+  ].join(" ");
+  const rows = await app.zcql().executeZCQLQuery(query) || [];
+  return rows.map((item) => item?.[TABLES.getRingDays]).filter(Boolean).length;
+}
+
+async function writeStageHeartbeat(app, heartbeatId, patch) {
+  const payload = cleanRowForDatastore({
+    heartbeat_id: heartbeatId,
+    ...patch
+  });
+  return upsert(app, TABLES.heartbeat, { heartbeat_id: heartbeatId }, payload);
+}
+
+async function writeRawAirtableHeartbeat(heartbeatId, patch) {
+  const fields = cleanPatch({
+    heartbeat_id: heartbeatId,
+    ...patch,
+    run_time: patch.run_time ? text(patch.run_time).replace(" ", "T") : ""
+  });
+  const upserts = await airtableUpsertByFieldId(AIRTABLE_RAW_HEARTBEAT_TABLE, "heartbeat_id", [fields]);
+  return upserts?.[0] || null;
 }
 
 function mapUpdateScheduleMirrorFields(row) {
@@ -7762,6 +7899,48 @@ async function getAirtableFocusShow(showNo = "") {
   };
 }
 
+async function getActiveAirtableFocusShowStrict() {
+  const records = await airtableListRecords("focus_show");
+  const activeRows = records
+    .map((record) => ({ record_id: record.id, fields: record.fields || {} }))
+    .filter((row) => row.fields.active === true);
+  if (activeRows.length !== 1) {
+    return {
+      ok: false,
+      blocker: activeRows.length ? "multiple_active_focus_show" : "missing_active_focus_show",
+      active_count: activeRows.length
+    };
+  }
+  const selected = activeRows[0];
+  const fields = selected.fields || {};
+  const showNo = text(fields.show_no);
+  const focusDay = dateKey(fields.focus_day);
+  if (!showNo || !focusDay) {
+    return {
+      ok: false,
+      blocker: "active_focus_show_missing_show_or_day",
+      active_count: 1,
+      focus_show_record_id: selected.record_id,
+      show_no: showNo,
+      focus_day: focusDay
+    };
+  }
+  return {
+    ok: true,
+    source: "airtable.focus_show.active",
+    active_count: 1,
+    focus_show_record_id: selected.record_id,
+    show_no: showNo,
+    focus_day: focusDay,
+    show_name: text(fields.show_name || fields.name),
+    show_start_time: text(fields.show_start_time),
+    show_end_time: text(fields.show_end_time),
+    is_pause: fields.is_pause === true,
+    is_lock: fields.is_lock === true,
+    live_enrichment: fields["live-enrichment"] === true || fields.live_enrichment === true
+  };
+}
+
 async function getOutputFocusShow(showNo = "") {
   const requestedShowNo = text(showNo);
   const records = await airtableListRecords("focus_show");
@@ -8651,20 +8830,30 @@ async function syncCountRows(app, showNo, rows) {
   };
 }
 
-async function fetchAndSyncRingDays(req, app, showNo, context, { focusDay = "", refreshExisting = false } = {}) {
+async function fetchAndSyncRingDays(req, app, showNo, context, { focusDay = "", refreshExisting = false, syncAirtableMirror = true, syncRawAirtableMirror = false, heartbeatId = "", runId = "" } = {}) {
   const upstreamResponse = await upstream(req, "/get_ring_days.php", { method: "GET", showNo, context });
   const rows = parseRingDayRows(upstreamResponse.raw, showNo);
+  const rawCatalystSync = await syncCatalystGetRingDayRows(app, showNo, rows);
   const catalystSync = await syncRingDayRows(app, showNo, rows, { refreshExisting });
-  const airtableSync = await syncAirtableGetRingDayRows(showNo, rows);
+  const airtableSync = syncAirtableMirror
+    ? await syncAirtableGetRingDayRows(showNo, rows)
+    : { get_ring_days_rows: 0, get_ring_days_upserts: 0, get_ring_days_skipped: rows.length };
+  const rawAirtableSync = syncRawAirtableMirror
+    ? await syncRawAirtableGetRingDayRows(showNo, rows, { heartbeatId, runId })
+    : { airtable_hs_get_ring_days_rows: 0, airtable_hs_get_ring_days_upserts: 0 };
   const materializedRows = await countStoredRingDayRows(app, showNo, focusDay);
+  const rawMaterializedRows = await countStoredGetRingDayRows(app, showNo, focusDay);
   return {
     upstream_status: upstreamResponse.status,
     parsed_rows: rows.length,
     materialized_focus_day: dateKey(focusDay),
     materialized_ring_day_rows: materializedRows,
+    materialized_hs_get_ring_days_rows: rawMaterializedRows,
     refresh_existing: refreshExisting,
+    ...rawCatalystSync,
     ...catalystSync,
-    ...airtableSync
+    ...airtableSync,
+    ...rawAirtableSync
   };
 }
 
@@ -10070,6 +10259,169 @@ async function handle(req, res) {
         [AIRTABLE_WEC_LOG_FIELDS.created_at]: now
       });
       return json(res, 200, { ok: true, action, upstream_requests: context.upstreamRequests, source_request_sequence: context.sourceSequence, wec_log_rec_id: logRecord?.id || null, ...result });
+    }
+
+    if (action === "wec-stage0-stage1-get-ring-days") {
+      const activeFocus = await getActiveAirtableFocusShowStrict();
+      if (!activeFocus.ok) {
+        return json(res, 409, {
+          ok: false,
+          action,
+          blocker: activeFocus.blocker,
+          active_count: activeFocus.active_count || 0,
+          downstream_run: false
+        });
+      }
+      if (activeFocus.is_pause) {
+        return json(res, 200, {
+          ok: true,
+          action,
+          status: "paused",
+          blocker: "focus_show.is_pause",
+          focus_source: activeFocus.source,
+          focus_show_record_id: activeFocus.focus_show_record_id,
+          show_no: activeFocus.show_no,
+          focus_day: activeFocus.focus_day,
+          downstream_run: false,
+          source_fetch_run: false
+        });
+      }
+      const runTime = new Date().toISOString();
+      const runId = text(query.get("run_id") || body.run_id) || `wec-stage0-stage1-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+      const heartbeatId = `${activeFocus.show_no}|${dateKey(activeFocus.focus_day)}|${runId}`;
+      await writeStageHeartbeat(app, heartbeatId, {
+        run_id: runId,
+        run_time: catalystDateTime(runTime),
+        show_no: intValue(activeFocus.show_no),
+        focus_day: activeFocus.focus_day,
+        focus_day_key: activeFocus.focus_day.replace(/-/g, ""),
+        focus_show_record_id: activeFocus.focus_show_record_id,
+        is_pause: activeFocus.is_pause,
+        is_lock: activeFocus.is_lock,
+        live_enrichment: activeFocus.live_enrichment,
+        branch: "stage0_stage1_get_ring_days",
+        status: "running",
+        blocker: "",
+        payload_json: JSON.stringify({
+          action,
+          focus_source: activeFocus.source,
+          downstream_run: false
+        }, null, 2)
+      });
+      await writeRawAirtableHeartbeat(heartbeatId, {
+        run_id: runId,
+        run_time: runTime,
+        show_no: intValue(activeFocus.show_no),
+        focus_day: activeFocus.focus_day,
+        focus_day_key: activeFocus.focus_day.replace(/-/g, ""),
+        focus_show_record_id: activeFocus.focus_show_record_id,
+        is_pause: activeFocus.is_pause,
+        is_lock: activeFocus.is_lock,
+        live_enrichment: activeFocus.live_enrichment,
+        branch: "stage0_stage1_get_ring_days",
+        status: "running",
+        blocker: "",
+        payload_json: JSON.stringify({
+          action,
+          focus_source: activeFocus.source,
+          downstream_run: false
+        }, null, 2)
+      });
+      const context = createWorkflowContext();
+      let result = null;
+      let blocker = "";
+      try {
+        result = await fetchAndSyncRingDays(req, app, activeFocus.show_no, context, {
+          focusDay: activeFocus.focus_day,
+          refreshExisting: true,
+          syncAirtableMirror: false,
+          syncRawAirtableMirror: true,
+          heartbeatId,
+          runId
+        });
+        blocker = !Number(result.parsed_rows || 0)
+          ? "get_ring_days_source_empty"
+          : !Number(result.materialized_hs_get_ring_days_rows || 0)
+            ? "hs_get_ring_days_materialization_empty"
+            : !Number(result.materialized_ring_day_rows || 0)
+              ? "hs_ring_days_materialization_empty"
+              : "";
+      } catch (error) {
+        blocker = String(error?.message || error);
+        result = {};
+      }
+      await writeStageHeartbeat(app, heartbeatId, {
+        run_id: runId,
+        run_time: catalystDateTime(runTime),
+        show_no: intValue(activeFocus.show_no),
+        focus_day: activeFocus.focus_day,
+        focus_day_key: activeFocus.focus_day.replace(/-/g, ""),
+        focus_show_record_id: activeFocus.focus_show_record_id,
+        is_pause: activeFocus.is_pause,
+        is_lock: activeFocus.is_lock,
+        live_enrichment: activeFocus.live_enrichment,
+        branch: "stage0_stage1_get_ring_days",
+        status: blocker ? "fail" : "pass",
+        blocker,
+        parsed_rows: Number(result.parsed_rows || 0),
+        materialized_hs_get_ring_days_rows: Number(result.materialized_hs_get_ring_days_rows || 0),
+        materialized_ring_day_rows: Number(result.materialized_ring_day_rows || 0),
+        source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+        payload_json: JSON.stringify({
+          action,
+          focus_source: activeFocus.source,
+          upstream_requests: context.upstreamRequests,
+          source_request_sequence: context.sourceSequence,
+          result
+        }, null, 2)
+      });
+      await writeRawAirtableHeartbeat(heartbeatId, {
+        run_id: runId,
+        run_time: runTime,
+        show_no: intValue(activeFocus.show_no),
+        focus_day: activeFocus.focus_day,
+        focus_day_key: activeFocus.focus_day.replace(/-/g, ""),
+        focus_show_record_id: activeFocus.focus_show_record_id,
+        is_pause: activeFocus.is_pause,
+        is_lock: activeFocus.is_lock,
+        live_enrichment: activeFocus.live_enrichment,
+        branch: "stage0_stage1_get_ring_days",
+        status: blocker ? "fail" : "pass",
+        blocker,
+        parsed_rows: Number(result.parsed_rows || 0),
+        materialized_hs_get_ring_days_rows: Number(result.materialized_hs_get_ring_days_rows || 0),
+        materialized_ring_day_rows: Number(result.materialized_ring_day_rows || 0),
+        source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+        payload_json: JSON.stringify({
+          action,
+          focus_source: activeFocus.source,
+          upstream_requests: context.upstreamRequests,
+          source_request_sequence: context.sourceSequence,
+          result
+        }, null, 2)
+      });
+      return json(res, blocker ? 500 : 200, {
+        ok: !blocker,
+        action,
+        blocker,
+        heartbeat_id: heartbeatId,
+        run_id: runId,
+        run_time: runTime,
+        focus_source: activeFocus.source,
+        focus_show_record_id: activeFocus.focus_show_record_id,
+        show_no: activeFocus.show_no,
+        focus_day: activeFocus.focus_day,
+        is_pause: activeFocus.is_pause,
+        is_lock: activeFocus.is_lock,
+        live_enrichment: activeFocus.live_enrichment,
+        upstream_requests: context.upstreamRequests,
+        source_request_sequence: context.sourceSequence,
+        downstream_run: false,
+        update_schedule_run: false,
+        get_orders_run: false,
+        get_rings_run: false,
+        ...result
+      });
     }
 
     if (action === "sync-counts") {

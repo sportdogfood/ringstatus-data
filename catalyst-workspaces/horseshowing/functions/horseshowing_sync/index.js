@@ -7249,10 +7249,13 @@ function mapClassOogToStagingFields(sourceRecord, stagingRecordIdByClassKey) {
   const mirrorKey = text(fields.mirror_class_oog_key || fields.class_oog_key);
   if (!mirrorKey) return null;
   const ringDayNo = intValue(fields.ring_day_no || fields.days);
+  const focusDay = dateKey(fields.focus_day || fields.iso_date);
   const payload = cleanPatch({
     mirror_class_oog_key: mirrorKey,
     show_no: intValue(fields.show_no),
-    focus_day: dateKey(fields.focus_day),
+    focus_day: focusDay,
+    iso_date: focusDay,
+    date_text: text(fields.date_text) || displayDateText(focusDay),
     days: ringDayNo,
     ring_day_no: ringDayNo,
     ring_no: intValue(fields.ring_no),

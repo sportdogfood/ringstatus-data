@@ -5709,6 +5709,211 @@ async function writeWecHeartbeatOnly(app, action, query, body) {
   };
 }
 
+async function runWecStep1HeartbeatGetRingDays(req, app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0,
+      downstream_run: false,
+      source_fetch_run: false,
+      get_ring_days_run: false,
+      update_schedule_run: false
+    };
+  }
+
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step1-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const focusDayKey = focusDay.replace(/-/g, "");
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const cadenceWindow = text(query.get("cadence_window") || body.cadence_window || "");
+  const existingCurrentRows = await countStoredGetRingDayRows(app, activeFocus.show_no, focusDay);
+  const triggerReason = activeFocus.is_pause
+    ? "focus_show.is_pause"
+    : existingCurrentRows > 0
+      ? `cadence${cadenceWindow ? `_${cadenceWindow}` : ""}`
+      : "focus_day_change_or_missing_current_rows";
+
+  const basePatch = {
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDayKey,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch: "step1_get_ring_days",
+    blocker: "",
+    parsed_rows: 0,
+    materialized_hs_get_ring_days_rows: existingCurrentRows,
+    materialized_ring_day_rows: 0,
+    source_sequence_json: JSON.stringify([], null, 2)
+  };
+
+  if (activeFocus.is_pause) {
+    const payload = {
+      action,
+      focus_source: activeFocus.source,
+      cadence_window: cadenceWindow,
+      trigger_reason: triggerReason,
+      source_fetch_run: false,
+      upstream_requests: 0,
+      get_ring_days_run: false,
+      update_schedule_run: false,
+      downstream_run: false
+    };
+    const pausedPatch = {
+      ...basePatch,
+      status: "skipped",
+      blocker: "focus_show.is_pause",
+      payload_json: JSON.stringify(payload, null, 2)
+    };
+    await writeStageHeartbeat(app, heartbeatId, pausedPatch);
+    await writeRawAirtableHeartbeat(heartbeatId, {
+      ...pausedPatch,
+      run_time: runTime
+    });
+    return {
+      ok: true,
+      status_code: 200,
+      action,
+      status: "skipped",
+      blocker: "focus_show.is_pause",
+      heartbeat_id: heartbeatId,
+      run_id: runId,
+      run_time: runTime,
+      focus_source: activeFocus.source,
+      focus_show_record_id: activeFocus.focus_show_record_id,
+      show_no: activeFocus.show_no,
+      focus_day: focusDay,
+      is_pause: activeFocus.is_pause,
+      is_lock: activeFocus.is_lock,
+      live_enrichment: activeFocus.live_enrichment,
+      cadence_window: cadenceWindow,
+      trigger_reason: triggerReason,
+      source_fetch_run: false,
+      upstream_requests: 0,
+      source_request_sequence: [],
+      get_ring_days_run: false,
+      update_schedule_run: false,
+      downstream_run: false,
+      get_orders_run: false,
+      get_rings_run: false,
+      alerts_run: false
+    };
+  }
+
+  const runningPayload = {
+    action,
+    focus_source: activeFocus.source,
+    cadence_window: cadenceWindow,
+    trigger_reason: triggerReason,
+    source_fetch_run: true,
+    get_ring_days_run: true,
+    update_schedule_run: false,
+    downstream_run: false
+  };
+  await writeStageHeartbeat(app, heartbeatId, {
+    ...basePatch,
+    status: "running",
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...basePatch,
+    run_time: runTime,
+    status: "running",
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+
+  const context = createWorkflowContext();
+  let result = null;
+  let blocker = "";
+  try {
+    result = await fetchAndSyncRingDays(req, app, activeFocus.show_no, context, {
+      focusDay,
+      refreshExisting: true,
+      syncAirtableMirror: false,
+      syncRawAirtableMirror: true,
+      heartbeatId,
+      runId
+    });
+    blocker = !Number(result.parsed_rows || 0)
+      ? "get_ring_days_source_empty"
+      : !Number(result.materialized_hs_get_ring_days_rows || 0)
+        ? "hs_get_ring_days_materialization_empty"
+        : !Number(result.materialized_ring_day_rows || 0)
+          ? "hs_ring_days_materialization_empty"
+          : "";
+  } catch (error) {
+    blocker = String(error?.message || error);
+    result = {};
+  }
+
+  const finalPayload = {
+    action,
+    focus_source: activeFocus.source,
+    cadence_window: cadenceWindow,
+    trigger_reason: triggerReason,
+    upstream_requests: context.upstreamRequests,
+    source_request_sequence: context.sourceSequence,
+    source_fetch_run: true,
+    get_ring_days_run: true,
+    update_schedule_run: false,
+    downstream_run: false,
+    result
+  };
+  const finalPatch = {
+    ...basePatch,
+    status: blocker ? "fail" : "pass",
+    blocker,
+    parsed_rows: Number(result.parsed_rows || 0),
+    materialized_hs_get_ring_days_rows: Number(result.materialized_hs_get_ring_days_rows || 0),
+    materialized_ring_day_rows: Number(result.materialized_ring_day_rows || 0),
+    source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+    payload_json: JSON.stringify(finalPayload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, finalPatch);
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...finalPatch,
+    run_time: runTime
+  });
+
+  return {
+    ok: !blocker,
+    status_code: blocker ? 500 : 200,
+    action,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    cadence_window: cadenceWindow,
+    trigger_reason: triggerReason,
+    source_fetch_run: true,
+    upstream_requests: context.upstreamRequests,
+    source_request_sequence: context.sourceSequence,
+    get_ring_days_run: true,
+    update_schedule_run: false,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    alerts_run: false,
+    ...result
+  };
+}
+
 function mapUpdateScheduleMirrorFields(row) {
   return assertNoUpdateScheduleManualMirrorFields({
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]: row.update_schedule_key,
@@ -9686,6 +9891,7 @@ async function handle(req, res) {
       "wec-print-smartbrowz-pdf",
       "prebuild-wec-print-pdf",
       "wec-heartbeat-only",
+      "wec-step1-heartbeat-get-ring-days",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -10307,6 +10513,11 @@ async function handle(req, res) {
 
     if (action === "wec-heartbeat-only") {
       const result = await writeWecHeartbeatOnly(app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-step1-heartbeat-get-ring-days") {
+      const result = await runWecStep1HeartbeatGetRingDays(req, app, action, query, body);
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 

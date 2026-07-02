@@ -5629,6 +5629,86 @@ async function writeRawAirtableHeartbeat(heartbeatId, patch) {
   return upserts?.[0] || null;
 }
 
+async function writeWecHeartbeatOnly(app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0,
+      source_fetch_run: false,
+      upstream_requests: 0,
+      downstream_run: false
+    };
+  }
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-heartbeat-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const branch = activeFocus.is_pause ? "paused" : activeFocus.is_lock ? "downstream" : "bootstrap";
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const payload = {
+    action,
+    focus_source: activeFocus.source,
+    source_fetch_run: false,
+    upstream_requests: 0,
+    get_ring_days_run: false,
+    update_schedule_run: false,
+    downstream_run: false
+  };
+  const heartbeatPatch = {
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDay.replace(/-/g, ""),
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch,
+    status: "pass",
+    blocker: "",
+    parsed_rows: 0,
+    materialized_hs_get_ring_days_rows: 0,
+    materialized_ring_day_rows: 0,
+    source_sequence_json: JSON.stringify([], null, 2),
+    payload_json: JSON.stringify(payload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, heartbeatPatch);
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...heartbeatPatch,
+    run_time: runTime
+  });
+  return {
+    ok: true,
+    status_code: 200,
+    action,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch,
+    status: "pass",
+    source_fetch_run: false,
+    upstream_requests: 0,
+    source_request_sequence: [],
+    get_ring_days_run: false,
+    update_schedule_run: false,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    alerts_run: false
+  };
+}
+
 function mapUpdateScheduleMirrorFields(row) {
   return assertNoUpdateScheduleManualMirrorFields({
     [AIRTABLE_UPDATE_SCHEDULE_FIELDS.mirror_update_schedule_key]: row.update_schedule_key,
@@ -9605,6 +9685,7 @@ async function handle(req, res) {
       "wec-print-pdf-url",
       "wec-print-smartbrowz-pdf",
       "prebuild-wec-print-pdf",
+      "wec-heartbeat-only",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -10222,6 +10303,11 @@ async function handle(req, res) {
         created_triggers: triggers.length,
         trigger_error
       });
+    }
+
+    if (action === "wec-heartbeat-only") {
+      const result = await writeWecHeartbeatOnly(app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 
     if (action === "sync-ring-days") {

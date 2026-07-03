@@ -141,6 +141,7 @@ const AIRTABLE_BARN_BOARD_HOT_PATCH_FIELDS = {
 const AIRTABLE_GET_RING_DAYS_TABLE = "tblXGYMYDpXEx8hW2";
 const AIRTABLE_RAW_HEARTBEAT_TABLE = "hs_heartbeat";
 const AIRTABLE_RAW_GET_RING_DAYS_TABLE = "hs_get_ring_days";
+const AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE = "hs_update_schedule";
 const AIRTABLE_GET_RING_DAYS_FIELDS = {
   ring_day_no: "fldVk4eZ01RhELuHx",
   show_no: "fldb6pYIgKVTspy6t",
@@ -1368,6 +1369,41 @@ function updateScheduleSourceRow(row) {
     source_endpoint: "update_schedule.php",
     source_payload: sourcePayload(row)
   };
+}
+
+function updateSchedulePreflightReason(row) {
+  const sourceRow = updateScheduleSourceRow(row) || row || {};
+  const timeText = text(sourceRow.time_text || row?.time_text || row?.class_time_text);
+  const classNo = intOrNull(sourceRow.class_no ?? row?.class_no);
+  const eventType = intOrNull(sourceRow.event_type ?? row?.event_type ?? row?.re_type);
+  const className = text(sourceRow.class_name || row?.class_name || row?.class_label);
+  const classNameLower = className.toLowerCase();
+  if (!timeText) return "blank_time_text";
+  if (!classNo) return "missing_class_no";
+  if (eventType === 5) return "event_type_5";
+  if (classNameLower.includes("ticketed schooling") || classNameLower.includes("ticket school")) {
+    return "ticket_school";
+  }
+  return "";
+}
+
+function summarizeUpdateSchedulePreflight(rows) {
+  const summary = {
+    raw_schedule_rows: (rows || []).length,
+    preflight_rows: 0,
+    non_preflight_rows: 0,
+    preflight_reasons: {}
+  };
+  for (const row of rows || []) {
+    const reason = updateSchedulePreflightReason(row);
+    if (reason) {
+      summary.preflight_rows += 1;
+      summary.preflight_reasons[reason] = (summary.preflight_reasons[reason] || 0) + 1;
+    } else {
+      summary.non_preflight_rows += 1;
+    }
+  }
+  return summary;
 }
 
 function getOrdersSourceRow(row) {
@@ -4946,6 +4982,24 @@ async function airtableBaseMetadataTables() {
   return JSON.parse(raw).tables || [];
 }
 
+async function airtableCreateTable(tableName, fields) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const response = await fetch(`https://api.airtable.com/v0/meta/bases/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/tables`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({ name: tableName, fields })
+  });
+  const raw = await response.text();
+  if (!response.ok) throw new Error(`Airtable create table ${tableName} failed ${response.status}: ${raw.slice(0, 500)}`);
+  return JSON.parse(raw);
+}
+
 async function airtableCreateRecord(table, fields) {
   const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
   if (!token) {
@@ -5562,6 +5616,116 @@ async function syncRawAirtableGetRingDayRows(showNo, rows, options = {}) {
   };
 }
 
+const RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS = [
+  "update_schedule_key",
+  "heartbeat_id",
+  "run_id",
+  "show_no",
+  "focus_day",
+  "focus_day_key",
+  "show_focus_key",
+  "ring_day_no",
+  "ring_no",
+  "ring_name",
+  "date_text",
+  "iso_date",
+  "class_no",
+  "event_id",
+  "event_name",
+  "class_number",
+  "class_payout",
+  "class_name",
+  "time_text",
+  "entry_count",
+  "event_type",
+  "oc_id",
+  "live_flag",
+  "source_endpoint",
+  "source_payload"
+];
+
+async function ensureRawAirtableUpdateScheduleTable() {
+  const tables = await airtableBaseMetadataTables();
+  const existing = (tables || []).find((table) => table.name === AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE);
+  if (existing) {
+    const existingFields = new Set((existing.fields || []).map((field) => field.name));
+    const missing = RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS.filter((field) => !existingFields.has(field));
+    if (missing.length) {
+      throw new Error(`Airtable ${AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE} missing required fields: ${missing.join(", ")}`);
+    }
+    return {
+      created: false,
+      table_id: existing.id,
+      fields: (existing.fields || []).map((field) => ({ name: field.name, type: field.type }))
+    };
+  }
+  const fields = RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS.map((name) => ({
+    name,
+    type: name === "source_payload" ? "multilineText" : "singleLineText"
+  }));
+  const created = await airtableCreateTable(AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE, fields);
+  return {
+    created: true,
+    table_id: created.id,
+    fields: (created.fields || []).map((field) => ({ name: field.name, type: field.type }))
+  };
+}
+
+function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId = "", runId = "" } = {}) {
+  const sourceRow = updateScheduleSourceRow({
+    ...row,
+    show_no: row.show_no || showNo,
+    source_endpoint: "update_schedule.php"
+  }) || row;
+  const isoDate = dateKey(sourceRow.iso_date || sourceRow.date_text || row.iso_date || row.date_text || row.day_label || focusDay);
+  const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
+  return {
+    update_schedule_key: text(sourceRow.update_schedule_key || row.update_schedule_key),
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    show_no: text(sourceRow.show_no || row.show_no || showNo),
+    focus_day: isoDate,
+    focus_day_key: focusDayKey,
+    show_focus_key: focusDayKey ? `${text(sourceRow.show_no || row.show_no || showNo)}|${focusDayKey}` : "",
+    ring_day_no: text(sourceRow.ring_day_no || row.ring_day_no),
+    ring_no: text(sourceRow.ring_no || row.ring_no),
+    ring_name: text(sourceRow.ring_name || row.ring_name),
+    date_text: text(sourceRow.date_text || row.date_text || row.day_label),
+    iso_date: isoDate,
+    class_no: text(sourceRow.class_no || row.class_no),
+    event_id: text(sourceRow.event_id || row.event_id),
+    event_name: text(sourceRow.event_name || row.event_name || row.class_label || row.class_name),
+    class_number: text(sourceRow.class_number || row.class_number),
+    class_payout: text(sourceRow.class_payout || row.class_payout),
+    class_name: text(sourceRow.class_name || row.class_name),
+    time_text: text(sourceRow.time_text || row.time_text || row.class_time_text),
+    entry_count: text(sourceRow.entry_count || row.entry_count),
+    event_type: text(sourceRow.event_type || row.event_type || row.re_type),
+    oc_id: text(sourceRow.oc_id || row.oc_id),
+    live_flag: text(sourceRow.live_flag || row.live_flag),
+    source_endpoint: text(sourceRow.source_endpoint || row.source_endpoint || "update_schedule.php"),
+    source_payload: sourcePayload(sourceRow.source_payload ? sourceRow : row)
+  };
+}
+
+async function syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows, options = {}) {
+  const tableStatus = await ensureRawAirtableUpdateScheduleTable();
+  const sourceRows = (rows || [])
+    .filter((row) => text(row.update_schedule_key))
+    .map((row) => mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, options));
+  const upserts = await airtableUpsertByFieldId(
+    AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE,
+    "update_schedule_key",
+    sourceRows
+  );
+  return {
+    airtable_hs_update_schedule_table_created: tableStatus.created,
+    airtable_hs_update_schedule_table_id: tableStatus.table_id,
+    airtable_hs_update_schedule_rows: sourceRows.length,
+    airtable_hs_update_schedule_upserts: upserts.length
+  };
+}
+
 function getRingDaySourceRow(row, showNo) {
   const isoDate = dateKey(row.day_label || row.date_text);
   const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
@@ -6084,7 +6248,13 @@ async function runWecStep2UpdateScheduleOnly(req, app, action, query, body) {
   } else {
     for (const ringDayRow of ringDayRows) {
       try {
-        schedules.push(await fetchAndSyncUpdateScheduleOnly(req, app, activeFocus.show_no, ringDayRow, context, { replace: false }));
+        schedules.push(await fetchAndSyncUpdateScheduleOnly(req, app, activeFocus.show_no, ringDayRow, context, {
+          replace: false,
+          syncRawAirtableMirror: true,
+          focusDay,
+          heartbeatId,
+          runId
+        }));
       } catch (error) {
         blocker = `update_schedule_failed:${ringDayRow.ring_day_no}:${String(error?.message || error)}`;
         break;
@@ -6093,9 +6263,16 @@ async function runWecStep2UpdateScheduleOnly(req, app, action, query, body) {
   }
 
   const parsedRows = schedules.reduce((sum, item) => sum + Number(item.parsed_rows || 0), 0);
+  const rawScheduleRows = schedules.reduce((sum, item) => sum + Number(item.raw_schedule_rows || item.parsed_rows || 0), 0);
+  const preflightRows = schedules.reduce((sum, item) => sum + Number(item.preflight_rows || 0), 0);
+  const nonPreflightRows = schedules.reduce((sum, item) => sum + Number(item.non_preflight_rows || 0), 0);
+  const airtableMirrorRows = schedules.reduce((sum, item) => sum + Number(item.raw_airtable_mirror?.airtable_hs_update_schedule_rows || 0), 0);
+  const airtableMirrorUpserts = schedules.reduce((sum, item) => sum + Number(item.raw_airtable_mirror?.airtable_hs_update_schedule_upserts || 0), 0);
+  const airtableMirrorCreated = schedules.some((item) => item.raw_airtable_mirror?.airtable_hs_update_schedule_table_created === true);
   const updateScheduleCount = await countStoredUpdateScheduleRows(app, activeFocus.show_no, focusDay);
   if (!blocker && !parsedRows) blocker = "update_schedule_source_empty";
   if (!blocker && !updateScheduleCount) blocker = "hs_update_schedule_materialization_empty";
+  if (!blocker && !airtableMirrorUpserts) blocker = "airtable_hs_update_schedule_mirror_empty";
 
   const finalPayload = {
     action,
@@ -6110,7 +6287,13 @@ async function runWecStep2UpdateScheduleOnly(req, app, action, query, body) {
     update_schedule_run: Boolean(ringDayRows.length),
     update_schedule_ring_day_requests: schedules.length,
     update_schedule_parsed_rows: parsedRows,
+    raw_schedule_rows: rawScheduleRows,
+    preflight_rows: preflightRows,
+    non_preflight_rows: nonPreflightRows,
     hs_update_schedule_count: updateScheduleCount,
+    airtable_hs_update_schedule_table_created: airtableMirrorCreated,
+    airtable_hs_update_schedule_rows: airtableMirrorRows,
+    airtable_hs_update_schedule_upserts: airtableMirrorUpserts,
     downstream_run: false,
     get_orders_run: false,
     get_rings_run: false,
@@ -6156,7 +6339,13 @@ async function runWecStep2UpdateScheduleOnly(req, app, action, query, body) {
     update_schedule_run: Boolean(ringDayRows.length),
     update_schedule_ring_day_requests: schedules.length,
     update_schedule_parsed_rows: parsedRows,
+    raw_schedule_rows: rawScheduleRows,
+    preflight_rows: preflightRows,
+    non_preflight_rows: nonPreflightRows,
     hs_update_schedule_count: updateScheduleCount,
+    airtable_hs_update_schedule_table_created: airtableMirrorCreated,
+    airtable_hs_update_schedule_rows: airtableMirrorRows,
+    airtable_hs_update_schedule_upserts: airtableMirrorUpserts,
     downstream_run: false,
     get_orders_run: false,
     get_rings_run: false,
@@ -9548,7 +9737,7 @@ async function fetchAndSyncRingDaySchedule(req, app, showNo, ringDayRow, context
   };
 }
 
-async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, context, { replace = false } = {}) {
+async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, context, { replace = false, syncRawAirtableMirror = false, focusDay = "", heartbeatId = "", runId = "" } = {}) {
   const upstreamResponse = await upstream(req, "/update_schedule.php", {
     method: "POST",
     showNo,
@@ -9563,8 +9752,16 @@ async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, cont
       day_label: ringDayRow.day_label,
       source_endpoint: "update_schedule.php"
     })));
+  const preflightSummary = summarizeUpdateSchedulePreflight(rows);
   const activeKeys = rows.map((row) => text(row.update_schedule_key)).filter(Boolean);
   const result = await importUpdateScheduleOnly(app, showNo, rows);
+  const rawAirtableMirror = syncRawAirtableMirror
+    ? await syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows.map((row) => ({ ...row, show_no: row.show_no || showNo })), { heartbeatId, runId })
+    : {
+        airtable_hs_update_schedule_rows: 0,
+        airtable_hs_update_schedule_upserts: 0,
+        skipped: true
+      };
   const stale = replace
     ? await deleteUpdateScheduleStaleForRingDay(app, showNo, ringDayRow.ring_day_no, activeKeys)
     : { scanned: 0, deleted: 0, skipped: true };
@@ -9575,12 +9772,17 @@ async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, cont
     day_label: ringDayRow.day_label,
     upstream_status: upstreamResponse.status,
     parsed_rows: rows.length,
+    raw_schedule_rows: preflightSummary.raw_schedule_rows,
+    preflight_rows: preflightSummary.preflight_rows,
+    non_preflight_rows: preflightSummary.non_preflight_rows,
+    preflight_reasons: preflightSummary.preflight_reasons,
     counters: {
       rows: result.rows,
       inserted: result.inserted,
       updated: result.updated,
       skipped: result.skipped
     },
+    raw_airtable_mirror: rawAirtableMirror,
     stale
   };
 }
@@ -10144,6 +10346,7 @@ async function handle(req, res) {
       "wec-heartbeat-only",
       "wec-step1-heartbeat-get-ring-days",
       "wec-step2-update-schedule-only",
+      "wec-cadence-step1-step2",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -10776,6 +10979,43 @@ async function handle(req, res) {
     if (action === "wec-step2-update-schedule-only") {
       const result = await runWecStep2UpdateScheduleOnly(req, app, action, query, body);
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-cadence-step1-step2") {
+      const step1 = await runWecStep1HeartbeatGetRingDays(req, app, action, query, body);
+      let step2 = null;
+      if (step1.ok) {
+        const step2Query = new URLSearchParams(query.toString());
+        step2Query.set("run_id", `${step1.run_id}-step2`);
+        if (!step2Query.get("cadence_window") && step1.cadence_window) {
+          step2Query.set("cadence_window", step1.cadence_window);
+        }
+        step2 = await runWecStep2UpdateScheduleOnly(
+          req,
+          app,
+          action,
+          step2Query,
+          { ...body, run_id: `${step1.run_id}-step2`, cadence_window: step1.cadence_window || body.cadence_window }
+        );
+      }
+      const ok = Boolean(step1.ok && (!step2 || step2.ok));
+      return json(res, ok ? 200 : (step2?.status_code || step1.status_code || 500), {
+        ok,
+        action,
+        focus_source: step1.focus_source,
+        focus_show_record_id: step1.focus_show_record_id,
+        show_no: step1.show_no,
+        focus_day: step1.focus_day,
+        cadence_window: step1.cadence_window,
+        step1,
+        step2,
+        get_ring_days_run: Boolean(step1.get_ring_days_run),
+        update_schedule_run: Boolean(step2?.update_schedule_run),
+        downstream_run: false,
+        get_orders_run: false,
+        get_rings_run: false,
+        alerts_run: false
+      });
     }
 
     if (action === "sync-ring-days") {

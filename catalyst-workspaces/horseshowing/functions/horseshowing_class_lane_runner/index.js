@@ -15,6 +15,7 @@ const {
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const TABLES = {
   catalystClassStartTimes: "hs_class_start_times",
+  catalystEntryGoTimes: "hs_entry_go_times",
   catalystClassOog: "hs_class_oog",
   airtableFocusShow: "tblQldkP8wwIRxd4z",
   airtableStaging: "tblzsoU59zmYxhPah",
@@ -924,6 +925,96 @@ async function readActiveEntryGoTimes(baseId, token, showNo, focusDay, { view = 
       status: text(f[ENTRY_GO_FIELDS.status])
     };
   });
+}
+
+async function readRuntimeClassStarts(app, focus) {
+  const rows = await zcqlRows(
+    app,
+    TABLES.catalystClassStartTimes,
+    `show_no = ${zcqlValue(Number(focus.show_no))} AND focus_day = ${zcqlValue(focus.focus_day)}`,
+    { limit: 200, maxRows: 2000 }
+  );
+  return rows
+    .filter((row) => !text(row.status) || text(row.status).toLowerCase() === "active")
+    .map((row) => ({
+      record_id: "",
+      class_start_key: text(row.class_start_key),
+      show_no: asNumber(row.show_no),
+      focus_day: isoDate(row.focus_day),
+      ring_day_no: asNumber(row.ring_day_no),
+      ring_no: asNumber(row.ring_no),
+      class_no: asNumber(row.class_no),
+      class_number: asNumber(row.class_number),
+      class_name: text(row.class_name),
+      class_start_time: text(row.class_start_time),
+      display_time: text(row.display_time),
+      entry_count: asNumber(row.entry_count),
+      status: text(row.status),
+      source_table: TABLES.catalystClassStartTimes,
+      live_source: text(row.live_source),
+      shows: [],
+      focus_show: [],
+      ring_days: [],
+      rings: [],
+      classes: []
+    }));
+}
+
+function isSourceDerivedEntryGoTime(row) {
+  return Boolean(
+    text(row.go_time)
+    && asNumber(row.pace_seconds)
+    && text(row.live_source).toLowerCase().includes("source_derived_pace")
+  );
+}
+
+async function readRuntimeEntryGoTimes(app, focus) {
+  const rows = await zcqlRows(
+    app,
+    TABLES.catalystEntryGoTimes,
+    `show_no = ${zcqlValue(Number(focus.show_no))} AND focus_day = ${zcqlValue(focus.focus_day)}`,
+    { limit: 200, maxRows: 5000 }
+  );
+  return rows
+    .filter((row) => !text(row.status) || text(row.status).toLowerCase() === "active")
+    .filter(isSourceDerivedEntryGoTime)
+    .map((row) => ({
+      record_id: "",
+      entry_go_key: text(row.entry_go_key),
+      class_start_times: [],
+      show_no: asNumber(row.show_no),
+      shows: [],
+      focus_day: isoDate(row.focus_day),
+      focus_show: [],
+      ring_day_no: asNumber(row.ring_day_no),
+      ring_days: [],
+      ring_no: asNumber(row.ring_no),
+      rings: [],
+      class_no: asNumber(row.class_no),
+      classes: [],
+      class_number: asNumber(row.class_number),
+      class_name: text(row.class_name),
+      entry_no: asNumber(row.entry_no),
+      entries: [],
+      entry_order: asNumber(row.entry_order),
+      horse: text(row.horse),
+      horses: [],
+      horse_display: text(row.horse),
+      rider: text(row.rider),
+      riders: [],
+      trainer: text(row.trainer),
+      trainers: [],
+      trainer_display: text(row.trainer),
+      class_start_time: text(row.class_start_time),
+      display_time: "",
+      entry_go_time: text(row.go_time),
+      pace_seconds: asNumber(row.pace_seconds),
+      n_gone: asNumber(row.n_gone),
+      elapsed_seconds: asNumber(row.elapsed_seconds),
+      status: text(row.status),
+      source_table: TABLES.catalystEntryGoTimes,
+      live_source: text(row.live_source)
+    }));
 }
 
 async function readAlertTemplateMap(baseId, token) {
@@ -2122,12 +2213,14 @@ function planAlertWrites(alertRows, existingAlerts) {
   return { creates, updates, unchanged, statusTransitions };
 }
 
-async function syncClassAlerts(baseId, token, focus, now = new Date(), options = {}) {
+async function syncClassAlerts(app, baseId, token, focus, now = new Date(), options = {}) {
   const dryRun = truthy(options.dryRun) || truthy(options.candidateOnly);
-  const classStarts = await readFocusClassStarts(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
-  const entryGoTimes = await readActiveEntryGoTimes(baseId, token, focus.show_no, focus.focus_day, { view: "active_entries" });
-  const classAlerts = buildClassAlerts(classStarts, now);
-  const entryAlerts = buildEntryAlerts(entryGoTimes, now);
+  const classStarts = await readRuntimeClassStarts(app, focus);
+  const entryGoTimes = await readRuntimeEntryGoTimes(app, focus);
+  const classAlerts = buildClassAlerts(classStarts, now)
+    .map((alert) => ({ ...alert, source_table: TABLES.catalystClassStartTimes }));
+  const entryAlerts = buildEntryAlerts(entryGoTimes, now)
+    .map((alert) => ({ ...alert, source_table: TABLES.catalystEntryGoTimes }));
   const alerts = [...classAlerts, ...entryAlerts];
   const activeAlertKeys = new Set(alerts.map((alert) => alert.alert_key));
   const alertTemplateMap = await readAlertTemplateMap(baseId, token);
@@ -2191,6 +2284,7 @@ async function syncClassAlerts(baseId, token, focus, now = new Date(), options =
       now: now.toISOString(),
       class_start_times: classStarts.length,
       entry_go_times: entryGoTimes.length,
+      alert_sources: [TABLES.catalystClassStartTimes, TABLES.catalystEntryGoTimes],
       class_alerts: classAlerts.length,
       entry_alerts: entryAlerts.length,
       candidates,
@@ -2213,6 +2307,7 @@ async function syncClassAlerts(baseId, token, focus, now = new Date(), options =
   return {
     class_start_times: classStarts.length,
     entry_go_times: entryGoTimes.length,
+    alert_sources: [TABLES.catalystClassStartTimes, TABLES.catalystEntryGoTimes],
     class_alerts: classAlerts.length,
     entry_alerts: entryAlerts.length,
     alerts_created: created.length,
@@ -2294,7 +2389,7 @@ async function runAction(req, action, app, baseId, token, focus, query, body) {
     const dryRun = truthy(query.get("dry_run") || body.dry_run);
     const noSend = truthy(query.get("no_send") || body.no_send);
     const candidateOnly = truthy(query.get("candidate_only") || body.candidate_only);
-    return syncClassAlerts(baseId, token, focus, nowRaw ? new Date(nowRaw) : new Date(), { dryRun, noSend, candidateOnly });
+    return syncClassAlerts(app, baseId, token, focus, nowRaw ? new Date(nowRaw) : new Date(), { dryRun, noSend, candidateOnly });
   }
   if (action === "audit") {
     return auditLane(app, baseId, token, focus);
@@ -2303,7 +2398,7 @@ async function runAction(req, action, app, baseId, token, focus, query, body) {
     const classStartTimes = await syncClassStartTimes(app, baseId, token, focus);
     const classOogRollups = await syncClassOogRollups(app, baseId, token, focus);
     const getOrders = await syncGetOrders(app, baseId, token, focus);
-    const classAlerts = await syncClassAlerts(baseId, token, focus);
+    const classAlerts = await syncClassAlerts(app, baseId, token, focus);
     const audit = await auditLane(app, baseId, token, focus);
     return { class_start_times: classStartTimes, class_oog_rollups: classOogRollups, get_orders: getOrders, class_alerts: classAlerts, audit };
   }

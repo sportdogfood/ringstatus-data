@@ -8,7 +8,10 @@ const UPSTREAM_TIMEOUT_MS = 30000;
 const TABLES = {
   resultClasses: "hs_result_classes",
   classResults: "hs_class_results",
-  resultQueue: "hs_result_queue"
+  resultQueue: "hs_result_queue",
+  classStartTimes: "hs_class_start_times",
+  entryGoTimes: "hs_entry_go_times",
+  classOog: "hs_class_oog"
 };
 
 const AIRTABLE_TABLES = {
@@ -18,6 +21,9 @@ const AIRTABLE_TABLES = {
   result_classes: "tblWkg90eimLzzMHk",
   class_results: "tblnyxgTAf6QVFLEO",
   result_queue: "tblCHKu87YF5DYaqr",
+  hs_result_classes: "hs_result_classes",
+  hs_class_results: "hs_class_results",
+  hs_result_queue: "hs_result_queue",
   wec_alerts: "tblqkxLPy9zZ2FI6z",
   alert_templates: "tblcHUmGzoWFOTvx2",
   wec_logs: "tblaA0n7QD7s5lIYm"
@@ -32,7 +38,9 @@ const FOCUS_SHOW_FIELDS = {
   active: "active",
   shows: "shows",
   is_pause: "is_pause",
-  is_pause_id: "fldgWn3BIdGzcGow1"
+  is_pause_id: "fldgWn3BIdGzcGow1",
+  results_enabled: "results_enabled",
+  results_enabled_alt: "results-enabled"
 };
 
 const RESULT_CLASS_FIELDS = {
@@ -527,6 +535,7 @@ async function getFocusShow(baseId, showNo, token, focusDayOverride) {
     show_no: Number(row[FOCUS_SHOW_FIELDS.show_no] || showNo),
     focus_day: focusDay,
     is_pause: isFocusPaused(row),
+    results_enabled: flagTrue(row[FOCUS_SHOW_FIELDS.results_enabled] ?? row[FOCUS_SHOW_FIELDS.results_enabled_alt]),
     shows: links(row[FOCUS_SHOW_FIELDS.shows])
   };
 }
@@ -1065,6 +1074,428 @@ function resultQueueRow(showNo, focusDay, classRow, status, resultRows, now) {
   };
 }
 
+function doneByRuntimeCounts(row) {
+  const entryCount = intOrNull(row.entry_count);
+  const gone = intOrNull(row.n_gone);
+  const toGo = intOrNull(row.n_to_go);
+  return entryCount > 0 && gone === entryCount && (toGo === null || toGo === 0);
+}
+
+function queueRetryDue(row, now = new Date()) {
+  if (text(row?.status).toLowerCase() !== "pending") return false;
+  const raw = text(row?.next_check_at);
+  if (!raw) return true;
+  const parsed = new Date(raw.replace(" ", "T"));
+  return Number.isNaN(parsed.getTime()) || parsed <= now;
+}
+
+function classIsCompleted(row) {
+  return text(row?.status).toLowerCase() === "completed" || !!text(row?.completed_at);
+}
+
+function getRuntimeClassNo(row) {
+  return text(row?.class_no);
+}
+
+function getRuntimeClassVisualKey(row) {
+  return text(row?.class_visual_key) || resultKey(text(row?.ring_name_normalized).toLowerCase().replace(/\s+/g, "_"), row?.class_no);
+}
+
+function runtimeClassSourceEvidence(rows) {
+  return {
+    source_rows: rows.length,
+    done_status_rows: rows.filter((row) => text(row.class_status).toLowerCase() === "done").length,
+    done_count_rows: rows.filter(doneByRuntimeCounts).length,
+    class_visual_key_rows: rows.filter((row) => text(row.class_visual_key)).length,
+    ring_visual_key_rows: rows.filter((row) => text(row.ring_visual_key)).length,
+    ring_name_normalized_rows: rows.filter((row) => text(row.ring_name_normalized)).length
+  };
+}
+
+function pendingQueueByClassVisualKey(queueRows) {
+  const map = new Map();
+  for (const row of queueRows || []) {
+    const key = text(row.class_visual_key);
+    if (!key) continue;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(row);
+  }
+  return map;
+}
+
+function completedClassVisualKeys(queueRows, resultClassRows) {
+  const completed = new Set();
+  for (const row of queueRows || []) {
+    if (classIsCompleted(row) && text(row.class_visual_key)) completed.add(text(row.class_visual_key));
+  }
+  for (const row of resultClassRows || []) {
+    if (classIsCompleted(row) && text(row.class_visual_key)) completed.add(text(row.class_visual_key));
+  }
+  return completed;
+}
+
+function buildStep6ClassRows(classStartRows, queueRows, resultClassRows, force) {
+  const pendingByClass = pendingQueueByClassVisualKey(queueRows);
+  const completedKeys = force ? new Set() : completedClassVisualKeys(queueRows, resultClassRows);
+  const candidates = [];
+  for (const row of classStartRows || []) {
+    const classNo = getRuntimeClassNo(row);
+    const classVisualKey = getRuntimeClassVisualKey(row);
+    if (!classNo || !classVisualKey) continue;
+    const pendingRows = pendingByClass.get(classVisualKey) || [];
+    const pendingDue = pendingRows.some((pending) => queueRetryDue(pending));
+    const eligible = text(row.class_status).toLowerCase() === "done" || doneByRuntimeCounts(row) || pendingDue;
+    if (!eligible) continue;
+    if (!force && completedKeys.has(classVisualKey) && !pendingDue) continue;
+    candidates.push({
+      show_no: row.show_no,
+      focus_day: isoDate(row.focus_day),
+      ring_name_normalized: text(row.ring_name_normalized),
+      ring_visual_key: text(row.ring_visual_key),
+      class_visual_key: classVisualKey,
+      class_no: classNo,
+      sect_no: text(row.sect_no),
+      class_number: text(row.class_number),
+      class_name: text(row.class_name),
+      class_status: text(row.class_status),
+      entry_count: intOrNull(row.entry_count)
+    });
+  }
+  return candidates.sort((a, b) => {
+    const ringCompare = text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized));
+    if (ringCompare) return ringCompare;
+    return Number(a.class_no) - Number(b.class_no);
+  });
+}
+
+function step6ResultClassRow(showNo, focusDay, row, now, sourceClass = {}) {
+  const classNo = text(row.class_no);
+  const classVisualKey = text(sourceClass.class_visual_key || row.class_visual_key);
+  const key = resultKey(showNo, focusDay, classVisualKey);
+  if (!key || !classVisualKey) return null;
+  return {
+    result_class_key: key,
+    show_no: text(showNo),
+    focus_day: focusDay,
+    ring_name_normalized: text(sourceClass.ring_name_normalized),
+    ring_visual_key: text(sourceClass.ring_visual_key),
+    class_visual_key: classVisualKey,
+    class_no: classNo,
+    sect_no: text(row.sect_no || sourceClass.sect_no),
+    class_number: text(row.class_number || sourceClass.class_number),
+    class_name: text(row.class_name || sourceClass.class_name),
+    result_entry_count: intOrNull(row.result_entry_count),
+    has_score: row.has_score === true,
+    has_prize: row.has_prize === true,
+    completed_at: now,
+    source: "horseshowing.show_results4",
+    raw_json: safeJson({ ...row, class_visual_key: classVisualKey })
+  };
+}
+
+function entryVisualKeyFromResult(resultRow, sourceClass, entryGoTimeByClassEntry) {
+  const existing = entryGoTimeByClassEntry.get(classEntryKey(resultRow));
+  if (existing?.entry_visual_key) return text(existing.entry_visual_key);
+  return resultKey(text(sourceClass.ring_name_normalized).toLowerCase().replace(/\s+/g, "_"), resultRow.class_no, resultRow.entry_no);
+}
+
+function step6ClassResultRow(showNo, focusDay, row, now, sourceClass = {}, entryGoTimeByClassEntry = new Map()) {
+  const classNo = text(row.class_no);
+  const entryNo = text(row.entry_no);
+  const entryVisualKey = entryVisualKeyFromResult(row, sourceClass, entryGoTimeByClassEntry);
+  const identity = resultKey(entryVisualKey, row.place, row.score, row.prize);
+  const key = resultKey(showNo, focusDay, identity);
+  if (!key || !entryVisualKey) return null;
+  return {
+    class_result_key: key,
+    show_no: text(showNo),
+    focus_day: focusDay,
+    ring_name_normalized: text(sourceClass.ring_name_normalized),
+    ring_visual_key: text(sourceClass.ring_visual_key),
+    class_visual_key: text(sourceClass.class_visual_key),
+    entry_visual_key: entryVisualKey,
+    class_no: classNo,
+    sect_no: text(row.sect_no || sourceClass.sect_no),
+    class_number: text(row.class_number || sourceClass.class_number),
+    class_name: text(row.class_name || sourceClass.class_name),
+    place: text(row.place),
+    entry_no: entryNo,
+    horse: text(row.horse) || text(entryGoTimeByClassEntry.get(classEntryKey(row))?.horse),
+    rider: text(row.rider) || text(entryGoTimeByClassEntry.get(classEntryKey(row))?.rider),
+    owner: text(row.owner),
+    score: text(row.score),
+    prize: text(row.prize),
+    completed_at: now,
+    source: "horseshowing.show_results4",
+    raw_json: safeJson({ ...row, entry_visual_key: entryVisualKey })
+  };
+}
+
+function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now) {
+  const key = resultKey(showNo, focusDay, classRow.class_visual_key);
+  return {
+    result_queue_key: key,
+    show_no: text(showNo),
+    focus_day: focusDay,
+    ring_name_normalized: text(classRow.ring_name_normalized),
+    ring_visual_key: text(classRow.ring_visual_key),
+    class_visual_key: text(classRow.class_visual_key),
+    class_no: text(classRow.class_no),
+    sect_no: text(classRow.sect_no),
+    class_number: text(classRow.class_number),
+    class_name: text(classRow.class_name),
+    status,
+    queued_at: now,
+    last_checked_at: now,
+    attempts: 1,
+    result_rows: resultRows,
+    completed_at: status === "completed" ? now : "",
+    source: "horseshowing.show_results4",
+    raw_json: safeJson({
+      class_no: classRow.class_no,
+      class_visual_key: classRow.class_visual_key,
+      status,
+      result_rows: resultRows
+    })
+  };
+}
+
+function toAirtableHsResultQueue(row) {
+  return cleanFields({
+    result_queue_key: row.result_queue_key,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    ring_name_normalized: row.ring_name_normalized,
+    ring_visual_key: row.ring_visual_key,
+    class_visual_key: row.class_visual_key,
+    class_no: intOrNull(row.class_no),
+    sect_no: row.sect_no,
+    class_number: row.class_number,
+    class_name: row.class_name,
+    status: row.status,
+    queued_at: airtableDateTime(row.queued_at),
+    last_checked_at: airtableDateTime(row.last_checked_at),
+    attempts: row.attempts,
+    result_rows: row.result_rows,
+    completed_at: airtableDateTime(row.completed_at),
+    source: row.source,
+    raw_json: row.raw_json
+  });
+}
+
+function toAirtableHsResultClass(row) {
+  return cleanFields({
+    result_class_key: row.result_class_key,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    ring_name_normalized: row.ring_name_normalized,
+    ring_visual_key: row.ring_visual_key,
+    class_visual_key: row.class_visual_key,
+    class_no: intOrNull(row.class_no),
+    sect_no: row.sect_no,
+    class_number: row.class_number,
+    class_name: row.class_name,
+    result_entry_count: row.result_entry_count,
+    has_score: row.has_score,
+    has_prize: row.has_prize,
+    completed_at: airtableDateTime(row.completed_at),
+    source: row.source,
+    raw_json: row.raw_json
+  });
+}
+
+function toAirtableHsClassResult(row) {
+  return cleanFields({
+    class_result_key: row.class_result_key,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    ring_name_normalized: row.ring_name_normalized,
+    ring_visual_key: row.ring_visual_key,
+    class_visual_key: row.class_visual_key,
+    entry_visual_key: row.entry_visual_key,
+    class_no: intOrNull(row.class_no),
+    sect_no: row.sect_no,
+    class_number: row.class_number,
+    class_name: row.class_name,
+    place: row.place,
+    entry_no: intOrNull(row.entry_no),
+    horse: row.horse,
+    rider: row.rider,
+    owner: row.owner,
+    score: row.score,
+    prize: row.prize,
+    completed_at: airtableDateTime(row.completed_at),
+    source: row.source,
+    raw_json: row.raw_json
+  });
+}
+
+async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
+  if (!focusShow.results_enabled) {
+    return {
+      ok: true,
+      skipped: true,
+      reason: "focus_show.results_enabled_false",
+      action: "wec-step6-results",
+      show_no: Number(focusShow.show_no),
+      focus_day: focusShow.focus_day,
+      source: ["hs_class_start_times", "hs_entry_go_times"],
+      writes: { catalyst: 0, airtable: 0 },
+      step_1_5_run: false,
+      result_alerts_run: false
+    };
+  }
+
+  const showNo = text(focusShow.show_no);
+  const focusDay = focusShow.focus_day;
+  const now = catalystDateTime();
+  const force = options.force === true;
+  const limit = Math.max(1, Math.min(5, intOrNull(options.limit) || 3));
+  const offset = Math.max(0, intOrNull(options.offset) || 0);
+
+  const classStartRows = await catalystRows(app, TABLES.classStartTimes, showNo, focusDay);
+  const entryGoTimeRows = await catalystRows(app, TABLES.entryGoTimes, showNo, focusDay);
+  const existingQueueRows = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
+  const existingResultClassRows = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
+  const allClassRows = buildStep6ClassRows(classStartRows, existingQueueRows, existingResultClassRows, force);
+  const classRows = allClassRows.slice(offset, offset + limit);
+  const classByNo = new Map(classRows.map((row) => [text(row.class_no), row]));
+  const entryGoTimeByClassEntry = new Map(entryGoTimeRows.map((row) => [classEntryKey(row), row]));
+
+  if (!classRows.length) {
+    return {
+      ok: true,
+      action: "wec-step6-results",
+      show_no: Number(showNo),
+      focus_day: focusDay,
+      results_enabled: true,
+      source: ["hs_class_start_times", "hs_entry_go_times"],
+      source_counts: {
+        hs_class_start_times: classStartRows.length,
+        hs_entry_go_times: entryGoTimeRows.length,
+        hs_result_queue: existingQueueRows.length,
+        hs_result_classes: existingResultClassRows.length
+      },
+      eligibility: runtimeClassSourceEvidence(classStartRows),
+      target_classes_total: allClassRows.length,
+      offset,
+      limit,
+      next_offset: 0,
+      probed_classes: 0,
+      parsed_blocks: 0,
+      completed_classes: 0,
+      class_results: 0,
+      queue_rows: 0,
+      changed_rows: 0,
+      no_old_airtable_staging_source: true,
+      result_alerts_run: false,
+      step_1_5_run: false
+    };
+  }
+
+  const fetched = await fetchResults(showNo, classRows);
+  const parsedClassNos = new Set(fetched.parsed.classes.map((row) => text(row.class_no)).filter(Boolean));
+  const resultClassRows = fetched.parsed.classes
+    .map((row) => step6ResultClassRow(showNo, focusDay, row, now, classByNo.get(text(row.class_no))))
+    .filter(Boolean);
+  const classResultRows = fetched.parsed.results
+    .map((row) => step6ClassResultRow(showNo, focusDay, row, now, classByNo.get(text(row.class_no)), entryGoTimeByClassEntry))
+    .filter(Boolean);
+  const queueRows = classRows.map((classRow) => {
+    const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
+    const status = parsedClassNos.has(text(classRow.class_no)) ? "completed" : "pending";
+    return step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now);
+  });
+
+  const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 } };
+  for (const row of resultClassRows) {
+    const result = await upsertCatalyst(app, TABLES.resultClasses, "result_class_key", row);
+    if (result.action === "inserted") catalystCounters.result_classes.inserted += 1;
+    if (result.action === "updated") catalystCounters.result_classes.updated += 1;
+  }
+  for (const row of classResultRows) {
+    const result = await upsertCatalyst(app, TABLES.classResults, "class_result_key", row);
+    if (result.action === "inserted") catalystCounters.class_results.inserted += 1;
+    if (result.action === "updated") catalystCounters.class_results.updated += 1;
+  }
+  for (const row of queueRows) {
+    const result = await upsertCatalyst(app, TABLES.resultQueue, "result_queue_key", row);
+    if (result.action === "inserted") catalystCounters.result_queue.inserted += 1;
+    if (result.action === "updated") catalystCounters.result_queue.updated += 1;
+  }
+
+  const airtableQueue = await airtableUpsert(
+    baseId,
+    AIRTABLE_TABLES.hs_result_queue,
+    "result_queue_key",
+    queueRows.map(toAirtableHsResultQueue),
+    token
+  );
+  const airtableResultClasses = await airtableUpsert(
+    baseId,
+    AIRTABLE_TABLES.hs_result_classes,
+    "result_class_key",
+    resultClassRows.map(toAirtableHsResultClass),
+    token
+  );
+  const airtableClassResults = await airtableUpsert(
+    baseId,
+    AIRTABLE_TABLES.hs_class_results,
+    "class_result_key",
+    classResultRows.map(toAirtableHsClassResult),
+    token
+  );
+
+  const verifyCatalystQueue = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
+  const verifyCatalystClasses = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
+  const verifyCatalystResults = await catalystRows(app, TABLES.classResults, showNo, focusDay);
+  const nextOffset = offset + limit < allClassRows.length ? offset + limit : 0;
+  return {
+    ok: verifyCatalystQueue.length > 0 || queueRows.length === 0,
+    action: "wec-step6-results",
+    show_no: Number(showNo),
+    focus_day: focusDay,
+    results_enabled: true,
+    source: ["hs_class_start_times", "hs_entry_go_times"],
+    result_source_endpoint: "show_results4.php",
+    source_request_uses_native_class_no: true,
+    target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
+    target_airtable: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
+    source_counts: {
+      hs_class_start_times: classStartRows.length,
+      hs_entry_go_times: entryGoTimeRows.length,
+      hs_result_queue: existingQueueRows.length,
+      hs_result_classes: existingResultClassRows.length
+    },
+    eligibility: runtimeClassSourceEvidence(classStartRows),
+    target_classes_total: allClassRows.length,
+    offset,
+    limit,
+    next_offset: nextOffset,
+    probed_classes: classRows.length,
+    probed_class_nos: classRows.map((row) => text(row.class_no)),
+    parsed_blocks: fetched.parsed.blocks,
+    completed_classes: resultClassRows.length,
+    class_results: classResultRows.length,
+    queue_rows: queueRows.length,
+    changed_rows: resultClassRows.length + classResultRows.length + queueRows.length,
+    catalyst: catalystCounters,
+    airtable: {
+      hs_result_queue: airtableQueue.length,
+      hs_result_classes: airtableResultClasses.length,
+      hs_class_results: airtableClassResults.length
+    },
+    verify: {
+      catalyst_result_queue: verifyCatalystQueue.length,
+      catalyst_result_classes: verifyCatalystClasses.length,
+      catalyst_class_results: verifyCatalystResults.length
+    },
+    no_old_airtable_staging_source: true,
+    result_alerts_run: false,
+    step_1_5_run: false
+  };
+}
+
 function toAirtableResultClass(row, sourceClass, resultQueueByKey) {
   const queueKey = resultKey(row.show_no, row.focus_day, row.class_no || row.class_number);
   return cleanFields({
@@ -1255,6 +1686,16 @@ async function handle(req, res) {
         notifications_sent: 0,
         downstream_run: false
       });
+    }
+
+    if (action === "wec-step6-results") {
+      phase = "wec_step6_results";
+      const detail = await runWecStep6Results(app, baseId, token, focusShow, {
+        force,
+        offset,
+        limit: intOrNull(query.get("limit") || body.limit) || 3
+      });
+      return sendJson(res, detail.ok ? 200 : 500, detail);
     }
 
     phase = "read_source_class_oog_staging_active_entries";

@@ -374,6 +374,10 @@ function airtableFormulaValue(value) {
   return `'${String(value ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`;
 }
 
+function airtableQuote(value) {
+  return String(value ?? "").replace(/'/g, "\\'");
+}
+
 function intOrNull(value) {
   const parsed = Number.parseInt(text(value), 10);
   return Number.isFinite(parsed) ? parsed : null;
@@ -1421,7 +1425,7 @@ function summarizeUpdateSchedulePreflight(rows) {
 
 function getOrdersSourceRow(row) {
   const classParts = classPartsFromLabel(row.class_label || row.class_name);
-  const key = resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_no || row.class_label);
+  const key = resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_label || row.class_no);
   if (!key) return null;
   return {
     get_orders_key: key,
@@ -1430,7 +1434,11 @@ function getOrdersSourceRow(row) {
     ring_no: intValue(row.ring_no),
     ring_day_no: intValue(row.ring_day_no),
     ring_name: text(row.ring_name),
+    ring_name_normalized: text(row.ring_name_normalized),
+    ring_visual_key: text(row.ring_visual_key),
+    class_visual_key: text(row.class_visual_key),
     day_text: text(row.day_label || row.day_text),
+    class_no: intValue(row.class_no),
     class_text: text(row.class_label || row.class_name),
     class_number: intValue(classParts.classNumber),
     entry_no: intValue(row.current_entry_no),
@@ -2572,29 +2580,52 @@ async function getClassesForSchedule(app, showNo, classNos) {
 }
 
 async function getFocusClassLookup(app, showNo, focusDay) {
-  if (!focusDay) return { classNos: new Set(), byRingDayAndName: new Map() };
-  const schedule = dedupeFocusScheduleRows(await getFocusSchedule(app, showNo, focusDay, { limit: 300, offset: 0 }))
+  if (!focusDay) {
+    return {
+      classNos: new Set(),
+      byRingDayAndName: new Map(),
+      byRingDayRingClassNumber: new Map(),
+      byClassNo: new Map()
+    };
+  }
+  const updateScheduleQuery = [
+    "SELECT ROWID, show_no, iso_date, focus_day, ring_day_no, ring_no, ring_name, ring_name_normalized, ring_visual_key, class_visual_key, class_no, class_number, class_name, event_name, entry_count, live_flag",
+    `FROM ${TABLES.updateSchedule}`,
+    `WHERE show_no = ${zcqlValue(showNo)} AND iso_date = ${zcqlValue(focusDay)}`,
+    "LIMIT 300"
+  ].join(" ");
+  const schedule = (await app.zcql().executeZCQLQuery(updateScheduleQuery) || [])
+    .map((item) => item?.[TABLES.updateSchedule])
+    .filter(Boolean)
     .filter((row) => intOrNull(row.class_no) > 0);
   const classNos = new Set(schedule.map((row) => String(row.class_no || "")).filter(Boolean));
   const classesByNo = await getClassesForSchedule(app, showNo, [...classNos]);
   const byRingDayAndName = new Map();
+  const byRingDayRingClassNumber = new Map();
+  const byClassNo = new Map();
   for (const row of schedule) {
     const classNo = String(row.class_no || "");
     if (!classNo) continue;
+    byClassNo.set(classNo, row);
+    const classNumber = intValue(row.class_number);
+    if (classNumber) {
+      byRingDayRingClassNumber.set(`${text(row.ring_day_no)}|${text(row.ring_no)}|${classNumber}`, row);
+    }
     const classRow = classesByNo.get(classNo) || {};
     const names = [
       classRow.class_label,
       classRow.class_name,
       row.class_name,
+      row.event_name,
       classDisplayFromLabel(classRow, row.class_name)
     ].map(classNameKey).filter(Boolean);
     for (const name of [...new Set(names)]) {
-      byRingDayAndName.set(`${text(row.ring_day_no)}|${name}`, classNo);
-      byRingDayAndName.set(`${text(row.ring_no)}|${name}`, classNo);
-      byRingDayAndName.set(`|${name}`, classNo);
+      byRingDayAndName.set(`${text(row.ring_day_no)}|${name}`, row);
+      byRingDayAndName.set(`${text(row.ring_no)}|${name}`, row);
+      byRingDayAndName.set(`|${name}`, row);
     }
   }
-  return { classNos, byRingDayAndName };
+  return { classNos, byRingDayAndName, byRingDayRingClassNumber, byClassNo };
 }
 
 async function applyFocusScopeToCurrentRows(app, showNo, focusDay, rows, source) {
@@ -2603,14 +2634,28 @@ async function applyFocusScopeToCurrentRows(app, showNo, focusDay, rows, source)
   const hasFocusClassScope = lookup.classNos.size > 0;
   for (const row of rows) {
     let classNo = text(row.class_no);
+    let scheduleRow = classNo ? lookup.byClassNo.get(classNo) : null;
     if (!classNo && source === "orders") {
+      const classNumber = intValue(row.class_number || classPartsFromLabel(row.class_label || row.class_name).classNumber);
+      if (classNumber) {
+        scheduleRow = lookup.byRingDayRingClassNumber.get(`${text(row.ring_day_no)}|${text(row.ring_no)}|${classNumber}`) || null;
+      }
       const name = classNameKey(row.class_label || row.class_name);
-      classNo = lookup.byRingDayAndName.get(`${text(row.ring_day_no)}|${name}`)
+      scheduleRow = scheduleRow
+        || lookup.byRingDayAndName.get(`${text(row.ring_day_no)}|${name}`)
         || lookup.byRingDayAndName.get(`${text(row.ring_no)}|${name}`)
         || lookup.byRingDayAndName.get(`|${name}`)
-        || "";
+        || null;
+      classNo = text(scheduleRow?.class_no);
     }
-    const next = classNo ? { ...row, class_no: classNo } : row;
+    const ringNameNormalized = visualRingName(scheduleRow?.ring_name_normalized || row.ring_name_normalized || normalizedWecRingName(scheduleRow?.ring_name || row.ring_name));
+    const next = classNo ? {
+      ...row,
+      class_no: classNo,
+      ring_name_normalized: ringNameNormalized,
+      ring_visual_key: text(scheduleRow?.ring_visual_key) || ringVisualKey(row.ring_no, ringNameNormalized),
+      class_visual_key: text(scheduleRow?.class_visual_key) || classVisualKey(ringNameNormalized, classNo)
+    } : row;
     if (hasFocusClassScope && next.class_no && !lookup.classNos.has(String(next.class_no))) continue;
     scoped.push(next);
   }
@@ -2876,7 +2921,7 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
   const activeTrainerSet = new Set(activeTrainers.map((trainer) => text(trainer)).filter(Boolean));
   const classWhere = wanted.map((classNo) => `class_no = ${zcqlValue(classNo)}`).join(" OR ");
   const query = [
-    "SELECT ROWID, entry_go_key, show_no, focus_day, class_no, entry_no, entry_order, horse, rider, trainer, go_time",
+    "SELECT ROWID, entry_go_key, show_no, focus_day, class_no, entry_no, entry_order, horse, rider, trainer, go_time, pace_seconds, live_source, last_live_synced_at",
     `FROM ${TABLES.entryGoTimes}`,
     `WHERE show_no = ${zcqlValue(showNo)} AND focus_day = ${zcqlValue(focusDay)} AND (${classWhere})`,
     "LIMIT 300"
@@ -2905,10 +2950,13 @@ async function getCatalystEntryGoTimesForSchedule(app, showNo, focusDay, classNo
       entry_rollup: text(row.entry_rollup),
       rider_display: text(row.rider_display || row.rider),
       trainer_display: text(row.trainer_display || row.trainer),
-      entry_go_time: text(row.entry_go_time),
+      entry_go_time: text(row.go_time),
       class_start_time: text(row.class_start_time),
       time_till: text(row.time_till),
-      go_time: text(row.entry_go_time)
+      go_time: text(row.go_time),
+      pace_seconds: text(row.pace_seconds),
+      live_source: text(row.live_source),
+      last_live_synced_at: text(row.last_live_synced_at)
     });
     byClass.set(classKey, bucket);
   }
@@ -3034,6 +3082,14 @@ function displayTimeFromStart(value) {
 function classStartTimeFromText(value) {
   const raw = text(value).toUpperCase().replace(/\s+/g, "");
   if (!raw || raw === "CHECKTIME") return "";
+  const hhmmss = raw.match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
+  if (hhmmss) {
+    const hour = Number(hhmmss[1]);
+    const minute = Number(hhmmss[2]);
+    const second = Number(hhmmss[3]);
+    if (hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59) return "";
+    return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
+  }
   const match = raw.match(/^(\d{1,2})(?::?(\d{2}))?(AM|PM|A|P)?$/);
   if (!match) return "";
   let hour = Number(match[1]);
@@ -3041,7 +3097,7 @@ function classStartTimeFromText(value) {
   const suffix = match[3] || "";
   if (suffix.startsWith("P") && hour < 12) hour += 12;
   if (suffix.startsWith("A") && hour === 12) hour = 0;
-  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return "";
+  if (!Number.isFinite(hour) || !Number.isFinite(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) return "";
   return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
 }
 
@@ -4319,9 +4375,13 @@ function compactMobileEntryPayload(entries) {
     entry_rollup: text(entry.entry_rollup),
     rider_display: text(entry.rider_display || entry.rider),
     trainer_display: text(entry.trainer_display || entry.trainer),
-    entry_go_time: text(entry.entry_go_time),
-    entry_go_time_label: "Estimated go time",
-    entry_go_time_source: "estimate",
+    entry_go_time: text(entry.entry_go_time || entry.go_time),
+    go_time: text(entry.go_time || entry.entry_go_time),
+    entry_go_time_label: text(entry.entry_go_time || entry.go_time) ? text(entry.entry_go_time_label || "Source-derived go time") : "",
+    entry_go_time_source: text(entry.entry_go_time || entry.go_time) ? text(entry.entry_go_time_source || entry.live_source || "source_derived_pace") : "",
+    pace_seconds: text(entry.pace_seconds),
+    live_source: text(entry.live_source),
+    last_live_synced_at: text(entry.last_live_synced_at),
     class_start_time: text(entry.class_start_time),
     time_till: text(entry.time_till)
   })).filter((entry) => (
@@ -4329,6 +4389,8 @@ function compactMobileEntryPayload(entries) {
     entry.rider_display ||
     entry.trainer_display ||
     entry.entry_go_time ||
+    entry.pace_seconds ||
+    entry.live_source ||
     entry.class_start_time ||
     entry.time_till
   ));
@@ -4481,9 +4543,12 @@ function richEntryFromGoTime(entry, meta, resultRow = {}) {
     rider,
     trainer,
     trainer_display: trainerDisplayName(trainer, meta.trainerDisplays),
-    go_time: text(entry.entry_go_time),
-    go_time_label: "Estimated go time",
-    go_time_source: "estimate",
+    go_time: text(entry.go_time || entry.entry_go_time),
+    go_time_label: text(entry.go_time || entry.entry_go_time) ? text(entry.go_time_label || entry.entry_go_time_label || "Source-derived go time") : "",
+    go_time_source: text(entry.go_time || entry.entry_go_time) ? text(entry.go_time_source || entry.entry_go_time_source || entry.live_source || "source_derived_pace") : "",
+    pace_seconds: text(entry.pace_seconds),
+    live_source: text(entry.live_source),
+    last_live_synced_at: text(entry.last_live_synced_at),
     result: text(resultRow.class_result_key) ? {
       score: text(resultRow.score),
       prize: text(resultRow.prize),
@@ -5653,14 +5718,23 @@ function visualRingName(value) {
   return text(value).toLowerCase();
 }
 
+function visualKeyRingToken(value) {
+  return visualRingName(value)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
 function ringVisualKey(ringNo, ringNameNormalized) {
-  const normalized = visualRingName(ringNameNormalized);
-  return intValue(ringNo) && normalized ? `${intValue(ringNo)}|${normalized}` : "";
+  const token = visualKeyRingToken(ringNameNormalized);
+  return intValue(ringNo) && token ? `${intValue(ringNo)}|${token}` : "";
 }
 
 function classVisualKey(ringNameNormalized, classNo) {
-  const normalized = visualRingName(ringNameNormalized);
-  return normalized && intValue(classNo) ? `${normalized}|${intValue(classNo)}` : "";
+  const token = visualKeyRingToken(ringNameNormalized);
+  return token && intValue(classNo) ? `${token}|${intValue(classNo)}` : "";
 }
 
 function entryVisualKey(ringNameNormalized, classNo, entryNo) {
@@ -6613,7 +6687,13 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
       entry_rollup: text(row.horse),
       rider_display: text(row.rider),
       trainer_display: trainerDisplayName(text(row.trainer), meta.trainerDisplays),
-      entry_go_time: text(row.entry_go_time),
+      entry_go_time: text(row.go_time || row.entry_go_time),
+      go_time: text(row.go_time || row.entry_go_time),
+      pace_seconds: text(row.pace_seconds),
+      live_source: text(row.live_source),
+      last_live_synced_at: text(row.last_live_synced_at),
+      entry_go_time_label: text(row.go_time) ? "Source-derived go time" : "Estimated go time",
+      entry_go_time_source: text(row.go_time) ? "source_derived_pace" : "estimate",
       time_till: text(row.time_till),
       class_visual_key: classVisual,
       entry_visual_key: text(row.entry_visual_key || row.entry_go_key)
@@ -11691,6 +11771,64 @@ function addSecondsToTimeText(startTime, seconds) {
   return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
 }
 
+function parseJsonObject(value) {
+  try {
+    const parsed = JSON.parse(text(value));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+async function readSoonClassStatusKeys(showNo, focusDay) {
+  const result = {
+    class_start_keys: new Set(),
+    class_visual_keys: new Set(),
+    class_nos: new Set(),
+    rows: 0,
+    error: ""
+  };
+  if (!AIRTABLE_TOKEN_FALLBACK) {
+    result.error = "missing_airtable_token";
+    return result;
+  }
+  try {
+    const formula = `AND({show_no}=${Number(showNo)},IS_SAME({focus_day},DATETIME_PARSE('${airtableQuote(focusDay)}'),'day'),{status}='open',{alert_lane}='class_start_times')`;
+    const records = await airtableListRecords("wec-alerts", { filterByFormula: formula });
+    result.rows = records.length;
+    for (const record of records) {
+      const fields = record.fields || {};
+      const payload = parseJsonObject(fields.payload_json || fields.payload || fields.Payload || fields["payload_json"]);
+      const classStartKey = text(payload.class_start_key || fields.class_start_key || fields["class_start_key"]);
+      const classVisual = text(payload.class_visual_key || fields.class_visual_key || fields["class_visual_key"]);
+      const classNo = text(payload.class_no || fields.class_no || fields["class_no"]);
+      if (classStartKey) result.class_start_keys.add(classStartKey);
+      if (classVisual) result.class_visual_keys.add(classVisual);
+      if (classNo) result.class_nos.add(classNo);
+    }
+  } catch (error) {
+    result.error = String(error?.message || error);
+  }
+  return result;
+}
+
+function classStatusForStart(row, liveRow, soonKeys) {
+  const entryCount = intOrNull(row.entry_count);
+  const gone = intOrNull(liveRow?.n_gone ?? row.n_gone);
+  const toGo = intOrNull(liveRow?.n_to_go ?? row.n_to_go);
+  if (entryCount && gone === entryCount && (toGo === null || toGo === 0)) return "Done";
+  if (liveRow) return "Now";
+  const classStartKey = text(row.class_start_key);
+  const classVisual = text(row.class_visual_key || row.class_start_key);
+  const classNo = text(row.class_no);
+  if (
+    soonKeys?.class_start_keys?.has(classStartKey) ||
+    soonKeys?.class_visual_keys?.has(classVisual) ||
+    soonKeys?.class_nos?.has(classNo)
+  ) return "Soon";
+  return "Today";
+}
+
 async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = [], getOrdersRows = [], runTime = "" } = {}) {
   const safeFocusDay = dateKey(focusDay);
   const currentFilter = (row) => text(row.show_no) === text(showNo) && dateKey(row.focus_day) === safeFocusDay;
@@ -11702,6 +11840,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
   const ringStatusRows = ringStatusPage.rows || [];
   const classStartRows = classStartPage.rows || [];
   const entryGoRows = entryGoPage.rows || [];
+  const soonClassStatusKeys = await readSoonClassStatusKeys(showNo, safeFocusDay);
 
   const ringStatusByRing = new Map();
   for (const row of ringStatusRows) {
@@ -11713,9 +11852,15 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
   }
 
   const classStartByVisualKey = new Map();
+  const classStartByClassNo = new Map();
   for (const row of classStartRows) {
     const key = text(row.class_visual_key || row.class_start_key);
     if (key) classStartByVisualKey.set(key, row);
+    const classNo = text(row.class_no);
+    if (classNo) {
+      if (classStartByClassNo.has(classNo)) classStartByClassNo.set(classNo, null);
+      else classStartByClassNo.set(classNo, row);
+    }
   }
 
   const liveRows = [...(getRingsRows || []), ...(getOrdersRows || [])]
@@ -11749,14 +11894,37 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     });
   }
 
-  const classUpdates = [];
+  const classUpdateByKey = new Map();
+  for (const row of classStartRows) {
+    const classStartKey = text(row.class_start_key);
+    if (!classStartKey) continue;
+    classUpdateByKey.set(classStartKey, {
+      class_start_key: classStartKey,
+      class_status: classStatusForStart(row, null, soonClassStatusKeys)
+    });
+  }
   const paceByClassVisualKey = new Map();
+  const paceByClassNo = new Map();
+  const sourceDerivedPaceBySource = {
+    hs_get_rings: 0,
+    hs_get_orders: 0
+  };
   for (const [classKey, liveRow] of bestLiveByClass.entries()) {
     const classRow = classStartByVisualKey.get(classKey);
     if (!classRow?.class_start_key) continue;
     const pace = sourceDerivedPaceSeconds(liveRow);
-    if (pace) paceByClassVisualKey.set(classKey, pace);
-    classUpdates.push({
+    if (pace) {
+      paceByClassVisualKey.set(classKey, pace);
+      if (text(liveRow.get_orders_key)) sourceDerivedPaceBySource.hs_get_orders += 1;
+      else sourceDerivedPaceBySource.hs_get_rings += 1;
+    }
+    const classNo = text(classRow.class_no || liveRow.class_no);
+    if (pace && classNo) {
+      if (paceByClassNo.has(classNo)) paceByClassNo.set(classNo, null);
+      else paceByClassNo.set(classNo, pace);
+    }
+    classUpdateByKey.set(text(classRow.class_start_key), {
+      ...(classUpdateByKey.get(text(classRow.class_start_key)) || {}),
       class_start_key: text(classRow.class_start_key),
       n_gone: intValue(liveRow.n_gone),
       n_to_go: intValue(liveRow.n_to_go),
@@ -11764,20 +11932,53 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       pace_seconds: pace || undefined,
       current_entry_no: intValue(liveRow.entry_no),
       current_horse: text(liveRow.entry_text),
+      class_status: classStatusForStart(classRow, liveRow, soonClassStatusKeys),
       live_source: text(liveRow.get_orders_key) ? "hs_get_orders.step5_live_enrichment" : "hs_get_rings.step5_live_enrichment",
       last_live_synced_at: liveSyncedAt
     });
   }
+  const classUpdates = [...classUpdateByKey.values()];
 
   const entryUpdates = [];
+  const entrySkipReasons = {
+    missing_class_key: 0,
+    missing_pace: 0,
+    missing_class_row: 0,
+    missing_entry_order: 0,
+    missing_class_start_time: 0,
+    invalid_go_time: 0
+  };
   for (const row of entryGoRows) {
-    const classKey = text(row.class_visual_key);
-    const pace = paceByClassVisualKey.get(classKey);
-    const classRow = classStartByVisualKey.get(classKey);
+    const classKey = text(row.class_visual_key || row.class_start_key || classVisualKey(row.ring_name_normalized, row.class_no));
+    const classNo = text(row.class_no);
+    if (!classKey && !classNo) {
+      entrySkipReasons.missing_class_key += 1;
+      continue;
+    }
+    const pace = paceByClassVisualKey.get(classKey) || paceByClassNo.get(classNo);
+    if (!pace) {
+      entrySkipReasons.missing_pace += 1;
+      continue;
+    }
+    const classRow = classStartByVisualKey.get(classKey) || classStartByClassNo.get(classNo);
+    if (!classRow?.class_start_key) {
+      entrySkipReasons.missing_class_row += 1;
+      continue;
+    }
     const entryOrder = intOrNull(row.entry_order);
-    if (!pace || !entryOrder || !classRow?.class_start_time) continue;
+    if (!entryOrder) {
+      entrySkipReasons.missing_entry_order += 1;
+      continue;
+    }
+    if (!classRow.class_start_time) {
+      entrySkipReasons.missing_class_start_time += 1;
+      continue;
+    }
     const goTime = addSecondsToTimeText(classRow.class_start_time, (entryOrder - 1) * pace);
-    if (!goTime) continue;
+    if (!goTime) {
+      entrySkipReasons.invalid_go_time += 1;
+      continue;
+    }
     entryUpdates.push({
       entry_go_key: text(row.entry_go_key),
       go_time: goTime,
@@ -11797,11 +11998,17 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     ? await upsertSourceRowsFast(app, TABLES.entryGoTimes, "entry_go_key", entryUpdates, { showNo })
     : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
 
+  const entryUpdateByKey = new Map(entryUpdates.map((row) => [text(row.entry_go_key), row]));
+  const refreshedEntryGoRows = (await getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })).rows || [];
+  const mirrorEntryGoRows = refreshedEntryGoRows.map((row) => {
+    const update = entryUpdateByKey.get(text(row.entry_go_key));
+    return update ? { ...row, ...update } : row;
+  });
   const refreshedRows = await getStep4RuntimeRows(app, showNo, safeFocusDay, { trainerDisplays: new Map() });
   const airtableRuntimeMirror = await syncRawAirtableStep4RuntimeRows(showNo, safeFocusDay, {
     ringStatusRows: refreshedRows.runtime_ring_status_rows || [],
     classStartRows: (await getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 })).rows || [],
-    entryGoRows: (await getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })).rows || [],
+    entryGoRows: mirrorEntryGoRows,
     runTime
   });
 
@@ -11813,12 +12020,69 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     },
     class_live_matches: bestLiveByClass.size,
     source_derived_pace_classes: paceByClassVisualKey.size,
+    source_derived_pace_by_source: sourceDerivedPaceBySource,
+    class_status: {
+      soon_alert_rows: soonClassStatusKeys.rows,
+      soon_alert_read_error: soonClassStatusKeys.error,
+      updated_rows: classUpdates.filter((row) => text(row.class_status)).length,
+      counts: classUpdates.reduce((counts, row) => {
+        const status = text(row.class_status || "Today");
+        counts[status] = (counts[status] || 0) + 1;
+        return counts;
+      }, {})
+    },
     ring_status_enrichment: ringResult,
     class_start_times_enrichment: classResult,
     entry_go_times_enrichment: entryResult,
     entry_go_times_go_time_updates: entryUpdates.length,
+    entry_go_times_skip_reasons: entrySkipReasons,
     fallback_go_times_created: 0,
     airtable_runtime_mirror: airtableRuntimeMirror
+  };
+}
+
+function summarizeStep5Mirror(mirror) {
+  if (!mirror) return null;
+  const summary = {};
+  for (const [key, value] of Object.entries(mirror)) {
+    if (!value || typeof value !== "object") {
+      summary[key] = value;
+      continue;
+    }
+    summary[key] = {
+      table: value.table,
+      key_field: value.key_field,
+      source_rows: value.source_rows,
+      upserts: value.upserts,
+      current_day_count: value.current_day_count,
+      skipped: value.skipped,
+      cleanup: value.cleanup,
+      table_status: value.table_status ? {
+        exists: value.table_status.exists,
+        created: value.table_status.created,
+        table_id: value.table_status.table_id,
+        missing_fields: value.table_status.missing_fields || []
+      } : undefined
+    };
+  }
+  return summary;
+}
+
+function summarizeStep5RuntimeEnrichment(runtime) {
+  if (!runtime) return null;
+  return {
+    source_runtime_counts: runtime.source_runtime_counts,
+    class_live_matches: runtime.class_live_matches,
+    source_derived_pace_classes: runtime.source_derived_pace_classes,
+    source_derived_pace_by_source: runtime.source_derived_pace_by_source,
+    class_status: runtime.class_status,
+    ring_status_enrichment: runtime.ring_status_enrichment,
+    class_start_times_enrichment: runtime.class_start_times_enrichment,
+    entry_go_times_enrichment: runtime.entry_go_times_enrichment,
+    entry_go_times_go_time_updates: runtime.entry_go_times_go_time_updates,
+    entry_go_times_skip_reasons: runtime.entry_go_times_skip_reasons,
+    fallback_go_times_created: runtime.fallback_go_times_created,
+    airtable_runtime_mirror: summarizeStep5Mirror(runtime.airtable_runtime_mirror)
   };
 }
 
@@ -12190,6 +12454,8 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     blocker = String(error?.message || error);
   }
 
+  const finalRuntimeEnrichment = summarizeStep5RuntimeEnrichment(runtimeEnrichment);
+  const finalAirtableLiveMirror = summarizeStep5Mirror(airtableLiveMirror);
   const finalPayload = {
     ...runningPayload,
     live_enrichment_run: !blocker,
@@ -12203,8 +12469,8 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
       hs_get_rings: rings?.source_rows?.length || 0,
       hs_get_orders: orders?.source_rows?.length || 0
     },
-    airtable_live_mirror: airtableLiveMirror,
-    runtime_enrichment: runtimeEnrichment,
+    airtable_live_mirror: finalAirtableLiveMirror,
+    runtime_enrichment: finalRuntimeEnrichment,
     fallback_go_times_created: runtimeEnrichment?.fallback_go_times_created || 0,
     step1_run: false,
     step2_run: false,
@@ -12249,8 +12515,8 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     get_orders_run: Boolean(orders?.get_run),
     get_results_run: false,
     catalyst_live_mirror_counts: finalPayload.catalyst_live_mirror_counts,
-    airtable_live_mirror: airtableLiveMirror,
-    runtime_enrichment: runtimeEnrichment,
+    airtable_live_mirror: finalAirtableLiveMirror,
+    runtime_enrichment: finalRuntimeEnrichment,
     fallback_go_times_created: finalPayload.fallback_go_times_created,
     step1_run: false,
     step2_run: false,

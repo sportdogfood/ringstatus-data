@@ -144,6 +144,8 @@ const AIRTABLE_RAW_HEARTBEAT_TABLE = "hs_heartbeat";
 const AIRTABLE_RAW_GET_RING_DAYS_TABLE = "hs_get_ring_days";
 const AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE = "hs_update_schedule";
 const AIRTABLE_RAW_CLASS_OOG_TABLE = "hs_class_oog";
+const AIRTABLE_RAW_GET_RINGS_TABLE = "hs_get_rings";
+const AIRTABLE_RAW_GET_ORDERS_TABLE = "hs_get_orders";
 const AIRTABLE_RAW_RING_STATUS_TABLE = "hs_ring_status";
 const AIRTABLE_RAW_CLASS_START_TIMES_TABLE = "hs_class_start_times";
 const AIRTABLE_RAW_ENTRY_GO_TIMES_TABLE = "hs_entry_go_times";
@@ -1424,6 +1426,7 @@ function getOrdersSourceRow(row) {
   return {
     get_orders_key: key,
     show_no: intValue(row.show_no),
+    focus_day: dateKey(row.focus_day),
     ring_no: intValue(row.ring_no),
     ring_day_no: intValue(row.ring_day_no),
     ring_name: text(row.ring_name),
@@ -1449,6 +1452,7 @@ function getRingsSourceRow(row) {
   return {
     get_rings_key: key,
     show_no: intValue(row.show_no),
+    focus_day: dateKey(row.focus_day),
     ring_no: intValue(row.ring_no),
     ring_day_no: intValue(row.ring_day_no),
     class_no: intValue(row.class_no),
@@ -5973,7 +5977,14 @@ const RAW_RING_STATUS_REQUIRED_FIELDS = [
   "ring_visual_key",
   "status",
   "source",
-  "last_synced_at"
+  "last_synced_at",
+  "is_live",
+  "current_class_no",
+  "n_gone",
+  "n_to_go",
+  "elapsed_seconds",
+  "live_source",
+  "last_live_synced_at"
 ];
 
 const RAW_CLASS_START_TIMES_REQUIRED_FIELDS = [
@@ -5997,7 +6008,9 @@ const RAW_CLASS_START_TIMES_REQUIRED_FIELDS = [
   "elapsed_seconds",
   "status",
   "live_source",
-  "last_synced_at"
+  "last_synced_at",
+  "pace_seconds",
+  "last_live_synced_at"
 ];
 
 const RAW_ENTRY_GO_TIMES_REQUIRED_FIELDS = [
@@ -6016,7 +6029,53 @@ const RAW_ENTRY_GO_TIMES_REQUIRED_FIELDS = [
   "trainer",
   "go_time",
   "status",
-  "last_synced_at"
+  "last_synced_at",
+  "pace_seconds",
+  "live_source",
+  "last_live_synced_at"
+];
+
+const RAW_GET_RINGS_REQUIRED_FIELDS = [
+  "get_rings_key",
+  "show_no",
+  "focus_day",
+  "ring_no",
+  "ring_day_no",
+  "class_no",
+  "class_text",
+  "class_number",
+  "entry_no",
+  "entry_text",
+  "total",
+  "n_to_go",
+  "n_gone",
+  "time_text",
+  "timestamp_value",
+  "elapsed",
+  "status_type",
+  "source_payload"
+];
+
+const RAW_GET_ORDERS_REQUIRED_FIELDS = [
+  "get_orders_key",
+  "show_no",
+  "focus_day",
+  "ring_no",
+  "ring_day_no",
+  "ring_name",
+  "day_text",
+  "class_no",
+  "class_text",
+  "class_number",
+  "entry_no",
+  "entry_text",
+  "total",
+  "n_to_go",
+  "n_gone",
+  "time_text",
+  "timestamp_value",
+  "elapsed",
+  "source_payload"
 ];
 
 async function rawAirtableStep4MirrorTableStatus(tableName, requiredFields) {
@@ -6059,7 +6118,14 @@ function mapRawAirtableRingStatusFields(row) {
     ring_visual_key: text(row.ring_visual_key),
     status: text(row.status),
     source: text(row.source),
-    last_synced_at: text(row.last_synced_at)
+    last_synced_at: text(row.last_synced_at),
+    is_live: text(row.is_live),
+    current_class_no: text(row.current_class_no),
+    n_gone: text(row.n_gone),
+    n_to_go: text(row.n_to_go),
+    elapsed_seconds: text(row.elapsed_seconds),
+    live_source: text(row.live_source),
+    last_live_synced_at: text(row.last_live_synced_at)
   };
 }
 
@@ -6085,7 +6151,9 @@ function mapRawAirtableClassStartFields(row) {
     elapsed_seconds: text(row.elapsed_seconds),
     status: text(row.status),
     live_source: text(row.live_source),
-    last_synced_at: text(row.last_synced_at)
+    last_synced_at: text(row.last_synced_at),
+    pace_seconds: text(row.pace_seconds),
+    last_live_synced_at: text(row.last_live_synced_at)
   };
 }
 
@@ -6106,7 +6174,57 @@ function mapRawAirtableEntryGoFields(row, runTime) {
     trainer: text(row.trainer),
     go_time: text(row.go_time),
     status: text(row.status || "active"),
-    last_synced_at: text(row.last_synced_at || catalystDateTime(runTime))
+    last_synced_at: text(row.last_synced_at || catalystDateTime(runTime)),
+    pace_seconds: text(row.pace_seconds),
+    live_source: text(row.live_source),
+    last_live_synced_at: text(row.last_live_synced_at)
+  };
+}
+
+function mapRawAirtableGetRingsFields(row) {
+  return {
+    get_rings_key: text(row.get_rings_key),
+    show_no: text(row.show_no),
+    focus_day: dateKey(row.focus_day),
+    ring_no: text(row.ring_no),
+    ring_day_no: text(row.ring_day_no),
+    class_no: text(row.class_no),
+    class_text: text(row.class_text),
+    class_number: text(row.class_number),
+    entry_no: text(row.entry_no),
+    entry_text: text(row.entry_text),
+    total: text(row.total),
+    n_to_go: text(row.n_to_go),
+    n_gone: text(row.n_gone),
+    time_text: text(row.time_text),
+    timestamp_value: text(row.timestamp_value),
+    elapsed: text(row.elapsed),
+    status_type: text(row.status_type),
+    source_payload: text(row.source_payload)
+  };
+}
+
+function mapRawAirtableGetOrdersFields(row) {
+  return {
+    get_orders_key: text(row.get_orders_key),
+    show_no: text(row.show_no),
+    focus_day: dateKey(row.focus_day),
+    ring_no: text(row.ring_no),
+    ring_day_no: text(row.ring_day_no),
+    ring_name: text(row.ring_name),
+    day_text: text(row.day_text),
+    class_no: text(row.class_no),
+    class_text: text(row.class_text),
+    class_number: text(row.class_number),
+    entry_no: text(row.entry_no),
+    entry_text: text(row.entry_text),
+    total: text(row.total),
+    n_to_go: text(row.n_to_go),
+    n_gone: text(row.n_gone),
+    time_text: text(row.time_text),
+    timestamp_value: text(row.timestamp_value),
+    elapsed: text(row.elapsed),
+    source_payload: text(row.source_payload)
   };
 }
 
@@ -6214,6 +6332,31 @@ async function syncRawAirtableStep4RuntimeRows(showNo, focusDay, { ringStatusRow
     hs_ring_status: hsRingStatus,
     hs_class_start_times: hsClassStartTimes,
     hs_entry_go_times: hsEntryGoTimes
+  };
+}
+
+async function syncRawAirtableStep5LiveRows(showNo, focusDay, { getRingsRows = [], getOrdersRows = [] } = {}) {
+  const hsGetRings = await syncRawAirtableStep4Mirror(
+    AIRTABLE_RAW_GET_RINGS_TABLE,
+    "get_rings_key",
+    RAW_GET_RINGS_REQUIRED_FIELDS,
+    getRingsRows,
+    mapRawAirtableGetRingsFields,
+    showNo,
+    focusDay
+  );
+  const hsGetOrders = await syncRawAirtableStep4Mirror(
+    AIRTABLE_RAW_GET_ORDERS_TABLE,
+    "get_orders_key",
+    RAW_GET_ORDERS_REQUIRED_FIELDS,
+    getOrdersRows,
+    mapRawAirtableGetOrdersFields,
+    showNo,
+    focusDay
+  );
+  return {
+    hs_get_rings: hsGetRings,
+    hs_get_orders: hsGetOrders
   };
 }
 
@@ -6857,6 +7000,7 @@ async function writeRawAirtableHeartbeat(heartbeatId, patch) {
   const fields = cleanPatch({
     heartbeat_id: heartbeatId,
     ...patch,
+    focus_show: patch.focus_show_record_id ? [patch.focus_show_record_id] : undefined,
     run_time: patch.run_time ? text(patch.run_time).replace(" ", "T") : ""
   });
   const upserts = await airtableUpsertByFieldId(AIRTABLE_RAW_HEARTBEAT_TABLE, "heartbeat_id", [fields]);
@@ -6880,7 +7024,7 @@ async function writeWecHeartbeatOnly(app, action, query, body) {
   const runTime = new Date().toISOString();
   const runId = text(query.get("run_id") || body.run_id) || `wec-heartbeat-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
   const focusDay = dateKey(activeFocus.focus_day);
-  const branch = activeFocus.is_pause ? "paused" : activeFocus.is_lock ? "downstream" : "bootstrap";
+  const branch = activeFocus.is_pause ? "paused" : "active";
   const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
   const payload = {
     action,
@@ -8213,7 +8357,7 @@ function sourceLinkStatus(records) {
 }
 
 async function markOutOfFocusStagingRowsInactive(showNo, focusDay, focusControl) {
-  if (!(focusControl?.is_pause === true && focusControl?.is_lock === false)) {
+  if (!(focusControl?.is_pause === true && focusControl?.out_of_focus_cleanup_enabled === true)) {
     return {
       condition_met: false,
       checked: 0,
@@ -11456,6 +11600,228 @@ async function fetchAndSyncCurrent(req, app, showNo, source, context, { focusDay
   }
 }
 
+async function fetchStep5LiveSource(req, app, showNo, focusDay, source, context) {
+  const gate = await getLiveWindowGate(showNo, focusDay, source);
+  const tableName = source === "orders" ? TABLES.getOrders : TABLES.getRings;
+  const keyField = source === "orders" ? "get_orders_key" : "get_rings_key";
+  if (!gate.allowed) {
+    return {
+      source,
+      skipped: true,
+      skip_reason: gate.reason,
+      live_window: gate,
+      get_run: false,
+      upstream_status: null,
+      raw_rows: 0,
+      parsed_rows: 0,
+      source_rows: [],
+      catalyst_mirror: { rows: 0, inserted: 0, updated: 0, skipped: 0 },
+      cleanup: { deleted: 0, skipped: true }
+    };
+  }
+
+  const path = source === "orders" ? "/get_orders.php" : "/get_rings.php";
+  const upstreamResponse = await upstream(req, path, {
+    method: "POST",
+    showNo,
+    body: new URLSearchParams({ show_no: showNo }).toString(),
+    context
+  });
+  const parser = source === "orders" ? parseOrderRows : parseRingRows;
+  const parsedRows = parser(upstreamResponse.raw)
+    .map((row) => ({ ...row, focus_day: gate.focus_day || focusDay }));
+  const scoped = await applyFocusScopeToCurrentRows(app, showNo, gate.focus_day || focusDay, parsedRows, source);
+  const sourceRows = scoped.rows
+    .map((row) => source === "orders" ? getOrdersSourceRow(row) : getRingsSourceRow(row))
+    .filter(Boolean);
+  const catalystMirror = await upsertSourceRowsFast(app, tableName, keyField, sourceRows, { showNo });
+  const cleanup = sourceRows.length
+    ? await deleteCurrentFocusRowsNotInKeys(
+      app,
+      tableName,
+      keyField,
+      showNo,
+      gate.focus_day || focusDay,
+      new Set(sourceRows.map((row) => text(row[keyField])).filter(Boolean))
+    )
+    : { deleted: 0, skipped: true, reason: "no_source_rows" };
+  return {
+    source,
+    skipped: false,
+    live_window: gate,
+    get_run: true,
+    upstream_status: upstreamResponse.status,
+    raw_rows: parsedRows.length,
+    parsed_rows: scoped.rows.length,
+    focus_class_scope: scoped.focus_class_scope,
+    class_no_resolved: scoped.class_no_resolved,
+    source_rows: sourceRows,
+    catalyst_mirror: catalystMirror,
+    cleanup
+  };
+}
+
+function classVisualKeyForLiveRow(row, ringStatusByRing) {
+  const ringDayNo = text(row.ring_day_no);
+  const ringNo = text(row.ring_no);
+  const classNo = intValue(row.class_no);
+  const ringStatus = ringStatusByRing.get(`${ringDayNo}|${ringNo}`) || ringStatusByRing.get(`|${ringNo}`) || null;
+  const ringNameNormalized = visualRingName(ringStatus?.ring_name_normalized || normalizedWecRingName(row.ring_name));
+  if (!ringNameNormalized || !classNo) return "";
+  return classVisualKey(ringNameNormalized, classNo);
+}
+
+function sourceDerivedPaceSeconds(row) {
+  const gone = intOrNull(row.n_gone);
+  const elapsed = intOrNull(row.elapsed);
+  if (!gone || gone < 1 || !elapsed || elapsed < 1) return null;
+  return Math.max(1, Math.round(elapsed / gone));
+}
+
+function addSecondsToTimeText(startTime, seconds) {
+  const normalized = classStartTimeFromText(startTime);
+  const match = normalized.match(/^(\d{2}):(\d{2}):(\d{2})$/);
+  const offset = Number(seconds);
+  if (!match || !Number.isFinite(offset)) return "";
+  const total = (Number(match[1]) * 3600) + (Number(match[2]) * 60) + Number(match[3]) + Math.max(0, Math.round(offset));
+  const wrapped = ((total % 86400) + 86400) % 86400;
+  const hour = Math.floor(wrapped / 3600);
+  const minute = Math.floor((wrapped % 3600) / 60);
+  const second = wrapped % 60;
+  return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
+}
+
+async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = [], getOrdersRows = [], runTime = "" } = {}) {
+  const safeFocusDay = dateKey(focusDay);
+  const currentFilter = (row) => text(row.show_no) === text(showNo) && dateKey(row.focus_day) === safeFocusDay;
+  const [ringStatusPage, classStartPage, entryGoPage] = await Promise.all([
+    getPagedRowsFiltered(app, TABLES.ringStatus, currentFilter, { maxRows: 1000 }),
+    getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 }),
+    getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })
+  ]);
+  const ringStatusRows = ringStatusPage.rows || [];
+  const classStartRows = classStartPage.rows || [];
+  const entryGoRows = entryGoPage.rows || [];
+
+  const ringStatusByRing = new Map();
+  for (const row of ringStatusRows) {
+    const key = `${text(row.ring_day_no)}|${text(row.ring_no)}`;
+    if (text(row.ring_no)) {
+      ringStatusByRing.set(key, row);
+      ringStatusByRing.set(`|${text(row.ring_no)}`, row);
+    }
+  }
+
+  const classStartByVisualKey = new Map();
+  for (const row of classStartRows) {
+    const key = text(row.class_visual_key || row.class_start_key);
+    if (key) classStartByVisualKey.set(key, row);
+  }
+
+  const liveRows = [...(getRingsRows || []), ...(getOrdersRows || [])]
+    .filter((row) => intValue(row.class_no));
+  const bestLiveByClass = new Map();
+  for (const row of liveRows) {
+    const classKey = classVisualKeyForLiveRow(row, ringStatusByRing);
+    if (!classKey || !classStartByVisualKey.has(classKey)) continue;
+    const existing = bestLiveByClass.get(classKey);
+    const nextPace = sourceDerivedPaceSeconds(row);
+    const existingPace = existing ? sourceDerivedPaceSeconds(existing) : null;
+    if (!existing || (nextPace && !existingPace) || text(row.get_orders_key)) {
+      bestLiveByClass.set(classKey, row);
+    }
+  }
+
+  const liveSyncedAt = catalystDateTime(runTime || new Date().toISOString());
+  const ringUpdates = [];
+  for (const row of getRingsRows || []) {
+    const ringStatus = ringStatusByRing.get(`${text(row.ring_day_no)}|${text(row.ring_no)}`) || ringStatusByRing.get(`|${text(row.ring_no)}`);
+    if (!ringStatus?.ring_status_key) continue;
+    ringUpdates.push({
+      ring_status_key: text(ringStatus.ring_status_key),
+      is_live: true,
+      current_class_no: intValue(row.class_no),
+      n_gone: intValue(row.n_gone),
+      n_to_go: intValue(row.n_to_go),
+      elapsed_seconds: intValue(row.elapsed),
+      live_source: "hs_get_rings.step5_live_enrichment",
+      last_live_synced_at: liveSyncedAt
+    });
+  }
+
+  const classUpdates = [];
+  const paceByClassVisualKey = new Map();
+  for (const [classKey, liveRow] of bestLiveByClass.entries()) {
+    const classRow = classStartByVisualKey.get(classKey);
+    if (!classRow?.class_start_key) continue;
+    const pace = sourceDerivedPaceSeconds(liveRow);
+    if (pace) paceByClassVisualKey.set(classKey, pace);
+    classUpdates.push({
+      class_start_key: text(classRow.class_start_key),
+      n_gone: intValue(liveRow.n_gone),
+      n_to_go: intValue(liveRow.n_to_go),
+      elapsed_seconds: intValue(liveRow.elapsed),
+      pace_seconds: pace || undefined,
+      current_entry_no: intValue(liveRow.entry_no),
+      current_horse: text(liveRow.entry_text),
+      live_source: text(liveRow.get_orders_key) ? "hs_get_orders.step5_live_enrichment" : "hs_get_rings.step5_live_enrichment",
+      last_live_synced_at: liveSyncedAt
+    });
+  }
+
+  const entryUpdates = [];
+  for (const row of entryGoRows) {
+    const classKey = text(row.class_visual_key);
+    const pace = paceByClassVisualKey.get(classKey);
+    const classRow = classStartByVisualKey.get(classKey);
+    const entryOrder = intOrNull(row.entry_order);
+    if (!pace || !entryOrder || !classRow?.class_start_time) continue;
+    const goTime = addSecondsToTimeText(classRow.class_start_time, (entryOrder - 1) * pace);
+    if (!goTime) continue;
+    entryUpdates.push({
+      entry_go_key: text(row.entry_go_key),
+      go_time: goTime,
+      pace_seconds: pace,
+      live_source: "source_derived_pace.step5_live_enrichment",
+      last_live_synced_at: liveSyncedAt
+    });
+  }
+
+  const ringResult = ringUpdates.length
+    ? await upsertSourceRowsFast(app, TABLES.ringStatus, "ring_status_key", ringUpdates, { showNo })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  const classResult = classUpdates.length
+    ? await upsertSourceRowsFast(app, TABLES.classStartTimes, "class_start_key", classUpdates, { showNo })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  const entryResult = entryUpdates.length
+    ? await upsertSourceRowsFast(app, TABLES.entryGoTimes, "entry_go_key", entryUpdates, { showNo })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+
+  const refreshedRows = await getStep4RuntimeRows(app, showNo, safeFocusDay, { trainerDisplays: new Map() });
+  const airtableRuntimeMirror = await syncRawAirtableStep4RuntimeRows(showNo, safeFocusDay, {
+    ringStatusRows: refreshedRows.runtime_ring_status_rows || [],
+    classStartRows: (await getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 })).rows || [],
+    entryGoRows: (await getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })).rows || [],
+    runTime
+  });
+
+  return {
+    source_runtime_counts: {
+      hs_ring_status: ringStatusRows.length,
+      hs_class_start_times: classStartRows.length,
+      hs_entry_go_times: entryGoRows.length
+    },
+    class_live_matches: bestLiveByClass.size,
+    source_derived_pace_classes: paceByClassVisualKey.size,
+    ring_status_enrichment: ringResult,
+    class_start_times_enrichment: classResult,
+    entry_go_times_enrichment: entryResult,
+    entry_go_times_go_time_updates: entryUpdates.length,
+    fallback_go_times_created: 0,
+    airtable_runtime_mirror: airtableRuntimeMirror
+  };
+}
+
 async function syncCurrentPayload(app, showNo, source, raw, { focusDay = "", upstreamStatus = 200 } = {}) {
   const parser = source === "orders" ? parseOrderRows : parseRingRows;
   const parsedRows = parser(raw);
@@ -11692,6 +12058,206 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
     get_rings_run: false,
     get_results_run: false,
     alerts_send_run: false,
+    external_notifications_sent: 0
+  };
+}
+
+async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0,
+      live_enrichment_run: false,
+      get_orders_run: false,
+      get_rings_run: false
+    };
+  }
+
+  const focusDay = dateKey(activeFocus.focus_day);
+  if (activeFocus.live_enrichment !== true) {
+    return {
+      ok: true,
+      status_code: 200,
+      action,
+      skipped: true,
+      skip_reason: "focus_show.live_enrichment_not_enabled",
+      focus_source: activeFocus.source,
+      focus_show_record_id: activeFocus.focus_show_record_id,
+      show_no: activeFocus.show_no,
+      focus_day: focusDay,
+      live_enrichment: activeFocus.live_enrichment,
+      live_enrichment_run: false,
+      upstream_requests: 0,
+      get_orders_run: false,
+      get_rings_run: false,
+      get_results_run: false,
+      step1_run: false,
+      step2_run: false,
+      step3_run: false,
+      step4_run: false,
+      alerts_run: false,
+      output_run: false,
+      external_notifications_sent: 0
+    };
+  }
+
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step5-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDayKey = focusDay.replace(/-/g, "");
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const cadenceWindow = text(query.get("cadence_window") || body.cadence_window || "");
+  const context = createWorkflowContext();
+  const basePatch = {
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDayKey,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch: "step5_live_enrichment",
+    blocker: "",
+    parsed_rows: 0,
+    materialized_hs_get_ring_days_rows: 0,
+    materialized_ring_day_rows: 0,
+    source_sequence_json: JSON.stringify([], null, 2)
+  };
+
+  const runningPayload = {
+    action,
+    focus_source: activeFocus.source,
+    cadence_window: cadenceWindow,
+    live_enrichment_run: true,
+    step1_run: false,
+    step2_run: false,
+    step3_run: false,
+    step4_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false
+  };
+
+  await writeStageHeartbeat(app, heartbeatId, {
+    ...basePatch,
+    status: "running",
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...basePatch,
+    run_time: runTime,
+    status: "running",
+    payload_json: JSON.stringify(runningPayload, null, 2)
+  });
+
+  let blocker = "";
+  let rings = null;
+  let orders = null;
+  let airtableLiveMirror = null;
+  let runtimeEnrichment = null;
+  try {
+    rings = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "rings", context);
+    orders = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "orders", context);
+    if (!rings.get_run || !orders.get_run) blocker = "live_source_gate_blocked";
+    if (!blocker) {
+      if (!(rings.source_rows || []).length || !(orders.source_rows || []).length) {
+        blocker = "live_source_empty";
+      } else {
+        airtableLiveMirror = await syncRawAirtableStep5LiveRows(activeFocus.show_no, focusDay, {
+          getRingsRows: rings.source_rows || [],
+          getOrdersRows: orders.source_rows || []
+        });
+        if (airtableLiveMirror.hs_get_rings.skipped || airtableLiveMirror.hs_get_orders.skipped) {
+          blocker = "airtable_live_mirror_skipped";
+        }
+      }
+    }
+    if (!blocker) {
+      runtimeEnrichment = await enrichStep5RuntimeRows(app, activeFocus.show_no, focusDay, {
+        getRingsRows: rings.source_rows || [],
+        getOrdersRows: orders.source_rows || [],
+        runTime
+      });
+    }
+  } catch (error) {
+    blocker = String(error?.message || error);
+  }
+
+  const finalPayload = {
+    ...runningPayload,
+    live_enrichment_run: !blocker,
+    upstream_requests: context.upstreamRequests,
+    source_sequence: context.sourceSequence,
+    get_rings_run: Boolean(rings?.get_run),
+    get_orders_run: Boolean(orders?.get_run),
+    get_rings: rings ? { ...rings, source_rows: undefined } : null,
+    get_orders: orders ? { ...orders, source_rows: undefined } : null,
+    catalyst_live_mirror_counts: {
+      hs_get_rings: rings?.source_rows?.length || 0,
+      hs_get_orders: orders?.source_rows?.length || 0
+    },
+    airtable_live_mirror: airtableLiveMirror,
+    runtime_enrichment: runtimeEnrichment,
+    fallback_go_times_created: runtimeEnrichment?.fallback_go_times_created || 0,
+    step1_run: false,
+    step2_run: false,
+    step3_run: false,
+    step4_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false,
+    external_notifications_sent: 0,
+    blocker
+  };
+  const finalPatch = {
+    ...basePatch,
+    status: blocker ? "fail" : "pass",
+    blocker,
+    parsed_rows: (rings?.parsed_rows || 0) + (orders?.parsed_rows || 0),
+    source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+    payload_json: JSON.stringify(finalPayload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, finalPatch);
+  await writeRawAirtableHeartbeat(heartbeatId, {
+    ...finalPatch,
+    run_time: runTime
+  });
+
+  return {
+    ok: !blocker,
+    status_code: blocker ? 500 : 200,
+    action,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    live_enrichment: activeFocus.live_enrichment,
+    cadence_window: cadenceWindow,
+    upstream_requests: context.upstreamRequests,
+    get_rings_run: Boolean(rings?.get_run),
+    get_orders_run: Boolean(orders?.get_run),
+    get_results_run: false,
+    catalyst_live_mirror_counts: finalPayload.catalyst_live_mirror_counts,
+    airtable_live_mirror: airtableLiveMirror,
+    runtime_enrichment: runtimeEnrichment,
+    fallback_go_times_created: finalPayload.fallback_go_times_created,
+    step1_run: false,
+    step2_run: false,
+    step3_run: false,
+    step4_run: false,
+    alerts_run: false,
+    output_run: false,
     external_notifications_sent: 0
   };
 }
@@ -12333,6 +12899,7 @@ async function handle(req, res) {
       "wec-step3-clean-active-class-oog",
       "wec-step3-class-oog",
       "wec-step4-runtime-prep",
+      "wec-step5-live-enrichment",
       "wec-cadence-step1-step2",
       "wec-cadence-step1-step4",
       "barn-board-form-options",
@@ -12989,6 +13556,11 @@ async function handle(req, res) {
 
     if (action === "wec-step4-runtime-prep") {
       const result = await runWecStep4RuntimePrepOnly(app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-step5-live-enrichment") {
+      const result = await runWecStep5LiveEnrichmentOnly(req, app, action, query, body);
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 

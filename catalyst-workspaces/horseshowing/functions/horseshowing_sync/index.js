@@ -144,6 +144,9 @@ const AIRTABLE_RAW_HEARTBEAT_TABLE = "hs_heartbeat";
 const AIRTABLE_RAW_GET_RING_DAYS_TABLE = "hs_get_ring_days";
 const AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE = "hs_update_schedule";
 const AIRTABLE_RAW_CLASS_OOG_TABLE = "hs_class_oog";
+const AIRTABLE_RAW_RING_STATUS_TABLE = "hs_ring_status";
+const AIRTABLE_RAW_CLASS_START_TIMES_TABLE = "hs_class_start_times";
+const AIRTABLE_RAW_ENTRY_GO_TIMES_TABLE = "hs_entry_go_times";
 const AIRTABLE_GET_RING_DAYS_FIELDS = {
   ring_day_no: "fldVk4eZ01RhELuHx",
   show_no: "fldb6pYIgKVTspy6t",
@@ -1347,12 +1350,18 @@ function updateScheduleSourceRow(row) {
   const key = text(row.update_schedule_key) || updateScheduleKeyTiers(row)[0];
   if (!key) return null;
   const timeText = text(row.class_time_text || row.time_text || row.time);
+  const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(row.ring_name));
+  const ringKey = ringVisualKey(row.ring_no, ringNameNormalized);
+  const classKey = classVisualKey(ringNameNormalized, row.class_no);
   return {
     update_schedule_key: key,
     show_no: intValue(row.show_no),
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring_name: text(row.ring_name),
+    ring_name_normalized: ringNameNormalized,
+    ring_visual_key: ringKey,
+    class_visual_key: classKey,
     date_text: text(row.day_label || row.day_text || row.date_text),
     class_no: intValue(row.class_no),
     event_id: intValue(row.event_id),
@@ -1477,19 +1486,31 @@ function classOogSourceRow(row, classRow = null, classTimeRow = null) {
   const classLabel = text(row.class_label || classRow?.class_label || classRow?.class_name || row.class_no);
   const key = resultKey(row.show_no, row.class_no, row.current_entry_no || row.entry_no);
   if (!key) return null;
+  const ringName = text(row.ring || row.ring_name || classTimeRow?.ring_name);
+  const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(ringName));
+  const ringNo = intValue(row.ring_no || classTimeRow?.ring_no);
+  const classNo = intValue(row.class_no);
+  const entryNo = intValue(row.current_entry_no || row.entry_no);
+  const ringKey = ringVisualKey(ringNo, ringNameNormalized);
+  const classKey = classVisualKey(ringNameNormalized, classNo);
+  const entryKey = entryVisualKey(ringNameNormalized, classNo, entryNo);
   return {
     class_oog_key: key,
-    ring: text(row.ring || row.ring_name || classTimeRow?.ring_name),
-    ring_no: intValue(row.ring_no || classTimeRow?.ring_no),
+    ring: ringName,
+    ring_no: ringNo,
     ring_day_no: intValue(row.ring_day_no || classTimeRow?.ring_day_no),
     class_order: intValue(row.class_order || classTimeRow?.class_order),
-    class_no: intValue(row.class_no),
+    class_no: classNo,
     class_label: classLabel,
+    ring_name_normalized: ringNameNormalized,
+    ring_visual_key: ringKey,
+    class_visual_key: classKey,
+    entry_visual_key: entryKey,
     class_number: intValue(row.class_number),
     class_payout: text(row.class_payout),
     class_name: text(row.class_name),
     entry_order: intValue(row.entry_order),
-    entry_no: intValue(row.current_entry_no || row.entry_no),
+    entry_no: entryNo,
     horse: text(row.current_horse || row.horse),
     rider: text(row.rider),
     trainer: text(row.trainer),
@@ -3052,6 +3073,21 @@ function ringDisplayFromName(ringName) {
   return text(ringName);
 }
 
+function ringDisplayFromNormalizedName(ringNameNormalized) {
+  const value = visualRingName(ringNameNormalized);
+  if (!value) return "";
+  if (value === "grand") return "Grand";
+  if (value === "annex") return "Annex";
+  if (value === "stadium") return "Stadium";
+  if (value === "hunter 2") return "Hunter 2";
+  const indoor = value.match(/^indoor\s*([1-6])$/);
+  if (indoor) return `Indoor ${indoor[1]}`;
+  return value
+    .split(" ")
+    .map((part) => part ? `${part.charAt(0).toUpperCase()}${part.slice(1)}` : "")
+    .join(" ");
+}
+
 function scheduleSortValue(startTime, classNumber) {
   const parts = text(startTime).split(":").map((part) => Number(part));
   const seconds = Number.isFinite(parts[0]) ? (parts[0] * 3600) + ((parts[1] || 0) * 60) + (parts[2] || 0) : 999999;
@@ -4298,9 +4334,16 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
   const rings = new Map();
   for (const row of rows || []) {
     const ringNo = text(row.ring_number);
-    const ringDisplay = text(row.ring_name) || ringDisplayFromName(row.ring_name);
-    const ring = rings.get(ringNo) || {
+    const ringNameNormalized = text(row.ring_name_normalized);
+    const ringVisualKeyValue = text(row.ring_visual_key) || ringVisualKey(ringNo || row.ring_no, ringNameNormalized);
+    const ringGroupKey = ringNameNormalized || ringVisualKeyValue || ringNo;
+    const ringDisplay = ringDisplayFromNormalizedName(ringNameNormalized) || text(row.ring_display || row.ring_name) || ringDisplayFromName(row.ring_name);
+    const ring = rings.get(ringGroupKey) || {
+      ring_key: ringGroupKey,
       ring_no: Number(row.ring_number || 0),
+      ring_name: text(row.ring_name),
+      ring_name_normalized: ringNameNormalized,
+      ring_visual_key: ringVisualKeyValue,
       ring_display: ringDisplay,
       classes: []
     };
@@ -4335,7 +4378,9 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
       is_hunter_classic: row.is_hunter_classic === true,
       is_jumper_classic: row.is_jumper_classic === true,
       ring_name_prioritized: text(row.ring_name_prioritized),
-      ring_name_normalized: text(row.ring_name_normalized),
+      ring_name_normalized: ringNameNormalized,
+      ring_visual_key: ringVisualKeyValue,
+      ring_display: ringDisplay,
       live_flag: text(row.live_flag),
       entry_count: row.entry_count,
       n_gone: row.n_gone,
@@ -4347,7 +4392,7 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
       rollups: compactTrainerRollups(row.trainer_rollups),
       entries: compactMobileEntryPayload(row.entry_go_times)
     });
-    rings.set(ringNo, ring);
+    rings.set(ringGroupKey, ring);
   }
   return {
     show_no: showNo,
@@ -4356,7 +4401,10 @@ function buildMobileLivePayload(showNo, focusDay, meta, rows) {
     show_end_date: meta.showEndDate || "",
     show_focus_date: focusDay,
     last_updated: new Date().toISOString(),
-    rings: [...rings.values()].sort((a, b) => Number(a.ring_no || 9999) - Number(b.ring_no || 9999))
+    rings: [...rings.values()].sort((a, b) => (
+      Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
+      text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized))
+    ))
   };
 }
 
@@ -5597,6 +5645,34 @@ function normalizedWecRingName(value) {
   return match?.[0] || "";
 }
 
+function visualRingName(value) {
+  return text(value).toLowerCase();
+}
+
+function ringVisualKey(ringNo, ringNameNormalized) {
+  const normalized = visualRingName(ringNameNormalized);
+  return intValue(ringNo) && normalized ? `${intValue(ringNo)}|${normalized}` : "";
+}
+
+function classVisualKey(ringNameNormalized, classNo) {
+  const normalized = visualRingName(ringNameNormalized);
+  return normalized && intValue(classNo) ? `${normalized}|${intValue(classNo)}` : "";
+}
+
+function entryVisualKey(ringNameNormalized, classNo, entryNo) {
+  const classKey = classVisualKey(ringNameNormalized, classNo);
+  return classKey && intValue(entryNo) ? `${classKey}|${intValue(entryNo)}` : "";
+}
+
+function uniqueRowsByKey(rows, keyField) {
+  const byKey = new Map();
+  for (const row of rows || []) {
+    const key = text(row?.[keyField]);
+    if (key) byKey.set(key, row);
+  }
+  return [...byKey.values()];
+}
+
 function prioritizedWecRingName(value) {
   const raw = text(value).toUpperCase();
   const match = raw.match(/WEC GRAND ARENA|ANNEX RING|\bANNEX\b|STADIUM|INDOOR [1-6]|HUNTER 2/);
@@ -5886,17 +5962,277 @@ async function syncRawAirtableClassOogRows(showNo, focusDay, rows, options = {})
   };
 }
 
+const RAW_RING_STATUS_REQUIRED_FIELDS = [
+  "ring_status_key",
+  "show_no",
+  "focus_day",
+  "ring_day_no",
+  "ring_no",
+  "ring_name",
+  "ring_name_normalized",
+  "ring_visual_key",
+  "status",
+  "source",
+  "last_synced_at"
+];
+
+const RAW_CLASS_START_TIMES_REQUIRED_FIELDS = [
+  "class_start_key",
+  "show_no",
+  "focus_day",
+  "ring_day_no",
+  "ring_no",
+  "ring_name",
+  "ring_name_normalized",
+  "ring_visual_key",
+  "class_visual_key",
+  "class_no",
+  "class_number",
+  "class_name",
+  "class_start_time",
+  "display_time",
+  "entry_count",
+  "n_gone",
+  "n_to_go",
+  "elapsed_seconds",
+  "status",
+  "live_source",
+  "last_synced_at"
+];
+
+const RAW_ENTRY_GO_TIMES_REQUIRED_FIELDS = [
+  "entry_go_key",
+  "show_no",
+  "focus_day",
+  "ring_name_normalized",
+  "ring_visual_key",
+  "class_visual_key",
+  "entry_visual_key",
+  "class_no",
+  "entry_no",
+  "entry_order",
+  "horse",
+  "rider",
+  "trainer",
+  "go_time",
+  "status",
+  "last_synced_at"
+];
+
+async function rawAirtableStep4MirrorTableStatus(tableName, requiredFields) {
+  const tables = await airtableBaseMetadataTables();
+  const existing = (tables || []).find((table) => table.name === tableName);
+  if (!existing) {
+    const fields = requiredFields.map((name) => ({
+      name,
+      type: "singleLineText"
+    }));
+    const created = await airtableCreateTable(tableName, fields);
+    return {
+      exists: true,
+      created: true,
+      table_id: created.id,
+      missing_fields: [],
+      fields: (created.fields || []).map((field) => ({ name: field.name, type: field.type }))
+    };
+  }
+  const existingFields = new Set((existing.fields || []).map((field) => field.name));
+  const missing = requiredFields.filter((field) => !existingFields.has(field));
+  return {
+    exists: true,
+    created: false,
+    table_id: existing.id,
+    missing_fields: missing,
+    fields: (existing.fields || []).map((field) => ({ name: field.name, type: field.type }))
+  };
+}
+
+function mapRawAirtableRingStatusFields(row) {
+  return {
+    ring_status_key: text(row.ring_status_key),
+    show_no: text(row.show_no),
+    focus_day: dateKey(row.focus_day),
+    ring_day_no: text(row.ring_day_no),
+    ring_no: text(row.ring_no),
+    ring_name: text(row.ring_name),
+    ring_name_normalized: text(row.ring_name_normalized),
+    ring_visual_key: text(row.ring_visual_key),
+    status: text(row.status),
+    source: text(row.source),
+    last_synced_at: text(row.last_synced_at)
+  };
+}
+
+function mapRawAirtableClassStartFields(row) {
+  return {
+    class_start_key: text(row.class_start_key),
+    show_no: text(row.show_no),
+    focus_day: dateKey(row.focus_day),
+    ring_day_no: text(row.ring_day_no),
+    ring_no: text(row.ring_no),
+    ring_name: text(row.ring_name),
+    ring_name_normalized: text(row.ring_name_normalized),
+    ring_visual_key: text(row.ring_visual_key),
+    class_visual_key: text(row.class_visual_key),
+    class_no: text(row.class_no),
+    class_number: text(row.class_number),
+    class_name: text(row.class_name),
+    class_start_time: text(row.class_start_time),
+    display_time: text(row.display_time),
+    entry_count: text(row.entry_count),
+    n_gone: text(row.n_gone),
+    n_to_go: text(row.n_to_go),
+    elapsed_seconds: text(row.elapsed_seconds),
+    status: text(row.status),
+    live_source: text(row.live_source),
+    last_synced_at: text(row.last_synced_at)
+  };
+}
+
+function mapRawAirtableEntryGoFields(row, runTime) {
+  return {
+    entry_go_key: text(row.entry_go_key),
+    show_no: text(row.show_no),
+    focus_day: dateKey(row.focus_day),
+    ring_name_normalized: text(row.ring_name_normalized),
+    ring_visual_key: text(row.ring_visual_key),
+    class_visual_key: text(row.class_visual_key),
+    entry_visual_key: text(row.entry_visual_key),
+    class_no: text(row.class_no),
+    entry_no: text(row.entry_no),
+    entry_order: text(row.entry_order),
+    horse: text(row.horse),
+    rider: text(row.rider),
+    trainer: text(row.trainer),
+    go_time: text(row.go_time),
+    status: text(row.status || "active"),
+    last_synced_at: text(row.last_synced_at || catalystDateTime(runTime))
+  };
+}
+
+function airtableRawMirrorFocusFormula(showNo, focusDay) {
+  const safeFocusDay = dateKey(focusDay);
+  return `AND({show_no}=${airtableFormulaValue(text(showNo))},{focus_day}=${airtableFormulaValue(safeFocusDay)})`;
+}
+
+async function deleteAirtableMirrorRowsNotInKeys(table, keyField, showNo, focusDay, activeKeys) {
+  const records = await airtableListRecords(table, {
+    filterByFormula: airtableRawMirrorFocusFormula(showNo, focusDay)
+  });
+  const staleIds = (records || [])
+    .filter((record) => {
+      const key = text(record.fields?.[keyField]);
+      return key && !activeKeys.has(key);
+    })
+    .map((record) => record.id)
+    .filter(Boolean);
+  const deleted = await airtableDeleteRecords(table, staleIds);
+  return {
+    table,
+    key_field: keyField,
+    scanned: records.length,
+    active_keys: activeKeys.size,
+    deleted,
+    skipped: false
+  };
+}
+
+async function countAirtableRawMirrorRows(table, showNo, focusDay) {
+  const records = await airtableListRecords(table, {
+    filterByFormula: airtableRawMirrorFocusFormula(showNo, focusDay)
+  });
+  return records.length;
+}
+
+async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, rows, mapper, showNo, focusDay) {
+  const tableStatus = await rawAirtableStep4MirrorTableStatus(tableName, requiredFields);
+  if (!tableStatus.exists || tableStatus.missing_fields?.length) {
+    return {
+      table: tableName,
+      key_field: keyField,
+      table_status: tableStatus,
+      source_rows: 0,
+      upserts: 0,
+      current_day_count: 0,
+      cleanup: { deleted: 0, skipped: true },
+      skipped: true
+    };
+  }
+  const sourceRows = (rows || [])
+    .map(mapper)
+    .filter((row) => text(row[keyField]));
+  const upserts = await airtableUpsertByFieldId(tableName, keyField, sourceRows);
+  const cleanup = await deleteAirtableMirrorRowsNotInKeys(
+    tableName,
+    keyField,
+    showNo,
+    focusDay,
+    new Set(sourceRows.map((row) => text(row[keyField])).filter(Boolean))
+  );
+  const currentDayCount = await countAirtableRawMirrorRows(tableName, showNo, focusDay);
+  return {
+    table: tableName,
+    key_field: keyField,
+    table_status: tableStatus,
+    source_rows: sourceRows.length,
+    upserts: upserts.length,
+    current_day_count: currentDayCount,
+    cleanup,
+    skipped: false
+  };
+}
+
+async function syncRawAirtableStep4RuntimeRows(showNo, focusDay, { ringStatusRows = [], classStartRows = [], entryGoRows = [], runTime = "" } = {}) {
+  const hsRingStatus = await syncRawAirtableStep4Mirror(
+    AIRTABLE_RAW_RING_STATUS_TABLE,
+    "ring_status_key",
+    RAW_RING_STATUS_REQUIRED_FIELDS,
+    ringStatusRows,
+    mapRawAirtableRingStatusFields,
+    showNo,
+    focusDay
+  );
+  const hsClassStartTimes = await syncRawAirtableStep4Mirror(
+    AIRTABLE_RAW_CLASS_START_TIMES_TABLE,
+    "class_start_key",
+    RAW_CLASS_START_TIMES_REQUIRED_FIELDS,
+    classStartRows,
+    mapRawAirtableClassStartFields,
+    showNo,
+    focusDay
+  );
+  const hsEntryGoTimes = await syncRawAirtableStep4Mirror(
+    AIRTABLE_RAW_ENTRY_GO_TIMES_TABLE,
+    "entry_go_key",
+    RAW_ENTRY_GO_TIMES_REQUIRED_FIELDS,
+    entryGoRows,
+    (row) => mapRawAirtableEntryGoFields(row, runTime),
+    showNo,
+    focusDay
+  );
+  return {
+    hs_ring_status: hsRingStatus,
+    hs_class_start_times: hsClassStartTimes,
+    hs_entry_go_times: hsEntryGoTimes
+  };
+}
+
 function getRingDaySourceRow(row, showNo) {
   const isoDate = dateKey(row.day_label || row.date_text);
   const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
   const dateParts = datePartsFromLabel(row.day_label || row.date_text);
   const ringDayNo = intValue(row.ring_day_no);
+  const ringNo = intValue(row.ring_no);
+  const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(row.ring_name));
+  const ringKey = ringVisualKey(ringNo, ringNameNormalized);
   if (!ringDayNo) return null;
   return {
     ring_day_no: ringDayNo,
     show_no: intValue(row.show_no || showNo),
-    ring_no: intValue(row.ring_no),
+    ring_no: ringNo,
     ring_name: text(row.ring_name),
+    ring_name_normalized: ringNameNormalized,
+    ring_visual_key: ringKey,
     date_text: isoDate ? displayDateText(isoDate) : text(row.day_label || row.date_text),
     dow: dateParts.dow,
     iso_date: isoDate,
@@ -6094,40 +6430,325 @@ async function countStoredEntryGoRows(app, showNo, focusDay = "") {
   return rows.rows.length;
 }
 
+async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
+  const safeFocusDay = dateKey(focusDay);
+  const currentFocusFilter = (row) => (
+    text(row.show_no) === text(showNo)
+    && (!safeFocusDay || dateKey(row.focus_day) === safeFocusDay)
+  );
+  const [ringStatusPage, classStartPage, entryGoPage] = await Promise.all([
+    getPagedRowsFiltered(app, TABLES.ringStatus, currentFocusFilter, { maxRows: 1000 }),
+    getPagedRowsFiltered(app, TABLES.classStartTimes, currentFocusFilter, { maxRows: 5000 }),
+    getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFocusFilter, { maxRows: 10000 })
+  ]);
+
+  const ringStatusRows = ringStatusPage.rows || [];
+  const classStartRows = classStartPage.rows || [];
+  const entryRows = entryGoPage.rows || [];
+  const ringsByVisualKey = new Map();
+  const ringsByNo = new Map();
+  for (const row of ringStatusRows) {
+    const ringVisual = text(row.ring_visual_key || row.ring_status_key);
+    const ringNo = text(row.ring_no);
+    if (ringVisual) ringsByVisualKey.set(ringVisual, row);
+    if (ringNo) ringsByNo.set(ringNo, row);
+  }
+
+  const entriesByClassVisualKey = new Map();
+  for (const row of entryRows) {
+    const ringNameNormalized = text(row.ring_name_normalized);
+    const classNo = text(row.class_no);
+    const classVisual = text(row.class_visual_key) || classVisualKey(ringNameNormalized, classNo);
+    if (!classVisual) continue;
+    const bucket = entriesByClassVisualKey.get(classVisual) || [];
+    bucket.push({
+      entry_no: text(row.entry_no),
+      entry_order: text(row.entry_order),
+      horse: text(row.horse),
+      rider: text(row.rider),
+      trainer: text(row.trainer),
+      entry_rollup: text(row.horse),
+      rider_display: text(row.rider),
+      trainer_display: trainerDisplayName(text(row.trainer), meta.trainerDisplays),
+      entry_go_time: text(row.entry_go_time),
+      time_till: text(row.time_till),
+      class_visual_key: classVisual,
+      entry_visual_key: text(row.entry_visual_key || row.entry_go_key)
+    });
+    entriesByClassVisualKey.set(classVisual, bucket);
+  }
+  for (const bucket of entriesByClassVisualKey.values()) {
+    bucket.sort((a, b) => Number(a.entry_order || 9999) - Number(b.entry_order || 9999));
+  }
+
+  const outputRows = classStartRows
+    .map((row) => {
+      const ringNo = text(row.ring_no);
+      const ringVisual = text(row.ring_visual_key);
+      const classVisual = text(row.class_visual_key || row.class_start_key);
+      const ringRow = ringsByVisualKey.get(ringVisual) || ringsByNo.get(ringNo) || {};
+      const ringNameNormalized = text(row.ring_name_normalized || ringRow.ring_name_normalized);
+      const ringName = text(row.ring_name || ringRow.ring_name);
+      const ringDisplay = ringDisplayFromNormalizedName(ringNameNormalized) || ringName;
+      const classNo = text(row.class_no);
+      const classNumber = text(row.class_number);
+      const className = text(row.class_name);
+      const classStartTime = text(row.class_start_time);
+      const entries = (entriesByClassVisualKey.get(classVisual) || [])
+        .map((entry) => ({ ...entry, class_start_time: classStartTime }));
+      const trainerRollups = trainerRollupsForEntries(entries, meta);
+      const rollup = horseRollupDisplay(trainerRollups);
+      return {
+        ROWID: row.ROWID,
+        record_id: row.ROWID,
+        show_id: text(showNo),
+        show_no: text(showNo),
+        focus_day: safeFocusDay,
+        show_day: safeFocusDay,
+        show_day_key: safeFocusDay,
+        focus_day_key: safeFocusDay.replace(/-/g, ""),
+        ring_number: Number(ringNo || 9999),
+        ring_no: ringNo,
+        ring_day_no: text(row.ring_day_no),
+        ring_name: ringName,
+        ring_display: ringDisplay,
+        ring_name_prioritized: text(row.ring_name_prioritized || ringName),
+        ring_name_normalized: ringNameNormalized,
+        ring_visual_key: ringVisual,
+        class_visual_key: classVisual,
+        class_group_id: classNo || text(row.ROWID),
+        class_group_sequence: scheduleSortValue(classStartTime, classNumber),
+        group_group_name: className,
+        class_no: classNo,
+        class_number: classNumber,
+        class_name: className,
+        class_label: text(row.class_label) || (classNumber ? `${classNumber} - ${className}` : className),
+        class_start_time: classStartTime,
+        start_display: displayTimeFromStart(classStartTime),
+        display_time: text(row.display_time) || displayTimeFromStart(classStartTime),
+        time_text: text(row.time_text) || displayTimeFromStart(classStartTime),
+        time_sort: text(row.time_sort) || text(scheduleSortValue(classStartTime, classNumber)),
+        class_priority_sort: text(row.class_priority_sort),
+        class_name_tokens: text(row.class_name_tokens),
+        this_disciplines: text(row.this_disciplines),
+        this_skills: text(row.this_skills),
+        this_ages: text(row.this_ages),
+        this_levels: text(row.this_levels),
+        this_sizes: text(row.this_sizes),
+        this_heights: text(row.this_heights),
+        is_2nd_trip: row.is_2nd_trip === true,
+        is_medal: row.is_medal === true,
+        is_under_saddle: row.is_under_saddle === true,
+        is_hunter_classic: row.is_hunter_classic === true,
+        is_jumper_classic: row.is_jumper_classic === true,
+        live_flag: text(row.live_flag),
+        entry_count: intOrNull(row.entry_count) ?? entries.length,
+        n_gone: intOrNull(row.n_gone),
+        n_to_go: intOrNull(row.n_to_go),
+        elapsed_seconds: intOrNull(row.elapsed_seconds),
+        current_entry_no: text(row.current_entry_no),
+        current_horse: text(row.current_horse),
+        live_source: text(row.live_source || row.source || "hs_class_start_times.step4_runtime"),
+        status: text(row.status || "active"),
+        group_display: rollup,
+        sched_display: rollup,
+        "8778_sched_display": rollup,
+        rollup: rollup,
+        trainer_rollups: trainerRollups,
+        rollup_source: "hs_entry_go_times",
+        rollup_label: text(row.rollup_label),
+        entry_go_times_rollup: rollup,
+        entry_go_times: entries,
+        sched_horses: compactTrainerRollups(trainerRollups)
+          .flatMap((item) => item.horses || [])
+          .map((horse) => (horse && typeof horse === "object" ? text(horse.display || horse.horse) : text(horse)))
+          .filter(Boolean)
+          .join("|"),
+        is_preflight: false,
+        source: "catalyst.step4_runtime"
+      };
+    })
+    .filter((row) => intOrNull(row.class_no) > 0)
+    .sort((a, b) => (
+      Number(a.ring_number || 9999) - Number(b.ring_number || 9999) ||
+      Number(a.class_group_sequence || 9999999999) - Number(b.class_group_sequence || 9999999999) ||
+      Number(a.class_no || 0) - Number(b.class_no || 0)
+    ));
+  outputRows.runtime_ring_status_rows = ringStatusRows;
+  return outputRows;
+}
+
+function step4RuntimeRingPayloads(rows) {
+  return (rows?.runtime_ring_status_rows || [])
+    .map((row) => {
+      const ringNameNormalized = text(row.ring_name_normalized);
+      return {
+        ring_no: Number(row.ring_no || 0),
+        ring_key: ringNameNormalized || text(row.ring_visual_key || row.ring_status_key) || text(row.ring_no),
+        ring_name_normalized: ringNameNormalized,
+        ring_visual_key: text(row.ring_visual_key || row.ring_status_key),
+        ring_display: ringDisplayFromNormalizedName(ringNameNormalized) || text(row.ring_display || row.ring_name) || ringDisplayFromName(row.ring_name),
+        ring_name: text(row.ring_name),
+        focus_day: dateKey(row.focus_day),
+        classes: []
+      };
+    })
+    .filter((row) => row.ring_no);
+}
+
+function buildStep4RuntimeMobilePayload(showNo, focusDay, meta, rows) {
+  const payload = buildMobileLivePayload(showNo, focusDay, meta, rows);
+  const byRingKey = new Map((payload.rings || []).map((ring) => [text(ring.ring_name_normalized || ring.ring_visual_key || ring.ring_no), ring]));
+  for (const ring of step4RuntimeRingPayloads(rows)) {
+    const ringKey = text(ring.ring_name_normalized || ring.ring_visual_key || ring.ring_no);
+    if (!byRingKey.has(ringKey)) {
+      byRingKey.set(ringKey, {
+        ring_key: ringKey,
+        ring_no: ring.ring_no,
+        ring_name: ring.ring_name,
+        ring_name_normalized: ring.ring_name_normalized,
+        ring_visual_key: ring.ring_visual_key,
+        ring_display: ring.ring_display,
+        classes: []
+      });
+    }
+  }
+  payload.rings = [...byRingKey.values()].sort((a, b) => (
+    Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
+    text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized))
+  ));
+  return payload;
+}
+
+function deriveStep4RuntimePrintLayout(showNo, focusDay, rows) {
+  const layout = derivePrintLayoutFromScheduleRows(showNo, focusDay, rows);
+  const byRingKey = new Map((layout.rings || []).map((ring) => [text(ring.ring_name_normalized || ring.ring_visual_key || ring.ring_no), ring]));
+  for (const ring of step4RuntimeRingPayloads(rows)) {
+    const ringKey = text(ring.ring_name_normalized || ring.ring_visual_key || ring.ring_no);
+    if (!byRingKey.has(ringKey)) {
+      byRingKey.set(ringKey, {
+        ring_group_key: `${showNo}|${dateKey(focusDay)}|${ringKey}`,
+        show_no: intOrNull(showNo),
+        focus_day: dateKey(focusDay),
+        ring_no: ring.ring_no,
+        ring_name_normalized: ring.ring_name_normalized,
+        ring_visual_key: ring.ring_visual_key,
+        ring_display: ring.ring_display,
+        ring_name: ring.ring_name || ring.ring_display,
+        source_rows: 0,
+        hidden_rows: 0,
+        visible_classes: 0,
+        visible_rollups: 0,
+        print_rows: 2,
+        portrait_col: null,
+        landscape_col: null,
+        source: "catalyst.step4_runtime"
+      });
+    }
+  }
+  const rings = [...byRingKey.values()].sort((a, b) => (
+    Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
+    text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized))
+  ));
+  layout.rings = rings;
+  layout.print_meta = {
+    ...(layout.print_meta || {}),
+    ring_group_count: rings.length,
+    visible_classes: rings.reduce((sum, ring) => sum + (intOrNull(ring.visible_classes) || 0), 0),
+    visible_rollups: rings.reduce((sum, ring) => sum + (intOrNull(ring.visible_rollups) || 0), 0),
+    total_print_rows: rings.reduce((sum, ring) => sum + (intOrNull(ring.print_rows) || 0), 0),
+    source: "catalyst.step4_runtime"
+  };
+  layout.placement = Object.fromEntries(rings.map((ring) => [String(ring.ring_no), {
+    portrait_col: ring.portrait_col,
+    landscape_col: ring.landscape_col,
+    print_rows: ring.print_rows,
+    ring_name: ring.ring_name
+  }]));
+  return layout;
+}
+
+async function deleteCurrentFocusRowsNotInKeys(app, tableName, keyField, showNo, focusDay, activeKeys) {
+  const safeFocusDay = dateKey(focusDay);
+  const allowed = new Set([...(activeKeys || new Set())].map(text).filter(Boolean));
+  if (!safeFocusDay || !allowed.size) {
+    return { table: tableName, deleted: 0, scanned: 0, skipped: true, reason: "missing_focus_day_or_active_keys" };
+  }
+  const rows = await getPagedRowsFiltered(
+    app,
+    tableName,
+    (row) => (
+      text(row.show_no) === text(showNo)
+      && dateKey(row.focus_day) === safeFocusDay
+    ),
+    { maxRows: 10000 }
+  );
+  const staleIds = rows.rows
+    .filter((row) => !allowed.has(text(row[keyField])))
+    .map((row) => row.ROWID)
+    .filter(Boolean);
+  const table = app.datastore().table(tableName);
+  let deleted = 0;
+  for (let index = 0; index < staleIds.length; index += 100) {
+    const batch = staleIds.slice(index, index + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return {
+    table: tableName,
+    key_field: keyField,
+    scanned: rows.rows.length,
+    active_keys: allowed.size,
+    deleted,
+    skipped: false
+  };
+}
+
 function ringStatusRowsFromGetRingDays(showNo, focusDay, rows, runTime) {
-  return (rows || []).map((row) => {
+  return uniqueRowsByKey((rows || []).map((row) => {
     const ringDayNo = intValue(row.ring_day_no);
     const ringNo = intValue(row.ring_no);
     const safeFocusDay = dateKey(row.iso_date || row.day_label || focusDay);
-    if (!ringDayNo || !ringNo || !safeFocusDay) return null;
+    const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(row.ring_name));
+    const visualKey = ringVisualKey(ringNo, ringNameNormalized);
+    if (!ringDayNo || !ringNo || !safeFocusDay || !ringNameNormalized || !visualKey) return null;
     return {
-      ring_status_key: `${text(showNo)}|${safeFocusDay}|${ringDayNo}|${ringNo}`,
+      ring_status_key: visualKey,
+      ring_visual_key: visualKey,
       show_no: intValue(showNo),
       focus_day: safeFocusDay,
       focus_day_key: safeFocusDay.replace(/-/g, ""),
       ring_day_no: ringDayNo,
       ring_no: ringNo,
       ring_name: text(row.ring_name),
-      ring_name_normalized: normalizedWecRingName(row.ring_name),
+      ring_name_normalized: ringNameNormalized,
       ring_name_prioritized: prioritizedWecRingName(row.ring_name),
       status: "active",
       source: "hs_get_ring_days.step4_runtime_prep",
       last_synced_at: catalystDateTime(runTime)
     };
-  }).filter(Boolean);
+  }).filter(Boolean), "ring_status_key");
 }
 
 function classStartRowsFromUpdateSchedule(showNo, focusDay, rows, runTime) {
-  return (rows || [])
+  return uniqueRowsByKey((rows || [])
     .filter((row) => !updateSchedulePreflightReason(row))
     .map((row) => {
       const classNo = intValue(row.class_no);
       const ringDayNo = intValue(row.ring_day_no);
       const ringNo = intValue(row.ring_no);
       const classStartTime = classStartTimeFromText(row.time_text);
-      if (!classNo || !ringDayNo || !ringNo || !classStartTime) return null;
+      const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(row.ring_name));
+      const ringKey = ringVisualKey(ringNo, ringNameNormalized);
+      const classKey = classVisualKey(ringNameNormalized, classNo);
+      if (!classNo || !ringDayNo || !ringNo || !classStartTime || !ringNameNormalized || !ringKey || !classKey) return null;
       return {
-        class_start_key: `${text(showNo)}|${dateKey(focusDay)}|${ringDayNo}|${classNo}`,
+        class_start_key: classKey,
+        ring_name_normalized: ringNameNormalized,
+        ring_visual_key: ringKey,
+        class_visual_key: classKey,
         show_no: intValue(showNo),
         focus_day: dateKey(focusDay),
         ring_day_no: ringDayNo,
@@ -6144,19 +6765,27 @@ function classStartRowsFromUpdateSchedule(showNo, focusDay, rows, runTime) {
         last_synced_at: catalystDateTime(runTime)
       };
     })
-    .filter(Boolean);
+    .filter(Boolean), "class_start_key");
 }
 
 function entryGoRowsFromClassOog(showNo, focusDay, rows) {
-  return (rows || []).map((row) => {
+  return uniqueRowsByKey((rows || []).map((row) => {
     const ringDayNo = intValue(row.ring_day_no);
     const ringNo = intValue(row.ring_no);
     const classNo = intValue(row.class_no);
     const entryNo = intValue(row.entry_no);
     const entryOrder = intValue(row.entry_order);
-    if (!ringDayNo || !ringNo || !classNo || !entryNo || !entryOrder) return null;
+    const ringNameNormalized = visualRingName(row.ring_name_normalized || normalizedWecRingName(row.ring));
+    const ringKey = ringVisualKey(ringNo, ringNameNormalized);
+    const classKey = classVisualKey(ringNameNormalized, classNo);
+    const entryKey = entryVisualKey(ringNameNormalized, classNo, entryNo);
+    if (!ringDayNo || !ringNo || !classNo || !entryNo || !entryOrder || !ringNameNormalized || !ringKey || !classKey || !entryKey) return null;
     return {
-      entry_go_key: `${text(showNo)}|${dateKey(focusDay)}|${ringDayNo}|${ringNo}|${classNo}|${entryNo}`,
+      entry_go_key: entryKey,
+      ring_name_normalized: ringNameNormalized,
+      ring_visual_key: ringKey,
+      class_visual_key: classKey,
+      entry_visual_key: entryKey,
       show_no: intValue(showNo),
       focus_day: dateKey(focusDay),
       class_no: classNo,
@@ -6166,7 +6795,7 @@ function entryGoRowsFromClassOog(showNo, focusDay, rows) {
       rider: text(row.rider),
       trainer: text(row.trainer)
     };
-  }).filter(Boolean);
+  }).filter(Boolean), "entry_go_key");
 }
 
 function step4IdentityMisses({ ringDays = [], updateScheduleRows = [], classOogRows = [] } = {}) {
@@ -8972,6 +9601,10 @@ function classOogSourceRowCanonical(row, rawRow) {
   const classLabel = text(rawRow.class_label || rawRow.class_name || row.class_label || classNo);
   const key = canonicalClassOogKey(showNo, focusDay, ringDayNo, ringNo, classNo, entryNo);
   if (!key) return null;
+  const ringNameNormalized = visualRingName(rawRow.ring_name_normalized || normalizedWecRingName(rawRow.ring_name));
+  const ringKey = ringVisualKey(ringNo, ringNameNormalized);
+  const classKey = classVisualKey(ringNameNormalized, classNo);
+  const entryKey = entryVisualKey(ringNameNormalized, classNo, entryNo);
   return {
     class_oog_key: key,
     show_no: intValue(showNo),
@@ -8981,6 +9614,10 @@ function classOogSourceRowCanonical(row, rawRow) {
     ring_day_no: intValue(ringDayNo),
     class_no: intValue(classNo),
     class_label: classLabel,
+    ring_name_normalized: ringNameNormalized,
+    ring_visual_key: ringKey,
+    class_visual_key: classKey,
+    entry_visual_key: entryKey,
     class_number: intValue(row.class_number),
     class_payout: text(row.class_payout),
     class_name: text(row.class_name || rawRow.class_name || classLabel),
@@ -9963,26 +10600,40 @@ function derivePrintLayoutFromScheduleRows(showNo, focusDay, rows) {
   const grouped = new Map();
   for (const row of rows || []) {
     const ringNo = text(row.ring_number ?? row.ring_no ?? row.ringNo);
-    if (!ringNo) continue;
-    if (!grouped.has(ringNo)) {
-      grouped.set(ringNo, {
+    const ringNameNormalized = text(row.ring_name_normalized);
+    const ringVisualKeyValue = text(row.ring_visual_key) || ringVisualKey(ringNo, ringNameNormalized);
+    const ringGroupKey = ringNameNormalized || ringVisualKeyValue || ringNo;
+    const ringDisplay = ringDisplayFromNormalizedName(ringNameNormalized) || text(row.ring_display ?? row.ringDisplay ?? row.ring_name);
+    if (!ringGroupKey) continue;
+    if (!grouped.has(ringGroupKey)) {
+      grouped.set(ringGroupKey, {
+        ring_group_id: ringGroupKey,
         ring_no: intOrNull(ringNo),
-        ring_name: text(row.ring_name ?? row.ring_display ?? row.ringDisplay),
+        ring_name: text(row.ring_name),
+        ring_name_normalized: ringNameNormalized,
+        ring_visual_key: ringVisualKeyValue,
+        ring_display: ringDisplay,
         rows: []
       });
     }
-    grouped.get(ringNo).rows.push(row);
+    grouped.get(ringGroupKey).rows.push(row);
   }
   const rings = [...grouped.values()]
-    .sort((a, b) => Number(a.ring_no || 9999) - Number(b.ring_no || 9999))
+    .sort((a, b) => (
+      Number(a.ring_no || 9999) - Number(b.ring_no || 9999) ||
+      text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized))
+    ))
     .map((ring) => {
       const visibleRollups = ring.rows.filter((row) => text(row.group_display ?? row.rollup)).length;
       return {
-        ring_group_key: `${showNo}|${safeFocusDay}|${ring.ring_no}`,
+        ring_group_key: `${showNo}|${safeFocusDay}|${ring.ring_group_id}`,
         show_no: intOrNull(showNo),
         focus_day: safeFocusDay,
         ring_no: ring.ring_no,
         ring_name: ring.ring_name,
+        ring_name_normalized: ring.ring_name_normalized,
+        ring_visual_key: ring.ring_visual_key,
+        ring_display: ring.ring_display,
         source_rows: ring.rows.length,
         hidden_rows: 0,
         visible_classes: ring.rows.length,
@@ -10016,16 +10667,19 @@ function derivePrintLayoutFromScheduleRows(showNo, focusDay, rows) {
       visible_classes: rings.reduce((sum, ring) => sum + ring.visible_classes, 0),
       visible_rollups: rings.reduce((sum, ring) => sum + ring.visible_rollups, 0),
       total_print_rows: totalPrintRows,
-      portrait_summary: rings.map((ring) => `${ring.ring_name}:${ring.portrait_col}`).join("|"),
-      landscape_summary: rings.map((ring) => `${ring.ring_name}:${ring.landscape_col}`).join("|"),
+      portrait_summary: rings.map((ring) => `${ring.ring_display || ring.ring_name}:${ring.portrait_col}`).join("|"),
+      landscape_summary: rings.map((ring) => `${ring.ring_display || ring.ring_name}:${ring.landscape_col}`).join("|"),
       source: "catalyst.wec-print-live"
     },
     rings,
-    placement: Object.fromEntries(rings.map((ring) => [String(ring.ring_no), {
+    placement: Object.fromEntries(rings.map((ring) => [String(ring.ring_name_normalized || ring.ring_visual_key || ring.ring_no), {
       portrait_col: ring.portrait_col,
       landscape_col: ring.landscape_col,
       print_rows: ring.print_rows,
-      ring_name: ring.ring_name
+      ring_name: ring.ring_name,
+      ring_name_normalized: ring.ring_name_normalized,
+      ring_visual_key: ring.ring_visual_key,
+      ring_display: ring.ring_display
     }]))
   };
 }
@@ -10922,10 +11576,31 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
   let ringStatusResult = { rows: 0, inserted: 0, updated: 0, skipped: 0 };
   let classStartResult = { rows: 0, inserted: 0, updated: 0, skipped: 0 };
   let entryGoResult = { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  let cleanupResult = {
+    hs_ring_status: { deleted: 0, skipped: true },
+    hs_class_start_times: { deleted: 0, skipped: true },
+    hs_entry_go_times: { deleted: 0, skipped: true }
+  };
+  let airtableMirrorResult = {
+    hs_ring_status: { current_day_count: 0, skipped: true },
+    hs_class_start_times: { current_day_count: 0, skipped: true },
+    hs_entry_go_times: { current_day_count: 0, skipped: true }
+  };
   if (!blocker) {
     ringStatusResult = await upsertSourceRowsFast(app, TABLES.ringStatus, "ring_status_key", ringStatusRows, { showNo: activeFocus.show_no });
     classStartResult = await upsertSourceRowsFast(app, TABLES.classStartTimes, "class_start_key", classStartRows, { showNo: activeFocus.show_no });
     entryGoResult = await upsertSourceRowsFast(app, TABLES.entryGoTimes, "entry_go_key", entryGoRows, { showNo: activeFocus.show_no });
+    cleanupResult = {
+      hs_ring_status: await deleteCurrentFocusRowsNotInKeys(app, TABLES.ringStatus, "ring_status_key", activeFocus.show_no, focusDay, new Set(ringStatusRows.map((row) => row.ring_status_key))),
+      hs_class_start_times: await deleteCurrentFocusRowsNotInKeys(app, TABLES.classStartTimes, "class_start_key", activeFocus.show_no, focusDay, new Set(classStartRows.map((row) => row.class_start_key))),
+      hs_entry_go_times: await deleteCurrentFocusRowsNotInKeys(app, TABLES.entryGoTimes, "entry_go_key", activeFocus.show_no, focusDay, new Set(entryGoRows.map((row) => row.entry_go_key)))
+    };
+    airtableMirrorResult = await syncRawAirtableStep4RuntimeRows(activeFocus.show_no, focusDay, {
+      ringStatusRows,
+      classStartRows,
+      entryGoRows,
+      runTime
+    });
   }
 
   const ringStatusCount = await countStoredRingStatusRows(app, activeFocus.show_no, focusDay);
@@ -10934,6 +11609,12 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
   if (!blocker && !ringStatusCount) blocker = "hs_ring_status_materialization_empty";
   if (!blocker && !classStartCount) blocker = "hs_class_start_times_materialization_empty";
   if (!blocker && !entryGoCount) blocker = "hs_entry_go_times_materialization_empty";
+  if (!blocker && airtableMirrorResult.hs_ring_status.skipped) blocker = "airtable_hs_ring_status_mirror_skipped";
+  if (!blocker && airtableMirrorResult.hs_class_start_times.skipped) blocker = "airtable_hs_class_start_times_mirror_skipped";
+  if (!blocker && airtableMirrorResult.hs_entry_go_times.skipped) blocker = "airtable_hs_entry_go_times_mirror_skipped";
+  if (!blocker && airtableMirrorResult.hs_ring_status.current_day_count !== ringStatusCount) blocker = "airtable_hs_ring_status_mirror_count_mismatch";
+  if (!blocker && airtableMirrorResult.hs_class_start_times.current_day_count !== classStartCount) blocker = "airtable_hs_class_start_times_mirror_count_mismatch";
+  if (!blocker && airtableMirrorResult.hs_entry_go_times.current_day_count !== entryGoCount) blocker = "airtable_hs_entry_go_times_mirror_count_mismatch";
 
   const finalPayload = {
     ...runningPayload,
@@ -10943,11 +11624,22 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
       hs_class_start_times: classStartResult,
       hs_entry_go_times: entryGoResult
     },
+    cleanup: cleanupResult,
+    visual_key_samples: {
+      ring_status_key: ringStatusRows[0]?.ring_status_key || "",
+      ring_visual_key: ringStatusRows[0]?.ring_visual_key || "",
+      class_start_key: classStartRows[0]?.class_start_key || "",
+      class_visual_key: classStartRows[0]?.class_visual_key || "",
+      entry_go_key: entryGoRows[0]?.entry_go_key || "",
+      entry_visual_key: entryGoRows[0]?.entry_visual_key || "",
+      ring_name_normalized: classStartRows[0]?.ring_name_normalized || entryGoRows[0]?.ring_name_normalized || ringStatusRows[0]?.ring_name_normalized || ""
+    },
     destination_counts: {
       hs_ring_status: ringStatusCount,
       hs_class_start_times: classStartCount,
       hs_entry_go_times: entryGoCount
     },
+    airtable_mirror: airtableMirrorResult,
     hs_rings_written: false,
     hs_rings_usage: "helper_reference_only",
     blocker
@@ -10986,6 +11678,9 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
     preflight: preflightSummary,
     planned_rows: finalPayload.planned_rows,
     materialized_rows: finalPayload.materialized_rows,
+    cleanup: cleanupResult,
+    airtable_mirror: finalPayload.airtable_mirror,
+    visual_key_samples: finalPayload.visual_key_samples,
     destination_counts: finalPayload.destination_counts,
     helper_warnings: helperWarnings,
     identity_misses: identityMisses,
@@ -11639,6 +12334,7 @@ async function handle(req, res) {
       "wec-step3-class-oog",
       "wec-step4-runtime-prep",
       "wec-cadence-step1-step2",
+      "wec-cadence-step1-step4",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -12082,7 +12778,11 @@ async function handle(req, res) {
       const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
-      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      const allRows = await getStep4RuntimeRows(app, outputFocus.show_no, outputFocus.focus_day, meta);
+      const start = Math.max(0, Number(daysOffset || 0));
+      const end = start + Math.min(requestedLimit || 300, 300);
+      const rows = allRows.slice(start, end);
+      rows.runtime_ring_status_rows = allRows.runtime_ring_status_rows;
       if (!rows.length) {
         return json(res, 200, {
           ok: false,
@@ -12118,7 +12818,7 @@ async function handle(req, res) {
       if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-mobile-live requires active focus_show" });
       const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
-      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: 300, offset: 0 });
+      const rows = await getStep4RuntimeRows(app, outputFocus.show_no, outputFocus.focus_day, meta);
       if (!rows.length) {
         return json(res, 200, {
           ok: false,
@@ -12131,7 +12831,7 @@ async function handle(req, res) {
           rings: []
         });
       }
-      return json(res, 200, { ok: true, action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...buildMobileLivePayload(outputFocus.show_no, outputFocus.focus_day, meta, rows) });
+      return json(res, 200, { ok: true, action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...buildStep4RuntimeMobilePayload(outputFocus.show_no, outputFocus.focus_day, meta, rows) });
     }
 
     if (action === "wec-rich-live" || action === "wec-rich-api") {
@@ -12158,7 +12858,11 @@ async function handle(req, res) {
       const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
-      const rows = await buildScheduleJson(app, outputFocus.show_no, outputFocus.focus_day, meta, { limit: Math.min(requestedLimit || 300, 300), offset: daysOffset || 0 });
+      const allRows = await getStep4RuntimeRows(app, outputFocus.show_no, outputFocus.focus_day, meta);
+      const start = Math.max(0, Number(daysOffset || 0));
+      const end = start + Math.min(requestedLimit || 300, 300);
+      const rows = allRows.slice(start, end);
+      rows.runtime_ring_status_rows = allRows.runtime_ring_status_rows;
       if (!rows.length) {
         return json(res, 200, {
           ok: false,
@@ -12173,7 +12877,7 @@ async function handle(req, res) {
           placement: {}
         });
       }
-      return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...derivePrintLayoutFromScheduleRows(outputFocus.show_no, outputFocus.focus_day, rows) });
+      return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...deriveStep4RuntimePrintLayout(outputFocus.show_no, outputFocus.focus_day, rows) });
     }
 
     if (action === "wec-print-pdf-url") {
@@ -12322,6 +13026,135 @@ async function handle(req, res) {
         get_orders_run: false,
         get_rings_run: false,
         alerts_run: false
+      });
+    }
+
+    if (action === "wec-cadence-step1-step4") {
+      const step1 = await runWecStep1HeartbeatGetRingDays(req, app, action, query, body);
+      let step2 = null;
+      let step3 = null;
+      let step4 = null;
+      let step3Checkpoint = null;
+      let step3CheckpointComplete = false;
+      let stopReason = "";
+
+      if (step1.ok) {
+        const step2Query = new URLSearchParams(query.toString());
+        step2Query.set("run_id", `${step1.run_id}-step2`);
+        if (!step2Query.get("cadence_window") && step1.cadence_window) {
+          step2Query.set("cadence_window", step1.cadence_window);
+        }
+        step2 = await runWecStep2UpdateScheduleOnly(
+          req,
+          app,
+          action,
+          step2Query,
+          { ...body, run_id: `${step1.run_id}-step2`, cadence_window: step1.cadence_window || body.cadence_window }
+        );
+      } else {
+        stopReason = "step1_failed";
+      }
+
+      if (step1.ok && step2?.ok) {
+        const checkpointBeforeStep3 = await readStep3Checkpoint(app, step1.show_no, step1.focus_day);
+        if (checkpointBeforeStep3.payload?.complete === true) {
+          step3Checkpoint = checkpointBeforeStep3.payload;
+          step3CheckpointComplete = true;
+          step3 = {
+            ok: true,
+            skipped: true,
+            reason: "step3_checkpoint_already_complete",
+            checkpoint_heartbeat_id: checkpointBeforeStep3.heartbeat_id,
+            checkpoint_complete: true,
+            checkpoint_checked_class_count: checkpointBeforeStep3.payload.checked_class_count || 0,
+            step3_remaining_rows: 0,
+            downstream_run: false,
+            get_orders_run: false,
+            get_rings_run: false,
+            alerts_run: false
+          };
+        } else {
+          const step3Query = new URLSearchParams(query.toString());
+          step3Query.set("run_id", `${step1.run_id}-step3`);
+          if (!step3Query.get("cadence_window") && step1.cadence_window) {
+            step3Query.set("cadence_window", step1.cadence_window);
+          }
+          step3 = await runWecStep3ClassOogOnly(
+            req,
+            app,
+            action,
+            step3Query,
+            { ...body, run_id: `${step1.run_id}-step3`, cadence_window: step1.cadence_window || body.cadence_window }
+          );
+          step3CheckpointComplete = step3?.checkpoint_complete === true;
+          step3Checkpoint = step3?.checkpoint || null;
+        }
+      } else if (step1.ok) {
+        stopReason = "step2_failed";
+      }
+
+      if (step1.ok && step2?.ok && step3?.ok && step3CheckpointComplete) {
+        const step4Query = new URLSearchParams(query.toString());
+        step4Query.set("run_id", `${step1.run_id}-step4`);
+        if (!step4Query.get("cadence_window") && step1.cadence_window) {
+          step4Query.set("cadence_window", step1.cadence_window);
+        }
+        step4 = await runWecStep4RuntimePrepOnly(
+          app,
+          action,
+          step4Query,
+          { ...body, run_id: `${step1.run_id}-step4`, cadence_window: step1.cadence_window || body.cadence_window }
+        );
+      } else if (step1.ok && step2?.ok && step3?.ok) {
+        stopReason = "step3_checkpoint_incomplete";
+      } else if (step1.ok && step2?.ok) {
+        stopReason = "step3_failed";
+      }
+
+      if (!stopReason) {
+        if (!step1.ok) stopReason = "step1_failed";
+        else if (!step2?.ok) stopReason = "step2_failed";
+        else if (!step3?.ok) stopReason = "step3_failed";
+        else if (!step3CheckpointComplete) stopReason = "step3_checkpoint_incomplete";
+        else if (!step4?.ok) stopReason = "step4_failed";
+        else stopReason = "step4_complete";
+      }
+
+      const ok = Boolean(step1.ok && step2?.ok && step3?.ok && (step3CheckpointComplete ? step4?.ok : true));
+      return json(res, ok ? 200 : (step4?.status_code || step3?.status_code || step2?.status_code || step1.status_code || 500), {
+        ok,
+        action,
+        focus_source: step1.focus_source,
+        focus_show_record_id: step1.focus_show_record_id,
+        show_no: step1.show_no,
+        focus_day: step1.focus_day,
+        cadence_window: step1.cadence_window,
+        stop_reason: stopReason,
+        step1_ran: true,
+        step1_pass: Boolean(step1.ok),
+        step2_ran: Boolean(step2),
+        step2_pass: Boolean(step2?.ok),
+        step3_ran: Boolean(step3 && !step3.skipped),
+        step3_pass: Boolean(step3?.ok),
+        step3_checkpoint_complete: step3CheckpointComplete,
+        step3_checkpoint: step3Checkpoint,
+        step4_ran: Boolean(step4),
+        step4_pass: Boolean(step4?.ok),
+        step1,
+        step2,
+        step3,
+        step4,
+        get_ring_days_run: Boolean(step1.get_ring_days_run),
+        update_schedule_run: Boolean(step2?.update_schedule_run),
+        class_oog_run: Boolean(step3?.class_oog_run),
+        runtime_prep_run: Boolean(step4?.runtime_prep_run),
+        downstream_run: false,
+        get_orders_run: false,
+        get_rings_run: false,
+        get_results_run: false,
+        alerts_run: false,
+        alerts_send_run: false,
+        external_notifications_sent: 0
       });
     }
 

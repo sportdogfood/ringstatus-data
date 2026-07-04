@@ -24,6 +24,7 @@ const AIRTABLE_TABLES = {
   hs_result_classes: "hs_result_classes",
   hs_class_results: "hs_class_results",
   hs_result_queue: "hs_result_queue",
+  hs_class_start_times: "hs_class_start_times",
   wec_alerts: "tblqkxLPy9zZ2FI6z",
   alert_templates: "tblcHUmGzoWFOTvx2",
   wec_logs: "tblaA0n7QD7s5lIYm"
@@ -1093,6 +1094,113 @@ function classIsCompleted(row) {
   return text(row?.status).toLowerCase() === "completed" || !!text(row?.completed_at);
 }
 
+function addMinutes(date, minutes) {
+  return new Date(date.getTime() + minutes * 60 * 1000);
+}
+
+function parseClassStartClock(value) {
+  const raw = text(value);
+  let match = raw.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+  if (match) {
+    const hour = Number(match[1]);
+    const minute = Number(match[2]);
+    const second = Number(match[3] || 0);
+    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59 && second >= 0 && second <= 59) {
+      return { hour, minute, second };
+    }
+  }
+  match = raw.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([AP]M)$/i);
+  if (match) {
+    let hour = Number(match[1]);
+    const minute = Number(match[2]);
+    const second = Number(match[3] || 0);
+    const meridian = match[4].toUpperCase();
+    if (hour >= 1 && hour <= 12 && minute >= 0 && minute <= 59 && second >= 0 && second <= 59) {
+      if (meridian === "PM" && hour !== 12) hour += 12;
+      if (meridian === "AM" && hour === 12) hour = 0;
+      return { hour, minute, second };
+    }
+  }
+  return null;
+}
+
+function zonedDateTime(focusDay, clock, timeZone = "America/New_York") {
+  const iso = isoDate(focusDay);
+  if (!iso || !clock) return null;
+  const [year, month, day] = iso.split("-").map(Number);
+  const targetUtc = Date.UTC(year, month - 1, day, clock.hour, clock.minute, clock.second || 0);
+  let candidate = new Date(targetUtc);
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  });
+  for (let i = 0; i < 3; i += 1) {
+    const parts = Object.fromEntries(formatter.formatToParts(candidate).map((part) => [part.type, part.value]));
+    const renderedUtc = Date.UTC(
+      Number(parts.year),
+      Number(parts.month) - 1,
+      Number(parts.day),
+      Number(parts.hour),
+      Number(parts.minute),
+      Number(parts.second)
+    );
+    const delta = targetUtc - renderedUtc;
+    if (delta === 0) break;
+    candidate = new Date(candidate.getTime() + delta);
+  }
+  return candidate;
+}
+
+function resultProbeInfo(row, nowDate) {
+  const entryCount = intOrNull(row?.entry_count);
+  if (!entryCount || entryCount <= 0) {
+    return { check_results: false, ready_at: "", reason: "missing_entry_count" };
+  }
+  const clock = parseClassStartClock(row?.class_start_time) || parseClassStartClock(row?.display_time);
+  if (!clock) {
+    return { check_results: false, ready_at: "", reason: "missing_class_start_time" };
+  }
+  const startAt = zonedDateTime(row?.focus_day, clock);
+  if (!startAt) {
+    return { check_results: false, ready_at: "", reason: "invalid_class_start_time" };
+  }
+  const readyAt = addMinutes(startAt, entryCount * 3.3);
+  const checkResults = nowDate >= readyAt;
+  return {
+    check_results: checkResults,
+    ready_at: catalystDateTime(readyAt),
+    reason: checkResults ? "estimated_runtime_elapsed" : "not_due"
+  };
+}
+
+function scopedClassVisualKeysFromEntries(rows) {
+  const scoped = new Set();
+  for (const row of rows || []) {
+    const classVisualKey = text(row?.class_visual_key);
+    if (classVisualKey && text(row?.entry_no)) scoped.add(classVisualKey);
+  }
+  return scoped;
+}
+
+function latestQueueByClassVisualKey(queueRows) {
+  const map = new Map();
+  for (const row of queueRows || []) {
+    const key = text(row?.class_visual_key);
+    if (!key) continue;
+    const existing = map.get(key);
+    const existingTime = new Date(text(existing?.last_checked_at || existing?.MODIFIEDTIME || "")).getTime() || 0;
+    const rowTime = new Date(text(row?.last_checked_at || row?.MODIFIEDTIME || "")).getTime() || 0;
+    if (!existing || rowTime >= existingTime) map.set(key, row);
+  }
+  return map;
+}
+
 function getRuntimeClassNo(row) {
   return text(row?.class_no);
 }
@@ -1101,14 +1209,24 @@ function getRuntimeClassVisualKey(row) {
   return text(row?.class_visual_key) || resultKey(text(row?.ring_name_normalized).toLowerCase().replace(/\s+/g, "_"), row?.class_no);
 }
 
-function runtimeClassSourceEvidence(rows) {
+function runtimeClassSourceEvidence(rows, entryRows = [], queueRows = [], nowDate = new Date()) {
+  const scoped = scopedClassVisualKeysFromEntries(entryRows);
+  const latestQueue = latestQueueByClassVisualKey(queueRows);
+  const scopedRows = (rows || []).filter((row) => scoped.has(getRuntimeClassVisualKey(row)));
+  const probeReadyRows = scopedRows.filter((row) => resultProbeInfo(row, nowDate).check_results);
   return {
     source_rows: rows.length,
     done_status_rows: rows.filter((row) => text(row.class_status).toLowerCase() === "done").length,
     done_count_rows: rows.filter(doneByRuntimeCounts).length,
     class_visual_key_rows: rows.filter((row) => text(row.class_visual_key)).length,
     ring_visual_key_rows: rows.filter((row) => text(row.ring_visual_key)).length,
-    ring_name_normalized_rows: rows.filter((row) => text(row.ring_name_normalized)).length
+    ring_name_normalized_rows: rows.filter((row) => text(row.ring_name_normalized)).length,
+    our_rider_scoped_class_count: scoped.size,
+    scoped_class_start_rows: scopedRows.length,
+    check_results_rows: probeReadyRows.length,
+    pending_due_rows: scopedRows.filter((row) => queueRetryDue(latestQueue.get(getRuntimeClassVisualKey(row)), nowDate)).length,
+    exhausted_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassVisualKey(row))?.status).toLowerCase() === "exhausted").length,
+    completed_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassVisualKey(row))?.status).toLowerCase() === "completed").length
   };
 }
 
@@ -1134,20 +1252,29 @@ function completedClassVisualKeys(queueRows, resultClassRows) {
   return completed;
 }
 
-function buildStep6ClassRows(classStartRows, queueRows, resultClassRows, force) {
-  const pendingByClass = pendingQueueByClassVisualKey(queueRows);
+function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRows, force, nowDate) {
+  const scoped = scopedClassVisualKeysFromEntries(entryRows);
+  const latestQueue = latestQueueByClassVisualKey(queueRows);
   const completedKeys = force ? new Set() : completedClassVisualKeys(queueRows, resultClassRows);
   const candidates = [];
   for (const row of classStartRows || []) {
     const classNo = getRuntimeClassNo(row);
     const classVisualKey = getRuntimeClassVisualKey(row);
     if (!classNo || !classVisualKey) continue;
-    const pendingRows = pendingByClass.get(classVisualKey) || [];
-    const pendingDue = pendingRows.some((pending) => queueRetryDue(pending));
-    const eligible = text(row.class_status).toLowerCase() === "done" || doneByRuntimeCounts(row) || pendingDue;
-    if (!eligible) continue;
+    if (!scoped.has(classVisualKey)) continue;
+    const previousQueue = latestQueue.get(classVisualKey) || null;
+    const previousStatus = text(previousQueue?.status).toLowerCase();
+    const previousAttempts = intOrNull(previousQueue?.attempts) || 0;
+    const pendingDue = queueRetryDue(previousQueue, nowDate);
+    const probe = resultProbeInfo(row, nowDate);
+    if (!force && previousStatus === "completed") continue;
+    if (!force && previousStatus === "exhausted") continue;
+    if (!force && previousAttempts >= 5) continue;
+    if (!force && completedKeys.has(classVisualKey) && !pendingDue) continue;
+    if (!probe.check_results && !pendingDue && !force) continue;
     if (!force && completedKeys.has(classVisualKey) && !pendingDue) continue;
     candidates.push({
+      class_start_key: text(row.class_start_key),
       show_no: row.show_no,
       focus_day: isoDate(row.focus_day),
       ring_name_normalized: text(row.ring_name_normalized),
@@ -1158,7 +1285,12 @@ function buildStep6ClassRows(classStartRows, queueRows, resultClassRows, force) 
       class_number: text(row.class_number),
       class_name: text(row.class_name),
       class_status: text(row.class_status),
-      entry_count: intOrNull(row.entry_count)
+      entry_count: intOrNull(row.entry_count),
+      check_results: probe.check_results,
+      result_probe_ready_at: probe.ready_at,
+      result_probe_reason: pendingDue && !probe.check_results ? "pending_retry_due" : probe.reason,
+      previous_attempts: previousAttempts,
+      previous_queue_status: previousStatus
     });
   }
   return candidates.sort((a, b) => {
@@ -1231,8 +1363,10 @@ function step6ClassResultRow(showNo, focusDay, row, now, sourceClass = {}, entry
   };
 }
 
-function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now) {
+function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate) {
   const key = resultKey(showNo, focusDay, classRow.class_visual_key);
+  const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
+  const nextCheckAt = status === "pending" ? catalystDateTime(addMinutes(nowDate, 6)) : "";
   return {
     result_queue_key: key,
     show_no: text(showNo),
@@ -1247,7 +1381,8 @@ function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now
     status,
     queued_at: now,
     last_checked_at: now,
-    attempts: 1,
+    next_check_at: nextCheckAt,
+    attempts,
     result_rows: resultRows,
     completed_at: status === "completed" ? now : "",
     source: "horseshowing.show_results4",
@@ -1255,7 +1390,9 @@ function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now
       class_no: classRow.class_no,
       class_visual_key: classRow.class_visual_key,
       status,
-      result_rows: resultRows
+      result_rows: resultRows,
+      attempts,
+      next_check_at: nextCheckAt
     })
   };
 }
@@ -1274,6 +1411,7 @@ function toAirtableHsResultQueue(row) {
     class_name: row.class_name,
     status: row.status,
     queued_at: airtableDateTime(row.queued_at),
+    next_check_at: airtableDateTime(row.next_check_at),
     last_checked_at: airtableDateTime(row.last_checked_at),
     attempts: row.attempts,
     result_rows: row.result_rows,
@@ -1330,6 +1468,32 @@ function toAirtableHsClassResult(row) {
   });
 }
 
+function step6ClassStartStatusRow(classRow, resultRows) {
+  const row = {
+    class_start_key: classRow.class_start_key,
+    show_no: text(classRow.show_no),
+    focus_day: classRow.focus_day,
+    check_results: classRow.check_results === true,
+    result_probe_ready_at: classRow.result_probe_ready_at,
+    result_probe_reason: classRow.result_probe_reason
+  };
+  if (resultRows > 0) row.class_status = "Done";
+  return row;
+}
+
+function toAirtableHsClassStartStatus(row) {
+  const fields = {
+    class_start_key: row.class_start_key,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    check_results: row.check_results === true,
+    result_probe_ready_at: airtableDateTime(row.result_probe_ready_at),
+    result_probe_reason: row.result_probe_reason
+  };
+  if (text(row.class_status)) fields.class_status = row.class_status;
+  return cleanFields(fields);
+}
+
 async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   if (!focusShow.results_enabled) {
     return {
@@ -1348,7 +1512,8 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
 
   const showNo = text(focusShow.show_no);
   const focusDay = focusShow.focus_day;
-  const now = catalystDateTime();
+  const nowDate = new Date();
+  const now = catalystDateTime(nowDate);
   const force = options.force === true;
   const limit = Math.max(1, Math.min(5, intOrNull(options.limit) || 3));
   const offset = Math.max(0, intOrNull(options.offset) || 0);
@@ -1357,7 +1522,7 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const entryGoTimeRows = await catalystRows(app, TABLES.entryGoTimes, showNo, focusDay);
   const existingQueueRows = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
   const existingResultClassRows = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
-  const allClassRows = buildStep6ClassRows(classStartRows, existingQueueRows, existingResultClassRows, force);
+  const allClassRows = buildStep6ClassRows(classStartRows, entryGoTimeRows, existingQueueRows, existingResultClassRows, force, nowDate);
   const classRows = allClassRows.slice(offset, offset + limit);
   const classByNo = new Map(classRows.map((row) => [text(row.class_no), row]));
   const entryGoTimeByClassEntry = new Map(entryGoTimeRows.map((row) => [classEntryKey(row), row]));
@@ -1376,7 +1541,8 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
         hs_result_queue: existingQueueRows.length,
         hs_result_classes: existingResultClassRows.length
       },
-      eligibility: runtimeClassSourceEvidence(classStartRows),
+      eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate),
+      check_results_count: 0,
       target_classes_total: allClassRows.length,
       offset,
       limit,
@@ -1403,11 +1569,18 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     .filter(Boolean);
   const queueRows = classRows.map((classRow) => {
     const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
-    const status = parsedClassNos.has(text(classRow.class_no)) ? "completed" : "pending";
-    return step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now);
+    const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
+    let status = "pending";
+    if (resultRows > 0 && parsedClassNos.has(text(classRow.class_no))) status = "completed";
+    else if (attempts >= 5) status = "exhausted";
+    return step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate);
+  });
+  const classStartStatusRows = classRows.map((classRow) => {
+    const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
+    return step6ClassStartStatusRow(classRow, resultRows);
   });
 
-  const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 } };
+  const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 }, class_start_times: { inserted: 0, updated: 0 } };
   for (const row of resultClassRows) {
     const result = await upsertCatalyst(app, TABLES.resultClasses, "result_class_key", row);
     if (result.action === "inserted") catalystCounters.result_classes.inserted += 1;
@@ -1422,6 +1595,11 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     const result = await upsertCatalyst(app, TABLES.resultQueue, "result_queue_key", row);
     if (result.action === "inserted") catalystCounters.result_queue.inserted += 1;
     if (result.action === "updated") catalystCounters.result_queue.updated += 1;
+  }
+  for (const row of classStartStatusRows) {
+    const result = await upsertCatalyst(app, TABLES.classStartTimes, "class_start_key", row);
+    if (result.action === "inserted") catalystCounters.class_start_times.inserted += 1;
+    if (result.action === "updated") catalystCounters.class_start_times.updated += 1;
   }
 
   const airtableQueue = await airtableUpsert(
@@ -1443,6 +1621,13 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     AIRTABLE_TABLES.hs_class_results,
     "class_result_key",
     classResultRows.map(toAirtableHsClassResult),
+    token
+  );
+  const airtableClassStartTimes = await airtableUpsert(
+    baseId,
+    AIRTABLE_TABLES.hs_class_start_times,
+    "class_start_key",
+    classStartStatusRows.map(toAirtableHsClassStartStatus),
     token
   );
 
@@ -1467,7 +1652,8 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
       hs_result_queue: existingQueueRows.length,
       hs_result_classes: existingResultClassRows.length
     },
-    eligibility: runtimeClassSourceEvidence(classStartRows),
+    eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate),
+    check_results_count: allClassRows.filter((row) => row.check_results === true).length,
     target_classes_total: allClassRows.length,
     offset,
     limit,
@@ -1478,12 +1664,24 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     completed_classes: resultClassRows.length,
     class_results: classResultRows.length,
     queue_rows: queueRows.length,
-    changed_rows: resultClassRows.length + classResultRows.length + queueRows.length,
+    changed_rows: resultClassRows.length + classResultRows.length + queueRows.length + classStartStatusRows.length,
+    attempts: queueRows.map((row) => ({
+      class_no: row.class_no,
+      status: row.status,
+      attempts: row.attempts,
+      next_check_at: row.next_check_at || "",
+      result_rows: row.result_rows
+    })),
+    pending_next_check_at_count: queueRows.filter((row) => row.status === "pending" && text(row.next_check_at)).length,
+    exhausted_classes: queueRows.filter((row) => row.status === "exhausted").length,
+    completed_class_status_updates: classStartStatusRows.filter((row) => row.class_status === "Done").length,
+    fake_results_created: 0,
     catalyst: catalystCounters,
     airtable: {
       hs_result_queue: airtableQueue.length,
       hs_result_classes: airtableResultClasses.length,
-      hs_class_results: airtableClassResults.length
+      hs_class_results: airtableClassResults.length,
+      hs_class_start_times: airtableClassStartTimes.length
     },
     verify: {
       catalyst_result_queue: verifyCatalystQueue.length,

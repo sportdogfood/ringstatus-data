@@ -35,6 +35,7 @@ const TABLES = {
   getOrders: "hs_get_orders",
   getRings: "hs_get_rings",
   entries: "hs_entries",
+  horses: "hs_horses",
   trainers: "hs_trainers",
   timeTriggers: "hs_time_triggers",
   resultQueue: "hs_result_queue",
@@ -1321,7 +1322,7 @@ function intValue(value) {
 function updateScheduleKeyTiers(row) {
   const showNo = row.show_no;
   const classNo = row.class_no;
-  if (intValue(classNo) <= 0) return [resultKey(showNo, row.ring_day_no, row.event_id || row.class_order || row.class_label)];
+  if (intValue(classNo) <= 0) return [];
   return [
     resultKey(showNo, classNo),
     resultKey(showNo, row.ring_no, classNo),
@@ -1332,7 +1333,6 @@ function updateScheduleKeyTiers(row) {
 
 function assignUpdateScheduleKeys(rows, level = 0) {
   const byKey = new Map();
-  const keyedRows = rows.filter((row) => updateScheduleKeyTiers(row).length);
   for (const row of rows) {
     const tiers = updateScheduleKeyTiers(row);
     if (!tiers.length) continue;
@@ -1347,7 +1347,7 @@ function assignUpdateScheduleKeys(rows, level = 0) {
     }
     assignUpdateScheduleKeys(scopedRows, level + 1);
   }
-  return keyedRows;
+  return rows;
 }
 
 function updateScheduleSourceRow(row) {
@@ -2167,6 +2167,35 @@ async function deleteUpdateScheduleStaleForRingDay(app, showNo, ringDayNo, activ
     }
   }
   return { scanned: rows.length, ring_day_no: text(ringDayNo), active_keys: active.size, deleted };
+}
+
+async function deleteUpdateScheduleNonClassRowsForRingDay(app, showNo, focusDay, ringDayNo) {
+  const safeFocusDay = dateKey(focusDay);
+  if (!text(showNo) || !safeFocusDay || !text(ringDayNo)) {
+    return { scanned: 0, deleted: 0, skipped: true, reason: "show_no_focus_day_ring_day_no_required" };
+  }
+  const rows = await getRowsByShow(app, TABLES.updateSchedule, showNo, { limit: 5000 });
+  const staleIds = rows
+    .filter((row) => dateKey(row.focus_day || row.iso_date) === safeFocusDay)
+    .filter((row) => text(row.ring_day_no) === text(ringDayNo))
+    .filter((row) => intValue(row.class_no) <= 0)
+    .map((row) => row.ROWID)
+    .filter(Boolean);
+  const table = app.datastore().table(TABLES.updateSchedule);
+  let deleted = 0;
+  for (let index = 0; index < staleIds.length; index += 100) {
+    const batch = staleIds.slice(index, index + 100);
+    if (batch.length) {
+      await table.deleteRows(batch);
+      deleted += batch.length;
+    }
+  }
+  return {
+    scanned: rows.length,
+    focus_day: safeFocusDay,
+    ring_day_no: text(ringDayNo),
+    deleted
+  };
 }
 
 async function deleteInvalidUpdateScheduleRows(app, showNo) {
@@ -4743,21 +4772,23 @@ async function metaForFocusRender(app, showNo, focusDay, query, body) {
       ...(activeTrainerConfig.trainer_displays || {})
     };
   }
-  const airtableHorseDisplays = await getAirtableHorseDisplayConfig(meta.activeTrainers, meta.trainerDisplays);
+  const catalystHorseDisplays = await getCatalystHorseDisplayConfig(app);
   meta.horseDisplays = {
     ...(meta.horseDisplays || {}),
-    ...(airtableHorseDisplays.horse_displays || {})
+    ...(catalystHorseDisplays.horse_displays || {})
   };
   meta.horseDisplayMeta = {
     ...(meta.horseDisplayMeta || {}),
-    ...(airtableHorseDisplays.horse_display_meta || {})
+    ...(catalystHorseDisplays.horse_display_meta || {})
   };
   meta.airtableHorseDisplayStatus = {
-    ok: airtableHorseDisplays.ok,
-    source: airtableHorseDisplays.source,
-    filter_formula: airtableHorseDisplays.filter_formula,
-    count: Object.keys(airtableHorseDisplays.horse_displays || {}).length,
-    error: airtableHorseDisplays.error || ""
+    ok: catalystHorseDisplays.ok,
+    source: catalystHorseDisplays.source,
+    filter_formula: "",
+    count: Object.keys(catalystHorseDisplays.horse_displays || {}).length,
+    error: catalystHorseDisplays.error || "",
+    scanned: catalystHorseDisplays.scanned,
+    truncated: catalystHorseDisplays.truncated
   };
   return meta;
 }
@@ -5298,6 +5329,28 @@ async function deleteAirtableRowsNotInKeys(table, keyFieldId, records, activeKey
     .map((record) => record.id)
     .filter(Boolean);
   return airtableDeleteRecords(table, staleIds);
+}
+
+async function deleteRawAirtableUpdateScheduleNonClassRows(showNo, focusDay, ringDayNo) {
+  const safeFocusDay = dateKey(focusDay);
+  if (!text(showNo) || !safeFocusDay || !text(ringDayNo)) {
+    return { scanned: 0, deleted: 0, skipped: true, reason: "show_no_focus_day_ring_day_no_required" };
+  }
+  const rows = await airtableListRecords(AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE, {
+    filterByFormula: airtableScopedScheduleFormula(showNo, safeFocusDay, ringDayNo),
+    returnFieldsByFieldId: "false"
+  });
+  const staleIds = (rows || [])
+    .filter((record) => intValue(record.fields?.class_no) <= 0)
+    .map((record) => record.id)
+    .filter(Boolean);
+  const deleted = await airtableDeleteRecords(AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE, staleIds);
+  return {
+    scanned: rows.length,
+    focus_day: safeFocusDay,
+    ring_day_no: text(ringDayNo),
+    deleted
+  };
 }
 
 function airtableUpdateScheduleRecordKey(record) {
@@ -5853,6 +5906,10 @@ const RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS = [
   "source_endpoint",
   "source_payload"
 ];
+const RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS = [
+  "is_preflight",
+  "preflight_reason"
+];
 
 async function ensureRawAirtableUpdateScheduleTable() {
   const tables = await airtableBaseMetadataTables();
@@ -5863,10 +5920,13 @@ async function ensureRawAirtableUpdateScheduleTable() {
     if (missing.length) {
       throw new Error(`Airtable ${AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE} missing required fields: ${missing.join(", ")}`);
     }
+    const optionalFields = RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => existingFields.has(field));
     return {
       created: false,
       table_id: existing.id,
-      fields: (existing.fields || []).map((field) => ({ name: field.name, type: field.type }))
+      fields: (existing.fields || []).map((field) => ({ name: field.name, type: field.type })),
+      optional_fields: optionalFields,
+      optional_fields_skipped: RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => !existingFields.has(field))
     };
   }
   const fields = RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS.map((name) => ({
@@ -5877,11 +5937,13 @@ async function ensureRawAirtableUpdateScheduleTable() {
   return {
     created: true,
     table_id: created.id,
-    fields: (created.fields || []).map((field) => ({ name: field.name, type: field.type }))
+    fields: (created.fields || []).map((field) => ({ name: field.name, type: field.type })),
+    optional_fields: [],
+    optional_fields_skipped: [...RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS]
   };
 }
 
-function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId = "", runId = "" } = {}) {
+function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId = "", runId = "", optionalFields = [] } = {}) {
   const sourceRow = updateScheduleSourceRow({
     ...row,
     show_no: row.show_no || showNo,
@@ -5889,7 +5951,9 @@ function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId
   }) || row;
   const isoDate = dateKey(sourceRow.iso_date || sourceRow.date_text || row.iso_date || row.date_text || row.day_label || focusDay);
   const focusDayKey = isoDate ? isoDate.replace(/-/g, "") : "";
-  return {
+  const preflightReason = updateSchedulePreflightReason({ ...row, ...sourceRow });
+  const optionalFieldSet = new Set(optionalFields || []);
+  const fields = {
     update_schedule_key: text(sourceRow.update_schedule_key || row.update_schedule_key),
     heartbeat_id: heartbeatId,
     run_id: runId,
@@ -5916,13 +5980,17 @@ function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId
     source_endpoint: text(sourceRow.source_endpoint || row.source_endpoint || "update_schedule.php"),
     source_payload: sourcePayload(sourceRow.source_payload ? sourceRow : row)
   };
+  if (optionalFieldSet.has("is_preflight")) fields.is_preflight = Boolean(preflightReason);
+  if (optionalFieldSet.has("preflight_reason")) fields.preflight_reason = preflightReason;
+  return fields;
 }
 
 async function syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows, options = {}) {
   const tableStatus = await ensureRawAirtableUpdateScheduleTable();
+  const optionalFields = tableStatus.optional_fields || [];
   const sourceRows = (rows || [])
     .filter((row) => text(row.update_schedule_key))
-    .map((row) => mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, options));
+    .map((row) => mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { ...options, optionalFields }));
   const upserts = await airtableUpsertByFieldId(
     AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE,
     "update_schedule_key",
@@ -5932,7 +6000,9 @@ async function syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows, options
     airtable_hs_update_schedule_table_created: tableStatus.created,
     airtable_hs_update_schedule_table_id: tableStatus.table_id,
     airtable_hs_update_schedule_rows: sourceRows.length,
-    airtable_hs_update_schedule_upserts: upserts.length
+    airtable_hs_update_schedule_upserts: upserts.length,
+    optional_fields_written: optionalFields,
+    optional_fields_skipped: tableStatus.optional_fields_skipped || []
   };
 }
 
@@ -10946,6 +11016,7 @@ async function getAirtableHorseDisplayConfig(activeTrainers = [], trainerDisplay
     const formula = activeHorseFormula(activeTrainers, trainerDisplays);
     const displays = {};
     const meta = {};
+    const helperRows = [];
     const normalizedHorseRecords = new Map();
     const duplicateHorseGroups = {};
     let offset = "";
@@ -10975,6 +11046,20 @@ async function getAirtableHorseDisplayConfig(activeTrainers = [], trainerDisplay
         const horse = text(fields.horse);
         const display = horseDisplayFromFields(fields);
         if (!horse || !display) continue;
+        helperRows.push({
+          horse,
+          horse_display: display,
+          barn_name: text(fields.barn_name),
+          aka: text(fields.aka || fields.AKA || fields.alias || fields.aliases),
+          trainer: text(fields.trainer),
+          rider: text(fields.rider),
+          active: boolOrNull(fields.active ?? fields.Active ?? fields.follow ?? fields.Follow) ?? true,
+          follow: boolOrNull(fields.follow ?? fields.Follow ?? fields.active ?? fields.Active) ?? true,
+          sync_action: text(fields.sync_action || fields.Sync_Action || fields.syncAction),
+          rec_id: record.id,
+          source: "airtable.horses",
+          last_synced_at: catalystDateTime(new Date())
+        });
         const horseMeta = {
           barn_name: text(fields.barn_name),
           barn_name_missing: !text(fields.barn_name),
@@ -11025,6 +11110,7 @@ async function getAirtableHorseDisplayConfig(activeTrainers = [], trainerDisplay
       filter_formula: formula,
       horse_displays: displays,
       horse_display_meta: meta,
+      helper_rows: helperRows,
       horse_normalized_key: "trim|lowercase|collapse_spaces|smart_apostrophe_normalized",
       duplicate_horse_groups: duplicateHorseGroups
     };
@@ -11034,9 +11120,116 @@ async function getAirtableHorseDisplayConfig(activeTrainers = [], trainerDisplay
       source: "airtable.horses",
       error: error.message,
       horse_displays: {},
+      horse_display_meta: {},
+      helper_rows: []
+    };
+  }
+}
+
+function horseHelperDisplaysFromRows(rows = []) {
+  const displays = {};
+  const meta = {};
+  const normalizedHorseRecords = new Map();
+  const duplicateHorseGroups = {};
+  for (const row of rows || []) {
+    const action = text(row.sync_action).toLowerCase();
+    if (action === "ignore" || action === "remove" || action === "inactive") continue;
+    if (row.active === false || row.follow === false || row.active === "false" || row.follow === "false") continue;
+    const horse = text(row.horse);
+    const display = text(row.barn_name || row.horse_display || row.horse);
+    if (!horse || !display) continue;
+    const horseMeta = {
+      barn_name: text(row.barn_name),
+      barn_name_missing: !text(row.barn_name),
+      source: "catalyst.hs_horses",
+      rec_id: text(row.rec_id),
+      ROWID: text(row.ROWID)
+    };
+    displays[horse] = display;
+    meta[horse] = horseMeta;
+    const normalizedHorse = normalizeHorseHelperKey(horse);
+    if (normalizedHorse) {
+      const current = { id: text(row.ROWID || row.rec_id), horse, display, meta: horseMeta };
+      const existing = normalizedHorseRecords.get(normalizedHorse);
+      if (existing && existing.id !== current.id) {
+        duplicateHorseGroups[normalizedHorse] = [...(duplicateHorseGroups[normalizedHorse] || [existing.horse]), horse];
+      } else if (!existing) {
+        normalizedHorseRecords.set(normalizedHorse, current);
+      }
+    }
+    for (const alias of splitAliasText(row.aka)) {
+      displays[alias] = display;
+      meta[alias] = { ...horseMeta, source: "catalyst.hs_horses.aka", horse };
+      const normalizedAlias = normalizeHorseHelperKey(alias);
+      if (normalizedAlias) {
+        const current = { id: text(row.ROWID || row.rec_id), horse, display, meta: meta[alias] };
+        const existing = normalizedHorseRecords.get(normalizedAlias);
+        if (existing && existing.id !== current.id) {
+          duplicateHorseGroups[normalizedAlias] = [...(duplicateHorseGroups[normalizedAlias] || [existing.horse]), horse];
+        } else if (!existing) {
+          normalizedHorseRecords.set(normalizedAlias, current);
+        }
+      }
+    }
+  }
+  for (const [key, record] of normalizedHorseRecords.entries()) {
+    if (duplicateHorseGroups[key]) continue;
+    if (!displays[key]) displays[key] = record.display;
+    if (!meta[key]) meta[key] = { ...record.meta, source: "catalyst.hs_horses.normalized", horse: record.horse };
+  }
+  return { horse_displays: displays, horse_display_meta: meta, duplicate_horse_groups: duplicateHorseGroups };
+}
+
+async function getCatalystHorseDisplayConfig(app) {
+  try {
+    const result = await getPagedRowsFiltered(app, TABLES.horses, () => true, { maxRows: 5000 });
+    const mapped = horseHelperDisplaysFromRows(result.rows || []);
+    return {
+      ok: true,
+      source: "catalyst.hs_horses",
+      count: Object.keys(mapped.horse_displays || {}).length,
+      scanned: result.scanned,
+      truncated: result.truncated,
+      ...mapped
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      source: "catalyst.hs_horses",
+      error: error.message,
+      horse_displays: {},
       horse_display_meta: {}
     };
   }
+}
+
+async function syncCatalystHorseHelpersFromAirtable(app, activeTrainers = [], trainerDisplays = {}) {
+  const airtableConfig = await getAirtableHorseDisplayConfig(activeTrainers, trainerDisplays);
+  const rows = (airtableConfig.helper_rows || []).map(cleanRowForDatastore);
+  const result = { rows: rows.length, inserted: 0, updated: 0, skipped: 0 };
+  for (const row of rows) {
+    const horse = text(row.horse);
+    if (!horse) {
+      result.skipped += 1;
+      continue;
+    }
+    const write = await upsert(app, TABLES.horses, { horse }, row);
+    if (write.action === "insert") result.inserted += 1;
+    if (write.action === "update") result.updated += 1;
+  }
+  const catalystConfig = await getCatalystHorseDisplayConfig(app);
+  return {
+    ok: airtableConfig.ok && catalystConfig.ok,
+    source: "airtable.horses_to_catalyst.hs_horses",
+    airtable_source_ok: airtableConfig.ok,
+    airtable_filter_formula: airtableConfig.filter_formula || "",
+    airtable_horse_rows: rows.length,
+    catalyst_upsert: result,
+    catalyst_horse_display_count: Object.keys(catalystConfig.horse_displays || {}).length,
+    catalyst_source: catalystConfig.source,
+    duplicate_horse_groups: catalystConfig.duplicate_horse_groups || airtableConfig.duplicate_horse_groups || {},
+    error: airtableConfig.error || catalystConfig.error || ""
+  };
 }
 
 function minutesUntil(now, focusDay, timeValue) {
@@ -12571,6 +12764,7 @@ async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, cont
   const preflightSummary = summarizeUpdateSchedulePreflight(rows);
   const activeKeys = rows.map((row) => text(row.update_schedule_key)).filter(Boolean);
   const result = await importUpdateScheduleOnly(app, showNo, rows);
+  const nonClassCleanup = await deleteUpdateScheduleNonClassRowsForRingDay(app, showNo, focusDay || ringDayRow.iso_date || ringDayRow.focus_day, ringDayRow.ring_day_no);
   const rawAirtableMirror = syncRawAirtableMirror
     ? await syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows.map((row) => ({ ...row, show_no: row.show_no || showNo })), { heartbeatId, runId })
     : {
@@ -12578,6 +12772,9 @@ async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, cont
         airtable_hs_update_schedule_upserts: 0,
         skipped: true
       };
+  const rawAirtableNonClassCleanup = syncRawAirtableMirror
+    ? await deleteRawAirtableUpdateScheduleNonClassRows(showNo, focusDay || ringDayRow.iso_date || ringDayRow.focus_day, ringDayRow.ring_day_no)
+    : { scanned: 0, deleted: 0, skipped: true };
   const stale = replace
     ? await deleteUpdateScheduleStaleForRingDay(app, showNo, ringDayRow.ring_day_no, activeKeys)
     : { scanned: 0, deleted: 0, skipped: true };
@@ -12599,6 +12796,8 @@ async function fetchAndSyncUpdateScheduleOnly(req, app, showNo, ringDayRow, cont
       skipped: result.skipped
     },
     raw_airtable_mirror: rawAirtableMirror,
+    non_class_cleanup: nonClassCleanup,
+    raw_airtable_non_class_cleanup: rawAirtableNonClassCleanup,
     stale
   };
 }
@@ -13495,6 +13694,32 @@ async function handle(req, res) {
         })
       });
       return json(res, 200, { ok: true, action, show_no: showNo, focus_day: focusDay, hide_classes: hideClasses, focus_show: focusShow });
+    }
+
+    if (action === "sync-hs-horses-helper") {
+      const requestedShowNo = text(query.get("show_no") || body.show_no);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "sync-hs-horses-helper requires active focus_show" });
+      let trainerDisplays = await getFocusShowTrainerDisplays(app, outputFocus.show_no, outputFocus.focus_day);
+      let activeTrainers = await getFocusShowActiveTrainers(app, outputFocus.show_no, outputFocus.focus_day);
+      if (!activeTrainers.length) {
+        const activeTrainerConfig = await getActiveTrainerConfig(app, outputFocus.show_no);
+        activeTrainers = activeTrainerConfig.active_trainers;
+        trainerDisplays = {
+          ...(trainerDisplays || {}),
+          ...(activeTrainerConfig.trainer_displays || {})
+        };
+      }
+      const result = await syncCatalystHorseHelpersFromAirtable(app, activeTrainers, trainerDisplays);
+      return json(res, result.ok ? 200 : 500, {
+        ok: result.ok,
+        action,
+        show_no: outputFocus.show_no,
+        focus_day: outputFocus.focus_day,
+        focus_show_record_id: outputFocus.record_id,
+        active_trainers: activeTrainers,
+        ...result
+      });
     }
 
     if (action === "set-horse-displays") {

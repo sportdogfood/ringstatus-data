@@ -36,6 +36,7 @@ const TABLES = {
   getRings: "hs_get_rings",
   entries: "hs_entries",
   horses: "hs_horses",
+  riders: "hs_riders",
   trainers: "hs_trainers",
   timeTriggers: "hs_time_triggers",
   resultQueue: "hs_result_queue",
@@ -6374,7 +6375,11 @@ function mapRawAirtableGetOrdersFields(row) {
 
 function airtableRawMirrorFocusFormula(showNo, focusDay) {
   const safeFocusDay = dateKey(focusDay);
-  return `AND({show_no}=${airtableFormulaValue(text(showNo))},{focus_day}=${airtableFormulaValue(safeFocusDay)})`;
+  const showNumber = intValue(showNo);
+  const showClause = showNumber
+    ? `VALUE({show_no}&'')=${showNumber}`
+    : `{show_no}=${airtableFormulaValue(text(showNo))}`;
+  return `AND(${showClause},LEFT({focus_day}&'',10)=${airtableFormulaValue(safeFocusDay)})`;
 }
 
 async function deleteAirtableMirrorRowsNotInKeys(table, keyField, showNo, focusDay, activeKeys) {
@@ -7969,7 +7974,7 @@ async function runWecStep3CleanActiveClassOog(req, app, action, query, body) {
   };
 }
 
-async function fetchAndSyncClassOogForScheduleRow(req, app, showNo, focusDay, scheduleRow, context, activeEntryNos = new Set(), activeTrainerKeys = new Set()) {
+async function fetchAndSyncClassOogForScheduleRow(req, app, showNo, focusDay, scheduleRow, context, activeEntryNos = new Set(), activeTrainerKeys = new Set(), helperConfig = {}) {
   const classNo = text(scheduleRow.class_no);
   const upstreamResponse = await upstream(req, `/class_oog.php?class_no=${encodeURIComponent(classNo)}`, {
     method: "GET",
@@ -7977,10 +7982,15 @@ async function fetchAndSyncClassOogForScheduleRow(req, app, showNo, focusDay, sc
     context
   });
   const parsedRows = parseClassOogRows(upstreamResponse.raw, showNo, classNo);
+  const parsedEntryNos = [...new Set(parsedRows.map((row) => text(row.current_entry_no || row.entry_no)).filter(Boolean))];
+  const parsedHorseNames = [...new Set(parsedRows.map((row) => text(row.current_horse || row.horse)).filter(Boolean))];
+  const matchReasonCounts = {};
   const matchedRows = parsedRows.filter((row) => {
-    const entryNo = text(row.current_entry_no || row.entry_no);
-    if (activeEntryNos.size) return activeEntryNos.has(entryNo);
-    return activeTrainerKeys.has(normalizeTrainerKey(row.trainer));
+    const match = step3ClassOogMatch(row, activeEntryNos, activeTrainerKeys, helperConfig);
+    for (const reason of match.reasons || []) {
+      matchReasonCounts[reason] = Number(matchReasonCounts[reason] || 0) + 1;
+    }
+    return match.matched;
   });
   const rawRow = {
     show_no: showNo,
@@ -8010,7 +8020,14 @@ async function fetchAndSyncClassOogForScheduleRow(req, app, showNo, focusDay, sc
     schedule_signature: step3ScheduleSignature(scheduleRow),
     upstream_status: upstreamResponse.status,
     parsed_rows: parsedRows.length,
+    parsed_entry_nos: parsedEntryNos,
+    parsed_horse_names: parsedHorseNames,
+    source_contains_hermes_274: parsedRows.some((row) => (
+      text(row.current_entry_no || row.entry_no) === "274"
+      && normalizeHorseHelperKey(row.current_horse || row.horse).includes("hermes")
+    )),
     active_trainer_matched_rows: matchedRows.length,
+    match_reason_counts: matchReasonCounts,
     broad_nonmatching_rows_skipped: Math.max(0, parsedRows.length - matchedRows.length),
     source_rows: sourceRows.length,
     inserted: result.inserted,
@@ -8126,7 +8143,132 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
   const activeTrainers = (activeTrainerConfig.active_trainers || []).map(text).filter(Boolean);
   const activeTrainerKeys = new Set(activeTrainers.map(normalizeTrainerKey).filter(Boolean));
   const activeEntryNos = new Set((activeTrainerEntryScope.active_entry_nos || []).map(text).filter(Boolean));
-  const activeEntryScopeKey = step3EntryScopeSignature(activeEntryNos, activeTrainerKeys);
+  const helperConfig = await getStep3CatalystHelperMatchConfig(app, activeFocus.show_no, activeTrainerKeys);
+  const activeEntryScopeKey = step3HelperScopeSignature(activeEntryNos, activeTrainerKeys, helperConfig);
+  const hasStep3MatchScope = Boolean(
+    activeEntryNos.size
+    || activeTrainerKeys.size
+    || helperConfig.trainer_keys.size
+    || helperConfig.horse_keys.size
+    || helperConfig.rider_keys.size
+  );
+  const targetClassNo = text(query.get("class_no") || body.class_no);
+  if (targetClassNo) {
+    const targetRows = eligibleRows.filter((row) => text(row.class_no) === targetClassNo);
+    const targetRow = targetRows[0] || null;
+    const context = createWorkflowContext();
+    let blocker = "";
+    let classResult = null;
+    if (!updateScheduleRows.length) {
+      blocker = "missing_current_hs_update_schedule";
+    } else if (!eligibleRows.length) {
+      blocker = "missing_non_preflight_hs_update_schedule";
+    } else if (!targetRow) {
+      blocker = `target_class_not_found_or_preflight:${targetClassNo}`;
+    } else if (!hasStep3MatchScope) {
+      blocker = "missing_active_trainer_scope";
+    } else {
+      try {
+        classResult = await fetchAndSyncClassOogForScheduleRow(req, app, activeFocus.show_no, focusDay, targetRow, context, activeEntryNos, activeTrainerKeys, helperConfig);
+      } catch (error) {
+        blocker = `class_oog_failed:${targetClassNo}:${String(error?.message || error)}`;
+      }
+    }
+    const sourceRows = classResult?.class_oog_rows || [];
+    const rawAirtableMirror = sourceRows.length
+      ? await syncRawAirtableClassOogRows(activeFocus.show_no, focusDay, sourceRows, { heartbeatId, runId })
+      : {
+          airtable_hs_class_oog_rows: 0,
+          airtable_hs_class_oog_upserts: 0,
+          skipped: true,
+          table_status: { skipped: true, reason: "no_source_rows" }
+        };
+    const hermesMaterialized = sourceRows.some((row) => (
+      text(row.entry_no) === "274"
+      && normalizeHorseHelperKey(row.horse).includes("hermes")
+    ));
+    const sandenalMaterialized = sourceRows.some((row) => normalizeHorseHelperKey(row.horse).includes("sandenal"));
+    if (!blocker && !classResult?.parsed_rows) blocker = "class_oog_source_empty";
+    if (!blocker && !hermesMaterialized) blocker = "target_hermes_not_materialized";
+    const payload = {
+      action,
+      focus_source: activeFocus.source,
+      targeted_class_oog_rerun: true,
+      target_class_no: targetClassNo,
+      checkpoint_advanced: false,
+      checkpoint_write_run: false,
+      source_fetch_run: Boolean(targetRow && hasStep3MatchScope),
+      upstream_requests: context.upstreamRequests,
+      source_request_sequence: context.sourceSequence,
+      get_ring_days_run: false,
+      update_schedule_run: false,
+      downstream_run: false,
+      get_orders_run: false,
+      get_rings_run: false,
+      get_results_run: false,
+      alerts_run: false,
+      hs_update_schedule_count: updateScheduleRows.length,
+      raw_schedule_rows: preflightSummary.raw_schedule_rows,
+      preflight_rows: preflightSummary.preflight_rows,
+      non_preflight_rows: preflightSummary.non_preflight_rows,
+      target_rows_found: targetRows.length,
+      helper_match_source: helperConfig.source,
+      helper_match_counts: helperConfig.counts,
+      helper_match_warnings: helperConfig.warnings,
+      active_trainer_source: "getActiveTrainerConfig",
+      active_entry_source: activeTrainerEntryScope.source,
+      active_trainers: activeTrainers,
+      active_entry_nos: [...activeEntryNos],
+      class_oog_requests: classResult ? 1 : 0,
+      class_oog_parsed_rows: Number(classResult?.parsed_rows || 0),
+      parsed_entry_nos: classResult?.parsed_entry_nos || [],
+      parsed_horse_names: classResult?.parsed_horse_names || [],
+      source_contains_hermes_274: classResult?.source_contains_hermes_274 === true,
+      active_trainer_matched_rows: Number(classResult?.active_trainer_matched_rows || 0),
+      match_reason_counts: classResult?.match_reason_counts || {},
+      broad_nonmatching_rows_skipped: Number(classResult?.broad_nonmatching_rows_skipped || 0),
+      source_rows: sourceRows.length,
+      hermes_materialized: hermesMaterialized,
+      sandenal_materialized: sandenalMaterialized,
+      airtable_hs_class_oog: rawAirtableMirror,
+      matched_rows: sourceRows.map((row) => ({
+        class_no: row.class_no,
+        entry_no: row.entry_no,
+        horse: row.horse,
+        rider: row.rider,
+        trainer: row.trainer,
+        entry_order: row.entry_order
+      }))
+    };
+    const finalPatch = {
+      ...basePatch,
+      branch: "step3_class_oog_targeted",
+      status: blocker ? "fail" : "pass",
+      blocker,
+      parsed_rows: Number(classResult?.parsed_rows || 0),
+      source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+      payload_json: JSON.stringify(payload, null, 2)
+    };
+    await writeStageHeartbeat(app, heartbeatId, finalPatch);
+    await writeRawAirtableHeartbeat(heartbeatId, {
+      ...finalPatch,
+      run_time: runTime
+    });
+    return {
+      ok: !blocker,
+      status_code: blocker ? 500 : 200,
+      action,
+      blocker,
+      heartbeat_id: heartbeatId,
+      run_id: runId,
+      run_time: runTime,
+      focus_source: activeFocus.source,
+      focus_show_record_id: activeFocus.focus_show_record_id,
+      show_no: activeFocus.show_no,
+      focus_day: focusDay,
+      ...payload
+    };
+  }
   const checkpointBefore = await readStep3Checkpoint(app, activeFocus.show_no, focusDay);
   let checkpointResetReason = "";
   if (checkpointBefore.corrupt) checkpointResetReason = "checkpoint_corrupt";
@@ -8158,10 +8300,10 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     focus_source: activeFocus.source,
     cadence_window: cadenceWindow,
     trigger_reason: eligibleRows.length ? "current_hs_update_schedule_non_preflight_available" : "missing_non_preflight_hs_update_schedule",
-    source_fetch_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    source_fetch_run: Boolean(chunkRows.length && hasStep3MatchScope),
     get_ring_days_run: false,
     update_schedule_run: false,
-    class_oog_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    class_oog_run: Boolean(chunkRows.length && hasStep3MatchScope),
     downstream_run: false,
     hs_update_schedule_count: updateScheduleRows.length,
     raw_schedule_rows: preflightSummary.raw_schedule_rows,
@@ -8181,6 +8323,9 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     step3_remaining_rows: Math.max(0, eligibleRows.filter(shouldProbeRow).length - chunkRows.length),
     active_trainer_source: "getActiveTrainerConfig",
     active_entry_source: activeTrainerEntryScope.source,
+    helper_match_source: helperConfig.source,
+    helper_match_counts: helperConfig.counts,
+    helper_match_warnings: helperConfig.warnings,
     active_trainers: activeTrainers,
     active_entry_nos: [...activeEntryNos]
   };
@@ -8203,7 +8348,7 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     blocker = "missing_current_hs_update_schedule";
   } else if (!eligibleRows.length) {
     blocker = "missing_non_preflight_hs_update_schedule";
-  } else if (!activeEntryNos.size && !activeTrainerKeys.size) {
+  } else if (!hasStep3MatchScope) {
     blocker = "missing_active_trainer_scope";
   } else if (!requestedWindowRows.length) {
     blocker = "step3_chunk_empty";
@@ -8212,7 +8357,7 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
   } else {
     for (const scheduleRow of chunkRows) {
       try {
-        classResults.push(await fetchAndSyncClassOogForScheduleRow(req, app, activeFocus.show_no, focusDay, scheduleRow, context, activeEntryNos, activeTrainerKeys));
+        classResults.push(await fetchAndSyncClassOogForScheduleRow(req, app, activeFocus.show_no, focusDay, scheduleRow, context, activeEntryNos, activeTrainerKeys, helperConfig));
       } catch (error) {
         blocker = `class_oog_failed:${scheduleRow.class_no}:${String(error?.message || error)}`;
         break;
@@ -8260,14 +8405,14 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     trigger_reason: runningPayload.trigger_reason,
     upstream_requests: context.upstreamRequests,
     source_request_sequence: context.sourceSequence,
-    source_fetch_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    source_fetch_run: Boolean(chunkRows.length && hasStep3MatchScope),
     get_ring_days_run: false,
     update_schedule_run: false,
     hs_update_schedule_count: updateScheduleRows.length,
     raw_schedule_rows: preflightSummary.raw_schedule_rows,
     preflight_rows: preflightSummary.preflight_rows,
     non_preflight_rows: preflightSummary.non_preflight_rows,
-    class_oog_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    class_oog_run: Boolean(chunkRows.length && hasStep3MatchScope),
     class_oog_input_rows: eligibleRows.length,
     bounded_probe: true,
     step3_offset: effectiveStep3Offset,
@@ -8286,8 +8431,17 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     step3_remaining_rows: Math.max(0, eligibleRows.length - checkpointAfter.checked_class_count),
     active_trainer_source: "getActiveTrainerConfig",
     active_entry_source: activeTrainerEntryScope.source,
+    helper_match_source: helperConfig.source,
+    helper_match_counts: helperConfig.counts,
+    helper_match_warnings: helperConfig.warnings,
     active_trainers: activeTrainers,
     active_entry_nos: [...activeEntryNos],
+    match_reason_counts: classResults.reduce((acc, item) => {
+      for (const [reason, count] of Object.entries(item.match_reason_counts || {})) {
+        acc[reason] = Number(acc[reason] || 0) + Number(count || 0);
+      }
+      return acc;
+    }, {}),
     class_oog_requests: classResults.length,
     class_oog_parsed_rows: parsedRows,
     active_trainer_matched_rows: activeTrainerMatchedRows,
@@ -8336,14 +8490,14 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     cadence_window: cadenceWindow,
     upstream_requests: context.upstreamRequests,
     source_request_sequence: context.sourceSequence,
-    source_fetch_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    source_fetch_run: Boolean(chunkRows.length && hasStep3MatchScope),
     get_ring_days_run: false,
     update_schedule_run: false,
     hs_update_schedule_count: updateScheduleRows.length,
     raw_schedule_rows: preflightSummary.raw_schedule_rows,
     preflight_rows: preflightSummary.preflight_rows,
     non_preflight_rows: preflightSummary.non_preflight_rows,
-    class_oog_run: Boolean(chunkRows.length && (activeEntryNos.size || activeTrainerKeys.size)),
+    class_oog_run: Boolean(chunkRows.length && hasStep3MatchScope),
     class_oog_input_rows: eligibleRows.length,
     bounded_probe: true,
     step3_offset: effectiveStep3Offset,
@@ -8362,8 +8516,17 @@ async function runWecStep3ClassOogOnly(req, app, action, query, body) {
     step3_remaining_rows: Math.max(0, eligibleRows.length - checkpointAfter.checked_class_count),
     active_trainer_source: "getActiveTrainerConfig",
     active_entry_source: activeTrainerEntryScope.source,
+    helper_match_source: helperConfig.source,
+    helper_match_counts: helperConfig.counts,
+    helper_match_warnings: helperConfig.warnings,
     active_trainers: activeTrainers,
     active_entry_nos: [...activeEntryNos],
+    match_reason_counts: classResults.reduce((acc, item) => {
+      for (const [reason, count] of Object.entries(item.match_reason_counts || {})) {
+        acc[reason] = Number(acc[reason] || 0) + Number(count || 0);
+      }
+      return acc;
+    }, {}),
     class_oog_requests: classResults.length,
     class_oog_parsed_rows: parsedRows,
     active_trainer_matched_rows: activeTrainerMatchedRows,
@@ -10983,6 +11146,139 @@ function splitAliasText(value) {
     .split(/[,\n|]/)
     .map(text)
     .filter(Boolean);
+}
+
+function helperRowIsEnabled(row = {}, { requireAllowed = false } = {}) {
+  const action = text(row.sync_action).toLowerCase();
+  if (action === "ignore" || action === "remove" || action === "inactive") return false;
+  const status = text(row.status).toLowerCase();
+  if (status === "ignore" || status === "remove" || status === "inactive") return false;
+  const active = boolOrNull(row.active);
+  const follow = boolOrNull(row.follow);
+  const allowed = boolOrNull(row.allowed);
+  if (active === false || follow === false) return false;
+  if (requireAllowed && allowed === false) return false;
+  return true;
+}
+
+function addHelperTokens(target, values = []) {
+  for (const value of values || []) {
+    const raw = text(value);
+    if (!raw) continue;
+    target.add(normalizeHelperKey(raw));
+    for (const alias of splitAliasText(raw)) {
+      const normalized = normalizeHelperKey(alias);
+      if (normalized) target.add(normalized);
+    }
+  }
+}
+
+function helperMatchSetFromRows(rows = [], fieldGroups = [], options = {}) {
+  const tokens = new Set();
+  let activeRows = 0;
+  for (const row of rows || []) {
+    if (!helperRowIsEnabled(row, options)) continue;
+    activeRows += 1;
+    for (const fields of fieldGroups) {
+      addHelperTokens(tokens, fields.map((field) => row[field]));
+    }
+  }
+  tokens.delete("");
+  return { tokens, active_rows: activeRows };
+}
+
+function step3HelperScopeSignature(activeEntryNos, activeTrainerKeys, helperConfig = {}) {
+  const entries = [...(activeEntryNos || new Set())].map(text).filter(Boolean).sort();
+  const trainers = [
+    ...(activeTrainerKeys || new Set()),
+    ...(helperConfig.trainer_keys || new Set())
+  ].map(text).filter(Boolean).sort();
+  const horses = [...(helperConfig.horse_keys || new Set())].map(text).filter(Boolean).sort();
+  const riders = [...(helperConfig.rider_keys || new Set())].map(text).filter(Boolean).sort();
+  return [
+    `entries:${entries.join("|")}`,
+    `trainers:${trainers.join("|")}`,
+    `horses:${horses.join("|")}`,
+    `riders:${riders.join("|")}`
+  ].join(";");
+}
+
+async function getStep3CatalystHelperMatchConfig(app, showNo, activeTrainerKeys = new Set()) {
+  const config = {
+    source: "catalyst.hs_helpers",
+    horse_keys: new Set(),
+    rider_keys: new Set(),
+    trainer_keys: new Set(),
+    counts: {
+      hs_horses_active: 0,
+      hs_riders_active: 0,
+      hs_trainers_active: 0
+    },
+    warnings: []
+  };
+  try {
+    const horseRows = await getPagedRowsFiltered(app, TABLES.horses, () => true, { maxRows: 5000 });
+    const horseMatch = helperMatchSetFromRows(horseRows.rows || [], [
+      ["horse_name", "horse"],
+      ["barn_name", "horse_display"],
+      ["horse_aka", "aka"]
+    ]);
+    config.horse_keys = horseMatch.tokens;
+    config.counts.hs_horses_active = horseMatch.active_rows;
+  } catch (error) {
+    config.warnings.push(`hs_horses_unavailable:${error.message}`);
+  }
+  try {
+    const riderRows = await getPagedRowsFiltered(app, TABLES.riders, () => true, { maxRows: 5000 });
+    const riderMatch = helperMatchSetFromRows(riderRows.rows || [], [
+      ["rider_name", "rider"],
+      ["team_name", "rider_display"],
+      ["rider_aliases"]
+    ]);
+    config.rider_keys = riderMatch.tokens;
+    config.counts.hs_riders_active = riderMatch.active_rows;
+  } catch (error) {
+    config.warnings.push(`hs_riders_unavailable:${error.message}`);
+  }
+  try {
+    const trainerRows = await getPagedRowsFiltered(
+      app,
+      TABLES.trainers,
+      (row) => !text(row.show_no) || text(row.show_no) === text(showNo),
+      { maxRows: 5000 }
+    );
+    const trainerMatch = helperMatchSetFromRows(trainerRows.rows || [], [
+      ["trainer_name", "trainer"],
+      ["tenant_name", "trainer_display"],
+      ["trainer_aliases"]
+    ], { requireAllowed: true });
+    config.trainer_keys = new Set([
+      ...(activeTrainerKeys || new Set()),
+      ...trainerMatch.tokens
+    ]);
+    config.counts.hs_trainers_active = trainerMatch.active_rows;
+  } catch (error) {
+    config.trainer_keys = new Set([...(activeTrainerKeys || new Set())]);
+    config.warnings.push(`hs_trainers_unavailable:${error.message}`);
+  }
+  return config;
+}
+
+function step3ClassOogMatch(row, activeEntryNos = new Set(), activeTrainerKeys = new Set(), helperConfig = {}) {
+  const entryNo = text(row.current_entry_no || row.entry_no);
+  const trainerKey = normalizeTrainerKey(row.trainer);
+  const horseKey = normalizeHorseHelperKey(row.current_horse || row.horse);
+  const riderKey = normalizeHelperKey(row.rider);
+  const reasons = [];
+  if (entryNo && activeEntryNos.has(entryNo)) reasons.push("active_entry_no");
+  if (trainerKey && activeTrainerKeys.has(trainerKey)) reasons.push("focus_show_trainer");
+  if (trainerKey && helperConfig.trainer_keys?.has(trainerKey)) reasons.push("hs_trainers");
+  if (horseKey && helperConfig.horse_keys?.has(horseKey)) reasons.push("hs_horses");
+  if (riderKey && helperConfig.rider_keys?.has(riderKey)) reasons.push("hs_riders");
+  return {
+    matched: reasons.length > 0,
+    reasons
+  };
 }
 
 function horseDisplayFromFields(fields) {

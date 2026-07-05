@@ -12,8 +12,7 @@ const CERTAINTY = Object.freeze({
   NONE: "none",
   LOW: "low",
   MEDIUM: "medium",
-  HIGH: "high",
-  CONFIRMED: "confirmed"
+  HIGH: "high"
 });
 
 const PROBE_STATUS = Object.freeze({
@@ -133,22 +132,42 @@ function scanClassOogPayload(rawPayload, evidence) {
   const trainerMatches = tokenEvidence(raw, trainersAllowed);
   const helperMatches = tokenEvidence(raw, helperTokens);
   const hasTrainer = trainerMatches.length > 0;
-  const hasHelper = helperMatches.length > 0;
 
   let certainty = CERTAINTY.NONE;
-  if (hasTrainer && hasHelper) certainty = CERTAINTY.CONFIRMED;
+  if (hasTrainer && helperMatches.length > 0) certainty = CERTAINTY.HIGH;
   else if (hasTrainer) certainty = CERTAINTY.HIGH;
-  else if (hasHelper) certainty = CERTAINTY.MEDIUM;
 
   return {
     char_count: raw.length,
     certainty,
-    possible_match: certainty !== CERTAINTY.NONE,
+    possible_match: hasTrainer,
     trainer_matches: trainerMatches,
     helper_matches: helperMatches,
     reason: certainty === CERTAINTY.NONE
-      ? "no_allowed_trainer_or_helper_evidence"
-      : "allowed_trainer_or_helper_evidence_found"
+      ? "no_allowed_trainer_evidence"
+      : "allowed_trainer_evidence_found"
+  };
+}
+
+function rowMatchesEvidence(row, evidence) {
+  const rowText = [
+    row?.horse,
+    row?.rider,
+    row?.trainer,
+    row?.source_text,
+    row?.source_payload
+  ].map(text).filter(Boolean).join(" ");
+  const trainerMatches = tokenEvidence(rowText, evidence?.trainers_allowed || []);
+  const helperMatches = tokenEvidence(rowText, [
+    ...(evidence?.horse_tokens || []),
+    ...(evidence?.rider_tokens || []),
+    ...(evidence?.trainer_tokens || [])
+  ]);
+
+  return {
+    keep: trainerMatches.length > 0,
+    trainer_matches: trainerMatches,
+    helper_matches: helperMatches
   };
 }
 
@@ -244,6 +263,7 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
 
   for (const row of scheduleRows) {
     const probeStartedAt = new Date().toISOString();
+    const startedMs = Date.now();
     try {
       const rawPayload = await adapters.fetchClassOog(focus, row);
       const scan = scanClassOogPayload(rawPayload, evidence);
@@ -252,6 +272,8 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
         class_no: intValue(row.class_no),
         probe_status: scan.possible_match ? PROBE_STATUS.RAW_STORED : PROBE_STATUS.CHECKED,
         probe_attempted_at: probeStartedAt,
+        probe_finished_at: new Date().toISOString(),
+        probe_duration_ms: Date.now() - startedMs,
         probe_payload_chars: scan.char_count,
         probe_certainty: scan.certainty,
         probe_reason: scan.reason,
@@ -264,6 +286,7 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
       if (scan.possible_match) {
         raw = await adapters.storeClassOogRaw({
           ...row,
+          run_id: context.run_id,
           raw_html: rawPayload,
           parse_status: PARSE_STATUS.PENDING,
           ...progress
@@ -277,6 +300,8 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
         class_no: intValue(row.class_no),
         probe_status: PROBE_STATUS.FAILED,
         probe_attempted_at: probeStartedAt,
+        probe_finished_at: new Date().toISOString(),
+        probe_duration_ms: Date.now() - startedMs,
         probe_payload_chars: 0,
         probe_certainty: CERTAINTY.NONE,
         probe_reason: String(error?.message || error),
@@ -290,29 +315,35 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
   return results;
 }
 
-async function runProbe3B(adapters, context, focus) {
+async function runProbe3B(adapters, context, focus, evidence) {
   assertAdapter(adapters, "listPendingClassOogRaw");
   assertAdapter(adapters, "parseClassOogRaw");
   assertAdapter(adapters, "upsertClassOog");
   assertAdapter(adapters, "markClassOogRawParsed");
 
-  const rawDocs = await adapters.listPendingClassOogRaw(focus);
+  const rawDocs = await adapters.listPendingClassOogRaw(focus, context);
   const materialized = [];
 
   for (const rawDoc of rawDocs || []) {
     try {
       const parsedRows = await adapters.parseClassOogRaw(rawDoc, { focus, context });
-      const scopedRows = (parsedRows || []).map((row) => ({
-        ...rawDoc,
-        ...row,
-        ...buildConstKeys({ ...rawDoc, ...row, show_no: focus.show_no, focus_day: focus.focus_day }),
-        ...buildVisualKeys({ ...rawDoc, ...row })
-      }));
+      const scopedRows = [];
+      for (const row of parsedRows || []) {
+        const match = rowMatchesEvidence(row, evidence);
+        if (!match.keep) continue;
+        scopedRows.push({
+          ...rawDoc,
+          ...row,
+          match_reason: match.trainer_matches.length ? "trainer_allowed" : "helper_match",
+          ...buildConstKeys({ ...rawDoc, ...row, show_no: focus.show_no, focus_day: focus.focus_day }),
+          ...buildVisualKeys({ ...rawDoc, ...row })
+        });
+      }
       const upsert = await adapters.upsertClassOog(scopedRows, { focus, rawDoc, context });
       await adapters.markClassOogRawParsed(rawDoc, {
         parse_status: PARSE_STATUS.PARSED,
         matched_count: scopedRows.length,
-        skipped_count: Math.max(0, Number(parsedRows?.skipped_count || 0))
+        skipped_count: Math.max(0, (parsedRows || []).length - scopedRows.length)
       }, { focus, context });
       materialized.push({ rawDoc, rows: scopedRows, upsert });
     } catch (error) {
@@ -336,11 +367,23 @@ async function runCleanStage1To3Proof(adapters, options = {}) {
   const stage1 = await runStage1HeartbeatAndRingDays(adapters, context);
   const stage2 = await runStage2UpdateSchedule(adapters, context, stage1);
   const evidence = await adapters.buildProbeEvidence(stage1.focus, { context });
+  const requestedLimit = intValue(options.limit);
+  const requestedOffset = Math.max(0, intValue(options.offset));
+  const eligibleRows = stage2.eligible_rows;
+  const candidateRows = options.class_no
+    ? eligibleRows.filter((row) => intValue(row.class_no) === intValue(options.class_no))
+    : eligibleRows.slice(requestedOffset);
   const probeRows = options.class_no
-    ? stage2.eligible_rows.filter((row) => intValue(row.class_no) === intValue(options.class_no))
-    : stage2.eligible_rows;
+    ? candidateRows
+    : requestedLimit > 0
+      ? candidateRows.slice(0, requestedLimit)
+      : candidateRows;
   const probe3a = await runProbe3A(adapters, context, stage1.focus, probeRows, evidence);
-  const probe3b = await runProbe3B(adapters, context, stage1.focus);
+  const nextOffset = options.class_no
+    ? 0
+    : requestedLimit > 0 && requestedOffset + probeRows.length < eligibleRows.length
+      ? requestedOffset + probeRows.length
+      : 0;
 
   return {
     ok: true,
@@ -357,16 +400,31 @@ async function runCleanStage1To3Proof(adapters, options = {}) {
       upsert: stage2.upsert,
       dropped: stage2.dropped
     },
+    page: {
+      offset: requestedOffset,
+      limit: requestedLimit,
+      processed: probeRows.length,
+      eligible_total: eligibleRows.length,
+      next_offset: nextOffset,
+      complete: nextOffset === 0
+    },
     probe3a: {
       attempted: probe3a.length,
       raw_stored: probe3a.filter((item) => item.progress?.probe_raw_stored).length,
-      failed: probe3a.filter((item) => item.error).length
+      failed: probe3a.filter((item) => item.error).length,
+      checked: probe3a.filter((item) => item.progress?.probe_status === PROBE_STATUS.CHECKED).length,
+      certainty: probe3a.reduce((counts, item) => {
+        const key = item.progress?.probe_certainty || CERTAINTY.NONE;
+        counts[key] = (counts[key] || 0) + 1;
+        return counts;
+      }, {})
     },
     probe3b: {
-      raw_docs: probe3b.length,
-      hs_class_oog_rows: probe3b.reduce((sum, item) => sum + item.rows.length, 0),
-      failed: probe3b.filter((item) => item.error).length
-    }
+      skipped: true,
+      reason: "FAST_3A_probe_only"
+    },
+    stop_reason: nextOffset === 0 ? "completed_stage_1_to_3a_fast_probe" : "page_complete_more_remaining",
+    hs_class_oog_materialized: false
   };
 }
 

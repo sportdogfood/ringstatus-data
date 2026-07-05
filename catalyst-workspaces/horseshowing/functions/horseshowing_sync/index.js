@@ -1859,6 +1859,28 @@ async function getRowsByShow(app, tableName, showNo, { limit = 2000, offset = 0 
   ));
 }
 
+async function getRowsByShowFocusZcql(app, tableName, showNo, focusDay, { limit = 1000 } = {}) {
+  const safeShowNo = text(showNo);
+  const safeFocusDay = dateKey(focusDay);
+  if (!safeShowNo || !safeFocusDay) return { rows: [], scanned: 0, truncated: false };
+  const rows = [];
+  let scanned = 0;
+  const pageLimit = 300;
+  const maxRows = Math.max(1, Math.min(Number(limit) || 1000, 10000));
+  for (let offset = 0; offset < maxRows; offset += pageLimit) {
+    const query = `SELECT * FROM ${tableName} WHERE show_no = ${zcqlValue(safeShowNo)} LIMIT ${pageLimit} OFFSET ${offset}`;
+    const result = await app.zcql().executeZCQLQuery(query);
+    const pageRows = (result || []).map((item) => item?.[tableName]).filter(Boolean);
+    scanned += pageRows.length;
+    for (const row of pageRows) {
+      if (dateKey(row.focus_day || row.iso_date) === safeFocusDay) rows.push(row);
+      if (rows.length >= maxRows) return { rows, scanned, truncated: true };
+    }
+    if (pageRows.length < pageLimit) break;
+  }
+  return { rows, scanned, truncated: false };
+}
+
 async function countRowsSafe(app, tableName, where = {}, countLimit = 2000) {
   try {
     return await countRows(app, tableName, where, countLimit);
@@ -5172,6 +5194,47 @@ async function airtableListRecords(table, params = {}) {
   return records;
 }
 
+async function airtableListRecordsWindow(table, { offset = 0, limit = 25 } = {}) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const safeOffset = Math.max(0, Number(offset) || 0);
+  const safeLimit = Math.max(1, Math.min(Number(limit) || 25, 100));
+  const targetCount = safeOffset + safeLimit + 1;
+  const records = [];
+  let airtableOffset = "";
+  do {
+    const url = new URL(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`);
+    url.searchParams.set("pageSize", String(Math.min(100, targetCount - records.length)));
+    url.searchParams.set("maxRecords", String(targetCount));
+    if (airtableOffset) url.searchParams.set("offset", airtableOffset);
+    const response = await fetch(url, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Airtable ${table} window failed ${response.status}: ${await response.text()}`);
+    }
+    const payload = await response.json();
+    records.push(...(payload.records || []));
+    airtableOffset = payload.offset || "";
+  } while (airtableOffset && records.length < targetCount);
+  const windowRecords = records.slice(safeOffset, safeOffset + safeLimit);
+  const hasMore = records.length > safeOffset + safeLimit || Boolean(airtableOffset);
+  return {
+    records: windowRecords,
+    offset: safeOffset,
+    limit: safeLimit,
+    processed_records: windowRecords.length,
+    next_offset: hasMore ? safeOffset + windowRecords.length : null,
+    has_more: hasMore,
+    source_records_total: hasMore ? safeOffset + windowRecords.length + 1 : safeOffset + windowRecords.length,
+    source_records_total_is_exact: !hasMore
+  };
+}
+
 async function airtableBaseMetadataTables() {
   const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
   if (!token) {
@@ -5202,6 +5265,24 @@ async function airtableCreateTable(tableName, fields) {
   });
   const raw = await response.text();
   if (!response.ok) throw new Error(`Airtable create table ${tableName} failed ${response.status}: ${raw.slice(0, 500)}`);
+  return JSON.parse(raw);
+}
+
+async function airtableCreateField(tableId, field) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const response = await fetch(`https://api.airtable.com/v0/meta/bases/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/tables/${encodeURIComponent(tableId)}/fields`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(field)
+  });
+  const raw = await response.text();
+  if (!response.ok) throw new Error(`Airtable create field ${field.name} failed ${response.status}: ${raw.slice(0, 500)}`);
   return JSON.parse(raw);
 }
 
@@ -5908,39 +5989,53 @@ const RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS = [
   "source_payload"
 ];
 const RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS = [
-  "is_preflight",
+  "hs_is_preflight",
   "preflight_reason"
+];
+const RAW_UPDATE_SCHEDULE_CREATE_OPTIONAL_FIELDS = [
+  { name: "hs_is_preflight", type: "checkbox", options: { icon: "check", color: "greenBright" } }
 ];
 
 async function ensureRawAirtableUpdateScheduleTable() {
   const tables = await airtableBaseMetadataTables();
   const existing = (tables || []).find((table) => table.name === AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE);
   if (existing) {
-    const existingFields = new Set((existing.fields || []).map((field) => field.name));
+    const fields = [...(existing.fields || [])];
+    const existingFields = new Set(fields.map((field) => field.name));
     const missing = RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS.filter((field) => !existingFields.has(field));
     if (missing.length) {
       throw new Error(`Airtable ${AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE} missing required fields: ${missing.join(", ")}`);
+    }
+    const optionalFieldsCreated = [];
+    for (const field of RAW_UPDATE_SCHEDULE_CREATE_OPTIONAL_FIELDS) {
+      if (existingFields.has(field.name)) continue;
+      const created = await airtableCreateField(existing.id, field);
+      fields.push(created);
+      existingFields.add(field.name);
+      optionalFieldsCreated.push(field.name);
     }
     const optionalFields = RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => existingFields.has(field));
     return {
       created: false,
       table_id: existing.id,
-      fields: (existing.fields || []).map((field) => ({ name: field.name, type: field.type })),
+      fields: fields.map((field) => ({ name: field.name, type: field.type })),
       optional_fields: optionalFields,
-      optional_fields_skipped: RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => !existingFields.has(field))
+      optional_fields_skipped: RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => !existingFields.has(field)),
+      optional_fields_created: optionalFieldsCreated
     };
   }
   const fields = RAW_UPDATE_SCHEDULE_REQUIRED_FIELDS.map((name) => ({
     name,
     type: name === "source_payload" ? "multilineText" : "singleLineText"
-  }));
+  })).concat(RAW_UPDATE_SCHEDULE_CREATE_OPTIONAL_FIELDS);
   const created = await airtableCreateTable(AIRTABLE_RAW_UPDATE_SCHEDULE_TABLE, fields);
   return {
     created: true,
     table_id: created.id,
     fields: (created.fields || []).map((field) => ({ name: field.name, type: field.type })),
-    optional_fields: [],
-    optional_fields_skipped: [...RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS]
+    optional_fields: RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => field === "hs_is_preflight"),
+    optional_fields_skipped: RAW_UPDATE_SCHEDULE_OPTIONAL_FIELDS.filter((field) => field !== "hs_is_preflight"),
+    optional_fields_created: ["hs_is_preflight"]
   };
 }
 
@@ -5981,7 +6076,7 @@ function mapRawAirtableUpdateScheduleFields(row, showNo, focusDay, { heartbeatId
     source_endpoint: text(sourceRow.source_endpoint || row.source_endpoint || "update_schedule.php"),
     source_payload: sourcePayload(sourceRow.source_payload ? sourceRow : row)
   };
-  if (optionalFieldSet.has("is_preflight")) fields.is_preflight = Boolean(preflightReason);
+  if (optionalFieldSet.has("hs_is_preflight")) fields.hs_is_preflight = Boolean(preflightReason);
   if (optionalFieldSet.has("preflight_reason")) fields.preflight_reason = preflightReason;
   return fields;
 }
@@ -6003,6 +6098,7 @@ async function syncRawAirtableUpdateScheduleRows(showNo, focusDay, rows, options
     airtable_hs_update_schedule_rows: sourceRows.length,
     airtable_hs_update_schedule_upserts: upserts.length,
     optional_fields_written: optionalFields,
+    optional_fields_created: tableStatus.optional_fields_created || [],
     optional_fields_skipped: tableStatus.optional_fields_skipped || []
   };
 }
@@ -7869,6 +7965,9 @@ function buildStep3Checkpoint({
       class_no: text(result.class_no),
       ring_day_no: text(result.ring_day_no),
       ring_no: text(result.ring_no),
+      entry_count: intOrNull(result.entry_count),
+      status: text(result.status || "parsed"),
+      hold_reason: text(result.hold_reason),
       schedule_signature: text(result.schedule_signature),
       last_checked_at: runTime,
       parsed_rows: Number(result.parsed_rows || 0),
@@ -7889,6 +7988,7 @@ function buildStep3Checkpoint({
   const parsedTotal = Object.values(checkedClasses).reduce((sum, item) => sum + Number(item.parsed_rows || 0), 0);
   const matchedTotal = Object.values(checkedClasses).reduce((sum, item) => sum + Number(item.matched_rows || 0), 0);
   const skippedTotal = Object.values(checkedClasses).reduce((sum, item) => sum + Number(item.skipped_broad_rows || 0), 0);
+  const heldTotal = Object.values(checkedClasses).filter((item) => text(item.status) === "held").length;
   return {
     checkpoint_version: 1,
     show_no: text(showNo),
@@ -7908,6 +8008,7 @@ function buildStep3Checkpoint({
     parsed_row_count: parsedTotal,
     matched_row_count: matchedTotal,
     skipped_broad_row_count: skippedTotal,
+    held_class_count: heldTotal,
     complete: eligibleRows.length > 0 && checkedCurrentKeys.length >= eligibleRows.length,
     reset_reason: resetReason,
     checked_classes: checkedClasses
@@ -8038,7 +8139,771 @@ async function fetchAndSyncClassOogForScheduleRow(req, app, showNo, focusDay, sc
   };
 }
 
+function step3MatchSummary(parsedRows = [], activeEntryNos = new Set(), activeTrainerKeys = new Set(), helperConfig = {}) {
+  const matchReasonCounts = {};
+  const matchedRows = [];
+  const skippedRows = [];
+  for (const row of parsedRows || []) {
+    const match = step3ClassOogMatch(row, activeEntryNos, activeTrainerKeys, helperConfig);
+    if (match.matched) {
+      matchedRows.push(row);
+      for (const reason of match.reasons || []) {
+        matchReasonCounts[reason] = Number(matchReasonCounts[reason] || 0) + 1;
+      }
+    } else {
+      skippedRows.push(row);
+    }
+  }
+  return {
+    matched_rows: matchedRows,
+    skipped_rows: skippedRows,
+    matched_count: matchedRows.length,
+    skipped_count: skippedRows.length,
+    match_reason_counts: matchReasonCounts,
+    possible_match: matchedRows.length > 0
+  };
+}
+
+async function resolveStep3Scope(app, activeFocus) {
+  const activeTrainerConfig = await getActiveTrainerConfig(app, activeFocus.show_no);
+  const activeTrainerEntryScope = await getAirtableActiveTrainerEntryScope(activeFocus.show_no);
+  const activeTrainers = (activeTrainerConfig.active_trainers || []).map(text).filter(Boolean);
+  const activeTrainerKeys = new Set(activeTrainers.map(normalizeTrainerKey).filter(Boolean));
+  const activeEntryNos = new Set((activeTrainerEntryScope.active_entry_nos || []).map(text).filter(Boolean));
+  const helperConfig = await getStep3CatalystHelperMatchConfig(app, activeFocus.show_no, activeTrainerKeys);
+  const hasScope = Boolean(
+    activeEntryNos.size
+    || activeTrainerKeys.size
+    || helperConfig.trainer_keys.size
+    || helperConfig.horse_keys.size
+    || helperConfig.rider_keys.size
+  );
+  return {
+    activeTrainerConfig,
+    activeTrainerEntryScope,
+    activeTrainers,
+    activeTrainerKeys,
+    activeEntryNos,
+    helperConfig,
+    hasScope
+  };
+}
+
+function step3RawPayloadFromSchedule(activeFocus, focusDay, scheduleRow, rawHtml, upstreamStatus, runTime, matchSummary = {}) {
+  const probeStatus = text(matchSummary.probe_status) || (matchSummary.possible_match ? "match_possible" : "checked_no_match");
+  const parsedStatus = text(matchSummary.parsed_status) || "unparsed";
+  const parseStatus = text(matchSummary.parse_status) || (rawHtml ? "stored" : probeStatus);
+  return cleanRowForDatastore({
+    raw_key: classOogRawKey(activeFocus.show_no, focusDay, scheduleRow.ring_day_no, scheduleRow.ring_no, scheduleRow.class_no),
+    show_no: text(activeFocus.show_no),
+    focus_day: focusDay,
+    ring_day_no: text(scheduleRow.ring_day_no),
+    ring_no: text(scheduleRow.ring_no),
+    ring_name: text(scheduleRow.ring_name),
+    class_no: text(scheduleRow.class_no),
+    class_label: text(scheduleRow.class_name || scheduleRow.event_name || scheduleRow.class_no),
+    staging_record_id: text(scheduleRow.row_id),
+    raw_html: rawHtml || "",
+    upstream_status: intValue(upstreamStatus) ?? 200,
+    fetched_at: catalystDateTime(runTime),
+    last_checked_at: catalystDateTime(runTime),
+    parse_status: parseStatus,
+    probe_status: probeStatus,
+    possible_match: matchSummary.possible_match === true,
+    raw_stored: Boolean(rawHtml),
+    parsed_status: parsedStatus,
+    matched_count: intValue(matchSummary.matched_count) || 0,
+    skipped_count: intValue(matchSummary.skipped_count) || 0,
+    match_reason_counts: JSON.stringify(matchSummary.match_reason_counts || {}, null, 2)
+  });
+}
+
+const STEP3_LARGE_CLASS_ENTRY_LIMIT = 20;
+
+function step3LargeClassHoldReason(row) {
+  const entryCount = intOrNull(row?.entry_count);
+  if (entryCount !== null && entryCount > STEP3_LARGE_CLASS_ENTRY_LIMIT) return "large_class_over_20";
+  return "";
+}
+
+function step3HeldClassResult(row, runTime, holdReason) {
+  return {
+    update_schedule_key: text(row.update_schedule_key),
+    class_no: text(row.class_no),
+    ring_day_no: text(row.ring_day_no),
+    ring_no: text(row.ring_no),
+    entry_count: intOrNull(row.entry_count),
+    status: "held",
+    hold_reason: holdReason,
+    schedule_signature: step3ScheduleSignature(row),
+    parsed_rows: 0,
+    active_trainer_matched_rows: 0,
+    broad_nonmatching_rows_skipped: 0,
+    match_reason_counts: { [holdReason]: 1 },
+    last_checked_at: runTime
+  };
+}
+
+async function holdStep3LargeClassRaw(app, activeFocus, focusDay, scheduleRow, runTime, holdReason) {
+  const rawPayload = step3RawPayloadFromSchedule(
+    activeFocus,
+    focusDay,
+    scheduleRow,
+    "",
+    0,
+    runTime,
+    {
+      possible_match: false,
+      matched_count: 0,
+      skipped_count: 0,
+      probe_status: holdReason,
+      parse_status: "held",
+      parsed_status: "held",
+      match_reason_counts: {
+        [holdReason]: 1,
+        entry_count: intOrNull(scheduleRow.entry_count),
+        threshold: STEP3_LARGE_CLASS_ENTRY_LIMIT
+      }
+    }
+  );
+  const result = await upsert(app, TABLES.classOogRaw, { raw_key: rawPayload.raw_key }, rawPayload);
+  return {
+    raw_key: rawPayload.raw_key,
+    raw_rec_id: result.row?.ROWID || "",
+    hold_reason: holdReason,
+    entry_count: intOrNull(scheduleRow.entry_count)
+  };
+}
+
+async function downloadStep3ClassOogRaw(req, app, activeFocus, focusDay, scheduleRow, context, runTime) {
+  const upstreamResponse = await upstream(req, `/class_oog.php?class_no=${encodeURIComponent(text(scheduleRow.class_no))}`, {
+    method: "GET",
+    showNo: activeFocus.show_no,
+    context
+  });
+  const rawPayload = step3RawPayloadFromSchedule(
+    activeFocus,
+    focusDay,
+    scheduleRow,
+    upstreamResponse.raw,
+    upstreamResponse.status,
+    runTime,
+    {
+      possible_match: false,
+      matched_count: 0,
+      skipped_count: 0,
+      probe_status: "downloaded",
+      parse_status: "stored",
+      parsed_status: "unparsed",
+      match_reason_counts: {}
+    }
+  );
+  const result = await upsert(app, TABLES.classOogRaw, { raw_key: rawPayload.raw_key }, rawPayload);
+  return {
+    raw_key: rawPayload.raw_key,
+    raw_rec_id: result.row?.ROWID || "",
+    raw_html: upstreamResponse.raw,
+    upstream_status: upstreamResponse.status
+  };
+}
+
+async function parseStoredStep3ClassOogRaw(app, activeFocus, focusDay, rawRow, scope, runTime, heartbeatId, runId) {
+  const allParsedRows = parseClassOogRows(rawRow.raw_html, activeFocus.show_no, rawRow.class_no);
+  const matchSummary = step3MatchSummary(allParsedRows, scope.activeEntryNos, scope.activeTrainerKeys, scope.helperConfig);
+  const sourceRows = matchSummary.matched_rows
+    .map((row) => classOogSourceRowCanonical(row, rawRow))
+    .filter(Boolean);
+  const catalystResult = sourceRows.length
+    ? await upsertSourceRowsFast(app, TABLES.classOog, "class_oog_key", sourceRows, { showNo: activeFocus.show_no })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  const airtableMirror = sourceRows.length
+    ? await syncRawAirtableClassOogRows(activeFocus.show_no, focusDay, sourceRows, { heartbeatId, runId })
+    : {
+        airtable_hs_class_oog_rows: 0,
+        airtable_hs_class_oog_upserts: 0,
+        skipped: true,
+        table_status: { skipped: true, reason: "no_source_rows" }
+      };
+  if (rawRow?.ROWID) {
+    await app.datastore().table(TABLES.classOogRaw).updateRow({
+      ROWID: rawRow.ROWID,
+      parsed_at: catalystDateTime(runTime),
+      parse_status: "parsed",
+      parsed_status: "parsed",
+      probe_status: "downloaded_parsed",
+      possible_match: matchSummary.possible_match === true,
+      matched_count: matchSummary.matched_count,
+      skipped_count: matchSummary.skipped_count,
+      match_reason_counts: JSON.stringify(matchSummary.match_reason_counts || {}, null, 2)
+    });
+  }
+  return {
+    update_schedule_key: text(rawRow.update_schedule_key || rawRow.class_no),
+    class_no: text(rawRow.class_no),
+    ring_day_no: text(rawRow.ring_day_no),
+    ring_no: text(rawRow.ring_no),
+    entry_count: intOrNull(rawRow.entry_count),
+    status: "parsed",
+    hold_reason: "",
+    schedule_signature: text(rawRow.schedule_signature),
+    parsed_rows: allParsedRows.length,
+    active_trainer_matched_rows: sourceRows.length,
+    broad_nonmatching_rows_skipped: Math.max(0, allParsedRows.length - sourceRows.length),
+    match_reason_counts: matchSummary.match_reason_counts,
+    source_rows: sourceRows.length,
+    catalyst_rows: catalystResult.rows,
+    catalyst_inserted: catalystResult.inserted,
+    catalyst_updated: catalystResult.updated,
+    airtable_hs_class_oog_rows: airtableMirror.airtable_hs_class_oog_rows,
+    airtable_hs_class_oog_upserts: airtableMirror.airtable_hs_class_oog_upserts,
+    matched_rows: sourceRows.map((row) => ({
+      class_no: row.class_no,
+      entry_no: row.entry_no,
+      horse: row.horse,
+      rider: row.rider,
+      trainer: row.trainer,
+      entry_order: row.entry_order
+    }))
+  };
+}
+
+async function getClassOogRawRowByKey(app, rawKey) {
+  const key = text(rawKey);
+  if (!key) return null;
+  const query = `SELECT ROWID, raw_key, show_no, focus_day, ring_day_no, ring_no, ring_name, class_no, class_label, staging_record_id, raw_html, upstream_status, probe_status, possible_match, raw_stored, parsed_status, matched_count, skipped_count, match_reason_counts FROM ${TABLES.classOogRaw} WHERE raw_key = ${zcqlValue(key)} LIMIT 1`;
+  return (await app.zcql().executeZCQLQuery(query))?.[0]?.[TABLES.classOogRaw] || null;
+}
+
+async function runWecStep3ClassOogProbeOnly(req, app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0
+    };
+  }
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step3a-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const context = createWorkflowContext();
+  let blocker = "";
+  let targetRow = null;
+  let rawResult = null;
+  let parsedRows = [];
+  let matchSummary = step3MatchSummary([]);
+  let rawBefore = null;
+  let rawAfter = null;
+  const updateScheduleRows = await getStoredUpdateScheduleRows(app, activeFocus.show_no, focusDay);
+  const preflightSummary = summarizeUpdateSchedulePreflight(updateScheduleRows);
+  const eligibleRows = updateScheduleRows.filter((row) => !updateSchedulePreflightReason(row));
+  const scope = await resolveStep3Scope(app, activeFocus);
+  const targetClassNo = text(query.get("class_no") || body.class_no);
+  if (activeFocus.is_pause) {
+    blocker = "focus_show.is_pause";
+  } else if (!updateScheduleRows.length) {
+    blocker = "missing_current_hs_update_schedule";
+  } else if (!eligibleRows.length) {
+    blocker = "missing_non_preflight_hs_update_schedule";
+  } else if (!scope.hasScope) {
+    blocker = "missing_active_trainer_scope";
+  } else if (targetClassNo) {
+    targetRow = eligibleRows.find((row) => text(row.class_no) === targetClassNo) || null;
+    if (!targetRow) blocker = `target_class_not_found_or_preflight:${targetClassNo}`;
+  } else {
+    for (const row of eligibleRows) {
+      const rawKey = classOogRawKey(activeFocus.show_no, focusDay, row.ring_day_no, row.ring_no, row.class_no);
+      const existingRaw = await getClassOogRawRowByKey(app, rawKey);
+      if (!existingRaw || query.get("force") === "1" || body.force === true || body.force === "1") {
+        targetRow = row;
+        break;
+      }
+    }
+    if (!targetRow) blocker = "no_unchecked_class_oog_probe_candidates";
+  }
+  if (!blocker && targetRow) {
+    const rawKey = classOogRawKey(activeFocus.show_no, focusDay, targetRow.ring_day_no, targetRow.ring_no, targetRow.class_no);
+    rawBefore = await getClassOogRawRowByKey(app, rawKey);
+    const upstreamResponse = await upstream(req, `/class_oog.php?class_no=${encodeURIComponent(text(targetRow.class_no))}`, {
+      method: "GET",
+      showNo: activeFocus.show_no,
+      context
+    });
+    parsedRows = parseClassOogRows(upstreamResponse.raw, activeFocus.show_no, targetRow.class_no);
+    matchSummary = step3MatchSummary(parsedRows, scope.activeEntryNos, scope.activeTrainerKeys, scope.helperConfig);
+    const rawPayload = step3RawPayloadFromSchedule(
+      activeFocus,
+      focusDay,
+      targetRow,
+      matchSummary.possible_match ? upstreamResponse.raw : "",
+      upstreamResponse.status,
+      runTime,
+      matchSummary
+    );
+    rawResult = await upsert(app, TABLES.classOogRaw, { raw_key: rawPayload.raw_key }, rawPayload);
+    rawAfter = await getClassOogRawRowByKey(app, rawPayload.raw_key);
+  }
+  const payload = {
+    action,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    target_class_no: targetRow?.class_no || targetClassNo || "",
+    source_fetch_run: Boolean(!blocker && targetRow),
+    upstream_requests: context.upstreamRequests,
+    source_request_sequence: context.sourceSequence,
+    class_oog_requests: context.upstreamRequests,
+    parsed_rows_checked_for_match: parsedRows.length,
+    possible_match: matchSummary.possible_match,
+    raw_stored: Boolean(rawAfter?.raw_html),
+    raw_key: rawAfter?.raw_key || rawResult?.row?.raw_key || "",
+    raw_rec_id: rawAfter?.ROWID || rawResult?.row?.ROWID || "",
+    probe_status: rawAfter?.probe_status || "",
+    parsed_status: rawAfter?.parsed_status || "",
+    matched_count: matchSummary.matched_count,
+    skipped_count: matchSummary.skipped_count,
+    match_reason_counts: matchSummary.match_reason_counts,
+    helper_match_source: scope.helperConfig.source,
+    helper_match_counts: scope.helperConfig.counts,
+    helper_match_warnings: scope.helperConfig.warnings,
+    active_trainers: scope.activeTrainers,
+    active_entry_nos: [...scope.activeEntryNos],
+    hs_update_schedule_count: updateScheduleRows.length,
+    raw_schedule_rows: preflightSummary.raw_schedule_rows,
+    preflight_rows: preflightSummary.preflight_rows,
+    non_preflight_rows: preflightSummary.non_preflight_rows,
+    hs_class_oog_written: false,
+    checkpoint_advanced: false,
+    raw_existing_before_probe: Boolean(rawBefore),
+    step1_run: false,
+    step2_run: false,
+    step3_parse_run: false,
+    step4_run: false,
+    step5_run: false,
+    step6_run: false,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false
+  };
+  const patch = {
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDay.replace(/-/g, ""),
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    branch: "step3_class_oog_probe",
+    status: blocker ? (blocker === "focus_show.is_pause" ? "skipped" : "fail") : "pass",
+    blocker,
+    parsed_rows: parsedRows.length,
+    source_sequence_json: JSON.stringify(context.sourceSequence || [], null, 2),
+    payload_json: JSON.stringify(payload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, patch);
+  await writeRawAirtableHeartbeat(heartbeatId, { ...patch, run_time: runTime });
+  return {
+    ok: !blocker || blocker === "focus_show.is_pause",
+    status_code: blocker && blocker !== "focus_show.is_pause" ? 500 : 200,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    ...payload
+  };
+}
+
+async function runWecStep3ClassOogParseOnly(app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0
+    };
+  }
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step3b-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const updateScheduleRows = await getStoredUpdateScheduleRows(app, activeFocus.show_no, focusDay);
+  const eligibleRows = updateScheduleRows.filter((row) => !updateSchedulePreflightReason(row));
+  const targetClassNo = text(query.get("class_no") || body.class_no);
+  const rawRecId = text(query.get("raw_rec_id") || body.raw_rec_id);
+  const scope = await resolveStep3Scope(app, activeFocus);
+  let blocker = "";
+  let rawRow = null;
+  let scheduleRow = null;
+  if (activeFocus.is_pause) {
+    blocker = "focus_show.is_pause";
+  } else if (!scope.hasScope) {
+    blocker = "missing_active_trainer_scope";
+  } else if (rawRecId) {
+    rawRow = await getClassOogRawRow(app, rawRecId);
+  } else {
+    scheduleRow = targetClassNo
+      ? eligibleRows.find((row) => text(row.class_no) === targetClassNo)
+      : eligibleRows.find((row) => true);
+    if (scheduleRow) {
+      rawRow = await getClassOogRawRowByKey(app, classOogRawKey(activeFocus.show_no, focusDay, scheduleRow.ring_day_no, scheduleRow.ring_no, scheduleRow.class_no));
+    }
+  }
+  if (!blocker && !rawRow) blocker = targetClassNo ? `raw_class_oog_not_found:${targetClassNo}` : "raw_class_oog_not_found";
+  if (!blocker && !text(rawRow.raw_html)) blocker = "raw_class_oog_html_missing";
+  const allParsedRows = blocker ? [] : parseClassOogRows(rawRow.raw_html, activeFocus.show_no, rawRow.class_no);
+  const matchSummary = step3MatchSummary(allParsedRows, scope.activeEntryNos, scope.activeTrainerKeys, scope.helperConfig);
+  const sourceRows = blocker
+    ? []
+    : matchSummary.matched_rows.map((row) => classOogSourceRowCanonical(row, rawRow)).filter(Boolean);
+  const catalystResult = sourceRows.length
+    ? await upsertSourceRowsFast(app, TABLES.classOog, "class_oog_key", sourceRows, { showNo: activeFocus.show_no })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  const airtableMirror = sourceRows.length
+    ? await syncRawAirtableClassOogRows(activeFocus.show_no, focusDay, sourceRows, { heartbeatId, runId })
+    : {
+        airtable_hs_class_oog_rows: 0,
+        airtable_hs_class_oog_upserts: 0,
+        skipped: true,
+        table_status: { skipped: true, reason: "no_source_rows" }
+      };
+  if (!blocker && rawRow?.ROWID) {
+    await app.datastore().table(TABLES.classOogRaw).updateRow({
+      ROWID: rawRow.ROWID,
+      parsed_at: catalystDateTime(runTime),
+      parse_status: "parsed",
+      parsed_status: "parsed",
+      matched_count: matchSummary.matched_count,
+      skipped_count: matchSummary.skipped_count,
+      match_reason_counts: JSON.stringify(matchSummary.match_reason_counts || {}, null, 2)
+    });
+  }
+  const hermesMaterialized = sourceRows.some((row) => text(row.entry_no) === "274" && normalizeHorseHelperKey(row.horse).includes("hermes"));
+  const sandenalMaterialized = sourceRows.some((row) => normalizeHorseHelperKey(row.horse).includes("sandenal"));
+  const payload = {
+    action,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    target_class_no: rawRow?.class_no || targetClassNo || "",
+    raw_key: rawRow?.raw_key || "",
+    raw_rec_id: rawRow?.ROWID || "",
+    source_fetch_run: false,
+    upstream_requests: 0,
+    source_request_sequence: [],
+    total_parsed_rows: allParsedRows.length,
+    matched_count: matchSummary.matched_count,
+    skipped_count: matchSummary.skipped_count,
+    match_reason_counts: matchSummary.match_reason_counts,
+    source_rows: sourceRows.length,
+    hs_class_oog_rows: catalystResult.rows,
+    hs_class_oog_inserted: catalystResult.inserted,
+    hs_class_oog_updated: catalystResult.updated,
+    airtable_hs_class_oog: airtableMirror,
+    hermes_materialized: hermesMaterialized,
+    sandenal_materialized: sandenalMaterialized,
+    helper_match_source: scope.helperConfig.source,
+    helper_match_counts: scope.helperConfig.counts,
+    helper_match_warnings: scope.helperConfig.warnings,
+    active_trainers: scope.activeTrainers,
+    active_entry_nos: [...scope.activeEntryNos],
+    matched_rows: sourceRows.map((row) => ({
+      class_no: row.class_no,
+      entry_no: row.entry_no,
+      horse: row.horse,
+      rider: row.rider,
+      trainer: row.trainer,
+      entry_order: row.entry_order
+    })),
+    step1_run: false,
+    step2_run: false,
+    step3_probe_run: false,
+    step4_run: false,
+    step5_run: false,
+    step6_run: false,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false
+  };
+  const patch = {
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDay.replace(/-/g, ""),
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    branch: "step3_class_oog_parse",
+    status: blocker ? (blocker === "focus_show.is_pause" ? "skipped" : "fail") : "pass",
+    blocker,
+    parsed_rows: allParsedRows.length,
+    source_sequence_json: JSON.stringify([], null, 2),
+    payload_json: JSON.stringify(payload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, patch);
+  await writeRawAirtableHeartbeat(heartbeatId, { ...patch, run_time: runTime });
+  return {
+    ok: !blocker || blocker === "focus_show.is_pause",
+    status_code: blocker && blocker !== "focus_show.is_pause" ? 500 : 200,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    ...payload
+  };
+}
+
 async function runWecStep3ClassOogOnly(req, app, action, query, body) {
+  const activeFocus = await getActiveAirtableFocusShowStrict();
+  if (!activeFocus.ok) {
+    return {
+      ok: false,
+      status_code: 409,
+      action,
+      blocker: activeFocus.blocker,
+      active_count: activeFocus.active_count || 0,
+      update_schedule_run: false,
+      class_oog_run: false,
+      downstream_run: false
+    };
+  }
+  const runTime = new Date().toISOString();
+  const runId = text(query.get("run_id") || body.run_id) || `wec-step3-${runTime.replace(/[^0-9A-Za-z]/g, "")}`;
+  const focusDay = dateKey(activeFocus.focus_day);
+  const focusDayKey = focusDay.replace(/-/g, "");
+  const updateScheduleRows = await getStoredUpdateScheduleRows(app, activeFocus.show_no, focusDay);
+  const preflightSummary = summarizeUpdateSchedulePreflight(updateScheduleRows);
+  const eligibleRows = updateScheduleRows.filter((row) => !updateSchedulePreflightReason(row));
+  const scope = await resolveStep3Scope(app, activeFocus);
+  const activeEntryScopeKey = step3HelperScopeSignature(scope.activeEntryNos, scope.activeTrainerKeys, scope.helperConfig);
+  const checkpointBefore = await readStep3Checkpoint(app, activeFocus.show_no, focusDay);
+  const step3Force = query.get("step3_force") === "1" || body.step3_force === "1" || body.step3_force === true;
+  const requestedClassNo = text(query.get("class_no") || body.class_no);
+  let checkpointResetReason = "";
+  if (checkpointBefore.corrupt) checkpointResetReason = "checkpoint_corrupt";
+  if (!checkpointResetReason && text(checkpointBefore.payload?.show_focus_key) && text(checkpointBefore.payload.show_focus_key) !== `${text(activeFocus.show_no)}|${focusDayKey}`) {
+    checkpointResetReason = "show_focus_key_changed";
+  }
+  if (!checkpointResetReason && text(checkpointBefore.payload?.active_entry_scope_key) && text(checkpointBefore.payload.active_entry_scope_key) !== activeEntryScopeKey) {
+    checkpointResetReason = "active_entry_scope_changed";
+  }
+  if (step3Force) checkpointResetReason = "manual_force";
+  const usableCheckedClasses = checkpointResetReason ? {} : (checkpointBefore.payload?.checked_classes || {});
+  const shouldProbeRow = (row) => {
+    const key = text(row.update_schedule_key);
+    const checked = key ? usableCheckedClasses[key] : null;
+    return !checked || text(checked.schedule_signature) !== step3ScheduleSignature(row);
+  };
+  const step3Limit = requestedClassNo
+    ? 1
+    : Math.max(1, Math.min(intOrNull(query.get("step3_limit") || body.step3_limit) || 10, 15));
+  const targetRows = requestedClassNo
+    ? eligibleRows.filter((row) => text(row.class_no) === requestedClassNo).slice(0, 1)
+    : eligibleRows.filter(shouldProbeRow).slice(0, step3Limit);
+  const classResults = [];
+  const heldClasses = [];
+  const downloadedClasses = [];
+  const parsedClasses = [];
+  let blocker = "";
+  const context = createWorkflowContext();
+  if (activeFocus.is_pause) blocker = "focus_show.is_pause";
+  else if (!updateScheduleRows.length) blocker = "missing_current_hs_update_schedule";
+  else if (!eligibleRows.length) blocker = "missing_non_preflight_hs_update_schedule";
+  else if (!scope.hasScope) blocker = "missing_active_trainer_scope";
+  else if (!targetRows.length) blocker = requestedClassNo ? `target_class_not_found_or_preflight:${requestedClassNo}` : "";
+
+  if (!blocker && targetRows.length) {
+    for (const row of targetRows) {
+      const holdReason = step3LargeClassHoldReason(row);
+      if (holdReason && !requestedClassNo) {
+        const heldRaw = await holdStep3LargeClassRaw(app, activeFocus, focusDay, row, runTime, holdReason);
+        const heldResult = step3HeldClassResult(row, runTime, holdReason);
+        classResults.push(heldResult);
+        heldClasses.push({
+          class_no: text(row.class_no),
+          ring_day_no: text(row.ring_day_no),
+          ring_no: text(row.ring_no),
+          entry_count: intOrNull(row.entry_count),
+          hold_reason: holdReason,
+          raw_key: heldRaw.raw_key,
+          raw_rec_id: heldRaw.raw_rec_id
+        });
+        continue;
+      }
+
+      let downloaded = null;
+      try {
+        downloaded = await downloadStep3ClassOogRaw(req, app, activeFocus, focusDay, row, context, runTime);
+      } catch (error) {
+        blocker = `class_oog_download_failed:${text(row.class_no)}:${String(error?.message || error)}`;
+        break;
+      }
+      downloadedClasses.push({
+        class_no: text(row.class_no),
+        ring_day_no: text(row.ring_day_no),
+        ring_no: text(row.ring_no),
+        entry_count: intOrNull(row.entry_count),
+        raw_key: downloaded.raw_key,
+        raw_rec_id: downloaded.raw_rec_id
+      });
+      const rawRow = {
+        ...(await getClassOogRawRowByKey(app, downloaded.raw_key)),
+        update_schedule_key: text(row.update_schedule_key),
+        schedule_signature: step3ScheduleSignature(row),
+        entry_count: intOrNull(row.entry_count)
+      };
+      if (!text(rawRow.raw_html)) {
+        blocker = `raw_class_oog_html_missing_after_download:${text(row.class_no)}`;
+        break;
+      }
+      const parsed = await parseStoredStep3ClassOogRaw(app, activeFocus, focusDay, rawRow, scope, runTime, `${activeFocus.show_no}|${focusDay}|${runId}`, runId);
+      classResults.push(parsed);
+      parsedClasses.push(parsed);
+    }
+  }
+
+  const checkpointPayload = buildStep3Checkpoint({
+    existingPayload: checkpointBefore.payload,
+    showNo: activeFocus.show_no,
+    focusDay,
+    runId,
+    runTime,
+    eligibleRows,
+    activeEntryScopeKey,
+    activeEntryNos: scope.activeEntryNos,
+    activeTrainers: scope.activeTrainers,
+    classResults,
+    requestedOffset: targetRows.length ? eligibleRows.findIndex((row) => text(row.update_schedule_key) === text(targetRows[0].update_schedule_key)) : eligibleRows.length,
+    requestedLimit: step3Limit,
+    resetReason: checkpointResetReason,
+    force: step3Force
+  });
+  const parsedRowCount = parsedClasses.reduce((sum, item) => sum + Number(item.parsed_rows || 0), 0);
+  const matchedCount = parsedClasses.reduce((sum, item) => sum + Number(item.active_trainer_matched_rows || 0), 0);
+  const skippedCount = parsedClasses.reduce((sum, item) => sum + Number(item.broad_nonmatching_rows_skipped || 0), 0);
+  const hsClassOogRows = parsedClasses.reduce((sum, item) => sum + Number(item.source_rows || item.catalyst_rows || 0), 0);
+  const matchedRows = parsedClasses.flatMap((item) => item.matched_rows || []);
+  const sourceSequence = context.sourceSequence || [];
+  const basePatch = {
+    run_id: runId,
+    run_time: catalystDateTime(runTime),
+    show_no: intValue(activeFocus.show_no),
+    focus_day: focusDay,
+    focus_day_key: focusDayKey,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    is_pause: activeFocus.is_pause,
+    is_lock: activeFocus.is_lock,
+    live_enrichment: activeFocus.live_enrichment,
+    branch: "step3_class_oog_probe_parse",
+    blocker: "",
+    parsed_rows: parsedRowCount,
+    materialized_hs_get_ring_days_rows: 0,
+    materialized_ring_day_rows: 0,
+    source_sequence_json: JSON.stringify(sourceSequence, null, 2)
+  };
+  const checkpointAfter = await writeStep3Checkpoint(app, activeFocus.show_no, focusDay, checkpointPayload, basePatch);
+  const checkedCount = Number(checkpointAfter.checked_class_count || 0);
+  const finalPayload = {
+    action,
+    focus_source: activeFocus.source,
+    focus_show_record_id: activeFocus.focus_show_record_id,
+    show_no: activeFocus.show_no,
+    focus_day: focusDay,
+    trigger_reason: targetRows.length ? "bounded_raw_download_parse_batch" : (checkpointAfter.complete ? "step3_checkpoint_complete" : "no_step3_candidate"),
+    one_class_per_run: false,
+    classes_per_run_limit: step3Limit,
+    probe_first_contract: true,
+    target_class_no: requestedClassNo || "",
+    target_class_nos: targetRows.map((row) => text(row.class_no)),
+    source_fetch_run: downloadedClasses.length > 0,
+    upstream_requests: Number(context.upstreamRequests || 0),
+    source_request_sequence: sourceSequence,
+    class_oog_requests: downloadedClasses.length,
+    raw_download_only_contract: true,
+    large_class_entry_limit: STEP3_LARGE_CLASS_ENTRY_LIMIT,
+    held_large_classes: heldClasses,
+    held_class_count: heldClasses.length,
+    downloaded_classes: downloadedClasses,
+    downloaded_class_count: downloadedClasses.length,
+    parsed_classes: parsedClasses.map((item) => ({
+      class_no: item.class_no,
+      ring_day_no: item.ring_day_no,
+      ring_no: item.ring_no,
+      entry_count: item.entry_count,
+      parsed_rows: item.parsed_rows,
+      matched_rows: item.active_trainer_matched_rows,
+      skipped_broad_rows: item.broad_nonmatching_rows_skipped
+    })),
+    parsed_class_count: parsedClasses.length,
+    parsed_rows_checked_for_match: parsedRowCount,
+    total_parsed_rows: parsedRowCount,
+    matched_count: matchedCount,
+    skipped_count: skippedCount,
+    hs_class_oog_rows: hsClassOogRows,
+    hermes_materialized: matchedRows.some((row) => text(row.entry_no) === "274" && normalizeHorseHelperKey(row.horse).includes("hermes")),
+    sandenal_materialized: matchedRows.some((row) => normalizeHorseHelperKey(row.horse).includes("sandenal")),
+    checkpoint_heartbeat_id: checkpointAfter.heartbeat_id,
+    checkpoint_checked_class_count: checkedCount,
+    checkpoint_next_unchecked_index: checkpointAfter.next_unchecked_index,
+    checkpoint_complete: checkpointAfter.complete,
+    checkpoint_held_class_count: checkpointAfter.held_class_count || 0,
+    step3_remaining_rows: Math.max(0, eligibleRows.length - checkedCount),
+    helper_match_source: scope.helperConfig.source,
+    helper_match_counts: scope.helperConfig.counts,
+    helper_match_warnings: scope.helperConfig.warnings,
+    active_trainers: scope.activeTrainers,
+    active_entry_nos: [...scope.activeEntryNos],
+    hs_update_schedule_count: updateScheduleRows.length,
+    raw_schedule_rows: preflightSummary.raw_schedule_rows,
+    preflight_rows: preflightSummary.preflight_rows,
+    non_preflight_rows: preflightSummary.non_preflight_rows,
+    step1_run: false,
+    step2_run: false,
+    step4_run: false,
+    step5_run: false,
+    step6_run: false,
+    downstream_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false
+  };
+  const heartbeatId = `${activeFocus.show_no}|${focusDay}|${runId}`;
+  const finalPatch = {
+    ...basePatch,
+    heartbeat_id: heartbeatId,
+    status: blocker ? (blocker === "focus_show.is_pause" ? "skipped" : "fail") : "pass",
+    blocker,
+    parsed_rows: finalPayload.parsed_rows_checked_for_match || finalPayload.total_parsed_rows,
+    payload_json: JSON.stringify(finalPayload, null, 2)
+  };
+  await writeStageHeartbeat(app, heartbeatId, finalPatch);
+  await writeRawAirtableHeartbeat(heartbeatId, { ...finalPatch, run_time: runTime });
+  return {
+    ok: !blocker || blocker === "focus_show.is_pause",
+    status_code: blocker && blocker !== "focus_show.is_pause" ? 500 : 200,
+    blocker,
+    heartbeat_id: heartbeatId,
+    run_id: runId,
+    run_time: runTime,
+    ...finalPayload
+  };
+}
+
+async function runWecStep3ClassOogLegacyOnly(req, app, action, query, body) {
   const activeFocus = await getActiveAirtableFocusShowStrict();
   if (!activeFocus.ok) {
     return {
@@ -11148,7 +12013,7 @@ function splitAliasText(value) {
     .filter(Boolean);
 }
 
-function helperRowIsEnabled(row = {}, { requireAllowed = false } = {}) {
+function helperRowIsEnabled(row = {}, { requireAllowed = false, requireFollow = false } = {}) {
   const action = text(row.sync_action).toLowerCase();
   if (action === "ignore" || action === "remove" || action === "inactive") return false;
   const status = text(row.status).toLowerCase();
@@ -11156,8 +12021,11 @@ function helperRowIsEnabled(row = {}, { requireAllowed = false } = {}) {
   const active = boolOrNull(row.active);
   const follow = boolOrNull(row.follow);
   const allowed = boolOrNull(row.allowed);
-  if (active === false || follow === false) return false;
-  if (requireAllowed && allowed === false) return false;
+  if (active === false) return false;
+  if (requireFollow && follow !== true) return false;
+  if (!requireFollow && follow === false) return false;
+  if (requireAllowed && allowed !== true) return false;
+  if (!requireAllowed && allowed === false) return false;
   return true;
 }
 
@@ -11222,7 +12090,7 @@ async function getStep3CatalystHelperMatchConfig(app, showNo, activeTrainerKeys 
       ["horse_name", "horse"],
       ["barn_name", "horse_display"],
       ["horse_aka", "aka"]
-    ]);
+    ], { requireFollow: true });
     config.horse_keys = horseMatch.tokens;
     config.counts.hs_horses_active = horseMatch.active_rows;
   } catch (error) {
@@ -11234,7 +12102,7 @@ async function getStep3CatalystHelperMatchConfig(app, showNo, activeTrainerKeys 
       ["rider_name", "rider"],
       ["team_name", "rider_display"],
       ["rider_aliases"]
-    ]);
+    ], { requireFollow: true });
     config.rider_keys = riderMatch.tokens;
     config.counts.hs_riders_active = riderMatch.active_rows;
   } catch (error) {
@@ -11525,6 +12393,1050 @@ async function syncCatalystHorseHelpersFromAirtable(app, activeTrainers = [], tr
     catalyst_source: catalystConfig.source,
     duplicate_horse_groups: catalystConfig.duplicate_horse_groups || airtableConfig.duplicate_horse_groups || {},
     error: airtableConfig.error || catalystConfig.error || ""
+  };
+}
+
+const HELPER_SYNC_CONFIGS = {
+  hs_rings: {
+    source_table: "rings",
+    catalyst_table: TABLES.rings,
+    mirror_table: "hs_rings",
+    key_field: "ring_key",
+    fallback_key_field: "ring_no",
+    mirror_fields: [
+      ["ring_key", "singleLineText"],
+      ["ring_no", "number"],
+      ["ring_name", "singleLineText"],
+      ["ring_name_normalized", "singleLineText"],
+      ["ring_name_prioritized", "singleLineText"],
+      ["ring_name_slugified", "singleLineText"],
+      ["ring_aliases", "multilineText"],
+      ["active", "checkbox"],
+      ["follow", "checkbox"],
+      ["sync_action", "singleLineText"],
+      ["rec_id", "singleLineText"],
+      ["catalyst_ROWID", "singleLineText"],
+      ["last_synced_at", "singleLineText"],
+      ["sync_error", "multilineText"]
+    ]
+  },
+  hs_horses: {
+    source_table: "horses",
+    catalyst_table: TABLES.horses,
+    mirror_table: "hs_horses",
+    key_field: "horse_key",
+    fallback_key_field: "horse",
+    mirror_fields: [
+      ["horse_key", "singleLineText"],
+      ["horse_name", "singleLineText"],
+      ["barn_name", "singleLineText"],
+      ["horse_display", "singleLineText"],
+      ["horse_aka", "multilineText"],
+      ["rider_name", "singleLineText"],
+      ["trainer_name", "singleLineText"],
+      ["active", "checkbox"],
+      ["follow", "checkbox"],
+      ["sync_action", "singleLineText"],
+      ["rec_id", "singleLineText"],
+      ["catalyst_ROWID", "singleLineText"],
+      ["last_synced_at", "singleLineText"],
+      ["sync_error", "multilineText"]
+    ]
+  },
+  hs_riders: {
+    source_table: "riders",
+    catalyst_table: TABLES.riders,
+    mirror_table: "hs_riders",
+    key_field: "rider_key",
+    fallback_key_field: "rider",
+    mirror_fields: [
+      ["rider_key", "singleLineText"],
+      ["rider_name", "singleLineText"],
+      ["team_name", "singleLineText"],
+      ["first_name", "singleLineText"],
+      ["last_name", "singleLineText"],
+      ["rider_aliases", "multilineText"],
+      ["active", "checkbox"],
+      ["follow", "checkbox"],
+      ["sync_action", "singleLineText"],
+      ["rec_id", "singleLineText"],
+      ["catalyst_ROWID", "singleLineText"],
+      ["last_synced_at", "singleLineText"],
+      ["sync_error", "multilineText"]
+    ]
+  },
+  hs_trainers: {
+    source_table: "trainers",
+    catalyst_table: TABLES.trainers,
+    mirror_table: "hs_trainers",
+    key_field: "trainer_key",
+    fallback_key_field: "trainer",
+    mirror_fields: [
+      ["trainer_key", "singleLineText"],
+      ["trainer_name", "singleLineText"],
+      ["tenant_name", "singleLineText"],
+      ["coach_name", "singleLineText"],
+      ["first_name", "singleLineText"],
+      ["trainer_aliases", "multilineText"],
+      ["allowed", "checkbox"],
+      ["active", "checkbox"],
+      ["follow", "checkbox"],
+      ["sync_action", "singleLineText"],
+      ["rec_id", "singleLineText"],
+      ["catalyst_ROWID", "singleLineText"],
+      ["last_synced_at", "singleLineText"],
+      ["sync_error", "multilineText"]
+    ]
+  }
+};
+
+function airtableMirrorFieldSpec([name, type]) {
+  if (type === "number") return { name, type: "number", options: { precision: 0 } };
+  if (type === "checkbox") return { name, type: "checkbox", options: { icon: "check", color: "greenBright" } };
+  if (type === "multilineText") return { name, type: "multilineText" };
+  return { name, type: "singleLineText" };
+}
+
+async function ensureAirtableHelperMirrorTable(config) {
+  const tables = await airtableBaseMetadataTables();
+  const existing = (tables || []).find((table) => table.name === config.mirror_table);
+  if (!existing) {
+    const created = await airtableCreateTable(
+      config.mirror_table,
+      config.mirror_fields.map(airtableMirrorFieldSpec)
+    );
+    return {
+      exists: true,
+      created: true,
+      table_id: created.id,
+      missing_fields: []
+    };
+  }
+  const existingFields = new Set((existing.fields || []).map((field) => field.name));
+  return {
+    exists: true,
+    created: false,
+    table_id: existing.id,
+    missing_fields: config.mirror_fields.map(([name]) => name).filter((name) => !existingFields.has(name))
+  };
+}
+
+function sourceField(fields, names) {
+  for (const name of names || []) {
+    const value = firstValue(fields?.[name]);
+    const stringValue = text(value);
+    if (stringValue) return stringValue;
+  }
+  return "";
+}
+
+function sourceBool(fields, names, defaultValue = true) {
+  for (const name of names || []) {
+    const value = firstValue(fields?.[name]);
+    const parsed = boolOrNull(value);
+    if (parsed !== null) return parsed;
+  }
+  return defaultValue;
+}
+
+function helperSyncAction(fields) {
+  return text(firstValue(fields?.sync_action || fields?.status)).toLowerCase();
+}
+
+function helperStatusFromAction(action) {
+  if (action === "remove") return "remove_pending";
+  if (action === "inactive") return "inactive";
+  return "active";
+}
+
+function splitPersonName(value) {
+  const parts = text(value).split(" ").filter(Boolean);
+  return {
+    first_name: parts[0] || "",
+    last_name: parts.length > 1 ? parts.slice(1).join(" ") : ""
+  };
+}
+
+function mapAirtableHelperSourceRecord(helperName, record, runTime) {
+  const fields = record.fields || {};
+  const action = helperSyncAction(fields);
+  if (action === "ignore") return null;
+  const inactive = action === "remove" || action === "inactive";
+  const active = inactive ? false : sourceBool(fields, ["active"], true);
+  const followDefault = helperName === "hs_rings";
+  const follow = inactive ? false : sourceBool(fields, ["follow"], followDefault);
+  const recId = sourceField(fields, ["rec_id"]) || record.id;
+  const lastSyncedAt = catalystDateTime(runTime);
+  if (helperName === "hs_rings") {
+    const ringNo = intValue(sourceField(fields, ["ring_no"]));
+    const ringName = sourceField(fields, ["ring_name"]);
+    const normalized = visualRingName(sourceField(fields, ["ring_name_normalized"]) || normalizedWecRingName(ringName));
+    const slugified = sourceField(fields, ["ring_name_slugified"]) || visualKeyRingToken(normalized || ringName);
+    const ringKey = ringVisualKey(ringNo, normalized || ringName) || (ringNo && slugified ? `${ringNo}|${slugified}` : "");
+    if (!ringKey) return null;
+    return cleanRowForDatastore({
+      ring_key: ringKey,
+      ring_no: ringNo,
+      ring_name: ringName,
+      ring_name_normalized: normalized,
+      ring_name_prioritized: sourceField(fields, ["ring_name_prioritized"]) || text(prioritizedWecRingName(ringName)),
+      ring_name_slugified: slugified,
+      ring_aliases: sourceField(fields, ["ring_aliases", "ring_names"]),
+      active,
+      follow,
+      sync_action: action || "add",
+      status: helperStatusFromAction(action),
+      rec_id: recId,
+      last_synced_at: lastSyncedAt
+    });
+  }
+  if (helperName === "hs_horses") {
+    const horseName = sourceField(fields, ["horse_name", "horse"]);
+    const horseKey = normalizeHorseHelperKey(horseName);
+    if (!horseKey) return null;
+    return cleanRowForDatastore({
+      horse_key: horseKey,
+      horse: horseName,
+      horse_name: horseName,
+      barn_name: sourceField(fields, ["barn_name"]),
+      horse_display: sourceField(fields, ["horse_display", "barn_name", "horse"]),
+      aka: sourceField(fields, ["horse_aka", "aka"]),
+      horse_aka: sourceField(fields, ["horse_aka", "aka"]),
+      rider: sourceField(fields, ["rider_name", "rider"]),
+      rider_name: sourceField(fields, ["rider_name", "rider"]),
+      trainer: sourceField(fields, ["trainer_name", "trainer"]),
+      trainer_name: sourceField(fields, ["trainer_name", "trainer"]),
+      active,
+      follow,
+      sync_action: action || "add",
+      status: helperStatusFromAction(action),
+      rec_id: recId,
+      last_synced_at: lastSyncedAt
+    });
+  }
+  if (helperName === "hs_riders") {
+    const riderName = sourceField(fields, ["rider_name", "rider"]);
+    const riderKey = normalizeHelperKey(riderName);
+    if (!riderKey) return null;
+    const names = splitPersonName(riderName);
+    return cleanRowForDatastore({
+      rider_key: riderKey,
+      rider: riderName,
+      rider_name: riderName,
+      team_name: sourceField(fields, ["team_name", "rider_display"]) || names.first_name,
+      first_name: sourceField(fields, ["first_name"]) || names.first_name,
+      last_name: sourceField(fields, ["last_name"]) || names.last_name,
+      rider_aliases: sourceField(fields, ["rider_aliases", "tag"]),
+      active,
+      follow,
+      sync_action: action || "add",
+      status: helperStatusFromAction(action),
+      rec_id: recId,
+      last_synced_at: lastSyncedAt
+    });
+  }
+  if (helperName === "hs_trainers") {
+    const trainerName = sourceField(fields, ["trainer_name", "trainer"]);
+    const trainerKey = normalizeTrainerKey(trainerName);
+    if (!trainerKey) return null;
+    const names = splitPersonName(trainerName);
+    const display = sourceField(fields, ["coach_name", "tenant_name", "trainer_display"]);
+    return cleanRowForDatastore({
+      trainer_key: trainerKey,
+      trainer: trainerName,
+      trainer_name: trainerName,
+      tenant_name: sourceField(fields, ["tenant_name", "trainer_display"]) || display,
+      coach_name: sourceField(fields, ["coach_name", "trainer_display"]) || display,
+      first_name: sourceField(fields, ["first_name"]) || names.first_name,
+      trainer_aliases: sourceField(fields, ["trainer_aliases", "tag"]),
+      allowed: inactive ? false : sourceBool(fields, ["allowed"], false),
+      active,
+      follow,
+      sync_action: action || "add",
+      status: helperStatusFromAction(action),
+      rec_id: recId,
+      last_synced_at: lastSyncedAt
+    });
+  }
+  return null;
+}
+
+async function upsertCatalystHelperRows(app, config, rows) {
+  const table = app.datastore().table(config.catalyst_table);
+  const result = { rows: rows.length, inserted: 0, updated: 0, skipped: 0, errors: [] };
+  const syncedRows = [];
+  for (const row of rows) {
+    const key = text(row[config.key_field]);
+    if (!key) {
+      result.skipped += 1;
+      continue;
+    }
+    try {
+      let existing = await findOne(app, config.catalyst_table, { [config.key_field]: key });
+      if (!existing?.ROWID && config.fallback_key_field && row[config.fallback_key_field]) {
+        existing = await findOne(app, config.catalyst_table, { [config.fallback_key_field]: row[config.fallback_key_field] });
+      }
+      if (existing?.ROWID) {
+        const mutable = { ...row };
+        await table.updateRow({ ...mutable, ROWID: existing.ROWID });
+        result.updated += 1;
+        syncedRows.push({ ...row, ROWID: existing.ROWID, sync_error: "" });
+      } else {
+        const inserted = await table.insertRow(row);
+        result.inserted += 1;
+        syncedRows.push({ ...row, ROWID: inserted.ROWID, sync_error: "" });
+      }
+    } catch (error) {
+      result.skipped += 1;
+      const message = String(error?.message || error).slice(0, 1000);
+      result.errors.push({ key, error: message });
+      syncedRows.push({ ...row, sync_error: message });
+    }
+  }
+  return { ...result, synced_rows: syncedRows };
+}
+
+function mapCatalystHelperRowToAirtable(config, row) {
+  const fields = {};
+  for (const [fieldName] of config.mirror_fields) {
+    if (fieldName === "catalyst_ROWID") fields[fieldName] = text(row.ROWID);
+    else if (fieldName in row) fields[fieldName] = row[fieldName];
+  }
+  return fields;
+}
+
+async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit = 25 } = {}) {
+  const config = HELPER_SYNC_CONFIGS[helperName];
+  const mirrorStatus = await ensureAirtableHelperMirrorTable(config);
+  if (mirrorStatus.missing_fields.length) {
+    return {
+      helper: helperName,
+      ok: false,
+      blocker: "airtable_helper_mirror_missing_fields",
+      table_status: mirrorStatus,
+      source_rows: 0,
+      catalyst_rows: 0,
+      airtable_mirror_rows: 0
+    };
+  }
+  const sourceWindow = await airtableListRecordsWindow(config.source_table, { offset, limit });
+  const sourceRecords = sourceWindow.records;
+  const sourceRows = sourceRecords
+    .map((record) => mapAirtableHelperSourceRecord(helperName, record, runTime))
+    .filter(Boolean);
+  const catalystResult = await upsertCatalystHelperRows(app, config, sourceRows);
+  const mirrorRows = catalystResult.synced_rows.map((row) => mapCatalystHelperRowToAirtable(config, row));
+  const mirrorUpserts = await airtableUpsertByFieldId(config.mirror_table, config.key_field, mirrorRows);
+  return {
+    helper: helperName,
+    ok: catalystResult.errors.length === 0,
+    blocker: catalystResult.errors.length ? "catalyst_helper_upsert_errors" : "",
+    source_table: config.source_table,
+    catalyst_table: config.catalyst_table,
+    mirror_table: config.mirror_table,
+    table_status: mirrorStatus,
+    offset: sourceWindow.offset,
+    limit: sourceWindow.limit,
+    processed_records: sourceWindow.processed_records,
+    next_offset: sourceWindow.next_offset,
+    has_more: sourceWindow.has_more,
+    source_records_total: sourceWindow.source_records_total,
+    source_records_total_is_exact: sourceWindow.source_records_total_is_exact,
+    source_records: sourceRecords.length,
+    source_rows: sourceRows.length,
+    catalyst_rows: catalystResult.rows,
+    catalyst_inserted: catalystResult.inserted,
+    catalyst_updated: catalystResult.updated,
+    catalyst_skipped: catalystResult.skipped,
+    catalyst_errors: catalystResult.errors,
+    airtable_mirror_rows: mirrorRows.length,
+    airtable_mirror_upserts: mirrorUpserts.length
+  };
+}
+
+async function runWecSyncHelpers(app, action, { helper = "all", offset = 0, limit = 25 } = {}) {
+  const runTime = new Date().toISOString();
+  const helpers = {};
+  let blocker = "";
+  const validHelpers = ["hs_rings", "hs_horses", "hs_riders", "hs_trainers"];
+  const requestedHelper = text(helper || "all");
+  const safeOffset = Math.max(0, Number(offset) || 0);
+  const safeLimit = Math.max(1, Math.min(Number(limit) || 25, 100));
+  const helperNames = requestedHelper === "all" ? validHelpers : [requestedHelper];
+  const invalidHelpers = helperNames.filter((name) => !validHelpers.includes(name));
+  if (invalidHelpers.length) {
+    blocker = `invalid_helper:${invalidHelpers.join(",")}`;
+  }
+  for (const helperName of blocker ? [] : helperNames) {
+    const result = await syncOneHelperTable(app, helperName, runTime, {
+      offset: safeOffset,
+      limit: safeLimit
+    });
+    helpers[helperName] = result;
+    if (!blocker && !result.ok) blocker = `${helperName}:${result.blocker || "sync_failed"}`;
+  }
+  return {
+    ok: !blocker,
+    status_code: blocker ? 500 : 200,
+    action,
+    blocker,
+    run_time: runTime,
+    requested_helper: requestedHelper,
+    offset: safeOffset,
+    limit: safeLimit,
+    helper_sync_run: true,
+    step1_run: false,
+    step2_run: false,
+    step3_run: false,
+    step4_run: false,
+    step5_run: false,
+    step6_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false,
+    helpers
+  };
+}
+
+const HELPER_SEARCH_CONFIGS = {
+  horses: {
+    table: TABLES.horses,
+    entity_type: "horse",
+    key_field: "horse_key",
+    display_fields: ["barn_name", "horse_display", "horse_name", "horse"],
+    primary_search_fields: ["horse_name", "horse", "barn_name", "horse_display", "horse_aka", "aka"],
+    searchable_fields: [
+      "horse_name",
+      "horse",
+      "barn_name",
+      "horse_display",
+      "horse_aka",
+      "aka"
+    ],
+    scope_field: "follow"
+  },
+  riders: {
+    table: TABLES.riders,
+    entity_type: "rider",
+    key_field: "rider_key",
+    display_fields: ["team_name", "rider_name", "rider"],
+    primary_search_fields: ["rider_name", "rider", "team_name", "first_name", "last_name", "rider_aliases"],
+    searchable_fields: [
+      "rider_name",
+      "rider",
+      "team_name",
+      "first_name",
+      "last_name",
+      "rider_aliases"
+    ],
+    scope_field: "follow"
+  },
+  trainers: {
+    table: TABLES.trainers,
+    entity_type: "trainer",
+    key_field: "trainer_key",
+    display_fields: ["coach_name", "tenant_name", "trainer_name", "trainer"],
+    primary_search_fields: ["trainer_name", "trainer", "tenant_name", "coach_name", "first_name", "trainer_aliases"],
+    searchable_fields: [
+      "trainer_name",
+      "trainer",
+      "tenant_name",
+      "coach_name",
+      "first_name",
+      "trainer_aliases"
+    ],
+    scope_field: "allowed"
+  }
+};
+
+function helperSearchMode(value) {
+  const mode = text(value || "catalyst").toLowerCase();
+  if (["scan", "datastore", "debug_scan"].includes(mode)) return "scan";
+  return "catalyst";
+}
+
+function helperSearchColumnMap(configs = []) {
+  const map = {};
+  for (const config of configs || []) {
+    if (!config?.table) continue;
+    map[config.table] = [...new Set(config.searchable_fields || [])];
+  }
+  return map;
+}
+
+function unwrapCatalystSearchRow(table, value) {
+  if (!value) return null;
+  if (value[table] && typeof value[table] === "object") return value[table];
+  if (value.data && value.data[table] && typeof value.data[table] === "object") return value.data[table];
+  if (value.content && value.content[table] && typeof value.content[table] === "object") return value.content[table];
+  return value;
+}
+
+function normalizeCatalystSearchGroups(raw, configs = []) {
+  const tables = new Set((configs || []).map((config) => config.table).filter(Boolean));
+  const groups = Object.fromEntries([...tables].map((table) => [table, []]));
+  const visited = new Set();
+
+  function addRow(table, row) {
+    const unwrapped = unwrapCatalystSearchRow(table, row);
+    if (!unwrapped || typeof unwrapped !== "object") return;
+    const key = `${table}|${text(unwrapped.ROWID) || JSON.stringify(unwrapped).slice(0, 500)}`;
+    if (visited.has(key)) return;
+    visited.add(key);
+    groups[table].push(unwrapped);
+  }
+
+  function walk(node) {
+    if (!node) return;
+    if (Array.isArray(node)) {
+      for (const item of node) walk(item);
+      return;
+    }
+    if (typeof node !== "object") return;
+    for (const table of tables) {
+      const direct = node[table];
+      if (Array.isArray(direct)) {
+        for (const item of direct) addRow(table, item);
+      } else if (direct && typeof direct === "object") {
+        addRow(table, direct);
+      }
+    }
+    for (const key of ["content", "data", "results", "search_result", "searchResult", "details"]) {
+      if (node[key] && node[key] !== node) walk(node[key]);
+    }
+    if (text(node.table_name) && tables.has(text(node.table_name))) addRow(text(node.table_name), node);
+    if (text(node.table) && tables.has(text(node.table))) addRow(text(node.table), node);
+  }
+
+  walk(raw);
+  return groups;
+}
+
+async function runCatalystHelperSearch(app, configs, q, limit) {
+  if (!app?.search) {
+    const error = new Error("Catalyst Search SDK is unavailable in this runtime");
+    error.blocker = "catalyst_search_sdk_unavailable";
+    throw error;
+  }
+  const search = app.search();
+  if (!search?.executeSearchQuery) {
+    const error = new Error("Catalyst executeSearchQuery is unavailable in this runtime");
+    error.blocker = "catalyst_search_sdk_unavailable";
+    throw error;
+  }
+  const searchText = text(q).endsWith("*") ? text(q) : `${text(q)}*`;
+  const searchTableColumns = helperSearchColumnMap(configs);
+  const raw = await search.executeSearchQuery({
+    search: searchText,
+    search_table_columns: searchTableColumns
+  });
+  const rawGroups = normalizeCatalystSearchGroups(raw, configs);
+  const groups = {};
+  const allMatches = [];
+  for (const config of configs) {
+    const rows = rawGroups[config.table] || [];
+    const matches = helperSearchRankedMatches(config, rows, q, limit);
+    groups[config.entity_type] = {
+      table: config.table,
+      search_indexed: true,
+      scanned: false,
+      returned: rows.length,
+      count: matches.length,
+      matches
+    };
+    allMatches.push(...matches);
+  }
+  return {
+    source: "catalyst.search",
+    search: searchText,
+    search_table_columns: searchTableColumns,
+    groups,
+    allMatches
+  };
+}
+
+async function runScanHelperSearch(app, configs, q, limit) {
+  const groups = {};
+  const allMatches = [];
+  for (const config of configs) {
+    const page = await getPagedRowsFiltered(app, config.table, () => true, { maxRows: 5000 });
+    const matches = helperSearchRankedMatches(config, page.rows || [], q, limit);
+    groups[config.entity_type] = {
+      table: config.table,
+      search_indexed: false,
+      scanned: page.scanned,
+      truncated: page.truncated,
+      count: matches.length,
+      matches
+    };
+    allMatches.push(...matches);
+  }
+  return {
+    source: "catalyst.datastore_scan",
+    groups,
+    allMatches
+  };
+}
+
+function helperSearchLooseKey(value) {
+  return normalizeHelperKey(value).replace(/[^a-z0-9]+/g, "");
+}
+
+function helperSearchValues(row = {}, fields = []) {
+  const values = [];
+  for (const field of fields || []) {
+    const raw = text(row[field]);
+    if (!raw) continue;
+    values.push({ field, value: raw });
+    for (const alias of splitAliasText(raw)) {
+      if (alias && alias !== raw) values.push({ field, value: alias });
+    }
+  }
+  return values;
+}
+
+function helperSearchScore(query, value) {
+  const q = normalizeHelperKey(query);
+  const v = normalizeHelperKey(value);
+  if (!q || !v) return null;
+  const qLoose = helperSearchLooseKey(q);
+  const vLoose = helperSearchLooseKey(v);
+  if (v === q) return { score: 100, match_type: "exact" };
+  if (vLoose && qLoose && vLoose === qLoose) return { score: 95, match_type: "exact_loose" };
+  if (v.startsWith(q)) return { score: 90, match_type: "prefix" };
+  if (v.startsWith(`${q} `) || v.startsWith(`${q}-`) || v.startsWith(`${q}'`)) return { score: 85, match_type: "prefix" };
+  if (v.includes(` ${q} `) || v.endsWith(` ${q}`) || v.includes(` ${q}-`)) return { score: 75, match_type: "word_contains" };
+  if (v.includes(q)) return { score: 60, match_type: "contains" };
+  if (vLoose && qLoose && vLoose.includes(qLoose)) return { score: 55, match_type: "contains_loose" };
+  return null;
+}
+
+function helperSearchFieldBoost(config, field) {
+  if (config.entity_type === "horse" && field === "barn_name") return 70;
+  if (config.entity_type === "horse" && field === "horse_display") return 50;
+  if ((config.primary_search_fields || []).includes(field)) return 30;
+  if ((config.display_fields || []).includes(field)) return 20;
+  return 0;
+}
+
+function mergeHelperSearchResults(primary, secondary, limit) {
+  const groups = { ...(primary.groups || {}) };
+  const byKey = new Map();
+  for (const match of [...(primary.allMatches || []), ...(secondary.allMatches || [])]) {
+    const key = `${match.entity_type}|${match.ROWID || match.helper_key || match.display_name}`;
+    const existing = byKey.get(key);
+    if (!existing || match.score > existing.score) byKey.set(key, match);
+  }
+  const allMatches = [...byKey.values()]
+    .sort((a, b) => b.score - a.score || a.display_name.localeCompare(b.display_name))
+    .slice(0, limit);
+  for (const [entityType, group] of Object.entries(secondary.groups || {})) {
+    const existing = groups[entityType] || {};
+    const mergedMatches = [...new Map([
+      ...((existing.matches || []).map((match) => [`${match.ROWID || match.helper_key || match.display_name}`, match])),
+      ...((group.matches || []).map((match) => [`${match.ROWID || match.helper_key || match.display_name}`, match]))
+    ]).values()]
+      .sort((a, b) => b.score - a.score || a.display_name.localeCompare(b.display_name))
+      .slice(0, limit);
+    groups[entityType] = {
+      ...existing,
+      count: mergedMatches.length,
+      matches: mergedMatches,
+      scan_merged: true
+    };
+  }
+  return {
+    ...primary,
+    source: "catalyst.search_plus_helper_scan",
+    warning: primary.warning || "helper_scan_merged_for_barn_name_completeness",
+    groups,
+    allMatches
+  };
+}
+
+function helperSearchRankedMatches(config, rows = [], q, limit) {
+  const matches = (rows || [])
+    .map((row) => helperSearchRow(config, row, q))
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || a.display_name.localeCompare(b.display_name));
+  const strongMatches = matches.filter((match) => ["exact", "exact_loose", "prefix"].includes(match.match_type));
+  return (strongMatches.length ? strongMatches : matches).slice(0, limit);
+}
+
+function helperSearchRow(config, row, query) {
+  let best = null;
+  for (const candidate of helperSearchValues(row, config.searchable_fields)) {
+    const scored = helperSearchScore(query, candidate.value);
+    if (!scored) continue;
+    const match = {
+      ...scored,
+      base_score: scored.score,
+      score: scored.score + helperSearchFieldBoost(config, candidate.field),
+      matched_field: candidate.field,
+      matched_value: candidate.value
+    };
+    if (!best || match.score > best.score) best = match;
+  }
+  if (!best) return null;
+  const action = text(row.sync_action).toLowerCase();
+  const status = text(row.status).toLowerCase();
+  const active = boolOrNull(row.active);
+  const follow = boolOrNull(row.follow);
+  const allowed = boolOrNull(row.allowed);
+  const scopeValue = config.scope_field === "allowed" ? allowed : follow;
+  const blockedByAction = action === "ignore" || action === "remove" || action === "inactive";
+  const blockedByStatus = status === "ignore" || status === "remove" || status === "inactive";
+  const eligibleForStep3 = !blockedByAction && !blockedByStatus && active !== false && scopeValue === true;
+  return {
+    entity_type: config.entity_type,
+    helper_key: text(row[config.key_field]),
+    display_name: sourceField(row, config.display_fields),
+    ...best,
+    active,
+    follow,
+    allowed,
+    status: status || "active",
+    sync_action: action || "add",
+    eligible_for_step3: eligibleForStep3,
+    rec_id: text(row.rec_id),
+    ROWID: text(row.ROWID),
+    fields: Object.fromEntries(
+      [...new Set([...config.display_fields, ...config.searchable_fields, config.scope_field, "active", "status", "sync_action"])]
+        .map((field) => [field, row[field]])
+        .filter(([, value]) => value !== undefined && value !== null && value !== "")
+    )
+  };
+}
+
+function helperSearchRuntimeTerms(match = {}) {
+  return [...new Set([
+    match.helper_key,
+    match.display_name,
+    match.matched_value,
+    match.fields?.horse_name,
+    match.fields?.horse,
+    match.fields?.barn_name,
+    match.fields?.horse_display,
+    match.fields?.rider_name,
+    match.fields?.rider,
+    match.fields?.team_name,
+    match.fields?.trainer_name,
+    match.fields?.trainer,
+    match.fields?.tenant_name,
+    match.fields?.coach_name
+  ].map(normalizeHelperKey).filter(Boolean))];
+}
+
+function helperSearchRuntimeRowMatches(match = {}, row = {}) {
+  const terms = helperSearchRuntimeTerms(match);
+  if (!terms.length) return false;
+  const entityType = text(match.entity_type);
+  const values = [];
+  if (entityType === "horse") values.push(row.horse, row.current_horse);
+  else if (entityType === "rider") values.push(row.rider);
+  else if (entityType === "trainer") values.push(row.trainer);
+  else values.push(row.horse, row.current_horse, row.rider, row.trainer);
+  const rowKeys = values.map(normalizeHelperKey).filter(Boolean);
+  return rowKeys.some((key) => terms.includes(key));
+}
+
+function hydrateHelperSearchMatchFromRows(match = {}, { showNo = "", focusDay = "", classOogRows = [], entryGoRows = [], classStartRows = [] } = {}) {
+  const classStartByVisual = new Map();
+  const classStartByNo = new Map();
+  for (const row of classStartRows || []) {
+    const classVisual = text(row.class_visual_key || row.class_start_key);
+    if (classVisual && !classStartByVisual.has(classVisual)) classStartByVisual.set(classVisual, row);
+    const classNo = text(row.class_no);
+    if (classNo && !classStartByNo.has(classNo)) classStartByNo.set(classNo, row);
+  }
+  const appearancesByKey = new Map();
+  function addAppearance(sourceTable, row) {
+    if (!helperSearchRuntimeRowMatches(match, row)) return;
+    const classVisual = text(row.class_visual_key);
+    const classStart = (classVisual && classStartByVisual.get(classVisual)) || classStartByNo.get(text(row.class_no)) || {};
+    const key = [
+      text(row.entry_visual_key || row.class_oog_key || row.entry_go_key),
+      text(row.class_no),
+      text(row.entry_no)
+    ].join("|");
+    const previous = appearancesByKey.get(key) || {};
+    const sourceTables = [...new Set([...(previous.source_tables || []), sourceTable].filter(Boolean))];
+    appearancesByKey.set(key, {
+      ...previous,
+      source_table: sourceTable,
+      source_tables: sourceTables,
+      show_no: text(row.show_no || showNo),
+      focus_day: dateKey(row.focus_day || focusDay),
+      ring_name_normalized: text(row.ring_name_normalized || classStart.ring_name_normalized),
+      ring_visual_key: text(row.ring_visual_key || classStart.ring_visual_key),
+      class_visual_key: text(row.class_visual_key || classStart.class_visual_key),
+      entry_visual_key: text(row.entry_visual_key),
+      class_no: intValue(row.class_no),
+      class_name: text(row.class_name || classStart.class_name),
+      class_start_time: text(classStart.class_start_time),
+      display_time: text(classStart.display_time) || displayTimeFromStart(classStart.class_start_time),
+      entry_no: intValue(row.entry_no),
+      entry_order: intValue(row.entry_order),
+      horse: text(row.horse || row.current_horse),
+      rider: text(row.rider),
+      trainer: text(row.trainer),
+      go_time: text(row.go_time || previous.go_time),
+      live_source: text(row.live_source || previous.live_source)
+    });
+  }
+  for (const row of classOogRows || []) addAppearance(TABLES.classOog, row);
+  for (const row of entryGoRows || []) addAppearance(TABLES.entryGoTimes, row);
+  const appearances = [...appearancesByKey.values()]
+    .sort((a, b) => String(a.class_start_time || "99:99:99").localeCompare(String(b.class_start_time || "99:99:99")) || Number(a.entry_order || 0) - Number(b.entry_order || 0));
+  return {
+    show_no: text(showNo),
+    focus_day: dateKey(focusDay),
+    entity_type: match.entity_type,
+    entity_key: match.helper_key,
+    entity_name: match.fields?.horse_name || match.fields?.rider_name || match.fields?.trainer_name || match.display_name,
+    display_name: match.display_name,
+    current_mapping_status: appearances.length ? "mapped_current_focus" : "known_entity_missing_from_current_mapping",
+    current_day_appearance_count: appearances.length,
+    appearances
+  };
+}
+
+async function hydrateHelperSearchMatches(app, matches = [], { showNo = "", focusDay = "" } = {}) {
+  const safeShowNo = text(showNo);
+  const safeFocusDay = dateKey(focusDay);
+  if (!safeShowNo || !safeFocusDay || !matches.length) {
+    return {
+      ok: false,
+      skipped: true,
+      reason: "missing_show_focus_or_matches",
+      show_no: safeShowNo,
+      focus_day: safeFocusDay,
+      results: []
+    };
+  }
+  const currentFocusFilter = (row) => text(row.show_no) === safeShowNo && dateKey(row.focus_day) === safeFocusDay;
+  const [classOogPage, entryGoPage, classStartPage] = await Promise.all([
+    getPagedRowsFiltered(app, TABLES.classOog, currentFocusFilter, { maxRows: 10000 }),
+    getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFocusFilter, { maxRows: 10000 }),
+    getPagedRowsFiltered(app, TABLES.classStartTimes, currentFocusFilter, { maxRows: 10000 })
+  ]);
+  return {
+    ok: true,
+    skipped: false,
+    show_no: safeShowNo,
+    focus_day: safeFocusDay,
+    source_counts: {
+      hs_class_oog: classOogPage.rows.length,
+      hs_entry_go_times: entryGoPage.rows.length,
+      hs_class_start_times: classStartPage.rows.length
+    },
+    results: matches.map((match) => hydrateHelperSearchMatchFromRows(match, {
+      showNo: safeShowNo,
+      focusDay: safeFocusDay,
+      classOogRows: classOogPage.rows,
+      entryGoRows: entryGoPage.rows,
+      classStartRows: classStartPage.rows
+    }))
+  };
+}
+
+async function hydrateBarnEntrySearchMatches(app, matches = [], { showNo = "", focusDay = "" } = {}) {
+  const safeShowNo = text(showNo);
+  const safeFocusDay = dateKey(focusDay);
+  if (!safeShowNo || !safeFocusDay || !matches.length) {
+    return {
+      ok: false,
+      skipped: true,
+      hydrate_scope: "barn_entry",
+      reason: "missing_show_focus_or_matches",
+      show_no: safeShowNo,
+      focus_day: safeFocusDay,
+      results: []
+    };
+  }
+
+  const classOogPage = await getRowsByShowFocusZcql(app, TABLES.classOog, safeShowNo, safeFocusDay, { limit: 10000 });
+  const classOogRowsByMatchIndex = matches.map(() => []);
+  const wantedClassVisualKeys = new Set();
+  const wantedClassNos = new Set();
+
+  for (const row of classOogPage.rows || []) {
+    matches.forEach((match, index) => {
+      if (!helperSearchRuntimeRowMatches(match, row)) return;
+      classOogRowsByMatchIndex[index].push(row);
+      const classVisual = text(row.class_visual_key);
+      const classNo = text(row.class_no);
+      if (classVisual) wantedClassVisualKeys.add(classVisual);
+      if (classNo) wantedClassNos.add(classNo);
+    });
+  }
+
+  let classStartPage = { rows: [], scanned: 0, truncated: false };
+  let classStartRows = [];
+  if (wantedClassVisualKeys.size || wantedClassNos.size) {
+    classStartPage = await getRowsByShowFocusZcql(app, TABLES.classStartTimes, safeShowNo, safeFocusDay, { limit: 2000 });
+    classStartRows = (classStartPage.rows || []).filter((row) => {
+      const classVisual = text(row.class_visual_key || row.class_start_key);
+      const classNo = text(row.class_no);
+      return (classVisual && wantedClassVisualKeys.has(classVisual)) || (classNo && wantedClassNos.has(classNo));
+    });
+  }
+
+  return {
+    ok: true,
+    skipped: false,
+    hydrate_scope: "barn_entry",
+    show_no: safeShowNo,
+    focus_day: safeFocusDay,
+    source_counts: {
+      hs_class_oog: classOogPage.rows.length,
+      hs_class_oog_matched: classOogRowsByMatchIndex.reduce((sum, rows) => sum + rows.length, 0),
+      hs_class_start_times: classStartRows.length
+    },
+    source_scanned: {
+      hs_class_oog: classOogPage.scanned,
+      hs_class_start_times: classStartPage.scanned
+    },
+    results: matches.map((match, index) => hydrateHelperSearchMatchFromRows(match, {
+      showNo: safeShowNo,
+      focusDay: safeFocusDay,
+      classOogRows: classOogRowsByMatchIndex[index],
+      entryGoRows: [],
+      classStartRows
+    }))
+  };
+}
+
+async function runWecHelperSearch(app, action, query, body) {
+  const q = text(query.get("q") || query.get("query") || body.q || body.query);
+  const requestedType = text(query.get("type") || body.type || "all").toLowerCase();
+  const limit = Math.max(1, Math.min(Number(query.get("limit") || body.limit || 10) || 10, 50));
+  const hydrate = text(query.get("hydrate") || body.hydrate || "1") !== "0";
+  const hydrateScope = text(query.get("hydrate_scope") || body.hydrate_scope || "full").toLowerCase();
+  const searchMode = helperSearchMode(query.get("search_mode") || query.get("mode") || body.search_mode || body.mode);
+  const fallbackScan = text(query.get("fallback_scan") || body.fallback_scan || "0") === "1";
+  if (!q) {
+    return {
+      ok: false,
+      status_code: 400,
+      action,
+      blocker: "query_required",
+      read_only: true
+    };
+  }
+  const configs = requestedType === "all"
+    ? Object.values(HELPER_SEARCH_CONFIGS)
+    : [HELPER_SEARCH_CONFIGS[requestedType]].filter(Boolean);
+  if (!configs.length) {
+    return {
+      ok: false,
+      status_code: 400,
+      action,
+      blocker: `invalid_type:${requestedType}`,
+      valid_types: ["all", ...Object.keys(HELPER_SEARCH_CONFIGS)],
+      read_only: true
+    };
+  }
+  let searchResult;
+  try {
+    searchResult = searchMode === "scan"
+      ? await runScanHelperSearch(app, configs, q, limit)
+      : await runCatalystHelperSearch(app, configs, q, limit);
+    if (searchMode === "catalyst" && configs.some((config) => config.entity_type === "horse")) {
+      const scanResult = await runScanHelperSearch(app, configs, q, limit);
+      searchResult = mergeHelperSearchResults(searchResult, scanResult, limit);
+    }
+    if (searchMode === "catalyst" && !(searchResult.allMatches || []).length) {
+      const scanResult = await runScanHelperSearch(app, configs, q, limit);
+      if ((scanResult.allMatches || []).length) {
+        searchResult = {
+          ...scanResult,
+          source: "catalyst.search_zero_fallback_scan",
+          warning: "catalyst_search_returned_zero_but_datastore_found_matches"
+        };
+      }
+    }
+  } catch (error) {
+    if (fallbackScan) {
+      searchResult = await runScanHelperSearch(app, configs, q, limit);
+      searchResult.warning = `catalyst_search_failed_fallback_scan:${error.blocker || error.message}`;
+    } else {
+      return {
+        ok: false,
+        status_code: 503,
+        action,
+        blocker: error.blocker || "catalyst_search_unavailable_or_index_missing",
+        error: String(error?.message || error),
+        search_mode: "catalyst",
+        fallback_scan_available: true,
+        fallback_scan_param: "fallback_scan=1",
+        required_search_table_columns: helperSearchColumnMap(configs),
+        read_only: true,
+        step1_run: false,
+        step2_run: false,
+        step3_run: false,
+        step4_run: false,
+        step5_run: false,
+        step6_run: false,
+        get_orders_run: false,
+        get_rings_run: false,
+        get_results_run: false,
+        alerts_run: false,
+        output_run: false
+      };
+    }
+  }
+  const groups = searchResult.groups || {};
+  const allMatches = searchResult.allMatches || [];
+  allMatches.sort((a, b) => b.score - a.score || a.entity_type.localeCompare(b.entity_type));
+  let hydration = { skipped: true, reason: "hydrate_disabled", results: [] };
+  if (hydrate && allMatches.length) {
+    const requestedShowNo = text(query.get("show_no") || body.show_no);
+    const requestedFocusDay = dateKey(query.get("focus_day") || body.focus_day);
+    let activeFocus = null;
+    if (!requestedShowNo || !requestedFocusDay) {
+      const resolved = await getActiveAirtableFocusShowStrict();
+      if (resolved.ok) activeFocus = resolved;
+    }
+    const hydrateFn = hydrateScope === "barn_entry" ? hydrateBarnEntrySearchMatches : hydrateHelperSearchMatches;
+    hydration = await hydrateFn(app, allMatches.slice(0, limit), {
+      showNo: requestedShowNo || activeFocus?.show_no,
+      focusDay: requestedFocusDay || activeFocus?.focus_day
+    });
+    if (activeFocus) {
+      hydration.focus_source = activeFocus.source;
+      hydration.focus_show_record_id = activeFocus.focus_show_record_id;
+    }
+  }
+  return {
+    ok: true,
+    status_code: 200,
+    action,
+    query: q,
+    normalized_query: normalizeHelperKey(q),
+    loose_query: helperSearchLooseKey(q),
+    type: requestedType,
+    search_mode: searchMode,
+    read_only: true,
+    source: searchResult.source,
+    search_table_columns: searchResult.search_table_columns,
+    warning: searchResult.warning,
+    top_matches: allMatches.slice(0, limit),
+    hydration,
+    groups,
+    step1_run: false,
+    step2_run: false,
+    step3_run: false,
+    step4_run: false,
+    step5_run: false,
+    step6_run: false,
+    get_orders_run: false,
+    get_rings_run: false,
+    get_results_run: false,
+    alerts_run: false,
+    output_run: false
   };
 }
 
@@ -13659,10 +15571,14 @@ async function handle(req, res) {
       "wec-step2-update-schedule-only",
       "wec-step3-clean-active-class-oog",
       "wec-step3-class-oog",
+      "wec-step3-class-oog-probe",
+      "wec-step3-class-oog-parse",
       "wec-step4-runtime-prep",
       "wec-step5-live-enrichment",
       "wec-cadence-step1-step2",
       "wec-cadence-step1-step4",
+      "wec-sync-helpers",
+      "wec-helper-search",
       "barn-board-form-options",
       "barn-board-audit-lines",
       "barn-board-save-hot-patch"
@@ -13910,6 +15826,20 @@ async function handle(req, res) {
     if (action === "debug-catalyst-tables") {
       const tables = await app.datastore().getAllTables();
       return json(res, 200, { ok: true, action, tables: tables.map((table) => table.toJSON ? table.toJSON() : table) });
+    }
+
+    if (action === "wec-sync-helpers") {
+      const result = await runWecSyncHelpers(app, action, {
+        helper: query.get("helper") || body.helper || "all",
+        limit: query.get("limit") || body.limit || 25,
+        offset: query.get("offset") || body.offset || 0
+      });
+      return json(res, result.status_code, result);
+    }
+
+    if (action === "wec-helper-search") {
+      const result = await runWecHelperSearch(app, action, query, body);
+      return json(res, result.status_code, result);
     }
 
     if (action === "audit-datastore") {
@@ -14333,6 +16263,16 @@ async function handle(req, res) {
 
     if (action === "wec-step3-class-oog") {
       const result = await runWecStep3ClassOogOnly(req, app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-step3-class-oog-probe") {
+      const result = await runWecStep3ClassOogProbeOnly(req, app, action, query, body);
+      return json(res, result.status_code || (result.ok ? 200 : 500), result);
+    }
+
+    if (action === "wec-step3-class-oog-parse") {
+      const result = await runWecStep3ClassOogParseOnly(app, action, query, body);
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 
@@ -15262,7 +17202,13 @@ if (process.env.NODE_ENV === "test") {
     buildScheduleJson,
     buildRichApiPayload,
     applyPreparedClassStartMobileFields,
-    parseTrainerRollups
+    parseTrainerRollups,
+    helperSearchRow,
+    helperSearchRankedMatches,
+    helperSearchColumnMap,
+    normalizeCatalystSearchGroups,
+    hydrateHelperSearchMatchFromRows,
+    HELPER_SEARCH_CONFIGS
   };
 }
 

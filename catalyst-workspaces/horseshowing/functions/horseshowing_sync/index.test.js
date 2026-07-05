@@ -24,6 +24,252 @@ function fakeApp(responses) {
   };
 }
 
+test("helper search normalizes Catalyst Search table results", () => {
+  const groups = __test__.normalizeCatalystSearchGroups({
+    content: {
+      hs_horses: [{
+        ROWID: "horse-row-1",
+        horse_key: "hermes d'armanville",
+        horse_name: "Hermes D'armanville",
+        barn_name: "Hermes",
+        active: true,
+        follow: true,
+        status: "active"
+      }]
+    }
+  }, [__test__.HELPER_SEARCH_CONFIGS.horses]);
+
+  assert.equal(groups.hs_horses.length, 1);
+  const match = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, groups.hs_horses[0], "Hermes");
+  assert.equal(match.entity_type, "horse");
+  assert.equal(match.matched_field, "barn_name");
+});
+
+test("helper search builds Catalyst Search indexed-column config", () => {
+  const columns = __test__.helperSearchColumnMap([
+    __test__.HELPER_SEARCH_CONFIGS.horses,
+    __test__.HELPER_SEARCH_CONFIGS.riders
+  ]);
+
+  assert.deepEqual(columns.hs_horses, __test__.HELPER_SEARCH_CONFIGS.horses.searchable_fields);
+  assert.deepEqual(columns.hs_riders, __test__.HELPER_SEARCH_CONFIGS.riders.searchable_fields);
+});
+
+test("horse helper search ignores related rider or trainer fields in Horse mode", () => {
+  const config = __test__.HELPER_SEARCH_CONFIGS.horses;
+  const relatedOnly = __test__.helperSearchRow(config, {
+    horse_name: "Accelerator",
+    rider_name: "Fabian Herrera",
+    active: true,
+    follow: false
+  }, "her");
+  const horsePrefix = __test__.helperSearchRow(config, {
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    rider_name: "Tanner Korotkin",
+    trainer_name: "Alan Korotkin",
+    active: true,
+    follow: false
+  }, "her");
+
+  assert.equal(relatedOnly, null);
+  assert.equal(horsePrefix.matched_field, "barn_name");
+  assert.equal(horsePrefix.match_type, "prefix");
+  assert.equal(horsePrefix.score, 160);
+});
+
+test("helper search ranking falls back to contains only when no exact or prefix matches exist", () => {
+  const config = __test__.HELPER_SEARCH_CONFIGS.horses;
+  const matches = __test__.helperSearchRankedMatches(config, [{
+    horse_name: "Comme Il Hero Z"
+  }, {
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes"
+  }], "her", 10);
+
+  assert.equal(matches.length, 1);
+  assert.equal(matches[0].display_name, "Hermes");
+  assert.equal(matches[0].match_type, "prefix");
+});
+
+test("horse helper ranking prioritizes barn-name prefix over legal horse-name prefix", () => {
+  const config = __test__.HELPER_SEARCH_CONFIGS.horses;
+  const matches = __test__.helperSearchRankedMatches(config, [{
+    horse_name: "Macabu"
+  }, {
+    horse_name: "Forte",
+    barn_name: "Macho"
+  }], "Mac", 10);
+
+  assert.equal(matches[0].display_name, "Macho");
+  assert.equal(matches[0].matched_field, "barn_name");
+  assert.ok(matches[0].score > matches[1].score);
+});
+
+test("helper search classifies barn-name horse queries without requiring Step 3 eligibility", () => {
+  const match = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, {
+    ROWID: "horse-row-1",
+    rec_id: "recHorse1",
+    horse_key: "hermes d'armanville",
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    horse_display: "Hermes",
+    horse_aka: "Hermes Darmanville",
+    active: true,
+    follow: false,
+    status: "active"
+  }, "Hermes");
+
+  assert.equal(match.entity_type, "horse");
+  assert.equal(match.display_name, "Hermes");
+  assert.equal(match.helper_key, "hermes d'armanville");
+  assert.equal(match.matched_field, "barn_name");
+  assert.equal(match.matched_value, "Hermes");
+  assert.equal(match.match_type, "exact");
+  assert.equal(match.eligible_for_step3, false);
+});
+
+test("helper search marks horse and trainer rows eligible only from explicit follow or allowed flags", () => {
+  const horse = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, {
+    horse_key: "hermes d'armanville",
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    active: true,
+    follow: true,
+    status: "active"
+  }, "Hermes");
+  const trainer = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.trainers, {
+    trainer_key: "alan korotkin",
+    trainer_name: "Alan Korotkin",
+    first_name: "Alan",
+    active: true,
+    allowed: true,
+    status: "active"
+  }, "Alan");
+  const rider = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.riders, {
+    rider_key: "lainey posa",
+    rider_name: "Lainey Posa",
+    team_name: "Lainey",
+    active: true,
+    follow: false,
+    status: "active"
+  }, "Lainey");
+
+  assert.equal(horse.eligible_for_step3, true);
+  assert.equal(trainer.eligible_for_step3, true);
+  assert.equal(rider.entity_type, "rider");
+  assert.equal(rider.eligible_for_step3, false);
+});
+
+test("operator helper search can report a known horse missing from current-day mapping", () => {
+  const match = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, {
+    horse_key: "hermes d'armanville",
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    active: true,
+    follow: false,
+    status: "active"
+  }, "Hermes");
+
+  const hydrated = __test__.hydrateHelperSearchMatchFromRows(match, {
+    showNo: "14909",
+    focusDay: "2026-07-04",
+    classOogRows: [],
+    entryGoRows: [],
+    classStartRows: []
+  });
+
+  assert.equal(hydrated.entity_type, "horse");
+  assert.equal(hydrated.entity_key, "hermes d'armanville");
+  assert.equal(hydrated.current_mapping_status, "known_entity_missing_from_current_mapping");
+  assert.equal(hydrated.current_day_appearance_count, 0);
+});
+
+test("operator helper search hydrates a known horse into current-day class context when mapped", () => {
+  const match = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, {
+    horse_key: "hermes d'armanville",
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    active: true,
+    follow: false,
+    status: "active"
+  }, "Hermes");
+
+  const hydrated = __test__.hydrateHelperSearchMatchFromRows(match, {
+    showNo: "14909",
+    focusDay: "2026-07-04",
+    classOogRows: [{
+      show_no: "14909",
+      focus_day: "2026-07-04",
+      ring_name_normalized: "grand",
+      ring_visual_key: "640|grand",
+      class_visual_key: "grand|26964",
+      entry_visual_key: "grand|26964|274",
+      class_no: "26964",
+      entry_no: "274",
+      entry_order: "29",
+      horse: "Hermes D'armanville",
+      rider: "Tanner Korotkin",
+      trainer: "Alan Korotkin"
+    }],
+    entryGoRows: [],
+    classStartRows: [{
+      show_no: "14909",
+      focus_day: "2026-07-04",
+      ring_name_normalized: "grand",
+      ring_visual_key: "640|grand",
+      class_visual_key: "grand|26964",
+      class_no: "26964",
+      class_name: "FEI $85,000 Budweiser 1.45m CSI2* Grand Prix",
+      class_start_time: "19:30:00",
+      display_time: "7:30 PM"
+    }]
+  });
+
+  assert.equal(hydrated.current_mapping_status, "mapped_current_focus");
+  assert.equal(hydrated.current_day_appearance_count, 1);
+  assert.equal(hydrated.appearances[0].class_no, 26964);
+  assert.equal(hydrated.appearances[0].entry_no, 274);
+  assert.equal(hydrated.appearances[0].class_name, "FEI $85,000 Budweiser 1.45m CSI2* Grand Prix");
+});
+
+test("operator helper search dedupes the same class appearance across class_oog and entry_go_times", () => {
+  const match = __test__.helperSearchRow(__test__.HELPER_SEARCH_CONFIGS.horses, {
+    horse_key: "hermes d'armanville",
+    horse_name: "Hermes D'armanville",
+    barn_name: "Hermes",
+    active: true,
+    follow: false,
+    status: "active"
+  }, "Hermes");
+  const row = {
+    show_no: "14909",
+    focus_day: "2026-07-04",
+    ring_name_normalized: "grand",
+    ring_visual_key: "640|grand",
+    class_visual_key: "grand|26964",
+    entry_visual_key: "grand|26964|274",
+    class_no: "26964",
+    entry_no: "274",
+    entry_order: "29",
+    horse: "Hermes D'armanville",
+    rider: "Tanner Korotkin",
+    trainer: "Alan Korotkin"
+  };
+
+  const hydrated = __test__.hydrateHelperSearchMatchFromRows(match, {
+    showNo: "14909",
+    focusDay: "2026-07-04",
+    classOogRows: [row],
+    entryGoRows: [{ ...row, go_time: "20:02:00", live_source: "source_derived_pace.step5_live_enrichment" }],
+    classStartRows: [{ class_visual_key: "grand|26964", class_no: "26964", class_start_time: "19:30:00" }]
+  });
+
+  assert.equal(hydrated.current_day_appearance_count, 1);
+  assert.deepEqual(hydrated.appearances[0].source_tables, ["hs_class_oog", "hs_entry_go_times"]);
+  assert.equal(hydrated.appearances[0].go_time, "20:02:00");
+});
+
 test("schedule-json overlay prefers prepared class_start_times mobile fields when present", () => {
   const fallback = {
     class_no: "29133",

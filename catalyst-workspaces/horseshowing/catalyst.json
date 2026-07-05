@@ -14,5 +14,12 @@
     ],
     "ignore": [],
     "source": "functions"
+  },
+  "appsail": {
+    "targets": [
+      "wec-mobile-appsail-prototype",
+      "barn-entry-helper"
+    ],
+    "source": "appsail"
   }
 }

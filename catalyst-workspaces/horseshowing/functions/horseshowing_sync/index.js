@@ -5194,7 +5194,7 @@ async function airtableListRecords(table, params = {}) {
   return records;
 }
 
-async function airtableListRecordsWindow(table, { offset = 0, limit = 25 } = {}) {
+async function airtableListRecordsWindow(table, { offset = 0, limit = 25, returnFieldsByFieldId = false } = {}) {
   const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
   if (!token) {
     throw new Error("Missing AIRTABLE_TOKEN fallback");
@@ -5208,6 +5208,7 @@ async function airtableListRecordsWindow(table, { offset = 0, limit = 25 } = {})
     const url = new URL(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`);
     url.searchParams.set("pageSize", String(Math.min(100, targetCount - records.length)));
     url.searchParams.set("maxRecords", String(targetCount));
+    if (returnFieldsByFieldId) url.searchParams.set("returnFieldsByFieldId", "true");
     if (airtableOffset) url.searchParams.set("offset", airtableOffset);
     const response = await fetch(url, {
       headers: {
@@ -7109,7 +7110,7 @@ function ringStatusRowsFromGetRingDays(showNo, focusDay, rows, runTime) {
     const visualKey = ringVisualKey(ringNo, ringNameNormalized);
     if (!ringDayNo || !ringNo || !safeFocusDay || !ringNameNormalized || !visualKey) return null;
     return {
-      ring_status_key: visualKey,
+      ring_status_key: `${intValue(showNo)}|${safeFocusDay}|${visualKey}`,
       ring_visual_key: visualKey,
       show_no: intValue(showNo),
       focus_day: safeFocusDay,
@@ -7127,6 +7128,7 @@ function ringStatusRowsFromGetRingDays(showNo, focusDay, rows, runTime) {
 }
 
 function classStartRowsFromUpdateSchedule(showNo, focusDay, rows, runTime) {
+  const safeFocusDay = dateKey(focusDay);
   return uniqueRowsByKey((rows || [])
     .filter((row) => !updateSchedulePreflightReason(row))
     .map((row) => {
@@ -7139,12 +7141,12 @@ function classStartRowsFromUpdateSchedule(showNo, focusDay, rows, runTime) {
       const classKey = classVisualKey(ringNameNormalized, classNo);
       if (!classNo || !ringDayNo || !ringNo || !classStartTime || !ringNameNormalized || !ringKey || !classKey) return null;
       return {
-        class_start_key: classKey,
+        class_start_key: `${intValue(showNo)}|${safeFocusDay}|${classKey}`,
         ring_name_normalized: ringNameNormalized,
         ring_visual_key: ringKey,
         class_visual_key: classKey,
         show_no: intValue(showNo),
-        focus_day: dateKey(focusDay),
+        focus_day: safeFocusDay,
         ring_day_no: ringDayNo,
         ring_no: ringNo,
         ring_name: text(row.ring_name),
@@ -7163,6 +7165,7 @@ function classStartRowsFromUpdateSchedule(showNo, focusDay, rows, runTime) {
 }
 
 function entryGoRowsFromClassOog(showNo, focusDay, rows) {
+  const safeFocusDay = dateKey(focusDay);
   return uniqueRowsByKey((rows || []).map((row) => {
     const ringDayNo = intValue(row.ring_day_no);
     const ringNo = intValue(row.ring_no);
@@ -7175,13 +7178,13 @@ function entryGoRowsFromClassOog(showNo, focusDay, rows) {
     const entryKey = entryVisualKey(ringNameNormalized, classNo, entryNo);
     if (!ringDayNo || !ringNo || !classNo || !entryNo || !entryOrder || !ringNameNormalized || !ringKey || !classKey || !entryKey) return null;
     return {
-      entry_go_key: entryKey,
+      entry_go_key: `${intValue(showNo)}|${safeFocusDay}|${entryKey}`,
       ring_name_normalized: ringNameNormalized,
       ring_visual_key: ringKey,
       class_visual_key: classKey,
       entry_visual_key: entryKey,
       show_no: intValue(showNo),
-      focus_day: dateKey(focusDay),
+      focus_day: safeFocusDay,
       class_no: classNo,
       entry_no: entryNo,
       entry_order: entryOrder,
@@ -12426,6 +12429,7 @@ const HELPER_SYNC_CONFIGS = {
     mirror_table: "hs_horses",
     key_field: "horse_key",
     fallback_key_field: "horse",
+    source_return_fields_by_id: true,
     mirror_fields: [
       ["horse_key", "singleLineText"],
       ["horse_name", "singleLineText"],
@@ -12521,9 +12525,22 @@ async function ensureAirtableHelperMirrorTable(config) {
   };
 }
 
+function sourceValue(fields, names) {
+  const source = fields || {};
+  const lowerToName = new Map(Object.keys(source).map((key) => [key.toLowerCase(), key]));
+  for (const name of names || []) {
+    const actualName = Object.prototype.hasOwnProperty.call(source, name)
+      ? name
+      : lowerToName.get(text(name).toLowerCase());
+    if (!actualName) continue;
+    return source[actualName];
+  }
+  return undefined;
+}
+
 function sourceField(fields, names) {
   for (const name of names || []) {
-    const value = firstValue(fields?.[name]);
+    const value = firstValue(sourceValue(fields, [name]));
     const stringValue = text(value);
     if (stringValue) return stringValue;
   }
@@ -12532,7 +12549,7 @@ function sourceField(fields, names) {
 
 function sourceBool(fields, names, defaultValue = true) {
   for (const name of names || []) {
-    const value = firstValue(fields?.[name]);
+    const value = firstValue(sourceValue(fields, [name]));
     const parsed = boolOrNull(value);
     if (parsed !== null) return parsed;
   }
@@ -12540,7 +12557,7 @@ function sourceBool(fields, names, defaultValue = true) {
 }
 
 function helperSyncAction(fields) {
-  return text(firstValue(fields?.sync_action || fields?.status)).toLowerCase();
+  return text(firstValue(sourceValue(fields, ["sync_action", "status"]))).toLowerCase();
 }
 
 function helperStatusFromAction(action) {
@@ -12562,9 +12579,9 @@ function mapAirtableHelperSourceRecord(helperName, record, runTime) {
   const action = helperSyncAction(fields);
   if (action === "ignore") return null;
   const inactive = action === "remove" || action === "inactive";
-  const active = inactive ? false : sourceBool(fields, ["active"], true);
+  const active = inactive ? false : sourceBool(fields, ["active", "is_active"], true);
   const followDefault = helperName === "hs_rings";
-  const follow = inactive ? false : sourceBool(fields, ["follow"], followDefault);
+  const follow = inactive ? false : sourceBool(fields, ["follow", "is_follow", "followed"], followDefault);
   const recId = sourceField(fields, ["rec_id"]) || record.id;
   const lastSyncedAt = catalystDateTime(runTime);
   if (helperName === "hs_rings") {
@@ -12591,23 +12608,26 @@ function mapAirtableHelperSourceRecord(helperName, record, runTime) {
     });
   }
   if (helperName === "hs_horses") {
-    const horseName = sourceField(fields, ["horse_name", "horse"]);
+    const horseName = sourceField(fields, ["horse_name", "horse", "fldP3vOT3rz8ZVEAI"]);
     const horseKey = normalizeHorseHelperKey(horseName);
     if (!horseKey) return null;
+    const horseBarnName = sourceField(fields, ["barn_name", "fld9Om5SddBjscPiB", "fldzNriL5HfMjW3y0"]);
+    const horseDisplay = sourceField(fields, ["horse_display", "barn_name", "horse", "fldzNriL5HfMjW3y0", "fld9Om5SddBjscPiB", "fldP3vOT3rz8ZVEAI"]);
+    const horseFollow = inactive ? false : sourceBool(fields, ["follow", "is_follow", "followed", "fldfQQgftvgL981XT"], followDefault);
     return cleanRowForDatastore({
       horse_key: horseKey,
       horse: horseName,
       horse_name: horseName,
-      barn_name: sourceField(fields, ["barn_name"]),
-      horse_display: sourceField(fields, ["horse_display", "barn_name", "horse"]),
-      aka: sourceField(fields, ["horse_aka", "aka"]),
-      horse_aka: sourceField(fields, ["horse_aka", "aka"]),
+      barn_name: horseBarnName,
+      horse_display: horseDisplay,
+      aka: sourceField(fields, ["horse_aka", "aka", "fldZXx5m25Va1mj9X"]),
+      horse_aka: sourceField(fields, ["horse_aka", "aka", "fldZXx5m25Va1mj9X"]),
       rider: sourceField(fields, ["rider_name", "rider"]),
       rider_name: sourceField(fields, ["rider_name", "rider"]),
       trainer: sourceField(fields, ["trainer_name", "trainer"]),
       trainer_name: sourceField(fields, ["trainer_name", "trainer"]),
       active,
-      follow,
+      follow: horseFollow,
       sync_action: action || "add",
       status: helperStatusFromAction(action),
       rec_id: recId,
@@ -12705,7 +12725,7 @@ function mapCatalystHelperRowToAirtable(config, row) {
   return fields;
 }
 
-async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit = 25 } = {}) {
+async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit = 25, recordIds = [] } = {}) {
   const config = HELPER_SYNC_CONFIGS[helperName];
   const mirrorStatus = await ensureAirtableHelperMirrorTable(config);
   if (mirrorStatus.missing_fields.length) {
@@ -12719,7 +12739,24 @@ async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit 
       airtable_mirror_rows: 0
     };
   }
-  const sourceWindow = await airtableListRecordsWindow(config.source_table, { offset, limit });
+  const targetRecordIds = [...new Set((recordIds || []).map(text).filter(Boolean))];
+  const returnFieldsByFieldId = config.source_return_fields_by_id === true;
+  const sourceWindow = targetRecordIds.length
+    ? {
+        records: await airtableListRecords(config.source_table, {
+          filterByFormula: airtableRecordIdFormula(targetRecordIds),
+          returnFieldsByFieldId
+        }),
+        offset: 0,
+        limit: targetRecordIds.length,
+        processed_records: targetRecordIds.length,
+        next_offset: null,
+        has_more: false,
+        source_records_total: targetRecordIds.length,
+        source_records_total_is_exact: true,
+        targeted_record_ids: targetRecordIds
+      }
+    : await airtableListRecordsWindow(config.source_table, { offset, limit, returnFieldsByFieldId });
   const sourceRecords = sourceWindow.records;
   const sourceRows = sourceRecords
     .map((record) => mapAirtableHelperSourceRecord(helperName, record, runTime))
@@ -12737,6 +12774,7 @@ async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit 
     table_status: mirrorStatus,
     offset: sourceWindow.offset,
     limit: sourceWindow.limit,
+    targeted_record_ids: sourceWindow.targeted_record_ids || [],
     processed_records: sourceWindow.processed_records,
     next_offset: sourceWindow.next_offset,
     has_more: sourceWindow.has_more,
@@ -12754,7 +12792,7 @@ async function syncOneHelperTable(app, helperName, runTime, { offset = 0, limit 
   };
 }
 
-async function runWecSyncHelpers(app, action, { helper = "all", offset = 0, limit = 25 } = {}) {
+async function runWecSyncHelpers(app, action, { helper = "all", offset = 0, limit = 25, recordIds = [] } = {}) {
   const runTime = new Date().toISOString();
   const helpers = {};
   let blocker = "";
@@ -12770,7 +12808,8 @@ async function runWecSyncHelpers(app, action, { helper = "all", offset = 0, limi
   for (const helperName of blocker ? [] : helperNames) {
     const result = await syncOneHelperTable(app, helperName, runTime, {
       offset: safeOffset,
-      limit: safeLimit
+      limit: safeLimit,
+      recordIds
     });
     helpers[helperName] = result;
     if (!blocker && !result.ok) blocker = `${helperName}:${result.blocker || "sync_failed"}`;
@@ -12784,6 +12823,7 @@ async function runWecSyncHelpers(app, action, { helper = "all", offset = 0, limi
     requested_helper: requestedHelper,
     offset: safeOffset,
     limit: safeLimit,
+    targeted_record_ids: [...new Set((recordIds || []).map(text).filter(Boolean))],
     helper_sync_run: true,
     step1_run: false,
     step2_run: false,
@@ -15829,10 +15869,19 @@ async function handle(req, res) {
     }
 
     if (action === "wec-sync-helpers") {
+      const recordIds = [
+        ...text(query.get("record_ids") || query.get("rec_ids") || body.record_ids || body.rec_ids)
+          .split(/[,\s]+/)
+          .map(text)
+          .filter(Boolean),
+        ...(Array.isArray(body.record_ids) ? body.record_ids.map(text).filter(Boolean) : []),
+        ...(Array.isArray(body.rec_ids) ? body.rec_ids.map(text).filter(Boolean) : [])
+      ];
       const result = await runWecSyncHelpers(app, action, {
         helper: query.get("helper") || body.helper || "all",
         limit: query.get("limit") || body.limit || 25,
-        offset: query.get("offset") || body.offset || 0
+        offset: query.get("offset") || body.offset || 0,
+        recordIds
       });
       return json(res, result.status_code, result);
     }

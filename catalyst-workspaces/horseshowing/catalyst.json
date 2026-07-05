@@ -10,16 +10,20 @@
       "horseshowing_class_start_times_runner",
       "horseshowing_entry_go_times_runner",
       "horseshowing_class_lane_runner",
-      "horseshowing_results_runner"
+      "horseshowing_results_runner",
+      "wec_stage1_3_clean_proof"
     ],
     "ignore": [],
     "source": "functions"
   },
-  "appsail": {
-    "targets": [
-      "wec-mobile-appsail-prototype",
-      "barn-entry-helper"
-    ],
-    "source": "appsail"
-  }
+  "appsail": [
+    {
+      "name": "wec-mobile-appsail-prototype",
+      "source": "appsail/wec-mobile-appsail-prototype"
+    },
+    {
+      "name": "barn-entry-helper",
+      "source": "appsail/barn-entry-helper"
+    }
+  ]
 }

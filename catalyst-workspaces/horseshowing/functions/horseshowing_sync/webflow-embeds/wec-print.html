@@ -835,6 +835,17 @@
     return ppi;
   }
 
+  function printPageSizePx(ppi) {
+    const marginIn = 0.5;
+    const longSide = 11 - marginIn;
+    const shortSide = 8.5 - marginIn;
+    const isLandscape = PRINT_ORIENTATION !== "portrait";
+    return {
+      pageW: (isLandscape ? longSide : shortSide) * ppi,
+      pageH: (isLandscape ? shortSide : longSide) * ppi
+    };
+  }
+
   let PRINT_LAYOUT = null;
 
   function ringRowCost(el) {
@@ -892,8 +903,7 @@
     document.body.classList.remove("tight");
 
     const ppi = pxPerInch();
-    const pageH = (11 - 0.5) * ppi;
-    const pageW = (8.5 - 0.5) * ppi;
+    const { pageH, pageW } = printPageSizePx(ppi);
 
     const availH = pageH - topbar.offsetHeight - 6;
     const availW = pageW;
@@ -933,8 +943,7 @@
     const columns = Array.from(document.querySelectorAll(".col")).filter((col) => col.offsetParent !== null);
     const page = document.getElementById("page");
     const ppi = metrics.ppi || pxPerInch();
-    const pageH = (11 - 0.5) * ppi;
-    const pageW = (8.5 - 0.5) * ppi;
+    const { pageH, pageW } = printPageSizePx(ppi);
     const topbarH = topbar ? topbar.offsetHeight : 0;
     const availableHeight = metrics.availH || (pageH - topbarH - 6);
     const maxColumnHeight = columns.reduce((max, col) => Math.max(max, col.scrollHeight), 0);

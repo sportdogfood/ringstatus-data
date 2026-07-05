@@ -1,0 +1,9 @@
+{
+  "command": "node app.js",
+  "build_path": ".",
+  "stack": "node20",
+  "env_variables": {},
+  "memory": 512,
+  "port": 9000,
+  "scripts": {}
+}

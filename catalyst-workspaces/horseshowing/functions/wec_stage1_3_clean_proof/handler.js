@@ -4,8 +4,10 @@ const catalyst = require("zcatalyst-sdk-node");
 const cheerio = require("cheerio");
 const {
   buildConstKeys,
-  buildVisualKeys,
   preflightReason,
+  rowMatchesEvidence,
+  runStage1HeartbeatAndRingDays,
+  runStage2UpdateSchedule,
   runProbe3A,
   runProbe3B,
   runCleanStage1To3Proof
@@ -17,6 +19,7 @@ const USER_AGENT =
 
 const TABLES = Object.freeze({
   heartbeat: "hs_heartbeat",
+  focusShow: "hs_focus_show",
   getRingDays: "hs_get_ring_days",
   updateSchedule: "hs_update_schedule",
   classOogRaw: "hs_class_oog_raw",
@@ -27,6 +30,32 @@ const TABLES = Object.freeze({
   horses: "hs_horses",
   riders: "hs_riders",
   trainers: "hs_trainers"
+});
+
+const STEP4_REQUIRED_COLUMNS = Object.freeze({
+  hs_ring_status: [
+    "ring_status_key", "show_no", "focus_day", "iso_date", "focus_day_key",
+    "ring_day_no", "ring_no", "ring_name", "ring_name_normalized",
+    "show_const_key", "focus_day_const_key", "ring_day_const_key", "ring_const_key",
+    "status", "last_synced_at"
+  ],
+  hs_class_start_times: [
+    "class_start_key", "show_no", "focus_day", "iso_date", "focus_day_key",
+    "ring_day_no", "ring_no", "ring_name", "ring_name_normalized",
+    "show_const_key", "focus_day_const_key", "ring_day_const_key",
+    "ring_const_key", "class_const_key", "class_no", "class_number",
+    "class_name", "class_start_time", "display_time", "entry_count",
+    "status", "live_source", "last_synced_at"
+  ],
+  hs_entry_go_times: [
+    "entry_go_key", "show_no", "focus_day", "iso_date", "focus_day_key",
+    "ring_day_no", "ring_no", "ring_name", "ring_name_normalized",
+    "show_const_key", "focus_day_const_key",
+    "ring_day_const_key", "ring_const_key", "class_const_key",
+    "entry_const_key", "class_no", "entry_no", "entry_order", "horse",
+    "rider", "trainer", "class_start_time", "display_time", "status",
+    "live_source", "last_synced_at"
+  ]
 });
 
 function text(value) {
@@ -135,6 +164,17 @@ function filterToSchema(schema, tableName, row, missing) {
   return filtered;
 }
 
+function missingRequiredColumns(schema, requirements) {
+  const missing = [];
+  for (const [tableName, fields] of Object.entries(requirements || {})) {
+    const columns = schema.get(tableName) || new Set();
+    for (const field of fields || []) {
+      if (!columns.has(field)) missing.push(`${tableName}.${field}`);
+    }
+  }
+  return missing;
+}
+
 function mergeCookies(current, setCookieHeaders = []) {
   const jar = new Map();
   text(current).split(";").map((part) => part.trim()).filter(Boolean).forEach((part) => {
@@ -220,9 +260,33 @@ async function getActiveFocusShow() {
     focus_show_record_id: active[0].id,
     show_no: intValue(fields.show_no),
     focus_day: text(fields.focus_day || fields.iso_date),
+    iso_date: text(fields.iso_date || fields.focus_day),
     is_pause: fields.is_pause === true || text(fields.is_pause).toLowerCase() === "true",
     trainers_allowed: fields.trainers_allowed || fields.allowed_trainers || []
   };
+}
+
+async function syncFocusShowMirror(app, schema, focus, missingContractFields) {
+  const focusDay = text(focus.focus_day || focus.iso_date);
+  const focusKey = `${intValue(focus.show_no)}|${compactDate(focusDay)}`;
+  const row = filterToSchema(schema, TABLES.focusShow, {
+    focus_show_key: focusKey,
+    show_no: intValue(focus.show_no),
+    focus_day: focusDay,
+    iso_date: focusDay,
+    source: "airtable.focus_show"
+  }, missingContractFields);
+  const catalystResult = await upsertByKey(app, TABLES.focusShow, "focus_show_key", row);
+  await upsertAirtableByKey(TABLES.focusShow, "focus_show_key", focusKey, {
+    focus_show_key: focusKey,
+    show_no: intValue(focus.show_no),
+    focus_day: focusDay,
+    iso_date: focusDay,
+    source: "airtable.focus_show",
+    focus_show_record_id: text(focus.focus_show_record_id),
+    last_synced_at: new Date().toISOString()
+  });
+  return catalystResult;
 }
 
 async function getAirtableRecords(tableName, params = {}) {
@@ -305,6 +369,24 @@ async function upsertAirtableByKey(tableName, keyField, keyValue, fields) {
   });
 }
 
+async function markAirtableRowsNotInKeySet(tableName, keyField, focus, activeKeys) {
+  const formula = `AND({show_no}=${Number(focus.show_no)},DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='${airtableFormulaValue(focus.focus_day)}',{status}='active')`;
+  const records = await getAirtableRecords(tableName, {
+    filterByFormula: formula,
+    pageSize: "100"
+  });
+  const stale = (records || [])
+    .filter((record) => !activeKeys.has(text(record.fields?.[keyField])))
+    .map((record) => ({
+      id: record.id,
+      fields: { status: "dropped_old_key_shape" }
+    }));
+  for (let index = 0; index < stale.length; index += 10) {
+    await airtableRequest(tableName, {}, "PATCH", { records: stale.slice(index, index + 10) });
+  }
+  return { reviewed: records.length, marked: stale.length };
+}
+
 function normalizeRingName(value) {
   const upper = text(value).toUpperCase();
   return upper.match(/GRAND|ANNEX|STADIUM|INDOOR [1-6]|HUNTER 2/)?.[0]?.toLowerCase() || text(value).toLowerCase();
@@ -359,6 +441,7 @@ function runtimeIdentity(input, focus) {
     ...input,
     show_no: intValue(input.show_no || focus.show_no),
     focus_day: text(input.focus_day || input.iso_date || focus.focus_day),
+    iso_date: text(input.iso_date || input.focus_day || focus.focus_day),
     focus_day_key: compactDate(input.focus_day_key || input.focus_day || input.iso_date || focus.focus_day),
     ring_day_no: intValue(input.ring_day_no),
     ring_no: intValue(input.ring_no),
@@ -369,8 +452,7 @@ function runtimeIdentity(input, focus) {
   };
   return {
     ...base,
-    ...buildConstKeys(base),
-    ...buildVisualKeys(base)
+    ...buildConstKeys(base)
   };
 }
 
@@ -382,13 +464,12 @@ function ringStatusRowsFromRingDays(rows, focus, runTime) {
       ring_status_key: source.ring_const_key,
       show_no: source.show_no,
       focus_day: source.focus_day,
+      iso_date: source.iso_date,
       focus_day_key: source.focus_day_key,
       ring_day_no: source.ring_day_no,
       ring_no: source.ring_no,
       ring_name: source.ring_name,
       ring_name_normalized: source.ring_name_normalized,
-      ring_name_token: source.ring_name_token,
-      ring_visual_key: source.ring_visual_key,
       show_const_key: source.show_const_key,
       focus_day_const_key: source.focus_day_const_key,
       ring_day_const_key: source.ring_day_const_key,
@@ -412,14 +493,12 @@ function classStartRowsFromUpdateSchedule(rows, focus, runTime) {
         class_start_key: source.class_const_key,
         show_no: source.show_no,
         focus_day: source.focus_day,
+        iso_date: source.iso_date,
         focus_day_key: source.focus_day_key,
         ring_day_no: source.ring_day_no,
         ring_no: source.ring_no,
         ring_name: source.ring_name,
         ring_name_normalized: source.ring_name_normalized,
-        ring_name_token: source.ring_name_token,
-        ring_visual_key: source.ring_visual_key,
-        class_visual_key: source.class_visual_key,
         show_const_key: source.show_const_key,
         focus_day_const_key: source.focus_day_const_key,
         ring_day_const_key: source.ring_day_const_key,
@@ -448,15 +527,12 @@ function entryGoRowsFromClassOog(rows, focus, classStartByClassKey = new Map(), 
       entry_go_key: source.entry_const_key,
       show_no: source.show_no,
       focus_day: source.focus_day,
+      iso_date: source.iso_date,
       focus_day_key: source.focus_day_key,
       ring_day_no: source.ring_day_no,
       ring_no: source.ring_no,
       ring_name: source.ring_name,
       ring_name_normalized: source.ring_name_normalized,
-      ring_name_token: source.ring_name_token,
-      ring_visual_key: source.ring_visual_key,
-      class_visual_key: source.class_visual_key,
-      entry_visual_key: source.entry_visual_key,
       show_const_key: source.show_const_key,
       focus_day_const_key: source.focus_day_const_key,
       ring_day_const_key: source.ring_day_const_key,
@@ -484,6 +560,7 @@ function scheduleRowForProof(row, focus) {
     ROWID: row.ROWID,
     show_no: intValue(row.show_no || focus.show_no),
     focus_day: text(row.focus_day || row.iso_date || focus.focus_day),
+    iso_date: text(row.iso_date || row.focus_day || focus.focus_day),
     focus_day_key: compactDate(row.focus_day || row.iso_date || focus.focus_day),
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
@@ -499,17 +576,17 @@ function scheduleRowForProof(row, focus) {
   return {
     ...row,
     ...base,
-    ...buildConstKeys(base),
-    ...buildVisualKeys(base)
+    ...buildConstKeys(base)
   };
 }
 
 function getClassOogCellMap(cells) {
   const values = cells.map((cell) => text(cheerio.load(cell).text()));
   const joined = values.join(" | ");
-  const entryNo = values.map(intValue).find((n) => n > 0 && n < 10000) || 0;
+  const entryOrder = intValue(values[0]);
+  const entryNo = intValue(values[1]) || values.slice(1).map(intValue).find((n) => n > 0 && n < 10000 && n !== entryOrder) || 0;
   return {
-    entry_order: intValue(values[0]),
+    entry_order: entryOrder,
     entry_no: entryNo,
     horse: values.find((value) => /[A-Za-z]/.test(value) && !/\d/.test(value)) || "",
     rider: values[values.length - 2] || "",
@@ -529,6 +606,7 @@ function parseClassOogRaw(rawDoc) {
     rows.push({
       show_no: intValue(rawDoc.show_no),
       focus_day: text(rawDoc.focus_day),
+      iso_date: text(rawDoc.iso_date || rawDoc.focus_day),
       ring_day_no: intValue(rawDoc.ring_day_no),
       ring_no: intValue(rawDoc.ring_no),
       ring_name: text(rawDoc.ring_name),
@@ -567,6 +645,7 @@ async function upsertRowsByKey(app, schema, tableName, keyField, rows, missingCo
   const table = app.datastore().table(tableName);
   let inserted = 0;
   let updated = 0;
+  let verified = 0;
   for (const row of rows || []) {
     const key = text(row[keyField]);
     if (!key) continue;
@@ -579,8 +658,17 @@ async function upsertRowsByKey(app, schema, tableName, keyField, rows, missingCo
       await table.insertRow(clean);
       inserted += 1;
     }
+    const readback = await firstRow(
+      app,
+      tableName,
+      `SELECT ROWID, ${keyField} FROM ${tableName} WHERE ${keyField} = ${zcqlValue(key)} LIMIT 1`
+    );
+    if (!readback?.ROWID) {
+      throw new Error(`write_readback_missing:${tableName}:${keyField}:${key}`);
+    }
+    verified += 1;
   }
-  return { rows: rows.length, inserted, updated };
+  return { rows: rows.length, inserted, updated, verified };
 }
 
 async function markRowsNotInKeySet(app, schema, tableName, keyField, showNo, focusDay, activeKeys, missingContractFields, runTime) {
@@ -599,6 +687,28 @@ async function markRowsNotInKeySet(app, schema, tableName, keyField, showNo, foc
     marked += 1;
   }
   return { reviewed: rows.length, marked };
+}
+
+async function deleteRowsNotInKeySet(app, tableName, keyField, showNo, focusDay, activeKeys) {
+  const rows = await readCurrentRows(app, tableName, showNo, focusDay, "focus_day_only");
+  const deleteIds = rows
+    .filter((row) => !activeKeys.has(text(row[keyField])))
+    .map((row) => row.ROWID)
+    .filter(Boolean);
+  const table = app.datastore().table(tableName);
+  for (let index = 0; index < deleteIds.length; index += 100) {
+    await table.deleteRows(deleteIds.slice(index, index + 100));
+  }
+  return { reviewed: rows.length, deleted: deleteIds.length };
+}
+
+async function deleteRowsByIds(app, tableName, rowIds) {
+  const ids = (rowIds || []).filter(Boolean);
+  const table = app.datastore().table(tableName);
+  for (let index = 0; index < ids.length; index += 100) {
+    await table.deleteRows(ids.slice(index, index + 100));
+  }
+  return ids.length;
 }
 
 async function countActiveRowsInKeySet(app, tableName, keyField, showNo, focusDay, activeKeys) {
@@ -690,13 +800,17 @@ async function makeAdapters(app, options) {
     getActiveFocusShow,
     async writeHeartbeat(row) {
       const heartbeatId = `${row.show_no}|${row.focus_day}|${options.run_id}`;
-      return upsertByKey(app, TABLES.heartbeat, "heartbeat_id", filterToSchema(schema, TABLES.heartbeat, {
+      const focus = await getActiveFocusShow();
+      await syncFocusShowMirror(app, schema, focus, missingContractFields);
+      const result = await upsertByKey(app, TABLES.heartbeat, "heartbeat_id", filterToSchema(schema, TABLES.heartbeat, {
         ...row,
         heartbeat_id: heartbeatId,
         run_id: options.run_id,
+        iso_date: row.iso_date || row.focus_day,
         run_time: catalystDateTime(),
         payload_json: JSON.stringify({ clean_proof: true, stage: "1-3A_FAST", stop_after: "hs_class_oog_raw" })
       }, missingContractFields));
+      return { ...result, heartbeat_id: heartbeatId };
     },
     async fetchRingDays(focus) {
       return readCurrentRows(app, TABLES.getRingDays, focus.show_no, focus.focus_day, "iso_date");
@@ -706,10 +820,17 @@ async function makeAdapters(app, options) {
         .filter((row) => row.ROWID)
         .map((row) => filterToSchema(schema, TABLES.getRingDays, {
           ROWID: row.ROWID,
+          ring_day_key: row.ring_const_key,
+          heartbeat_id: row.heartbeat_id,
           focus_day: row.focus_day,
+          iso_date: row.iso_date || row.focus_day,
           focus_day_key: row.focus_day_key,
+          show_const_key: row.show_const_key,
+          focus_day_const_key: row.focus_day_const_key,
+          ring_day_const_key: row.ring_day_const_key,
+          ring_const_key: row.ring_const_key,
           ring_name_normalized: row.ring_name_normalized,
-          ring_visual_key: row.ring_visual_key
+          ring_name_prioritized: row.ring_name_prioritized
         }, missingContractFields));
       const table = app.datastore().table(TABLES.getRingDays);
       for (const update of updates) await table.updateRow(update);
@@ -726,11 +847,18 @@ async function makeAdapters(app, options) {
         .filter((row) => row.ROWID)
         .map((row) => filterToSchema(schema, TABLES.updateSchedule, {
           ROWID: row.ROWID,
+          update_schedule_key: row.class_const_key,
+          heartbeat_id: row.heartbeat_id,
           focus_day: row.focus_day,
+          iso_date: row.iso_date || row.focus_day,
           focus_day_key: row.focus_day_key,
+          show_const_key: row.show_const_key,
+          focus_day_const_key: row.focus_day_const_key,
+          ring_day_const_key: row.ring_day_const_key,
+          ring_const_key: row.ring_const_key,
+          class_const_key: row.class_const_key,
           ring_name_normalized: row.ring_name_normalized,
-          ring_visual_key: row.ring_visual_key,
-          class_visual_key: row.class_visual_key,
+          ring_name_prioritized: row.ring_name_prioritized,
           is_preflight: row.is_preflight,
           preflight_reason: row.preflight_reason
         }, missingContractFields));
@@ -769,9 +897,11 @@ async function makeAdapters(app, options) {
       const rawKey = row.class_const_key;
       const rawFields = {
         raw_key: rawKey,
+        heartbeat_id: row.heartbeat_id,
         run_id: row.run_id,
         show_no: intValue(row.show_no),
         focus_day: row.focus_day,
+        iso_date: row.iso_date || row.focus_day,
         focus_day_key: row.focus_day_key,
         ring_day_no: intValue(row.ring_day_no),
         ring_no: intValue(row.ring_no),
@@ -809,6 +939,22 @@ async function makeAdapters(app, options) {
     async parseClassOogRaw(rawDoc) {
       return parseClassOogRaw(rawDoc);
     },
+    async clearClassOogForRawDoc(rawDoc, scopedRows) {
+      const classKey = text(rawDoc.raw_key || rawDoc.class_const_key);
+      if (!classKey) return { reviewed: 0, deleted: 0 };
+      const keepKeys = new Set((scopedRows || []).map((row) => text(row.entry_const_key)).filter(Boolean));
+      const existingRows = await zcqlRows(
+        app,
+        TABLES.classOog,
+        `SELECT ROWID, class_oog_key FROM ${TABLES.classOog} WHERE show_no = ${Number(rawDoc.show_no)} AND focus_day = ${zcqlValue(rawDoc.focus_day)} AND class_const_key = ${zcqlValue(classKey)} LIMIT 300`
+      );
+      const deleteIds = existingRows
+        .filter((row) => !keepKeys.has(text(row.class_oog_key)))
+        .map((row) => row.ROWID)
+        .filter(Boolean);
+      const deleted = await deleteRowsByIds(app, TABLES.classOog, deleteIds);
+      return { reviewed: existingRows.length, deleted };
+    },
     async upsertClassOog(rows) {
       let inserted = 0;
       let updated = 0;
@@ -816,18 +962,17 @@ async function makeAdapters(app, options) {
         const classOogKey = row.entry_const_key;
         const cleanRow = {
           class_oog_key: classOogKey,
+          heartbeat_id: row.heartbeat_id,
           run_id: row.run_id,
           show_no: intValue(row.show_no),
           focus_day: row.focus_day,
+          iso_date: row.iso_date || row.focus_day,
+          focus_day_key: row.focus_day_key,
           ring_day_no: intValue(row.ring_day_no),
           ring_no: intValue(row.ring_no),
           ring: row.ring_name,
           ring_name: row.ring_name,
           ring_name_normalized: row.ring_name_normalized,
-          ring_name_token: row.ring_name_token,
-          ring_visual_key: row.ring_visual_key,
-          class_visual_key: row.class_visual_key,
-          entry_visual_key: row.entry_visual_key,
           show_const_key: row.show_const_key,
           focus_day_const_key: row.focus_day_const_key,
           ring_day_const_key: row.ring_day_const_key,
@@ -851,6 +996,8 @@ async function makeAdapters(app, options) {
             run_id: cleanRow.run_id,
             show_no: cleanRow.show_no,
             focus_day: cleanRow.focus_day,
+            iso_date: cleanRow.iso_date,
+            focus_day_key: cleanRow.focus_day_key,
             ring_day_no: cleanRow.ring_day_no,
             ring_no: cleanRow.ring_no,
             ring: cleanRow.ring,
@@ -985,7 +1132,10 @@ async function runFast3BOnly(app, options) {
   const requestedLimit = intValue(options.limit) || 25;
   const adapters = await makeAdapters(app, { ...options, defer_airtable_mirror: true });
   adapters.listPendingClassOogRaw = async (probeFocus) => {
-    const query = `SELECT * FROM ${TABLES.classOogRaw} WHERE show_no = ${Number(probeFocus.show_no)} AND focus_day = ${zcqlValue(probeFocus.focus_day)} AND (parsed_status = 'pending' OR parsed_status = 'unparsed') LIMIT ${requestedLimit}`;
+    const statusClause = options.force === true
+      ? "raw_stored = true"
+      : "(parsed_status = 'pending' OR parsed_status = 'unparsed')";
+    const query = `SELECT * FROM ${TABLES.classOogRaw} WHERE show_no = ${Number(probeFocus.show_no)} AND focus_day = ${zcqlValue(probeFocus.focus_day)} AND ${statusClause} LIMIT ${requestedLimit}`;
     return zcqlRows(app, TABLES.classOogRaw, query);
   };
   const evidence = await buildCatalystProbeEvidence(app, focus);
@@ -1015,12 +1165,341 @@ async function runFast3BOnly(app, options) {
   };
 }
 
+async function cleanSource13State(app, focus, evidence) {
+  const scheduleRows = (await readCurrentRows(app, TABLES.updateSchedule, focus.show_no, focus.focus_day))
+    .map((row) => scheduleRowForProof(row, focus))
+    .filter((row) => intValue(row.class_no) && preflightReason(row).length === 0);
+  const classKeys = new Set(scheduleRows.map((row) => text(row.class_const_key)).filter(Boolean));
+
+  const rawRows = await zcqlRows(
+    app,
+    TABLES.classOogRaw,
+    `SELECT * FROM ${TABLES.classOogRaw} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} LIMIT 300`
+  );
+  const rawKeepByKey = new Map();
+  const rawDeleteIds = [];
+  const sortedRawRows = rawRows.slice().sort((a, b) => Number(b.ROWID || 0) - Number(a.ROWID || 0));
+  for (const row of sortedRawRows) {
+    const key = text(row.raw_key || row.class_const_key);
+    if (!key || !classKeys.has(key) || rawKeepByKey.has(key)) {
+      rawDeleteIds.push(row.ROWID);
+      continue;
+    }
+    rawKeepByKey.set(key, row);
+  }
+  const rawDeleted = await deleteRowsByIds(app, TABLES.classOogRaw, rawDeleteIds);
+
+  const classOogRows = await zcqlRows(
+    app,
+    TABLES.classOog,
+    `SELECT * FROM ${TABLES.classOog} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} LIMIT 300`
+  );
+  const classOogKeepByKey = new Map();
+  const classOogDeleteIds = [];
+  const sortedClassOogRows = classOogRows.slice().sort((a, b) => Number(b.ROWID || 0) - Number(a.ROWID || 0));
+  for (const row of sortedClassOogRows) {
+    const key = text(row.class_oog_key || row.entry_const_key);
+    const classKey = text(row.class_const_key);
+    const match = rowMatchesEvidence(row, evidence);
+    if (!key || !classKeys.has(classKey) || !match.keep || classOogKeepByKey.has(key)) {
+      classOogDeleteIds.push(row.ROWID);
+      continue;
+    }
+    classOogKeepByKey.set(key, row);
+  }
+  const classOogDeleted = await deleteRowsByIds(app, TABLES.classOog, classOogDeleteIds);
+
+  return {
+    hs_update_schedule_non_preflight: scheduleRows.length,
+    hs_class_oog_raw: {
+      reviewed: rawRows.length,
+      kept: rawKeepByKey.size,
+      deleted: rawDeleted
+    },
+    hs_class_oog: {
+      reviewed: classOogRows.length,
+      kept: classOogKeepByKey.size,
+      deleted: classOogDeleted
+    }
+  };
+}
+
+async function runCleanBuildUpdateOnly(app, options = {}) {
+  const context = {
+    run_id: options.run_id || `clean-build-update-${Date.now()}`,
+    started_at: new Date().toISOString()
+  };
+  const adapters = await makeAdapters(app, { ...options, run_id: context.run_id, defer_airtable_mirror: false });
+  const stage1 = await runStage1HeartbeatAndRingDays(adapters, context);
+  const stage2 = await runStage2UpdateSchedule(adapters, context, stage1);
+
+  return {
+    ok: true,
+    mode: "wec-clean-build-update",
+    run_id: context.run_id,
+    focus: stage1.focus,
+    stage1: {
+      heartbeat_id: stage1.heartbeat?.heartbeat_id || stage1.heartbeat?.id || "",
+      hs_get_ring_days_rows: stage1.rows.length,
+      upsert: stage1.upsert
+    },
+    stage2: {
+      hs_update_schedule_rows: stage2.rows.length,
+      non_preflight_rows: stage2.eligible_rows.length,
+      upsert: stage2.upsert,
+      dropped: stage2.dropped
+    },
+    next_stage: "3A",
+    step1_run: true,
+    step2_run: true,
+    stage3a_run: false,
+    stage3b_run: false,
+    step4_run: false,
+    live_run: false,
+    alerts_run: false,
+    output_run: false,
+    missing_contract_fields: adapters.missingContractFields()
+  };
+}
+
+async function summarizeCleanStageState(app, focus) {
+  const updateRows = (await readCurrentRows(app, TABLES.updateSchedule, focus.show_no, focus.focus_day))
+    .map((row) => scheduleRowForProof(row, focus))
+    .filter((row) => intValue(row.class_no) && preflightReason(row).length === 0);
+  const unchecked = updateRows.filter((row) => !["checked", "raw_stored"].includes(lowerText(row.probe_status)));
+  const rawRows = await zcqlRows(
+    app,
+    TABLES.classOogRaw,
+    `SELECT * FROM ${TABLES.classOogRaw} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} LIMIT 300`
+  );
+  const pendingRaw = rawRows.filter((row) => ["pending", "unparsed"].includes(lowerText(row.parsed_status || row.parse_status)));
+  const parsedRaw = rawRows.filter((row) => lowerText(row.parsed_status || row.parse_status) === "parsed");
+
+  return {
+    non_preflight_rows: updateRows.length,
+    probe_unchecked_rows: unchecked.length,
+    raw_docs_total: rawRows.length,
+    raw_docs_pending_parse: pendingRaw.length,
+    raw_docs_parsed: parsedRaw.length
+  };
+}
+
+async function runCleanCadenceStack(app, options = {}) {
+  const runId = options.run_id || `clean-stack-${Date.now()}`;
+  const probeLimit = intValue(options.probe_limit || options.limit) || 5;
+  const parseLimit = intValue(options.parse_limit) || 10;
+  const build = await runCleanBuildUpdateOnly(app, { ...options, run_id: runId });
+  const evidence = await buildCatalystProbeEvidence(app, build.focus);
+  const sourceCleanup = await cleanSource13State(app, build.focus, evidence);
+  const before = await summarizeCleanStageState(app, build.focus);
+
+  if (before.probe_unchecked_rows > 0) {
+    const stage3a = await runFast3AOnly(app, {
+      ...options,
+      run_id: runId,
+      limit: probeLimit,
+      mode: "next_unchecked"
+    });
+    const after = await summarizeCleanStageState(app, build.focus);
+    return {
+      ok: true,
+      mode: "wec-clean-cadence-stack",
+      run_id: runId,
+      focus: build.focus,
+      stage1: build.stage1,
+      stage2: build.stage2,
+      stage3a,
+      stage3b_run: false,
+      step4_run: false,
+      stop_stage: "3A",
+      stop_reason: after.probe_unchecked_rows > 0 ? "probe_remaining" : "probe_complete_parse_next",
+      source_cleanup: sourceCleanup,
+      before,
+      after,
+      next_stage: after.probe_unchecked_rows > 0 ? "3A" : "3B",
+      live_run: false,
+      alerts_run: false,
+      output_run: false
+    };
+  }
+
+  if (before.raw_docs_pending_parse > 0) {
+    const stage3b = await runFast3BOnly(app, {
+      ...options,
+      run_id: runId,
+      limit: parseLimit
+    });
+    const after = await summarizeCleanStageState(app, build.focus);
+    return {
+      ok: stage3b.ok,
+      mode: "wec-clean-cadence-stack",
+      run_id: runId,
+      focus: build.focus,
+      stage1: build.stage1,
+      stage2: build.stage2,
+      stage3a_run: false,
+      stage3b,
+      step4_run: false,
+      stop_stage: "3B",
+      stop_reason: stage3b.ok
+        ? (after.raw_docs_pending_parse > 0 ? "parse_remaining" : "parse_complete_runtime_next")
+        : "parse_failed",
+      source_cleanup: sourceCleanup,
+      before,
+      after,
+      next_stage: stage3b.ok && after.raw_docs_pending_parse === 0 ? "4" : "3B",
+      live_run: false,
+      alerts_run: false,
+      output_run: false
+    };
+  }
+
+  const step4 = await runStep4RuntimePrepCleanOnly(app, { ...options, run_id: runId });
+  const after = await summarizeCleanStageState(app, build.focus);
+  return {
+    ok: Boolean(step4.ok),
+    mode: "wec-clean-cadence-stack",
+    run_id: runId,
+    focus: build.focus,
+    stage1: build.stage1,
+    stage2: build.stage2,
+    stage3a_run: false,
+    stage3b_run: false,
+    step4,
+    stop_stage: step4.ok ? "4" : "4_failed",
+    stop_reason: step4.blocker || "runtime_complete",
+    source_cleanup: sourceCleanup,
+    before,
+    after,
+    next_stage: step4.ok ? "complete" : "4",
+    live_run: false,
+    alerts_run: false,
+    output_run: false
+  };
+}
+
+async function runCleanStage1To4Proof(app, options = {}) {
+  const context = {
+    run_id: options.run_id || `clean-stage1-4-${Date.now()}`,
+    started_at: new Date().toISOString()
+  };
+  const adapters = await makeAdapters(app, { ...options, run_id: context.run_id, defer_airtable_mirror: false });
+
+  const stage1 = await runStage1HeartbeatAndRingDays(adapters, context);
+  const stage2 = await runStage2UpdateSchedule(adapters, context, stage1);
+  const evidence = await adapters.buildProbeEvidence(stage1.focus, { context });
+  const eligibleRows = stage2.eligible_rows;
+  const requestedLimit = intValue(options.limit);
+  const probeRows = options.class_no
+    ? eligibleRows.filter((row) => intValue(row.class_no) === intValue(options.class_no))
+    : requestedLimit > 0
+      ? eligibleRows.slice(0, requestedLimit)
+      : eligibleRows;
+
+  const stage3a = await runProbe3A(adapters, context, stage1.focus, probeRows, evidence);
+  const stage3b = await runProbe3B(adapters, context, stage1.focus, evidence);
+  const stage3bFailures = stage3b.filter((item) => item.error).length;
+  const stage3bRows = stage3b.reduce((sum, item) => sum + (item.rows?.length || 0), 0);
+
+  if (stage3bFailures) {
+    return {
+      ok: false,
+      mode: "wec-clean-stage1-4-proof",
+      run_id: context.run_id,
+      focus: stage1.focus,
+      stop_stage: "3B",
+      blocker: "stage3b_parse_failed",
+      stage1: {
+        heartbeat_id: stage1.heartbeat?.heartbeat_id || stage1.heartbeat?.id || "",
+        hs_get_ring_days_rows: stage1.rows.length,
+        upsert: stage1.upsert
+      },
+      stage2: {
+        hs_update_schedule_rows: stage2.rows.length,
+        non_preflight_rows: stage2.eligible_rows.length,
+        upsert: stage2.upsert,
+        dropped: stage2.dropped
+      },
+      stage3a: {
+        attempted: stage3a.length,
+        raw_stored: stage3a.filter((item) => item.progress?.probe_raw_stored).length,
+        checked_no_match: stage3a.filter((item) => item.progress?.probe_status === "checked").length,
+        failed: stage3a.filter((item) => item.error).length
+      },
+      stage3b: {
+        raw_docs_attempted: stage3b.length,
+        raw_docs_failed: stage3bFailures,
+        hs_class_oog_rows: stage3bRows
+      },
+      step4_run: false,
+      live_run: false,
+      alerts_run: false,
+      output_run: false,
+      missing_contract_fields: adapters.missingContractFields()
+    };
+  }
+
+  const step4 = await runStep4RuntimePrepCleanOnly(app, { ...options, run_id: context.run_id });
+
+  return {
+    ok: Boolean(step4.ok),
+    mode: "wec-clean-stage1-4-proof",
+    run_id: context.run_id,
+    focus: stage1.focus,
+    stop_stage: step4.ok ? "4" : "4_failed",
+    blocker: step4.blocker || "",
+    stage1: {
+      heartbeat_id: stage1.heartbeat?.heartbeat_id || stage1.heartbeat?.id || "",
+      hs_get_ring_days_rows: stage1.rows.length,
+      upsert: stage1.upsert
+    },
+    stage2: {
+      hs_update_schedule_rows: stage2.rows.length,
+      non_preflight_rows: stage2.eligible_rows.length,
+      upsert: stage2.upsert,
+      dropped: stage2.dropped
+    },
+    stage3a: {
+      attempted: stage3a.length,
+      raw_stored: stage3a.filter((item) => item.progress?.probe_raw_stored).length,
+      checked_no_match: stage3a.filter((item) => item.progress?.probe_status === "checked").length,
+      failed: stage3a.filter((item) => item.error).length
+    },
+    stage3b: {
+      raw_docs_attempted: stage3b.length,
+      raw_docs_parsed: stage3b.filter((item) => !item.error).length,
+      raw_docs_failed: stage3bFailures,
+      hs_class_oog_rows: stage3bRows
+    },
+    step4: {
+      source_counts: step4.source_counts,
+      class_oog_scope: step4.class_oog_scope,
+      planned_rows: step4.planned_rows,
+      catalyst_upserts: step4.catalyst_upserts,
+      stale_cleanup: step4.stale_cleanup,
+      destination_counts: step4.destination_counts,
+      key_samples: step4.key_samples,
+      missing_contract_fields: step4.missing_contract_fields,
+      missing_required_columns: step4.missing_required_columns
+    },
+    step4_run: Boolean(step4.step4_run),
+    live_run: false,
+    alerts_run: false,
+    output_run: false,
+    missing_contract_fields: Array.from(new Set([
+      ...adapters.missingContractFields(),
+      ...(step4.missing_contract_fields || [])
+    ]))
+  };
+}
+
 function classOogRawMirrorFields(row) {
   return {
     raw_key: row.raw_key,
     run_id: row.run_id,
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
+    iso_date: row.iso_date || row.focus_day,
     focus_day_key: row.focus_day_key,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
@@ -1052,6 +1531,7 @@ function classOogMirrorFields(row) {
     run_id: row.run_id,
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
+    iso_date: row.iso_date || row.focus_day,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring: row.ring,
@@ -1072,12 +1552,12 @@ function ringStatusMirrorFields(row) {
     ring_status_key: text(row.ring_status_key),
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
+    iso_date: row.iso_date || row.focus_day,
     focus_day_key: row.focus_day_key,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring_name: row.ring_name,
     ring_name_normalized: row.ring_name_normalized,
-    ring_visual_key: row.ring_visual_key,
     status: row.status,
     source: row.source,
     last_synced_at: row.last_synced_at
@@ -1089,13 +1569,12 @@ function classStartMirrorFields(row) {
     class_start_key: text(row.class_start_key),
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
+    iso_date: row.iso_date || row.focus_day,
     focus_day_key: row.focus_day_key,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring_name: row.ring_name,
     ring_name_normalized: row.ring_name_normalized,
-    ring_visual_key: row.ring_visual_key,
-    class_visual_key: row.class_visual_key,
     class_no: intValue(row.class_no),
     class_number: intValue(row.class_number),
     class_name: row.class_name,
@@ -1113,11 +1592,9 @@ function entryGoMirrorFields(row) {
     entry_go_key: text(row.entry_go_key),
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
+    iso_date: row.iso_date || row.focus_day,
     focus_day_key: row.focus_day_key,
     ring_name_normalized: row.ring_name_normalized,
-    ring_visual_key: row.ring_visual_key,
-    class_visual_key: row.class_visual_key,
-    entry_visual_key: row.entry_visual_key,
     class_no: intValue(row.class_no),
     entry_no: intValue(row.entry_no),
     entry_order: intValue(row.entry_order),
@@ -1143,16 +1620,26 @@ async function runStep4RuntimePrepCleanOnly(app, options = {}) {
   const runTime = new Date();
   const schema = await loadSchema(app);
   const missingContractFields = [];
+  const missingRequiredStep4Columns = missingRequiredColumns(schema, STEP4_REQUIRED_COLUMNS);
   const ringDayRows = await readCurrentRows(app, TABLES.getRingDays, focus.show_no, focus.focus_day, "iso_date");
   const updateRows = await readCurrentRows(app, TABLES.updateSchedule, focus.show_no, focus.focus_day);
   const classOogRows = await readCurrentRows(app, TABLES.classOog, focus.show_no, focus.focus_day, "focus_day_only");
+  const evidence = await buildCatalystProbeEvidence(app, focus);
+  const matchedClassOogRows = [];
+  const skippedClassOogRows = [];
+  for (const row of classOogRows) {
+    const match = rowMatchesEvidence(row, evidence);
+    if (match.keep) matchedClassOogRows.push({ ...row, match_reason: match.trainer_matches.length ? "trainer_allowed" : "helper_match" });
+    else skippedClassOogRows.push(row);
+  }
   const ringStatusRows = ringStatusRowsFromRingDays(ringDayRows, focus, runTime);
   const classStartRows = classStartRowsFromUpdateSchedule(updateRows, focus, runTime);
   const classStartByClassKey = new Map(classStartRows.map((row) => [text(row.class_const_key), row]));
-  const entryGoRows = entryGoRowsFromClassOog(classOogRows, focus, classStartByClassKey, runTime);
+  const entryGoRows = entryGoRowsFromClassOog(matchedClassOogRows, focus, classStartByClassKey, runTime);
 
   let blocker = "";
-  if (!ringDayRows.length) blocker = "missing_current_hs_get_ring_days";
+  if (missingRequiredStep4Columns.length) blocker = "missing_step4_required_columns";
+  else if (!ringDayRows.length) blocker = "missing_current_hs_get_ring_days";
   else if (!updateRows.length) blocker = "missing_current_hs_update_schedule";
   else if (!classOogRows.length) blocker = "missing_current_hs_class_oog";
   else if (!ringStatusRows.length) blocker = "hs_ring_status_source_empty";
@@ -1163,28 +1650,28 @@ async function runStep4RuntimePrepCleanOnly(app, options = {}) {
   let classStartResult = { rows: 0, inserted: 0, updated: 0 };
   let entryGoResult = { rows: 0, inserted: 0, updated: 0 };
   let staleCleanup = {
-    hs_ring_status: { reviewed: 0, marked: 0 },
-    hs_class_start_times: { reviewed: 0, marked: 0 },
-    hs_entry_go_times: { reviewed: 0, marked: 0 }
+    hs_ring_status: { reviewed: 0, deleted: 0 },
+    hs_class_start_times: { reviewed: 0, deleted: 0 },
+    hs_entry_go_times: { reviewed: 0, deleted: 0 }
   };
   const ringStatusKeys = new Set(ringStatusRows.map((row) => text(row.ring_status_key)).filter(Boolean));
   const classStartKeys = new Set(classStartRows.map((row) => text(row.class_start_key)).filter(Boolean));
   const entryGoKeys = new Set(entryGoRows.map((row) => text(row.entry_go_key)).filter(Boolean));
   if (!blocker) {
+    staleCleanup = {
+      hs_ring_status: await deleteRowsNotInKeySet(app, TABLES.ringStatus, "ring_status_key", focus.show_no, focus.focus_day, ringStatusKeys),
+      hs_class_start_times: await deleteRowsNotInKeySet(app, TABLES.classStartTimes, "class_start_key", focus.show_no, focus.focus_day, classStartKeys),
+      hs_entry_go_times: await deleteRowsNotInKeySet(app, TABLES.entryGoTimes, "entry_go_key", focus.show_no, focus.focus_day, entryGoKeys)
+    };
     ringStatusResult = await upsertRowsByKey(app, schema, TABLES.ringStatus, "ring_status_key", ringStatusRows, missingContractFields);
     classStartResult = await upsertRowsByKey(app, schema, TABLES.classStartTimes, "class_start_key", classStartRows, missingContractFields);
     entryGoResult = await upsertRowsByKey(app, schema, TABLES.entryGoTimes, "entry_go_key", entryGoRows, missingContractFields);
-    staleCleanup = {
-      hs_ring_status: await markRowsNotInKeySet(app, schema, TABLES.ringStatus, "ring_status_key", focus.show_no, focus.focus_day, ringStatusKeys, missingContractFields, runTime),
-      hs_class_start_times: await markRowsNotInKeySet(app, schema, TABLES.classStartTimes, "class_start_key", focus.show_no, focus.focus_day, classStartKeys, missingContractFields, runTime),
-      hs_entry_go_times: await markRowsNotInKeySet(app, schema, TABLES.entryGoTimes, "entry_go_key", focus.show_no, focus.focus_day, entryGoKeys, missingContractFields, runTime)
-    };
   }
 
   const destinationCounts = {
-    hs_ring_status: await countActiveRowsInKeySet(app, TABLES.ringStatus, "ring_status_key", focus.show_no, focus.focus_day, ringStatusKeys),
-    hs_class_start_times: await countActiveRowsInKeySet(app, TABLES.classStartTimes, "class_start_key", focus.show_no, focus.focus_day, classStartKeys),
-    hs_entry_go_times: await countActiveRowsInKeySet(app, TABLES.entryGoTimes, "entry_go_key", focus.show_no, focus.focus_day, entryGoKeys)
+    hs_ring_status: await countCurrentRows(app, TABLES.ringStatus, focus.show_no, focus.focus_day),
+    hs_class_start_times: await countCurrentRows(app, TABLES.classStartTimes, focus.show_no, focus.focus_day),
+    hs_entry_go_times: await countCurrentRows(app, TABLES.entryGoTimes, focus.show_no, focus.focus_day)
   };
 
   return {
@@ -1196,6 +1683,10 @@ async function runStep4RuntimePrepCleanOnly(app, options = {}) {
       hs_get_ring_days: ringDayRows.length,
       hs_update_schedule: updateRows.length,
       hs_class_oog: classOogRows.length
+    },
+    class_oog_scope: {
+      matched_for_entry_go_times: matchedClassOogRows.length,
+      skipped_broad_rows: skippedClassOogRows.length
     },
     planned_rows: {
       hs_ring_status: ringStatusRows.length,
@@ -1212,12 +1703,10 @@ async function runStep4RuntimePrepCleanOnly(app, options = {}) {
     key_samples: {
       ring_status_key: ringStatusRows[0]?.ring_status_key || "",
       class_start_key: classStartRows[0]?.class_start_key || "",
-      entry_go_key: entryGoRows[0]?.entry_go_key || "",
-      ring_visual_key: ringStatusRows[0]?.ring_visual_key || "",
-      class_visual_key: classStartRows[0]?.class_visual_key || "",
-      entry_visual_key: entryGoRows[0]?.entry_visual_key || ""
+      entry_go_key: entryGoRows[0]?.entry_go_key || ""
     },
     missing_contract_fields: missingContractFields,
+    missing_required_columns: missingRequiredStep4Columns,
     blocker,
     airtable_mirror_deferred: true,
     step1_run: false,
@@ -1257,6 +1746,10 @@ async function runStep4AirtableMirrorOnly(app, options = {}) {
 
   const rows = (await readRows(mirrorTable))
     .filter((row) => text(row[keyField]) && text(row.status) === "active");
+  const activeKeys = new Set(rows.map((row) => text(row[keyField])).filter(Boolean));
+  const staleAirtableCleanup = requestedOffset === 0
+    ? await markAirtableRowsNotInKeySet(mirrorTable, keyField, focus, activeKeys)
+    : { reviewed: 0, marked: 0 };
   let mirrored = 0;
   for (const row of rows.slice(requestedOffset, requestedOffset + requestedLimit)) {
     await upsertAirtableByKey(mirrorTable, keyField, row[keyField], mirrorFields(row));
@@ -1273,6 +1766,7 @@ async function runStep4AirtableMirrorOnly(app, options = {}) {
     limit: requestedLimit,
     processed: mirrored,
     total: rows.length,
+    stale_airtable_cleanup: staleAirtableCleanup,
     next_offset: nextOffset,
     complete: nextOffset === 0,
     step1_run: false,
@@ -1369,14 +1863,21 @@ async function handle(req, res) {
       mirror_table: text(query.get("mirror_table") || query.get("table") || body.mirror_table || body.table),
       mode: text(query.get("mode") || body.mode || "next_unchecked"),
       limit: Math.max(0, intValue(query.get("limit") || body.limit || 0)),
-      offset: Math.max(0, intValue(query.get("offset") || body.offset || 0))
+      probe_limit: Math.max(0, intValue(query.get("probe_limit") || body.probe_limit || 0)),
+      parse_limit: Math.max(0, intValue(query.get("parse_limit") || body.parse_limit || 0)),
+      offset: Math.max(0, intValue(query.get("offset") || body.offset || 0)),
+      force: text(query.get("force") || body.force).toLowerCase() === "1" || text(query.get("force") || body.force).toLowerCase() === "true"
     };
     const app = catalyst.initialize(req);
-    if (action === "wec-step3a-class-oog-probe") {
+    if (action === "wec-clean-build-update") {
+      const result = await runCleanBuildUpdateOnly(app, options);
+      return json(res, 200, result);
+    }
+    if (action === "wec-clean-probe-3a" || action === "wec-step3a-class-oog-probe") {
       const result = await runFast3AOnly(app, options);
       return json(res, 200, result);
     }
-    if (action === "wec-step3b-class-oog-parse") {
+    if (action === "wec-clean-process-3b" || action === "wec-step3b-class-oog-parse") {
       const result = await runFast3BOnly(app, options);
       return json(res, result.ok ? 200 : 500, result);
     }
@@ -1384,13 +1885,17 @@ async function handle(req, res) {
       const result = await runStep3AirtableMirrorOnly(app, options);
       return json(res, 200, result);
     }
-    if (action === "wec-step4-runtime-prep-clean") {
+    if (action === "wec-clean-runtime-4" || action === "wec-step4-runtime-prep-clean") {
       const result = await runStep4RuntimePrepCleanOnly(app, options);
       return json(res, result.ok ? 200 : 500, result);
     }
     if (action === "wec-step4-airtable-mirror") {
       const result = await runStep4AirtableMirrorOnly(app, options);
       return json(res, 200, result);
+    }
+    if (action === "wec-clean-cadence-stack" || action === "wec-clean-stage1-4-proof") {
+      const result = await runCleanCadenceStack(app, options);
+      return json(res, result.ok ? 200 : 500, result);
     }
     const adapters = await makeAdapters(app, options);
     const result = await runCleanStage1To3Proof(adapters, options);

@@ -78,20 +78,6 @@ function buildConstKeys(input) {
   };
 }
 
-function buildVisualKeys(input) {
-  const token = ringNameToken(input.ring_name_token || input.ring_name_slugified || input.ring_name_normalized);
-  const ringNo = intValue(input.ring_no);
-  const classNo = intValue(input.class_no);
-  const entryNo = intValue(input.entry_no);
-
-  return {
-    ring_name_token: token,
-    ring_visual_key: token && ringNo ? `${ringNo}|${token}` : "",
-    class_visual_key: token && classNo ? `${token}|${classNo}` : "",
-    entry_visual_key: token && classNo && entryNo ? `${token}|${classNo}|${entryNo}` : ""
-  };
-}
-
 function preflightReason(row) {
   const reasons = [];
   const timeText = text(row.time_text);
@@ -199,6 +185,7 @@ async function runStage1HeartbeatAndRingDays(adapters, context) {
   const heartbeat = await adapters.writeHeartbeat({
     show_no: intValue(focus.show_no),
     focus_day: text(focus.focus_day),
+    iso_date: text(focus.focus_day),
     focus_day_key: focusDayKey,
     focus_show_record_id: text(focus.focus_show_record_id),
     status: "running",
@@ -209,6 +196,9 @@ async function runStage1HeartbeatAndRingDays(adapters, context) {
   const rows = (ringDays || []).map((row) => ({
     ...row,
     ...buildConstKeys({ ...row, show_no: focus.show_no, focus_day: focus.focus_day }),
+    focus_day: text(focus.focus_day),
+    iso_date: text(focus.focus_day),
+    focus_day_key: focusDayKey,
     is_active_focus_day: true,
     heartbeat_id: heartbeat?.heartbeat_id || heartbeat?.id || ""
   }));
@@ -233,9 +223,10 @@ async function runStage2UpdateSchedule(adapters, context, stage1) {
       schedules.push({
         ...row,
         ...buildConstKeys({ ...row, show_no: focus.show_no, focus_day: focus.focus_day }),
-        ...buildVisualKeys(row),
         focus_day: text(focus.focus_day),
+        iso_date: text(focus.focus_day),
         focus_day_key: compactDate(focus.focus_day),
+        heartbeat_id: stage1.heartbeat?.heartbeat_id || "",
         is_active_focus_day: true,
         is_preflight: reasons.length > 0,
         preflight_reason: reasons.join(",")
@@ -334,10 +325,13 @@ async function runProbe3B(adapters, context, focus, evidence) {
         scopedRows.push({
           ...rawDoc,
           ...row,
+          iso_date: text(rawDoc.iso_date || rawDoc.focus_day || focus.focus_day),
           match_reason: match.trainer_matches.length ? "trainer_allowed" : "helper_match",
-          ...buildConstKeys({ ...rawDoc, ...row, show_no: focus.show_no, focus_day: focus.focus_day }),
-          ...buildVisualKeys({ ...rawDoc, ...row })
+          ...buildConstKeys({ ...rawDoc, ...row, show_no: focus.show_no, focus_day: focus.focus_day })
         });
+      }
+      if (typeof adapters.clearClassOogForRawDoc === "function") {
+        await adapters.clearClassOogForRawDoc(rawDoc, scopedRows, { focus, context });
       }
       const upsert = await adapters.upsertClassOog(scopedRows, { focus, rawDoc, context });
       await adapters.markClassOogRawParsed(rawDoc, {
@@ -433,9 +427,9 @@ module.exports = {
   PROBE_STATUS,
   PARSE_STATUS,
   buildConstKeys,
-  buildVisualKeys,
   preflightReason,
   scanClassOogPayload,
+  rowMatchesEvidence,
   runStage1HeartbeatAndRingDays,
   runStage2UpdateSchedule,
   runProbe3A,

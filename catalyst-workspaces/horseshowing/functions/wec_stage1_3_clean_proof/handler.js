@@ -27,10 +27,29 @@ const TABLES = Object.freeze({
   ringStatus: "hs_ring_status",
   classStartTimes: "hs_class_start_times",
   entryGoTimes: "hs_entry_go_times",
+  timeEngine: "time_engine",
+  timeEngineLogs: "time_engine_logs",
   horses: "hs_horses",
   riders: "hs_riders",
   trainers: "hs_trainers"
 });
+
+const TIME_ENGINE_FIELDS = Object.freeze([
+  "time_engine_key", "run_id", "show_no", "focus_day", "iso_date", "focus_day_key",
+  "level", "endpoint", "source_table", "source_key", "ring_const_key", "class_const_key",
+  "entry_const_key", "ring_name_normalized", "ring_name_prioritized", "class_no",
+  "entry_no", "entry_order", "class_start_time", "estimated_class_end_time",
+  "entry_go_time", "starts_in_mins", "ends_in_mins", "go_in_mins", "pace_seconds",
+  "tags", "status", "trigger_ready", "generated_at", "expires_at", "payload_json",
+  "last_synced_at"
+]);
+
+const TIME_ENGINE_LOG_FIELDS = Object.freeze([
+  "time_engine_log_key", "run_id", "show_no", "focus_day", "focus_day_key",
+  "started_at", "finished_at", "duration_ms", "status", "source_counts",
+  "rows_written", "trigger_ready_count", "endpoints", "warning_count",
+  "warning_summary", "error_message", "payload_json", "last_synced_at"
+]);
 
 const STEP4_REQUIRED_COLUMNS = Object.freeze({
   hs_ring_status: [
@@ -53,8 +72,8 @@ const STEP4_REQUIRED_COLUMNS = Object.freeze({
     "show_const_key", "focus_day_const_key",
     "ring_day_const_key", "ring_const_key", "class_const_key",
     "entry_const_key", "class_no", "entry_no", "entry_order", "horse",
-    "rider", "trainer", "class_start_time", "display_time", "status",
-    "live_source", "last_synced_at"
+    "rider", "trainer", "class_start_time", "display_time", "go_time",
+    "pace_seconds", "status", "live_source", "last_synced_at"
   ]
 });
 
@@ -331,24 +350,90 @@ async function airtableRequest(tableName, params = {}, method = "GET", body = nu
   return payload;
 }
 
+async function airtableMetadataRequest(path, method = "GET", body = null) {
+  const token = process.env.AIRTABLE_TOKEN || process.env.AIRTABLE_PAT;
+  const baseId = process.env.AIRTABLE_BASE_ID || "app6XS1RvsPNRT6os";
+  if (!token) throw new Error("AIRTABLE_TOKEN_required_for_metadata");
+  const response = await fetch(`https://api.airtable.com/v0/meta/bases/${encodeURIComponent(baseId)}${path}`, {
+    method,
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json"
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const raw = await response.text();
+  if (!response.ok) throw new Error(`airtable_metadata_${method}_${path}_${response.status}:${raw.slice(0, 500)}`);
+  return raw ? JSON.parse(raw) : {};
+}
+
+function airtableMirrorField(name, index) {
+  return {
+    name,
+    type: index === 0 || name.endsWith("_json") || name.includes("summary") || name.includes("message")
+      ? (name.endsWith("_json") || name.includes("summary") || name.includes("message") ? "multilineText" : "singleLineText")
+      : "singleLineText"
+  };
+}
+
+async function ensureAirtableMirrorTable(tableName, fields) {
+  const tables = await airtableMetadataRequest("/tables");
+  const existing = (tables.tables || []).find((table) => table.name === tableName);
+  if (!existing) {
+    const created = await airtableMetadataRequest("/tables", "POST", {
+      name: tableName,
+      fields: fields.map(airtableMirrorField)
+    });
+    return { table_name: tableName, created: true, fields_created: (created.fields || []).map((field) => field.name), missing_fields: [] };
+  }
+  const existingNames = new Set((existing.fields || []).map((field) => field.name));
+  const missing = fields.filter((field) => !existingNames.has(field));
+  const createdFields = [];
+  for (const field of missing) {
+    const created = await airtableMetadataRequest(`/tables/${encodeURIComponent(existing.id)}/fields`, "POST", airtableMirrorField(field, fields.indexOf(field)));
+    createdFields.push(created.name || field);
+  }
+  return { table_name: tableName, created: false, fields_created: createdFields, missing_fields: [] };
+}
+
 async function updateAirtableScheduleProbe(row, progress) {
-  const formula = `AND({show_no}=${Number(row.show_no)}, {focus_day_key}='${airtableFormulaValue(row.focus_day_key)}', {class_no}=${Number(row.class_no)})`;
+  const classConstKey = text(row.class_const_key || progress.class_const_key);
+  const formula = classConstKey
+    ? `{class_const_key}='${airtableFormulaValue(classConstKey)}'`
+    : `AND({show_no}=${Number(row.show_no)}, {focus_day_key}='${airtableFormulaValue(row.focus_day_key)}', {class_no}=${Number(row.class_no)})`;
   const found = await airtableRequest(TABLES.updateSchedule, {
     filterByFormula: formula,
     pageSize: "10"
   });
+  const rawStored = progress.probe_raw_stored === true ||
+    progress.raw_stored === true ||
+    text(progress.probe_raw_stored).toLowerCase() === "true" ||
+    text(progress.raw_stored).toLowerCase() === "true" ||
+    text(progress.probe_status) === "raw_stored";
+  const probeStatus = rawStored ? "raw_stored" : progress.probe_status;
   const records = (found.records || []).map((record) => ({
     id: record.id,
     fields: {
-      probe_status: progress.probe_status,
+      update_schedule_key: classConstKey,
+      focus_day: row.focus_day,
+      iso_date: row.iso_date || row.focus_day,
+      focus_day_key: row.focus_day_key,
+      ring_name_normalized: row.ring_name_normalized,
+      ring_name_prioritized: intValue(row.ring_name_prioritized),
+      show_const_key: row.show_const_key,
+      focus_day_const_key: row.focus_day_const_key,
+      ring_day_const_key: row.ring_day_const_key,
+      ring_const_key: row.ring_const_key,
+      class_const_key: classConstKey,
+      probe_status: probeStatus,
       probe_attempted_at: progress.probe_attempted_at,
       probe_finished_at: progress.probe_finished_at,
       probe_duration_ms: intValue(progress.probe_duration_ms),
-      probe_attempt_count: intValue(row.probe_attempt_count) + 1,
+      probe_attempt_count: intValue(progress.probe_attempt_count) || intValue(row.probe_attempt_count) + 1,
       probe_payload_chars: intValue(progress.probe_payload_chars),
       probe_certainty: progress.probe_certainty,
       probe_reason: progress.probe_reason,
-      probe_raw_stored: progress.probe_raw_stored === true || text(progress.probe_raw_stored).toLowerCase() === "true"
+      probe_raw_stored: rawStored
     }
   }));
   if (!records.length) return { skipped: true, reason: "airtable_hs_update_schedule_not_found" };
@@ -367,6 +452,21 @@ async function upsertAirtableByKey(tableName, keyField, keyValue, fields) {
   return airtableRequest(tableName, {}, "POST", {
     records: [{ fields }]
   });
+}
+
+async function upsertAirtableBatchByKey(tableName, keyField, rows) {
+  let written = 0;
+  for (let index = 0; index < (rows || []).length; index += 10) {
+    const chunk = rows.slice(index, index + 10).filter(Boolean);
+    if (!chunk.length) continue;
+    await airtableRequest(tableName, {}, "PATCH", {
+      records: chunk.map((fields) => ({ fields })),
+      performUpsert: { fieldsToMergeOn: [keyField] },
+      typecast: true
+    });
+    written += chunk.length;
+  }
+  return written;
 }
 
 async function markAirtableRowsNotInKeySet(tableName, keyField, focus, activeKeys) {
@@ -435,6 +535,18 @@ function displayTimeFromStart(value) {
   return `${hour}:${String(minute).padStart(2, "0")} ${suffix}`;
 }
 
+function addSecondsToTime(value, seconds) {
+  const normalized = normalizeClassStartTime(value);
+  if (!normalized) return "";
+  const [hour, minute, second] = normalized.split(":").map((part) => Number(part));
+  const total = hour * 3600 + minute * 60 + second + Math.max(0, intValue(seconds));
+  const wrapped = ((total % 86400) + 86400) % 86400;
+  const h = Math.floor(wrapped / 3600);
+  const m = Math.floor((wrapped % 3600) / 60);
+  const s = wrapped % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
 function runtimeIdentity(input, focus) {
   const ringNameNormalized = text(input.ring_name_normalized) || normalizeRingName(input.ring_name || input.ring);
   const base = {
@@ -447,6 +559,7 @@ function runtimeIdentity(input, focus) {
     ring_no: intValue(input.ring_no),
     ring_name: text(input.ring_name || input.ring),
     ring_name_normalized: ringNameNormalized,
+    ring_name_prioritized: intValue(input.ring_name_prioritized),
     class_no: intValue(input.class_no),
     entry_no: intValue(input.entry_no)
   };
@@ -523,6 +636,10 @@ function entryGoRowsFromClassOog(rows, focus, classStartByClassKey = new Map(), 
     const source = runtimeIdentity(row, focus);
     if (!source.entry_const_key) return null;
     const classStart = classStartByClassKey.get(source.class_const_key) || {};
+    const paceSeconds = 198;
+    const entryOrder = intValue(row.entry_order);
+    const classStartTime = text(classStart.class_start_time);
+    const goTime = entryOrder > 0 ? addSecondsToTime(classStartTime, (entryOrder - 1) * paceSeconds) : "";
     return {
       entry_go_key: source.entry_const_key,
       show_no: source.show_no,
@@ -541,17 +658,548 @@ function entryGoRowsFromClassOog(rows, focus, classStartByClassKey = new Map(), 
       entry_const_key: source.entry_const_key,
       class_no: source.class_no,
       entry_no: source.entry_no,
-      entry_order: intValue(row.entry_order),
+      entry_order: entryOrder,
       horse: text(row.horse),
       rider: text(row.rider),
       trainer: text(row.trainer),
-      class_start_time: text(classStart.class_start_time),
+      class_start_time: classStartTime,
       display_time: text(classStart.display_time),
+      go_time: goTime,
+      pace_seconds: paceSeconds,
       status: "active",
-      live_source: "hs_class_oog.clean_step4_runtime",
+      live_source: goTime ? "estimated_schedule_pace.clean_step4_runtime" : "hs_class_oog.clean_step4_runtime",
       last_synced_at: catalystDateTime(runTime)
     };
   }).filter(Boolean), "entry_go_key");
+}
+
+function parseDateTime(focusDay, timeValue) {
+  const day = text(focusDay);
+  const time = normalizeClassStartTime(timeValue);
+  if (!day || !time) return null;
+  const date = new Date(`${day}T${time}-04:00`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function minutesUntil(target, now = new Date()) {
+  if (!target) return null;
+  return Math.round((target.getTime() - now.getTime()) / 60000);
+}
+
+function addSecondsToDate(date, seconds) {
+  if (!date) return null;
+  return new Date(date.getTime() + intValue(seconds) * 1000);
+}
+
+function isoTime(date) {
+  if (!date || Number.isNaN(date.getTime())) return "";
+  return date.toISOString().slice(11, 19);
+}
+
+function classAlertTags(startsInMins) {
+  const tags = [];
+  if (startsInMins === null || startsInMins < 0) return tags;
+  if (startsInMins <= 60) tags.push("starts_in_60");
+  if (startsInMins <= 30) tags.push("starts_in_30");
+  return tags;
+}
+
+function entryAlertTags(goInMins) {
+  const tags = [];
+  if (goInMins === null || goInMins < 0) return tags;
+  if (goInMins <= 40) tags.push("go_in_40");
+  if (goInMins <= 20) tags.push("go_in_20");
+  return tags;
+}
+
+function statusFromVars(row, vars, level) {
+  const status = lowerText(row.class_status || row.entry_status || row.ring_status || row.status);
+  if (status === "results" || status === "done" || status === "now") return status;
+  if (row.is_live === true || lowerText(row.is_live) === "true" || lowerText(row.is_live) === "1") return "now";
+  if (level === "class" && (vars.tags || []).length) return "soon";
+  if (level === "entry" && (vars.tags || []).length) return "soon";
+  return "today";
+}
+
+function buildFieldVarsForClass(classRow, entryRows, now = new Date()) {
+  const classStart = parseDateTime(classRow.focus_day || classRow.iso_date, classRow.class_start_time || classRow.display_time);
+  const paceSeconds = intValue(classRow.pace_seconds) || intValue(entryRows[0]?.pace_seconds) || 198;
+  const entryCount = intValue(classRow.entry_count);
+  const estimatedEnd = entryCount > 0 ? addSecondsToDate(classStart, entryCount * paceSeconds) : null;
+  const startsInMins = minutesUntil(classStart, now);
+  const endsInMins = minutesUntil(estimatedEnd, now);
+  const tags = classAlertTags(startsInMins);
+  const vars = {
+    class_start_time: text(classRow.class_start_time),
+    estimated_class_end_time: isoTime(estimatedEnd),
+    starts_in_mins: startsInMins,
+    ends_in_mins: endsInMins,
+    pace_seconds: paceSeconds,
+    entry_count: entryCount,
+    n_gone: intValue(classRow.n_gone),
+    n_to_go: intValue(classRow.n_to_go),
+    is_live: classRow.is_live === true || lowerText(classRow.is_live) === "true" || lowerText(classRow.is_live) === "1",
+    tags
+  };
+  return {
+    ...vars,
+    class_status: statusFromVars(classRow, vars, "class")
+  };
+}
+
+function buildFieldVarsForEntry(entryRow, now = new Date()) {
+  const goDate = parseDateTime(entryRow.focus_day || entryRow.iso_date, entryRow.go_time || entryRow.entry_go_time);
+  const goInMins = minutesUntil(goDate, now);
+  const tags = entryAlertTags(goInMins);
+  const vars = {
+    entry_go_time: text(entryRow.go_time || entryRow.entry_go_time),
+    go_time: text(entryRow.go_time || entryRow.entry_go_time),
+    go_in_mins: goInMins,
+    pace_seconds: intValue(entryRow.pace_seconds),
+    tags
+  };
+  return {
+    ...vars,
+    entry_status: statusFromVars(entryRow, vars, "entry")
+  };
+}
+
+function outputDateText(focusDay) {
+  const date = new Date(`${text(focusDay)}T12:00:00-04:00`);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "America/New_York"
+  }).format(date);
+}
+
+function byNumberThenText(a, b, numberField, textField) {
+  const an = intValue(a[numberField]);
+  const bn = intValue(b[numberField]);
+  if (an !== bn) return an - bn;
+  return text(a[textField]).localeCompare(text(b[textField]));
+}
+
+async function buildMobileProPayload(app, options = {}) {
+  const focus = await getActiveFocusShow();
+  if (!focus?.show_no) throw new Error("focus_show.show_no_required");
+  if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
+
+  const now = options.now ? new Date(options.now) : new Date();
+  const ringRows = await readCurrentRows(app, TABLES.ringStatus, focus.show_no, focus.focus_day, "focus_day_only");
+  const classRows = await readCurrentRows(app, TABLES.classStartTimes, focus.show_no, focus.focus_day, "focus_day_only");
+  const entryRows = await readCurrentRows(app, TABLES.entryGoTimes, focus.show_no, focus.focus_day, "focus_day_only");
+
+  const entriesByClass = new Map();
+  for (const row of entryRows) {
+    const key = text(row.class_const_key);
+    if (!key) continue;
+    if (!entriesByClass.has(key)) entriesByClass.set(key, []);
+    entriesByClass.get(key).push(row);
+  }
+  for (const rows of entriesByClass.values()) {
+    rows.sort((a, b) => byNumberThenText(a, b, "entry_order", "horse"));
+  }
+
+  const classesByRing = new Map();
+  const classes = classRows
+    .filter((row) => text(row.status) !== "dropped_old_key_shape")
+    .sort((a, b) => text(a.class_start_time).localeCompare(text(b.class_start_time)) || byNumberThenText(a, b, "class_no", "class_name"))
+    .map((row) => {
+      const classEntries = entriesByClass.get(text(row.class_const_key)) || [];
+      const fieldVars = buildFieldVarsForClass(row, classEntries, now);
+      const payload = {
+        class_const_key: text(row.class_const_key || row.class_start_key),
+        ring_const_key: text(row.ring_const_key),
+        ring_day_no: intValue(row.ring_day_no),
+        ring_no: intValue(row.ring_no),
+        ring_name: text(row.ring_name),
+        ring_name_normalized: text(row.ring_name_normalized),
+        class_no: intValue(row.class_no),
+        class_number: text(row.class_number),
+        class_name: text(row.class_name),
+        class_start_time: text(row.class_start_time),
+        display_time: text(row.display_time),
+        entry_count: intValue(row.entry_count),
+        field_vars: fieldVars,
+        tags: fieldVars.tags,
+        status: fieldVars.class_status,
+        entries: classEntries.map((entry) => {
+          const entryVars = buildFieldVarsForEntry(entry, now);
+          return {
+            entry_const_key: text(entry.entry_const_key || entry.entry_go_key),
+            class_const_key: text(entry.class_const_key),
+            entry_no: intValue(entry.entry_no),
+            entry_order: intValue(entry.entry_order),
+            barn_name: text(entry.barn_name || entry.horse),
+            horse: text(entry.horse),
+            rider: text(entry.rider),
+            trainer: text(entry.trainer),
+            go_time: text(entry.go_time),
+            field_vars: entryVars,
+            tags: entryVars.tags,
+            status: entryVars.entry_status
+          };
+        })
+      };
+      const ringKey = payload.ring_const_key || `${payload.ring_day_no}|${payload.ring_no}`;
+      if (!classesByRing.has(ringKey)) classesByRing.set(ringKey, []);
+      classesByRing.get(ringKey).push(payload);
+      return payload;
+    });
+
+  const rings = ringRows
+    .filter((row) => text(row.status) !== "dropped_old_key_shape")
+    .sort((a, b) => byNumberThenText(a, b, "ring_no", "ring_name_normalized"))
+    .map((row) => {
+      const ringKey = text(row.ring_const_key || row.ring_status_key);
+      const ringClasses = classesByRing.get(ringKey) || [];
+      const nowClass = ringClasses.find((item) => item.status === "now") || null;
+      const nextClass = ringClasses.find((item) => item.field_vars.starts_in_mins !== null && item.field_vars.starts_in_mins >= 0) || null;
+      return {
+        ring_const_key: ringKey,
+        ring_day_const_key: text(row.ring_day_const_key),
+        ring_day_no: intValue(row.ring_day_no),
+        ring_no: intValue(row.ring_no),
+        ring_name: text(row.ring_name),
+        ring_name_normalized: text(row.ring_name_normalized),
+        ring_status: text(row.ring_status || row.status || "ontime") === "active" ? "ontime" : text(row.ring_status || row.status || "ontime"),
+        now: nowClass,
+        next: nextClass,
+        classes: ringClasses
+      };
+    });
+
+  return {
+    ok: true,
+    mode: "wec-mobile-pro-live",
+    source: "clean_runtime_tables",
+    show_no: intValue(focus.show_no),
+    focus_day: text(focus.focus_day),
+    iso_date: text(focus.iso_date || focus.focus_day),
+    focus_day_key: compactDate(focus.focus_day),
+    date_text: outputDateText(focus.focus_day),
+    generated_at: now.toISOString(),
+    field_vars_version: "clean_runtime_v1",
+    counts: {
+      rings: rings.length,
+      classes: classes.length,
+      entries: entryRows.length
+    },
+    pages: {
+      orderwise: classes,
+      schedule_by_ring_time: rings,
+      schedule_by_time: classes,
+      entry_nextups: classes.flatMap((item) => item.entries).sort((a, b) => intValue(a.field_vars.go_in_mins) - intValue(b.field_vars.go_in_mins)),
+      ring_now_nexts: rings.map((ring) => ({
+        ring_const_key: ring.ring_const_key,
+        ring_name_normalized: ring.ring_name_normalized,
+        ring_status: ring.ring_status,
+        now: ring.now,
+        next: ring.next
+      })),
+      alerts_lists_feed: classes.flatMap((item) => [
+        ...item.tags.map((tag) => ({ type: tag, class_const_key: item.class_const_key, class_no: item.class_no })),
+        ...item.entries.flatMap((entry) => entry.tags.map((tag) => ({
+          type: tag,
+          class_const_key: item.class_const_key,
+          entry_const_key: entry.entry_const_key,
+          entry_no: entry.entry_no
+        })))
+      ])
+    },
+    rings,
+    classes,
+    output_run: true,
+    workflow_run: false,
+    live_run: false,
+    alerts_run: false
+  };
+}
+
+function compactJson(value) {
+  return JSON.stringify(value || {});
+}
+
+function textForAirtable(value) {
+  if (value === null || value === undefined) return "";
+  if (Array.isArray(value)) return value.join(",");
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
+}
+
+function airtableTimeEngineFields(row, keyField) {
+  const fields = {};
+  for (const field of keyField === "time_engine_log_key" ? TIME_ENGINE_LOG_FIELDS : TIME_ENGINE_FIELDS) {
+    fields[field] = textForAirtable(row[field]);
+  }
+  return fields;
+}
+
+function timeEngineKey(parts) {
+  return parts.map(text).filter(Boolean).join("|");
+}
+
+async function buildTimeEngineRows(app, focus, options = {}) {
+  const now = options.now ? new Date(options.now) : new Date();
+  const generatedAt = catalystDateTime(now);
+  const expiresAt = catalystDateTime(new Date(now.getTime() + 10 * 60000));
+  const runId = options.run_id || `time-engine-${Date.now()}`;
+  const endpoint = "mobile_pro|print|two_way|alerts";
+  const ringRows = await readCurrentRows(app, TABLES.ringStatus, focus.show_no, focus.focus_day, "focus_day_only");
+  const classRows = await readCurrentRows(app, TABLES.classStartTimes, focus.show_no, focus.focus_day, "focus_day_only");
+  const entryRows = await readCurrentRows(app, TABLES.entryGoTimes, focus.show_no, focus.focus_day, "focus_day_only");
+
+  const entriesByClass = new Map();
+  for (const row of entryRows) {
+    const key = text(row.class_const_key);
+    if (!key) continue;
+    if (!entriesByClass.has(key)) entriesByClass.set(key, []);
+    entriesByClass.get(key).push(row);
+  }
+
+  const rows = [];
+  for (const row of ringRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
+    const ringStatus = text(row.ring_status || row.status || "ontime") === "active" ? "ontime" : text(row.ring_status || row.status || "ontime");
+    rows.push({
+      time_engine_key: timeEngineKey([focus.show_no, compactDate(focus.focus_day), "ring", row.ring_const_key || row.ring_status_key]),
+      run_id: runId,
+      show_no: intValue(focus.show_no),
+      focus_day: focus.focus_day,
+      iso_date: focus.focus_day,
+      focus_day_key: compactDate(focus.focus_day),
+      level: "ring",
+      endpoint,
+      source_table: TABLES.ringStatus,
+      source_key: text(row.ring_status_key || row.ring_const_key),
+      ring_const_key: text(row.ring_const_key || row.ring_status_key),
+      class_const_key: "",
+      entry_const_key: "",
+      ring_name_normalized: text(row.ring_name_normalized),
+      ring_name_prioritized: text(row.ring_name_prioritized),
+      class_no: 0,
+      entry_no: 0,
+      entry_order: 0,
+      class_start_time: "",
+      estimated_class_end_time: "",
+      entry_go_time: "",
+      starts_in_mins: null,
+      ends_in_mins: null,
+      go_in_mins: null,
+      pace_seconds: intValue(row.pace_seconds),
+      tags: "",
+      status: ringStatus,
+      trigger_ready: false,
+      generated_at: generatedAt,
+      expires_at: expiresAt,
+      payload_json: compactJson({ ring_status: ringStatus, ring_name_normalized: row.ring_name_normalized }),
+      last_synced_at: generatedAt
+    });
+  }
+
+  for (const row of classRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
+    const entryScope = entriesByClass.get(text(row.class_const_key)) || [];
+    const vars = buildFieldVarsForClass(row, entryScope, now);
+    rows.push({
+      time_engine_key: timeEngineKey([focus.show_no, compactDate(focus.focus_day), "class", row.class_const_key || row.class_start_key]),
+      run_id: runId,
+      show_no: intValue(focus.show_no),
+      focus_day: focus.focus_day,
+      iso_date: focus.focus_day,
+      focus_day_key: compactDate(focus.focus_day),
+      level: "class",
+      endpoint,
+      source_table: TABLES.classStartTimes,
+      source_key: text(row.class_start_key || row.class_const_key),
+      ring_const_key: text(row.ring_const_key),
+      class_const_key: text(row.class_const_key || row.class_start_key),
+      entry_const_key: "",
+      ring_name_normalized: text(row.ring_name_normalized),
+      ring_name_prioritized: text(row.ring_name_prioritized),
+      class_no: intValue(row.class_no),
+      entry_no: 0,
+      entry_order: 0,
+      class_start_time: text(row.class_start_time),
+      estimated_class_end_time: text(vars.estimated_class_end_time),
+      entry_go_time: "",
+      starts_in_mins: vars.starts_in_mins,
+      ends_in_mins: vars.ends_in_mins,
+      go_in_mins: null,
+      pace_seconds: intValue(vars.pace_seconds),
+      tags: (vars.tags || []).join(","),
+      status: text(vars.class_status),
+      trigger_ready: (vars.tags || []).length > 0,
+      generated_at: generatedAt,
+      expires_at: expiresAt,
+      payload_json: compactJson({
+        class_no: intValue(row.class_no),
+        class_name: row.class_name,
+        class_start_time: row.class_start_time,
+        field_vars: vars
+      }),
+      last_synced_at: generatedAt
+    });
+  }
+
+  for (const row of entryRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
+    const vars = buildFieldVarsForEntry(row, now);
+    rows.push({
+      time_engine_key: timeEngineKey([focus.show_no, compactDate(focus.focus_day), "entry", row.entry_const_key || row.entry_go_key]),
+      run_id: runId,
+      show_no: intValue(focus.show_no),
+      focus_day: focus.focus_day,
+      iso_date: focus.focus_day,
+      focus_day_key: compactDate(focus.focus_day),
+      level: "entry",
+      endpoint,
+      source_table: TABLES.entryGoTimes,
+      source_key: text(row.entry_go_key || row.entry_const_key),
+      ring_const_key: text(row.ring_const_key),
+      class_const_key: text(row.class_const_key),
+      entry_const_key: text(row.entry_const_key || row.entry_go_key),
+      ring_name_normalized: text(row.ring_name_normalized),
+      ring_name_prioritized: text(row.ring_name_prioritized),
+      class_no: intValue(row.class_no),
+      entry_no: intValue(row.entry_no),
+      entry_order: intValue(row.entry_order),
+      class_start_time: text(row.class_start_time),
+      estimated_class_end_time: "",
+      entry_go_time: text(vars.entry_go_time),
+      starts_in_mins: null,
+      ends_in_mins: null,
+      go_in_mins: vars.go_in_mins,
+      pace_seconds: intValue(vars.pace_seconds),
+      tags: (vars.tags || []).join(","),
+      status: text(vars.entry_status),
+      trigger_ready: (vars.tags || []).length > 0,
+      generated_at: generatedAt,
+      expires_at: expiresAt,
+      payload_json: compactJson({
+        class_no: intValue(row.class_no),
+        entry_no: intValue(row.entry_no),
+        horse: row.horse,
+        rider: row.rider,
+        trainer: row.trainer,
+        field_vars: vars
+      }),
+      last_synced_at: generatedAt
+    });
+  }
+
+  return {
+    run_id: runId,
+    generated_at: generatedAt,
+    expires_at: expiresAt,
+    source_counts: {
+      hs_ring_status: ringRows.length,
+      hs_class_start_times: classRows.length,
+      hs_entry_go_times: entryRows.length
+    },
+    rows
+  };
+}
+
+async function runTimeEngineOnly(app, options = {}) {
+  const started = new Date();
+  const focus = await getActiveFocusShow();
+  if (!focus?.show_no) throw new Error("focus_show.show_no_required");
+  if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
+  const schema = await loadSchema(app);
+  const missingContractFields = [];
+  const missingRequired = missingRequiredColumns(schema, {
+    [TABLES.timeEngine]: TIME_ENGINE_FIELDS,
+    [TABLES.timeEngineLogs]: TIME_ENGINE_LOG_FIELDS
+  });
+  if (missingRequired.length) {
+    return {
+      ok: false,
+      mode: "wec-time-engine",
+      focus,
+      blocker: "missing_time_engine_columns",
+      missing_required_columns: missingRequired,
+      workflow_run: false,
+      live_run: false,
+      alerts_run: false,
+      output_publish_run: false
+    };
+  }
+
+  const built = await buildTimeEngineRows(app, focus, options);
+  const requestedOffset = Math.max(0, intValue(options.offset));
+  const requestedLimit = intValue(options.limit);
+  const mirrorLimit = intValue(options.mirror_limit) || 300;
+  const writeRows = requestedLimit > 0
+    ? built.rows.slice(requestedOffset, requestedOffset + requestedLimit)
+    : built.rows;
+  const upsert = await upsertRowsByKeyFast(app, schema, TABLES.timeEngine, "time_engine_key", writeRows, missingContractFields);
+  const triggerReadyCount = built.rows.filter((row) => row.trigger_ready === true).length;
+  const finished = new Date();
+  const logRow = {
+    time_engine_log_key: `${built.run_id}|${compactDate(focus.focus_day)}`,
+    run_id: built.run_id,
+    show_no: intValue(focus.show_no),
+    focus_day: focus.focus_day,
+    focus_day_key: compactDate(focus.focus_day),
+    started_at: catalystDateTime(started),
+    finished_at: catalystDateTime(finished),
+    duration_ms: finished.getTime() - started.getTime(),
+    status: "PASS",
+    source_counts: compactJson(built.source_counts),
+    rows_written: writeRows.length,
+    trigger_ready_count: triggerReadyCount,
+    endpoints: "mobile_pro|print|two_way|alerts",
+    warning_count: missingContractFields.length,
+    warning_summary: missingContractFields.join(","),
+    error_message: "",
+    payload_json: compactJson({
+      source_counts: built.source_counts,
+      rows_written: writeRows.length,
+      trigger_ready_count: triggerReadyCount
+    }),
+    last_synced_at: catalystDateTime(finished)
+  };
+  const logUpsert = await upsertRowsByKey(app, schema, TABLES.timeEngineLogs, "time_engine_log_key", [logRow], missingContractFields);
+
+  const airtableTables = {
+    time_engine: await ensureAirtableMirrorTable(TABLES.timeEngine, TIME_ENGINE_FIELDS),
+    time_engine_logs: await ensureAirtableMirrorTable(TABLES.timeEngineLogs, TIME_ENGINE_LOG_FIELDS)
+  };
+  const mirrorRows = writeRows.slice(0, mirrorLimit).map((row) => airtableTimeEngineFields(row, "time_engine_key"));
+  const airtableEngineMirrored = await upsertAirtableBatchByKey(TABLES.timeEngine, "time_engine_key", mirrorRows);
+  await upsertAirtableBatchByKey(TABLES.timeEngineLogs, "time_engine_log_key", [airtableTimeEngineFields(logRow, "time_engine_log_key")]);
+  const nextOffset = requestedLimit > 0 && requestedOffset + writeRows.length < built.rows.length ? requestedOffset + writeRows.length : 0;
+
+  return {
+    ok: true,
+    mode: "wec-time-engine",
+    focus,
+    run_id: built.run_id,
+    source_counts: built.source_counts,
+    total_rows: built.rows.length,
+    offset: requestedOffset,
+    limit: requestedLimit || 0,
+    rows_written: writeRows.length,
+    next_offset: nextOffset,
+    complete: nextOffset === 0,
+    trigger_ready_count: triggerReadyCount,
+    catalyst_upserts: {
+      time_engine: upsert,
+      time_engine_logs: logUpsert
+    },
+    airtable_tables: airtableTables,
+    airtable_mirror_counts: {
+      time_engine: airtableEngineMirrored,
+      time_engine_logs: 1
+    },
+    missing_contract_fields: missingContractFields,
+    workflow_run: false,
+    live_run: false,
+    alerts_run: false,
+    output_publish_run: false
+  };
 }
 
 function scheduleRowForProof(row, focus) {
@@ -566,6 +1214,7 @@ function scheduleRowForProof(row, focus) {
     ring_no: intValue(row.ring_no),
     ring_name: text(row.ring_name || row.ring),
     ring_name_normalized: ringNameNormalized,
+    ring_name_prioritized: intValue(row.ring_name_prioritized),
     class_no: intValue(row.class_no),
     class_number: text(row.class_number),
     class_name: text(row.class_name || row.event_name),
@@ -611,6 +1260,7 @@ function parseClassOogRaw(rawDoc) {
       ring_no: intValue(rawDoc.ring_no),
       ring_name: text(rawDoc.ring_name),
       ring_name_normalized: text(rawDoc.ring_name_normalized),
+      ring_name_prioritized: intValue(rawDoc.ring_name_prioritized),
       class_no: intValue(rawDoc.class_no),
       class_name: text(rawDoc.class_name),
       entry_no: mapped.entry_no,
@@ -669,6 +1319,33 @@ async function upsertRowsByKey(app, schema, tableName, keyField, rows, missingCo
     verified += 1;
   }
   return { rows: rows.length, inserted, updated, verified };
+}
+
+async function upsertRowsByKeyFast(app, schema, tableName, keyField, rows, missingContractFields) {
+  const first = rows?.[0] || {};
+  const existingRows = await zcqlRows(
+    app,
+    tableName,
+    `SELECT ROWID, ${keyField} FROM ${tableName} WHERE show_no = ${Number(first.show_no || 0)} AND focus_day = ${zcqlValue(first.focus_day || "")} LIMIT 300`
+  );
+  const existingByKey = new Map(existingRows.map((row) => [text(row[keyField]), row]));
+  const table = app.datastore().table(tableName);
+  let inserted = 0;
+  let updated = 0;
+  for (const row of rows || []) {
+    const key = text(row[keyField]);
+    if (!key) continue;
+    const existing = existingByKey.get(key);
+    const clean = filterToSchema(schema, tableName, existing?.ROWID ? { ...row, ROWID: existing.ROWID } : row, missingContractFields);
+    if (existing?.ROWID) {
+      await table.updateRow(clean);
+      updated += 1;
+    } else {
+      await table.insertRow(clean);
+      inserted += 1;
+    }
+  }
+  return { rows: rows.length, inserted, updated, verified: inserted + updated, readback: "skipped_for_time_engine_speed" };
 }
 
 async function markRowsNotInKeySet(app, schema, tableName, keyField, showNo, focusDay, activeKeys, missingContractFields, runTime) {
@@ -903,10 +1580,16 @@ async function makeAdapters(app, options) {
         focus_day: row.focus_day,
         iso_date: row.iso_date || row.focus_day,
         focus_day_key: row.focus_day_key,
+        show_const_key: row.show_const_key,
+        focus_day_const_key: row.focus_day_const_key,
+        ring_day_const_key: row.ring_day_const_key,
+        ring_const_key: row.ring_const_key,
+        class_const_key: row.class_const_key,
         ring_day_no: intValue(row.ring_day_no),
         ring_no: intValue(row.ring_no),
         ring_name: row.ring_name,
         ring_name_normalized: row.ring_name_normalized,
+        ring_name_prioritized: intValue(row.ring_name_prioritized),
         class_no: intValue(row.class_no),
         class_name: row.class_name,
         raw_html: row.raw_html,
@@ -973,6 +1656,7 @@ async function makeAdapters(app, options) {
           ring: row.ring_name,
           ring_name: row.ring_name,
           ring_name_normalized: row.ring_name_normalized,
+          ring_name_prioritized: intValue(row.ring_name_prioritized),
           show_const_key: row.show_const_key,
           focus_day_const_key: row.focus_day_const_key,
           ring_day_const_key: row.ring_day_const_key,
@@ -998,9 +1682,18 @@ async function makeAdapters(app, options) {
             focus_day: cleanRow.focus_day,
             iso_date: cleanRow.iso_date,
             focus_day_key: cleanRow.focus_day_key,
+            show_const_key: cleanRow.show_const_key,
+            focus_day_const_key: cleanRow.focus_day_const_key,
+            ring_day_const_key: cleanRow.ring_day_const_key,
+            ring_const_key: cleanRow.ring_const_key,
+            class_const_key: cleanRow.class_const_key,
+            entry_const_key: cleanRow.entry_const_key,
             ring_day_no: cleanRow.ring_day_no,
             ring_no: cleanRow.ring_no,
             ring: cleanRow.ring,
+            ring_name: cleanRow.ring_name,
+            ring_name_normalized: cleanRow.ring_name_normalized,
+            ring_name_prioritized: intValue(cleanRow.ring_name_prioritized),
             class_no: cleanRow.class_no,
             class_name: cleanRow.class_name,
             entry_order: cleanRow.entry_order,
@@ -1262,6 +1955,74 @@ async function runCleanBuildUpdateOnly(app, options = {}) {
   };
 }
 
+async function runCleanStage1To3BProofOnly(app, options = {}) {
+  const context = {
+    run_id: options.run_id || `clean-stage1-3b-${Date.now()}`,
+    started_at: new Date().toISOString()
+  };
+  const adapters = await makeAdapters(app, { ...options, run_id: context.run_id, defer_airtable_mirror: false });
+  const stage1 = await runStage1HeartbeatAndRingDays(adapters, context);
+  const stage2 = await runStage2UpdateSchedule(adapters, context, stage1);
+  const evidence = await adapters.buildProbeEvidence(stage1.focus, { context });
+  const eligibleRows = stage2.eligible_rows;
+  const requestedLimit = intValue(options.limit);
+  const probeRows = options.class_no
+    ? eligibleRows.filter((row) => intValue(row.class_no) === intValue(options.class_no))
+    : requestedLimit > 0
+      ? eligibleRows.slice(0, requestedLimit)
+      : eligibleRows;
+  const stage3a = await runProbe3A(adapters, context, stage1.focus, probeRows, evidence);
+  const stage3b = await runProbe3B(adapters, context, stage1.focus, evidence);
+  const stage3bFailures = stage3b.filter((item) => item.error).length;
+  const stage3bRows = stage3b.reduce((sum, item) => sum + (item.rows?.length || 0), 0);
+  const keySamples = {
+    ring_day_key: stage1.rows[0]?.ring_const_key || "",
+    update_schedule_key: stage2.rows.find((row) => row.class_const_key)?.class_const_key || "",
+    raw_key: stage3a.find((item) => item.raw)?.raw?.row?.raw_key || "",
+    class_oog_key: stage3b.find((item) => item.rows?.[0])?.rows?.[0]?.entry_const_key || ""
+  };
+  return {
+    ok: stage3bFailures === 0,
+    mode: "wec-clean-stage1-3b-proof",
+    run_id: context.run_id,
+    focus: stage1.focus,
+    stage1: {
+      heartbeat_id: stage1.heartbeat?.heartbeat_id || stage1.heartbeat?.id || "",
+      hs_get_ring_days_rows: stage1.rows.length,
+      upsert: stage1.upsert
+    },
+    stage2: {
+      hs_update_schedule_rows: stage2.rows.length,
+      non_preflight_rows: stage2.eligible_rows.length,
+      upsert: stage2.upsert,
+      dropped: stage2.dropped
+    },
+    stage3a: {
+      attempted: stage3a.length,
+      raw_stored: stage3a.filter((item) => item.progress?.probe_raw_stored).length,
+      checked_no_match: stage3a.filter((item) => item.progress?.probe_status === "checked").length,
+      failed: stage3a.filter((item) => item.error).length
+    },
+    stage3b: {
+      raw_docs_attempted: stage3b.length,
+      raw_docs_parsed: stage3b.filter((item) => !item.error).length,
+      raw_docs_failed: stage3bFailures,
+      hs_class_oog_rows: stage3bRows
+    },
+    canonical_key_samples: keySamples,
+    step1_run: true,
+    step2_run: true,
+    stage3a_run: true,
+    stage3b_run: true,
+    step4_run: false,
+    live_run: false,
+    alerts_run: false,
+    output_run: false,
+    missing_contract_fields: adapters.missingContractFields(),
+    stop_after: "hs_class_oog"
+  };
+}
+
 async function summarizeCleanStageState(app, focus) {
   const updateRows = (await readCurrentRows(app, TABLES.updateSchedule, focus.show_no, focus.focus_day))
     .map((row) => scheduleRowForProof(row, focus))
@@ -1292,6 +2053,32 @@ async function runCleanCadenceStack(app, options = {}) {
   const evidence = await buildCatalystProbeEvidence(app, build.focus);
   const sourceCleanup = await cleanSource13State(app, build.focus, evidence);
   const before = await summarizeCleanStageState(app, build.focus);
+  const finalizeHeartbeat = async (result) => {
+    const heartbeatId = build.stage1?.heartbeat_id || `${build.focus.show_no}|${build.focus.focus_day}|${runId}`;
+    const existing = await firstRow(
+      app,
+      TABLES.heartbeat,
+      `SELECT ROWID, heartbeat_id FROM ${TABLES.heartbeat} WHERE heartbeat_id = ${zcqlValue(heartbeatId)} LIMIT 1`
+    );
+    if (!existing?.ROWID) return { skipped: true, reason: "heartbeat_not_found" };
+    const payload = {
+      clean_proof: true,
+      mode: result.mode,
+      run_id: result.run_id,
+      stop_stage: result.stop_stage,
+      stop_reason: result.stop_reason,
+      next_stage: result.next_stage,
+      before: result.before,
+      after: result.after
+    };
+    return app.datastore().table(TABLES.heartbeat).updateRow({
+      ROWID: existing.ROWID,
+      status: result.ok ? "complete" : "failed",
+      blocker: result.ok ? "" : text(result.stop_reason),
+      payload_json: JSON.stringify(payload),
+      run_time: catalystDateTime()
+    });
+  };
 
   if (before.probe_unchecked_rows > 0) {
     const stage3a = await runFast3AOnly(app, {
@@ -1301,7 +2088,7 @@ async function runCleanCadenceStack(app, options = {}) {
       mode: "next_unchecked"
     });
     const after = await summarizeCleanStageState(app, build.focus);
-    return {
+    const result = {
       ok: true,
       mode: "wec-clean-cadence-stack",
       run_id: runId,
@@ -1321,6 +2108,8 @@ async function runCleanCadenceStack(app, options = {}) {
       alerts_run: false,
       output_run: false
     };
+    result.heartbeat_finalized = await finalizeHeartbeat(result);
+    return result;
   }
 
   if (before.raw_docs_pending_parse > 0) {
@@ -1330,7 +2119,7 @@ async function runCleanCadenceStack(app, options = {}) {
       limit: parseLimit
     });
     const after = await summarizeCleanStageState(app, build.focus);
-    return {
+    const result = {
       ok: stage3b.ok,
       mode: "wec-clean-cadence-stack",
       run_id: runId,
@@ -1352,12 +2141,16 @@ async function runCleanCadenceStack(app, options = {}) {
       alerts_run: false,
       output_run: false
     };
+    result.heartbeat_finalized = await finalizeHeartbeat(result);
+    return result;
   }
 
   const step4 = await runStep4RuntimePrepCleanOnly(app, { ...options, run_id: runId });
+  const timeEngine = step4.ok ? await runTimeEngineOnly(app, { ...options, run_id: runId }) : null;
   const after = await summarizeCleanStageState(app, build.focus);
-  return {
-    ok: Boolean(step4.ok),
+  const ok = Boolean(step4.ok && (!timeEngine || timeEngine.ok));
+  const result = {
+    ok,
     mode: "wec-clean-cadence-stack",
     run_id: runId,
     focus: build.focus,
@@ -1366,16 +2159,20 @@ async function runCleanCadenceStack(app, options = {}) {
     stage3a_run: false,
     stage3b_run: false,
     step4,
-    stop_stage: step4.ok ? "4" : "4_failed",
-    stop_reason: step4.blocker || "runtime_complete",
+    time_engine: timeEngine,
+    stop_stage: !step4.ok ? "4_failed" : timeEngine?.ok ? "time_engine" : "time_engine_failed",
+    stop_reason: step4.blocker || (timeEngine?.ok ? "time_engine_complete" : "time_engine_failed"),
     source_cleanup: sourceCleanup,
     before,
     after,
-    next_stage: step4.ok ? "complete" : "4",
+    next_stage: ok ? "complete" : "time_engine",
     live_run: false,
     alerts_run: false,
-    output_run: false
+    output_run: false,
+    time_engine_run: Boolean(timeEngine)
   };
+  result.heartbeat_finalized = await finalizeHeartbeat(result);
+  return result;
 }
 
 async function runCleanStage1To4Proof(app, options = {}) {
@@ -1501,10 +2298,16 @@ function classOogRawMirrorFields(row) {
     focus_day: row.focus_day,
     iso_date: row.iso_date || row.focus_day,
     focus_day_key: row.focus_day_key,
+    show_const_key: row.show_const_key,
+    focus_day_const_key: row.focus_day_const_key,
+    ring_day_const_key: row.ring_day_const_key,
+    ring_const_key: row.ring_const_key,
+    class_const_key: row.class_const_key,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring_name: row.ring_name,
     ring_name_normalized: row.ring_name_normalized,
+    ring_name_prioritized: intValue(row.ring_name_prioritized),
     class_no: intValue(row.class_no),
     class_name: row.class_name,
     raw_html: row.raw_html,
@@ -1532,9 +2335,19 @@ function classOogMirrorFields(row) {
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
     iso_date: row.iso_date || row.focus_day,
+    focus_day_key: row.focus_day_key,
+    show_const_key: row.show_const_key,
+    focus_day_const_key: row.focus_day_const_key,
+    ring_day_const_key: row.ring_day_const_key,
+    ring_const_key: row.ring_const_key,
+    class_const_key: row.class_const_key,
+    entry_const_key: row.entry_const_key,
     ring_day_no: intValue(row.ring_day_no),
     ring_no: intValue(row.ring_no),
     ring: row.ring,
+    ring_name: row.ring_name,
+    ring_name_normalized: row.ring_name_normalized,
+    ring_name_prioritized: intValue(row.ring_name_prioritized),
     class_no: intValue(row.class_no),
     class_name: row.class_name,
     entry_order: intValue(row.entry_order),
@@ -1881,6 +2694,27 @@ async function handle(req, res) {
       const result = await runFast3BOnly(app, options);
       return json(res, result.ok ? 200 : 500, result);
     }
+    if (action === "wec-clean-stage1-3b-proof") {
+      return json(res, 410, {
+        ok: false,
+        mode: "wec-clean-stage1-3b-proof",
+        disabled: true,
+        reason: "deprecated_all_in_one_action_split_stages_required",
+        use_actions: [
+          "wec-clean-build-update",
+          "wec-clean-probe-3a",
+          "wec-clean-process-3b"
+        ],
+        step1_run: false,
+        step2_run: false,
+        stage3a_run: false,
+        stage3b_run: false,
+        step4_run: false,
+        live_run: false,
+        alerts_run: false,
+        output_run: false
+      });
+    }
     if (action === "wec-step3-airtable-mirror") {
       const result = await runStep3AirtableMirrorOnly(app, options);
       return json(res, 200, result);
@@ -1892,6 +2726,14 @@ async function handle(req, res) {
     if (action === "wec-step4-airtable-mirror") {
       const result = await runStep4AirtableMirrorOnly(app, options);
       return json(res, 200, result);
+    }
+    if (action === "wec-mobile-pro-live") {
+      const result = await buildMobileProPayload(app, options);
+      return json(res, 200, result);
+    }
+    if (action === "wec-time-engine") {
+      const result = await runTimeEngineOnly(app, options);
+      return json(res, result.ok ? 200 : 500, result);
     }
     if (action === "wec-clean-cadence-stack" || action === "wec-clean-stage1-4-proof") {
       const result = await runCleanCadenceStack(app, options);

@@ -325,6 +325,39 @@ function classEntryKey(row) {
   return resultKey(row?.class_no, row?.entry_no);
 }
 
+function focusDayKey(value) {
+  const iso = isoDate(value);
+  return iso ? iso.replace(/-/g, "") : text(value).replace(/\D/g, "").slice(0, 8);
+}
+
+function hasCleanConstKey(value, parts) {
+  const key = text(value);
+  if (!key) return false;
+  const pieces = key.split("|");
+  return pieces.length === parts && /^\d+$/.test(pieces[0] || "") && /^\d{8}$/.test(pieces[1] || "");
+}
+
+function runtimeClassConstKey(row) {
+  if (hasCleanConstKey(row?.class_const_key, 5)) return text(row.class_const_key);
+  if (hasCleanConstKey(row?.class_start_key, 5)) return text(row.class_start_key);
+  const showNo = text(row?.show_no);
+  const dayKey = focusDayKey(row?.focus_day || row?.iso_date || row?.focus_day_key);
+  const ringDayNo = text(row?.ring_day_no);
+  const ringNo = text(row?.ring_no);
+  const classNo = text(row?.class_no);
+  if (!showNo || !dayKey || !ringDayNo || !ringNo || !classNo) return "";
+  return resultKey(showNo, dayKey, ringDayNo, ringNo, classNo);
+}
+
+function runtimeEntryConstKey(row) {
+  if (hasCleanConstKey(row?.entry_const_key, 6)) return text(row.entry_const_key);
+  if (hasCleanConstKey(row?.entry_go_key, 6)) return text(row.entry_go_key);
+  const classKey = runtimeClassConstKey(row);
+  const entryNo = text(row?.entry_no);
+  if (!classKey || !entryNo) return "";
+  return resultKey(classKey, entryNo);
+}
+
 function classResultSourceKey(row) {
   return classEntryKey(row);
 }
@@ -864,6 +897,7 @@ function parseResults(html, classRows) {
       class_no: text(classSource.class_no),
       sect_no: text(classSource.sect_no),
       has_score: hasScore,
+      has_time: /<th[^>]*>\s*Time\s*<\/th>/i.test(block),
       has_prize: hasPrize,
       source: "horseshowing.show_results4"
     };
@@ -872,6 +906,9 @@ function parseResults(html, classRows) {
     for (const rowMatch of body.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
       const cells = [...rowMatch[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((cell) => stripTags(cell[1]));
       if (cells.length < 5) continue;
+      let metricIndex = 5;
+      const score = hasScore ? cells[metricIndex++] || "" : "";
+      const time = classRow.has_time ? cells[metricIndex++] || "" : "";
       results.push({
         class_no: classRow.class_no,
         sect_no: classRow.sect_no,
@@ -882,7 +919,8 @@ function parseResults(html, classRows) {
         horse: cells[2],
         rider: cells[3],
         owner: cells[4],
-        score: hasScore ? cells[5] || "" : "",
+        score,
+        time,
         prize: hasPrize ? cells[cells.length - 1] || "" : "",
         source: "horseshowing.show_results4"
       });
@@ -946,6 +984,18 @@ async function upsertCatalyst(app, tableName, keyField, row) {
   }
   await table.insertRow(clean);
   return { action: "inserted" };
+}
+
+async function upsertCatalystClassResult(app, row) {
+  try {
+    return await upsertCatalyst(app, TABLES.classResults, "class_result_key", row);
+  } catch (error) {
+    if (!Object.prototype.hasOwnProperty.call(row || {}, "time")) throw error;
+    const withoutTime = { ...row };
+    delete withoutTime.time;
+    const result = await upsertCatalyst(app, TABLES.classResults, "class_result_key", withoutTime);
+    return { ...result, warning: "catalyst_time_column_missing_time_omitted" };
+  }
 }
 
 async function catalystRows(app, tableName, showNo, focusDay) {
@@ -1047,6 +1097,7 @@ function classResultRow(showNo, focusDay, row, now, sourceEntry = {}) {
     rider: text(row.rider) || text(sourceEntry.rider),
     owner: text(row.owner),
     score: text(row.score),
+    time: text(row.time),
     prize: text(row.prize),
     completed_at: now,
     source: "horseshowing.show_results4",
@@ -1179,19 +1230,19 @@ function resultProbeInfo(row, nowDate) {
   };
 }
 
-function scopedClassVisualKeysFromEntries(rows) {
+function scopedClassConstKeysFromEntries(rows) {
   const scoped = new Set();
   for (const row of rows || []) {
-    const classVisualKey = text(row?.class_visual_key);
-    if (classVisualKey && text(row?.entry_no)) scoped.add(classVisualKey);
+    const classConstKey = runtimeClassConstKey(row);
+    if (classConstKey && text(row?.entry_no)) scoped.add(classConstKey);
   }
   return scoped;
 }
 
-function latestQueueByClassVisualKey(queueRows) {
+function latestQueueByClassConstKey(queueRows) {
   const map = new Map();
   for (const row of queueRows || []) {
-    const key = text(row?.class_visual_key);
+    const key = hasCleanConstKey(row?.result_queue_key, 5) ? text(row.result_queue_key) : runtimeClassConstKey(row);
     if (!key) continue;
     const existing = map.get(key);
     const existingTime = new Date(text(existing?.last_checked_at || existing?.MODIFIEDTIME || "")).getTime() || 0;
@@ -1205,35 +1256,37 @@ function getRuntimeClassNo(row) {
   return text(row?.class_no);
 }
 
-function getRuntimeClassVisualKey(row) {
-  return text(row?.class_visual_key) || resultKey(text(row?.ring_name_normalized).toLowerCase().replace(/\s+/g, "_"), row?.class_no);
+function getRuntimeClassKey(row) {
+  return runtimeClassConstKey(row);
 }
 
 function runtimeClassSourceEvidence(rows, entryRows = [], queueRows = [], nowDate = new Date()) {
-  const scoped = scopedClassVisualKeysFromEntries(entryRows);
-  const latestQueue = latestQueueByClassVisualKey(queueRows);
-  const scopedRows = (rows || []).filter((row) => scoped.has(getRuntimeClassVisualKey(row)));
+  const scoped = scopedClassConstKeysFromEntries(entryRows);
+  const latestQueue = latestQueueByClassConstKey(queueRows);
+  const scopedRows = (rows || []).filter((row) => scoped.has(getRuntimeClassKey(row)));
   const probeReadyRows = scopedRows.filter((row) => resultProbeInfo(row, nowDate).check_results);
   return {
     source_rows: rows.length,
     done_status_rows: rows.filter((row) => text(row.class_status).toLowerCase() === "done").length,
     done_count_rows: rows.filter(doneByRuntimeCounts).length,
+    class_const_key_rows: rows.filter((row) => runtimeClassConstKey(row)).length,
+    entry_const_key_rows: entryRows.filter((row) => runtimeEntryConstKey(row)).length,
     class_visual_key_rows: rows.filter((row) => text(row.class_visual_key)).length,
     ring_visual_key_rows: rows.filter((row) => text(row.ring_visual_key)).length,
     ring_name_normalized_rows: rows.filter((row) => text(row.ring_name_normalized)).length,
     our_rider_scoped_class_count: scoped.size,
     scoped_class_start_rows: scopedRows.length,
     check_results_rows: probeReadyRows.length,
-    pending_due_rows: scopedRows.filter((row) => queueRetryDue(latestQueue.get(getRuntimeClassVisualKey(row)), nowDate)).length,
-    exhausted_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassVisualKey(row))?.status).toLowerCase() === "exhausted").length,
-    completed_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassVisualKey(row))?.status).toLowerCase() === "completed").length
+    pending_due_rows: scopedRows.filter((row) => queueRetryDue(latestQueue.get(getRuntimeClassKey(row)), nowDate)).length,
+    exhausted_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassKey(row))?.status).toLowerCase() === "exhausted").length,
+    completed_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassKey(row))?.status).toLowerCase() === "completed").length
   };
 }
 
-function pendingQueueByClassVisualKey(queueRows) {
+function pendingQueueByClassConstKey(queueRows) {
   const map = new Map();
   for (const row of queueRows || []) {
-    const key = text(row.class_visual_key);
+    const key = hasCleanConstKey(row?.result_queue_key, 5) ? text(row.result_queue_key) : runtimeClassConstKey(row);
     if (!key) continue;
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(row);
@@ -1241,28 +1294,30 @@ function pendingQueueByClassVisualKey(queueRows) {
   return map;
 }
 
-function completedClassVisualKeys(queueRows, resultClassRows) {
+function completedClassConstKeys(queueRows, resultClassRows) {
   const completed = new Set();
   for (const row of queueRows || []) {
-    if (classIsCompleted(row) && text(row.class_visual_key)) completed.add(text(row.class_visual_key));
+    const key = hasCleanConstKey(row?.result_queue_key, 5) ? text(row.result_queue_key) : runtimeClassConstKey(row);
+    if (classIsCompleted(row) && key) completed.add(key);
   }
   for (const row of resultClassRows || []) {
-    if (classIsCompleted(row) && text(row.class_visual_key)) completed.add(text(row.class_visual_key));
+    const key = hasCleanConstKey(row?.result_class_key, 5) ? text(row.result_class_key) : runtimeClassConstKey(row);
+    if (classIsCompleted(row) && key) completed.add(key);
   }
   return completed;
 }
 
 function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRows, force, nowDate) {
-  const scoped = scopedClassVisualKeysFromEntries(entryRows);
-  const latestQueue = latestQueueByClassVisualKey(queueRows);
-  const completedKeys = force ? new Set() : completedClassVisualKeys(queueRows, resultClassRows);
+  const scoped = scopedClassConstKeysFromEntries(entryRows);
+  const latestQueue = latestQueueByClassConstKey(queueRows);
+  const completedKeys = force ? new Set() : completedClassConstKeys(queueRows, resultClassRows);
   const candidates = [];
   for (const row of classStartRows || []) {
     const classNo = getRuntimeClassNo(row);
-    const classVisualKey = getRuntimeClassVisualKey(row);
-    if (!classNo || !classVisualKey) continue;
-    if (!scoped.has(classVisualKey)) continue;
-    const previousQueue = latestQueue.get(classVisualKey) || null;
+    const classConstKey = getRuntimeClassKey(row);
+    if (!classNo || !classConstKey) continue;
+    if (!scoped.has(classConstKey)) continue;
+    const previousQueue = latestQueue.get(classConstKey) || null;
     const previousStatus = text(previousQueue?.status).toLowerCase();
     const previousAttempts = intOrNull(previousQueue?.attempts) || 0;
     const pendingDue = queueRetryDue(previousQueue, nowDate);
@@ -1270,16 +1325,20 @@ function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRo
     if (!force && previousStatus === "completed") continue;
     if (!force && previousStatus === "exhausted") continue;
     if (!force && previousAttempts >= 5) continue;
-    if (!force && completedKeys.has(classVisualKey) && !pendingDue) continue;
+    if (!force && completedKeys.has(classConstKey) && !pendingDue) continue;
     if (!probe.check_results && !pendingDue && !force) continue;
-    if (!force && completedKeys.has(classVisualKey) && !pendingDue) continue;
+    if (!force && completedKeys.has(classConstKey) && !pendingDue) continue;
     candidates.push({
-      class_start_key: text(row.class_start_key),
+      class_start_key: text(row.class_start_key || classConstKey),
       show_no: row.show_no,
       focus_day: isoDate(row.focus_day),
+      focus_day_key: focusDayKey(row.focus_day || row.iso_date || row.focus_day_key),
+      ring_day_no: intOrNull(row.ring_day_no),
+      ring_no: intOrNull(row.ring_no),
       ring_name_normalized: text(row.ring_name_normalized),
       ring_visual_key: text(row.ring_visual_key),
-      class_visual_key: classVisualKey,
+      class_visual_key: classConstKey,
+      class_const_key: classConstKey,
       class_no: classNo,
       sect_no: text(row.sect_no),
       class_number: text(row.class_number),
@@ -1302,16 +1361,16 @@ function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRo
 
 function step6ResultClassRow(showNo, focusDay, row, now, sourceClass = {}) {
   const classNo = text(row.class_no);
-  const classVisualKey = text(sourceClass.class_visual_key || row.class_visual_key);
-  const key = resultKey(showNo, focusDay, classVisualKey);
-  if (!key || !classVisualKey) return null;
+  const classConstKey = text(sourceClass.class_const_key || sourceClass.class_visual_key || row.class_const_key || row.class_visual_key);
+  const key = classConstKey;
+  if (!key || !classConstKey) return null;
   return {
     result_class_key: key,
     show_no: text(showNo),
     focus_day: focusDay,
     ring_name_normalized: text(sourceClass.ring_name_normalized),
     ring_visual_key: text(sourceClass.ring_visual_key),
-    class_visual_key: classVisualKey,
+    class_visual_key: classConstKey,
     class_no: classNo,
     sect_no: text(row.sect_no || sourceClass.sect_no),
     class_number: text(row.class_number || sourceClass.class_number),
@@ -1321,31 +1380,35 @@ function step6ResultClassRow(showNo, focusDay, row, now, sourceClass = {}) {
     has_prize: row.has_prize === true,
     completed_at: now,
     source: "horseshowing.show_results4",
-    raw_json: safeJson({ ...row, class_visual_key: classVisualKey })
+    raw_json: safeJson({ ...row, class_const_key: classConstKey })
   };
 }
 
-function entryVisualKeyFromResult(resultRow, sourceClass, entryGoTimeByClassEntry) {
+function entryConstKeyFromResult(resultRow, sourceClass, entryGoTimeByClassEntry) {
   const existing = entryGoTimeByClassEntry.get(classEntryKey(resultRow));
-  if (existing?.entry_visual_key) return text(existing.entry_visual_key);
-  return resultKey(text(sourceClass.ring_name_normalized).toLowerCase().replace(/\s+/g, "_"), resultRow.class_no, resultRow.entry_no);
+  const existingKey = runtimeEntryConstKey(existing);
+  if (existingKey) return existingKey;
+  const classKey = text(sourceClass.class_const_key || sourceClass.class_visual_key);
+  const entryNo = text(resultRow.entry_no);
+  if (!classKey || !entryNo) return "";
+  return resultKey(classKey, entryNo);
 }
 
 function step6ClassResultRow(showNo, focusDay, row, now, sourceClass = {}, entryGoTimeByClassEntry = new Map()) {
   const classNo = text(row.class_no);
   const entryNo = text(row.entry_no);
-  const entryVisualKey = entryVisualKeyFromResult(row, sourceClass, entryGoTimeByClassEntry);
-  const identity = resultKey(entryVisualKey, row.place, row.score, row.prize);
-  const key = resultKey(showNo, focusDay, identity);
-  if (!key || !entryVisualKey) return null;
+  const entryConstKey = entryConstKeyFromResult(row, sourceClass, entryGoTimeByClassEntry);
+  const identity = resultKey(row.place, row.score, row.prize);
+  const key = resultKey(entryConstKey, identity);
+  if (!key || !entryConstKey) return null;
   return {
     class_result_key: key,
     show_no: text(showNo),
     focus_day: focusDay,
     ring_name_normalized: text(sourceClass.ring_name_normalized),
     ring_visual_key: text(sourceClass.ring_visual_key),
-    class_visual_key: text(sourceClass.class_visual_key),
-    entry_visual_key: entryVisualKey,
+    class_visual_key: text(sourceClass.class_const_key || sourceClass.class_visual_key),
+    entry_visual_key: entryConstKey,
     class_no: classNo,
     sect_no: text(row.sect_no || sourceClass.sect_no),
     class_number: text(row.class_number || sourceClass.class_number),
@@ -1359,12 +1422,12 @@ function step6ClassResultRow(showNo, focusDay, row, now, sourceClass = {}, entry
     prize: text(row.prize),
     completed_at: now,
     source: "horseshowing.show_results4",
-    raw_json: safeJson({ ...row, entry_visual_key: entryVisualKey })
+    raw_json: safeJson({ ...row, entry_const_key: entryConstKey })
   };
 }
 
 function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate) {
-  const key = resultKey(showNo, focusDay, classRow.class_visual_key);
+  const key = text(classRow.class_const_key || classRow.class_visual_key);
   const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
   const nextCheckAt = status === "pending" ? catalystDateTime(addMinutes(nowDate, 6)) : "";
   return {
@@ -1373,7 +1436,7 @@ function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now
     focus_day: focusDay,
     ring_name_normalized: text(classRow.ring_name_normalized),
     ring_visual_key: text(classRow.ring_visual_key),
-    class_visual_key: text(classRow.class_visual_key),
+    class_visual_key: key,
     class_no: text(classRow.class_no),
     sect_no: text(classRow.sect_no),
     class_number: text(classRow.class_number),
@@ -1388,7 +1451,7 @@ function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now
     source: "horseshowing.show_results4",
     raw_json: safeJson({
       class_no: classRow.class_no,
-      class_visual_key: classRow.class_visual_key,
+      class_const_key: key,
       status,
       result_rows: resultRows,
       attempts,
@@ -1461,6 +1524,7 @@ function toAirtableHsClassResult(row) {
     rider: row.rider,
     owner: row.owner,
     score: row.score,
+    time: row.time,
     prize: row.prize,
     completed_at: airtableDateTime(row.completed_at),
     source: row.source,
@@ -1581,13 +1645,15 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   });
 
   const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 }, class_start_times: { inserted: 0, updated: 0 } };
+  let catalystTimeColumnMissingRows = 0;
   for (const row of resultClassRows) {
     const result = await upsertCatalyst(app, TABLES.resultClasses, "result_class_key", row);
     if (result.action === "inserted") catalystCounters.result_classes.inserted += 1;
     if (result.action === "updated") catalystCounters.result_classes.updated += 1;
   }
   for (const row of classResultRows) {
-    const result = await upsertCatalyst(app, TABLES.classResults, "class_result_key", row);
+    const result = await upsertCatalystClassResult(app, row);
+    if (result.warning === "catalyst_time_column_missing_time_omitted") catalystTimeColumnMissingRows += 1;
     if (result.action === "inserted") catalystCounters.class_results.inserted += 1;
     if (result.action === "updated") catalystCounters.class_results.updated += 1;
   }
@@ -1677,6 +1743,7 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     completed_class_status_updates: classStartStatusRows.filter((row) => row.class_status === "Done").length,
     fake_results_created: 0,
     catalyst: catalystCounters,
+    catalyst_time_column_missing_rows: catalystTimeColumnMissingRows,
     airtable: {
       hs_result_queue: airtableQueue.length,
       hs_result_classes: airtableResultClasses.length,

@@ -255,6 +255,8 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
   for (const row of scheduleRows) {
     const probeStartedAt = new Date().toISOString();
     const startedMs = Date.now();
+    let raw = null;
+    let rawStored = false;
     try {
       const rawPayload = await adapters.fetchClassOog(focus, row);
       const scan = scanClassOogPayload(rawPayload, evidence);
@@ -271,9 +273,6 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
         probe_raw_stored: scan.possible_match
       };
 
-      await adapters.markClassOogProbeProgress(row, progress, { focus, context });
-
-      let raw = null;
       if (scan.possible_match) {
         raw = await adapters.storeClassOogRaw({
           ...row,
@@ -282,21 +281,23 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
           parse_status: PARSE_STATUS.PENDING,
           ...progress
         }, { focus, context });
+        rawStored = true;
       }
 
+      await adapters.markClassOogProbeProgress(row, progress, { focus, context });
       results.push({ row, progress, scan, raw });
     } catch (error) {
       const progress = {
         class_const_key: row.class_const_key,
         class_no: intValue(row.class_no),
-        probe_status: PROBE_STATUS.FAILED,
+        probe_status: rawStored ? PROBE_STATUS.RAW_STORED : PROBE_STATUS.FAILED,
         probe_attempted_at: probeStartedAt,
         probe_finished_at: new Date().toISOString(),
         probe_duration_ms: Date.now() - startedMs,
         probe_payload_chars: 0,
-        probe_certainty: CERTAINTY.NONE,
+        probe_certainty: rawStored ? CERTAINTY.HIGH : CERTAINTY.NONE,
         probe_reason: String(error?.message || error),
-        probe_raw_stored: false
+        probe_raw_stored: rawStored
       };
       await adapters.markClassOogProbeProgress(row, progress, { focus, context });
       results.push({ row, progress, error: progress.probe_reason });

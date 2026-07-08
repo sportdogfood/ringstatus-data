@@ -930,12 +930,68 @@ function byNumberThenText(a, b, numberField, textField) {
   return text(a[textField]).localeCompare(text(b[textField]));
 }
 
+function normalizeHorseLookupKey(value) {
+  return text(value)
+    .toLowerCase()
+    .replace(/[’`]/g, "'")
+    .replace(/[^a-z0-9']+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function addHorseDisplayAlias(map, raw, display) {
+  const key = normalizeHorseLookupKey(raw);
+  const value = text(display);
+  if (key && value) map.set(key, value);
+}
+
+function horseDisplayFromHelperFields(fields = {}) {
+  return text(fields.barn_name || fields.horse_display || fields.horse_name || fields.horse);
+}
+
+function addHorseDisplayRow(map, row = {}) {
+  const display = horseDisplayFromHelperFields(row);
+  if (!display) return;
+  for (const value of [row.horse, row.horse_name, row.horse_display, row.barn_name]) {
+    addHorseDisplayAlias(map, value, display);
+  }
+  for (const alias of text(row.horse_aka || row.aka).split(/[,\n|;]/).map(text).filter(Boolean)) {
+    addHorseDisplayAlias(map, alias, display);
+  }
+}
+
+async function loadHorseDisplayMap(app) {
+  const map = new Map();
+  try {
+    const catalystRows = await zcqlRows(app, TABLES.horses, `SELECT * FROM ${TABLES.horses} LIMIT 300`);
+    for (const row of catalystRows) addHorseDisplayRow(map, row);
+  } catch {
+    // Output can still render from runtime rows if helper rows are unavailable.
+  }
+  try {
+    const airtableRows = await getAirtableRecords(TABLES.horses, { pageSize: "100" });
+    for (const record of airtableRows) addHorseDisplayRow(map, record.fields || {});
+  } catch {
+    // Airtable helper corrections are best-effort at render time.
+  }
+  return map;
+}
+
+function displayHorseForEntry(entry = {}, horseDisplayMap = new Map()) {
+  for (const value of [entry.horse, entry.horse_name, entry.horse_display, entry.barn_name]) {
+    const mapped = horseDisplayMap.get(normalizeHorseLookupKey(value));
+    if (mapped) return mapped;
+  }
+  return text(entry.barn_name || entry.horse_display || entry.horse);
+}
+
 async function buildMobileProPayload(app, options = {}) {
   const focus = await getActiveFocusShow();
   if (!focus?.show_no) throw new Error("focus_show.show_no_required");
   if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
 
   const now = options.now ? new Date(options.now) : new Date();
+  const horseDisplayMap = await loadHorseDisplayMap(app);
   const ringRows = await readCurrentRows(app, TABLES.ringStatus, focus.show_no, focus.focus_day, "focus_day_only");
   const classRows = await readCurrentRows(app, TABLES.classStartTimes, focus.show_no, focus.focus_day, "focus_day_only");
   const entryRows = await readCurrentRows(app, TABLES.entryGoTimes, focus.show_no, focus.focus_day, "focus_day_only");
@@ -981,7 +1037,7 @@ async function buildMobileProPayload(app, options = {}) {
             class_const_key: text(entry.class_const_key),
             entry_no: intValue(entry.entry_no),
             entry_order: intValue(entry.entry_order),
-            barn_name: text(entry.barn_name || entry.horse),
+            barn_name: displayHorseForEntry(entry, horseDisplayMap),
             horse: text(entry.horse),
             rider: text(entry.rider),
             trainer: text(entry.trainer),

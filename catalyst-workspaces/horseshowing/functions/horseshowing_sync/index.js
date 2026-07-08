@@ -4805,20 +4805,25 @@ async function metaForFocusRender(app, showNo, focusDay, query, body) {
     };
   }
   const catalystHorseDisplays = await getCatalystHorseDisplayConfig(app);
+  const airtableHorseDisplays = await getAirtableHorseDisplayConfig(meta.activeTrainers || [], meta.trainerDisplays || {});
   meta.horseDisplays = {
     ...(meta.horseDisplays || {}),
-    ...(catalystHorseDisplays.horse_displays || {})
+    ...(catalystHorseDisplays.horse_displays || {}),
+    ...(airtableHorseDisplays.horse_displays || {})
   };
   meta.horseDisplayMeta = {
     ...(meta.horseDisplayMeta || {}),
-    ...(catalystHorseDisplays.horse_display_meta || {})
+    ...(catalystHorseDisplays.horse_display_meta || {}),
+    ...(airtableHorseDisplays.horse_display_meta || {})
   };
   meta.airtableHorseDisplayStatus = {
-    ok: catalystHorseDisplays.ok,
-    source: catalystHorseDisplays.source,
-    filter_formula: "",
-    count: Object.keys(catalystHorseDisplays.horse_displays || {}).length,
-    error: catalystHorseDisplays.error || "",
+    ok: catalystHorseDisplays.ok || airtableHorseDisplays.ok,
+    source: airtableHorseDisplays.ok ? airtableHorseDisplays.source : catalystHorseDisplays.source,
+    filter_formula: airtableHorseDisplays.filter_formula || "",
+    count: Object.keys(meta.horseDisplays || {}).length,
+    catalyst_count: Object.keys(catalystHorseDisplays.horse_displays || {}).length,
+    airtable_count: Object.keys(airtableHorseDisplays.horse_displays || {}).length,
+    error: airtableHorseDisplays.error || catalystHorseDisplays.error || "",
     scanned: catalystHorseDisplays.scanned,
     truncated: catalystHorseDisplays.truncated
   };
@@ -13024,7 +13029,10 @@ async function runScanHelperSearch(app, configs, q, limit) {
   const allMatches = [];
   for (const config of configs) {
     const page = await getPagedRowsFiltered(app, config.table, () => true, { maxRows: 5000 });
-    const matches = helperSearchRankedMatches(config, page.rows || [], q, limit);
+    const searchRows = config.table === TABLES.horses
+      ? await mergeAirtableHelperRowsForSearch(page.rows || [])
+      : (page.rows || []);
+    const matches = helperSearchRankedMatches(config, searchRows, q, limit);
     groups[config.entity_type] = {
       table: config.table,
       search_indexed: false,
@@ -13040,6 +13048,31 @@ async function runScanHelperSearch(app, configs, q, limit) {
     groups,
     allMatches
   };
+}
+
+async function mergeAirtableHelperRowsForSearch(catalystRows = []) {
+  const rowsByKey = new Map();
+  for (const row of catalystRows || []) {
+    const key = text(row.horse_key || row.horse || row.horse_name || row.ROWID);
+    if (key) rowsByKey.set(key, row);
+  }
+  try {
+    const records = await airtableListRecords(TABLES.horses);
+    for (const record of records || []) {
+      const fields = record.fields || {};
+      const key = text(fields.horse_key || fields.horse || fields.horse_name || record.id);
+      if (!key) continue;
+      rowsByKey.set(key, {
+        ...(rowsByKey.get(key) || {}),
+        ...fields,
+        rec_id: text(fields.rec_id || record.id),
+        helper_source: "airtable.hs_horses"
+      });
+    }
+  } catch {
+    // Helper search must still work from Catalyst if the Airtable mirror is unavailable.
+  }
+  return [...rowsByKey.values()];
 }
 
 function helperSearchLooseKey(value) {

@@ -1399,8 +1399,8 @@ function updateSchedulePreflightReason(row) {
   if (!timeText) return "blank_time_text";
   if (!classNo) return "missing_class_no";
   if (eventType === 5) return "event_type_5";
-  if (classNameLower.includes("ticketed schooling") || classNameLower.includes("ticket school")) {
-    return "ticket_school";
+  if (classNameLower.includes("ticketed") || classNameLower.includes("ticket school")) {
+    return classNameLower.includes("ticketed") ? "ticketed" : "ticket_school";
   }
   return "";
 }
@@ -4099,7 +4099,11 @@ function trainerRollupsForEntries(entries, meta) {
     if (!trainer) continue;
     const trainerDisplay = trainerDisplayName(trainer, meta.trainerDisplays);
     const bucket = byTrainer.get(trainer) || { trainer, trainer_display: trainerDisplay, horses: [] };
-    const horse = horseDisplayMeta(entry.horse, meta);
+    const entryBarnName = text(entry.barn_name || entry.horse_display);
+    const horseMeta = horseDisplayMeta(entry.horse, meta);
+    const horse = entryBarnName
+      ? { ...horseMeta, display: entryBarnName, barn_name: entryBarnName, barn_name_missing: false }
+      : horseMeta;
     const entryOrder = text(entry.entry_order);
     if (horse.display) {
       bucket.horses.push({
@@ -4425,6 +4429,9 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
 function compactMobileEntryPayload(entries) {
   return (entries || []).map((entry) => ({
     entry_rollup: text(entry.entry_rollup),
+    barn_name: text(entry.barn_name || entry.entry_rollup),
+    horse: text(entry.horse),
+    horse_display: text(entry.horse_display || entry.barn_name || entry.entry_rollup),
     rider_display: text(entry.rider_display || entry.rider),
     trainer_display: text(entry.trainer_display || entry.trainer),
     entry_go_time: text(entry.entry_go_time || entry.go_time),
@@ -4438,6 +4445,8 @@ function compactMobileEntryPayload(entries) {
     time_till: text(entry.time_till)
   })).filter((entry) => (
     entry.entry_rollup ||
+    entry.barn_name ||
+    entry.horse ||
     entry.rider_display ||
     entry.trainer_display ||
     entry.entry_go_time ||
@@ -6843,20 +6852,26 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
     if (ringNo) ringsByNo.set(ringNo, row);
   }
 
-  const entriesByClassVisualKey = new Map();
+  const entriesByClassKey = new Map();
   for (const row of entryRows) {
     const ringNameNormalized = text(row.ring_name_normalized);
     const classNo = text(row.class_no);
+    const classConst = text(row.class_const_key);
     const classVisual = text(row.class_visual_key) || classVisualKey(ringNameNormalized, classNo);
-    if (!classVisual) continue;
-    const bucket = entriesByClassVisualKey.get(classVisual) || [];
-    bucket.push({
+    const keys = [classConst, classVisual].filter(Boolean);
+    if (!keys.length) continue;
+    const sourceHorse = text(row.horse);
+    const horseMeta = horseDisplayMeta(sourceHorse, meta);
+    const barnName = text(horseMeta.barn_name || horseMeta.display);
+    const payload = {
       entry_no: text(row.entry_no),
       entry_order: text(row.entry_order),
-      horse: text(row.horse),
+      horse: sourceHorse,
+      barn_name: barnName,
+      horse_display: barnName || sourceHorse,
       rider: text(row.rider),
       trainer: text(row.trainer),
-      entry_rollup: text(row.horse),
+      entry_rollup: barnName || sourceHorse,
       rider_display: text(row.rider),
       trainer_display: trainerDisplayName(text(row.trainer), meta.trainerDisplays),
       entry_go_time: text(row.go_time || row.entry_go_time),
@@ -6867,12 +6882,17 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
       entry_go_time_label: text(row.go_time) ? "Source-derived go time" : "Estimated go time",
       entry_go_time_source: text(row.go_time) ? "source_derived_pace" : "estimate",
       time_till: text(row.time_till),
+      class_const_key: classConst,
       class_visual_key: classVisual,
       entry_visual_key: text(row.entry_visual_key || row.entry_go_key)
-    });
-    entriesByClassVisualKey.set(classVisual, bucket);
+    };
+    for (const key of keys) {
+      const bucket = entriesByClassKey.get(key) || [];
+      bucket.push(payload);
+      entriesByClassKey.set(key, bucket);
+    }
   }
-  for (const bucket of entriesByClassVisualKey.values()) {
+  for (const bucket of entriesByClassKey.values()) {
     bucket.sort((a, b) => Number(a.entry_order || 9999) - Number(b.entry_order || 9999));
   }
 
@@ -6880,6 +6900,7 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
     .map((row) => {
       const ringNo = text(row.ring_no);
       const ringVisual = text(row.ring_visual_key);
+      const classConst = text(row.class_const_key);
       const classVisual = text(row.class_visual_key || row.class_start_key);
       const ringRow = ringsByVisualKey.get(ringVisual) || ringsByNo.get(ringNo) || {};
       const ringNameNormalized = text(row.ring_name_normalized || ringRow.ring_name_normalized);
@@ -6889,7 +6910,7 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
       const classNumber = text(row.class_number);
       const className = text(row.class_name);
       const classStartTime = text(row.class_start_time);
-      const entries = (entriesByClassVisualKey.get(classVisual) || [])
+      const entries = (entriesByClassKey.get(classConst) || entriesByClassKey.get(classVisual) || [])
         .map((entry) => ({ ...entry, class_start_time: classStartTime }));
       const trainerRollups = trainerRollupsForEntries(entries, meta);
       const rollup = horseRollupDisplay(trainerRollups);
@@ -6910,6 +6931,7 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
         ring_name_prioritized: text(row.ring_name_prioritized || ringName),
         ring_name_normalized: ringNameNormalized,
         ring_visual_key: ringVisual,
+        class_const_key: classConst,
         class_visual_key: classVisual,
         class_group_id: classNo || text(row.ROWID),
         class_group_sequence: scheduleSortValue(classStartTime, classNumber),

@@ -88,7 +88,7 @@ function preflightReason(row) {
   if (!timeText) reasons.push("blank_time_text");
   if (!classNo) reasons.push("blank_or_zero_class_no");
   if (eventType === 5) reasons.push("event_type_5");
-  if (className.includes("ticketed schooling")) reasons.push("ticketed_schooling");
+  if (className.includes("ticketed")) reasons.push("ticketed");
   if (className.includes("ticket school")) reasons.push("ticket_school");
 
   return reasons;
@@ -273,16 +273,15 @@ async function runProbe3A(adapters, context, focus, scheduleRows, evidence) {
         probe_raw_stored: scan.possible_match
       };
 
-      if (scan.possible_match) {
-        raw = await adapters.storeClassOogRaw({
-          ...row,
-          run_id: context.run_id,
-          raw_html: rawPayload,
-          parse_status: PARSE_STATUS.PENDING,
-          ...progress
-        }, { focus, context });
-        rawStored = true;
-      }
+      raw = await adapters.storeClassOogRaw({
+        ...row,
+        run_id: context.run_id,
+        raw_html: scan.possible_match ? rawPayload : "",
+        parse_status: scan.possible_match ? PARSE_STATUS.PENDING : "not_applicable",
+        parsed_status: scan.possible_match ? PARSE_STATUS.PENDING : "not_applicable",
+        ...progress
+      }, { focus, context });
+      rawStored = scan.possible_match;
 
       await adapters.markClassOogProbeProgress(row, progress, { focus, context });
       results.push({ row, progress, scan, raw });

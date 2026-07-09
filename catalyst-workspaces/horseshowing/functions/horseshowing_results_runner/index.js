@@ -9,9 +9,11 @@ const TABLES = {
   resultClasses: "hs_result_classes",
   classResults: "hs_class_results",
   resultQueue: "hs_result_queue",
+  updateSchedule: "hs_update_schedule",
   classStartTimes: "hs_class_start_times",
   entryGoTimes: "hs_entry_go_times",
-  classOog: "hs_class_oog"
+  classOog: "hs_class_oog",
+  timeEngine: "time_engine"
 };
 
 const AIRTABLE_TABLES = {
@@ -32,6 +34,7 @@ const AIRTABLE_TABLES = {
 
 const SOURCE_CLASS_OOG_STAGING_VIEW = "active_entries";
 const RESULT_SOURCE = "class_oog_staging.active_entries";
+const CLEAN_RESULT_SOURCE = "time_engine.result_ready";
 
 const FOCUS_SHOW_FIELDS = {
   show_no: "show_no",
@@ -555,15 +558,13 @@ async function airtableCreate(baseId, tableId, fields, token) {
   return JSON.parse(raw);
 }
 
-async function getFocusShow(baseId, showNo, token, focusDayOverride) {
-  const rows = await airtableList(baseId, "focus_show", `{show_no}=${Number(showNo)}`, token);
-  const override = isoDate(focusDayOverride);
-  const row = override
-    ? rows.find((item) => isoDate(item[FOCUS_SHOW_FIELDS.focus_day]) === override)
-    : rows.find((item) => item[FOCUS_SHOW_FIELDS.active] === true) || rows[0];
-  if (!row) throw new Error(`No focus_show found for show_no=${showNo}`);
+async function getFocusShow(baseId, showNo, token) {
+  const formula = showNo ? `{show_no}=${Number(showNo)}` : "";
+  const rows = await airtableList(baseId, "focus_show", formula, token);
+  const row = rows.find((item) => item[FOCUS_SHOW_FIELDS.active] === true);
+  if (!row) throw new Error(showNo ? `No active focus_show found for show_no=${showNo}` : "No active focus_show found");
   const focusDay = isoDate(row[FOCUS_SHOW_FIELDS.focus_day]);
-  if (!focusDay) throw new Error(`focus_show has no focus_day for show_no=${showNo}`);
+  if (!focusDay) throw new Error(`active focus_show has no focus_day`);
   return {
     record_id: row.record_id,
     show_no: Number(row[FOCUS_SHOW_FIELDS.show_no] || showNo),
@@ -1239,6 +1240,14 @@ function scopedClassConstKeysFromEntries(rows) {
   return scoped;
 }
 
+function outsideTrackedClassKeys(classRows, entryRows) {
+  const tracked = scopedClassConstKeysFromEntries(entryRows);
+  return (classRows || [])
+    .map((row) => getRuntimeClassKey(row))
+    .filter(Boolean)
+    .filter((key) => !tracked.has(key));
+}
+
 function latestQueueByClassConstKey(queueRows) {
   const map = new Map();
   for (const row of queueRows || []) {
@@ -1252,6 +1261,56 @@ function latestQueueByClassConstKey(queueRows) {
   return map;
 }
 
+function rowIsTrue(value) {
+  return value === true || text(value).toLowerCase() === "true" || text(value) === "1";
+}
+
+function timeEngineResultReadyClassKeys(rows) {
+  const ready = new Set();
+  for (const row of rows || []) {
+    const level = text(row?.level).toLowerCase();
+    if (level !== "class") continue;
+    if (!rowIsTrue(row?.trigger_ready)) continue;
+    const tags = text(row?.tags).toLowerCase();
+    const status = text(row?.status).toLowerCase();
+    const payload = text(row?.payload_json).toLowerCase();
+    const looksResultReady = tags.includes("result")
+      || tags.includes("check_results")
+      || status === "results"
+      || status === "done"
+      || payload.includes("check_results")
+      || payload.includes("result_ready");
+    if (!looksResultReady) continue;
+    const key = hasCleanConstKey(row?.class_const_key, 5)
+      ? text(row.class_const_key)
+      : runtimeClassConstKey(row);
+    if (key) ready.add(key);
+  }
+  return ready;
+}
+
+function watchedScheduleClassKeys(updateRows, entryRows, nowDate = new Date()) {
+  const tracked = scopedClassConstKeysFromEntries(entryRows);
+  const hasLiveFlagRows = (updateRows || []).some((row) => rowIsTrue(row?.live_flag));
+  const ready = new Map();
+  for (const row of updateRows || []) {
+    const classConstKey = runtimeClassConstKey(row);
+    if (!classConstKey) continue;
+    if (!tracked.has(classConstKey)) continue;
+    const liveFlag = rowIsTrue(row?.live_flag);
+    if (hasLiveFlagRows && !liveFlag) continue;
+    const probe = resultProbeInfo(row, nowDate);
+    ready.set(classConstKey, {
+      ready: probe.check_results === true,
+      ready_at: probe.ready_at,
+      reason: probe.check_results
+        ? (liveFlag ? "watched_live_flag_estimated_end_elapsed" : "tracked_entry_estimated_end_elapsed")
+        : probe.reason
+    });
+  }
+  return ready;
+}
+
 function getRuntimeClassNo(row) {
   return text(row?.class_no);
 }
@@ -1260,11 +1319,10 @@ function getRuntimeClassKey(row) {
   return runtimeClassConstKey(row);
 }
 
-function runtimeClassSourceEvidence(rows, entryRows = [], queueRows = [], nowDate = new Date()) {
+function runtimeClassSourceEvidence(rows, entryRows = [], queueRows = [], nowDate = new Date(), resultReadyKeys = new Set(), watchedReady = new Map()) {
   const scoped = scopedClassConstKeysFromEntries(entryRows);
   const latestQueue = latestQueueByClassConstKey(queueRows);
   const scopedRows = (rows || []).filter((row) => scoped.has(getRuntimeClassKey(row)));
-  const probeReadyRows = scopedRows.filter((row) => resultProbeInfo(row, nowDate).check_results);
   return {
     source_rows: rows.length,
     done_status_rows: rows.filter((row) => text(row.class_status).toLowerCase() === "done").length,
@@ -1276,7 +1334,8 @@ function runtimeClassSourceEvidence(rows, entryRows = [], queueRows = [], nowDat
     ring_name_normalized_rows: rows.filter((row) => text(row.ring_name_normalized)).length,
     our_rider_scoped_class_count: scoped.size,
     scoped_class_start_rows: scopedRows.length,
-    check_results_rows: probeReadyRows.length,
+    time_engine_result_ready_rows: scopedRows.filter((row) => resultReadyKeys.has(getRuntimeClassKey(row))).length,
+    watched_result_ready_rows: scopedRows.filter((row) => watchedReady.get(getRuntimeClassKey(row))?.ready === true).length,
     pending_due_rows: scopedRows.filter((row) => queueRetryDue(latestQueue.get(getRuntimeClassKey(row)), nowDate)).length,
     exhausted_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassKey(row))?.status).toLowerCase() === "exhausted").length,
     completed_rows: scopedRows.filter((row) => text(latestQueue.get(getRuntimeClassKey(row))?.status).toLowerCase() === "completed").length
@@ -1294,7 +1353,7 @@ function pendingQueueByClassConstKey(queueRows) {
   return map;
 }
 
-function completedClassConstKeys(queueRows, resultClassRows) {
+function completedClassConstKeys(queueRows, resultClassRows, classResultRows = []) {
   const completed = new Set();
   for (const row of queueRows || []) {
     const key = hasCleanConstKey(row?.result_queue_key, 5) ? text(row.result_queue_key) : runtimeClassConstKey(row);
@@ -1304,13 +1363,17 @@ function completedClassConstKeys(queueRows, resultClassRows) {
     const key = hasCleanConstKey(row?.result_class_key, 5) ? text(row.result_class_key) : runtimeClassConstKey(row);
     if (classIsCompleted(row) && key) completed.add(key);
   }
+  for (const row of classResultRows || []) {
+    const key = runtimeClassConstKey(row);
+    if (key) completed.add(key);
+  }
   return completed;
 }
 
-function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRows, force, nowDate) {
+function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRows, classResultRows, resultReadyKeys, watchedReady, force, nowDate) {
   const scoped = scopedClassConstKeysFromEntries(entryRows);
   const latestQueue = latestQueueByClassConstKey(queueRows);
-  const completedKeys = force ? new Set() : completedClassConstKeys(queueRows, resultClassRows);
+  const completedKeys = force ? new Set() : completedClassConstKeys(queueRows, resultClassRows, classResultRows);
   const candidates = [];
   for (const row of classStartRows || []) {
     const classNo = getRuntimeClassNo(row);
@@ -1321,13 +1384,19 @@ function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRo
     const previousStatus = text(previousQueue?.status).toLowerCase();
     const previousAttempts = intOrNull(previousQueue?.attempts) || 0;
     const pendingDue = queueRetryDue(previousQueue, nowDate);
-    const probe = resultProbeInfo(row, nowDate);
+    const timeEngineReady = resultReadyKeys.has(classConstKey);
+    const watchedProbe = watchedReady.get(classConstKey) || null;
+    const watchedReadyNow = watchedProbe?.ready === true;
     if (!force && previousStatus === "completed") continue;
     if (!force && previousStatus === "exhausted") continue;
     if (!force && previousAttempts >= 5) continue;
     if (!force && completedKeys.has(classConstKey) && !pendingDue) continue;
-    if (!probe.check_results && !pendingDue && !force) continue;
+    if (!timeEngineReady && !watchedReadyNow && !pendingDue) continue;
     if (!force && completedKeys.has(classConstKey) && !pendingDue) continue;
+    const probe = resultProbeInfo(row, nowDate);
+    const reason = pendingDue && !timeEngineReady && !watchedReadyNow
+      ? "pending_retry_due"
+      : (timeEngineReady ? "time_engine_result_ready" : (watchedProbe?.reason || probe.reason));
     candidates.push({
       class_start_key: text(row.class_start_key || classConstKey),
       show_no: row.show_no,
@@ -1345,9 +1414,9 @@ function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRo
       class_name: text(row.class_name),
       class_status: text(row.class_status),
       entry_count: intOrNull(row.entry_count),
-      check_results: probe.check_results,
-      result_probe_ready_at: probe.ready_at,
-      result_probe_reason: pendingDue && !probe.check_results ? "pending_retry_due" : probe.reason,
+      check_results: timeEngineReady || watchedReadyNow || pendingDue,
+      result_probe_ready_at: watchedProbe?.ready_at || probe.ready_at,
+      result_probe_reason: reason,
       previous_attempts: previousAttempts,
       previous_queue_status: previousStatus
     });
@@ -1567,7 +1636,7 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
       action: "wec-step6-results",
       show_no: Number(focusShow.show_no),
       focus_day: focusShow.focus_day,
-      source: ["hs_class_start_times", "hs_entry_go_times"],
+      source: [CLEAN_RESULT_SOURCE, "hs_update_schedule.live_flag", "hs_class_start_times", "hs_entry_go_times"],
       writes: { catalyst: 0, airtable: 0 },
       step_1_5_run: false,
       result_alerts_run: false
@@ -1582,11 +1651,16 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const limit = Math.max(1, Math.min(5, intOrNull(options.limit) || 3));
   const offset = Math.max(0, intOrNull(options.offset) || 0);
 
+  const updateScheduleRows = await catalystRows(app, TABLES.updateSchedule, showNo, focusDay);
   const classStartRows = await catalystRows(app, TABLES.classStartTimes, showNo, focusDay);
   const entryGoTimeRows = await catalystRows(app, TABLES.entryGoTimes, showNo, focusDay);
+  const timeEngineRows = await catalystRows(app, TABLES.timeEngine, showNo, focusDay);
+  const resultReadyKeys = timeEngineResultReadyClassKeys(timeEngineRows);
+  const watchedReady = watchedScheduleClassKeys(updateScheduleRows, entryGoTimeRows, nowDate);
   const existingQueueRows = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
   const existingResultClassRows = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
-  const allClassRows = buildStep6ClassRows(classStartRows, entryGoTimeRows, existingQueueRows, existingResultClassRows, force, nowDate);
+  const existingClassResultRows = await catalystRows(app, TABLES.classResults, showNo, focusDay);
+  const allClassRows = buildStep6ClassRows(classStartRows, entryGoTimeRows, existingQueueRows, existingResultClassRows, existingClassResultRows, resultReadyKeys, watchedReady, force, nowDate);
   const classRows = allClassRows.slice(offset, offset + limit);
   const classByNo = new Map(classRows.map((row) => [text(row.class_no), row]));
   const entryGoTimeByClassEntry = new Map(entryGoTimeRows.map((row) => [classEntryKey(row), row]));
@@ -1598,15 +1672,26 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
       show_no: Number(showNo),
       focus_day: focusDay,
       results_enabled: true,
-      source: ["hs_class_start_times", "hs_entry_go_times"],
+      source: [CLEAN_RESULT_SOURCE, "hs_update_schedule.live_flag", "hs_class_start_times", "hs_entry_go_times"],
       source_counts: {
+        hs_update_schedule: updateScheduleRows.length,
+        tracked_hs_entry_go_times_classes: scopedClassConstKeysFromEntries(entryGoTimeRows).size,
+        watched_live_flag_classes: [...watchedReady.values()].length,
+        watched_result_ready: [...watchedReady.values()].filter((row) => row.ready === true).length,
+        time_engine: timeEngineRows.length,
+        time_engine_result_ready: resultReadyKeys.size,
         hs_class_start_times: classStartRows.length,
         hs_entry_go_times: entryGoTimeRows.length,
         hs_result_queue: existingQueueRows.length,
-        hs_result_classes: existingResultClassRows.length
+        hs_result_classes: existingResultClassRows.length,
+        hs_class_results: existingClassResultRows.length
       },
-      eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate),
-      check_results_count: 0,
+      eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate, resultReadyKeys, watchedReady),
+      guard: {
+        only_hs_entry_go_times_classes: true,
+        outside_tracked_class_keys: outsideTrackedClassKeys(allClassRows, entryGoTimeRows).length
+      },
+      check_results_count: resultReadyKeys.size + [...watchedReady.values()].filter((row) => row.ready === true).length,
       target_classes_total: allClassRows.length,
       offset,
       limit,
@@ -1707,19 +1792,30 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     show_no: Number(showNo),
     focus_day: focusDay,
     results_enabled: true,
-    source: ["hs_class_start_times", "hs_entry_go_times"],
+    source: [CLEAN_RESULT_SOURCE, "hs_update_schedule.live_flag", "hs_class_start_times", "hs_entry_go_times"],
     result_source_endpoint: "show_results4.php",
     source_request_uses_native_class_no: true,
     target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
     target_airtable: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
     source_counts: {
+      hs_update_schedule: updateScheduleRows.length,
+      tracked_hs_entry_go_times_classes: scopedClassConstKeysFromEntries(entryGoTimeRows).size,
+      watched_live_flag_classes: [...watchedReady.values()].length,
+      watched_result_ready: [...watchedReady.values()].filter((row) => row.ready === true).length,
+      time_engine: timeEngineRows.length,
+      time_engine_result_ready: resultReadyKeys.size,
       hs_class_start_times: classStartRows.length,
       hs_entry_go_times: entryGoTimeRows.length,
       hs_result_queue: existingQueueRows.length,
-      hs_result_classes: existingResultClassRows.length
+      hs_result_classes: existingResultClassRows.length,
+      hs_class_results: existingClassResultRows.length
     },
-    eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate),
-    check_results_count: allClassRows.filter((row) => row.check_results === true).length,
+    eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate, resultReadyKeys, watchedReady),
+    guard: {
+      only_hs_entry_go_times_classes: true,
+      outside_tracked_class_keys: outsideTrackedClassKeys(allClassRows, entryGoTimeRows).length
+    },
+    check_results_count: resultReadyKeys.size + [...watchedReady.values()].filter((row) => row.ready === true).length,
     target_classes_total: allClassRows.length,
     offset,
     limit,
@@ -1875,11 +1971,9 @@ async function handle(req, res) {
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
     query = parseQuery(req);
     body = await readBody(req);
-    const showNo = text(query.get("show_no") || body.show_no);
-    if (!showNo) return sendJson(res, 400, { ok: false, error: "show_no required" });
-    const focusDayOverride = text(query.get("focus_day") || body.focus_day);
+    const requestedShowNo = text(query.get("show_no") || body.show_no);
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
-    const action = text(query.get("action") || body.action || "probe-results");
+    const action = text(query.get("action") || body.action);
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);
     const limit = Math.max(1, Math.min(5, intOrNull(query.get("limit") || body.limit) || 1));
     noWrite = flagTrue(query.get("no_write") || body.no_write)
@@ -1894,15 +1988,28 @@ async function handle(req, res) {
     phase = "initialize_catalyst";
     const app = catalyst.initialize(req);
     phase = "read_focus_show";
-    const focusShow = await getFocusShow(baseId, showNo, token, focusDayOverride);
+    const focusShow = await getFocusShow(baseId, requestedShowNo, token);
+    const showNo = text(focusShow.show_no);
     logContext = { show_no: Number(showNo), focus_day: focusShow.focus_day };
+    if (action !== "wec-step6-results") {
+      return sendJson(res, 410, {
+        ok: false,
+        action: action || "",
+        error: "legacy_results_action_disabled",
+        allowed_action: "wec-step6-results",
+        source: CLEAN_RESULT_SOURCE,
+        no_class_oog_staging_source: true,
+        step_1_5_run: false,
+        result_alerts_run: false
+      });
+    }
     if (focusShow.is_pause) {
       const detail = {
         ok: true,
         paused: true,
         reason: "focus_show.is_pause",
         action,
-        source: RESULT_SOURCE,
+        source: CLEAN_RESULT_SOURCE,
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
         source_rows: 0,

@@ -2445,6 +2445,24 @@ async function ensureFocusShow(app, showNo, focusDay, patch = {}) {
   return result.row;
 }
 
+async function updateCatalystHsFocusShowLiveEmpty(app, showNo, focusDay, lastLiveEmptyAt) {
+  const safeFocusDay = dateKey(focusDay);
+  const focusDayKey = safeFocusDay ? safeFocusDay.replace(/-/g, "") : "";
+  const focusShowKey = `${text(showNo)}|${focusDayKey}`;
+  const result = await upsert(app, TABLES.focusShow, { focus_show_key: focusShowKey }, {
+    focus_show_key: focusShowKey,
+    show_no: intValue(showNo),
+    focus_day: safeFocusDay,
+    iso_date: safeFocusDay,
+    last_live_empty_at: lastLiveEmptyAt
+  });
+  return {
+    updated: true,
+    action: result.action,
+    focus_show_key: focusShowKey
+  };
+}
+
 async function getFocusSchedule(app, showNo, focusDay, { limit = 200, offset = 0 } = {}) {
   const query = [
     "SELECT *",
@@ -3310,7 +3328,7 @@ function horseDisplayMeta(horse, meta = {}) {
     horse: raw,
     display,
     barn_name: barnName,
-    barn_name_missing: false
+    barn_name_missing: !barnName
   };
 }
 
@@ -4099,13 +4117,17 @@ function trainerRollupsForEntries(entries, meta) {
     if (!trainer) continue;
     const trainerDisplay = trainerDisplayName(trainer, meta.trainerDisplays);
     const bucket = byTrainer.get(trainer) || { trainer, trainer_display: trainerDisplay, horses: [] };
-    const entryBarnName = text(entry.barn_name || entry.horse_display);
+    const entryBarnNameRaw = text(entry.barn_name || entry.horse_display);
+    const entryRiderName = text(entry.rider_display || entry.rider);
+    const entryBarnName = entryBarnNameRaw && entryBarnNameRaw.toLowerCase() !== entryRiderName.toLowerCase()
+      ? entryBarnNameRaw
+      : "";
     const horseMeta = horseDisplayMeta(entry.horse, meta);
     const horse = entryBarnName
       ? { ...horseMeta, display: entryBarnName, barn_name: entryBarnName, barn_name_missing: false }
       : horseMeta;
     const entryOrder = text(entry.entry_order);
-    if (horse.display) {
+    if (horse.display && !horse.barn_name_missing) {
       bucket.horses.push({
         ...horse,
         entry_order: entryOrder,
@@ -11684,6 +11706,7 @@ function floridaDateParts(now = new Date()) {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: false
   }).formatToParts(now).reduce((acc, part) => {
     acc[part.type] = part.value;
@@ -11691,10 +11714,23 @@ function floridaDateParts(now = new Date()) {
   }, {});
   const hour = Number(parts.hour === "24" ? "0" : parts.hour);
   const minute = Number(parts.minute);
+  const second = Number(parts.second || 0);
   return {
     iso_date: `${parts.year}-${parts.month}-${parts.day}`,
-    minutes: hour * 60 + minute
+    minutes: hour * 60 + minute,
+    time_text: `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`
   };
+}
+
+function floridaCatalystDateTime(now = new Date()) {
+  const parts = floridaDateParts(now);
+  return `${parts.iso_date} ${parts.time_text}`;
+}
+
+function isLiveWindowNearClose(liveWindow) {
+  const nowMinutes = intOrNull(liveWindow?.now?.minutes);
+  const endMinutes = intOrNull(liveWindow?.end_minutes);
+  return nowMinutes !== null && endMinutes !== null && nowMinutes >= endMinutes - 60;
 }
 
 async function getAirtableFocusShow(showNo = "") {
@@ -11795,6 +11831,26 @@ async function getAirtableFocusShowForDay(showNo, focusDay) {
     show_end_time: text(fields.show_end_time),
     active: fields.active === true
   };
+}
+
+async function updateAirtableHsFocusShowLiveEmpty(showNo, focusDay, lastLiveEmptyAt) {
+  try {
+    const safeFocusDay = dateKey(focusDay);
+    const showValue = Number.isFinite(Number(showNo)) ? String(Number(showNo)) : airtableFormulaValue(showNo);
+    const formula = `AND({show_no}=${showValue},IS_SAME({focus_day},DATETIME_PARSE(${airtableFormulaValue(safeFocusDay)}),'day'))`;
+    const records = await airtableListRecords("hs_focus_show", { filterByFormula: formula });
+    const record = records[0];
+    if (!record?.id) {
+      return { updated: false, skipped: true, reason: "hs_focus_show_row_not_found" };
+    }
+    const updated = await airtableUpdateRecordsById("hs_focus_show", [{
+      id: record.id,
+      fields: { last_live_empty_at: lastLiveEmptyAt }
+    }]);
+    return { updated: updated.length > 0, skipped: false, records: updated.length };
+  } catch (error) {
+    return { updated: false, skipped: true, error: String(error?.message || error) };
+  }
 }
 
 async function writeLiveWorkflowLog({ source, showNo, focusDay, status, summary, payload = {}, recordsSeen = 0, recordsChanged = 0 }) {
@@ -14247,6 +14303,38 @@ function classVisualKeyForLiveRow(row, ringStatusByRing) {
   return classVisualKey(ringNameNormalized, classNo);
 }
 
+function cleanStep5ClassKey(showNo, focusDay, ringDayNo, ringNo, classNo) {
+  const show = text(showNo);
+  const focusDayKey = dateKey(focusDay).replace(/-/g, "");
+  const ringDay = text(ringDayNo);
+  const ring = text(ringNo);
+  const klass = text(classNo);
+  if (!show || !focusDayKey || !ringDay || !ring || !klass) return "";
+  return `${show}|${focusDayKey}|${ringDay}|${ring}|${klass}`;
+}
+
+function cleanStep5ClassKeyForRuntimeRow(row, showNo, focusDay) {
+  const stored = text(row.class_const_key || row.class_start_key);
+  if (stored) return stored;
+  return cleanStep5ClassKey(
+    row.show_no || showNo,
+    row.focus_day_key || row.focus_day || row.iso_date || focusDay,
+    row.ring_day_no,
+    row.ring_no,
+    row.class_no
+  );
+}
+
+function cleanStep5ClassKeyForLiveRow(row, showNo, focusDay) {
+  return cleanStep5ClassKey(
+    row.show_no || showNo,
+    row.focus_day_key || row.focus_day || row.iso_date || focusDay,
+    row.ring_day_no,
+    row.ring_no,
+    row.class_no
+  );
+}
+
 function sourceDerivedPaceSeconds(row) {
   const gone = intOrNull(row.n_gone);
   const elapsed = intOrNull(row.elapsed);
@@ -14347,11 +14435,11 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     }
   }
 
-  const classStartByVisualKey = new Map();
+  const classStartByClassKey = new Map();
   const classStartByClassNo = new Map();
   for (const row of classStartRows) {
-    const key = text(row.class_visual_key || row.class_start_key);
-    if (key) classStartByVisualKey.set(key, row);
+    const key = cleanStep5ClassKeyForRuntimeRow(row, showNo, safeFocusDay);
+    if (key) classStartByClassKey.set(key, row);
     const classNo = text(row.class_no);
     if (classNo) {
       if (classStartByClassNo.has(classNo)) classStartByClassNo.set(classNo, null);
@@ -14363,8 +14451,8 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     .filter((row) => intValue(row.class_no));
   const bestLiveByClass = new Map();
   for (const row of liveRows) {
-    const classKey = classVisualKeyForLiveRow(row, ringStatusByRing);
-    if (!classKey || !classStartByVisualKey.has(classKey)) continue;
+    const classKey = cleanStep5ClassKeyForLiveRow(row, showNo, safeFocusDay);
+    if (!classKey || !classStartByClassKey.has(classKey)) continue;
     const existing = bestLiveByClass.get(classKey);
     const nextPace = sourceDerivedPaceSeconds(row);
     const existingPace = existing ? sourceDerivedPaceSeconds(existing) : null;
@@ -14399,18 +14487,18 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       class_status: classStatusForStart(row, null, soonClassStatusKeys)
     });
   }
-  const paceByClassVisualKey = new Map();
+  const paceByClassKey = new Map();
   const paceByClassNo = new Map();
   const sourceDerivedPaceBySource = {
     hs_get_rings: 0,
     hs_get_orders: 0
   };
   for (const [classKey, liveRow] of bestLiveByClass.entries()) {
-    const classRow = classStartByVisualKey.get(classKey);
+    const classRow = classStartByClassKey.get(classKey);
     if (!classRow?.class_start_key) continue;
     const pace = sourceDerivedPaceSeconds(liveRow);
     if (pace) {
-      paceByClassVisualKey.set(classKey, pace);
+      paceByClassKey.set(classKey, pace);
       if (text(liveRow.get_orders_key)) sourceDerivedPaceBySource.hs_get_orders += 1;
       else sourceDerivedPaceBySource.hs_get_rings += 1;
     }
@@ -14445,18 +14533,18 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     invalid_go_time: 0
   };
   for (const row of entryGoRows) {
-    const classKey = text(row.class_visual_key || row.class_start_key || classVisualKey(row.ring_name_normalized, row.class_no));
+    const classKey = cleanStep5ClassKeyForRuntimeRow(row, showNo, safeFocusDay);
     const classNo = text(row.class_no);
     if (!classKey && !classNo) {
       entrySkipReasons.missing_class_key += 1;
       continue;
     }
-    const pace = paceByClassVisualKey.get(classKey) || paceByClassNo.get(classNo);
+    const pace = paceByClassKey.get(classKey) || paceByClassNo.get(classNo);
     if (!pace) {
       entrySkipReasons.missing_pace += 1;
       continue;
     }
-    const classRow = classStartByVisualKey.get(classKey) || classStartByClassNo.get(classNo);
+    const classRow = classStartByClassKey.get(classKey) || classStartByClassNo.get(classNo);
     if (!classRow?.class_start_key) {
       entrySkipReasons.missing_class_row += 1;
       continue;
@@ -14515,7 +14603,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       hs_entry_go_times: entryGoRows.length
     },
     class_live_matches: bestLiveByClass.size,
-    source_derived_pace_classes: paceByClassVisualKey.size,
+    source_derived_pace_classes: paceByClassKey.size,
     source_derived_pace_by_source: sourceDerivedPaceBySource,
     class_status: {
       soon_alert_rows: soonClassStatusKeys.rows,
@@ -14922,6 +15010,7 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
   let orders = null;
   let airtableLiveMirror = null;
   let runtimeEnrichment = null;
+  let closingDaySignal = null;
   try {
     rings = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "rings", context);
     orders = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "orders", context);
@@ -14929,6 +15018,21 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     if (!blocker) {
       if (!(rings.source_rows || []).length || !(orders.source_rows || []).length) {
         blocker = "live_source_empty";
+        const ringsNearClose = isLiveWindowNearClose(rings.live_window);
+        const ordersNearClose = isLiveWindowNearClose(orders.live_window);
+        if (ringsNearClose || ordersNearClose) {
+          const lastLiveEmptyAt = floridaCatalystDateTime(runTime);
+          const catalystHsFocusShow = await updateCatalystHsFocusShowLiveEmpty(app, activeFocus.show_no, focusDay, lastLiveEmptyAt);
+          const airtableHsFocusShow = await updateAirtableHsFocusShowLiveEmpty(activeFocus.show_no, focusDay, lastLiveEmptyAt);
+          closingDaySignal = {
+            signal: "live_source_empty_near_show_end",
+            last_live_empty_at: lastLiveEmptyAt,
+            catalyst_hs_focus_show: catalystHsFocusShow,
+            airtable_hs_focus_show: airtableHsFocusShow,
+            focus_show_active_unchanged: true,
+            live_enrichment_unchanged: true
+          };
+        }
       } else {
         airtableLiveMirror = await syncRawAirtableStep5LiveRows(activeFocus.show_no, focusDay, {
           getRingsRows: rings.source_rows || [],
@@ -14967,6 +15071,7 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     },
     airtable_live_mirror: finalAirtableLiveMirror,
     runtime_enrichment: finalRuntimeEnrichment,
+    closing_day_signal: closingDaySignal,
     fallback_go_times_created: runtimeEnrichment?.fallback_go_times_created || 0,
     step1_run: false,
     step2_run: false,

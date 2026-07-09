@@ -83,13 +83,18 @@ function preflightReason(row) {
   const timeText = text(row.time_text);
   const classNo = intValue(row.class_no);
   const eventType = intValue(row.event_type);
-  const className = text(row.class_name).toLowerCase();
+  const classText = normalizeSearchText([
+    row.class_name,
+    row.class_label,
+    row.event_name,
+    row.source_payload
+  ].map(text).filter(Boolean).join(" "));
 
   if (!timeText) reasons.push("blank_time_text");
   if (!classNo) reasons.push("blank_or_zero_class_no");
   if (eventType === 5) reasons.push("event_type_5");
-  if (className.includes("ticketed")) reasons.push("ticketed");
-  if (className.includes("ticket school")) reasons.push("ticket_school");
+  if (classText.includes("ticketed")) reasons.push("ticketed");
+  if (classText.includes("ticket school") || classText.includes("ticketed school")) reasons.push("ticket_school");
 
   return reasons;
 }

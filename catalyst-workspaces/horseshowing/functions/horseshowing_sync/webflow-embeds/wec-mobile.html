@@ -448,6 +448,35 @@
     cursor:pointer;
   }
 
+  @media print{
+    html,
+    body{
+      height:auto;
+      overflow:visible;
+      background:#fff;
+      padding:0;
+    }
+
+    .topbar,
+    .filterbar,
+    main{
+      min-width:0;
+      width:100%;
+    }
+
+    .bottom-nav,
+    .filter-panel,
+    .ignore-panel,
+    .hide-panel,
+    .horse-edit{
+      display:none !important;
+    }
+
+    main{
+      padding:0;
+    }
+  }
+
   .gname{
     display:none;
   }
@@ -712,7 +741,7 @@
           <button class="home-pill hide-pill is-clear" id="hideClearBtn" type="button">Clear</button>
           <button class="home-pill" id="ignoreToggleBtn" type="button" aria-expanded="false" aria-controls="ignorePanel">Ignore</button>
           <button class="home-pill" id="filtersToggleBtn" type="button" aria-expanded="false" aria-controls="filtersPanel">Filters</button>
-          <a class="home-pill" id="printPdfLink" href="https://ringstatus.com/wec-print" target="_blank" rel="noopener">Print</a>
+          <button class="home-pill" id="printPdfLink" type="button">Print</button>
         </div>
       </div>
       <div class="control-panel" id="ignorePanel" aria-label="Ignore Filters">
@@ -841,7 +870,18 @@
 
   function syncPrintPdfLink(){
     const link = document.getElementById("printPdfLink");
-    if(link) link.href = buildPrintPdfUrl();
+    if(link) link.dataset.printUrl = buildPrintPdfUrl();
+  }
+
+  function bindPrint(){
+    const btn = document.getElementById("printPdfLink");
+    if(!btn || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      syncPrintPdfLink();
+      window.print();
+    });
   }
 
   function classHideStorageKey(showNo = currentShowNo, focusDay = currentFocusDay){
@@ -1200,14 +1240,17 @@
 
   function normalizeHorseToken(horse){
     if(horse && typeof horse === "object"){
-      const label = String(horse.label || horse.display || horse.horse || "").trim();
+      const order = String(horse.entry_order || horse.order || "").trim();
+      const displayName = String(horse.barn_name || horse.display || horse.horse_display || horse.horse || "").trim();
+      const label = String(displayName ? (order ? `${displayName} (${order})` : displayName) : (horse.label || "")).trim();
       const rawHorse = String(horse.horse || extractHorseName(label) || label).trim();
-      const display = String(horse.display || extractHorseName(label) || rawHorse).trim();
+      const display = String(horse.barn_name || horse.display || horse.horse_display || extractHorseName(label) || rawHorse).trim();
       const missing = horse.barn_name_missing === true || horse.barn_name_missing === "1" || horse.barn_name_missing === "true";
       return {
         label,
         horse: rawHorse,
         display,
+        missing,
         editable: !!(missing && rawHorse && display && rawHorse.toLowerCase() === display.toLowerCase())
       };
     }
@@ -1222,7 +1265,7 @@
 
   function horseTokenHtml(horse){
     const token = normalizeHorseToken(horse);
-    if(!token.label) return "";
+    if(token.missing || !token.label || /^\d+$/.test(token.label)) return "";
     const edit = token.editable ? `
       <button class="horse-edit" type="button" data-horse="${esc(token.horse)}" aria-label="Edit barn name for ${esc(token.horse)}">edit</button>
     ` : "";
@@ -1260,7 +1303,7 @@
         const bucket = byTrainer.get(trainer) || [];
         for(const horse of horses){
           const token = normalizeHorseToken(horse);
-          if(token.label) bucket.push(horse && typeof horse === "object" ? horse : token.label);
+          if(token.label && !token.missing) bucket.push(horse && typeof horse === "object" ? horse : token.label);
         }
         byTrainer.set(trainer, bucket);
       }
@@ -1337,7 +1380,7 @@
     for(const rollup of rollups || []){
       for(const horse of rollup.horses || []){
         const token = normalizeHorseToken(horse);
-        if(token.label) out.push(token.label);
+        if(!token.missing && token.label && !/^\d+$/.test(token.label)) out.push(token.label);
       }
     }
     return Array.from(new Set(out)).join(", ");
@@ -2093,6 +2136,7 @@
   (async function main(){
     bindDateEdit();
     bindHorseEdits();
+    bindPrint();
     bindHideMode();
     bindIgnoreControls();
     await initialLoad();

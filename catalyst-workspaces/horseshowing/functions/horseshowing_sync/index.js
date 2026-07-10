@@ -3354,6 +3354,15 @@ function horseDisplayMeta(horse, meta = {}) {
   };
 }
 
+function goTimeDisplayMeta(row = {}) {
+  const hasGoTime = Boolean(text(row.go_time || row.entry_go_time));
+  if (!hasGoTime) return { label: "", source: "" };
+  if (text(row.live_source).toLowerCase().includes("source_derived_pace")) {
+    return { label: "Source-derived go time", source: "source_derived_pace" };
+  }
+  return { label: "Estimated go time", source: "estimate" };
+}
+
 function trainerDisplayName(trainer, trainerDisplays) {
   const raw = text(trainer);
   if (!raw) return "";
@@ -4149,7 +4158,7 @@ function trainerRollupsForEntries(entries, meta) {
       ? { ...horseMeta, display: entryBarnName, barn_name: entryBarnName, barn_name_missing: false }
       : horseMeta;
     const entryOrder = text(entry.entry_order);
-    if (horse.display && !horse.barn_name_missing) {
+    if (horse.display) {
       bucket.horses.push({
         ...horse,
         entry_order: entryOrder,
@@ -4471,23 +4480,26 @@ async function buildScheduleJson(app, showNo, focusDay, meta, { limit = 300, off
 }
 
 function compactMobileEntryPayload(entries) {
-  return (entries || []).map((entry) => ({
-    entry_rollup: text(entry.entry_rollup),
-    barn_name: text(entry.barn_name || entry.entry_rollup),
-    horse: text(entry.horse),
-    horse_display: text(entry.horse_display || entry.barn_name || entry.entry_rollup),
-    rider_display: text(entry.rider_display || entry.rider),
-    trainer_display: text(entry.trainer_display || entry.trainer),
-    entry_go_time: text(entry.entry_go_time || entry.go_time),
-    go_time: text(entry.go_time || entry.entry_go_time),
-    entry_go_time_label: text(entry.entry_go_time || entry.go_time) ? text(entry.entry_go_time_label || "Source-derived go time") : "",
-    entry_go_time_source: text(entry.entry_go_time || entry.go_time) ? text(entry.entry_go_time_source || entry.live_source || "source_derived_pace") : "",
-    pace_seconds: text(entry.pace_seconds),
-    live_source: text(entry.live_source),
-    last_live_synced_at: text(entry.last_live_synced_at),
-    class_start_time: text(entry.class_start_time),
-    time_till: text(entry.time_till)
-  })).filter((entry) => (
+  return (entries || []).map((entry) => {
+    const goTimeMeta = goTimeDisplayMeta(entry);
+    return {
+      entry_rollup: text(entry.entry_rollup),
+      barn_name: text(entry.barn_name || entry.entry_rollup),
+      horse: text(entry.horse),
+      horse_display: text(entry.horse_display || entry.barn_name || entry.entry_rollup),
+      rider_display: text(entry.rider_display || entry.rider),
+      trainer_display: text(entry.trainer_display || entry.trainer),
+      entry_go_time: text(entry.entry_go_time || entry.go_time),
+      go_time: text(entry.go_time || entry.entry_go_time),
+      entry_go_time_label: text(entry.entry_go_time_label || goTimeMeta.label),
+      entry_go_time_source: text(entry.entry_go_time_source || goTimeMeta.source),
+      pace_seconds: text(entry.pace_seconds),
+      live_source: text(entry.live_source),
+      last_live_synced_at: text(entry.last_live_synced_at),
+      class_start_time: text(entry.class_start_time),
+      time_till: text(entry.time_till)
+    };
+  }).filter((entry) => (
     entry.entry_rollup ||
     entry.barn_name ||
     entry.horse ||
@@ -4640,6 +4652,7 @@ function richEntryFromGoTime(entry, meta, resultRow = {}) {
   const rider = text(entry.rider || resultRow.rider);
   const trainer = text(entry.trainer);
   const horseMeta = horseDisplayMeta(horse, meta);
+  const goTimeMeta = goTimeDisplayMeta(entry);
   return {
     entry_no: text(entry.entry_no || resultRow.entry_no),
     entry_order: text(entry.entry_order),
@@ -4649,8 +4662,8 @@ function richEntryFromGoTime(entry, meta, resultRow = {}) {
     trainer,
     trainer_display: trainerDisplayName(trainer, meta.trainerDisplays),
     go_time: text(entry.go_time || entry.entry_go_time),
-    go_time_label: text(entry.go_time || entry.entry_go_time) ? text(entry.go_time_label || entry.entry_go_time_label || "Source-derived go time") : "",
-    go_time_source: text(entry.go_time || entry.entry_go_time) ? text(entry.go_time_source || entry.entry_go_time_source || entry.live_source || "source_derived_pace") : "",
+    go_time_label: text(entry.go_time_label || entry.entry_go_time_label || goTimeMeta.label),
+    go_time_source: text(entry.go_time_source || entry.entry_go_time_source || goTimeMeta.source),
     pace_seconds: text(entry.pace_seconds),
     live_source: text(entry.live_source),
     last_live_synced_at: text(entry.last_live_synced_at),
@@ -6927,6 +6940,7 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
     const sourceHorse = text(row.horse);
     const horseMeta = horseDisplayMeta(sourceHorse, meta);
     const barnName = text(horseMeta.barn_name || horseMeta.display);
+    const goTimeMeta = goTimeDisplayMeta(row);
     const payload = {
       entry_no: text(row.entry_no),
       entry_order: text(row.entry_order),
@@ -6943,8 +6957,8 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
       pace_seconds: text(row.pace_seconds),
       live_source: text(row.live_source),
       last_live_synced_at: text(row.last_live_synced_at),
-      entry_go_time_label: text(row.go_time) ? "Source-derived go time" : "Estimated go time",
-      entry_go_time_source: text(row.go_time) ? "source_derived_pace" : "estimate",
+      entry_go_time_label: goTimeMeta.label,
+      entry_go_time_source: goTimeMeta.source,
       time_till: text(row.time_till),
       class_const_key: classConst,
       class_visual_key: classVisual,
@@ -16386,10 +16400,6 @@ async function handle(req, res) {
       const requestedShowNo = text(query.get("show_no") || body.show_no);
       const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
       if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-print-layout requires active focus_show" });
-      const airtableLayout = await getAirtablePrintLayout(outputFocus.show_no, outputFocus.focus_day);
-      if (airtableLayout.ok && Array.isArray(airtableLayout.rings) && airtableLayout.rings.length > 0) {
-        return json(res, 200, { action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...airtableLayout });
-      }
       const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
       meta.reconcileEntryGoTimes = false;
       const requestedLimit = intOrNull(query.get("limit") || query.get("days_limit") || body.limit || body.days_limit);
@@ -17459,6 +17469,7 @@ if (process.env.NODE_ENV === "test") {
     helperSearchColumnMap,
     normalizeCatalystSearchGroups,
     hydrateHelperSearchMatchFromRows,
+    goTimeDisplayMeta,
     HELPER_SEARCH_CONFIGS
   };
 }

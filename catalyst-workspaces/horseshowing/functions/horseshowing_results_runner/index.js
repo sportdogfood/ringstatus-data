@@ -3,7 +3,10 @@ const https = require("https");
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const HORSESHOWING_BASE_URL = "https://www.horseshowing.com";
-const UPSTREAM_TIMEOUT_MS = 30000;
+const RESULTS_UPSTREAM_TIMEOUT_MS = 8000;
+const RESULTS_UPSTREAM_ATTEMPTS = 1;
+const UPSTREAM_TIMEOUT_MS = RESULTS_UPSTREAM_TIMEOUT_MS;
+const RESULT_ALERT_SOURCE_TABLE = "hs_class_results";
 
 const TABLES = {
   resultClasses: "hs_result_classes",
@@ -381,6 +384,15 @@ function cleanFields(fields) {
   return clean;
 }
 
+function uniqueRowsByKey(rows, keyField) {
+  const byKey = new Map();
+  for (const row of rows || []) {
+    const key = text(row?.[keyField]);
+    if (key && !byKey.has(key)) byKey.set(key, row);
+  }
+  return [...byKey.values()];
+}
+
 function focusShowMatches(row, focusShow) {
   return text(row?.show_no) === text(focusShow?.show_no) && isoDate(row?.focus_day) === isoDate(focusShow?.focus_day);
 }
@@ -655,7 +667,7 @@ async function getEntryGoTimeRows(baseId, showNo, focusDay, token) {
 async function getClassResultsForAlerts(baseId, showNo, focusDay, token) {
   const rows = await airtableList(
     baseId,
-    AIRTABLE_TABLES.class_results,
+    RESULT_ALERT_SOURCE_TABLE,
     activeFocusFormula(showNo, focusDay),
     token
   );
@@ -712,6 +724,13 @@ async function getScopedResultAlerts(baseId, showNo, focusDay, token) {
   }));
 }
 
+function pendingResultAlertRows(classResults, existingAlerts, limit = 25) {
+  const existingKeys = new Set((existingAlerts || []).map((row) => text(row.alert_key)).filter(Boolean));
+  return (classResults || [])
+    .filter((row) => text(row.class_result_key) && !existingKeys.has(resultAlertKey(row.class_result_key)))
+    .slice(0, Math.max(1, Number(limit) || 25));
+}
+
 function resultAlertKey(classResultKey) {
   return `result|${text(classResultKey)}`;
 }
@@ -765,8 +784,7 @@ function toResultAlertRow(row, templateId, runStamp) {
     [ALERT_FIELDS.entries]: links(row.entries),
     [ALERT_FIELDS.horses]: links(row.horses),
     [ALERT_FIELDS.riders]: links(row.riders),
-    [ALERT_FIELDS.trainers]: links(row.trainers),
-    [ALERT_FIELDS.class_results]: links([row.record_id])
+    [ALERT_FIELDS.trainers]: links(row.trainers)
   });
 }
 
@@ -832,7 +850,7 @@ class HorseShowingSession {
 
   async request(url, options = {}) {
     const timeoutMs = Math.max(1000, Number(options.timeoutMs || UPSTREAM_TIMEOUT_MS));
-    const attempts = Math.max(1, Number(options.attempts || 2));
+    const attempts = Math.max(1, Number(options.attempts || RESULTS_UPSTREAM_ATTEMPTS));
     const headers = {
       accept: "*/*",
       "accept-language": "en-US,en;q=0.9",
@@ -1713,9 +1731,9 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const resultClassRows = fetched.parsed.classes
     .map((row) => step6ResultClassRow(showNo, focusDay, row, now, classByNo.get(text(row.class_no))))
     .filter(Boolean);
-  const classResultRows = fetched.parsed.results
+  const classResultRows = uniqueRowsByKey(fetched.parsed.results
     .map((row) => step6ClassResultRow(showNo, focusDay, row, now, classByNo.get(text(row.class_no)), entryGoTimeByClassEntry))
-    .filter(Boolean);
+    .filter(Boolean), "class_result_key");
   const queueRows = classRows.map((classRow) => {
     const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
     const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
@@ -1941,23 +1959,59 @@ function toAirtableQueue(row, sourceClass, focusShow) {
 
 async function writeLog(baseId, token, detail) {
   const now = new Date().toISOString();
+  const isResultAlert = detail.action === "sync-result-alerts";
+  const checkName = isResultAlert ? "sync_result_alerts" : "probe_results";
   await airtableCreate(baseId, AIRTABLE_TABLES.wec_logs, {
-    [WEC_LOG_FIELDS.log_key_run]: `${now}|results|probe_results`,
-    [WEC_LOG_FIELDS.log_key]: `results|${detail.show_no}|${detail.focus_day}`,
-    [WEC_LOG_FIELDS.workflow_lanes]: "Results",
+    [WEC_LOG_FIELDS.log_key_run]: `${now}|${isResultAlert ? "alerts" : "results"}|${checkName}`,
+    [WEC_LOG_FIELDS.log_key]: `${isResultAlert ? "alerts" : "results"}|${detail.show_no}|${detail.focus_day}`,
+    [WEC_LOG_FIELDS.workflow_lanes]: isResultAlert ? "Alerts" : "Results",
     [WEC_LOG_FIELDS.log_type]: "result_classes",
-    [WEC_LOG_FIELDS.check_name]: "probe_results",
+    [WEC_LOG_FIELDS.check_name]: checkName,
     [WEC_LOG_FIELDS.show_no]: Number(detail.show_no),
     [WEC_LOG_FIELDS.focus_day]: detail.focus_day,
     [WEC_LOG_FIELDS.status]: detail.ok ? "ok" : "error",
     [WEC_LOG_FIELDS.records_seen]: detail.source_rows,
     [WEC_LOG_FIELDS.records_changed]: detail.changed_rows,
     [WEC_LOG_FIELDS.summary]: detail.ok
-      ? `results probed ${detail.probed_classes}; completed ${detail.completed_classes}; class_results ${detail.class_results}`
+      ? (isResultAlert
+        ? `result alerts checked ${detail.source_rows}; changed ${detail.changed_rows}`
+        : detail.skipped
+        ? `results skipped: ${detail.reason}`
+        : `results probed ${detail.probed_classes}; completed ${detail.completed_classes}; class_results ${detail.class_results}`)
       : `results failed at ${detail.phase}: ${detail.error}`,
     [WEC_LOG_FIELDS.payload_json]: safeJson(detail),
     [WEC_LOG_FIELDS.created_at]: now
   }, token);
+}
+
+function isAllowedResultsAction(action) {
+  return action === "wec-step6-results" || action === "sync-result-alerts";
+}
+
+function resultsErrorStatusCode() {
+  return 500;
+}
+
+function step6LogDetail(detail, phase) {
+  return {
+    ...detail,
+    phase,
+    source_rows: intOrNull(detail.source_rows) ?? intOrNull(detail.target_classes_total) ?? 0,
+    changed_rows: intOrNull(detail.changed_rows) ?? 0
+  };
+}
+
+function resultAlertLogDetail({ showNo, focusDay, sourceRows, resultAlerts, phase }) {
+  return {
+    ok: Number(resultAlerts?.duplicate_alert_keys || 0) === 0,
+    action: "sync-result-alerts",
+    phase,
+    show_no: Number(showNo),
+    focus_day: focusDay,
+    source_rows: Number(sourceRows || 0),
+    changed_rows: Number(resultAlerts?.records_changed || 0),
+    result_alerts: resultAlerts
+  };
 }
 
 async function handle(req, res) {
@@ -1975,7 +2029,7 @@ async function handle(req, res) {
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
     const action = text(query.get("action") || body.action);
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);
-    const limit = Math.max(1, Math.min(5, intOrNull(query.get("limit") || body.limit) || 1));
+    const limit = Math.max(1, Math.min(25, intOrNull(query.get("limit") || body.limit) || 25));
     noWrite = flagTrue(query.get("no_write") || body.no_write)
       || flagTrue(query.get("dry_run") || body.dry_run)
       || flagTrue(query.get("dryRun") || body.dryRun);
@@ -1991,7 +2045,7 @@ async function handle(req, res) {
     const focusShow = await getFocusShow(baseId, requestedShowNo, token);
     const showNo = text(focusShow.show_no);
     logContext = { show_no: Number(showNo), focus_day: focusShow.focus_day };
-    if (action !== "wec-step6-results") {
+    if (!isAllowedResultsAction(action)) {
       return sendJson(res, 410, {
         ok: false,
         action: action || "",
@@ -2032,7 +2086,9 @@ async function handle(req, res) {
     if (action === "sync-result-alerts") {
       phase = "read_class_results_for_result_alerts";
       const allClassResults = await getClassResultsForAlerts(baseId, showNo, focusShow.focus_day, token);
-      const classResultsPage = allClassResults.slice(offset, offset + limit);
+      const existingResultAlerts = await getScopedResultAlerts(baseId, showNo, focusShow.focus_day, token);
+      const pendingClassResults = pendingResultAlertRows(allClassResults, existingResultAlerts, allClassResults.length || 1);
+      const classResultsPage = pendingClassResults.slice(0, limit);
       phase = noWrite ? "dry_run_result_alerts" : "write_result_alerts";
       const resultAlerts = await writeResultAlertsForClassResults(
         baseId,
@@ -2042,7 +2098,7 @@ async function handle(req, res) {
         classResultsPage,
         { noWrite }
       );
-      return sendJson(res, 200, {
+      const response = {
         ok: resultAlerts.duplicate_alert_keys === 0,
         phase,
         action,
@@ -2051,13 +2107,26 @@ async function handle(req, res) {
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
         class_results_source_rows: allClassResults.length,
-        offset,
+        offset: 0,
         limit,
-        next_offset: offset + limit < allClassResults.length ? offset + limit : 0,
+        pending_before_run: pendingClassResults.length,
+        remaining: Math.max(0, pendingClassResults.length - classResultsPage.length),
+        complete: pendingClassResults.length <= classResultsPage.length,
+        next_offset: 0,
         result_alerts: resultAlerts,
         notifications_sent: 0,
         downstream_run: false
-      });
+      };
+      if (!noWrite) {
+        await writeLog(baseId, token, resultAlertLogDetail({
+          showNo,
+          focusDay: focusShow.focus_day,
+          sourceRows: allClassResults.length,
+          resultAlerts,
+          phase
+        }));
+      }
+      return sendJson(res, 200, response);
     }
 
     if (action === "wec-step6-results") {
@@ -2067,6 +2136,7 @@ async function handle(req, res) {
         offset,
         limit: intOrNull(query.get("limit") || body.limit) || 3
       });
+      if (!noWrite) await writeLog(baseId, token, step6LogDetail(detail, phase));
       return sendJson(res, detail.ok ? 200 : 500, detail);
     }
 
@@ -2314,7 +2384,7 @@ async function handle(req, res) {
     } catch {
       // Preserve the original workflow error.
     }
-    return sendJson(res, 200, {
+    return sendJson(res, resultsErrorStatusCode(), {
       ok: false,
       phase,
       error: String(error?.message || error),
@@ -2323,5 +2393,17 @@ async function handle(req, res) {
   }
 }
 
-handle.__test__ = { isFocusPaused };
+handle.__test__ = {
+  isFocusPaused,
+  uniqueRowsByKey,
+  resultsErrorStatusCode,
+  isAllowedResultsAction,
+  step6LogDetail,
+  resultAlertLogDetail,
+  pendingResultAlertRows,
+  toResultAlertRow,
+  RESULTS_UPSTREAM_TIMEOUT_MS,
+  RESULTS_UPSTREAM_ATTEMPTS,
+  RESULT_ALERT_SOURCE_TABLE
+};
 module.exports = handle;

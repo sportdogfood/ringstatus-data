@@ -744,6 +744,22 @@ async function upsertAirtableBatchByKey(tableName, keyField, rows) {
   return written;
 }
 
+async function writeAirtableRowsByKey(tableName, keyField, rows) {
+  const sourceRows = (rows || []).filter((row) => text(row?.[keyField]));
+  if (!sourceRows.length) return 0;
+  const existing = await getAirtableRecords(tableName, {
+    filterByFormula: currentStageAirtableFilter({
+      show_no: sourceRows[0].show_no,
+      focus_day: sourceRows[0].focus_day
+    }),
+    pageSize: "100"
+  });
+  const plan = planAirtableRowsByKey(sourceRows, existing, keyField);
+  const updated = await updateAirtableRecordsInBatches(tableName, plan.updates);
+  const created = await upsertAirtableBatchByKey(tableName, keyField, plan.creates);
+  return updated + created;
+}
+
 function cleanAirtableLogFields(fields) {
   return Object.fromEntries(Object.entries(fields || {}).filter(([, value]) => (
     value !== undefined && value !== null && value !== ""
@@ -2304,7 +2320,7 @@ async function makeAdapters(app, options) {
       }
       if (!deferAirtableMirror && prepared.length) {
         try {
-          await upsertAirtableBatchByKey(
+          await writeAirtableRowsByKey(
             TABLES.updateSchedule,
             "update_schedule_key",
             prepared.map((row) => updateScheduleReviewFields(row))
@@ -2943,7 +2959,7 @@ async function summarizeCoreRuntimeDrift(app, focus, preRuntimeCounts) {
   const activeUpdatePreflight = updateRows
     .filter((row) => text(row.status) !== "dropped_old_key_shape")
     .map((row) => ({ row, reasons: preflightReason(row) }))
-    .filter((item) => item.reasons.length > 0 && text(item.row.status) !== "preflight");
+    .filter(isUnexpectedActivePreflight);
   const runtimeTicketedClassStarts = classStartRows
     .filter((row) => text(row.status) !== "dropped_old_key_shape")
     .map((row) => ({ row, reasons: ticketedClassReason(row) }))
@@ -2994,6 +3010,15 @@ async function summarizeCoreRuntimeDrift(app, focus, preRuntimeCounts) {
       }))
     }
   };
+}
+
+function isUnexpectedActivePreflight(item) {
+  const isPreflight = item.row.is_preflight === true
+    || Number(item.row.is_preflight) === 1
+    || text(item.row.is_preflight).toLowerCase() === "true";
+  return item.reasons.length > 0
+    && !isPreflight
+    && text(item.row.status) !== "preflight";
 }
 
 async function runCleanCadenceStack(app, options = {}) {
@@ -4362,5 +4387,6 @@ module.exports.__test = {
   entryGoLogFields,
   currentStageAirtableFilter,
   planAirtableRowsByKey,
-  optionalResultReadyAt
+  optionalResultReadyAt,
+  isUnexpectedActivePreflight
 };

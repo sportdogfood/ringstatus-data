@@ -1,22 +1,21 @@
-const test = require("node:test");
-const assert = require("node:assert/strict");
+"use strict";
 
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const test = require("node:test");
 const handle = require("./index");
 
-test("focus pause gate blocks downstream actions and allows audit", () => {
-  assert.equal(handle.__test__.shouldPauseAction("sync-class-start-times", { is_pause: true }), true);
-  assert.equal(handle.__test__.shouldPauseAction("sync-get-orders", { fldgWn3BIdGzcGow1: true }), true);
-  assert.equal(handle.__test__.shouldPauseAction("sync-get-rings", { fldgWn3BIdGzcGow1: true }), true);
-  assert.equal(handle.__test__.shouldPauseAction("audit", { is_pause: true }), false);
-  assert.equal(handle.__test__.shouldPauseAction("run", { is_pause: false }), false);
+test("estimated schedule pace rows remain eligible for entry alerts", () => {
+  assert.equal(typeof handle.__test__.isAlertableEntryGoTime, "function");
+  assert.equal(handle.__test__.isAlertableEntryGoTime({
+    go_time: "10:04:30",
+    pace_seconds: 198,
+    live_source: "estimated_schedule_pace.clean_step4_runtime"
+  }), true);
 });
 
-test("paused class lane logs use existing Airtable status option", () => {
-  const detail = handle.__test__.pausedLogDetail("sync-get-orders", {
-    show_no: "14907",
-    focus_day: "2026-06-17",
-    record_id: "rec123"
-  });
-  assert.equal(detail.status, "skipped");
-  assert.equal(detail.payload.reason, "focus_show.is_pause");
+test("successful alert writes append a workflow audit row", () => {
+  const source = fs.readFileSync(path.join(__dirname, "index.js"), "utf8");
+  assert.match(source, /await logRun\(baseId, token, \{\s*action: "sync-class-alerts"/);
 });

@@ -143,6 +143,18 @@ test("buildEntryAlerts creates entry alerts from active entry_go_times rows with
   assert.equal(alerts[0].entry_go_times_record_id, "rec_entry_go_1");
 });
 
+test("alert windows exclude events outside the bounded twelve-minute band", () => {
+  const now = new Date("2026-07-10T14:00:00.000Z");
+  const alerts = buildClassAlerts([{
+    show_no: 14910,
+    focus_day: "2026-07-10",
+    class_no: 31399,
+    class_start_time: "09:00:00",
+    display_time: "9:00 AM"
+  }], now);
+  assert.deepEqual(alerts, []);
+});
+
 test("airtableRecordLink returns Airtable linked-record IDs as strings", () => {
   assert.deepEqual(airtableRecordLink("rec123"), ["rec123"]);
   assert.deepEqual(airtableRecordLinks(["rec123", "rec123", "rec456"]), ["rec123", "rec456"]);

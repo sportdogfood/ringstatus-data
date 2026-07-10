@@ -960,11 +960,10 @@ async function readRuntimeClassStarts(app, focus) {
     }));
 }
 
-function isSourceDerivedEntryGoTime(row) {
+function isAlertableEntryGoTime(row) {
   return Boolean(
     text(row.go_time)
     && asNumber(row.pace_seconds)
-    && text(row.live_source).toLowerCase().includes("source_derived_pace")
   );
 }
 
@@ -977,7 +976,7 @@ async function readRuntimeEntryGoTimes(app, focus) {
   );
   return rows
     .filter((row) => !text(row.status) || text(row.status).toLowerCase() === "active")
-    .filter(isSourceDerivedEntryGoTime)
+    .filter(isAlertableEntryGoTime)
     .map((row) => ({
       record_id: "",
       entry_go_key: text(row.entry_go_key),
@@ -2304,7 +2303,7 @@ async function syncClassAlerts(app, baseId, token, focus, now = new Date(), opti
   const created = await airtableUpsert(baseId, TABLES.airtableAlerts, ALERT_FIELDS.alert_key, writePlan.creates, token);
   const updated = writePlan.updates.length ? await airtableUpdate(baseId, TABLES.airtableAlerts, writePlan.updates, token) : [];
   const resolved = staleUpdates.length ? await airtableUpdate(baseId, TABLES.airtableAlerts, staleUpdates, token) : [];
-  return {
+  const result = {
     class_start_times: classStarts.length,
     entry_go_times: entryGoTimes.length,
     alert_sources: [TABLES.catalystClassStartTimes, TABLES.catalystEntryGoTimes],
@@ -2318,8 +2317,19 @@ async function syncClassAlerts(app, baseId, token, focus, now = new Date(), opti
     duplicate_existing_alert_keys: existingAlerts.duplicateKeys,
     records_changed: created.length + updated.length + resolved.length,
     notifications_sent: 0,
-    log_skipped: true
+    log_skipped: false
   };
+  await logRun(baseId, token, {
+    action: "sync-class-alerts",
+    showNo: focus.show_no,
+    focusDay: focus.focus_day,
+    status: "ok",
+    recordsSeen: classStarts.length + entryGoTimes.length,
+    recordsChanged: result.records_changed,
+    summary: `alerts checked ${classStarts.length} classes and ${entryGoTimes.length} entries`,
+    payload: result
+  });
+  return result;
 }
 
 async function auditLane(app, baseId, token, focus) {
@@ -2432,5 +2442,5 @@ async function handle(req, res) {
   }
 }
 
-handle.__test__ = { isFocusPaused, shouldPauseAction, pausedLogDetail };
+handle.__test__ = { isFocusPaused, shouldPauseAction, pausedLogDetail, isAlertableEntryGoTime };
 module.exports = handle;

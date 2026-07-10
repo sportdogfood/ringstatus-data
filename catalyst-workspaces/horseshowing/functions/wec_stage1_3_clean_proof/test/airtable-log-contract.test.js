@@ -1,6 +1,8 @@
 "use strict";
 
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const test = require("node:test");
 const handler = require("../handler");
 
@@ -136,4 +138,29 @@ test("time-engine rows omit blank Catalyst datetime values", () => {
     handler.__test.optionalResultReadyAt("2026-07-10 14:30:00"),
     { result_ready_at: "2026-07-10 14:30:00" }
   );
+});
+
+test("stored preflight rows do not classify completed Core runtime as drift", () => {
+  assert.equal(typeof handler.__test.isUnexpectedActivePreflight, "function");
+  assert.equal(handler.__test.isUnexpectedActivePreflight({
+    row: { is_preflight: true, status: "" },
+    reasons: ["blank_time_text"]
+  }), false);
+  assert.equal(handler.__test.isUnexpectedActivePreflight({
+    row: { is_preflight: "true", status: "" },
+    reasons: ["blank_time_text"]
+  }), false);
+  assert.equal(handler.__test.isUnexpectedActivePreflight({
+    row: { is_preflight: 1, status: "" },
+    reasons: ["blank_time_text"]
+  }), false);
+  assert.equal(handler.__test.isUnexpectedActivePreflight({
+    row: { is_preflight: false, status: "active" },
+    reasons: ["blank_time_text"]
+  }), true);
+});
+
+test("Stage 2 review mirror uses the duplicate-tolerant keyed writer", () => {
+  const source = fs.readFileSync(path.join(__dirname, "..", "handler.js"), "utf8");
+  assert.match(source, /writeAirtableRowsByKey\(\s*TABLES\.updateSchedule/);
 });

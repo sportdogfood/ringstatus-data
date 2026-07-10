@@ -299,7 +299,7 @@ function buildClassAlerts(classStarts, now = new Date(), { windowed = true } = {
 
 function inAlertWindow(minutesUntil, threshold) {
   if (minutesUntil === null || minutesUntil === undefined || !Number.isFinite(Number(minutesUntil))) return false;
-  return Number(minutesUntil) <= threshold;
+  return Number(minutesUntil) <= threshold && Number(minutesUntil) > threshold - 12;
 }
 
 function buildEntryAlerts(entryGoTimes, now = new Date(), { windowed = true } = {}) {

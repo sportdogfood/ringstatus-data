@@ -395,7 +395,7 @@ test("schedule-json marks horse edit eligibility only when barn_name is missing 
       label: "Fallback Show Name (7)",
       entry_order: "7",
       barn_name: "",
-      barn_name_missing: false
+      barn_name_missing: true
     },
     {
       horse: "Mapped Show Name",
@@ -411,7 +411,7 @@ test("schedule-json marks horse edit eligibility only when barn_name is missing 
       label: "Unlisted Show Name (9)",
       entry_order: "9",
       barn_name: "",
-      barn_name_missing: false
+      barn_name_missing: true
     }
   ]);
 });
@@ -555,6 +555,29 @@ test("schedule-json prefers current entry_go_times rows over stale hs_entries ro
 
   assert.equal(result.length, 1);
   assert.equal(result[0].group_display, "Dottie (20), King (15), Choco (2)");
+});
+
+test("go-time display metadata distinguishes estimated rows from source-derived rows", () => {
+  assert.deepEqual(__test__.goTimeDisplayMeta({
+    go_time: "10:04:30",
+    live_source: "estimated_schedule_pace.clean_step4_runtime"
+  }), {
+    label: "Estimated go time",
+    source: "estimate"
+  });
+  assert.deepEqual(__test__.goTimeDisplayMeta({
+    go_time: "10:04:30",
+    live_source: "source_derived_pace.get_rings"
+  }), {
+    label: "Source-derived go time",
+    source: "source_derived_pace"
+  });
+});
+
+test("print layout does not prefer the retired Airtable ring_groups path", () => {
+  const source = require("node:fs").readFileSync(require("node:path").join(__dirname, "index.js"), "utf8");
+  const branch = source.slice(source.indexOf('if (action === "wec-print-layout")'), source.indexOf('if (action === "wec-print-pdf-url")'));
+  assert.doesNotMatch(branch, /getAirtablePrintLayout/);
 });
 
 test("schedule-json prefers current class_start_times over stale Catalyst class time", async () => {

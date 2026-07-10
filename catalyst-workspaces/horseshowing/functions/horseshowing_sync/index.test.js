@@ -574,6 +574,111 @@ test("go-time display metadata distinguishes estimated rows from source-derived 
   });
 });
 
+test("live ring-status history appends nothing when tracked state is unchanged", () => {
+  const key = "14910|20260710|4208|710";
+  const plan = __test__.planAirtableRingStatusChanges([{
+    ring_status_key: key,
+    show_no: "14910",
+    focus_day: "2026-07-10",
+    ring_no: "710",
+    current_class_no: "711",
+    status: "running",
+    is_live: "true",
+    n_gone: "5",
+    n_to_go: "11",
+    elapsed_seconds: "180",
+    last_live_synced_at: "2026-07-10 13:30:38"
+  }], [{
+    id: "recNewest",
+    createdTime: "2026-07-10T02:48:54.000Z",
+    fields: { ring_status_key: key, status: "active" }
+  }, {
+    id: "recLatestObserved",
+    createdTime: "2026-07-10T02:19:07.000Z",
+    fields: {
+      ring_status_key: key,
+      current_class_no: 711,
+      status: "running",
+      is_live: "true",
+      n_gone: 5,
+      n_to_go: 11,
+      elapsed_seconds: "120",
+      last_live_synced_at: "2026-07-10 13:24:38"
+    }
+  }], {
+    runId: "wec-step5-unchanged",
+    observedAt: "2026-07-10 13:30:38"
+  });
+
+  assert.deepEqual(plan.creates, []);
+  assert.deepEqual(plan.unchanged, [key]);
+});
+
+test("live ring-status history appends one complete five-field change", () => {
+  const key = "14910|20260710|4208|710";
+  const plan = __test__.planAirtableRingStatusChanges([{
+    ring_status_key: key,
+    show_no: "14910",
+    focus_day: "2026-07-10",
+    ring_day_no: "4208",
+    ring_no: "710",
+    current_class_no: "712",
+    status: "running",
+    is_live: "true",
+    n_gone: "5",
+    n_to_go: "11",
+    elapsed_seconds: "180",
+    live_source: "hs_get_rings.step5_live_enrichment",
+    last_live_synced_at: "2026-07-10 13:30:38"
+  }], [{
+    id: "recPrior",
+    createdTime: "2026-07-10T13:24:38.000Z",
+    fields: {
+      ring_status_key: key,
+      current_class_no: 711,
+      status: "waiting",
+      is_live: "false",
+      n_gone: 4,
+      n_to_go: 12,
+      last_live_synced_at: "2026-07-10 13:24:38"
+    }
+  }], {
+    runId: "wec-step5-change",
+    observedAt: "2026-07-10 13:30:38"
+  });
+
+  assert.equal(plan.creates.length, 1);
+  assert.equal(plan.creates[0].ring_status_key, key);
+  assert.equal(plan.creates[0].run_id, "wec-step5-change");
+  assert.equal(plan.creates[0].changed_fields, "current_class_no,status,is_live,n_gone,n_to_go");
+  assert.deepEqual(JSON.parse(plan.creates[0].previous_values), {
+    current_class_no: 711,
+    status: "waiting",
+    is_live: false,
+    n_gone: 4,
+    n_to_go: 12
+  });
+});
+
+test("live ring-status history appends an initial state when no prior ring exists", () => {
+  const key = "14910|20260710|4213|708";
+  const plan = __test__.planAirtableRingStatusChanges([{
+    ring_status_key: key,
+    current_class_no: "31617",
+    status: "active",
+    is_live: "true",
+    n_gone: "13",
+    n_to_go: "20"
+  }], [], {
+    runId: "wec-step5-initial",
+    observedAt: "2026-07-10 13:30:38"
+  });
+
+  assert.equal(plan.creates.length, 1);
+  assert.equal(plan.creates[0].changed_fields, "current_class_no,status,is_live,n_gone,n_to_go");
+  assert.deepEqual(JSON.parse(plan.creates[0].previous_values), {});
+});
+
 test("print layout does not prefer the retired Airtable ring_groups path", () => {
   const source = require("node:fs").readFileSync(require("node:path").join(__dirname, "index.js"), "utf8");
   const branch = source.slice(source.indexOf('if (action === "wec-print-layout")'), source.indexOf('if (action === "wec-print-pdf-url")'));

@@ -59,6 +59,8 @@ const TIME_ENGINE_LOG_FIELDS = Object.freeze([
   "warning_summary", "error_message", "payload_json", "last_synced_at"
 ]);
 
+const AIRTABLE_ALERTS_TABLE = "wec-alerts";
+
 const STEP4_REQUIRED_COLUMNS = Object.freeze({
   hs_ring_status: [
     "ring_status_key", "show_no", "focus_day", "iso_date", "focus_day_key",
@@ -1075,6 +1077,167 @@ function entryAlertTags(goInMins) {
   return tags;
 }
 
+function parseJsonObject(value) {
+  try {
+    const parsed = JSON.parse(text(value));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function previousAlertState(previousRow) {
+  const state = parseJsonObject(previousRow?.payload_json).alert_state;
+  return state && typeof state === "object" && !Array.isArray(state) ? state : {};
+}
+
+function finiteIntOrNull(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.round(number) : null;
+}
+
+function nextClassAlertState(previousRow, vars, eventTimeIso = new Date().toISOString()) {
+  const previous = previousAlertState(previousRow);
+  const tags = Array.isArray(vars?.tags) ? vars.tags : [];
+  const thresholdReachedNow = tags.includes("starts_in_30");
+  const classStart30Reached = boolish(previous.class_start_30_reached) || thresholdReachedNow;
+  const wasLive = boolish(previous.class_live_active);
+  const isLive = lowerText(vars?.class_status) === "now" || vars?.is_live === true;
+  const previousSequence = Math.max(0, intValue(previous.class_live_sequence));
+  const enteringLive = isLive && !wasLive;
+
+  return {
+    class_start_30_reached: classStart30Reached,
+    class_start_30_reached_at: text(previous.class_start_30_reached_at) || (thresholdReachedNow ? eventTimeIso : ""),
+    class_start_30_time_till: previous.class_start_30_time_till !== undefined
+      ? finiteIntOrNull(previous.class_start_30_time_till)
+      : (thresholdReachedNow ? finiteIntOrNull(vars?.starts_in_mins) : null),
+    class_live_active: isLive,
+    class_live_sequence: enteringLive ? previousSequence + 1 : previousSequence,
+    class_live_started_at: enteringLive ? eventTimeIso : text(previous.class_live_started_at)
+  };
+}
+
+function nextEntryAlertState(previousRow, vars, eventTimeIso = new Date().toISOString()) {
+  const previous = previousAlertState(previousRow);
+  const tags = Array.isArray(vars?.tags) ? vars.tags : [];
+  const thresholdReachedNow = tags.includes("go_in_20");
+  const reached = boolish(previous.entry_go_20_reached) || thresholdReachedNow;
+  return {
+    entry_go_20_reached: reached,
+    entry_go_20_reached_at: text(previous.entry_go_20_reached_at) || (thresholdReachedNow ? eventTimeIso : ""),
+    entry_go_20_time_till: previous.entry_go_20_time_till !== undefined
+      ? finiteIntOrNull(previous.entry_go_20_time_till)
+      : (thresholdReachedNow ? finiteIntOrNull(vars?.go_in_mins) : null)
+  };
+}
+
+function buildClassAlertEvents(row, vars, alertState, eventTimeIso) {
+  const events = [];
+  const showNo = intValue(row.show_no);
+  const focusDay = text(row.focus_day || row.iso_date);
+  const classNo = intValue(row.class_no);
+  const sourceKey = text(row.class_const_key || row.class_start_key);
+  const subject = text(row.class_name) || `Class ${classNo}`;
+
+  if (alertState.class_start_30_reached) {
+    events.push({
+      alert_key: `${showNo}|${focusDay}|${classNo}|class_start_30`,
+      trigger_identity: "class_start_30",
+      alert_type: "class_start_30",
+      alert_lane: "class_start_times",
+      event_time_iso: text(alertState.class_start_30_reached_at) || eventTimeIso,
+      show_no: showNo,
+      focus_day: focusDay,
+      level: "class",
+      class_no: classNo,
+      entry_no: 0,
+      class_const_key: sourceKey,
+      entry_const_key: "",
+      source_table: TABLES.classStartTimes,
+      source_key: sourceKey,
+      trigger_minutes: 30,
+      time_till: alertState.class_start_30_time_till,
+      target_time: `${focusDay} ${text(row.class_start_time)}`,
+      alert_subject: subject,
+      message: `${text(row.display_time || row.class_start_time)} ${subject}`.trim()
+    });
+  }
+
+  if (alertState.class_live_active && intValue(alertState.class_live_sequence) > 0) {
+    const sequence = intValue(alertState.class_live_sequence);
+    events.push({
+      alert_key: `${showNo}|${focusDay}|${classNo}|class_live|${sequence}`,
+      trigger_identity: `class_live|${sequence}`,
+      alert_type: "class_live",
+      alert_lane: "class_start_times",
+      event_time_iso: text(alertState.class_live_started_at) || eventTimeIso,
+      show_no: showNo,
+      focus_day: focusDay,
+      level: "class",
+      class_no: classNo,
+      entry_no: 0,
+      class_const_key: sourceKey,
+      entry_const_key: "",
+      source_table: TABLES.classStartTimes,
+      source_key: sourceKey,
+      trigger_minutes: null,
+      time_till: null,
+      target_time: text(alertState.class_live_started_at) || eventTimeIso,
+      alert_subject: subject,
+      message: `${subject} is live${text(row.ring_name_normalized) ? ` in ${text(row.ring_name_normalized)}` : ""}.`
+    });
+  }
+
+  return events;
+}
+
+function buildEntryAlertEvents(row, vars, alertState, eventTimeIso) {
+  if (!alertState.entry_go_20_reached) return [];
+  const showNo = intValue(row.show_no);
+  const focusDay = text(row.focus_day || row.iso_date);
+  const classNo = intValue(row.class_no);
+  const entryNo = intValue(row.entry_no);
+  const sourceKey = text(row.entry_const_key || row.entry_go_key);
+  const subject = text(row.horse) || `Entry ${entryNo}`;
+  return [{
+    alert_key: `${showNo}|${focusDay}|${classNo}|${entryNo}|entry_go_20`,
+    trigger_identity: "entry_go_20",
+    alert_type: "entry_go_20",
+    alert_lane: "entry_go_times",
+    event_time_iso: text(alertState.entry_go_20_reached_at) || eventTimeIso,
+    show_no: showNo,
+    focus_day: focusDay,
+    level: "entry",
+    class_no: classNo,
+    entry_no: entryNo,
+    class_const_key: text(row.class_const_key),
+    entry_const_key: sourceKey,
+    source_table: TABLES.entryGoTimes,
+    source_key: sourceKey,
+    trigger_minutes: 20,
+    time_till: alertState.entry_go_20_time_till,
+    target_time: `${focusDay} ${text(row.go_time || row.entry_go_time)}`,
+    alert_subject: `${subject} (${entryNo})`,
+    message: `${subject} entry ${entryNo} estimated go in about 20 minutes.`
+  }];
+}
+
+function planAppendOnlyAlertEvents(events, existingRecords) {
+  const existingKeys = new Set((existingRecords || [])
+    .map((record) => text((record.fields || record).alert_key))
+    .filter(Boolean));
+  const sourceByKey = new Map();
+  for (const event of events || []) {
+    const key = text(event?.alert_key);
+    if (key) sourceByKey.set(key, event);
+  }
+  return {
+    creates: [...sourceByKey.values()].filter((event) => !existingKeys.has(text(event.alert_key))),
+    existing: [...sourceByKey.keys()].filter((key) => existingKeys.has(key))
+  };
+}
+
 function statusFromVars(row, vars, level) {
   const status = lowerText(row.class_status || row.entry_status || row.ring_status || row.status);
   if (status === "results" || status === "done" || status === "now") return status;
@@ -1439,12 +1602,13 @@ function timeEngineKey(parts) {
 }
 
 function buildTimeEngineTrigger(row, triggerType, runId, generatedAt, payload = {}) {
+  const triggerIdentity = text(payload.trigger_identity || triggerType);
   const triggerKey = timeEngineKey([
     row.show_no,
     compactDate(row.focus_day),
     row.level,
     row.source_key || row.class_const_key || row.entry_const_key || row.ring_const_key,
-    triggerType
+    triggerIdentity
   ]);
   return {
     trigger_key: triggerKey,
@@ -1465,6 +1629,70 @@ function buildTimeEngineTrigger(row, triggerType, runId, generatedAt, payload = 
     trigger_time: generatedAt,
     generated_at: generatedAt,
     payload_json: compactJson(payload)
+  };
+}
+
+function pushAlertEventTriggers(triggers, engineRow, events, runId, generatedAt) {
+  for (const event of events || []) {
+    triggers.push(buildTimeEngineTrigger(engineRow, event.alert_type, runId, generatedAt, {
+      ...event,
+      alert_event: true
+    }));
+  }
+}
+
+function alertEventFromTrigger(trigger) {
+  const payload = parseJsonObject(trigger?.payload_json);
+  return payload.alert_event === true && text(payload.alert_key) ? payload : null;
+}
+
+function airtableAlertEventFields(event) {
+  return cleanAirtableLogFields({
+    alert_key_run: `${text(event.alert_key)}|${text(event.event_time_iso)}`,
+    alert_key: text(event.alert_key),
+    severity: "info",
+    alert_type: text(event.alert_type),
+    alert_type_select: text(event.alert_type),
+    created_at: text(event.event_time_iso),
+    status: "open",
+    show_no: intValue(event.show_no),
+    focus_day: text(event.focus_day),
+    message: text(event.message),
+    payload_json: compactJson(event),
+    alert_lane: text(event.alert_lane),
+    trigger_minutes: event.trigger_minutes,
+    time_till: event.time_till,
+    target_time: text(event.target_time),
+    alert_subject: text(event.alert_subject),
+    source_table: text(event.source_table)
+  });
+}
+
+async function appendAirtableAlertEvents(focus, triggerRows) {
+  const events = (triggerRows || []).map(alertEventFromTrigger).filter(Boolean);
+  if (!events.length) {
+    return { candidates: 0, created: 0, existing: 0, created_keys: [], existing_keys: [] };
+  }
+  const existingRecords = await getAirtableRecords(AIRTABLE_ALERTS_TABLE, {
+    filterByFormula: `AND({show_no}=${Number(focus.show_no)},DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='${airtableFormulaValue(focus.focus_day)}')`,
+    pageSize: "100"
+  });
+  const plan = planAppendOnlyAlertEvents(events, existingRecords);
+  const createdKeys = [];
+  for (let index = 0; index < plan.creates.length; index += 10) {
+    const chunk = plan.creates.slice(index, index + 10);
+    const result = await airtableRequest(AIRTABLE_ALERTS_TABLE, {}, "POST", {
+      records: chunk.map((event) => ({ fields: airtableAlertEventFields(event) })),
+      typecast: true
+    });
+    createdKeys.push(...(result.records || []).map((record) => text(record.fields?.alert_key)).filter(Boolean));
+  }
+  return {
+    candidates: events.length,
+    created: createdKeys.length,
+    existing: plan.existing.length,
+    created_keys: createdKeys,
+    existing_keys: plan.existing
   };
 }
 
@@ -1490,6 +1718,7 @@ async function insertNewTimeEngineTriggers(app, schema, triggerRows, missingCont
 async function buildTimeEngineRows(app, focus, options = {}) {
   const now = options.now ? new Date(options.now) : new Date();
   const generatedAt = catalystDateTime(now);
+  const eventTimeIso = now.toISOString();
   const expiresAt = catalystDateTime(new Date(now.getTime() + 10 * 60000));
   const runId = options.run_id || `time-engine-${Date.now()}`;
   const endpoint = "mobile_pro|print|two_way|alerts";
@@ -1497,6 +1726,8 @@ async function buildTimeEngineRows(app, focus, options = {}) {
   const classRows = await readCurrentRows(app, TABLES.classStartTimes, focus.show_no, focus.focus_day, "focus_day_only");
   const entryRows = await readCurrentRows(app, TABLES.entryGoTimes, focus.show_no, focus.focus_day, "focus_day_only");
   const scheduleRows = await readCurrentRows(app, TABLES.updateSchedule, focus.show_no, focus.focus_day);
+  const previousEngineRows = await readCurrentRows(app, TABLES.timeEngine, focus.show_no, focus.focus_day, "focus_day_only");
+  const previousEngineByKey = new Map(previousEngineRows.map((row) => [text(row.time_engine_key), row]));
 
   const entriesByClass = new Map();
   for (const row of entryRows) {
@@ -1568,8 +1799,10 @@ async function buildTimeEngineRows(app, focus, options = {}) {
   for (const row of classRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
     const vars = classVarsByKey.get(text(row.class_const_key || row.class_start_key))
       || buildFieldVarsForClass(row, entriesByClass.get(text(row.class_const_key)) || [], now);
+    const timeEngineKeyValue = timeEngineKey([focus.show_no, compactDate(focus.focus_day), "class", row.class_const_key || row.class_start_key]);
+    const alertState = nextClassAlertState(previousEngineByKey.get(timeEngineKeyValue), vars, eventTimeIso);
     const classEngineRow = {
-      time_engine_key: timeEngineKey([focus.show_no, compactDate(focus.focus_day), "class", row.class_const_key || row.class_start_key]),
+      time_engine_key: timeEngineKeyValue,
       run_id: runId,
       show_no: intValue(focus.show_no),
       focus_day: focus.focus_day,
@@ -1606,11 +1839,19 @@ async function buildTimeEngineRows(app, focus, options = {}) {
         class_no: intValue(row.class_no),
         class_name: row.class_name,
         class_start_time: row.class_start_time,
-        field_vars: vars
+        field_vars: vars,
+        alert_state: alertState
       }),
       last_synced_at: generatedAt
     };
     rows.push(classEngineRow);
+    pushAlertEventTriggers(
+      triggers,
+      classEngineRow,
+      buildClassAlertEvents(row, vars, alertState, eventTimeIso),
+      runId,
+      generatedAt
+    );
     if (vars.result_ready === true) {
       triggers.push(buildTimeEngineTrigger(classEngineRow, "result_ready", runId, generatedAt, {
         meaning: "safe_to_start_checking_results",
@@ -1626,8 +1867,10 @@ async function buildTimeEngineRows(app, focus, options = {}) {
 
   for (const row of entryRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
     const vars = buildFieldVarsForEntry(row, now);
-    rows.push({
-      time_engine_key: timeEngineKey([focus.show_no, compactDate(focus.focus_day), "entry", row.entry_const_key || row.entry_go_key]),
+    const timeEngineKeyValue = timeEngineKey([focus.show_no, compactDate(focus.focus_day), "entry", row.entry_const_key || row.entry_go_key]);
+    const alertState = nextEntryAlertState(previousEngineByKey.get(timeEngineKeyValue), vars, eventTimeIso);
+    const entryEngineRow = {
+      time_engine_key: timeEngineKeyValue,
       run_id: runId,
       show_no: intValue(focus.show_no),
       focus_day: focus.focus_day,
@@ -1663,10 +1906,19 @@ async function buildTimeEngineRows(app, focus, options = {}) {
         horse: row.horse,
         rider: row.rider,
         trainer: row.trainer,
-        field_vars: vars
+        field_vars: vars,
+        alert_state: alertState
       }),
       last_synced_at: generatedAt
-    });
+    };
+    rows.push(entryEngineRow);
+    pushAlertEventTriggers(
+      triggers,
+      entryEngineRow,
+      buildEntryAlertEvents(row, vars, alertState, eventTimeIso),
+      runId,
+      generatedAt
+    );
   }
 
   const scheduleByClassKey = new Map(scheduleRows.map((row) => [text(row.class_const_key || row.update_schedule_key), row]));
@@ -1793,6 +2045,7 @@ async function runTimeEngineOnly(app, options = {}) {
     : built.rows;
   const upsert = await upsertRowsByKeyFast(app, schema, TABLES.timeEngine, "time_engine_key", writeRows, missingContractFields);
   const triggerInsert = await insertNewTimeEngineTriggers(app, schema, built.triggers || [], missingContractFields);
+  const alertEvents = await appendAirtableAlertEvents(focus, built.triggers || []);
   const triggerReadyCount = built.rows.filter((row) => row.trigger_ready === true).length;
   const finished = new Date();
   const logRow = {
@@ -1820,7 +2073,8 @@ async function runTimeEngineOnly(app, options = {}) {
       trigger_ready_count: triggerReadyCount,
       trigger_candidates: (built.triggers || []).length,
       triggers_inserted: triggerInsert.inserted,
-      triggers_existing: triggerInsert.existing
+      triggers_existing: triggerInsert.existing,
+      alert_events: alertEvents
     }),
     last_synced_at: catalystDateTime(finished)
   };
@@ -1858,6 +2112,7 @@ async function runTimeEngineOnly(app, options = {}) {
     trigger_candidates: (built.triggers || []).length,
     triggers_inserted: triggerInsert.inserted,
     triggers_existing: triggerInsert.existing,
+    alert_events: alertEvents,
     catalyst_upserts: {
       time_engine: upsert,
       time_engine_triggers: triggerInsert,
@@ -1872,7 +2127,7 @@ async function runTimeEngineOnly(app, options = {}) {
     missing_contract_fields: missingContractFields,
     workflow_run: false,
     live_run: false,
-    alerts_run: false,
+    alerts_run: true,
     output_publish_run: false
   };
 }
@@ -4387,6 +4642,11 @@ module.exports.__test = {
   entryGoLogFields,
   currentStageAirtableFilter,
   planAirtableRowsByKey,
+  nextClassAlertState,
+  nextEntryAlertState,
+  buildClassAlertEvents,
+  buildEntryAlertEvents,
+  planAppendOnlyAlertEvents,
   optionalResultReadyAt,
   isUnexpectedActivePreflight
 };

@@ -5431,6 +5431,112 @@ async function airtableUpdateRecordsById(table, records) {
   return results;
 }
 
+async function airtableCreateRecords(table, records) {
+  const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
+  if (!token) {
+    throw new Error("Missing AIRTABLE_TOKEN fallback");
+  }
+  const results = [];
+  for (let index = 0; index < records.length; index += 10) {
+    const chunk = records.slice(index, index + 10).filter(Boolean);
+    if (!chunk.length) continue;
+    const response = await fetch(`https://api.airtable.com/v0/${encodeURIComponent(WEC_AIRTABLE_BASE_ID)}/${encodeURIComponent(table)}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({ records: chunk.map((fields) => ({ fields })), typecast: true })
+    });
+    const raw = await response.text();
+    if (!response.ok) throw new Error(`Airtable create ${table} failed ${response.status}: ${raw.slice(0, 500)}`);
+    results.push(...(JSON.parse(raw).records || []));
+  }
+  return results;
+}
+
+const AIRTABLE_RING_STATUS_TRACKED_FIELDS = Object.freeze([
+  "current_class_no",
+  "status",
+  "is_live",
+  "n_gone",
+  "n_to_go"
+]);
+
+function normalizedRingStatusValue(field, value) {
+  if (field === "status") return text(value);
+  if (field === "is_live") {
+    if (value === true || value === 1 || ["true", "1", "yes"].includes(text(value).toLowerCase())) return true;
+    if (value === false || value === 0 || ["false", "0", "no"].includes(text(value).toLowerCase())) return false;
+    return null;
+  }
+  const numeric = Number(value);
+  return value === null || value === undefined || text(value) === "" || !Number.isFinite(numeric) ? null : numeric;
+}
+
+function ringStatusObservationSortValue(record) {
+  const observed = text(record?.fields?.last_live_synced_at);
+  return observed ? `1|${observed}` : `0|${text(record?.createdTime)}`;
+}
+
+function planAirtableRingStatusChanges(rows, existingRecords, { runId = "", observedAt = "" } = {}) {
+  const latestByKey = new Map();
+  for (const record of existingRecords || []) {
+    const key = text(record?.fields?.ring_status_key);
+    if (!key) continue;
+    const prior = latestByKey.get(key);
+    if (!prior || ringStatusObservationSortValue(record) > ringStatusObservationSortValue(prior)) latestByKey.set(key, record);
+  }
+  const sourceByKey = new Map();
+  for (const fields of rows || []) {
+    const key = text(fields?.ring_status_key);
+    if (key) sourceByKey.set(key, fields);
+  }
+  const creates = [];
+  const unchanged = [];
+  const changes = [];
+  for (const [key, source] of sourceByKey) {
+    const priorFields = latestByKey.get(key)?.fields || null;
+    const changedFields = priorFields
+      ? AIRTABLE_RING_STATUS_TRACKED_FIELDS.filter((field) => (
+        normalizedRingStatusValue(field, priorFields[field]) !== normalizedRingStatusValue(field, source[field])
+      ))
+      : [...AIRTABLE_RING_STATUS_TRACKED_FIELDS];
+    if (!changedFields.length) {
+      unchanged.push(key);
+      continue;
+    }
+    const previousValues = {};
+    if (priorFields) {
+      for (const field of changedFields) previousValues[field] = normalizedRingStatusValue(field, priorFields[field]);
+    }
+    creates.push({
+      ...source,
+      run_id: text(runId),
+      changed_fields: changedFields.join(","),
+      previous_values: JSON.stringify(previousValues),
+      last_live_synced_at: text(observedAt || source.last_live_synced_at)
+    });
+    changes.push({ key, changed_fields: changedFields, previous_values: previousValues });
+  }
+  return { creates, unchanged, changes };
+}
+
+async function airtableAppendRingStatusChanges(table, records, showNo, focusDay, history) {
+  const existing = await airtableListRecords(table, {
+    filterByFormula: airtableRawMirrorFocusFormula(showNo, focusDay)
+  });
+  const plan = planAirtableRingStatusChanges(records, existing, history);
+  const created = await airtableCreateRecords(table, plan.creates);
+  return {
+    records: created,
+    updates: 0,
+    creates: created.length,
+    unchanged: plan.unchanged.length,
+    changes: plan.changes
+  };
+}
+
 async function airtableDeleteRecords(table, recordIds) {
   const token = runtimeAirtableToken || AIRTABLE_TOKEN_FALLBACK;
   if (!token) {
@@ -6297,7 +6403,10 @@ const RAW_RING_STATUS_REQUIRED_FIELDS = [
   "n_to_go",
   "elapsed_seconds",
   "live_source",
-  "last_live_synced_at"
+  "last_live_synced_at",
+  "run_id",
+  "changed_fields",
+  "previous_values"
 ];
 
 const RAW_CLASS_START_TIMES_REQUIRED_FIELDS = [
@@ -6579,7 +6688,7 @@ async function countAirtableRawMirrorRows(table, showNo, focusDay) {
   return records.length;
 }
 
-async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, rows, mapper, showNo, focusDay, { appendOnly = false } = {}) {
+async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, rows, mapper, showNo, focusDay, { appendOnly = false, ringStatusHistory = null } = {}) {
   const tableStatus = await rawAirtableStep4MirrorTableStatus(tableName, requiredFields);
   if (!tableStatus.exists || tableStatus.missing_fields?.length) {
     return {
@@ -6596,9 +6705,11 @@ async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, r
   const sourceRows = (rows || [])
     .map(mapper)
     .filter((row) => text(row[keyField]));
-  const upserts = await airtableUpsertByFieldId(tableName, keyField, sourceRows);
-  const cleanup = appendOnly
-    ? { deleted: 0, skipped: true, reason: "append_only_log" }
+  const writeResult = ringStatusHistory
+    ? await airtableAppendRingStatusChanges(tableName, sourceRows, showNo, focusDay, ringStatusHistory)
+    : { records: await airtableUpsertByFieldId(tableName, keyField, sourceRows) };
+  const cleanup = appendOnly || ringStatusHistory
+    ? { deleted: 0, skipped: true, reason: ringStatusHistory ? "append_only_changed_state_log" : "append_only_log" }
     : await deleteAirtableMirrorRowsNotInKeys(
       tableName,
       keyField,
@@ -6612,14 +6723,18 @@ async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, r
     key_field: keyField,
     table_status: tableStatus,
     source_rows: sourceRows.length,
-    upserts: upserts.length,
+    upserts: writeResult.records.length,
+    creates: writeResult.creates,
+    updates: writeResult.updates,
+    unchanged: writeResult.unchanged,
+    changes: writeResult.changes,
     current_day_count: currentDayCount,
     cleanup,
     skipped: false
   };
 }
 
-async function syncRawAirtableStep4RuntimeRows(showNo, focusDay, { ringStatusRows = [], classStartRows = [], entryGoRows = [], runTime = "" } = {}) {
+async function syncRawAirtableStep4RuntimeRows(showNo, focusDay, { ringStatusRows = [], classStartRows = [], entryGoRows = [], runTime = "", ringStatusHistory = null } = {}) {
   const hsRingStatus = await syncRawAirtableStep4Mirror(
     AIRTABLE_RAW_RING_STATUS_TABLE,
     "ring_status_key",
@@ -6627,7 +6742,8 @@ async function syncRawAirtableStep4RuntimeRows(showNo, focusDay, { ringStatusRow
     ringStatusRows,
     mapRawAirtableRingStatusFields,
     showNo,
-    focusDay
+    focusDay,
+    { ringStatusHistory }
   );
   const hsClassStartTimes = await syncRawAirtableStep4Mirror(
     AIRTABLE_RAW_CLASS_START_TIMES_TABLE,
@@ -14459,7 +14575,7 @@ function classStatusForStart(row, liveRow, soonKeys) {
   return "Today";
 }
 
-async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = [], getOrdersRows = [], runTime = "" } = {}) {
+async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = [], getOrdersRows = [], runTime = "", runId = "" } = {}) {
   const safeFocusDay = dateKey(focusDay);
   const currentFilter = (row) => text(row.show_no) === text(showNo) && dateKey(row.focus_day) === safeFocusDay;
   const [ringStatusPage, classStartPage, entryGoPage] = await Promise.all([
@@ -14635,11 +14751,13 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     return update ? { ...row, ...update } : row;
   });
   const refreshedRows = await getStep4RuntimeRows(app, showNo, safeFocusDay, { trainerDisplays: new Map() });
+  const liveRingStatusKeys = new Set(ringUpdates.map((row) => text(row.ring_status_key)).filter(Boolean));
   const airtableRuntimeMirror = await syncRawAirtableStep4RuntimeRows(showNo, safeFocusDay, {
-    ringStatusRows: refreshedRows.runtime_ring_status_rows || [],
+    ringStatusRows: (refreshedRows.runtime_ring_status_rows || []).filter((row) => liveRingStatusKeys.has(text(row.ring_status_key))),
     classStartRows: (await getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 })).rows || [],
     entryGoRows: mirrorEntryGoRows,
-    runTime
+    runTime,
+    ringStatusHistory: { runId, observedAt: liveSyncedAt }
   });
 
   return {
@@ -14684,6 +14802,10 @@ function summarizeStep5Mirror(mirror) {
       key_field: value.key_field,
       source_rows: value.source_rows,
       upserts: value.upserts,
+      creates: value.creates,
+      updates: value.updates,
+      unchanged: value.unchanged,
+      changes: value.changes,
       current_day_count: value.current_day_count,
       skipped: value.skipped,
       cleanup: value.cleanup,
@@ -15103,7 +15225,8 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
       runtimeEnrichment = await enrichStep5RuntimeRows(app, activeFocus.show_no, focusDay, {
         getRingsRows: rings.source_rows || [],
         getOrdersRows: orders.source_rows || [],
-        runTime
+        runTime,
+        runId
       });
     }
   } catch (error) {
@@ -17470,6 +17593,7 @@ if (process.env.NODE_ENV === "test") {
     normalizeCatalystSearchGroups,
     hydrateHelperSearchMatchFromRows,
     goTimeDisplayMeta,
+    planAirtableRingStatusChanges,
     HELPER_SEARCH_CONFIGS
   };
 }

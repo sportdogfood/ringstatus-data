@@ -128,3 +128,12 @@ test("stage-log deduplication quotes the Airtable focus date", () => {
     "AND({show_no}=14910,DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='2026-07-10')"
   );
 });
+
+test("time-engine rows omit blank Catalyst datetime values", () => {
+  assert.equal(typeof handler.__test.optionalResultReadyAt, "function");
+  assert.deepEqual(handler.__test.optionalResultReadyAt(""), {});
+  assert.deepEqual(
+    handler.__test.optionalResultReadyAt("2026-07-10 14:30:00"),
+    { result_ready_at: "2026-07-10 14:30:00" }
+  );
+});

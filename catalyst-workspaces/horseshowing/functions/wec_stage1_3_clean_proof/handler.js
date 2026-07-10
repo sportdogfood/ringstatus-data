@@ -1099,6 +1099,11 @@ function buildFieldVarsForClass(classRow, entryRows, now = new Date()) {
   };
 }
 
+function optionalResultReadyAt(value) {
+  const resultReadyAt = text(value);
+  return resultReadyAt ? { result_ready_at: resultReadyAt } : {};
+}
+
 function buildFieldVarsForEntry(entryRow, now = new Date()) {
   const goDate = parseDateTime(entryRow.focus_day || entryRow.iso_date, entryRow.go_time || entryRow.entry_go_time);
   const goInMins = minutesUntil(goDate, now);
@@ -1577,7 +1582,7 @@ async function buildTimeEngineRows(app, focus, options = {}) {
       status: text(vars.class_status),
       trigger_ready: (vars.tags || []).length > 0,
       result_ready: vars.result_ready === true,
-      result_ready_at: text(vars.result_ready_at),
+      ...optionalResultReadyAt(vars.result_ready_at),
       result_ready_rule: text(vars.result_ready_rule),
       generated_at: generatedAt,
       expires_at: expiresAt,
@@ -4356,5 +4361,6 @@ module.exports.__test = {
   classStartLogFields,
   entryGoLogFields,
   currentStageAirtableFilter,
-  planAirtableRowsByKey
+  planAirtableRowsByKey,
+  optionalResultReadyAt
 };

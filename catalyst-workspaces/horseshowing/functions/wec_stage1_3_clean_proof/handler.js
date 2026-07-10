@@ -744,6 +744,53 @@ async function upsertAirtableBatchByKey(tableName, keyField, rows) {
   return written;
 }
 
+function cleanAirtableLogFields(fields) {
+  return Object.fromEntries(Object.entries(fields || {}).filter(([, value]) => (
+    value !== undefined && value !== null && value !== ""
+  )));
+}
+
+function planAirtableRowsByKey(rows, existingRecords, keyField) {
+  const existingByKey = new Map();
+  for (const record of existingRecords || []) {
+    const key = text((record.fields || record)[keyField]);
+    if (!key || !record.id) continue;
+    const prior = existingByKey.get(key);
+    if (!prior || text(record.createdTime) < text(prior.createdTime)) existingByKey.set(key, record);
+  }
+  const sourceByKey = new Map();
+  for (const row of rows || []) {
+    const clean = cleanAirtableLogFields(row);
+    const key = text(clean[keyField]);
+    if (key) sourceByKey.set(key, clean);
+  }
+  const updates = [];
+  const creates = [];
+  for (const [key, fields] of sourceByKey) {
+    const existing = existingByKey.get(key);
+    if (existing) updates.push({ id: existing.id, fields });
+    else creates.push(fields);
+  }
+  return {
+    updates,
+    creates
+  };
+}
+
+async function updateAirtableRecordsInBatches(tableName, rows) {
+  let updated = 0;
+  for (let index = 0; index < (rows || []).length; index += 10) {
+    const chunk = rows.slice(index, index + 10);
+    if (!chunk.length) continue;
+    await airtableRequest(tableName, {}, "PATCH", {
+      records: chunk,
+      typecast: true
+    });
+    updated += chunk.length;
+  }
+  return updated;
+}
+
 async function markAirtableRowsNotInKeySet(tableName, keyField, focus, activeKeys) {
   const formula = `AND({show_no}=${Number(focus.show_no)},DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='${airtableFormulaValue(focus.focus_day)}',{status}='active')`;
   const records = await getAirtableRecords(tableName, {
@@ -3446,6 +3493,7 @@ async function runCleanStage1To4Proof(app, options = {}) {
 function classOogRawMirrorFields(row) {
   return {
     raw_key: row.raw_key,
+    show_no: intValue(row.show_no),
     focus_day: row.focus_day,
     ring_no: intValue(row.ring_no),
     ring_name_normalized: row.ring_name_normalized,
@@ -3714,6 +3762,13 @@ function classOogMirrorFields(row) {
   };
 }
 
+function classOogLogFields(row) {
+  const fields = classOogMirrorFields(row);
+  delete fields.horses;
+  delete fields["follow (from horses)"];
+  return fields;
+}
+
 function ringStatusMirrorFields(row) {
   return {
     ring_status_key: text(row.ring_status_key),
@@ -3763,6 +3818,56 @@ function classStartMirrorFields(row) {
     ring_visual_key: text(row.ring_visual_key || row.ring_const_key),
     class_visual_key: text(row.class_visual_key || classVisualKeyFromSource(row))
   };
+}
+
+function classStartLogFields(row) {
+  return cleanAirtableLogFields({
+    class_start_key: text(row.class_start_key),
+    show_no: intValue(row.show_no),
+    focus_day: row.focus_day,
+    ring_day_no: intValue(row.ring_day_no),
+    ring_no: intValue(row.ring_no),
+    ring_name: row.ring_name,
+    ring_name_normalized: row.ring_name_normalized,
+    class_no: intValue(row.class_no),
+    class_name: row.class_name,
+    class_start_time: row.class_start_time,
+    display_time: row.display_time,
+    entry_count: intValue(row.entry_count),
+    status: row.status,
+    live_source: row.live_source,
+    last_synced_at: row.last_synced_at,
+    iso_date: row.iso_date || row.focus_day,
+    ring_visual_key: text(row.ring_visual_key || row.ring_const_key),
+    class_visual_key: text(row.class_visual_key || classVisualKeyFromSource(row))
+  });
+}
+
+function entryGoLogFields(row) {
+  return cleanAirtableLogFields({
+    entry_go_key: text(row.entry_go_key),
+    show_no: intValue(row.show_no),
+    focus_day: row.focus_day,
+    ring_name_normalized: row.ring_name_normalized,
+    class_no: intValue(row.class_no),
+    entry_no: intValue(row.entry_no),
+    entry_order: intValue(row.entry_order),
+    horse: row.horse,
+    class_start_time: row.class_start_time,
+    rider: row.rider,
+    trainer: row.trainer,
+    go_time: row.go_time,
+    status: row.status,
+    last_synced_at: row.last_synced_at,
+    pace_seconds: row.pace_seconds === undefined || row.pace_seconds === null
+      ? null
+      : text(row.pace_seconds),
+    live_source: row.live_source,
+    last_live_synced_at: row.last_live_synced_at,
+    focus_day_key: row.focus_day_key,
+    display_time: row.display_time,
+    iso_date: row.iso_date || row.focus_day
+  });
 }
 
 function entryGoMirrorFields(row) {
@@ -3963,6 +4068,111 @@ async function runStep4AirtableMirrorOnly(app, options = {}) {
   };
 }
 
+function currentStageAirtableFilter(focus) {
+  return `AND({show_no}=${Number(focus.show_no)},DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='${airtableFormulaValue(focus.focus_day)}')`;
+}
+
+async function appendCurrentStageTableLog({
+  tableName,
+  keyField,
+  rows,
+  mapper,
+  focus
+}) {
+  const existing = await getAirtableRecords(tableName, {
+    filterByFormula: currentStageAirtableFilter(focus),
+    pageSize: "100"
+  });
+  const mapped = (rows || []).map(mapper).filter((row) => text(row[keyField]));
+  const plan = planAirtableRowsByKey(mapped, existing, keyField);
+  const updated = await updateAirtableRecordsInBatches(tableName, plan.updates);
+  const created = await upsertAirtableBatchByKey(tableName, keyField, plan.creates);
+  return {
+    table: tableName,
+    source_rows: mapped.length,
+    existing_records: existing.length,
+    updated,
+    created,
+    key_upsert: true
+  };
+}
+
+async function runCoreAirtableLogsOnly(app) {
+  const focus = await getActiveFocusShow();
+  if (!focus?.show_no) throw new Error("focus_show.show_no_required");
+  if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
+  const readRows = (tableName, dateField = "focus_day") => (
+    readCurrentRows(app, tableName, focus.show_no, focus.focus_day, dateField)
+  );
+  const updateRows = (await readRows(TABLES.updateSchedule))
+    .filter((row) => text(row.probe_status));
+  const rawRows = await readRows(TABLES.classOogRaw);
+  const classOogRows = await readRows(TABLES.classOog, "focus_day_only");
+  const ringStatusRows = await readRows(TABLES.ringStatus, "focus_day_only");
+  const classStartRows = await readRows(TABLES.classStartTimes, "focus_day_only");
+  const entryGoRows = await readRows(TABLES.entryGoTimes, "focus_day_only");
+
+  const logs = {};
+  logs.hs_update_schedule = await appendCurrentStageTableLog({
+    tableName: TABLES.updateSchedule,
+    keyField: "update_schedule_key",
+    rows: updateRows,
+    mapper: updateScheduleReviewFields,
+    focus
+  });
+  logs.hs_class_oog_raw = await appendCurrentStageTableLog({
+    tableName: TABLES.classOogRaw,
+    keyField: "raw_key",
+    rows: rawRows,
+    mapper: classOogRawMirrorFields,
+    focus
+  });
+  logs.hs_class_oog = await appendCurrentStageTableLog({
+    tableName: TABLES.classOog,
+    keyField: "class_oog_key",
+    rows: classOogRows,
+    mapper: classOogLogFields,
+    focus
+  });
+  logs.hs_ring_status = await appendCurrentStageTableLog({
+    tableName: TABLES.ringStatus,
+    keyField: "ring_status_key",
+    rows: ringStatusRows,
+    mapper: ringStatusMirrorFields,
+    focus
+  });
+  logs.hs_class_start_times = await appendCurrentStageTableLog({
+    tableName: TABLES.classStartTimes,
+    keyField: "class_start_key",
+    rows: classStartRows,
+    mapper: classStartLogFields,
+    focus
+  });
+  logs.hs_entry_go_times = await appendCurrentStageTableLog({
+    tableName: TABLES.entryGoTimes,
+    keyField: "entry_go_key",
+    rows: entryGoRows,
+    mapper: entryGoLogFields,
+    focus
+  });
+  return {
+    ok: true,
+    mode: "wec-core-airtable-logs",
+    focus,
+    key_upsert: true,
+    updates: Object.values(logs).reduce((sum, item) => sum + item.updated, 0),
+    deletes: 0,
+    created: Object.values(logs).reduce((sum, item) => sum + item.created, 0),
+    logs,
+    core_run: false,
+    live_run: false,
+    time_engine_run: false,
+    results_run: false,
+    alerts_run: false,
+    publish_run: false
+  };
+}
+
 async function runStep3AirtableMirrorOnly(app, options = {}) {
   const focus = await getActiveFocusShow();
   if (!focus?.show_no) throw new Error("focus_show.show_no_required");
@@ -4098,6 +4308,10 @@ async function handle(req, res) {
       const result = await runStep4AirtableMirrorOnly(app, options);
       return json(res, 200, result);
     }
+    if (action === "wec-core-airtable-logs") {
+      const result = await runCoreAirtableLogsOnly(app);
+      return json(res, 200, result);
+    }
     if (action === "wec-mobile-pro-live") {
       const result = await buildMobileProPayload(app, options);
       return json(res, 200, result);
@@ -4137,4 +4351,10 @@ async function handle(req, res) {
 }
 
 module.exports = handle;
-module.exports.__test = { parseUpdateScheduleRows };
+module.exports.__test = {
+  parseUpdateScheduleRows,
+  classStartLogFields,
+  entryGoLogFields,
+  currentStageAirtableFilter,
+  planAirtableRowsByKey
+};

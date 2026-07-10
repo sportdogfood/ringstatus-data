@@ -1424,9 +1424,11 @@ function summarizeUpdateSchedulePreflight(rows) {
   return summary;
 }
 
-function getOrdersSourceRow(row) {
+function getOrdersSourceRow(row, logMeta = null) {
   const classParts = classPartsFromLabel(row.class_label || row.class_name);
-  const key = resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_label || row.class_no);
+  const key = logMeta?.appendLog
+    ? liveSourceLogKey("get_orders", row, logMeta.pollRunId, logMeta.rowIndex)
+    : resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_label || row.class_no);
   if (!key) return null;
   return {
     get_orders_key: key,
@@ -1454,9 +1456,11 @@ function getOrdersSourceRow(row) {
   };
 }
 
-function getRingsSourceRow(row) {
+function getRingsSourceRow(row, logMeta = null) {
   const classParts = classPartsFromLabel(row.class_label || row.class_name);
-  const key = resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_no || row.class_label);
+  const key = logMeta?.appendLog
+    ? liveSourceLogKey("get_rings", row, logMeta.pollRunId, logMeta.rowIndex)
+    : resultKey(row.show_no, row.ring_no, row.ring_day_no, row.class_no || row.class_label);
   if (!key) return null;
   return {
     get_rings_key: key,
@@ -2290,6 +2294,24 @@ async function exportMirrorTable(app, showNo, tableKey, limit = 100, offset = 0)
 
 function resultKey(...parts) {
   return parts.map((part) => text(part)).filter(Boolean).join("|");
+}
+
+function compactLogTimestamp(value = new Date()) {
+  const parsed = value instanceof Date ? value : new Date(value);
+  const date = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+  return date.toISOString().replace(/[-:.]/g, "");
+}
+
+function liveSourceLogKey(source, row, pollRunId, rowIndex) {
+  return resultKey(
+    source,
+    row.show_no,
+    dateKey(row.focus_day).replace(/-/g, ""),
+    pollRunId,
+    row.ring_day_no,
+    row.ring_no,
+    rowIndex
+  );
 }
 
 function resultRawJson(row) {
@@ -6544,7 +6566,7 @@ async function countAirtableRawMirrorRows(table, showNo, focusDay) {
   return records.length;
 }
 
-async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, rows, mapper, showNo, focusDay) {
+async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, rows, mapper, showNo, focusDay, { appendOnly = false } = {}) {
   const tableStatus = await rawAirtableStep4MirrorTableStatus(tableName, requiredFields);
   if (!tableStatus.exists || tableStatus.missing_fields?.length) {
     return {
@@ -6562,13 +6584,15 @@ async function syncRawAirtableStep4Mirror(tableName, keyField, requiredFields, r
     .map(mapper)
     .filter((row) => text(row[keyField]));
   const upserts = await airtableUpsertByFieldId(tableName, keyField, sourceRows);
-  const cleanup = await deleteAirtableMirrorRowsNotInKeys(
-    tableName,
-    keyField,
-    showNo,
-    focusDay,
-    new Set(sourceRows.map((row) => text(row[keyField])).filter(Boolean))
-  );
+  const cleanup = appendOnly
+    ? { deleted: 0, skipped: true, reason: "append_only_log" }
+    : await deleteAirtableMirrorRowsNotInKeys(
+      tableName,
+      keyField,
+      showNo,
+      focusDay,
+      new Set(sourceRows.map((row) => text(row[keyField])).filter(Boolean))
+    );
   const currentDayCount = await countAirtableRawMirrorRows(tableName, showNo, focusDay);
   return {
     table: tableName,
@@ -6625,17 +6649,30 @@ async function syncRawAirtableStep5LiveRows(showNo, focusDay, { getRingsRows = [
     getRingsRows,
     mapRawAirtableGetRingsFields,
     showNo,
-    focusDay
+    focusDay,
+    { appendOnly: true }
   );
-  const hsGetOrders = await syncRawAirtableStep4Mirror(
-    AIRTABLE_RAW_GET_ORDERS_TABLE,
-    "get_orders_key",
-    RAW_GET_ORDERS_REQUIRED_FIELDS,
-    getOrdersRows,
-    mapRawAirtableGetOrdersFields,
-    showNo,
-    focusDay
-  );
+  const hsGetOrders = (getOrdersRows || []).length
+    ? await syncRawAirtableStep4Mirror(
+      AIRTABLE_RAW_GET_ORDERS_TABLE,
+      "get_orders_key",
+      RAW_GET_ORDERS_REQUIRED_FIELDS,
+      getOrdersRows,
+      mapRawAirtableGetOrdersFields,
+      showNo,
+      focusDay,
+      { appendOnly: true }
+    )
+    : {
+      table: AIRTABLE_RAW_GET_ORDERS_TABLE,
+      key_field: "get_orders_key",
+      source_rows: 0,
+      upserts: 0,
+      current_day_count: 0,
+      cleanup: { deleted: 0, skipped: true, reason: "retired_from_hot_lane" },
+      skipped: false,
+      retired: true
+    };
   return {
     hs_get_rings: hsGetRings,
     hs_get_orders: hsGetOrders
@@ -14263,20 +14300,14 @@ async function fetchStep5LiveSource(req, app, showNo, focusDay, source, context)
   const parsedRows = parser(upstreamResponse.raw)
     .map((row) => ({ ...row, focus_day: gate.focus_day || focusDay }));
   const scoped = await applyFocusScopeToCurrentRows(app, showNo, gate.focus_day || focusDay, parsedRows, source);
+  const pollRunId = compactLogTimestamp();
   const sourceRows = scoped.rows
-    .map((row) => source === "orders" ? getOrdersSourceRow(row) : getRingsSourceRow(row))
+    .map((row, index) => source === "orders"
+      ? getOrdersSourceRow(row, { appendLog: true, pollRunId, rowIndex: index + 1 })
+      : getRingsSourceRow(row, { appendLog: true, pollRunId, rowIndex: index + 1 }))
     .filter(Boolean);
   const catalystMirror = await upsertSourceRowsFast(app, tableName, keyField, sourceRows, { showNo });
-  const cleanup = sourceRows.length
-    ? await deleteCurrentFocusRowsNotInKeys(
-      app,
-      tableName,
-      keyField,
-      showNo,
-      gate.focus_day || focusDay,
-      new Set(sourceRows.map((row) => text(row[keyField])).filter(Boolean))
-    )
-    : { deleted: 0, skipped: true, reason: "no_source_rows" };
+  const cleanup = { deleted: 0, skipped: true, reason: "append_only_log" };
   return {
     source,
     skipped: false,
@@ -14287,6 +14318,7 @@ async function fetchStep5LiveSource(req, app, showNo, focusDay, source, context)
     parsed_rows: scoped.rows.length,
     focus_class_scope: scoped.focus_class_scope,
     class_no_resolved: scoped.class_no_resolved,
+    poll_run_id: pollRunId,
     source_rows: sourceRows,
     catalyst_mirror: catalystMirror,
     cleanup
@@ -15013,14 +15045,24 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
   let closingDaySignal = null;
   try {
     rings = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "rings", context);
-    orders = await fetchStep5LiveSource(req, app, activeFocus.show_no, focusDay, "orders", context);
-    if (!rings.get_run || !orders.get_run) blocker = "live_source_gate_blocked";
+    orders = {
+      source: "orders",
+      skipped: true,
+      skip_reason: "retired_from_hot_lane_use_get_rings",
+      get_run: false,
+      upstream_status: null,
+      raw_rows: 0,
+      parsed_rows: 0,
+      source_rows: [],
+      catalyst_mirror: { rows: 0, inserted: 0, updated: 0, skipped: 0 },
+      cleanup: { deleted: 0, skipped: true, reason: "retired_from_hot_lane" }
+    };
+    if (!rings.get_run) blocker = "live_source_gate_blocked";
     if (!blocker) {
-      if (!(rings.source_rows || []).length || !(orders.source_rows || []).length) {
+      if (!(rings.source_rows || []).length) {
         blocker = "live_source_empty";
         const ringsNearClose = isLiveWindowNearClose(rings.live_window);
-        const ordersNearClose = isLiveWindowNearClose(orders.live_window);
-        if (ringsNearClose || ordersNearClose) {
+        if (ringsNearClose) {
           const lastLiveEmptyAt = floridaCatalystDateTime(runTime);
           const catalystHsFocusShow = await updateCatalystHsFocusShowLiveEmpty(app, activeFocus.show_no, focusDay, lastLiveEmptyAt);
           const airtableHsFocusShow = await updateAirtableHsFocusShowLiveEmpty(activeFocus.show_no, focusDay, lastLiveEmptyAt);

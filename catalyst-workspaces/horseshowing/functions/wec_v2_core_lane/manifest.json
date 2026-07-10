@@ -1,0 +1,31 @@
+{
+  "version": "wec_v2_core_1",
+  "tables": {
+    "datasets": "wec_v2_datasets",
+    "work_queue": "wec_v2_work_queue",
+    "change_log": "wec_v2_change_log",
+    "update_schedule": "wec_v2_update_schedule",
+    "class_oog_raw": "wec_v2_class_oog_raw",
+    "class_oog": "wec_v2_class_oog",
+    "ring_status": "wec_v2_ring_status",
+    "class_start_times": "wec_v2_class_start_times",
+    "entry_go_times": "wec_v2_entry_go_times"
+  },
+  "stages": [
+    "C0_DATASET",
+    "C1_DISCOVER_RINGS",
+    "C2_SCHEDULE_RING",
+    "C3A_PROBE_CLASS",
+    "C3A2_RETRY_CLASS",
+    "C3B_PARSE_CLASS",
+    "C3B2_REVIEW_CLASS",
+    "C4A_CLASS_RUNTIME",
+    "C4B_RING_RUNTIME",
+    "C4C_ENTRY_RUNTIME",
+    "C5_AUDIT"
+  ],
+  "max_probe_attempts": 3,
+  "change_entity_types": ["ring", "class", "entry", "result", "alert"],
+  "scheduler_enabled": false,
+  "legacy_writes_allowed": false
+}

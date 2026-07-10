@@ -1,0 +1,13 @@
+{
+  "name": "wec-v2-core-lane",
+  "version": "1.0.0",
+  "private": true,
+  "main": "handler.js",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "zcatalyst-sdk-node": "^2.2.0"
+  }
+}

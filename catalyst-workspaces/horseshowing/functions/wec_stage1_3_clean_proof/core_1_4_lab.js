@@ -224,16 +224,6 @@ function parseRingDayRows(raw, showNo) {
   return rows;
 }
 
-function parseClassLabel(classText) {
-  const value = text(classText);
-  const match = value.match(/^(\d+)\)\s*(.*)$/);
-  return {
-    class_number: match?.[1] || "",
-    class_name: match?.[2] ? text(match[2]) : value,
-    class_label: value
-  };
-}
-
 async function fetchUpdateScheduleRaw(showNo, ringDayNo, cookie) {
   const body = new URLSearchParams({
     show_no: String(showNo),
@@ -282,7 +272,6 @@ function parseUpdateScheduleRows(raw, focus, ringDay) {
     const classText = text($(node).attr("data-name")) || text($(node).find(".ring_evt_name").first().text());
     const timeText = text($(node).attr("data-time")) || text($(node).find(".ring_evt_time").first().text());
     const entryCount = text($(node).attr("data-n_entries")) || text($(node).find(".ring_evt_entries").first().text());
-    const klass = parseClassLabel(classText);
     const base = {
       show_no: intValue(focus.show_no),
       focus_day: text(focus.focus_day),
@@ -295,9 +284,8 @@ function parseUpdateScheduleRows(raw, focus, ringDay) {
       ring_name_prioritized: intValue(ringDay.ring_name_prioritized),
       event_id: text($(node).attr("id")),
       class_no: intValue($(node).attr("data-class")),
-      class_number: klass.class_number,
-      class_label: klass.class_label,
-      class_name: klass.class_name,
+      class_label: classText,
+      class_name: classText,
       time_text: timeText,
       class_time_text: timeText,
       class_start_time: normalizeClassStartTime(timeText),

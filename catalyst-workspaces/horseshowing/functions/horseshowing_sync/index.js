@@ -4,6 +4,7 @@ const fs = require("fs");
 const https = require("https");
 const path = require("path");
 const zlib = require("zlib");
+const { createRouterRun, executeLoggedAction } = require("@ringstatus/catalyst-router-logger");
 
 const BASE_URL = "https://www.horseshowing.com";
 const DEFAULT_USER_AGENT =
@@ -14744,22 +14745,6 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     ? await upsertSourceRowsFast(app, TABLES.entryGoTimes, "entry_go_key", entryUpdates, { showNo })
     : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
 
-  const entryUpdateByKey = new Map(entryUpdates.map((row) => [text(row.entry_go_key), row]));
-  const refreshedEntryGoRows = (await getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })).rows || [];
-  const mirrorEntryGoRows = refreshedEntryGoRows.map((row) => {
-    const update = entryUpdateByKey.get(text(row.entry_go_key));
-    return update ? { ...row, ...update } : row;
-  });
-  const refreshedRows = await getStep4RuntimeRows(app, showNo, safeFocusDay, { trainerDisplays: new Map() });
-  const liveRingStatusKeys = new Set(ringUpdates.map((row) => text(row.ring_status_key)).filter(Boolean));
-  const airtableRuntimeMirror = await syncRawAirtableStep4RuntimeRows(showNo, safeFocusDay, {
-    ringStatusRows: (refreshedRows.runtime_ring_status_rows || []).filter((row) => liveRingStatusKeys.has(text(row.ring_status_key))),
-    classStartRows: (await getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 })).rows || [],
-    entryGoRows: mirrorEntryGoRows,
-    runTime,
-    ringStatusHistory: { runId, observedAt: liveSyncedAt }
-  });
-
   return {
     source_runtime_counts: {
       hs_ring_status: ringStatusRows.length,
@@ -14785,7 +14770,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     entry_go_times_go_time_updates: entryUpdates.length,
     entry_go_times_skip_reasons: entrySkipReasons,
     fallback_go_times_created: 0,
-    airtable_runtime_mirror: airtableRuntimeMirror
+    airtable_runtime_mirror: { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" }
   };
 }
 
@@ -15166,17 +15151,11 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     status: "running",
     payload_json: JSON.stringify(runningPayload, null, 2)
   });
-  await writeRawAirtableHeartbeat(heartbeatId, {
-    ...basePatch,
-    run_time: runTime,
-    status: "running",
-    payload_json: JSON.stringify(runningPayload, null, 2)
-  });
 
   let blocker = "";
   let rings = null;
   let orders = null;
-  let airtableLiveMirror = null;
+  let airtableLiveMirror = { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" };
   let runtimeEnrichment = null;
   let closingDaySignal = null;
   try {
@@ -15201,23 +15180,14 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
         if (ringsNearClose) {
           const lastLiveEmptyAt = floridaCatalystDateTime(runTime);
           const catalystHsFocusShow = await updateCatalystHsFocusShowLiveEmpty(app, activeFocus.show_no, focusDay, lastLiveEmptyAt);
-          const airtableHsFocusShow = await updateAirtableHsFocusShowLiveEmpty(activeFocus.show_no, focusDay, lastLiveEmptyAt);
           closingDaySignal = {
             signal: "live_source_empty_near_show_end",
             last_live_empty_at: lastLiveEmptyAt,
             catalyst_hs_focus_show: catalystHsFocusShow,
-            airtable_hs_focus_show: airtableHsFocusShow,
+            airtable_hs_focus_show: { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" },
             focus_show_active_unchanged: true,
             live_enrichment_unchanged: true
           };
-        }
-      } else {
-        airtableLiveMirror = await syncRawAirtableStep5LiveRows(activeFocus.show_no, focusDay, {
-          getRingsRows: rings.source_rows || [],
-          getOrdersRows: orders.source_rows || []
-        });
-        if (airtableLiveMirror.hs_get_rings.skipped || airtableLiveMirror.hs_get_orders.skipped) {
-          blocker = "airtable_live_mirror_skipped";
         }
       }
     }
@@ -15271,10 +15241,6 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     payload_json: JSON.stringify(finalPayload, null, 2)
   };
   await writeStageHeartbeat(app, heartbeatId, finalPatch);
-  await writeRawAirtableHeartbeat(heartbeatId, {
-    ...finalPatch,
-    run_time: runTime
-  });
 
   return {
     ok: !blocker,
@@ -16671,7 +16637,57 @@ async function handle(req, res) {
     }
 
     if (action === "wec-step5-live-enrichment") {
-      const result = await runWecStep5LiveEnrichmentOnly(req, app, action, query, body);
+      const routerRunId = text(query.get("run_id") || body.run_id) || `wec-step5-${new Date().toISOString().replace(/[^0-9A-Za-z]/g, "")}`;
+      if (!query.get("run_id")) query.set("run_id", routerRunId);
+      const router = createRouterRun({
+        app,
+        base: {
+          run_id: routerRunId,
+          parent_run_id: text(query.get("parent_run_id") || body.parent_run_id),
+          show_no: intValue(query.get("show_no") || body.show_no) || undefined,
+          focus_day: dateKey(query.get("focus_day") || body.focus_day),
+          lane: "live_enrichment",
+          source_function: "horseshowing_sync",
+          source_action: action,
+          trigger_source: "catalyst_job_scheduling",
+          trigger_reason: "scheduled_live_enrichment"
+        }
+      });
+      const result = await executeLoggedAction(router, {
+        stage: "live_enrichment",
+        after: async (businessResult, run) => {
+          await run.log({
+            show_no: businessResult.show_no,
+            focus_day: businessResult.focus_day,
+            stage: "get_rings",
+            event_type: businessResult.get_rings_run ? "pass" : "skip",
+            status: businessResult.get_rings_run ? "PASS" : "SKIP",
+            input_count: businessResult.upstream_requests,
+            output_count: businessResult.catalyst_live_mirror_counts?.hs_get_rings || 0,
+            trigger_reason: businessResult.get_rings_run ? "live_source_fetched" : (businessResult.skip_reason || businessResult.blocker || "not_run")
+          });
+          await run.log({
+            show_no: businessResult.show_no,
+            focus_day: businessResult.focus_day,
+            stage: "runtime_enrichment",
+            event_type: businessResult.ok && !businessResult.skipped ? "pass" : "skip",
+            status: businessResult.ok && !businessResult.skipped ? "PASS" : "SKIP",
+            input_count: businessResult.catalyst_live_mirror_counts?.hs_get_rings || 0,
+            output_count: businessResult.runtime_enrichment?.updated || businessResult.runtime_enrichment?.rows || 0,
+            next_lane: "time_engine",
+            next_action: "wec-time-engine",
+            trigger_reason: businessResult.skipped ? businessResult.skip_reason : (businessResult.blocker || "runtime_enriched")
+          });
+        },
+        outcome: (businessResult) => ({
+          show_no: businessResult.show_no,
+          focus_day: businessResult.focus_day,
+          input_count: businessResult.upstream_requests,
+          output_count: businessResult.runtime_enrichment?.updated || businessResult.runtime_enrichment?.rows || 0,
+          http_status: businessResult.status_code || (businessResult.ok ? 200 : 500),
+          payload_json: { blocker: businessResult.blocker, skip_reason: businessResult.skip_reason, fallback_go_times_created: businessResult.fallback_go_times_created }
+        })
+      }, () => runWecStep5LiveEnrichmentOnly(req, app, action, query, body));
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 
@@ -17576,7 +17592,12 @@ async function handle(req, res) {
 
     return json(res, 400, { ok: false, error: `Unknown action: ${action}` });
   } catch (error) {
-    return json(res, 500, { ok: false, error: String(error?.message || error), stack: String(error?.stack || "") });
+    return json(res, 500, {
+      ok: false,
+      error: String(error?.message || error),
+      router_logging: error?.router_logging,
+      stack: String(error?.stack || "")
+    });
   }
 }
 

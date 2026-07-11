@@ -1,5 +1,6 @@
 const catalyst = require("zcatalyst-sdk-node");
 const https = require("https");
+const { createRouterRun, executeLoggedAction } = require("@ringstatus/catalyst-router-logger");
 
 const DEFAULT_BASE_ID = "app6XS1RvsPNRT6os";
 const HORSESHOWING_BASE_URL = "https://www.horseshowing.com";
@@ -1771,35 +1772,6 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     if (result.action === "updated") catalystCounters.class_start_times.updated += 1;
   }
 
-  const airtableQueue = await airtableUpsert(
-    baseId,
-    AIRTABLE_TABLES.hs_result_queue,
-    "result_queue_key",
-    queueRows.map(toAirtableHsResultQueue),
-    token
-  );
-  const airtableResultClasses = await airtableUpsert(
-    baseId,
-    AIRTABLE_TABLES.hs_result_classes,
-    "result_class_key",
-    resultClassRows.map(toAirtableHsResultClass),
-    token
-  );
-  const airtableClassResults = await airtableUpsert(
-    baseId,
-    AIRTABLE_TABLES.hs_class_results,
-    "class_result_key",
-    classResultRows.map(toAirtableHsClassResult),
-    token
-  );
-  const airtableClassStartTimes = await airtableUpsert(
-    baseId,
-    AIRTABLE_TABLES.hs_class_start_times,
-    "class_start_key",
-    classStartStatusRows.map(toAirtableHsClassStartStatus),
-    token
-  );
-
   const verifyCatalystQueue = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
   const verifyCatalystClasses = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
   const verifyCatalystResults = await catalystRows(app, TABLES.classResults, showNo, focusDay);
@@ -1814,7 +1786,7 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     result_source_endpoint: "show_results4.php",
     source_request_uses_native_class_no: true,
     target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
-    target_airtable: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
+    target_airtable: [],
     source_counts: {
       hs_update_schedule: updateScheduleRows.length,
       tracked_hs_entry_go_times_classes: scopedClassConstKeysFromEntries(entryGoTimeRows).size,
@@ -1858,12 +1830,7 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     fake_results_created: 0,
     catalyst: catalystCounters,
     catalyst_time_column_missing_rows: catalystTimeColumnMissingRows,
-    airtable: {
-      hs_result_queue: airtableQueue.length,
-      hs_result_classes: airtableResultClasses.length,
-      hs_class_results: airtableClassResults.length,
-      hs_class_start_times: airtableClassStartTimes.length
-    },
+    airtable: { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" },
     verify: {
       catalyst_result_queue: verifyCatalystQueue.length,
       catalyst_result_classes: verifyCatalystClasses.length,
@@ -2020,6 +1987,7 @@ async function handle(req, res) {
   let query = new URLSearchParams();
   let body = {};
   let noWrite = false;
+  let action = "";
   try {
     setCors(res);
     if ((req.method || "").toUpperCase() === "OPTIONS") return res.end("");
@@ -2027,7 +1995,7 @@ async function handle(req, res) {
     body = await readBody(req);
     const requestedShowNo = text(query.get("show_no") || body.show_no);
     const force = text(query.get("force") || body.force) === "1" || body.force === true;
-    const action = text(query.get("action") || body.action);
+    action = text(query.get("action") || body.action);
     const offset = Math.max(0, intOrNull(query.get("offset") || body.offset) || 0);
     const limit = Math.max(1, Math.min(25, intOrNull(query.get("limit") || body.limit) || 25));
     noWrite = flagTrue(query.get("no_write") || body.no_write)
@@ -2057,29 +2025,51 @@ async function handle(req, res) {
         result_alerts_run: false
       });
     }
-    if (focusShow.is_pause) {
-      const detail = {
-        ok: true,
-        paused: true,
-        reason: "focus_show.is_pause",
-        action,
-        source: CLEAN_RESULT_SOURCE,
+    const routerRunId = text(query.get("run_id") || body.run_id) || `wec-step6-results-${new Date().toISOString().replace(/[^0-9A-Za-z]/g, "")}`;
+    const router = action === "wec-step6-results" ? createRouterRun({
+      app,
+      base: {
+        run_id: routerRunId,
+        parent_run_id: text(query.get("parent_run_id") || body.parent_run_id),
         show_no: Number(showNo),
         focus_day: focusShow.focus_day,
-        source_rows: 0,
-        changed_rows: 0,
-        probed_classes: 0,
-        completed_classes: 0,
-        class_results: 0,
-        no_write: noWrite,
-        catalyst_writes: 0,
-        airtable_writes: 0,
-        wec_log_written: !noWrite
-      };
-      if (!noWrite) {
-        phase = "write_wec_log_paused";
-        await writeLog(baseId, token, detail);
+        lane: "results",
+        source_function: "horseshowing_results_runner",
+        source_action: action,
+        trigger_source: "catalyst_job_scheduling",
+        trigger_reason: "scheduled_results_wake"
       }
+    }) : null;
+    if (focusShow.is_pause) {
+      const executePaused = async () => {
+        const detail = {
+          ok: true,
+          skipped: true,
+          paused: true,
+          reason: "focus_show.is_pause",
+          action,
+          source: CLEAN_RESULT_SOURCE,
+          show_no: Number(showNo),
+          focus_day: focusShow.focus_day,
+          source_rows: 0,
+          changed_rows: 0,
+          probed_classes: 0,
+          completed_classes: 0,
+          class_results: 0,
+          no_write: noWrite,
+          catalyst_writes: 0,
+          airtable_writes: 0,
+          wec_log_written: !noWrite
+        };
+        if (!noWrite && !router) {
+          phase = "write_wec_log_paused";
+          await writeLog(baseId, token, detail);
+        }
+        return detail;
+      };
+      const detail = router
+        ? await executeLoggedAction(router, { stage: "results", outcome: () => ({ trigger_reason: "focus_show.is_pause" }) }, executePaused)
+        : await executePaused();
       return sendJson(res, 200, detail);
     }
 
@@ -2131,12 +2121,58 @@ async function handle(req, res) {
 
     if (action === "wec-step6-results") {
       phase = "wec_step6_results";
-      const detail = await runWecStep6Results(app, baseId, token, focusShow, {
-        force,
-        offset,
-        limit: intOrNull(query.get("limit") || body.limit) || 3
+      const detail = await executeLoggedAction(router, {
+        stage: "results",
+        after: async (businessResult, run) => {
+          const probed = Number(businessResult.probed_classes || 0);
+          await run.log({
+            stage: "result_probe",
+            event_type: probed > 0 ? "pass" : "skip",
+            status: probed > 0 ? "PASS" : "SKIP",
+            input_count: businessResult.target_classes_total,
+            output_count: probed,
+            trigger_reason: probed > 0 ? "eligible_classes_probed" : "no_eligible_classes"
+          });
+          await run.log({
+            stage: "result_write",
+            event_type: businessResult.ok ? "pass" : "error",
+            status: businessResult.ok ? "PASS" : "FAIL",
+            input_count: probed,
+            output_count: businessResult.changed_rows || 0,
+            next_lane: "hs_class_results"
+          });
+          await run.log({
+            stage: "rider_results_target",
+            event_type: "skip",
+            status: "SKIP",
+            next_lane: "hs_rider_results",
+            trigger_reason: "future_target_not_implemented"
+          });
+          await run.log({
+            stage: "customer_output_publish",
+            event_type: "skip",
+            status: "SKIP",
+            trigger_reason: "no_active_publish_refresh_in_results_action"
+          });
+        },
+        outcome: (businessResult) => ({
+          input_count: businessResult.target_classes_total,
+          output_count: businessResult.changed_rows || 0,
+          http_status: businessResult.ok ? 200 : 500,
+          payload_json: {
+            probed_classes: businessResult.probed_classes,
+            completed_classes: businessResult.completed_classes,
+            class_results: businessResult.class_results
+          }
+        })
+      }, async () => {
+        const businessResult = await runWecStep6Results(app, baseId, token, focusShow, {
+          force,
+          offset,
+          limit: intOrNull(query.get("limit") || body.limit) || 3
+        });
+        return businessResult;
       });
-      if (!noWrite) await writeLog(baseId, token, step6LogDetail(detail, phase));
       return sendJson(res, detail.ok ? 200 : 500, detail);
     }
 
@@ -2370,7 +2406,7 @@ async function handle(req, res) {
   } catch (error) {
     try {
       const token = text(body.airtable_token || query.get("airtable_token") || process.env.AIRTABLE_TOKEN);
-      if (token && !noWrite) {
+      if (token && !noWrite && action !== "wec-step6-results") {
         await writeLog(DEFAULT_BASE_ID, token, {
           ok: false,
           phase,
@@ -2388,6 +2424,7 @@ async function handle(req, res) {
       ok: false,
       phase,
       error: String(error?.message || error),
+      router_logging: error?.router_logging,
       stack: error?.stack || ""
     });
   }

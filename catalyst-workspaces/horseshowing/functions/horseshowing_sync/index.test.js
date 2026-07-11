@@ -4,6 +4,20 @@ const assert = require("node:assert/strict");
 process.env.NODE_ENV = "test";
 const { __test__ } = require("./index.js");
 
+function sourceBlock(source, start, end) {
+  return source.slice(source.indexOf(start), source.indexOf(end, source.indexOf(start) + start.length));
+}
+
+test("active Step 5 has no Airtable runtime or heartbeat mirror writers", () => {
+  const source = require("node:fs").readFileSync(__filename.replace(/index\.test\.js$/, "index.js"), "utf8");
+  const enrich = sourceBlock(source, "async function enrichStep5RuntimeRows", "function summarizeStep5Mirror");
+  const active = sourceBlock(source, "async function runWecStep5LiveEnrichmentOnly", "async function fetchAndSyncRingDaySchedule");
+
+  assert.doesNotMatch(enrich, /syncRawAirtableStep4RuntimeRows/);
+  assert.doesNotMatch(active, /writeRawAirtableHeartbeat|syncRawAirtableStep5LiveRows|updateAirtableHsFocusShowLiveEmpty/);
+  assert.match(active, /getActiveAirtableFocusShowStrict/);
+});
+
 function fakeApp(responses) {
   return {
     zcql() {

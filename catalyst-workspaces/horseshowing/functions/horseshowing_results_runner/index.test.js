@@ -3,6 +3,21 @@ const assert = require("node:assert/strict");
 
 const handle = require("./index");
 
+test("active Step 6 writes results only to Catalyst", () => {
+  const source = require("node:fs").readFileSync(__filename.replace(/index\.test\.js$/, "index.js"), "utf8");
+  const start = source.indexOf("async function runWecStep6Results");
+  const end = source.indexOf("function toAirtableResultClass", start);
+  const active = source.slice(start, end);
+
+  assert.doesNotMatch(active, /airtableUpsert|toAirtableHsResult/);
+  assert.match(active, /upsertCatalyst/);
+  assert.match(active, /target_airtable:\s*\[\]/);
+
+  const handlerStart = source.indexOf('if (action === "wec-step6-results")');
+  const handlerEnd = source.indexOf('phase = "read_source_class_oog_staging_active_entries"', handlerStart);
+  assert.doesNotMatch(source.slice(handlerStart, handlerEnd), /writeLog/);
+});
+
 test("focus pause gate reads Airtable checkbox field and field name", () => {
   assert.equal(handle.__test__.isFocusPaused({ is_pause: true }), true);
   assert.equal(handle.__test__.isFocusPaused({ fldgWn3BIdGzcGow1: true }), true);

@@ -2,6 +2,7 @@
 
 const catalyst = require("zcatalyst-sdk-node");
 const cheerio = require("cheerio");
+const { createRouterRun, executeLoggedAction } = require("@ringstatus/catalyst-router-logger");
 const {
   buildConstKeys,
   preflightReason,
@@ -97,6 +98,17 @@ function text(value) {
 function intValue(value) {
   const n = Number.parseInt(text(value), 10);
   return Number.isFinite(n) ? n : 0;
+}
+
+function optionalIntValue(value) {
+  if (value === null || value === undefined || text(value) === "") return undefined;
+  return intValue(value);
+}
+
+function airtableRecordLinks(value) {
+  const values = Array.isArray(value) ? value : [value];
+  const links = values.map(text).filter((item) => /^rec[A-Za-z0-9]{14}$/.test(item));
+  return links.length ? links : undefined;
 }
 
 function boolValue(value) {
@@ -784,14 +796,27 @@ function planAirtableRowsByKey(rows, existingRecords, keyField) {
   }
   const updates = [];
   const creates = [];
+  let unchanged = 0;
   for (const [key, fields] of sourceByKey) {
     const existing = existingByKey.get(key);
-    if (existing) updates.push({ id: existing.id, fields });
-    else creates.push(fields);
+    if (!existing) {
+      creates.push(fields);
+      continue;
+    }
+    const existingFields = existing.fields || existing;
+    const changed = Object.entries(fields).some(([field, value]) => {
+      const prior = existingFields[field];
+      if (value === false && (prior === undefined || prior === null || prior === false)) return false;
+      return JSON.stringify(value) !== JSON.stringify(prior);
+    });
+    if (changed) updates.push({ id: existing.id, fields });
+    else unchanged += 1;
   }
   return {
     updates,
-    creates
+    creates,
+    unchanged,
+    existing_unique: existingByKey.size
   };
 }
 
@@ -2006,8 +2031,6 @@ async function runTimeEngineOnly(app, options = {}) {
         last_synced_at: catalystDateTime(finished)
       };
       await upsertRowsByKey(app, schema, TABLES.timeEngineLogs, "time_engine_log_key", [logRow], missingContractFields);
-      await ensureAirtableMirrorTable(TABLES.timeEngineLogs, TIME_ENGINE_LOG_FIELDS);
-      await upsertAirtableBatchByKey(TABLES.timeEngineLogs, "time_engine_log_key", [airtableTimeEngineFields(logRow, "time_engine_log_key")]);
     }
     return {
       ok: true,
@@ -2080,18 +2103,7 @@ async function runTimeEngineOnly(app, options = {}) {
   };
   const logUpsert = await upsertRowsByKey(app, schema, TABLES.timeEngineLogs, "time_engine_log_key", [logRow], missingContractFields);
 
-  const airtableTables = {
-    time_engine: await ensureAirtableMirrorTable(TABLES.timeEngine, TIME_ENGINE_FIELDS),
-    time_engine_triggers: await ensureAirtableMirrorTable(TABLES.timeEngineTriggers, TIME_ENGINE_TRIGGER_FIELDS),
-    time_engine_logs: await ensureAirtableMirrorTable(TABLES.timeEngineLogs, TIME_ENGINE_LOG_FIELDS)
-  };
-  const mirrorRows = writeRows.slice(0, mirrorLimit).map((row) => airtableTimeEngineFields(row, "time_engine_key"));
-  const airtableEngineMirrored = await upsertAirtableBatchByKey(TABLES.timeEngine, "time_engine_key", mirrorRows);
-  const triggerMirrorRows = (built.triggers || []).slice(0, mirrorLimit).map(airtableTimeEngineTriggerFields);
-  const airtableTriggersMirrored = triggerMirrorRows.length
-    ? await upsertAirtableBatchByKey(TABLES.timeEngineTriggers, "trigger_key", triggerMirrorRows)
-    : 0;
-  await upsertAirtableBatchByKey(TABLES.timeEngineLogs, "time_engine_log_key", [airtableTimeEngineFields(logRow, "time_engine_log_key")]);
+  const airtableTables = { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" };
   const nextOffset = requestedLimit > 0 && requestedOffset + writeRows.length < built.rows.length ? requestedOffset + writeRows.length : 0;
 
   return {
@@ -2120,9 +2132,9 @@ async function runTimeEngineOnly(app, options = {}) {
     },
     airtable_tables: airtableTables,
     airtable_mirror_counts: {
-      time_engine: airtableEngineMirrored,
-      time_engine_triggers: airtableTriggersMirrored,
-      time_engine_logs: 1
+      time_engine: 0,
+      time_engine_triggers: 0,
+      time_engine_logs: 0
     },
     missing_contract_fields: missingContractFields,
     workflow_run: false,
@@ -3005,7 +3017,11 @@ async function runCleanBuildUpdateOnly(app, options = {}) {
     run_id: options.run_id || `clean-build-update-${Date.now()}`,
     started_at: new Date().toISOString()
   };
-  const adapters = await makeAdapters(app, { ...options, run_id: context.run_id, defer_airtable_mirror: false });
+  const adapters = await makeAdapters(app, {
+    ...options,
+    run_id: context.run_id,
+    defer_airtable_mirror: options.defer_airtable_mirror === true
+  });
   const stage1 = await runStage1HeartbeatAndRingDays(adapters, context);
   const stage2 = await runStage2UpdateSchedule(adapters, context, stage1);
 
@@ -3343,7 +3359,7 @@ async function runCleanCadenceStack(app, options = {}) {
     result.heartbeat_finalized = await writeStandaloneCadenceHeartbeat(app, activeFocus, runId, result);
     return result;
   }
-  const build = await runCleanBuildUpdateOnly(app, { ...options, run_id: runId });
+  const build = await runCleanBuildUpdateOnly(app, { ...options, run_id: runId, defer_airtable_mirror: true });
   const finalizeHeartbeat = async (result) => {
     result.core_runtime_drift = result.core_runtime_drift || coreRuntimeDrift;
     const heartbeatId = build.stage1?.heartbeat_id || `${intValue(build.focus.show_no)}|${compactDate(build.focus.focus_day)}|${runId}`;
@@ -3446,29 +3462,7 @@ async function runCleanCadenceStack(app, options = {}) {
       run_time: catalystDateTime()
     };
     const catalystResult = await app.datastore().table(TABLES.heartbeat).updateRow(heartbeatFields);
-    try {
-      await upsertAirtableByKey(TABLES.heartbeat, "heartbeat_id", heartbeatId, {
-        heartbeat_id: heartbeatId,
-        run_id: runId,
-        show_no: intValue(build.focus.show_no),
-        focus_day: build.focus.focus_day,
-        iso_date: build.focus.focus_day,
-        focus_day_key: compactDate(build.focus.focus_day),
-        focus_show: build.focus.focus_show_record_id ? [build.focus.focus_show_record_id] : undefined,
-        focus_show_record_id: text(build.focus.focus_show_record_id),
-        status: heartbeatFields.status,
-        blocker: heartbeatFields.blocker,
-        payload_json: heartbeatFields.payload_json,
-        run_time: new Date().toISOString()
-      });
-    } catch (error) {
-      return {
-        ...catalystResult,
-        airtable_mirror: false,
-        airtable_error: String(error?.message || error).slice(0, 240)
-      };
-    }
-    return { ...catalystResult, airtable_mirror: true };
+    return { ...catalystResult, airtable_mirror: false, airtable_mirror_disabled: true };
   };
 
   if (intValue(build.stage2?.non_preflight_rows) === 0) {
@@ -3797,7 +3791,7 @@ function classOogRawMirrorFields(row) {
     iso_date: row.iso_date || row.focus_day,
     parse_error: row.parse_error,
     raw_html: row.raw_html,
-    last_synced_at: new Date().toISOString(),
+    last_synced_at: row.last_synced_at || row.probe_finished_at,
     probe_finished_at: row.probe_finished_at,
     probe_duration_ms: intValue(row.probe_duration_ms),
     show_const_key: row.show_const_key,
@@ -3993,25 +3987,7 @@ async function writeStandaloneCadenceHeartbeat(app, focus, runId, result) {
     run_time: catalystDateTime()
   }, missingContractFields);
   const catalystResult = await upsertByKey(app, TABLES.heartbeat, "heartbeat_id", row);
-  try {
-    await upsertAirtableByKey(TABLES.heartbeat, "heartbeat_id", heartbeatId, {
-      heartbeat_id: heartbeatId,
-      run_id: runId,
-      show_no: intValue(focus.show_no),
-      focus_day: focus.focus_day,
-      iso_date: focus.focus_day,
-      focus_day_key: compactDate(focus.focus_day),
-      focus_show: focus.focus_show_record_id ? [focus.focus_show_record_id] : undefined,
-      focus_show_record_id: text(focus.focus_show_record_id),
-      status: result.ok ? "complete" : "failed",
-      blocker: result.ok ? "" : text(result.stop_reason),
-      payload_json: JSON.stringify(payload),
-      run_time: new Date().toISOString()
-    });
-    return { ...catalystResult, airtable_mirror: true };
-  } catch (error) {
-    return { ...catalystResult, airtable_mirror: false, airtable_error: String(error?.message || error).slice(0, 240) };
-  }
+  return { ...catalystResult, airtable_mirror: false, airtable_mirror_disabled: true };
 }
 
 function classOogMirrorFields(row) {
@@ -4055,9 +4031,8 @@ function classOogLogFields(row) {
 }
 
 function ringStatusMirrorFields(row) {
-  return {
+  return cleanAirtableLogFields({
     ring_status_key: text(row.ring_status_key),
-    ring_visual_key: text(row.ring_visual_key || row.ring_status_key || row.ring_const_key),
     show_no: intValue(row.show_no),
     focus_day: row.focus_day,
     iso_date: row.iso_date || row.focus_day,
@@ -4066,10 +4041,16 @@ function ringStatusMirrorFields(row) {
     ring_no: intValue(row.ring_no),
     ring_name: row.ring_name,
     ring_name_normalized: row.ring_name_normalized,
+    current_class_no: optionalIntValue(row.current_class_no),
+    n_gone: optionalIntValue(row.n_gone),
+    n_to_go: optionalIntValue(row.n_to_go),
+    is_live: row.is_live === undefined || row.is_live === null || text(row.is_live) === ""
+      ? undefined
+      : String(boolValue(row.is_live)),
     status: row.status,
     source: row.source,
     last_synced_at: row.last_synced_at
-  };
+  });
 }
 
 function classStartMirrorFields(row) {
@@ -4115,6 +4096,7 @@ function classStartLogFields(row) {
     ring_name: row.ring_name,
     ring_name_normalized: row.ring_name_normalized,
     class_no: intValue(row.class_no),
+    class_number: optionalIntValue(row.class_number),
     class_name: row.class_name,
     class_start_time: row.class_start_time,
     display_time: row.display_time,
@@ -4122,9 +4104,16 @@ function classStartLogFields(row) {
     status: row.status,
     live_source: row.live_source,
     last_synced_at: row.last_synced_at,
+    n_gone: optionalIntValue(row.n_gone),
+    n_to_go: optionalIntValue(row.n_to_go),
+    elapsed_seconds: optionalIntValue(row.elapsed_seconds),
+    pace_seconds: optionalIntValue(row.pace_seconds),
+    last_live_synced_at: row.last_live_synced_at,
+    result_probe_ready_at: row.result_probe_ready_at,
+    result_probe_reason: row.result_probe_reason,
+    class_status: row.class_status,
+    focus_show: airtableRecordLinks(row.focus_show || row.focus_show_record_id),
     iso_date: row.iso_date || row.focus_day,
-    ring_visual_key: text(row.ring_visual_key || row.ring_const_key),
-    class_visual_key: text(row.class_visual_key || classVisualKeyFromSource(row))
   });
 }
 
@@ -4362,7 +4351,8 @@ async function appendCurrentStageTableLog({
   keyField,
   rows,
   mapper,
-  focus
+  focus,
+  limit = STAGE_4S_SYNC_DEFAULT_LIMIT
 }) {
   const existing = await getAirtableRecords(tableName, {
     filterByFormula: currentStageAirtableFilter(focus),
@@ -4370,14 +4360,23 @@ async function appendCurrentStageTableLog({
   });
   const mapped = (rows || []).map(mapper).filter((row) => text(row[keyField]));
   const plan = planAirtableRowsByKey(mapped, existing, keyField);
-  const updated = await updateAirtableRecordsInBatches(tableName, plan.updates);
-  const created = await upsertAirtableBatchByKey(tableName, keyField, plan.creates);
+  const safeLimit = Math.max(0, intValue(limit));
+  const creates = plan.creates.slice(0, safeLimit);
+  const updates = plan.updates.slice(0, Math.max(0, safeLimit - creates.length));
+  const created = await upsertAirtableBatchByKey(tableName, keyField, creates);
+  const updated = await updateAirtableRecordsInBatches(tableName, updates);
+  const pending = plan.creates.length + plan.updates.length - created - updated;
   return {
     table: tableName,
     source_rows: mapped.length,
     existing_records: existing.length,
+    existing_unique: plan.existing_unique,
+    unchanged: plan.unchanged,
     updated,
     created,
+    processed: updated + created,
+    pending,
+    complete: pending === 0,
     key_upsert: true
   };
 }
@@ -4389,65 +4388,59 @@ async function runCoreAirtableLogsOnly(app) {
   const readRows = (tableName, dateField = "focus_day") => (
     readCurrentRows(app, tableName, focus.show_no, focus.focus_day, dateField)
   );
-  const updateRows = (await readRows(TABLES.updateSchedule))
-    .filter((row) => text(row.probe_status));
+  const updateRows = await readRows(TABLES.updateSchedule);
   const rawRows = await readRows(TABLES.classOogRaw);
   const classOogRows = await readRows(TABLES.classOog, "focus_day_only");
   const ringStatusRows = await readRows(TABLES.ringStatus, "focus_day_only");
   const classStartRows = await readRows(TABLES.classStartTimes, "focus_day_only");
   const entryGoRows = await readRows(TABLES.entryGoTimes, "focus_day_only");
 
+  const tableSpecs = [
+    ["hs_class_oog_raw", TABLES.classOogRaw, "raw_key", rawRows, classOogRawMirrorFields],
+    ["hs_class_oog", TABLES.classOog, "class_oog_key", classOogRows, classOogLogFields],
+    ["hs_ring_status", TABLES.ringStatus, "ring_status_key", ringStatusRows, ringStatusMirrorFields],
+    ["hs_class_start_times", TABLES.classStartTimes, "class_start_key", classStartRows, classStartLogFields],
+    ["hs_entry_go_times", TABLES.entryGoTimes, "entry_go_key", entryGoRows, entryGoLogFields],
+    ["hs_update_schedule", TABLES.updateSchedule, "update_schedule_key", updateRows, updateScheduleReviewFields]
+  ];
   const logs = {};
-  logs.hs_update_schedule = await appendCurrentStageTableLog({
-    tableName: TABLES.updateSchedule,
-    keyField: "update_schedule_key",
-    rows: updateRows,
-    mapper: updateScheduleReviewFields,
-    focus
-  });
-  logs.hs_class_oog_raw = await appendCurrentStageTableLog({
-    tableName: TABLES.classOogRaw,
-    keyField: "raw_key",
-    rows: rawRows,
-    mapper: classOogRawMirrorFields,
-    focus
-  });
-  logs.hs_class_oog = await appendCurrentStageTableLog({
-    tableName: TABLES.classOog,
-    keyField: "class_oog_key",
-    rows: classOogRows,
-    mapper: classOogLogFields,
-    focus
-  });
-  logs.hs_ring_status = await appendCurrentStageTableLog({
-    tableName: TABLES.ringStatus,
-    keyField: "ring_status_key",
-    rows: ringStatusRows,
-    mapper: ringStatusMirrorFields,
-    focus
-  });
-  logs.hs_class_start_times = await appendCurrentStageTableLog({
-    tableName: TABLES.classStartTimes,
-    keyField: "class_start_key",
-    rows: classStartRows,
-    mapper: classStartLogFields,
-    focus
-  });
-  logs.hs_entry_go_times = await appendCurrentStageTableLog({
-    tableName: TABLES.entryGoTimes,
-    keyField: "entry_go_key",
-    rows: entryGoRows,
-    mapper: entryGoLogFields,
-    focus
-  });
+  const errors = [];
+  let remaining = STAGE_4S_SYNC_DEFAULT_LIMIT;
+  for (const [name, tableName, keyField, rows, mapper] of tableSpecs) {
+    try {
+      logs[name] = await appendCurrentStageTableLog({
+        tableName,
+        keyField,
+        rows,
+        mapper,
+        focus,
+        limit: remaining
+      });
+      remaining = Math.max(0, remaining - logs[name].processed);
+    } catch (error) {
+      const message = String(error?.message || error).slice(0, 500);
+      logs[name] = { table: tableName, processed: 0, pending: null, complete: false, error: message };
+      errors.push({ table: tableName, error: message });
+    }
+  }
+  const logValues = Object.values(logs);
   return {
     ok: true,
     mode: "wec-core-airtable-logs",
     focus,
     key_upsert: true,
-    updates: Object.values(logs).reduce((sum, item) => sum + item.updated, 0),
+    limit: STAGE_4S_SYNC_DEFAULT_LIMIT,
+    processed: STAGE_4S_SYNC_DEFAULT_LIMIT - remaining,
+    remaining,
+    updates: logValues.reduce((sum, item) => sum + (item.updated || 0), 0),
     deletes: 0,
-    created: Object.values(logs).reduce((sum, item) => sum + item.created, 0),
+    created: logValues.reduce((sum, item) => sum + (item.created || 0), 0),
+    pending: logValues.some((item) => item.pending === null)
+      ? null
+      : logValues.reduce((sum, item) => sum + (item.pending || 0), 0),
+    complete: errors.length === 0 && logValues.every((item) => item.complete),
+    disabled_tables: [TABLES.getRingDays],
+    warnings: errors,
     logs,
     core_run: false,
     live_run: false,
@@ -4530,6 +4523,167 @@ async function runStep3AirtableMirrorOnly(app, options = {}) {
   };
 }
 
+const CORE_DATA_ENDPOINTS = Object.freeze({
+  "wec-data-hs-update-schedule": {
+    tableName: TABLES.updateSchedule,
+    keyField: "update_schedule_key",
+    dateField: "focus_day",
+    mapper: updateScheduleReviewFields
+  },
+  "wec-data-hs-class-oog-raw": {
+    tableName: TABLES.classOogRaw,
+    keyField: "raw_key",
+    dateField: "focus_day",
+    mapper: classOogRawMirrorFields
+  },
+  "wec-data-hs-class-oog": {
+    tableName: TABLES.classOog,
+    keyField: "class_oog_key",
+    dateField: "focus_day_only",
+    mapper: classOogLogFields
+  },
+  "wec-data-hs-ring-status": {
+    tableName: TABLES.ringStatus,
+    keyField: "ring_status_key",
+    dateField: "focus_day_only",
+    mapper: ringStatusMirrorFields
+  },
+  "wec-data-hs-class-start-times": {
+    tableName: TABLES.classStartTimes,
+    keyField: "class_start_key",
+    dateField: "focus_day_only",
+    mapper: classStartLogFields
+  },
+  "wec-data-hs-entry-go-times": {
+    tableName: TABLES.entryGoTimes,
+    keyField: "entry_go_key",
+    dateField: "focus_day_only",
+    mapper: entryGoLogFields
+  }
+});
+
+const HELPER_DATA_ENDPOINTS = Object.freeze({
+  "wec-data-hs-horses": {
+    tableName: TABLES.horses,
+    keyField: "horse_key",
+    fields: [
+      "horse_key", "horse", "horse_name", "horse_display", "barn_name", "horse_aka", "aka",
+      "entry_no", "rider", "rider_name", "trainer", "trainer_name", "active", "follow",
+      "status", "tag", "source", "rec_id", "last_synced_at", "sync_action", "sync_error"
+    ]
+  },
+  "wec-data-hs-trainers": {
+    tableName: TABLES.trainers,
+    keyField: "trainer_key",
+    fields: [
+      "trainer_key", "trainer", "trainer_name", "trainer_aliases", "coach_name", "first_name",
+      "tenant_name", "active", "allowed", "follow", "status", "tag", "source", "rec_id",
+      "last_synced_at", "sync_action", "sync_error"
+    ]
+  },
+  "wec-data-hs-riders": {
+    tableName: TABLES.riders,
+    keyField: "rider_key",
+    fields: [
+      "rider_key", "rider", "rider_name", "rider_aliases", "team_name", "first_name",
+      "last_name", "horse", "trainer", "active", "follow", "status", "tag", "source",
+      "rec_id", "last_synced_at", "sync_action", "sync_error"
+    ]
+  }
+});
+
+function coreDataEndpointContract() {
+  return Object.entries(CORE_DATA_ENDPOINTS).map(([action, config]) => [
+    action,
+    config.tableName,
+    config.keyField
+  ]);
+}
+
+function helperDataEndpointContract() {
+  return Object.entries(HELPER_DATA_ENDPOINTS).map(([action, config]) => [
+    action,
+    config.tableName,
+    config.keyField
+  ]);
+}
+
+function helperDataEndpointResponseContract() {
+  return {
+    consumer_pagination: false,
+    internal_page_size: 200,
+    maximum_rows: 5000
+  };
+}
+
+function helperEndpointFields(row, fields) {
+  return cleanAirtableLogFields(Object.fromEntries(fields.map((field) => [field, row[field]])));
+}
+
+async function runHelperDataEndpoint(app, action) {
+  const config = HELPER_DATA_ENDPOINTS[action];
+  if (!config) throw new Error(`unsupported_helper_data_endpoint:${action}`);
+  const contract = helperDataEndpointResponseContract();
+  const sourceRows = [];
+  for (let offset = 0; offset < contract.maximum_rows; offset += contract.internal_page_size) {
+    const page = await zcqlRows(
+      app,
+      config.tableName,
+      `SELECT * FROM ${config.tableName} LIMIT ${contract.internal_page_size} OFFSET ${offset}`
+    );
+    sourceRows.push(...page);
+    if (page.length < contract.internal_page_size) break;
+  }
+  const truncated = sourceRows.length === contract.maximum_rows;
+  const rows = sourceRows
+    .map((row) => helperEndpointFields(row, config.fields))
+    .filter((row) => text(row[config.keyField]))
+    .sort((left, right) => text(left[config.keyField]).localeCompare(text(right[config.keyField])));
+  return {
+    ok: true,
+    mode: "wec-helper-data-endpoint",
+    endpoint: action,
+    table: config.tableName,
+    key_field: config.keyField,
+    count: rows.length,
+    truncated,
+    rows
+  };
+}
+
+async function runCoreDataEndpoint(app, action) {
+  const config = CORE_DATA_ENDPOINTS[action];
+  if (!config) throw new Error(`unsupported_core_data_endpoint:${action}`);
+  const focus = await getActiveFocusShow();
+  if (!focus?.show_no) throw new Error("focus_show.show_no_required");
+  if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
+  const sourceRows = await readCurrentRows(
+    app,
+    config.tableName,
+    focus.show_no,
+    focus.focus_day,
+    config.dateField
+  );
+  const rows = sourceRows
+    .map(config.mapper)
+    .map(cleanAirtableLogFields)
+    .filter((row) => text(row[config.keyField]))
+    .sort((left, right) => text(left[config.keyField]).localeCompare(text(right[config.keyField])));
+  return {
+    ok: true,
+    mode: "wec-core-data-endpoint",
+    endpoint: action,
+    table: config.tableName,
+    key_field: config.keyField,
+    show_no: intValue(focus.show_no),
+    focus_day: focus.focus_day,
+    count: rows.length,
+    limit: 300,
+    truncated: sourceRows.length === 300,
+    rows
+  };
+}
+
 async function handle(req, res) {
   try {
     const query = queryParams(req);
@@ -4548,6 +4702,14 @@ async function handle(req, res) {
       force: text(query.get("force") || body.force).toLowerCase() === "1" || text(query.get("force") || body.force).toLowerCase() === "true"
     };
     const app = catalyst.initialize(req);
+    if (HELPER_DATA_ENDPOINTS[action]) {
+      const result = await runHelperDataEndpoint(app, action);
+      return json(res, 200, result);
+    }
+    if (CORE_DATA_ENDPOINTS[action]) {
+      const result = await runCoreDataEndpoint(app, action);
+      return json(res, 200, result);
+    }
     if (action === "wec-clean-build-update") {
       const result = await runCleanBuildUpdateOnly(app, options);
       return json(res, 200, result);
@@ -4602,11 +4764,149 @@ async function handle(req, res) {
       return json(res, 200, result);
     }
     if (action === "wec-time-engine") {
-      const result = await runTimeEngineOnly(app, options);
+      const router = createRouterRun({
+        app,
+        base: {
+          run_id: options.run_id,
+          parent_run_id: text(query.get("parent_run_id") || body.parent_run_id),
+          lane: "time_engine",
+          source_function: "wec_stage1_3_clean_proof",
+          source_action: action,
+          trigger_source: "catalyst_job_scheduling",
+          trigger_reason: options.wake_reason || "clock_window"
+        }
+      });
+      const result = await executeLoggedAction(router, {
+        stage: "time_engine",
+        after: async (businessResult, run) => {
+          const focus = businessResult.focus || {};
+          await run.log({
+            show_no: focus.show_no,
+            focus_day: focus.focus_day,
+            stage: "alerts_event_creation",
+            event_type: Number(businessResult.alert_events?.created || 0) > 0 ? "pass" : "skip",
+            status: Number(businessResult.alert_events?.created || 0) > 0 ? "PASS" : "SKIP",
+            input_count: businessResult.trigger_candidates,
+            output_count: businessResult.alert_events?.created || 0,
+            next_lane: "alerts",
+            trigger_reason: Number(businessResult.alert_events?.created || 0) > 0 ? "alert_events_appended" : "no_new_alert_events"
+          });
+          if (Number(businessResult.triggers_inserted || 0) > 0) {
+            await run.log({
+              show_no: focus.show_no,
+              focus_day: focus.focus_day,
+              stage: "results_wake",
+              event_type: "dispatch",
+              status: "OPEN",
+              output_count: businessResult.triggers_inserted,
+              next_lane: "results",
+              next_action: "wec-step6-results",
+              trigger_reason: "time_engine_triggers_inserted"
+            });
+          }
+        },
+        outcome: (businessResult) => ({
+          show_no: businessResult.focus?.show_no,
+          focus_day: businessResult.focus?.focus_day,
+          input_count: Object.values(businessResult.source_counts || {}).reduce((sum, count) => sum + intValue(count), 0),
+          output_count: businessResult.rows_written || 0,
+          http_status: businessResult.ok ? 200 : 500,
+          payload_json: { wake_reason: businessResult.wake_reason, skip_reason: businessResult.skip_reason, blocker: businessResult.blocker }
+        })
+      }, () => runTimeEngineOnly(app, options));
       return json(res, result.ok ? 200 : 500, result);
     }
     if (action === "wec-clean-cadence-stack" || action === "wec-clean-stage1-4-proof") {
-      const result = await runCleanCadenceStack(app, options);
+      const router = createRouterRun({
+        app,
+        base: {
+          run_id: options.run_id,
+          parent_run_id: text(query.get("parent_run_id") || body.parent_run_id),
+          lane: "core",
+          source_function: "wec_stage1_3_clean_proof",
+          source_action: action,
+          trigger_source: "catalyst_job_scheduling",
+          trigger_reason: "scheduled_core_cadence"
+        }
+      });
+      const result = await executeLoggedAction(router, {
+        stage: "core",
+        after: async (businessResult, run) => {
+          const focus = businessResult.focus || {};
+          const stages = [
+            ["stage1", businessResult.stage1 || businessResult.stage1_run, businessResult.stage1?.materialized_rows],
+            ["stage2", businessResult.stage2 || businessResult.step2_run, businessResult.stage2?.non_preflight_rows],
+            ["stage3a", businessResult.stage3a || businessResult.stage3a_run, businessResult.stage3a?.probe3a?.attempted],
+            ["stage3b", businessResult.stage3b || businessResult.stage3b_run, businessResult.stage3b?.raw_docs_parsed],
+            ["stage4", businessResult.step4 || businessResult.step4_run, businessResult.step4?.destination_counts?.hs_class_start_times]
+          ];
+          for (const [stage, ran, outputCount] of stages) {
+            await run.log({
+              show_no: focus.show_no,
+              focus_day: focus.focus_day,
+              stage,
+              event_type: ran ? "pass" : "skip",
+              status: ran ? "PASS" : "SKIP",
+              output_count: outputCount,
+              trigger_reason: ran ? `${stage}_completed` : `${stage}_not_run_this_cycle`
+            });
+          }
+          if (businessResult.time_engine) {
+            await run.log({
+              show_no: focus.show_no,
+              focus_day: focus.focus_day,
+              stage: "time_engine",
+              event_type: "dispatch",
+              status: businessResult.time_engine.ok ? "PASS" : "FAIL",
+              parent_run_id: options.run_id,
+              next_lane: "time_engine",
+              next_action: "wec-time-engine",
+              trigger_reason: businessResult.time_engine.wake_reason || "core_runtime_ready"
+            });
+            await run.log({
+              show_no: focus.show_no,
+              focus_day: focus.focus_day,
+              stage: "alerts_event_creation",
+              event_type: Number(businessResult.time_engine.alert_events?.created || 0) > 0 ? "pass" : "skip",
+              status: Number(businessResult.time_engine.alert_events?.created || 0) > 0 ? "PASS" : "SKIP",
+              input_count: businessResult.time_engine.trigger_candidates,
+              output_count: businessResult.time_engine.alert_events?.created || 0,
+              next_lane: "alerts",
+              trigger_reason: Number(businessResult.time_engine.alert_events?.created || 0) > 0 ? "alert_events_appended" : "no_new_alert_events"
+            });
+            if (Number(businessResult.time_engine.triggers_inserted || 0) > 0) {
+              await run.log({
+                show_no: focus.show_no,
+                focus_day: focus.focus_day,
+                stage: "results_wake",
+                event_type: "dispatch",
+                status: "OPEN",
+                output_count: businessResult.time_engine.triggers_inserted,
+                next_lane: "results",
+                next_action: "wec-step6-results",
+                trigger_reason: "time_engine_triggers_inserted"
+              });
+            }
+          }
+          await run.log({
+            show_no: focus.show_no,
+            focus_day: focus.focus_day,
+            stage: "downstream_wake",
+            event_type: businessResult.ok ? "dispatch" : "skip",
+            status: businessResult.ok ? "OPEN" : "SKIP",
+            next_lane: businessResult.next_stage,
+            next_action: businessResult.next_stage === "time_engine" ? "wec-time-engine" : "wec-step5-live-enrichment",
+            trigger_reason: businessResult.stop_reason
+          });
+        },
+        outcome: (businessResult) => ({
+          show_no: businessResult.focus?.show_no,
+          focus_day: businessResult.focus?.focus_day,
+          output_count: businessResult.after?.destination_counts?.hs_class_start_times,
+          http_status: businessResult.ok ? 200 : 500,
+          payload_json: { stop_stage: businessResult.stop_stage, stop_reason: businessResult.stop_reason, next_stage: businessResult.next_stage }
+        })
+      }, () => runCleanCadenceStack(app, options));
       return json(res, result.ok ? 200 : 500, result);
     }
     const adapters = await makeAdapters(app, options);
@@ -4630,6 +4930,7 @@ async function handle(req, res) {
       ok: false,
       mode: "isolated_clean_stage1_3a_fast_probe",
       error: String(error?.message || error),
+      router_logging: error?.router_logging,
       stack: String(error?.stack || "")
     });
   }
@@ -4638,6 +4939,11 @@ async function handle(req, res) {
 module.exports = handle;
 module.exports.__test = {
   parseUpdateScheduleRows,
+  coreDataEndpointContract,
+  helperDataEndpointContract,
+  helperDataEndpointResponseContract,
+  classOogLogFields,
+  ringStatusMirrorFields,
   classStartLogFields,
   entryGoLogFields,
   currentStageAirtableFilter,

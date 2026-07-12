@@ -46,6 +46,27 @@ function fakeApp({ existingKeys = [], insertError = null } = {}) {
   };
 }
 
+function fakeAirtable({ existingKeys = [], appendError = null } = {}) {
+  const creates = [];
+  const updates = [];
+  const deletes = [];
+  const keys = new Set(existingKeys);
+  return {
+    creates,
+    updates,
+    deletes,
+    async append(row) {
+      if (appendError) throw appendError;
+      if (keys.has(row.router_log_key)) {
+        return { ok: true, appended: false, duplicate: true, router_log_key: row.router_log_key };
+      }
+      creates.push(row);
+      keys.add(row.router_log_key);
+      return { ok: true, appended: true, duplicate: false, router_log_key: row.router_log_key, record_id: `rec${creates.length}` };
+    }
+  };
+}
+
 const base = {
   run_id: "run-123",
   show_no: 14910,
@@ -92,6 +113,65 @@ test("router run assigns monotonically increasing stage sequence", async () => {
 
   assert.deepEqual(app.inserts.map((row) => row.sequence_no), [1, 2, 3, 4]);
   assert.deepEqual(app.inserts.map((row) => row.event_type), ["start", "pass", "dispatch", "final"]);
+});
+
+test("each router boundary appends the same event to Catalyst and Airtable", async () => {
+  const app = fakeApp();
+  const airtable = fakeAirtable();
+  const run = createRouterRun({
+    app,
+    airtable,
+    base,
+    now: () => new Date("2026-07-10T20:00:00.000Z")
+  });
+
+  await run.log({ stage: "workflow", event_type: "start", status: "OPEN" });
+  await run.log({ stage: "stage1", event_type: "pass", status: "PASS" });
+  await run.log({ stage: "workflow", event_type: "final", status: "PASS" });
+
+  assert.equal(app.inserts.length, 3);
+  assert.equal(airtable.creates.length, 3);
+  assert.deepEqual(
+    airtable.creates.map((row) => row.router_log_key),
+    app.inserts.map((row) => row.router_log_key)
+  );
+  assert.equal(airtable.updates.length, 0);
+  assert.equal(airtable.deletes.length, 0);
+});
+
+test("an existing router event is not appended to Airtable twice", async () => {
+  const app = fakeApp();
+  const airtable = fakeAirtable();
+  const run = createRouterRun({ app, airtable, base, now: () => new Date("2026-07-10T20:00:00.000Z") });
+  const event = { stage: "stage1", event_type: "pass", status: "PASS", sequence_no: 1 };
+
+  const first = await run.log(event);
+  const duplicate = await run.log(event);
+
+  assert.equal(first.airtable.appended, true);
+  assert.equal(duplicate.airtable.duplicate, true);
+  assert.equal(airtable.creates.length, 1);
+});
+
+test("Airtable failure is surfaced without replacing the business result", async () => {
+  const app = fakeApp();
+  const airtable = fakeAirtable({ appendError: Object.assign(new Error("airtable unavailable"), { code: "AIRTABLE_DOWN" }) });
+  const logged = [];
+  const run = createRouterRun({
+    app,
+    airtable,
+    base,
+    now: () => new Date("2026-07-10T20:00:00.000Z"),
+    logger: { error: (...args) => logged.push(args) }
+  });
+
+  const result = await executeLoggedAction(run, { stage: "core" }, async () => ({ ok: true, rows_written: 7 }));
+
+  assert.equal(result.ok, true);
+  assert.equal(result.rows_written, 7);
+  assert.ok(result.router_logging.airtable.failed_writes >= 1);
+  assert.match(result.router_logging.airtable.failures[0].error_message, /airtable unavailable/);
+  assert.ok(logged.length >= 1);
 });
 
 test("action-specific stage and downstream events stay between start and final outcome", async () => {

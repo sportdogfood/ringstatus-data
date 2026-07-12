@@ -23,6 +23,7 @@ const TABLES = {
   ringDays: "hs_ring_days",
   rings: "hs_rings",
   ringStatus: "hs_ring_status",
+  ringChangeLogs: "ring_change_logs",
   classes: "hs_classes",
   classTimes: "hs_class_times",
   classStartTimes: "hs_class_start_times",
@@ -40,9 +41,11 @@ const TABLES = {
   riders: "hs_riders",
   trainers: "hs_trainers",
   timeTriggers: "hs_time_triggers",
+  timeEngineTriggers: "time_engine_triggers",
   resultQueue: "hs_result_queue",
   resultClasses: "hs_result_classes",
-  classResults: "hs_class_results"
+  classResults: "hs_class_results",
+  riderResults: "hs_rider_results"
 };
 
 const DEFAULT_SHOW_META = {
@@ -714,6 +717,12 @@ function parseRingRows(raw) {
   return Array.isArray(payload) ? payload.map((row) => {
     const entry = parseCurrentEntry(row.entry);
     const klass = parseClassLabel(row.class);
+    const statusType = text(row.status_type || row.type || row.status);
+    const liveFlag = step5SourceIsLive({
+      class_no: row.class_no,
+      live_flag: row.is_live ?? row.live,
+      status_type: statusType
+    });
     return {
       show_no: text(row.show_no),
       ring_no: text(row.ring_no),
@@ -732,7 +741,8 @@ function parseRingRows(raw) {
       entries_to_go: intOrNull(row.n_to_go),
       source_timestamp: intOrNull(row.timestamp),
       elapsed_seconds: intOrNull(row.elapsed),
-      live_flag: true,
+      live_flag: liveFlag,
+      status_type: statusType || (liveFlag ? "live" : "not_live"),
       source_endpoint: "get_rings.php",
       raw_json: JSON.stringify(row)
     };
@@ -1480,7 +1490,7 @@ function getRingsSourceRow(row, logMeta = null) {
     time_text: text(row.class_time_text || row.time_text || row.time),
     timestamp_value: intValue(row.source_timestamp || row.timestamp),
     elapsed: intValue(row.elapsed_seconds || row.elapsed),
-    status_type: text(row.status_type || row.type),
+    status_type: text(row.status_type || row.type) || (step5SourceIsLive(row) ? "live" : "not_live"),
     source_payload: sourcePayload(row)
   };
 }
@@ -7079,7 +7089,14 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
       time_till: text(row.time_till),
       class_const_key: classConst,
       class_visual_key: classVisual,
-      entry_visual_key: text(row.entry_visual_key || row.entry_go_key)
+      entry_const_key: text(row.entry_const_key || row.entry_go_key || row.entry_visual_key),
+      entry_visual_key: text(row.entry_visual_key || row.entry_go_key),
+      entry_status: text(row.entry_status || row.status),
+      entry_order_now: intOrNull(row.entry_order_now),
+      entries_ahead: intOrNull(row.entries_ahead),
+      entry_go_time_now: text(row.entry_go_time_now),
+      go_in_mins: intOrNull(row.go_in_mins ?? row.go_in),
+      tags: row.tags
     };
     for (const key of keys) {
       const bucket = entriesByClassKey.get(key) || [];
@@ -7155,9 +7172,21 @@ async function getStep4RuntimeRows(app, showNo, focusDay, meta) {
         is_jumper_classic: row.is_jumper_classic === true,
         live_flag: text(row.live_flag),
         entry_count: intOrNull(row.entry_count) ?? entries.length,
+        entry_count_now: intOrNull(row.entry_count_now),
         n_gone: intOrNull(row.n_gone),
+        n_gone_now: intOrNull(row.n_gone_now),
         n_to_go: intOrNull(row.n_to_go),
+        n_to_go_now: intOrNull(row.n_to_go_now),
         elapsed_seconds: intOrNull(row.elapsed_seconds),
+        is_live: boolOrNull(row.is_live),
+        pace_seconds: intOrNull(row.pace_seconds),
+        estimated_pace_now: intOrNull(row.estimated_pace_now),
+        starts_in_mins: intOrNull(row.starts_in_mins ?? row.starts_in),
+        ends_in_mins: intOrNull(row.ends_in_mins ?? row.ends_in),
+        estimated_class_end_time: text(row.estimated_class_end_time),
+        class_status: text(row.class_status || row.status),
+        followed_class: boolOrNull(row.followed_class),
+        tags: row.tags,
         current_entry_no: text(row.current_entry_no),
         current_horse: text(row.current_horse),
         live_source: text(row.live_source || row.source || "hs_class_start_times.step4_runtime"),
@@ -7230,6 +7259,593 @@ function buildStep4RuntimeMobilePayload(showNo, focusDay, meta, rows) {
     text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized))
   ));
   return payload;
+}
+
+function scheduleUiTags(value) {
+  if (Array.isArray(value)) return [...new Set(value.map(text).filter(Boolean))];
+  const raw = text(value);
+  if (!raw) return [];
+  if (raw.startsWith("[")) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return [...new Set(parsed.map(text).filter(Boolean))];
+    } catch (_) {
+      // Fall through to delimited text used by existing runtime rows.
+    }
+  }
+  return [...new Set(raw.split(/[|,]/).map(text).filter(Boolean))];
+}
+
+function scheduleUiNumber(...values) {
+  for (const value of values) {
+    if (value === undefined || value === null || text(value) === "") continue;
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return null;
+}
+
+function scheduleUiBoolean(...values) {
+  for (const value of values) {
+    if (value === undefined || value === null || text(value) === "") continue;
+    const parsed = boolOrNull(value);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function scheduleUiClassDisplay(row) {
+  const sourceName = text(row.source_class_name || row.class_name || row.class_label);
+  const storedNumber = text(row.class_number);
+  const usableStoredNumber = storedNumber && storedNumber !== "0" ? storedNumber : "";
+  const parsed = sourceName.match(/^(\d+[a-z]?)\)\s*(.*)$/i);
+  if (parsed) {
+    return {
+      classNumber: parsed[1],
+      className: text(parsed[2]),
+      sourceClassName: sourceName
+    };
+  }
+  return {
+    classNumber: usableStoredNumber || null,
+    className: text(row.class_name || sourceName),
+    sourceClassName: sourceName
+  };
+}
+
+function scheduleUiRingKey(row) {
+  return text(row?.ring_const_key || row?.ring_status_key || row?.ring_visual_key);
+}
+
+function scheduleUiClassKey(row) {
+  return text(row?.class_const_key || row?.class_start_key || row?.class_visual_key);
+}
+
+function scheduleUiEntryKey(row) {
+  return text(row?.entry_const_key || row?.entry_go_key || row?.entry_visual_key);
+}
+
+function scheduleUiEntryDayKey(showNo, focusDay, entryNo) {
+  const safeShowNo = text(showNo);
+  const safeFocusDay = dateKey(focusDay).replace(/-/g, "");
+  const safeEntryNo = text(entryNo);
+  return safeShowNo && safeFocusDay && safeEntryNo ? `${safeShowNo}|${safeFocusDay}|${safeEntryNo}` : "";
+}
+
+function scheduleUiEvent(row) {
+  return {
+    triggerKey: text(row.trigger_key),
+    triggerType: text(row.trigger_type),
+    triggerTime: text(row.trigger_time || row.generated_at),
+    level: text(row.level),
+    status: text(row.status),
+    ringKey: text(row.ring_const_key),
+    rowKey: text(row.class_const_key),
+    entryKey: text(row.entry_const_key),
+    classNo: text(row.class_no) || null,
+    entryNo: text(row.entry_no) || null
+  };
+}
+
+function scheduleUiResult(row) {
+  const resultStatus = text(row.result_status).toLowerCase();
+  return {
+    resultKey: text(row.rider_result_key),
+    rowKey: text(row.class_const_key),
+    entryKey: text(row.entry_const_key),
+    classNo: text(row.class_no) || null,
+    entryNo: text(row.entry_no) || null,
+    horse: text(row.horse),
+    rider: text(row.rider),
+    ready: resultStatus !== "" && resultStatus !== "pending",
+    status: text(row.result_status),
+    place: text(row.place) || null,
+    score: text(row.score) || null,
+    finishedTime: text(row.result_time || row.finished_time) || null,
+    source: text(row.result_source || row.source)
+  };
+}
+
+function scheduleUiEventsFor(events, predicate) {
+  const byKey = new Map();
+  for (const row of events || []) {
+    if (!predicate(row)) continue;
+    const mapped = scheduleUiEvent(row);
+    const key = mapped.triggerKey || `${mapped.level}|${mapped.triggerType}|${mapped.triggerTime}`;
+    if (!byKey.has(key)) byKey.set(key, mapped);
+  }
+  return [...byKey.values()].sort((a, b) => (
+    text(a.triggerTime).localeCompare(text(b.triggerTime)) || text(a.triggerType).localeCompare(text(b.triggerType))
+  ));
+}
+
+function scheduleUiResultsFor(results, classRow) {
+  const classKey = scheduleUiClassKey(classRow);
+  const classNo = text(classRow.class_no);
+  return (results || []).filter((row) => (
+    (text(row.class_const_key) && text(row.class_const_key) === classKey)
+    || (!text(row.class_const_key) && text(row.class_no) === classNo)
+  ));
+}
+
+function scheduleUiResultForEntry(results, entry) {
+  const entryKey = scheduleUiEntryKey(entry);
+  const entryNo = text(entry.entry_no);
+  const row = (results || []).find((candidate) => (
+    (text(candidate.entry_const_key) && text(candidate.entry_const_key) === entryKey)
+    || (!text(candidate.entry_const_key) && text(candidate.entry_no) === entryNo)
+  ));
+  return row ? scheduleUiResult(row) : {
+    resultKey: null,
+    rowKey: null,
+    entryKey: entryKey || null,
+    classNo: null,
+    entryNo: entryNo || null,
+    horse: text(entry.horse),
+    rider: text(entry.rider),
+    ready: false,
+    status: "pending",
+    place: null,
+    score: null,
+    finishedTime: null,
+    source: ""
+  };
+}
+
+function scheduleUiEntries(classRow, events, results) {
+  const classKey = scheduleUiClassKey(classRow);
+  const classNo = text(classRow.class_no);
+  const byKey = new Map();
+  for (const entry of classRow.entry_go_times || []) {
+    const entryKey = scheduleUiEntryKey(entry);
+    if (!entryKey) continue;
+    const previous = byKey.get(entryKey) || {};
+    byKey.set(entryKey, { ...previous, ...Object.fromEntries(Object.entries(entry).filter(([, value]) => value !== undefined && value !== null && text(value) !== "")) });
+  }
+  return [...byKey.values()]
+    .map((entry) => {
+      const entryKey = scheduleUiEntryKey(entry);
+      const entryEvents = scheduleUiEventsFor(events, (event) => (
+        text(event.level) === "entry"
+        && ((text(event.entry_const_key) && text(event.entry_const_key) === entryKey)
+        || (!text(event.entry_const_key)
+          && text(event.entry_no) === text(entry.entry_no)
+          && ((text(event.class_const_key) && text(event.class_const_key) === classKey) || text(event.class_no) === classNo)))
+      ));
+      return {
+        entryKey,
+        entryDayKey: scheduleUiEntryDayKey(classRow.show_no, classRow.focus_day, entry.entry_no),
+        entryNo: text(entry.entry_no) || null,
+        name: text(entry.horse),
+        order: scheduleUiNumber(entry.entry_order),
+        rider: text(entry.rider || entry.rider_display),
+        trainer: text(entry.trainer || entry.trainer_display),
+        barnName: text(entry.barn_name),
+        status: text(entry.entry_status || entry.status) || "today",
+        entryOrderNow: scheduleUiNumber(entry.entry_order_now),
+        entriesAhead: scheduleUiNumber(entry.entries_ahead),
+        entryGoTime: text(entry.entry_go_time || entry.go_time) || null,
+        entryGoTimeNow: text(entry.entry_go_time_now) || null,
+        goInMins: scheduleUiNumber(entry.go_in_mins, entry.go_in),
+        paceSeconds: scheduleUiNumber(entry.pace_seconds),
+        tags: scheduleUiTags(entry.tags),
+        triggerTypes: entryEvents.map((event) => event.triggerType),
+        result: scheduleUiResultForEntry(results, entry)
+      };
+    })
+    .sort((a, b) => (a.order ?? 999999) - (b.order ?? 999999) || text(a.entryKey).localeCompare(text(b.entryKey)));
+}
+
+function scheduleUiClass(row, events, results, { includeEntries = false } = {}) {
+  const rowKey = scheduleUiClassKey(row);
+  const ringKey = scheduleUiRingKey(row);
+  const display = scheduleUiClassDisplay(row);
+  const classEvents = scheduleUiEventsFor(events, (event) => (
+    text(event.level) === "class"
+    && ((text(event.class_const_key) && text(event.class_const_key) === rowKey)
+      || (!text(event.class_const_key) && text(event.class_no) === text(row.class_no)))
+  ));
+  const classResults = scheduleUiResultsFor(results, row);
+  const entries = scheduleUiEntries(row, events, classResults);
+  const payload = {
+    rowKey,
+    classNo: text(row.class_no) || null,
+    classNumber: display.classNumber,
+    className: display.className,
+    sourceClassName: display.sourceClassName,
+    time: text(row.display_time || row.time_text) || null,
+    sortTime: text(row.class_start_time) || null,
+    ringKey,
+    ring: text(row.ring_name_prioritized || row.ring_name),
+    entryCount: scheduleUiNumber(row.entry_count_now, row.entry_count),
+    entryCountScheduled: scheduleUiNumber(row.entry_count),
+    nGone: scheduleUiNumber(row.n_gone_now, row.n_gone),
+    nToGo: scheduleUiNumber(row.n_to_go_now, row.n_to_go),
+    isLive: scheduleUiBoolean(row.is_live, row.live_flag),
+    paceSeconds: scheduleUiNumber(row.estimated_pace_now, row.pace_seconds),
+    status: text(row.class_status || row.status) || "today",
+    classStartTime: text(row.class_start_time) || null,
+    estimatedEndTime: text(row.estimated_class_end_time) || null,
+    startsInMins: scheduleUiNumber(row.starts_in_mins, row.starts_in),
+    endsInMins: scheduleUiNumber(row.ends_in_mins, row.ends_in),
+    followedClass: scheduleUiBoolean(row.followed_class),
+    trackedEntryCount: entries.length,
+    tags: scheduleUiTags(row.tags),
+    triggerTypes: classEvents.map((event) => event.triggerType),
+    entryState: entries.length ? "rss-is-hydrated" : "rss-is-empty"
+  };
+  if (includeEntries) payload.entries = entries;
+  return payload;
+}
+
+function scheduleUiRing(row, classRows, events) {
+  const ringKey = scheduleUiRingKey(row);
+  const ringEvents = scheduleUiEventsFor(events, (event) => text(event.level) === "ring" && text(event.ring_const_key) === ringKey);
+  return {
+    id: ringKey,
+    label: text(row.ring_name_prioritized || row.ring_display || row.ring_name),
+    ringKey,
+    ringNo: text(row.ring_no) || null,
+    ringStatus: text(row.ring_status || row.status) || "idle",
+    now: row.now ?? row.now_class ?? null,
+    next: row.next ?? row.next_class ?? null,
+    lateMins: scheduleUiNumber(row.late_mins, row.running_late_mins),
+    startsInMins: scheduleUiNumber(row.starts_in_mins, row.starts_in),
+    endsInMins: scheduleUiNumber(row.ends_in_mins, row.ends_in),
+    paceSeconds: scheduleUiNumber(row.estimated_pace_now, row.pace_seconds),
+    entryCount: scheduleUiNumber(row.entry_count_now, row.entry_count),
+    nGone: scheduleUiNumber(row.n_gone_now, row.n_gone),
+    nToGo: scheduleUiNumber(row.n_to_go_now, row.n_to_go),
+    isLive: scheduleUiBoolean(row.is_live),
+    tags: scheduleUiTags(row.tags),
+    triggerTypes: ringEvents.map((event) => event.triggerType),
+    rows: classRows
+  };
+}
+
+function scheduleUiShow(showNo, focusDay, meta, generatedAt) {
+  return {
+    showNo: text(showNo),
+    showName: text(meta?.title),
+    focusDate: dateKey(focusDay),
+    showStartDate: text(meta?.showStartDate),
+    showEndDate: text(meta?.showEndDate),
+    lastUpdated: generatedAt
+  };
+}
+
+function scheduleUiEntryRollups(entries) {
+  const byTrainer = new Map();
+  for (const entry of entries || []) {
+    const trainer = text(entry.trainer) || "Unassigned";
+    const bucket = byTrainer.get(trainer) || [];
+    bucket.push({
+      entryDayKey: entry.entryDayKey,
+      entryKey: entry.entryKey,
+      entryNo: entry.entryNo,
+      horse: entry.name,
+      barnName: entry.barnName,
+      rider: entry.rider,
+      order: entry.order,
+      goInMins: entry.goInMins,
+      status: entry.status
+    });
+    byTrainer.set(trainer, bucket);
+  }
+  return [...byTrainer.entries()].map(([trainer, trainerEntries]) => ({
+    trainer,
+    entries: trainerEntries
+  }));
+}
+
+function scheduleUiFlatClassRows(rows, events, results) {
+  const rings = scheduleUiRingRows(rows);
+  return (rows || []).map((row) => {
+    const entryRows = scheduleUiEntries(row, events, scheduleUiResultsFor(results, row));
+    const ring = rings.get(scheduleUiRingKey(row)) || {};
+    return {
+      ...scheduleUiClass(row, events, results),
+      ringStatus: text(ring.ring_status || ring.status) || "idle",
+      ringLateMins: scheduleUiNumber(ring.late_mins, ring.running_late_mins),
+      ringIsLive: scheduleUiBoolean(ring.is_live),
+      entryRollups: scheduleUiEntryRollups(entryRows)
+    };
+  }).sort((a, b) => (
+    text(a.sortTime).localeCompare(text(b.sortTime))
+    || text(a.ring).localeCompare(text(b.ring))
+    || text(a.rowKey).localeCompare(text(b.rowKey))
+  ));
+}
+
+function scheduleUiRingListRows(rows, events) {
+  return [...scheduleUiRingRows(rows).values()].map((row) => {
+    const mapped = scheduleUiRing(row, [], events);
+    const { rows: ignored, ...listRow } = mapped;
+    return listRow;
+  }).sort((a, b) => (
+    (scheduleUiNumber(a.ringNo) ?? 999999) - (scheduleUiNumber(b.ringNo) ?? 999999)
+    || text(a.label).localeCompare(text(b.label))
+  ));
+}
+
+function scheduleUiEntryOccurrences(rows, events, results) {
+  const occurrences = [];
+  for (const classRow of rows || []) {
+    const classResults = scheduleUiResultsFor(results, classRow);
+    const classSummary = scheduleUiClass(classRow, events, classResults);
+    for (const entry of scheduleUiEntries(classRow, events, classResults)) {
+      occurrences.push({ classRow, classSummary, entry });
+    }
+  }
+  return occurrences;
+}
+
+function scheduleUiEntryListRows(rows, events, results) {
+  const byDayKey = new Map();
+  for (const occurrence of scheduleUiEntryOccurrences(rows, events, results)) {
+    const key = occurrence.entry.entryDayKey;
+    if (!key) continue;
+    const current = byDayKey.get(key) || {
+      entryDayKey: key,
+      entryNo: occurrence.entry.entryNo,
+      horse: occurrence.entry.name,
+      barnName: occurrence.entry.barnName,
+      rider: occurrence.entry.rider,
+      trainer: occurrence.entry.trainer,
+      classCount: 0,
+      resultCount: 0,
+      nextGoInMins: null,
+      status: occurrence.entry.status
+    };
+    current.classCount += 1;
+    if (occurrence.entry.result?.ready) current.resultCount += 1;
+    const goIn = occurrence.entry.goInMins;
+    if (goIn !== null && goIn >= 0 && (current.nextGoInMins === null || goIn < current.nextGoInMins)) current.nextGoInMins = goIn;
+    byDayKey.set(key, current);
+  }
+  return [...byDayKey.values()].sort((a, b) => (
+    (a.nextGoInMins ?? 999999) - (b.nextGoInMins ?? 999999)
+    || text(a.barnName || a.horse).localeCompare(text(b.barnName || b.horse))
+  ));
+}
+
+function scheduleUiBasePayload(view, showNo, focusDay, meta, generatedAt) {
+  return {
+    ok: true,
+    action: "wec-schedule-ui",
+    view,
+    show: scheduleUiShow(showNo, focusDay, meta, generatedAt)
+  };
+}
+
+function buildScheduleUiEntityPayload(view, showNo, focusDay, meta, rows, events = [], results = [], generatedAt = new Date().toISOString(), params = {}) {
+  const base = scheduleUiBasePayload(view, showNo, focusDay, meta, generatedAt);
+  const classRows = scheduleUiFlatClassRows(rows, events, results);
+  const occurrences = scheduleUiEntryOccurrences(rows, events, results);
+  if (view === "class_list") return { ...base, rows: classRows };
+  if (view === "entry_list") return { ...base, rows: scheduleUiEntryListRows(rows, events, results) };
+  if (view === "ring_list") return { ...base, rows: scheduleUiRingListRows(rows, events) };
+  if (view === "results_list") return { ...base, rows: (results || []).map(scheduleUiResult) };
+  if (view === "alerts_list") {
+    const alertRows = scheduleUiEventsFor(events, () => true);
+    return {
+      ...base,
+      rows: alertRows,
+      lanes: {
+        ring: alertRows.filter((row) => row.level === "ring"),
+        class: alertRows.filter((row) => row.level === "class"),
+        entry: alertRows.filter((row) => row.level === "entry"),
+        rider: alertRows.filter((row) => row.level === "rider")
+      }
+    };
+  }
+
+  if (view === "class_detail") {
+    const rowKey = text(params.rowKey);
+    const sourceRow = (rows || []).find((row) => scheduleUiClassKey(row) === rowKey);
+    if (!sourceRow) return null;
+    const scopedResults = scheduleUiResultsFor(results, sourceRow);
+    const entries = scheduleUiEntries(sourceRow, events, scopedResults);
+    const timewise = scheduleUiEventsFor(events, (event) => (
+      text(event.class_const_key) === rowKey
+      || (!text(event.class_const_key) && text(event.class_no) === text(sourceRow.class_no))
+    ));
+    return {
+      ...base,
+      rowKey,
+      class: scheduleUiClass(sourceRow, events, scopedResults),
+      entries,
+      results: scopedResults.map(scheduleUiResult),
+      timewise
+    };
+  }
+
+  if (view === "entry_detail") {
+    const entryDayKey = text(params.entryDayKey);
+    const selected = occurrences.filter((item) => item.entry.entryDayKey === entryDayKey);
+    if (!selected.length) return null;
+    return {
+      ...base,
+      entryDayKey,
+      entry: {
+        entryNo: selected[0].entry.entryNo,
+        horse: selected[0].entry.name,
+        barnName: selected[0].entry.barnName,
+        rider: selected[0].entry.rider,
+        trainer: selected[0].entry.trainer
+      },
+      classes: selected.map((item) => ({
+        ...item.classSummary,
+        entry: item.entry,
+        result: item.entry.result,
+        timewise: scheduleUiEventsFor(events, (event) => text(event.entry_const_key) === item.entry.entryKey)
+      }))
+    };
+  }
+
+  if (view === "ring_detail") {
+    const ringKey = text(params.ringKey);
+    const ringRow = scheduleUiRingRows(rows).get(ringKey);
+    if (!ringRow) return null;
+    const classes = classRows.filter((row) => row.ringKey === ringKey);
+    return {
+      ...base,
+      ringKey,
+      ring: scheduleUiRing(ringRow, [], events),
+      classes,
+      timewise: scheduleUiEventsFor(events, (event) => text(event.ring_const_key) === ringKey)
+    };
+  }
+
+  if (view === "result_detail") {
+    const resultKey = text(params.resultKey);
+    const sourceResult = (results || []).find((row) => text(row.rider_result_key) === resultKey);
+    if (!sourceResult) return null;
+    const result = scheduleUiResult(sourceResult);
+    const sourceClass = (rows || []).find((row) => (
+      (result.rowKey && scheduleUiClassKey(row) === result.rowKey)
+      || text(row.class_no) === text(sourceResult.class_no)
+    ));
+    const occurrence = occurrences.find((item) => (
+      text(item.classRow.class_no) === text(sourceResult.class_no)
+      && text(item.entry.entryNo) === text(sourceResult.entry_no)
+    ));
+    return {
+      ...base,
+      resultKey,
+      result,
+      class: sourceClass ? scheduleUiClass(sourceClass, events, [sourceResult]) : null,
+      entry: occurrence?.entry || null,
+      timewise: occurrence ? scheduleUiEventsFor(events, (event) => text(event.entry_const_key) === occurrence.entry.entryKey) : []
+    };
+  }
+
+  if (view === "alert_detail") {
+    const triggerKey = text(params.triggerKey);
+    const sourceEvent = (events || []).find((row) => text(row.trigger_key) === triggerKey);
+    if (!sourceEvent) return null;
+    const occurrence = occurrences.find((item) => (
+      (text(sourceEvent.entry_const_key) && text(sourceEvent.entry_const_key) === item.entry.entryKey)
+      || (text(sourceEvent.entry_no) && text(sourceEvent.entry_no) === text(item.entry.entryNo)
+        && text(sourceEvent.class_no) === text(item.classRow.class_no))
+    ));
+    return {
+      ...base,
+      triggerKey,
+      alert: scheduleUiEvent(sourceEvent),
+      entity: {
+        ringKey: text(sourceEvent.ring_const_key) || null,
+        rowKey: text(sourceEvent.class_const_key) || null,
+        entryKey: text(sourceEvent.entry_const_key) || null,
+        entryDayKey: occurrence?.entry?.entryDayKey || null,
+        riderKey: text(sourceEvent.rider_key) || null
+      },
+      class: occurrence?.classSummary || null,
+      entry: occurrence?.entry || null
+    };
+  }
+  return null;
+}
+
+function scheduleUiRingRows(rows) {
+  const byKey = new Map();
+  for (const row of rows?.runtime_ring_status_rows || []) {
+    const key = scheduleUiRingKey(row);
+    if (key) byKey.set(key, row);
+  }
+  for (const row of rows || []) {
+    const key = scheduleUiRingKey(row);
+    if (key && !byKey.has(key)) byKey.set(key, row);
+  }
+  return byKey;
+}
+
+function buildScheduleUiOverviewPayload(showNo, focusDay, meta, rows, events = [], results = [], generatedAt = new Date().toISOString()) {
+  const classRows = scheduleUiFlatClassRows(rows, events, results);
+  const ringRows = scheduleUiRingListRows(rows, events);
+  const entryRows = scheduleUiEntryListRows(rows, events, results);
+  return {
+    ...scheduleUiBasePayload("overview", showNo, focusDay, meta, generatedAt),
+    rows: classRows,
+    resources: {
+      class_list: { view: "class_list", count: classRows.length },
+      entry_list: { view: "entry_list", count: entryRows.length },
+      ring_list: { view: "ring_list", count: ringRows.length },
+      results_list: { view: "results_list", count: (results || []).length },
+      alerts_list: { view: "alerts_list", count: (events || []).length }
+    },
+    counts: {
+      ringwise: ringRows.length,
+      classwise: classRows.length,
+      entrywise: entryRows.length,
+      riderwise: (results || []).length,
+      timewise: (events || []).length
+    }
+  };
+}
+
+function buildScheduleUiDensePayload(showNo, focusDay, meta, rows, events = [], results = [], rowKey, generatedAt = new Date().toISOString()) {
+  const classRow = (rows || []).find((row) => scheduleUiClassKey(row) === text(rowKey));
+  if (!classRow) return null;
+  const ringKey = scheduleUiRingKey(classRow);
+  const ringRow = scheduleUiRingRows(rows).get(ringKey) || classRow;
+  const scopedResults = scheduleUiResultsFor(results, classRow);
+  const entrywise = scheduleUiEntries(classRow, events, scopedResults);
+  const scopedEvents = scheduleUiEventsFor(events, (event) => (
+    text(event.ring_const_key) === ringKey
+    || text(event.class_const_key) === text(rowKey)
+    || (!text(event.class_const_key) && text(event.class_no) === text(classRow.class_no))
+  ));
+  return {
+    ok: true,
+    action: "wec-schedule-ui",
+    view: "dense",
+    rowKey: text(rowKey),
+    show: scheduleUiShow(showNo, focusDay, meta, generatedAt),
+    ringwise: [scheduleUiRing(ringRow, [], events)],
+    classwise: [scheduleUiClass(classRow, events, scopedResults)],
+    entrywise,
+    riderwise: scopedResults.map(scheduleUiResult),
+    timewise: scopedEvents
+  };
+}
+
+async function getScheduleUiPayloadRows(app, showNo, focusDay, meta) {
+  const safeFocusDay = dateKey(focusDay);
+  const currentFocusFilter = (row) => (
+    text(row.show_no) === text(showNo)
+    && dateKey(row.focus_day || row.iso_date) === safeFocusDay
+  );
+  const [rows, triggerPage, resultPage] = await Promise.all([
+    getStep4RuntimeRows(app, showNo, safeFocusDay, meta),
+    getPagedRowsFiltered(app, TABLES.timeEngineTriggers, currentFocusFilter, { maxRows: 10000 }),
+    getPagedRowsFiltered(app, TABLES.riderResults, currentFocusFilter, { maxRows: 10000 })
+  ]);
+  return {
+    rows,
+    events: triggerPage.rows || [],
+    results: resultPage.rows || []
+  };
 }
 
 function deriveStep4RuntimePrintLayout(showNo, focusDay, rows) {
@@ -12967,6 +13583,128 @@ async function upsertCatalystHelperRows(app, config, rows) {
   return { ...result, synced_rows: syncedRows };
 }
 
+const HORSE_OPERATOR_SYNC_FIELDS = Object.freeze([
+  "horse_key", "horse", "horse_name", "barn_name", "horse_display", "aka", "horse_aka",
+  "rider", "rider_name", "trainer", "trainer_name", "active", "follow", "status",
+  "sync_action", "rec_id"
+]);
+
+function mapAirtableHorseOperatorRecord(record, runTime) {
+  const fields = record?.fields || {};
+  const action = text(firstValue(sourceValue(fields, ["sync_action"]))).toLowerCase();
+  const sourceStatus = sourceField(fields, ["status"]).toLowerCase();
+  const inactiveState = [action, sourceStatus].find((value) => value === "ignore" || value === "remove" || value === "inactive") || "";
+  const inactive = Boolean(inactiveState);
+  const horseName = sourceField(fields, ["horse_name", "horse"]);
+  const horseKey = sourceField(fields, ["horse_key"]) || normalizeHorseHelperKey(horseName);
+  if (!horseKey || !horseName) return null;
+  const barnName = sourceField(fields, ["barn_name"]);
+  const horseDisplay = sourceField(fields, ["horse_display", "barn_name", "horse_name", "horse"]);
+  const horseAka = sourceField(fields, ["horse_aka", "aka"]);
+  const status = inactive
+    ? (inactiveState === "ignore" ? "ignore" : helperStatusFromAction(inactiveState))
+    : sourceStatus || "active";
+  return cleanRowForDatastore({
+    horse_key: normalizeHorseHelperKey(horseKey),
+    horse: horseName,
+    horse_name: horseName,
+    barn_name: barnName,
+    horse_display: horseDisplay,
+    aka: horseAka,
+    horse_aka: horseAka,
+    rider: sourceField(fields, ["rider", "rider_name"]),
+    rider_name: sourceField(fields, ["rider_name", "rider"]),
+    trainer: sourceField(fields, ["trainer", "trainer_name"]),
+    trainer_name: sourceField(fields, ["trainer_name", "trainer"]),
+    active: inactive ? false : sourceBool(fields, ["active", "is_active"], true),
+    follow: inactive ? false : sourceBool(fields, ["follow", "is_follow", "followed"], false),
+    status,
+    sync_action: action || "add",
+    rec_id: sourceField(fields, ["rec_id"]) || record.id,
+    last_synced_at: catalystDateTime(runTime)
+  });
+}
+
+function horseOperatorComparable(row = {}) {
+  return HORSE_OPERATOR_SYNC_FIELDS.map((field) => {
+    if (field === "active" || field === "follow") return `${field}:${boolOrNull(row[field]) === true}`;
+    return `${field}:${text(row[field])}`;
+  }).join("|");
+}
+
+function planHorseHelperCatalystChanges(sourceRows = [], catalystRows = []) {
+  const catalystByKey = new Map(
+    catalystRows.map((row) => [normalizeHorseHelperKey(row.horse_key || row.horse_name || row.horse), row])
+  );
+  const inserts = [];
+  const updates = [];
+  let unchanged = 0;
+  for (const sourceRow of sourceRows) {
+    const key = normalizeHorseHelperKey(sourceRow.horse_key || sourceRow.horse_name || sourceRow.horse);
+    if (!key) continue;
+    const existing = catalystByKey.get(key);
+    if (!existing?.ROWID) {
+      inserts.push(sourceRow);
+      continue;
+    }
+    if (horseOperatorComparable(sourceRow) === horseOperatorComparable(existing)) {
+      unchanged += 1;
+      continue;
+    }
+    updates.push({ ...sourceRow, ROWID: existing.ROWID });
+  }
+  return { inserts, updates, unchanged };
+}
+
+async function syncAirtableHorseOperatorsToCatalyst(app, { recordIds = [] } = {}) {
+  const targetRecordIds = [...new Set((recordIds || []).map(text).filter(Boolean))];
+  const sourceRecords = await airtableListRecords("hs_horses", targetRecordIds.length
+    ? { filterByFormula: airtableRecordIdFormula(targetRecordIds) }
+    : {});
+  const runTime = new Date().toISOString();
+  const sourceRows = sourceRecords
+    .map((record) => mapAirtableHorseOperatorRecord(record, runTime))
+    .filter(Boolean);
+  const catalystResult = await getPagedRowsFiltered(app, TABLES.horses, () => true, { maxRows: 5000 });
+  const plan = planHorseHelperCatalystChanges(sourceRows, catalystResult.rows || []);
+  const table = app.datastore().table(TABLES.horses);
+  const errors = [];
+  let inserted = 0;
+  let updated = 0;
+  for (const row of plan.inserts) {
+    try {
+      await table.insertRow(row);
+      inserted += 1;
+    } catch (error) {
+      errors.push({ horse_key: row.horse_key, error: String(error?.message || error).slice(0, 500) });
+    }
+  }
+  for (const row of plan.updates) {
+    try {
+      await table.updateRow(row);
+      updated += 1;
+    } catch (error) {
+      errors.push({ horse_key: row.horse_key, error: String(error?.message || error).slice(0, 500) });
+    }
+  }
+  return {
+    ok: errors.length === 0,
+    source: "airtable.hs_horses",
+    target: "catalyst.hs_horses",
+    targeted_record_ids: targetRecordIds,
+    airtable_records: sourceRecords.length,
+    mapped_rows: sourceRows.length,
+    catalyst_rows: (catalystResult.rows || []).length,
+    inserted,
+    updated,
+    unchanged: plan.unchanged,
+    errors,
+    airtable_writes: 0,
+    complete: true,
+    run_time: runTime
+  };
+}
+
 function mapCatalystHelperRowToAirtable(config, row) {
   const fields = {};
   for (const [fieldName] of config.mirror_fields) {
@@ -14505,6 +15243,143 @@ function sourceDerivedPaceSeconds(row) {
   return Math.max(1, Math.round(elapsed / gone));
 }
 
+function boundedSnapshotDeltaPaceSeconds(current, previous) {
+  if (!current || !previous || intValue(current.class_no) !== intValue(previous.class_no)) return null;
+  const currentGone = intOrNull(current.n_gone);
+  const previousGone = intOrNull(previous.n_gone);
+  const currentTimestamp = intOrNull(current.timestamp_value ?? current.source_timestamp);
+  const previousTimestamp = intOrNull(previous.timestamp_value ?? previous.source_timestamp);
+  if (currentGone === null || previousGone === null || currentTimestamp === null || previousTimestamp === null) return null;
+  const goneDelta = currentGone - previousGone;
+  const secondsDelta = currentTimestamp - previousTimestamp;
+  if (goneDelta <= 0 || secondsDelta <= 0) return null;
+  const pace = Math.round(secondsDelta / goneDelta);
+  return pace >= 105 && pace <= 285 ? pace : null;
+}
+
+function step5SourceIsLive(row) {
+  const explicit = boolOrNull(row?.live_flag ?? row?.is_live);
+  if (explicit !== null) return explicit;
+  const status = text(row?.status_type || row?.type || row?.status).toLowerCase().replace(/[\s-]+/g, "_");
+  if (["not_live", "inactive", "closed", "done", "finished", "false", "0"].includes(status)) return false;
+  if (["live", "active", "running", "true", "1"].includes(status)) return true;
+  return Boolean(intValue(row?.class_no));
+}
+
+function frozenLiveStartedAt(existing, isLive, observedAt) {
+  const frozen = text(existing?.live_started_at);
+  if (frozen) return frozen;
+  return isLive ? text(observedAt) || null : null;
+}
+
+function step5TimeSeconds(value) {
+  const normalized = classStartTimeFromText(value);
+  const match = normalized.match(/^(\d{2}):(\d{2}):(\d{2})$/);
+  return match ? (Number(match[1]) * 3600) + (Number(match[2]) * 60) + Number(match[3]) : null;
+}
+
+function step5RingTimingProjection({ observedTime, paceSeconds, nToGo, nextClassStartTime } = {}) {
+  const pace = intOrNull(paceSeconds);
+  const remaining = intOrNull(nToGo);
+  const observedSeconds = step5TimeSeconds(observedTime);
+  if (pace === null || pace < 105 || pace > 285 || remaining === null || remaining < 0 || observedSeconds === null) {
+    return { estimated_end_time: null, running_late_mins: null, available_slack_mins: null };
+  }
+  const estimatedEndTime = addSecondsToTimeText(observedTime, pace * remaining);
+  const estimatedEndSeconds = step5TimeSeconds(estimatedEndTime);
+  const nextStartSeconds = step5TimeSeconds(nextClassStartTime);
+  if (nextStartSeconds === null || estimatedEndSeconds === null) {
+    return { estimated_end_time: estimatedEndTime || null, running_late_mins: 0, available_slack_mins: 0 };
+  }
+  const deltaMinutes = Math.round((nextStartSeconds - estimatedEndSeconds) / 60);
+  return {
+    estimated_end_time: estimatedEndTime,
+    running_late_mins: Math.max(0, -deltaMinutes),
+    available_slack_mins: Math.max(0, deltaMinutes)
+  };
+}
+
+function step5EntryTimingProjection({ entryOrder, nGone, currentEntryNo, entryNo, observedTime, paceSeconds } = {}) {
+  const order = intOrNull(entryOrder);
+  const gone = Math.max(0, intValue(nGone));
+  const pace = intOrNull(paceSeconds);
+  if (order === null || order < 1) return null;
+  const isCurrent = intValue(currentEntryNo) > 0 && intValue(currentEntryNo) === intValue(entryNo);
+  const relativeOrder = isCurrent ? 1 : Math.max(0, order - gone);
+  const entriesAhead = relativeOrder > 0 ? relativeOrder - 1 : 0;
+  const validPace = pace !== null && pace >= 105 && pace <= 285 && step5TimeSeconds(observedTime) !== null;
+  return {
+    entry_order_now: relativeOrder,
+    entries_ahead: entriesAhead,
+    entry_go_time_now: relativeOrder > 0 && validPace ? addSecondsToTimeText(observedTime, entriesAhead * pace) : null
+  };
+}
+
+const RING_CHANGE_TRACKED_FIELDS = Object.freeze([
+  "current_class_no",
+  "status",
+  "is_live",
+  "n_gone",
+  "n_to_go"
+]);
+
+function ringStateValues(row) {
+  const values = {};
+  for (const field of RING_CHANGE_TRACKED_FIELDS) values[field] = normalizedRingStatusValue(field, row?.[field]);
+  return values;
+}
+
+function ringStateSignature(row) {
+  return JSON.stringify(ringStateValues(row));
+}
+
+function planCatalystRingChangeLogs(rows, existingRows, { runId = "", observedAt = "" } = {}) {
+  const latestByKey = new Map();
+  for (const row of existingRows || []) {
+    const key = text(row.ring_status_key);
+    if (!key) continue;
+    const prior = latestByKey.get(key);
+    if (!prior || text(row.observed_at || row.CREATEDTIME) > text(prior.observed_at || prior.CREATEDTIME)) latestByKey.set(key, row);
+  }
+  const creates = [];
+  const unchanged = [];
+  for (const row of rows || []) {
+    const key = text(row.ring_status_key);
+    if (!key) continue;
+    const currentValues = ringStateValues(row);
+    const signature = JSON.stringify(currentValues);
+    const prior = latestByKey.get(key) || null;
+    if (text(prior?.state_signature) === signature) {
+      unchanged.push(key);
+      continue;
+    }
+    let previousValues = {};
+    try {
+      previousValues = JSON.parse(text(prior?.current_values) || "{}");
+    } catch {
+      previousValues = {};
+    }
+    const changedFields = prior
+      ? RING_CHANGE_TRACKED_FIELDS.filter((field) => previousValues[field] !== currentValues[field])
+      : [...RING_CHANGE_TRACKED_FIELDS];
+    creates.push({
+      ring_change_key: resultKey(key, runId),
+      ring_status_key: key,
+      show_no: intValue(row.show_no),
+      focus_day: dateKey(row.focus_day),
+      ring_day_no: intValue(row.ring_day_no),
+      ring_no: intValue(row.ring_no),
+      run_id: text(runId),
+      observed_at: text(observedAt),
+      state_signature: signature,
+      changed_fields: changedFields.join(","),
+      previous_values: JSON.stringify(previousValues),
+      current_values: JSON.stringify(currentValues)
+    });
+  }
+  return { creates, unchanged };
+}
+
 function addSecondsToTimeText(startTime, seconds) {
   const normalized = classStartTimeFromText(startTime);
   const match = normalized.match(/^(\d{2}):(\d{2}):(\d{2})$/);
@@ -14576,18 +15451,84 @@ function classStatusForStart(row, liveRow, soonKeys) {
   return "Today";
 }
 
+function step5SnapshotClassKey(row) {
+  return resultKey(row?.ring_day_no, row?.ring_no, row?.class_no);
+}
+
+function previousStep5Snapshot(current, snapshots, currentKeys) {
+  const classKey = step5SnapshotClassKey(current);
+  const currentTimestamp = intOrNull(current?.timestamp_value ?? current?.source_timestamp);
+  if (!classKey || currentTimestamp === null) return null;
+  let previous = null;
+  for (const candidate of snapshots || []) {
+    if (currentKeys?.has(text(candidate.get_rings_key))) continue;
+    if (step5SnapshotClassKey(candidate) !== classKey) continue;
+    const candidateTimestamp = intOrNull(candidate.timestamp_value ?? candidate.source_timestamp);
+    if (candidateTimestamp === null || candidateTimestamp >= currentTimestamp) continue;
+    if (!previous || candidateTimestamp > intValue(previous.timestamp_value ?? previous.source_timestamp)) previous = candidate;
+  }
+  return previous;
+}
+
+function step5NextClassByKey(classRows, showNo, focusDay) {
+  const byRing = new Map();
+  for (const row of classRows || []) {
+    const ringKey = resultKey(row.ring_day_no, row.ring_no);
+    if (!ringKey) continue;
+    const bucket = byRing.get(ringKey) || [];
+    bucket.push(row);
+    byRing.set(ringKey, bucket);
+  }
+  const nextByClassKey = new Map();
+  for (const rows of byRing.values()) {
+    rows.sort((a, b) => (
+      text(classStartTimeFromText(a.class_start_time)).localeCompare(text(classStartTimeFromText(b.class_start_time)))
+      || intValue(a.class_number) - intValue(b.class_number)
+      || intValue(a.class_no) - intValue(b.class_no)
+    ));
+    rows.forEach((row, index) => {
+      const key = cleanStep5ClassKeyForRuntimeRow(row, showNo, focusDay);
+      if (key) nextByClassKey.set(key, rows[index + 1] || null);
+    });
+  }
+  return nextByClassKey;
+}
+
+async function appendCatalystRingChangeLogs(app, showNo, focusDay, rows, history) {
+  const safeFocusDay = dateKey(focusDay);
+  const existingPage = await getPagedRowsFiltered(
+    app,
+    TABLES.ringChangeLogs,
+    (row) => text(row.show_no) === text(showNo) && dateKey(row.focus_day) === safeFocusDay,
+    { maxRows: 5000 }
+  );
+  const plan = planCatalystRingChangeLogs(rows, existingPage.rows || [], history);
+  const result = plan.creates.length
+    ? await upsertSourceRowsFast(app, TABLES.ringChangeLogs, "ring_change_key", plan.creates, { showNo })
+    : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  return {
+    ...result,
+    creates: plan.creates.length,
+    unchanged: plan.unchanged.length
+  };
+}
+
 async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = [], getOrdersRows = [], runTime = "", runId = "" } = {}) {
   const safeFocusDay = dateKey(focusDay);
   const currentFilter = (row) => text(row.show_no) === text(showNo) && dateKey(row.focus_day) === safeFocusDay;
-  const [ringStatusPage, classStartPage, entryGoPage] = await Promise.all([
+  const [ringStatusPage, classStartPage, entryGoPage, snapshotPage] = await Promise.all([
     getPagedRowsFiltered(app, TABLES.ringStatus, currentFilter, { maxRows: 1000 }),
     getPagedRowsFiltered(app, TABLES.classStartTimes, currentFilter, { maxRows: 5000 }),
-    getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 })
+    getPagedRowsFiltered(app, TABLES.entryGoTimes, currentFilter, { maxRows: 10000 }),
+    getPagedRowsFiltered(app, TABLES.getRings, currentFilter, { maxRows: 10000 })
   ]);
   const ringStatusRows = ringStatusPage.rows || [];
   const classStartRows = classStartPage.rows || [];
   const entryGoRows = entryGoPage.rows || [];
+  const snapshotRows = snapshotPage.rows || [];
   const soonClassStatusKeys = await readSoonClassStatusKeys(showNo, safeFocusDay);
+  const observedAt = floridaCatalystDateTime(runTime || new Date().toISOString());
+  const observedTime = text(observedAt).split(" ")[1] || "";
 
   const ringStatusByRing = new Map();
   for (const row of ringStatusRows) {
@@ -14610,46 +15551,25 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
     }
   }
 
-  const liveRows = [...(getRingsRows || []), ...(getOrdersRows || [])]
-    .filter((row) => intValue(row.class_no));
+  const sourceRows = (getRingsRows || []).filter((row) => intValue(row.class_no));
+  const sourceByRing = new Map();
+  for (const row of getRingsRows || []) {
+    const key = `${text(row.ring_day_no)}|${text(row.ring_no)}`;
+    if (text(row.ring_no)) {
+      sourceByRing.set(key, row);
+      sourceByRing.set(`|${text(row.ring_no)}`, row);
+    }
+  }
   const bestLiveByClass = new Map();
-  for (const row of liveRows) {
+  for (const row of sourceRows) {
+    if (!step5SourceIsLive(row)) continue;
     const classKey = cleanStep5ClassKeyForLiveRow(row, showNo, safeFocusDay);
     if (!classKey || !classStartByClassKey.has(classKey)) continue;
-    const existing = bestLiveByClass.get(classKey);
-    const nextPace = sourceDerivedPaceSeconds(row);
-    const existingPace = existing ? sourceDerivedPaceSeconds(existing) : null;
-    if (!existing || (nextPace && !existingPace) || text(row.get_orders_key)) {
-      bestLiveByClass.set(classKey, row);
-    }
+    bestLiveByClass.set(classKey, row);
   }
 
   const liveSyncedAt = catalystDateTime(runTime || new Date().toISOString());
-  const ringUpdates = [];
-  for (const row of getRingsRows || []) {
-    const ringStatus = ringStatusByRing.get(`${text(row.ring_day_no)}|${text(row.ring_no)}`) || ringStatusByRing.get(`|${text(row.ring_no)}`);
-    if (!ringStatus?.ring_status_key) continue;
-    ringUpdates.push({
-      ring_status_key: text(ringStatus.ring_status_key),
-      is_live: true,
-      current_class_no: intValue(row.class_no),
-      n_gone: intValue(row.n_gone),
-      n_to_go: intValue(row.n_to_go),
-      elapsed_seconds: intValue(row.elapsed),
-      live_source: "hs_get_rings.step5_live_enrichment",
-      last_live_synced_at: liveSyncedAt
-    });
-  }
-
-  const classUpdateByKey = new Map();
-  for (const row of classStartRows) {
-    const classStartKey = text(row.class_start_key);
-    if (!classStartKey) continue;
-    classUpdateByKey.set(classStartKey, {
-      class_start_key: classStartKey,
-      class_status: classStatusForStart(row, null, soonClassStatusKeys)
-    });
-  }
+  const currentSnapshotKeys = new Set((getRingsRows || []).map((row) => text(row.get_rings_key)).filter(Boolean));
   const paceByClassKey = new Map();
   const paceByClassNo = new Map();
   const sourceDerivedPaceBySource = {
@@ -14659,41 +15579,109 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
   for (const [classKey, liveRow] of bestLiveByClass.entries()) {
     const classRow = classStartByClassKey.get(classKey);
     if (!classRow?.class_start_key) continue;
-    const pace = sourceDerivedPaceSeconds(liveRow);
-    if (pace) {
-      paceByClassKey.set(classKey, pace);
-      if (text(liveRow.get_orders_key)) sourceDerivedPaceBySource.hs_get_orders += 1;
-      else sourceDerivedPaceBySource.hs_get_rings += 1;
-    }
+    const previous = previousStep5Snapshot(liveRow, snapshotRows, currentSnapshotKeys);
+    const snapshotPace = boundedSnapshotDeltaPaceSeconds(liveRow, previous);
+    const existingPace = intOrNull(classRow.estimated_pace_now);
+    const retainedPace = existingPace !== null && existingPace >= 105 && existingPace <= 285 ? existingPace : null;
+    const pace = snapshotPace || retainedPace;
+    if (snapshotPace) sourceDerivedPaceBySource.hs_get_rings += 1;
+    if (pace) paceByClassKey.set(classKey, pace);
     const classNo = text(classRow.class_no || liveRow.class_no);
     if (pace && classNo) {
       if (paceByClassNo.has(classNo)) paceByClassNo.set(classNo, null);
       else paceByClassNo.set(classNo, pace);
     }
-    classUpdateByKey.set(text(classRow.class_start_key), {
-      ...(classUpdateByKey.get(text(classRow.class_start_key)) || {}),
-      class_start_key: text(classRow.class_start_key),
-      n_gone: intValue(liveRow.n_gone),
-      n_to_go: intValue(liveRow.n_to_go),
-      elapsed_seconds: intValue(liveRow.elapsed),
-      pace_seconds: pace || undefined,
-      current_entry_no: intValue(liveRow.entry_no),
-      current_horse: text(liveRow.entry_text),
-      class_status: classStatusForStart(classRow, liveRow, soonClassStatusKeys),
-      live_source: text(liveRow.get_orders_key) ? "hs_get_orders.step5_live_enrichment" : "hs_get_rings.step5_live_enrichment",
-      last_live_synced_at: liveSyncedAt
-    });
   }
-  const classUpdates = [...classUpdateByKey.values()];
+
+  const nextClassByKey = step5NextClassByKey(classStartRows, showNo, safeFocusDay);
+  const timingByClassKey = new Map();
+  for (const [classKey, liveRow] of bestLiveByClass.entries()) {
+    const nextClass = nextClassByKey.get(classKey) || null;
+    timingByClassKey.set(classKey, step5RingTimingProjection({
+      observedTime,
+      paceSeconds: paceByClassKey.get(classKey),
+      nToGo: liveRow.n_to_go,
+      nextClassStartTime: nextClass?.class_start_time
+    }));
+  }
+
+  const ringUpdates = [];
+  const ringStateRows = [];
+  for (const ringStatus of ringStatusRows) {
+    if (!ringStatus?.ring_status_key) continue;
+    const sourceRow = sourceByRing.get(`${text(ringStatus.ring_day_no)}|${text(ringStatus.ring_no)}`) || sourceByRing.get(`|${text(ringStatus.ring_no)}`) || null;
+    const isLive = Boolean(sourceRow && step5SourceIsLive(sourceRow));
+    const classKey = isLive ? cleanStep5ClassKeyForLiveRow(sourceRow, showNo, safeFocusDay) : "";
+    const nextClass = classKey ? nextClassByKey.get(classKey) || null : null;
+    const pace = classKey ? paceByClassKey.get(classKey) || null : null;
+    const timing = classKey ? timingByClassKey.get(classKey) || {} : {};
+    const update = {
+      ring_status_key: text(ringStatus.ring_status_key),
+      status: isLive ? "active" : "inactive",
+      is_live: isLive,
+      live_source: "hs_get_rings.step5_live_enrichment",
+      last_live_synced_at: liveSyncedAt,
+      current_class_no: isLive ? intValue(sourceRow.class_no) : undefined,
+      next_class_no: isLive ? intValue(nextClass?.class_no) || undefined : undefined,
+      n_gone: isLive ? intValue(sourceRow.n_gone) : undefined,
+      n_to_go: isLive ? intValue(sourceRow.n_to_go) : undefined,
+      elapsed_seconds: isLive ? intValue(sourceRow.elapsed) : undefined,
+      estimated_pace_now: isLive && pace ? pace : undefined,
+      estimated_end_time: isLive ? timing.estimated_end_time || undefined : undefined,
+      running_late_mins: isLive && timing.running_late_mins !== null ? timing.running_late_mins : undefined
+    };
+    ringUpdates.push(update);
+    ringStateRows.push({ ...ringStatus, ...cleanRowForDatastore(update) });
+  }
+
+  const classUpdates = [];
+  for (const row of classStartRows) {
+    const classStartKey = text(row.class_start_key);
+    if (!classStartKey) continue;
+    const classKey = cleanStep5ClassKeyForRuntimeRow(row, showNo, safeFocusDay);
+    const liveRow = bestLiveByClass.get(classKey) || null;
+    const isLive = Boolean(liveRow);
+    const previouslyLive = boolOrNull(row.is_live) === true
+      || boolOrNull(row.was_live) === true
+      || Boolean(text(row.live_started_at))
+      || text(row.live_source).includes("hs_get_rings");
+    const pace = paceByClassKey.get(classKey) || null;
+    const timing = timingByClassKey.get(classKey) || {};
+    const update = {
+      class_start_key: classStartKey,
+      is_live: isLive,
+      was_live: previouslyLive || isLive,
+      live_observed_at: observedAt,
+      class_status: isLive ? "Now" : (previouslyLive ? "Done" : classStatusForStart(row, null, soonClassStatusKeys)),
+      live_source: isLive ? "hs_get_rings.step5_live_enrichment" : text(row.live_source || "hs_get_rings.step5_live_enrichment"),
+      last_live_synced_at: liveSyncedAt,
+      live_started_at: frozenLiveStartedAt(row, isLive, observedAt) || undefined,
+      completed_at: !isLive && boolOrNull(row.is_live) === true ? observedAt : undefined,
+      completed_reason: !isLive && boolOrNull(row.is_live) === true ? "get_rings_class_advanced" : undefined,
+      entry_count_now: isLive ? intValue(liveRow.total) : undefined,
+      n_gone_now: isLive ? intValue(liveRow.n_gone) : undefined,
+      n_to_go_now: isLive ? intValue(liveRow.n_to_go) : undefined,
+      n_gone: isLive ? intValue(liveRow.n_gone) : undefined,
+      n_to_go: isLive ? intValue(liveRow.n_to_go) : undefined,
+      total: isLive ? intValue(liveRow.total) : undefined,
+      elapsed_seconds: isLive ? intValue(liveRow.elapsed) : undefined,
+      source_timestamp: isLive ? intValue(liveRow.timestamp_value) : undefined,
+      estimated_pace_now: isLive && pace ? pace : undefined,
+      estimated_end_time: isLive ? timing.estimated_end_time || undefined : undefined,
+      current_entry_no: isLive ? intValue(liveRow.entry_no) : undefined,
+      current_horse: isLive ? text(liveRow.entry_text) : undefined
+    };
+    classUpdates.push(update);
+  }
 
   const entryUpdates = [];
   const entrySkipReasons = {
     missing_class_key: 0,
+    missing_live_class: 0,
     missing_pace: 0,
     missing_class_row: 0,
     missing_entry_order: 0,
-    missing_class_start_time: 0,
-    invalid_go_time: 0
+    invalid_projection: 0
   };
   for (const row of entryGoRows) {
     const classKey = cleanStep5ClassKeyForRuntimeRow(row, showNo, safeFocusDay);
@@ -14702,11 +15690,12 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       entrySkipReasons.missing_class_key += 1;
       continue;
     }
-    const pace = paceByClassKey.get(classKey) || paceByClassNo.get(classNo);
-    if (!pace) {
-      entrySkipReasons.missing_pace += 1;
+    const liveRow = bestLiveByClass.get(classKey) || null;
+    if (!liveRow) {
+      entrySkipReasons.missing_live_class += 1;
       continue;
     }
+    const pace = paceByClassKey.get(classKey) || paceByClassNo.get(classNo);
     const classRow = classStartByClassKey.get(classKey) || classStartByClassNo.get(classNo);
     if (!classRow?.class_start_key) {
       entrySkipReasons.missing_class_row += 1;
@@ -14717,20 +15706,26 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       entrySkipReasons.missing_entry_order += 1;
       continue;
     }
-    if (!classRow.class_start_time) {
-      entrySkipReasons.missing_class_start_time += 1;
-      continue;
-    }
-    const goTime = addSecondsToTimeText(classRow.class_start_time, (entryOrder - 1) * pace);
-    if (!goTime) {
-      entrySkipReasons.invalid_go_time += 1;
+    if (!pace) entrySkipReasons.missing_pace += 1;
+    const projection = step5EntryTimingProjection({
+      entryOrder,
+      nGone: liveRow.n_gone,
+      currentEntryNo: liveRow.entry_no,
+      entryNo: row.entry_no,
+      observedTime,
+      paceSeconds: pace
+    });
+    if (!projection) {
+      entrySkipReasons.invalid_projection += 1;
       continue;
     }
     entryUpdates.push({
       entry_go_key: text(row.entry_go_key),
-      go_time: goTime,
-      pace_seconds: pace,
-      live_source: "source_derived_pace.step5_live_enrichment",
+      entry_order_now: projection.entry_order_now,
+      entries_ahead: projection.entries_ahead,
+      entry_go_time_now: projection.entry_go_time_now || undefined,
+      pace_seconds: pace || undefined,
+      live_source: pace ? "snapshot_delta_pace.step5_live_enrichment" : "get_rings_position.step5_live_enrichment",
       last_live_synced_at: liveSyncedAt
     });
   }
@@ -14744,6 +15739,10 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
   const entryResult = entryUpdates.length
     ? await upsertSourceRowsFast(app, TABLES.entryGoTimes, "entry_go_key", entryUpdates, { showNo })
     : { rows: 0, inserted: 0, updated: 0, skipped: 0 };
+  const ringChangeLogs = await appendCatalystRingChangeLogs(app, showNo, safeFocusDay, ringStateRows, {
+    runId,
+    observedAt
+  });
 
   return {
     source_runtime_counts: {
@@ -14752,7 +15751,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       hs_entry_go_times: entryGoRows.length
     },
     class_live_matches: bestLiveByClass.size,
-    source_derived_pace_classes: paceByClassKey.size,
+    source_derived_pace_classes: sourceDerivedPaceBySource.hs_get_rings,
     source_derived_pace_by_source: sourceDerivedPaceBySource,
     class_status: {
       soon_alert_rows: soonClassStatusKeys.rows,
@@ -14765,6 +15764,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
       }, {})
     },
     ring_status_enrichment: ringResult,
+    ring_change_logs: ringChangeLogs,
     class_start_times_enrichment: classResult,
     entry_go_times_enrichment: entryResult,
     entry_go_times_go_time_updates: entryUpdates.length,
@@ -14814,6 +15814,7 @@ function summarizeStep5RuntimeEnrichment(runtime) {
     source_derived_pace_by_source: runtime.source_derived_pace_by_source,
     class_status: runtime.class_status,
     ring_status_enrichment: runtime.ring_status_enrichment,
+    ring_change_logs: runtime.ring_change_logs,
     class_start_times_enrichment: runtime.class_start_times_enrichment,
     entry_go_times_enrichment: runtime.entry_go_times_enrichment,
     entry_go_times_go_time_updates: runtime.entry_go_times_go_time_updates,
@@ -15175,7 +16176,6 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
     if (!rings.get_run) blocker = "live_source_gate_blocked";
     if (!blocker) {
       if (!(rings.source_rows || []).length) {
-        blocker = "live_source_empty";
         const ringsNearClose = isLiveWindowNearClose(rings.live_window);
         if (ringsNearClose) {
           const lastLiveEmptyAt = floridaCatalystDateTime(runTime);
@@ -15905,6 +16905,7 @@ async function handle(req, res) {
       "wec-schedule-live",
       "reconcile-entry-rollups",
       "wec-mobile-live",
+      "wec-schedule-ui",
       "wec-rich-live",
       "wec-rich-api",
       "wec-print-layout",
@@ -15923,6 +16924,7 @@ async function handle(req, res) {
       "wec-cadence-step1-step2",
       "wec-cadence-step1-step4",
       "wec-sync-helpers",
+      "wec-sync-hs-horses-to-catalyst",
       "wec-helper-search",
       "barn-board-form-options",
       "barn-board-audit-lines",
@@ -16189,6 +17191,37 @@ async function handle(req, res) {
         recordIds
       });
       return json(res, result.status_code, result);
+    }
+
+    if (action === "wec-sync-hs-horses-to-catalyst") {
+      const recordIds = [
+        ...text(query.get("record_ids") || query.get("rec_ids") || body.record_ids || body.rec_ids)
+          .split(/[,\s]+/)
+          .map(text)
+          .filter(Boolean),
+        ...(Array.isArray(body.record_ids) ? body.record_ids.map(text).filter(Boolean) : []),
+        ...(Array.isArray(body.rec_ids) ? body.rec_ids.map(text).filter(Boolean) : [])
+      ];
+      const runId = text(query.get("run_id") || body.run_id) || `helper-horses-${Date.now()}`;
+      const router = createRouterRun({
+        app,
+        base: {
+          run_id: runId,
+          lane: "helpers",
+          source_function: "horseshowing_sync",
+          source_action: action,
+          trigger_source: recordIds.length ? "operator_push" : "scheduled_cron"
+        }
+      });
+      const result = await executeLoggedAction(router, {
+        stage: "hs_horses_airtable_to_catalyst",
+        outcome: (value) => ({
+          input_count: value.airtable_records,
+          output_count: value.inserted + value.updated,
+          trigger_reason: recordIds.length ? "record_id_push" : "hourly_helper_sync"
+        })
+      }, () => syncAirtableHorseOperatorsToCatalyst(app, { recordIds }));
+      return json(res, result.ok ? 200 : 500, { action, ...result });
     }
 
     if (action === "wec-helper-search") {
@@ -16470,6 +17503,59 @@ async function handle(req, res) {
         });
       }
       return json(res, 200, { ok: true, action, focus_source: outputFocus.source, focus_show_record_id: outputFocus.record_id, ...buildStep4RuntimeMobilePayload(outputFocus.show_no, outputFocus.focus_day, meta, rows) });
+    }
+
+    if (action === "wec-schedule-ui") {
+      const requestedShowNo = text(query.get("show_no") || body.show_no);
+      const outputFocus = await getOutputFocusShow(requestedShowNo || showNo);
+      if (!outputFocus) return json(res, 400, { ok: false, action, error: "wec-schedule-ui requires active focus_show" });
+      const view = text(query.get("view") || body.view || "overview").toLowerCase();
+      const supportedViews = new Set([
+        "overview", "dense", "class_list", "class_detail", "entry_list", "entry_detail",
+        "ring_list", "ring_detail", "results_list", "result_detail", "alerts_list", "alert_detail"
+      ]);
+      if (!supportedViews.has(view)) {
+        return json(res, 400, { ok: false, action, error: `unsupported view: ${view}` });
+      }
+      const meta = await metaForFocusRender(app, outputFocus.show_no, outputFocus.focus_day, query, body);
+      meta.reconcileEntryGoTimes = false;
+      const source = await getScheduleUiPayloadRows(app, outputFocus.show_no, outputFocus.focus_day, meta);
+      const generatedAt = new Date().toISOString();
+      if (view === "overview") {
+        return json(res, 200, {
+          focus_source: outputFocus.source,
+          focus_show_record_id: outputFocus.record_id,
+          ...buildScheduleUiOverviewPayload(outputFocus.show_no, outputFocus.focus_day, meta, source.rows, source.events, source.results, generatedAt)
+        });
+      }
+      const params = {
+        rowKey: text(query.get("rowKey") || query.get("row_key") || body.rowKey || body.row_key),
+        entryDayKey: text(query.get("entryDayKey") || query.get("entry_day_key") || body.entryDayKey || body.entry_day_key),
+        ringKey: text(query.get("ringKey") || query.get("ring_key") || body.ringKey || body.ring_key),
+        resultKey: text(query.get("resultKey") || query.get("result_key") || body.resultKey || body.result_key),
+        triggerKey: text(query.get("triggerKey") || query.get("trigger_key") || body.triggerKey || body.trigger_key)
+      };
+      const requiredParamByView = {
+        dense: "rowKey",
+        class_detail: "rowKey",
+        entry_detail: "entryDayKey",
+        ring_detail: "ringKey",
+        result_detail: "resultKey",
+        alert_detail: "triggerKey"
+      };
+      const requiredParam = requiredParamByView[view];
+      if (requiredParam && !params[requiredParam]) {
+        return json(res, 400, { ok: false, action, view, error: `${requiredParam} is required for ${view}` });
+      }
+      const payload = view === "dense"
+        ? buildScheduleUiDensePayload(outputFocus.show_no, outputFocus.focus_day, meta, source.rows, source.events, source.results, params.rowKey, generatedAt)
+        : buildScheduleUiEntityPayload(view, outputFocus.show_no, outputFocus.focus_day, meta, source.rows, source.events, source.results, generatedAt, params);
+      if (!payload) return json(res, 404, { ok: false, action, view, ...params, error: `${view} entity not found for active focus_show` });
+      return json(res, 200, {
+        focus_source: outputFocus.source,
+        focus_show_record_id: outputFocus.record_id,
+        ...payload
+      });
     }
 
     if (action === "wec-rich-live" || action === "wec-rich-api") {
@@ -17606,6 +18692,9 @@ if (process.env.NODE_ENV === "test") {
   module.exports.__test__ = {
     buildScheduleJson,
     buildRichApiPayload,
+    buildScheduleUiOverviewPayload,
+    buildScheduleUiDensePayload,
+    buildScheduleUiEntityPayload,
     applyPreparedClassStartMobileFields,
     parseTrainerRollups,
     helperSearchRow,
@@ -17615,6 +18704,15 @@ if (process.env.NODE_ENV === "test") {
     hydrateHelperSearchMatchFromRows,
     goTimeDisplayMeta,
     planAirtableRingStatusChanges,
+    boundedSnapshotDeltaPaceSeconds,
+    step5SourceIsLive,
+    frozenLiveStartedAt,
+    step5RingTimingProjection,
+    step5EntryTimingProjection,
+    ringStateSignature,
+    planCatalystRingChangeLogs,
+    mapAirtableHorseOperatorRecord,
+    planHorseHelperCatalystChanges,
     HELPER_SEARCH_CONFIGS
   };
 }

@@ -11,7 +11,7 @@ function block(start, end) {
   return source.slice(source.indexOf(start), source.indexOf(end, source.indexOf(start) + start.length));
 }
 
-test("active Core and Time Engine paths contain no Catalyst-to-Airtable mirror writers", () => {
+test("active Core defers runtime mirrors but keeps the explicit heartbeat linkage", () => {
   const cadence = block("async function runCleanCadenceStack", "async function runCleanStage1To4Proof");
   const timeEngine = block("async function runTimeEngineOnly", "function scheduleRowForProof");
   const standaloneHeartbeat = block("async function writeStandaloneCadenceHeartbeat", "function classOogMirrorFields");
@@ -19,6 +19,7 @@ test("active Core and Time Engine paths contain no Catalyst-to-Airtable mirror w
   assert.doesNotMatch(cadence, /upsertAirtableByKey|writeAirtableRowsByKey|updateAirtableRecords/);
   assert.doesNotMatch(timeEngine, /ensureAirtableMirrorTable|upsertAirtableBatchByKey/);
   assert.doesNotMatch(standaloneHeartbeat, /upsertAirtableByKey/);
+  assert.match(standaloneHeartbeat, /syncAirtableActiveHeartbeatLinks/);
   assert.match(cadence, /defer_airtable_mirror:\s*true/);
 });
 

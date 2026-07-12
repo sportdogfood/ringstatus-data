@@ -18,6 +18,99 @@ test("active Step 5 has no Airtable runtime or heartbeat mirror writers", () => 
   assert.match(active, /getActiveAirtableFocusShowStrict/);
 });
 
+test("horse operator listener maps Airtable fields into Catalyst without dropping ignore", () => {
+  const followed = __test__.mapAirtableHorseOperatorRecord({
+    id: "recFollow",
+    fields: {
+      horse_name: "HERMES D'ARMANVILLE",
+      barn_name: "Hermes",
+      horse_aka: "Hermes Darmanville",
+      active: true,
+      follow: true,
+      status: "active"
+    }
+  }, "2026-07-11T02:00:00.000Z");
+  const ignored = __test__.mapAirtableHorseOperatorRecord({
+    id: "recIgnore",
+    fields: {
+      horse_name: "DF CRUSH",
+      follow: true,
+      sync_action: "ignore"
+    }
+  }, "2026-07-11T02:00:00.000Z");
+
+  assert.equal(followed.horse_key, "hermes d'armanville");
+  assert.equal(followed.barn_name, "Hermes");
+  assert.equal(followed.horse_aka, "Hermes Darmanville");
+  assert.equal(followed.follow, true);
+  assert.equal(ignored.active, false);
+  assert.equal(ignored.follow, false);
+  assert.equal(ignored.status, "ignore");
+});
+
+test("horse operator listener plans only changed Catalyst rows", () => {
+  const sourceRows = [{
+    horse_key: "hermes",
+    horse: "HERMES",
+    horse_name: "HERMES",
+    barn_name: "Hermes",
+    horse_display: "Hermes",
+    active: true,
+    follow: true,
+    status: "active",
+    sync_action: "add",
+    rec_id: "recHermes",
+    last_synced_at: "2026-07-11 02:00:00"
+  }, {
+    horse_key: "crush",
+    horse: "CRUSH",
+    horse_name: "CRUSH",
+    barn_name: "Crush",
+    horse_display: "Crush",
+    active: true,
+    follow: false,
+    status: "active",
+    sync_action: "add",
+    rec_id: "recCrush",
+    last_synced_at: "2026-07-11 02:00:00"
+  }];
+  const catalystRows = [{
+    ROWID: "1",
+    ...sourceRows[0],
+    follow: false,
+    last_synced_at: "2026-07-05 03:00:00"
+  }, {
+    ROWID: "2",
+    ...sourceRows[1],
+    last_synced_at: "2026-07-05 03:00:00"
+  }];
+
+  const first = __test__.planHorseHelperCatalystChanges(sourceRows, catalystRows);
+  assert.equal(first.inserts.length, 0);
+  assert.equal(first.updates.length, 1);
+  assert.equal(first.updates[0].ROWID, "1");
+  assert.equal(first.unchanged, 1);
+
+  const afterFirst = catalystRows.map((row) => row.ROWID === "1" ? { ...row, ...first.updates[0] } : row);
+  const second = __test__.planHorseHelperCatalystChanges(sourceRows, afterFirst);
+  assert.equal(second.inserts.length, 0);
+  assert.equal(second.updates.length, 0);
+  assert.equal(second.unchanged, 2);
+});
+
+test("horse operator listener is Airtable to Catalyst only", () => {
+  const source = require("node:fs").readFileSync(__filename.replace(/index\.test\.js$/, "index.js"), "utf8");
+  const block = sourceBlock(
+    source,
+    "async function syncAirtableHorseOperatorsToCatalyst",
+    "async function syncOneHelperTable"
+  );
+
+  assert.match(block, /airtableListRecords\("hs_horses"/);
+  assert.match(block, /TABLES\.horses/);
+  assert.doesNotMatch(block, /airtableUpsert|airtableUpdate|airtableCreate|ensureAirtableHelperMirrorTable/);
+});
+
 function fakeApp(responses) {
   return {
     zcql() {
@@ -890,4 +983,375 @@ test("rich API joins schedule, entry, live, and result indexes for consumers", a
   assert.equal(result.indexes.by_entry_no["1296"][0].horse_display, "Calou");
   assert.equal(result.indexes.by_horse.calou[0].class_no, "29784");
   assert.equal(result.indexes.by_rider["tanner korotkin"][0].entry_no, "1296");
+});
+
+function scheduleUiFixtureRows() {
+  const rows = [{
+    show_no: "14910",
+    focus_day: "2026-07-12",
+    ring_no: "740",
+    ring_day_no: "4218",
+    ring_name: "JUMPER ANNEX - Gary",
+    ring_name_prioritized: "JUMPER ANNEX - Gary",
+    ring_name_normalized: "annex",
+    ring_const_key: "14910|20260712|4218|740",
+    ring_visual_key: "14910|20260712|4218|740",
+    class_no: "35348",
+    class_number: 0,
+    class_name: "812b) $750 1.05m Amateur Classic II.2b",
+    class_label: "0 - 812b) $750 1.05m Amateur Classic II.2b",
+    class_const_key: "14910|20260712|4218|740|35348",
+    class_start_time: "11:30:00",
+    display_time: "11:30 AM",
+    class_status: "soon",
+    starts_in_mins: 28,
+    ends_in_mins: 61,
+    estimated_class_end_time: "12:31:00",
+    pace_seconds: 198,
+    entry_count: 10,
+    entry_count_now: 12,
+    n_gone: 2,
+    n_to_go: 10,
+    is_live: false,
+    tags: "starts_in_60,starts_in_30",
+    entry_go_times: [{
+      entry_no: "2460",
+      entry_order: "8",
+      entry_const_key: "14910|20260712|4218|740|35348|2460",
+      entry_visual_key: "14910|20260712|4218|740|35348|2460",
+      horse: "Dany Villers",
+      barn_name: "Dany",
+      rider: "Lainey Posa",
+      trainer: "Alan Korotkin",
+      entry_status: "soon",
+      entry_go_time: "11:56:24",
+      entry_go_time_now: "11:52:00",
+      go_in_mins: 22,
+      entries_ahead: 6,
+      entry_order_now: 2,
+      pace_seconds: 198,
+      tags: "go_in_40,entry_10_away"
+    }, {
+      entry_no: "2460",
+      entry_order: "8",
+      entry_const_key: "14910|20260712|4218|740|35348|2460",
+      entry_visual_key: "14910|20260712|4218|740|35348|2460",
+      horse: "Dany Villers",
+      barn_name: "Dany",
+      rider: "Lainey Posa",
+      trainer: "Alan Korotkin"
+    }]
+  }];
+  rows.runtime_ring_status_rows = [{
+    show_no: "14910",
+    focus_day: "2026-07-12",
+    ring_no: "740",
+    ring_day_no: "4218",
+    ring_name: "JUMPER ANNEX - Gary",
+    ring_name_prioritized: "JUMPER ANNEX - Gary",
+    ring_name_normalized: "annex",
+    ring_const_key: "14910|20260712|4218|740",
+    ring_status_key: "14910|20260712|4218|740",
+    ring_status: "now",
+    now: "35348",
+    next: "35351",
+    late_mins: 18,
+    ends_in_mins: 61,
+    estimated_pace_now: 198,
+    entry_count_now: 12,
+    n_gone: 2,
+    n_to_go: 10,
+    is_live: true,
+    tags: "late15"
+  }];
+  return rows;
+}
+
+test("schedule UI overview exposes stable schedule identities without drawer entries", () => {
+  const payload = __test__.buildScheduleUiOverviewPayload(
+    "14910",
+    "2026-07-12",
+    { title: "WEC", showStartDate: "2026-07-07", showEndDate: "2026-07-12" },
+    scheduleUiFixtureRows(),
+    [{
+      trigger_key: "ring-late-15",
+      trigger_type: "ring_late_15",
+      level: "ring",
+      ring_const_key: "14910|20260712|4218|740",
+      trigger_time: "2026-07-12 15:00:00"
+    }],
+    [],
+    "2026-07-12T15:01:00.000Z"
+  );
+
+  assert.equal(payload.view, "overview");
+  assert.equal(payload.show.showNo, "14910");
+  assert.equal(payload.rows.length, 1);
+  assert.equal(payload.rows[0].rowKey, "14910|20260712|4218|740|35348");
+  assert.equal(payload.rows[0].classNumber, "812b");
+  assert.equal(payload.rows[0].className, "$750 1.05m Amateur Classic II.2b");
+  assert.equal(payload.rows[0].entryCount, 12);
+  assert.equal(payload.rows[0].entryState, "rss-is-hydrated");
+  assert.equal(payload.rows[0].entryRollups.length, 1);
+  assert.equal(payload.rows[0].entryRollups[0].entries[0].entryDayKey, "14910|20260712|2460");
+  assert.equal(Object.hasOwn(payload.rows[0], "entries"), false);
+  assert.equal(payload.resources.ring_list.view, "ring_list");
+});
+
+test("schedule UI dense view joins and deduplicates all five lanes for one class", () => {
+  const rowKey = "14910|20260712|4218|740|35348";
+  const payload = __test__.buildScheduleUiDensePayload(
+    "14910",
+    "2026-07-12",
+    { title: "WEC", showStartDate: "2026-07-07", showEndDate: "2026-07-12" },
+    scheduleUiFixtureRows(),
+    [{
+      trigger_key: "class-30",
+      trigger_type: "class_start_30",
+      level: "class",
+      class_const_key: rowKey,
+      class_no: "35348",
+      trigger_time: "2026-07-12 15:02:00"
+    }, {
+      trigger_key: "entry-10-away",
+      trigger_type: "entry_10_away",
+      level: "entry",
+      class_const_key: rowKey,
+      entry_const_key: `${rowKey}|2460`,
+      class_no: "35348",
+      entry_no: "2460",
+      trigger_time: "2026-07-12 15:03:00"
+    }],
+    [{
+      rider_result_key: `${rowKey}|2460`,
+      show_no: "14910",
+      focus_day: "2026-07-12",
+      class_no: "35348",
+      entry_no: "2460",
+      horse: "Dany Villers",
+      rider: "Lainey Posa",
+      result_status: "placed",
+      place: "2",
+      score: "84",
+      result_time: "72.14",
+      result_source: "rider_results"
+    }],
+    rowKey,
+    "2026-07-12T15:04:00.000Z"
+  );
+
+  assert.equal(payload.view, "dense");
+  assert.equal(payload.rowKey, rowKey);
+  assert.equal(payload.ringwise.length, 1);
+  assert.equal(payload.classwise.length, 1);
+  assert.equal(payload.entrywise.length, 1);
+  assert.equal(payload.entrywise[0].entryKey, `${rowKey}|2460`);
+  assert.equal(payload.entrywise[0].entryGoTimeNow, "11:52:00");
+  assert.equal(payload.entrywise[0].goInMins, 22);
+  assert.deepEqual(payload.entrywise[0].tags, ["go_in_40", "entry_10_away"]);
+  assert.deepEqual(payload.ringwise[0].triggerTypes, []);
+  assert.deepEqual(payload.classwise[0].triggerTypes, ["class_start_30"]);
+  assert.deepEqual(payload.entrywise[0].triggerTypes, ["entry_10_away"]);
+  assert.equal(payload.riderwise.length, 1);
+  assert.equal(payload.riderwise[0].place, "2");
+  assert.equal(payload.riderwise[0].finishedTime, "72.14");
+  assert.deepEqual(payload.timewise.map((event) => event.triggerType), ["class_start_30", "entry_10_away"]);
+});
+
+test("schedule UI entity views expose list and detail contracts", () => {
+  const rows = scheduleUiFixtureRows();
+  const rowKey = "14910|20260712|4218|740|35348";
+  const entryDayKey = "14910|20260712|2460";
+  const events = [{
+    trigger_key: "ring-late-15",
+    trigger_type: "ring_late_15",
+    level: "ring",
+    ring_const_key: "14910|20260712|4218|740",
+    trigger_time: "2026-07-12 15:00:00"
+  }, {
+    trigger_key: "entry-10-away",
+    trigger_type: "entry_10_away",
+    level: "entry",
+    ring_const_key: "14910|20260712|4218|740",
+    class_const_key: rowKey,
+    entry_const_key: `${rowKey}|2460`,
+    class_no: "35348",
+    entry_no: "2460",
+    trigger_time: "2026-07-12 15:03:00"
+  }];
+  const results = [{
+    rider_result_key: `${rowKey}|2460`,
+    show_no: "14910",
+    focus_day: "2026-07-12",
+    class_no: "35348",
+    entry_no: "2460",
+    horse: "Dany Villers",
+    rider: "Lainey Posa",
+    result_status: "placed",
+    place: "2",
+    score: "84",
+    result_time: "72.14"
+  }];
+  const context = ["14910", "2026-07-12", { title: "WEC" }, rows, events, results, "2026-07-12T15:04:00.000Z"];
+
+  const classList = __test__.buildScheduleUiEntityPayload("class_list", ...context, {});
+  assert.equal(classList.rows.length, 1);
+  assert.equal(classList.rows[0].rowKey, rowKey);
+  assert.equal(classList.rows[0].entryRollups.length, 1);
+
+  const classDetail = __test__.buildScheduleUiEntityPayload("class_detail", ...context, { rowKey });
+  assert.equal(classDetail.rowKey, rowKey);
+  assert.equal(classDetail.entries.length, 1);
+
+  const entryList = __test__.buildScheduleUiEntityPayload("entry_list", ...context, {});
+  assert.equal(entryList.rows.length, 1);
+  assert.equal(entryList.rows[0].entryDayKey, entryDayKey);
+  assert.equal(entryList.rows[0].classCount, 1);
+
+  const entryDetail = __test__.buildScheduleUiEntityPayload("entry_detail", ...context, { entryDayKey });
+  assert.equal(entryDetail.entryDayKey, entryDayKey);
+  assert.equal(entryDetail.classes.length, 1);
+  assert.equal(entryDetail.classes[0].result.place, "2");
+  assert.deepEqual(entryDetail.classes[0].timewise.map((event) => event.triggerType), ["entry_10_away"]);
+
+  const ringList = __test__.buildScheduleUiEntityPayload("ring_list", ...context, {});
+  assert.equal(ringList.rows[0].ringKey, "14910|20260712|4218|740");
+  const ringDetail = __test__.buildScheduleUiEntityPayload("ring_detail", ...context, { ringKey: "14910|20260712|4218|740" });
+  assert.equal(ringDetail.classes.length, 1);
+
+  const resultsList = __test__.buildScheduleUiEntityPayload("results_list", ...context, {});
+  assert.equal(resultsList.rows[0].resultKey, `${rowKey}|2460`);
+  const resultDetail = __test__.buildScheduleUiEntityPayload("result_detail", ...context, { resultKey: `${rowKey}|2460` });
+  assert.equal(resultDetail.result.place, "2");
+
+  const alertsList = __test__.buildScheduleUiEntityPayload("alerts_list", ...context, {});
+  assert.equal(alertsList.rows.length, 2);
+  assert.equal(alertsList.lanes.ring.length, 1);
+  assert.equal(alertsList.lanes.entry.length, 1);
+  assert.deepEqual(Object.keys(alertsList.lanes), ["ring", "class", "entry", "rider"]);
+  const alertDetail = __test__.buildScheduleUiEntityPayload("alert_detail", ...context, { triggerKey: "entry-10-away" });
+  assert.equal(alertDetail.alert.triggerType, "entry_10_away");
+  assert.equal(alertDetail.entity.entryDayKey, entryDayKey);
+});
+
+test("Task 05 accepts snapshot-delta pace only from 105 through 285 seconds", () => {
+  const pace = __test__.boundedSnapshotDeltaPaceSeconds;
+  const prior = { class_no: 10, n_gone: 3, timestamp_value: 1_000 };
+
+  assert.equal(pace({ class_no: 10, n_gone: 4, timestamp_value: 1_104 }, prior), null);
+  assert.equal(pace({ class_no: 10, n_gone: 4, timestamp_value: 1_105 }, prior), 105);
+  assert.equal(pace({ class_no: 10, n_gone: 5, timestamp_value: 1_570 }, prior), 285);
+  assert.equal(pace({ class_no: 10, n_gone: 4, timestamp_value: 1_286 }, prior), null);
+  assert.equal(pace({ class_no: 11, n_gone: 4, timestamp_value: 1_200 }, prior), null);
+  assert.equal(pace({ class_no: 10, n_gone: 3, timestamp_value: 1_200 }, prior), null);
+});
+
+test("Task 05 recognizes explicit not-live source rows and defaults current class rows live", () => {
+  assert.equal(__test__.step5SourceIsLive({ class_no: 10, status_type: "not_live" }), false);
+  assert.equal(__test__.step5SourceIsLive({ class_no: 10, live_flag: false }), false);
+  assert.equal(__test__.step5SourceIsLive({ class_no: 10 }), true);
+  assert.equal(__test__.step5SourceIsLive({}), false);
+});
+
+test("Task 05 freezes the first observed class start", () => {
+  const first = __test__.frozenLiveStartedAt({}, true, "2026-07-12 12:24:39");
+  const second = __test__.frozenLiveStartedAt({ live_started_at: first }, true, "2026-07-12 12:30:40");
+
+  assert.equal(first, "2026-07-12 12:24:39");
+  assert.equal(second, first);
+  assert.equal(__test__.frozenLiveStartedAt({}, false, "2026-07-12 12:30:40"), null);
+});
+
+test("Task 05 absorbs the scheduled gap before reporting ring lateness", () => {
+  assert.deepEqual(__test__.step5RingTimingProjection({
+    observedTime: "12:30:00",
+    paceSeconds: 180,
+    nToGo: 5,
+    nextClassStartTime: "12:50:00"
+  }), {
+    estimated_end_time: "12:45:00",
+    running_late_mins: 0,
+    available_slack_mins: 5
+  });
+  assert.deepEqual(__test__.step5RingTimingProjection({
+    observedTime: "12:30:00",
+    paceSeconds: 180,
+    nToGo: 10,
+    nextClassStartTime: "12:50:00"
+  }), {
+    estimated_end_time: "13:00:00",
+    running_late_mins: 10,
+    available_slack_mins: 0
+  });
+});
+
+test("Task 05 derives current entry position and go time without replacing prepared go_time", () => {
+  assert.deepEqual(__test__.step5EntryTimingProjection({
+    entryOrder: 8,
+    nGone: 2,
+    currentEntryNo: 200,
+    entryNo: 2460,
+    observedTime: "12:30:00",
+    paceSeconds: 180
+  }), {
+    entry_order_now: 6,
+    entries_ahead: 5,
+    entry_go_time_now: "12:45:00"
+  });
+  assert.deepEqual(__test__.step5EntryTimingProjection({
+    entryOrder: 8,
+    nGone: 2,
+    currentEntryNo: 2460,
+    entryNo: 2460,
+    observedTime: "12:30:00",
+    paceSeconds: 180
+  }), {
+    entry_order_now: 1,
+    entries_ahead: 0,
+    entry_go_time_now: "12:30:00"
+  });
+  assert.deepEqual(__test__.step5EntryTimingProjection({
+    entryOrder: 8,
+    nGone: 2,
+    currentEntryNo: 200,
+    entryNo: 2460,
+    observedTime: "12:30:00",
+    paceSeconds: null
+  }), {
+    entry_order_now: 6,
+    entries_ahead: 5,
+    entry_go_time_now: null
+  });
+});
+
+test("Task 05 ring change log planner emits no event for an unchanged signature", () => {
+  const current = [{
+    ring_status_key: "14910|20260712|4218|740",
+    show_no: 14910,
+    focus_day: "2026-07-12",
+    ring_day_no: 4218,
+    ring_no: 740,
+    current_class_no: 35348,
+    status: "active",
+    is_live: true,
+    n_gone: 8,
+    n_to_go: 1
+  }];
+  const signature = __test__.ringStateSignature(current[0]);
+  const unchanged = __test__.planCatalystRingChangeLogs(current, [{
+    ring_status_key: current[0].ring_status_key,
+    state_signature: signature,
+    observed_at: "2026-07-12 12:24:39"
+  }], { runId: "scheduled-2", observedAt: "2026-07-12 12:30:40" });
+  const changed = __test__.planCatalystRingChangeLogs([{ ...current[0], n_gone: 9, n_to_go: 0 }], [{
+    ring_status_key: current[0].ring_status_key,
+    state_signature: signature,
+    current_values: JSON.stringify(current[0]),
+    observed_at: "2026-07-12 12:24:39"
+  }], { runId: "scheduled-3", observedAt: "2026-07-12 12:36:40" });
+
+  assert.equal(unchanged.creates.length, 0);
+  assert.equal(unchanged.unchanged.length, 1);
+  assert.equal(changed.creates.length, 1);
+  assert.equal(changed.creates[0].changed_fields, "n_gone,n_to_go");
 });

@@ -1,8 +1,16 @@
 "use strict";
 
 const crypto = require("node:crypto");
+const https = require("node:https");
 
 const ROUTER_TABLE = "hs_router_logs";
+const AIRTABLE_ROUTER_FIELDS = new Set([
+  "router_log_key", "run_id", "parent_run_id", "show_no", "focus_day", "lane", "stage",
+  "event_type", "status", "sequence_no", "source_function", "source_action", "trigger_source",
+  "trigger_reason", "started_at", "finished_at", "duration_ms", "input_count", "output_count",
+  "next_lane", "next_action", "http_status", "error_code", "error_message", "retryable",
+  "payload_json", "logged_at"
+]);
 
 function text(value) {
   return value === null || value === undefined ? "" : String(value).trim();
@@ -50,6 +58,86 @@ function cleanRow(row) {
   return Object.fromEntries(Object.entries(row).filter(([, value]) => value !== undefined && value !== ""));
 }
 
+function airtableDateTime(value) {
+  const normalized = text(value).replace(" ", "T");
+  return normalized ? `${normalized}Z` : undefined;
+}
+
+function airtableFields(row) {
+  const fields = Object.fromEntries(
+    Object.entries(row).filter(([name, value]) => AIRTABLE_ROUTER_FIELDS.has(name) && value !== undefined && value !== "")
+  );
+  for (const name of ["started_at", "finished_at", "logged_at"]) {
+    if (fields[name]) fields[name] = airtableDateTime(fields[name]);
+  }
+  if (fields.http_status !== undefined) fields.http_status = String(fields.http_status);
+  return fields;
+}
+
+function airtableRequest({ token, method = "GET", url, body }) {
+  return new Promise((resolve, reject) => {
+    const payload = body === undefined ? null : JSON.stringify(body);
+    const request = https.request(url, {
+      method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...(payload ? { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(payload) } : {})
+      }
+    }, (response) => {
+      const chunks = [];
+      response.on("data", (chunk) => chunks.push(chunk));
+      response.on("end", () => {
+        const raw = Buffer.concat(chunks).toString("utf8");
+        let parsed = {};
+        try { parsed = raw ? JSON.parse(raw) : {}; } catch { parsed = { raw }; }
+        if (response.statusCode >= 200 && response.statusCode < 300) return resolve(parsed);
+        const error = new Error(`Airtable HTTP ${response.statusCode}: ${text(parsed?.error?.message || raw)}`);
+        error.code = text(parsed?.error?.type) || `AIRTABLE_HTTP_${response.statusCode}`;
+        error.http_status = response.statusCode;
+        reject(error);
+      });
+    });
+    request.setTimeout(8000, () => request.destroy(Object.assign(new Error("Airtable router write timed out"), { code: "AIRTABLE_TIMEOUT" })));
+    request.on("error", reject);
+    if (payload) request.write(payload);
+    request.end();
+  });
+}
+
+function createAirtableRouterWriter({
+  token = process.env.AIRTABLE_TOKEN,
+  baseId = process.env.WEC_AIRTABLE_BASE_ID,
+  tableName = ROUTER_TABLE
+} = {}) {
+  if (!text(token) || !text(baseId)) return null;
+  const tableUrl = `https://api.airtable.com/v0/${encodeURIComponent(baseId)}/${encodeURIComponent(tableName)}`;
+  return {
+    async append(row, { catalystAppended = false } = {}) {
+      if (!catalystAppended) {
+        const formula = `{router_log_key}='${text(row.router_log_key).replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`;
+        const query = new URLSearchParams({ maxRecords: "1", filterByFormula: formula });
+        const existing = await airtableRequest({ token, url: `${tableUrl}?${query}` });
+        if (existing.records?.length) {
+          return { ok: true, appended: false, duplicate: true, router_log_key: row.router_log_key, record_id: existing.records[0].id };
+        }
+      }
+      const created = await airtableRequest({
+        token,
+        method: "POST",
+        url: tableUrl,
+        body: { records: [{ fields: airtableFields(row) }], typecast: true }
+      });
+      return {
+        ok: true,
+        appended: true,
+        duplicate: false,
+        router_log_key: row.router_log_key,
+        record_id: created.records?.[0]?.id
+      };
+    }
+  };
+}
+
 function normalizeEvent(base, event, sequenceNo, loggedAt) {
   const row = cleanRow({
     ...base,
@@ -91,7 +179,7 @@ async function appendRouterEvent(app, row) {
   }
 }
 
-function createRouterRun({ app, base, now = () => new Date(), logger = console }) {
+function createRouterRun({ app, base, now = () => new Date(), logger = console, airtable = createAirtableRouterWriter() }) {
   let sequence = 0;
   const attempts = [];
   return {
@@ -100,7 +188,29 @@ function createRouterRun({ app, base, now = () => new Date(), logger = console }
       sequence = Math.max(sequence, sequenceNo);
       const row = normalizeEvent(base, event, sequenceNo, now());
       try {
-        const result = await appendRouterEvent(app, row);
+        const catalystResult = await appendRouterEvent(app, row);
+        let airtableResult = { ok: true, appended: false, duplicate: false, disabled: !airtable };
+        if (airtable) {
+          try {
+            airtableResult = await airtable.append(row, { catalystAppended: catalystResult.appended });
+          } catch (error) {
+            airtableResult = {
+              ok: false,
+              appended: false,
+              duplicate: false,
+              router_log_key: row.router_log_key,
+              error_code: text(error?.code),
+              error_message: text(error?.message || error).slice(0, 1000)
+            };
+            logger.error("[router-log] Airtable write failed", airtableResult);
+          }
+        }
+        const result = {
+          ...catalystResult,
+          ok: catalystResult.ok && airtableResult.ok,
+          catalyst: catalystResult,
+          airtable: airtableResult
+        };
         attempts.push({ ...result, sequence_no: sequenceNo, stage: row.stage, event_type: row.event_type });
         return result;
       } catch (error) {
@@ -122,12 +232,26 @@ function createRouterRun({ app, base, now = () => new Date(), logger = console }
     },
     summary() {
       const failures = attempts.filter((item) => !item.ok);
+      const airtableFailures = attempts.filter((item) => item.airtable && !item.airtable.ok);
       return {
         attempted: attempts.length,
         appended: attempts.filter((item) => item.appended).length,
         duplicates: attempts.filter((item) => item.duplicate).length,
         failed_writes: failures.length,
-        failures
+        failures,
+        airtable: {
+          enabled: Boolean(airtable),
+          appended: attempts.filter((item) => item.airtable?.appended).length,
+          duplicates: attempts.filter((item) => item.airtable?.duplicate).length,
+          failed_writes: airtableFailures.length,
+          failures: airtableFailures.map((item) => ({
+            router_log_key: item.router_log_key,
+            sequence_no: item.sequence_no,
+            stage: item.stage,
+            event_type: item.event_type,
+            ...item.airtable
+          }))
+        }
       };
     },
     attach(result) {
@@ -187,8 +311,10 @@ async function executeLoggedAction(run, spec, execute) {
 
 module.exports = {
   ROUTER_TABLE,
+  airtableFields,
   appendRouterEvent,
   buildRouterLogKey,
+  createAirtableRouterWriter,
   createRouterRun,
   executeLoggedAction,
   normalizeEvent

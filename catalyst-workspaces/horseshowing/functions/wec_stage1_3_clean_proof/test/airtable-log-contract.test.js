@@ -258,7 +258,14 @@ test("Core data endpoints expose each active table by its canonical key", () => 
     ["wec-data-hs-class-oog", "hs_class_oog", "class_oog_key"],
     ["wec-data-hs-ring-status", "hs_ring_status", "ring_status_key"],
     ["wec-data-hs-class-start-times", "hs_class_start_times", "class_start_key"],
-    ["wec-data-hs-entry-go-times", "hs_entry_go_times", "entry_go_key"]
+    ["wec-data-hs-entry-go-times", "hs_entry_go_times", "entry_go_key"],
+    ["wec-data-hs-get-rings", "hs_get_rings", "get_rings_key"],
+    ["wec-data-hs-rings", "hs_ring_status", "ring_key"],
+    ["wec-data-statewise-now", "statewise_now", "statewise_now_key"],
+    ["wec-data-hs-rider-results", "hs_rider_results", "rider_result_key"],
+    ["wec-data-time-engine-triggers", "time_engine_triggers", "trigger_key"],
+    ["wec-data-time-engine-logs", "time_engine_logs", "time_engine_log_key"],
+    ["wec-data-hs-router-logs", "hs_router_logs", "router_log_key"]
   ]);
 });
 
@@ -281,4 +288,56 @@ test("Helper endpoints use the same complete-list response contract as Core endp
     internal_page_size: 200,
     maximum_rows: 5000
   });
+});
+
+test("horse helper endpoint filters populated barn names", () => {
+  const rows = [
+    { horse_key: "1", barn_name: "Poppy", follow: false },
+    { horse_key: "2", barn_name: "  ", follow: true },
+    { horse_key: "3", follow: true }
+  ];
+
+  assert.deepEqual(
+    handler.__test.filterHelperEndpointRows("wec-data-hs-horses", rows, { barn_name: "populated" }),
+    [rows[0]]
+  );
+});
+
+test("horse helper endpoint filters followed horses", () => {
+  const rows = [
+    { horse_key: "1", barn_name: "Poppy", follow: false },
+    { horse_key: "2", barn_name: "Blue", follow: true }
+  ];
+
+  assert.deepEqual(
+    handler.__test.filterHelperEndpointRows("wec-data-hs-horses", rows, { follow: "true" }),
+    [rows[1]]
+  );
+});
+
+test("horse helper endpoint combines barn-name and follow filters with AND", () => {
+  const rows = [
+    { horse_key: "1", barn_name: "Poppy", follow: false },
+    { horse_key: "2", barn_name: "Blue", follow: true },
+    { horse_key: "3", barn_name: "", follow: true }
+  ];
+
+  assert.deepEqual(
+    handler.__test.filterHelperEndpointRows("wec-data-hs-horses", rows, {
+      barn_name: "populated",
+      follow: "true"
+    }),
+    [rows[1]]
+  );
+  assert.deepEqual(handler.__test.filterHelperEndpointRows("wec-data-hs-horses", rows, {}), rows);
+});
+
+test("helper endpoint removes duplicate rows produced by unordered internal paging", () => {
+  const rows = [
+    { horse_key: "hermes", horse_name: "Hermes", follow: true },
+    { horse_key: "crush", horse_name: "Crush", follow: true },
+    { horse_key: "hermes", horse_name: "Hermes", follow: true }
+  ];
+
+  assert.deepEqual(handler.__test.dedupeHelperEndpointRows(rows, "horse_key"), [rows[0], rows[1]]);
 });

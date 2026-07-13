@@ -15272,6 +15272,15 @@ function frozenLiveStartedAt(existing, isLive, observedAt) {
   return isLive ? text(observedAt) || null : null;
 }
 
+function task05SchedulerDate(value) {
+  const raw = text(value);
+  const parsed = new Date(raw);
+  if (!raw || Number.isNaN(parsed.getTime())) {
+    throw new Error(`TASK_05_INVALID_SCHEDULER_TIMESTAMP: ${raw || "<empty>"}`);
+  }
+  return parsed;
+}
+
 function step5TimeSeconds(value) {
   const normalized = classStartTimeFromText(value);
   const match = normalized.match(/^(\d{2}):(\d{2}):(\d{2})$/);
@@ -15527,7 +15536,7 @@ async function enrichStep5RuntimeRows(app, showNo, focusDay, { getRingsRows = []
   const entryGoRows = entryGoPage.rows || [];
   const snapshotRows = snapshotPage.rows || [];
   const soonClassStatusKeys = await readSoonClassStatusKeys(showNo, safeFocusDay);
-  const observedAt = floridaCatalystDateTime(runTime || new Date().toISOString());
+  const observedAt = floridaCatalystDateTime(task05SchedulerDate(runTime));
   const observedTime = text(observedAt).split(" ")[1] || "";
 
   const ringStatusByRing = new Map();
@@ -16178,7 +16187,7 @@ async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
       if (!(rings.source_rows || []).length) {
         const ringsNearClose = isLiveWindowNearClose(rings.live_window);
         if (ringsNearClose) {
-          const lastLiveEmptyAt = floridaCatalystDateTime(runTime);
+          const lastLiveEmptyAt = floridaCatalystDateTime(task05SchedulerDate(runTime));
           const catalystHsFocusShow = await updateCatalystHsFocusShowLiveEmpty(app, activeFocus.show_no, focusDay, lastLiveEmptyAt);
           closingDaySignal = {
             signal: "live_source_empty_near_show_end",
@@ -18707,6 +18716,7 @@ if (process.env.NODE_ENV === "test") {
     boundedSnapshotDeltaPaceSeconds,
     step5SourceIsLive,
     frozenLiveStartedAt,
+    task05SchedulerDate,
     step5RingTimingProjection,
     step5EntryTimingProjection,
     ringStateSignature,

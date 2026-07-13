@@ -1355,3 +1355,18 @@ test("Task 05 ring change log planner emits no event for an unchanged signature"
   assert.equal(changed.creates.length, 1);
   assert.equal(changed.creates[0].changed_fields, "n_gone,n_to_go");
 });
+
+test("Task 05 converts a valid scheduler ISO timestamp to a Date", () => {
+  const value = "2026-07-12T16:48:51.000Z";
+  const converted = __test__.task05SchedulerDate(value);
+
+  assert.equal(converted instanceof Date, true);
+  assert.equal(converted.toISOString(), value);
+});
+
+test("Task 05 rejects an invalid scheduler timestamp explicitly", () => {
+  assert.throws(
+    () => __test__.task05SchedulerDate("not-a-scheduler-timestamp"),
+    /TASK_05_INVALID_SCHEDULER_TIMESTAMP: not-a-scheduler-timestamp/
+  );
+});

@@ -55,7 +55,9 @@ const TIME_ENGINE_TRIGGER_FIELDS = Object.freeze([
   "trigger_type", "status", "source_table", "source_key", "ring_const_key",
   "class_const_key", "entry_const_key", "class_no", "entry_no", "trigger_time",
   "generated_at", "estimated_pace_now", "starts_in", "ends_in", "entry_order_now",
-  "entries_ahead", "entry_go_time_now", "go_in", "class_status", "tags", "payload_json"
+  "entries_ahead", "entry_go_time_now", "go_in", "class_status", "tags",
+  "ring_no", "horse", "rider", "trainer", "followed_class", "tracked_entry_count",
+  "snapshot_id", "snapshot_source", "as_of_time", "row_count", "payload_json"
 ]);
 
 const STATEWISE_NOW_ENDPOINT_FIELDS = Object.freeze([
@@ -64,13 +66,46 @@ const STATEWISE_NOW_ENDPOINT_FIELDS = Object.freeze([
   "sort_order", "ends_in", "starts_in", "CREATEDTIME", "MODIFIEDTIME"
 ]);
 
+const STATEWISE_NOW_FIELDS = Object.freeze([
+  "statewise_now_key", "show_no", "focus_day", "focus_day_key", "snapshot_id",
+  "snapshot_source", "as_of_time", "mins_since_updated", "lane", "lookup_type",
+  "lookup_key", "ring_const_key", "class_const_key", "entry_const_key", "ring_no",
+  "class_no", "entry_no", "ring_name", "class_name", "horse", "rider", "trainer",
+  "state", "sort_order", "class_start_time", "entry_go_time_now", "entry_count_now",
+  "n_gone_now", "n_to_go_now", "entries_ahead", "go_in", "starts_in", "ends_in",
+  "estimated_pace_now", "tags", "payload_json", "last_synced_at"
+]);
+
+const AIRTABLE_STATEWISE_NOW_FIELDS = Object.freeze([
+  "statewise_now_key", "show_no", "focus_day", "ring_no", "class_no", "entry_no",
+  "horse", "rider", "trainer", "as_of_time", "mins_since_updated", "state",
+  "sort_order", "ends_in", "starts_in"
+]);
+
+const CUSTOMER_TRIGGER_TYPES = Object.freeze(new Set([
+  "class_start_60", "class_start_30", "class_live", "entry_go_40", "entry_go_20",
+  "entry_class_10_gone", "entry_10_away", "ring_late_15", "ring_late_30"
+]));
+
+const INTERNAL_TRIGGER_TYPES = Object.freeze(new Set([
+  "ring_class_change", "result_ready", "statewise_snapshot_due"
+]));
+
+const APPROVED_TRIGGER_TYPES = Object.freeze(new Set([
+  ...CUSTOMER_TRIGGER_TYPES,
+  ...INTERNAL_TRIGGER_TYPES
+]));
+
 const RIDER_RESULT_ENDPOINT_FIELDS = Object.freeze([
   "rider_result_key", "show_no", "focus_day", "class_no", "entry_no", "horse",
   "rider", "place", "score", "result_time", "result_status", "result_source",
   "observed_at", "run_id", "CREATEDTIME", "MODIFIEDTIME"
 ]);
 const AIRTABLE_TIME_ENGINE_TRIGGER_FIELDS = Object.freeze([
-  ...TIME_ENGINE_TRIGGER_FIELDS,
+  "trigger_key", "run_id", "show_no", "focus_day", "focus_day_key", "level",
+  "trigger_type", "status", "source_table", "source_key", "ring_const_key",
+  "class_const_key", "entry_const_key", "class_no", "entry_no", "trigger_time",
+  "generated_at", "payload_json",
   "ring_no", "horse", "rider", "trainer"
 ]);
 
@@ -299,6 +334,14 @@ function catalystDateTime(value = new Date()) {
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return catalystDateTime(new Date());
   return date.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
+}
+
+function catalystDateTimeToUtcIso(value) {
+  const raw = text(value);
+  const catalystMatch = raw.match(/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})$/);
+  const date = catalystMatch ? new Date(`${catalystMatch[1]}T${catalystMatch[2]}.000Z`) : new Date(raw);
+  if (Number.isNaN(date.getTime())) return raw;
+  return date.toISOString();
 }
 
 function queryParams(req) {
@@ -1232,16 +1275,12 @@ function previousAlertState(previousRow) {
 function nextRingAlertState(previousRow, row, vars, eventTimeIso = new Date().toISOString()) {
   const previous = previousAlertState(previousRow);
   const initialized = boolish(previous.ring_initialized);
-  const wasLive = boolish(previous.ring_live_active);
   const isLive = boolish(row?.is_live);
   const previousClassNo = intValue(previous.current_class_no);
   const currentClassNo = intValue(row?.current_class_no || vars?.now_class?.class_no);
   const classChanged = initialized && previousClassNo > 0 && currentClassNo > 0 && previousClassNo !== currentClassNo;
-  const enteringLive = isLive && (!initialized || !wasLive);
-  const leavingLive = initialized && wasLive && !isLive;
   const previousAlertStatus = text(previous.ring_alert_status);
   const currentAlertStatus = text(vars?.ring_alert_status);
-  const enteringGate = currentAlertStatus === "check_gate" && previousAlertStatus !== "check_gate";
   const lateMins = Math.max(0, intValue(vars?.running_late_mins));
   const late15Now = lateMins >= 15;
   const late30Now = lateMins >= 30;
@@ -1249,10 +1288,6 @@ function nextRingAlertState(previousRow, row, vars, eventTimeIso = new Date().to
   return {
     ring_initialized: true,
     ring_live_active: isLive,
-    ring_live_sequence: enteringLive ? Math.max(0, intValue(previous.ring_live_sequence)) + 1 : Math.max(0, intValue(previous.ring_live_sequence)),
-    ring_live_started_at: enteringLive ? eventTimeIso : text(previous.ring_live_started_at),
-    ring_not_live_sequence: leavingLive ? Math.max(0, intValue(previous.ring_not_live_sequence)) + 1 : Math.max(0, intValue(previous.ring_not_live_sequence)),
-    ring_not_live_at: leavingLive ? eventTimeIso : text(previous.ring_not_live_at),
     current_class_no: currentClassNo,
     previous_class_no: classChanged ? previousClassNo : intValue(previous.previous_class_no),
     ring_class_change_sequence: classChanged ? Math.max(0, intValue(previous.ring_class_change_sequence)) + 1 : Math.max(0, intValue(previous.ring_class_change_sequence)),
@@ -1262,8 +1297,7 @@ function nextRingAlertState(previousRow, row, vars, eventTimeIso = new Date().to
     ring_late_30_reached: boolish(previous.ring_late_30_reached) || late30Now,
     ring_late_30_reached_at: text(previous.ring_late_30_reached_at) || (late30Now ? eventTimeIso : ""),
     ring_alert_status: currentAlertStatus,
-    ring_gate_sequence: enteringGate ? Math.max(0, intValue(previous.ring_gate_sequence)) + 1 : Math.max(0, intValue(previous.ring_gate_sequence)),
-    ring_gate_started_at: enteringGate ? eventTimeIso : text(previous.ring_gate_started_at)
+    previous_ring_alert_status: previousAlertStatus
   };
 }
 
@@ -1275,19 +1309,26 @@ function finiteIntOrNull(value) {
 function nextClassAlertState(previousRow, vars, eventTimeIso = new Date().toISOString()) {
   const previous = previousAlertState(previousRow);
   const tags = Array.isArray(vars?.tags) ? vars.tags : [];
-  const thresholdReachedNow = tags.includes("starts_in_30");
-  const classStart30Reached = boolish(previous.class_start_30_reached) || thresholdReachedNow;
+  const classStart60Now = tags.includes("starts_in_60");
+  const classStart30Now = tags.includes("starts_in_30");
+  const classStart60Reached = boolish(previous.class_start_60_reached) || classStart60Now;
+  const classStart30Reached = boolish(previous.class_start_30_reached) || classStart30Now;
   const wasLive = boolish(previous.class_live_active);
   const isLive = lowerText(vars?.class_status) === "now" || vars?.is_live === true;
   const previousSequence = Math.max(0, intValue(previous.class_live_sequence));
   const enteringLive = isLive && !wasLive;
 
   return {
+    class_start_60_reached: classStart60Reached,
+    class_start_60_reached_at: text(previous.class_start_60_reached_at) || (classStart60Now ? eventTimeIso : ""),
+    class_start_60_time_till: previous.class_start_60_time_till !== undefined
+      ? finiteIntOrNull(previous.class_start_60_time_till)
+      : (classStart60Now ? finiteIntOrNull(vars?.starts_in_mins) : null),
     class_start_30_reached: classStart30Reached,
-    class_start_30_reached_at: text(previous.class_start_30_reached_at) || (thresholdReachedNow ? eventTimeIso : ""),
+    class_start_30_reached_at: text(previous.class_start_30_reached_at) || (classStart30Now ? eventTimeIso : ""),
     class_start_30_time_till: previous.class_start_30_time_till !== undefined
       ? finiteIntOrNull(previous.class_start_30_time_till)
-      : (thresholdReachedNow ? finiteIntOrNull(vars?.starts_in_mins) : null),
+      : (classStart30Now ? finiteIntOrNull(vars?.starts_in_mins) : null),
     class_live_active: isLive,
     class_live_sequence: enteringLive ? previousSequence + 1 : previousSequence,
     class_live_started_at: enteringLive ? eventTimeIso : text(previous.class_live_started_at)
@@ -1297,14 +1338,19 @@ function nextClassAlertState(previousRow, vars, eventTimeIso = new Date().toISOS
 function nextEntryAlertState(previousRow, vars, eventTimeIso = new Date().toISOString()) {
   const previous = previousAlertState(previousRow);
   const tags = Array.isArray(vars?.tags) ? vars.tags : [];
-  const thresholdReachedNow = tags.includes("go_in_20");
-  const reached = boolish(previous.entry_go_20_reached) || thresholdReachedNow;
+  const go40Now = tags.includes("go_in_40");
+  const go20Now = tags.includes("go_in_20");
   return {
-    entry_go_20_reached: reached,
-    entry_go_20_reached_at: text(previous.entry_go_20_reached_at) || (thresholdReachedNow ? eventTimeIso : ""),
+    entry_go_40_reached: boolish(previous.entry_go_40_reached) || go40Now,
+    entry_go_40_reached_at: text(previous.entry_go_40_reached_at) || (go40Now ? eventTimeIso : ""),
+    entry_go_40_time_till: previous.entry_go_40_time_till !== undefined
+      ? finiteIntOrNull(previous.entry_go_40_time_till)
+      : (go40Now ? finiteIntOrNull(vars?.go_in_mins) : null),
+    entry_go_20_reached: boolish(previous.entry_go_20_reached) || go20Now,
+    entry_go_20_reached_at: text(previous.entry_go_20_reached_at) || (go20Now ? eventTimeIso : ""),
     entry_go_20_time_till: previous.entry_go_20_time_till !== undefined
       ? finiteIntOrNull(previous.entry_go_20_time_till)
-      : (thresholdReachedNow ? finiteIntOrNull(vars?.go_in_mins) : null)
+      : (go20Now ? finiteIntOrNull(vars?.go_in_mins) : null)
   };
 }
 
@@ -1315,6 +1361,30 @@ function buildClassAlertEvents(row, vars, alertState, eventTimeIso) {
   const classNo = intValue(row.class_no);
   const sourceKey = text(row.class_const_key || row.class_start_key);
   const subject = text(row.class_name) || `Class ${classNo}`;
+
+  if (alertState.class_start_60_reached) {
+    events.push({
+      alert_key: `${showNo}|${focusDay}|${classNo}|class_start_60`,
+      trigger_identity: "class_start_60",
+      alert_type: "class_start_60",
+      alert_lane: "class_start_times",
+      event_time_iso: text(alertState.class_start_60_reached_at) || eventTimeIso,
+      show_no: showNo,
+      focus_day: focusDay,
+      level: "class",
+      class_no: classNo,
+      entry_no: 0,
+      class_const_key: sourceKey,
+      entry_const_key: "",
+      source_table: TABLES.classStartTimes,
+      source_key: sourceKey,
+      trigger_minutes: 60,
+      time_till: alertState.class_start_60_time_till,
+      target_time: `${focusDay} ${text(row.class_start_time)}`,
+      alert_subject: subject,
+      message: `${text(row.display_time || row.class_start_time)} ${subject}`.trim()
+    });
+  }
 
   if (alertState.class_start_30_reached) {
     events.push({
@@ -1390,22 +1460,6 @@ function buildRingAlertEvents(row, alertState, eventTimeIso) {
     alert_subject: subject
   };
   const events = [];
-  if (intValue(alertState.ring_live_sequence) > 0) events.push({
-    ...base,
-    alert_key: `${showNo}|${focusDay}|${ringNo}|ring_live|${intValue(alertState.ring_live_sequence)}`,
-    trigger_identity: `ring_live|${intValue(alertState.ring_live_sequence)}`,
-    alert_type: "ring_live",
-    event_time_iso: text(alertState.ring_live_started_at) || eventTimeIso,
-    message: `${subject} is live.`
-  });
-  if (intValue(alertState.ring_not_live_sequence) > 0) events.push({
-    ...base,
-    alert_key: `${showNo}|${focusDay}|${ringNo}|ring_not_live|${intValue(alertState.ring_not_live_sequence)}`,
-    trigger_identity: `ring_not_live|${intValue(alertState.ring_not_live_sequence)}`,
-    alert_type: "ring_not_live",
-    event_time_iso: text(alertState.ring_not_live_at) || eventTimeIso,
-    message: `${subject} is not live.`
-  });
   if (intValue(alertState.ring_class_change_sequence) > 0) events.push({
     ...base,
     alert_key: `${showNo}|${focusDay}|${ringNo}|ring_class_change|${intValue(alertState.ring_class_change_sequence)}`,
@@ -1428,31 +1482,19 @@ function buildRingAlertEvents(row, alertState, eventTimeIso) {
       message: `${subject} is at least ${threshold} minutes late.`
     });
   }
-  if (intValue(alertState.ring_gate_sequence) > 0) events.push({
-    ...base,
-    alert_key: `${showNo}|${focusDay}|${ringNo}|ring_gate|${intValue(alertState.ring_gate_sequence)}`,
-    trigger_identity: `ring_gate|${intValue(alertState.ring_gate_sequence)}`,
-    alert_type: "ring_gate",
-    event_time_iso: text(alertState.ring_gate_started_at) || eventTimeIso,
-    message: `${subject} requires a gate check.`
-  });
   return events;
 }
 
 function buildEntryAlertEvents(row, vars, alertState, eventTimeIso) {
-  if (!alertState.entry_go_20_reached) return [];
+  if (!alertState.entry_go_40_reached && !alertState.entry_go_20_reached) return [];
   const showNo = intValue(row.show_no);
   const focusDay = text(row.focus_day || row.iso_date);
   const classNo = intValue(row.class_no);
   const entryNo = intValue(row.entry_no);
   const sourceKey = text(row.entry_const_key || row.entry_go_key);
   const subject = text(row.horse) || `Entry ${entryNo}`;
-  return [{
-    alert_key: `${showNo}|${focusDay}|${classNo}|${entryNo}|entry_go_20`,
-    trigger_identity: "entry_go_20",
-    alert_type: "entry_go_20",
+  const base = {
     alert_lane: "entry_go_times",
-    event_time_iso: text(alertState.entry_go_20_reached_at) || eventTimeIso,
     show_no: showNo,
     focus_day: focusDay,
     level: "entry",
@@ -1465,12 +1507,35 @@ function buildEntryAlertEvents(row, vars, alertState, eventTimeIso) {
     trainer: text(row.trainer),
     source_table: TABLES.entryGoTimes,
     source_key: sourceKey,
-    trigger_minutes: 20,
-    time_till: alertState.entry_go_20_time_till,
     target_time: `${focusDay} ${text(row.go_time || row.entry_go_time)}`,
-    alert_subject: `${subject} (${entryNo})`,
-    message: `${subject} entry ${entryNo} estimated go in about 20 minutes.`
-  }];
+    alert_subject: `${subject} (${entryNo})`
+  };
+  const events = [];
+  if (alertState.entry_go_40_reached) {
+    events.push({
+      ...base,
+      alert_key: `${showNo}|${focusDay}|${classNo}|${entryNo}|entry_go_40`,
+      trigger_identity: "entry_go_40",
+      alert_type: "entry_go_40",
+      event_time_iso: text(alertState.entry_go_40_reached_at) || eventTimeIso,
+      trigger_minutes: 40,
+      time_till: alertState.entry_go_40_time_till,
+      message: `${subject} entry ${entryNo} estimated go in about 40 minutes.`
+    });
+  }
+  if (alertState.entry_go_20_reached) {
+    events.push({
+      ...base,
+      alert_key: `${showNo}|${focusDay}|${classNo}|${entryNo}|entry_go_20`,
+      trigger_identity: "entry_go_20",
+      alert_type: "entry_go_20",
+      event_time_iso: text(alertState.entry_go_20_reached_at) || eventTimeIso,
+      trigger_minutes: 20,
+      time_till: alertState.entry_go_20_time_till,
+      message: `${subject} entry ${entryNo} estimated go in about 20 minutes.`
+    });
+  }
+  return events;
 }
 
 function planAppendOnlyAlertEvents(events, existingRecords) {
@@ -1862,6 +1927,10 @@ function planAppendOnlyTimeEngineTriggers(triggerRows, existingRecords) {
   return { creates, existing: [...existingKeys] };
 }
 
+function approvedTimeEngineTriggers(triggerRows) {
+  return (triggerRows || []).filter((trigger) => APPROVED_TRIGGER_TYPES.has(text(trigger?.trigger_type)));
+}
+
 async function appendAirtableTimeEngineTriggers(focus, triggerRows) {
   if (!(triggerRows || []).length) {
     return { candidates: 0, created: 0, existing: 0, created_keys: [], existing_keys: [] };
@@ -1922,16 +1991,32 @@ function buildTimeEngineTrigger(row, triggerType, runId, generatedAt, payload = 
     horse: text(row.horse || payload.horse),
     rider: text(row.rider || payload.rider),
     trainer: text(row.trainer || payload.trainer),
+    followed_class: payload.followed_class === true,
+    tracked_entry_count: nullablePositiveInt(payload.tracked_entry_count),
+    snapshot_id: text(payload.snapshot_id),
+    snapshot_source: text(payload.snapshot_source),
+    as_of_time: text(payload.as_of_time),
+    row_count: nullablePositiveInt(payload.row_count),
+    estimated_pace_now: nullablePositiveInt(row.pace_seconds || payload.estimated_pace_now),
+    starts_in: nullablePositiveInt(row.starts_in_mins || payload.starts_in),
+    ends_in: nullablePositiveInt(row.ends_in_mins || payload.ends_in),
+    entry_order_now: nullablePositiveInt(payload.entry_order_now),
+    entries_ahead: nullablePositiveInt(payload.entries_ahead),
+    entry_go_time_now: text(row.entry_go_time || payload.entry_go_time_now),
+    go_in: nullablePositiveInt(row.go_in_mins || payload.go_in),
+    class_status: text(row.status || payload.class_status),
+    tags: text(row.tags || payload.tags),
     trigger_time: generatedAt,
     generated_at: generatedAt,
     payload_json: compactJson(payload)
   };
 }
 
-function pushAlertEventTriggers(triggers, engineRow, events, runId, generatedAt) {
+function pushAlertEventTriggers(triggers, engineRow, events, runId, generatedAt, extraPayload = {}) {
   for (const event of events || []) {
     triggers.push(buildTimeEngineTrigger(engineRow, event.alert_type, runId, generatedAt, {
       ...event,
+      ...extraPayload,
       alert_event: true
     }));
   }
@@ -2012,6 +2097,280 @@ async function insertNewTimeEngineTriggers(app, schema, triggerRows, missingCont
   return { inserted: inserted.length, existing: existing.length };
 }
 
+function statewiseSnapshotId(focus, snapshotSource, asOfDate = new Date()) {
+  const bucket = new Date(asOfDate);
+  bucket.setUTCSeconds(0, 0);
+  const bucketMinute = Math.floor(bucket.getUTCMinutes() / 12) * 12;
+  bucket.setUTCMinutes(bucketMinute);
+  const stamp = bucket.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z").slice(0, 13);
+  return [focus.show_no, compactDate(focus.focus_day), snapshotSource, stamp].map(text).join("|");
+}
+
+function statewiseProjectionIdentity(row) {
+  const entityIdentity = text(row.entry_const_key || row.class_const_key || row.ring_const_key || row.lookup_key);
+  return [row.lane, row.lookup_type, row.lookup_key, row.state, entityIdentity].map(text).join("|");
+}
+
+function normalizedSignatureValue(value) {
+  if (Array.isArray(value)) return value.map(text).filter(Boolean).sort();
+  if (value === null || value === undefined) return null;
+  if (typeof value === "number") return Number.isFinite(value) ? Math.round(value) : null;
+  const asNumber = Number(value);
+  if (text(value) !== "" && Number.isFinite(asNumber) && /^-?\d+(\.\d+)?$/.test(text(value))) return Math.round(asNumber);
+  return text(value);
+}
+
+function catalystStatewisePreparedSignature(row) {
+  const fields = [
+    "lane", "lookup_type", "lookup_key", "state", "ring_const_key", "class_const_key",
+    "entry_const_key", "ring_no", "class_no", "entry_no", "ring_name", "class_name",
+    "horse", "rider", "trainer", "sort_order", "class_start_time", "entry_go_time_now",
+    "entry_count_now", "n_gone_now", "n_to_go_now", "entries_ahead", "go_in",
+    "starts_in", "ends_in", "estimated_pace_now", "tags"
+  ];
+  return compactJson(Object.fromEntries(fields.map((field) => [field, normalizedSignatureValue(row[field])])));
+}
+
+function statewiseRowKey(snapshotId, row) {
+  return [snapshotId, row.lane, row.lookup_type, row.lookup_key, row.state, row.entry_const_key || row.class_const_key || row.ring_const_key || row.lookup_key]
+    .map(text)
+    .join("|");
+}
+
+function timeEnginePayload(row) {
+  return parseJsonObject(row.payload_json);
+}
+
+function statewiseBaseRow(focus, snapshotId, snapshotSource, asOfTime, row) {
+  const catalystAsOfTime = catalystDateTime(asOfTime);
+  return {
+    show_no: intValue(focus.show_no),
+    focus_day: focus.focus_day,
+    focus_day_key: compactDate(focus.focus_day),
+    snapshot_id: snapshotId,
+    snapshot_source: snapshotSource,
+    as_of_time: catalystAsOfTime,
+    mins_since_updated: 0,
+    last_synced_at: catalystAsOfTime,
+    ...row
+  };
+}
+
+function buildStatewiseRowsFromTimeEngineRows(focus, timeEngineRows, options = {}) {
+  const asOfDate = options.now ? new Date(options.now) : new Date();
+  const asOfTime = asOfDate.toISOString();
+  const snapshotSource = text(options.snapshot_source || "scheduled");
+  const snapshotId = text(options.snapshot_id) || statewiseSnapshotId(focus, snapshotSource, asOfDate);
+  const rows = [];
+  for (const engineRow of (timeEngineRows || []).filter((row) => text(row.level) === "ring")) {
+    const payload = timeEnginePayload(engineRow);
+    const nowClass = payload.now_class || {};
+    const nextClass = payload.next_class || {};
+    const ringLookup = text(engineRow.ring_name_normalized || engineRow.ring_name_prioritized || engineRow.ring_no);
+    if (nowClass.class_no) {
+      rows.push(statewiseBaseRow(focus, snapshotId, snapshotSource, asOfTime, {
+        lane: "ring", lookup_type: "ring", lookup_key: ringLookup, state: "now", sort_order: 1,
+        ring_const_key: text(engineRow.ring_const_key), class_const_key: text(nowClass.class_const_key),
+        ring_no: intValue(engineRow.ring_no), class_no: intValue(nowClass.class_no), entry_no: 0,
+        ring_name: text(engineRow.ring_name_normalized), class_name: text(nowClass.class_name),
+        class_start_time: text(nowClass.class_start_time), entry_count_now: intValue(nowClass.entry_count),
+        n_gone_now: intValue(nowClass.n_gone), n_to_go_now: intValue(nowClass.n_to_go),
+        ends_in: nullableEndpointInt(engineRow.ends_in_mins), estimated_pace_now: nullableEndpointInt(engineRow.pace_seconds),
+        tags: text(engineRow.tags)
+      }));
+    }
+    if (nextClass.class_no) {
+      rows.push(statewiseBaseRow(focus, snapshotId, snapshotSource, asOfTime, {
+        lane: "ring", lookup_type: "ring", lookup_key: ringLookup, state: "nextup", sort_order: 2,
+        ring_const_key: text(engineRow.ring_const_key), class_const_key: text(nextClass.class_const_key),
+        ring_no: intValue(engineRow.ring_no), class_no: intValue(nextClass.class_no), entry_no: 0,
+        ring_name: text(engineRow.ring_name_normalized), class_name: text(nextClass.class_name),
+        class_start_time: text(nextClass.class_start_time), entry_count_now: intValue(nextClass.entry_count),
+        n_gone_now: intValue(nextClass.n_gone), n_to_go_now: intValue(nextClass.n_to_go),
+        starts_in: nullableEndpointInt(engineRow.starts_in_mins), estimated_pace_now: nullableEndpointInt(engineRow.pace_seconds),
+        tags: text(engineRow.tags)
+      }));
+    }
+  }
+  const nearestByPerson = new Map();
+  for (const engineRow of (timeEngineRows || []).filter((row) => text(row.level) === "entry")) {
+    const goIn = nullableEndpointInt(engineRow.go_in_mins);
+    if (goIn === null || goIn < 0) continue;
+    for (const [lookupType, lookupValue] of [["horse", engineRow.horse], ["rider", engineRow.rider]]) {
+      const lookupKey = text(lookupValue);
+      if (!lookupKey) continue;
+      const key = `${lookupType}|${lookupKey.toLowerCase()}`;
+      const existing = nearestByPerson.get(key);
+      if (!existing || goIn < nullableEndpointInt(existing.go_in)) {
+        nearestByPerson.set(key, statewiseBaseRow(focus, snapshotId, snapshotSource, asOfTime, {
+          lane: "person", lookup_type: lookupType, lookup_key: lookupKey, state: "nextup", sort_order: 2,
+          ring_const_key: text(engineRow.ring_const_key), class_const_key: text(engineRow.class_const_key),
+          entry_const_key: text(engineRow.entry_const_key), ring_no: intValue(engineRow.ring_no),
+          class_no: intValue(engineRow.class_no), entry_no: intValue(engineRow.entry_no),
+          horse: text(engineRow.horse), rider: text(engineRow.rider), trainer: text(engineRow.trainer),
+          class_start_time: text(engineRow.class_start_time), entry_go_time_now: text(engineRow.entry_go_time),
+          entries_ahead: nullableEndpointInt(timeEnginePayload(engineRow).field_vars?.entries_ahead),
+          go_in: goIn, estimated_pace_now: nullableEndpointInt(engineRow.pace_seconds), tags: text(engineRow.tags)
+        }));
+      }
+    }
+  }
+  rows.push(...nearestByPerson.values());
+  return rows.map((row) => ({
+    ...row,
+    statewise_now_key: statewiseRowKey(snapshotId, row),
+    payload_json: compactJson({ signature: catalystStatewisePreparedSignature(row), projection_identity: statewiseProjectionIdentity(row) })
+  }));
+}
+
+async function readLatestCompletedCatalystStatewiseGeneration(app, focus, excludeSnapshotId = "") {
+  const receipts = await zcqlRows(
+    app,
+    TABLES.timeEngineTriggers,
+    `SELECT * FROM ${TABLES.timeEngineTriggers} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} AND trigger_type = 'statewise_snapshot_due' ORDER BY generated_at DESC LIMIT 20`
+  );
+  for (const receipt of receipts) {
+    const payload = parseJsonObject(receipt.payload_json);
+    const snapshotId = text(receipt.snapshot_id || payload.snapshot_id);
+    if (!snapshotId || snapshotId === excludeSnapshotId) continue;
+    const rows = await zcqlRows(
+      app,
+      TABLES.statewiseNow,
+      `SELECT * FROM ${TABLES.statewiseNow} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} AND snapshot_id = ${zcqlValue(snapshotId)} LIMIT 300`
+    );
+    if (rows.length === intValue(receipt.row_count || payload.row_count)) {
+      return { snapshot_id: snapshotId, receipt, rows };
+    }
+  }
+  return { snapshot_id: "", receipt: null, rows: [] };
+}
+
+function planAirtableStatewiseChangesFromCatalyst(newRows, previousRows) {
+  const previousByIdentity = new Map((previousRows || []).map((row) => [statewiseProjectionIdentity(row), catalystStatewisePreparedSignature(row)]));
+  const creates = [];
+  const unchanged = [];
+  for (const row of newRows || []) {
+    const identity = statewiseProjectionIdentity(row);
+    const signature = catalystStatewisePreparedSignature(row);
+    if (previousByIdentity.get(identity) === signature) unchanged.push(row);
+    else creates.push(row);
+  }
+  return { creates, unchanged };
+}
+
+function airtableStatewiseFields(row) {
+  const source = cleanAirtableLogFields(Object.fromEntries(AIRTABLE_STATEWISE_NOW_FIELDS.map((field) => [field, row[field]])));
+  if (source.as_of_time !== undefined) source.as_of_time = catalystDateTimeToUtcIso(source.as_of_time);
+  return Object.fromEntries(AIRTABLE_STATEWISE_NOW_FIELDS.filter((field) => source[field] !== undefined).map((field) => [field, source[field]]));
+}
+
+async function readAirtableStatewiseKeysForGeneration(focus, snapshotId) {
+  const records = await getAirtableRecords(TABLES.statewiseNow, {
+    filterByFormula: `AND({show_no}=${Number(focus.show_no)},DATETIME_FORMAT({focus_day}, 'YYYY-MM-DD')='${airtableFormulaValue(focus.focus_day)}')`,
+    pageSize: "100"
+  });
+  const counts = new Map();
+  for (const record of records || []) {
+    const key = text(record?.fields?.statewise_now_key);
+    if (!key.startsWith(`${snapshotId}|`)) continue;
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return counts;
+}
+
+async function appendAirtableStatewiseChanges(focus, snapshotId, rows) {
+  const existingCounts = await readAirtableStatewiseKeysForGeneration(focus, snapshotId);
+  const missingRows = (rows || []).filter((row) => !existingCounts.has(text(row.statewise_now_key)));
+  for (let index = 0; index < missingRows.length; index += 10) {
+    const chunk = missingRows.slice(index, index + 10);
+    await airtableRequest(TABLES.statewiseNow, {}, "POST", {
+      records: chunk.map((row) => ({ fields: airtableStatewiseFields(row) })),
+      typecast: true
+    });
+  }
+  const verifiedCounts = await readAirtableStatewiseKeysForGeneration(focus, snapshotId);
+  const plannedKeys = [...new Set((rows || []).map((row) => text(row.statewise_now_key)).filter(Boolean))];
+  const missing = plannedKeys.filter((key) => !verifiedCounts.has(key));
+  const duplicated = plannedKeys.filter((key) => verifiedCounts.get(key) !== 1);
+  if (missing.length || duplicated.length) {
+    throw new Error(`statewise_airtable_verify_failed:${compactJson({ missing, duplicated })}`);
+  }
+  return { planned: plannedKeys.length, created: missingRows.length, existing: plannedKeys.length - missingRows.length };
+}
+
+function statewiseCompletionTrigger(focus, snapshotId, snapshotSource, asOfTime, rowCount, previousSnapshotId, airtableResult, runId, generatedAt) {
+  const catalystAsOfTime = catalystDateTime(asOfTime);
+  return buildTimeEngineTrigger({
+    show_no: intValue(focus.show_no),
+    focus_day: focus.focus_day,
+    level: "statewise",
+    source_table: TABLES.statewiseNow,
+    source_key: snapshotId
+  }, "statewise_snapshot_due", runId, generatedAt, {
+    trigger_identity: `statewise_snapshot_due|${snapshotId}`,
+    snapshot_id: snapshotId,
+    snapshot_source: snapshotSource,
+    as_of_time: catalystAsOfTime,
+    row_count: rowCount,
+    previous_completed_snapshot_id: previousSnapshotId,
+    airtable_changed_count: airtableResult.planned,
+    airtable_created_count: airtableResult.created,
+    airtable_existing_same_generation_count: airtableResult.existing
+  });
+}
+
+async function produceStatewiseSnapshot(app, schema, focus, timeEngineRows, options = {}) {
+  const snapshotSource = text(options.snapshot_source || "scheduled");
+  if (!["scheduled", "manual_refresh", "sms_request"].includes(snapshotSource)) {
+    throw new Error("statewise_now.invalid_snapshot_source");
+  }
+  const now = options.now ? new Date(options.now) : new Date();
+  const asOfTime = now.toISOString();
+  const snapshotId = text(options.snapshot_id) || statewiseSnapshotId(focus, snapshotSource, now);
+  const generatedAt = catalystDateTime(now);
+  const runId = text(options.run_id) || `statewise-${Date.now()}`;
+  const priorReceipt = await zcqlSingle(
+    app,
+    TABLES.timeEngineTriggers,
+    `SELECT * FROM ${TABLES.timeEngineTriggers} WHERE trigger_key = ${zcqlValue(timeEngineKey([focus.show_no, compactDate(focus.focus_day), "statewise", snapshotId, `statewise_snapshot_due|${snapshotId}`]))} LIMIT 1`
+  );
+  if (priorReceipt?.ROWID) {
+    return { ok: true, status: "SKIPPED", reason: "statewise_snapshot_already_complete", snapshot_id: snapshotId, rows_written: 0, airtable_changed_count: 0 };
+  }
+  const missingRequired = missingRequiredColumns(schema, { [TABLES.statewiseNow]: STATEWISE_NOW_FIELDS });
+  if (missingRequired.length) throw new Error(`missing_statewise_now_columns:${missingRequired.join(",")}`);
+  const missingContractFields = options.missingContractFields || [];
+  const rows = buildStatewiseRowsFromTimeEngineRows(focus, timeEngineRows, { snapshot_source: snapshotSource, snapshot_id: snapshotId, now });
+  const catalystWrite = await upsertRowsByKey(app, schema, TABLES.statewiseNow, "statewise_now_key", rows, missingContractFields);
+  const catalystRows = await zcqlRows(
+    app,
+    TABLES.statewiseNow,
+    `SELECT * FROM ${TABLES.statewiseNow} WHERE show_no = ${Number(focus.show_no)} AND focus_day = ${zcqlValue(focus.focus_day)} AND snapshot_id = ${zcqlValue(snapshotId)} LIMIT 300`
+  );
+  if (catalystRows.length !== rows.length) {
+    throw new Error(`statewise_catalyst_verify_failed:expected_${rows.length}_got_${catalystRows.length}`);
+  }
+  const previous = await readLatestCompletedCatalystStatewiseGeneration(app, focus, snapshotId);
+  const changePlan = planAirtableStatewiseChangesFromCatalyst(rows, previous.rows);
+  const airtableResult = await appendAirtableStatewiseChanges(focus, snapshotId, changePlan.creates);
+  const receipt = statewiseCompletionTrigger(focus, snapshotId, snapshotSource, asOfTime, rows.length, previous.snapshot_id, airtableResult, runId, generatedAt);
+  const receiptInsert = await insertNewTimeEngineTriggers(app, schema, [receipt], missingContractFields);
+  return {
+    ok: true,
+    status: "PASS",
+    snapshot_id: snapshotId,
+    snapshot_source: snapshotSource,
+    as_of_time: asOfTime,
+    rows_written: rows.length,
+    catalyst_write: catalystWrite,
+    previous_completed_snapshot_id: previous.snapshot_id,
+    airtable_changed_count: airtableResult.planned,
+    airtable_created_count: airtableResult.created,
+    airtable_existing_same_generation_count: airtableResult.existing,
+    receipt_insert: receiptInsert
+  };
+}
+
 async function buildTimeEngineRows(app, focus, options = {}) {
   const now = options.now ? new Date(options.now) : new Date();
   const generatedAt = catalystDateTime(now);
@@ -2027,8 +2386,13 @@ async function buildTimeEngineRows(app, focus, options = {}) {
   const previousEngineByKey = new Map(previousEngineRows.map((row) => [text(row.time_engine_key), row]));
 
   const entriesByClass = new Map();
+  const trackedClassKeys = new Set();
+  const trackedClassNos = new Set();
   for (const row of entryRows) {
     const key = text(row.class_const_key);
+    const classNo = intValue(row.class_no);
+    if (key) trackedClassKeys.add(key);
+    if (classNo) trackedClassNos.add(classNo);
     if (!key) continue;
     if (!entriesByClass.has(key)) entriesByClass.set(key, []);
     entriesByClass.get(key).push(row);
@@ -2109,6 +2473,9 @@ async function buildTimeEngineRows(app, focus, options = {}) {
   for (const row of classRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
     const vars = classVarsByKey.get(text(row.class_const_key || row.class_start_key))
       || buildFieldVarsForClass(row, entriesByClass.get(text(row.class_const_key)) || [], now);
+    const followedClass = trackedClassKeys.has(text(row.class_const_key || row.class_start_key))
+      || trackedClassNos.has(intValue(row.class_no));
+    const trackedEntryCount = (entriesByClass.get(text(row.class_const_key || row.class_start_key)) || []).length;
     const timeEngineKeyValue = timeEngineKey([focus.show_no, compactDate(focus.focus_day), "class", row.class_const_key || row.class_start_key]);
     const alertState = nextClassAlertState(previousEngineByKey.get(timeEngineKeyValue), vars, eventTimeIso);
     const classEngineRow = {
@@ -2150,20 +2517,25 @@ async function buildTimeEngineRows(app, focus, options = {}) {
         class_no: intValue(row.class_no),
         class_name: row.class_name,
         class_start_time: row.class_start_time,
+        followed_class: followedClass,
+        tracked_entry_count: trackedEntryCount,
         field_vars: vars,
         alert_state: alertState
       }),
       last_synced_at: generatedAt
     };
     rows.push(classEngineRow);
-    pushAlertEventTriggers(
-      triggers,
-      classEngineRow,
-      buildClassAlertEvents(row, vars, alertState, eventTimeIso),
-      runId,
-      generatedAt
-    );
-    if (vars.result_ready === true) {
+    if (followedClass) {
+      pushAlertEventTriggers(
+        triggers,
+        classEngineRow,
+        buildClassAlertEvents(row, vars, alertState, eventTimeIso),
+        runId,
+        generatedAt,
+        { followed_class: true, tracked_entry_count: trackedEntryCount }
+      );
+    }
+    if (followedClass && vars.result_ready === true) {
       triggers.push(buildTimeEngineTrigger(classEngineRow, "result_ready", runId, generatedAt, {
         meaning: "safe_to_start_checking_results",
         result_ready: true,
@@ -2171,7 +2543,9 @@ async function buildTimeEngineRows(app, focus, options = {}) {
         result_ready_rule: vars.result_ready_rule,
         result_ready_at: vars.result_ready_at,
         class_no: intValue(row.class_no),
-        entry_count: intValue(vars.entry_count)
+        entry_count: intValue(vars.entry_count),
+        followed_class: true,
+        tracked_entry_count: trackedEntryCount
       }));
     }
   }
@@ -2236,32 +2610,6 @@ async function buildTimeEngineRows(app, focus, options = {}) {
     );
   }
 
-  const scheduleByClassKey = new Map(scheduleRows.map((row) => [text(row.class_const_key || row.update_schedule_key), row]));
-  for (const row of classRows.filter((item) => text(item.status) !== "dropped_old_key_shape")) {
-    const schedule = scheduleByClassKey.get(text(row.class_const_key || row.class_start_key));
-    if (!schedule) continue;
-    const liveFlag = schedule.live_flag ?? schedule.live ?? schedule.is_live ?? schedule.checked;
-    if (!boolish(liveFlag)) continue;
-    const sourceKey = text(row.class_const_key || row.class_start_key);
-    triggers.push(buildTimeEngineTrigger({
-      show_no: intValue(focus.show_no),
-      focus_day: focus.focus_day,
-      level: "class",
-      source_table: TABLES.updateSchedule,
-      source_key: sourceKey,
-      ring_const_key: text(row.ring_const_key),
-      class_const_key: sourceKey,
-      entry_const_key: "",
-      class_no: intValue(row.class_no),
-      entry_no: 0
-    }, "schedule_live_flag", runId, generatedAt, {
-      meaning: "schedule row marked live_flag/checked",
-      live_flag: text(liveFlag),
-      class_no: intValue(row.class_no),
-      class_name: text(row.class_name)
-    }));
-  }
-
   return {
     run_id: runId,
     generated_at: generatedAt,
@@ -2273,7 +2621,7 @@ async function buildTimeEngineRows(app, focus, options = {}) {
       hs_update_schedule: scheduleRows.length
     },
     rows,
-    triggers
+    triggers: approvedTimeEngineTriggers(triggers)
   };
 }
 
@@ -2359,6 +2707,12 @@ async function runTimeEngineOnly(app, options = {}) {
   const upsert = await upsertRowsByKeyFast(app, schema, TABLES.timeEngine, "time_engine_key", writeRows, missingContractFields);
   const triggerInsert = await insertNewTimeEngineTriggers(app, schema, built.triggers || [], missingContractFields);
   const airtableTriggerEvents = await appendAirtableTimeEngineTriggers(focus, built.triggers || []);
+  const statewise = await produceStatewiseSnapshot(app, schema, focus, built.rows || [], {
+    snapshot_source: "scheduled",
+    now: started,
+    run_id: built.run_id,
+    missingContractFields
+  });
   const alertEvents = { disabled: true, owner: TABLES.timeEngineTriggers, created: 0 };
   const triggerReadyCount = built.rows.filter((row) => row.trigger_ready === true).length;
   const finished = new Date();
@@ -2388,6 +2742,7 @@ async function runTimeEngineOnly(app, options = {}) {
       trigger_candidates: (built.triggers || []).length,
       triggers_inserted: triggerInsert.inserted,
       triggers_existing: triggerInsert.existing,
+      statewise,
       alert_events: alertEvents
     }),
     last_synced_at: catalystDateTime(finished)
@@ -2415,6 +2770,7 @@ async function runTimeEngineOnly(app, options = {}) {
     trigger_candidates: (built.triggers || []).length,
     triggers_inserted: triggerInsert.inserted,
     triggers_existing: triggerInsert.existing,
+    statewise_now: statewise,
     airtable_trigger_events: airtableTriggerEvents,
     alert_events: alertEvents,
     catalyst_upserts: {
@@ -5328,6 +5684,33 @@ async function handle(req, res) {
       });
       return json(res, 200, result);
     }
+    if (action === "wec-data-statewise-now" && text(req.method).toUpperCase() === "POST") {
+      const snapshotSource = lowerText(query.get("snapshot_source") ?? body.snapshot_source);
+      const refresh = lowerText(query.get("refresh") ?? body.refresh);
+      if (snapshotSource === "scheduled") {
+        return json(res, 400, { ok: false, error: "statewise_now.public_scheduled_source_rejected" });
+      }
+      if (!["manual_refresh", "sms_request"].includes(snapshotSource)) {
+        return json(res, 400, { ok: false, error: "statewise_now.snapshot_source_must_be_manual_refresh_or_sms_request" });
+      }
+      if (refresh !== "true" && refresh !== "1") {
+        return json(res, 400, { ok: false, error: "statewise_now.refresh_true_required" });
+      }
+      const focus = normalizeEndpointFocusDay({
+        show_no: query.get("show_no") ?? body.show_no,
+        focus_day: query.get("focus_day") ?? body.focus_day,
+        focus_day_key: query.get("focus_day_key") ?? body.focus_day_key
+      }, "statewise_now");
+      const schema = await loadSchema(app);
+      const engineRows = await readCurrentRows(app, TABLES.timeEngine, focus.show_no, focus.focus_day, "focus_day_only");
+      const result = await produceStatewiseSnapshot(app, schema, focus, engineRows, {
+        snapshot_source: snapshotSource,
+        now: new Date(),
+        run_id: options.run_id,
+        missingContractFields: []
+      });
+      return json(res, result.ok ? 200 : 500, result);
+    }
     if (CORE_DATA_ENDPOINTS[action]) {
       const result = await runCoreDataEndpoint(app, action, {
         show_no: query.get("show_no") ?? body.show_no,
@@ -5594,6 +5977,7 @@ module.exports.__test = {
   buildTimeEngineTrigger,
   buildClassAlertEvents,
   buildEntryAlertEvents,
+  airtableTimeEngineTriggerFields,
   planAppendOnlyAlertEvents,
   planAppendOnlyTimeEngineTriggers,
   normalizeTimeEngineTriggerEndpointFilters,
@@ -5601,6 +5985,15 @@ module.exports.__test = {
   normalizeStatewiseNowEndpointFilters,
   filterStatewiseNowEndpointRows,
   sliceStatewiseNowSnapshots,
+  approvedTimeEngineTriggers,
+  statewiseSnapshotId,
+  buildStatewiseRowsFromTimeEngineRows,
+  statewiseCompletionTrigger,
+  statewiseProjectionIdentity,
+  catalystStatewisePreparedSignature,
+  catalystDateTimeToUtcIso,
+  planAirtableStatewiseChangesFromCatalyst,
+  airtableStatewiseFields,
   optionalResultReadyAt,
   isUnexpectedActivePreflight
 };

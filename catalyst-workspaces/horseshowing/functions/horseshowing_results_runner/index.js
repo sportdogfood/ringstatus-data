@@ -1,4 +1,5 @@
 const catalyst = require("zcatalyst-sdk-node");
+const crypto = require("crypto");
 const https = require("https");
 const { createRouterRun, executeLoggedAction } = require("@ringstatus/catalyst-router-logger");
 
@@ -13,11 +14,13 @@ const TABLES = {
   resultClasses: "hs_result_classes",
   classResults: "hs_class_results",
   resultQueue: "hs_result_queue",
+  riderResults: "hs_rider_results",
   updateSchedule: "hs_update_schedule",
   classStartTimes: "hs_class_start_times",
   entryGoTimes: "hs_entry_go_times",
   classOog: "hs_class_oog",
-  timeEngine: "time_engine"
+  timeEngine: "time_engine",
+  timeEngineTriggers: "time_engine_triggers"
 };
 
 const AIRTABLE_TABLES = {
@@ -30,6 +33,7 @@ const AIRTABLE_TABLES = {
   hs_result_classes: "hs_result_classes",
   hs_class_results: "hs_class_results",
   hs_result_queue: "hs_result_queue",
+  hs_rider_results: "tblxVtA4irfT5WJe5",
   hs_class_start_times: "hs_class_start_times",
   wec_alerts: "tblqkxLPy9zZ2FI6z",
   alert_templates: "tblcHUmGzoWFOTvx2",
@@ -246,7 +250,32 @@ function airtableDateTime(value) {
 }
 
 function safeJson(value) {
-  return JSON.stringify(value || {}).slice(0, 9500);
+  const serialized = JSON.stringify(value || {});
+  if (serialized.length <= 9500) return serialized;
+  const bounded = {
+    _truncated: true,
+    _reason: "serialized_json_exceeded_9500_chars"
+  };
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    for (const key of ["class_no", "class_const_key", "status", "result_rows", "attempts", "next_check_at", "task07"]) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) bounded[key] = value[key];
+    }
+    bounded._omitted_keys = Object.keys(value).filter((key) => !Object.prototype.hasOwnProperty.call(bounded, key));
+  }
+  const boundedSerialized = JSON.stringify(bounded);
+  if (boundedSerialized.length <= 9500) return boundedSerialized;
+  return JSON.stringify({ _truncated: true, _reason: "serialized_json_exceeded_9500_chars" });
+}
+
+function parseJsonObject(value) {
+  const raw = text(value);
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
 }
 
 function htmlDecode(value) {
@@ -1006,6 +1035,14 @@ async function upsertCatalyst(app, tableName, keyField, row) {
   return { action: "inserted" };
 }
 
+async function insertCatalystIfMissing(app, tableName, keyField, row) {
+  if (!row?.[keyField]) return { action: "skipped" };
+  const existing = await findOne(app, tableName, keyField, row[keyField]);
+  if (existing?.ROWID) return { action: "existing" };
+  await app.datastore().table(tableName).insertRow(cleanFields(row));
+  return { action: "inserted" };
+}
+
 async function upsertCatalystClassResult(app, row) {
   try {
     return await upsertCatalyst(app, TABLES.classResults, "class_result_key", row);
@@ -1308,6 +1345,198 @@ function timeEngineResultReadyClassKeys(rows) {
   return ready;
 }
 
+function timeEngineTriggerResultReadyClassKeys(rows) {
+  const ready = new Set();
+  for (const row of rows || []) {
+    if (text(row?.trigger_type).toLowerCase() !== "result_ready") continue;
+    const key = hasCleanConstKey(row?.class_const_key, 5) ? text(row.class_const_key) : runtimeClassConstKey(row);
+    if (key) ready.add(key);
+  }
+  return ready;
+}
+
+function trackedEntriesByClassConstKey(entryRows) {
+  const map = new Map();
+  for (const row of entryRows || []) {
+    const classKey = runtimeClassConstKey(row);
+    const entryNo = text(row?.entry_no);
+    if (!classKey || !entryNo) continue;
+    if (!map.has(classKey)) map.set(classKey, []);
+    map.get(classKey).push(row);
+  }
+  for (const rows of map.values()) {
+    rows.sort((a, b) => (intOrNull(a.entry_order) || 0) - (intOrNull(b.entry_order) || 0)
+      || Number(text(a.entry_no)) - Number(text(b.entry_no)));
+  }
+  return map;
+}
+
+function classIsNoLongerLive(row) {
+  if (row?.is_live === true || text(row?.is_live).toLowerCase() === "true" || text(row?.is_live) === "1") return false;
+  const status = text(row?.class_status || row?.status).toLowerCase();
+  return status !== "now" && status !== "live";
+}
+
+function normalizedResultBlockForClass(classNo, parsed) {
+  const classRow = (parsed?.classes || []).find((row) => text(row.class_no) === text(classNo));
+  if (!classRow) return "";
+  const results = (parsed?.results || [])
+    .filter((row) => text(row.class_no) === text(classNo))
+    .map((row) => ({
+      class_no: text(row.class_no),
+      sect_no: text(row.sect_no),
+      class_number: text(row.class_number),
+      class_name: text(row.class_name),
+      place: text(row.place),
+      entry_no: text(row.entry_no),
+      horse: text(row.horse),
+      rider: text(row.rider),
+      owner: text(row.owner),
+      score: text(row.score),
+      time: text(row.time),
+      prize: text(row.prize)
+    }));
+  return JSON.stringify({
+    class: {
+      class_no: text(classRow.class_no),
+      sect_no: text(classRow.sect_no),
+      class_number: text(classRow.class_number),
+      class_name: text(classRow.class_name),
+      result_entry_count: intOrNull(classRow.result_entry_count) || 0,
+      has_score: classRow.has_score === true,
+      has_time: classRow.has_time === true,
+      has_prize: classRow.has_prize === true
+    },
+    results
+  });
+}
+
+function resultBlockHash(normalizedBlock) {
+  const raw = text(normalizedBlock);
+  return raw ? crypto.createHash("sha256").update(raw, "utf8").digest("hex") : "";
+}
+
+function task07MetadataFromQueue(row) {
+  return parseJsonObject(row?.raw_json).task07 || {};
+}
+
+function task07Stability(previousQueue, resultBlockHashValue, schedulerOwned) {
+  const previous = task07MetadataFromQueue(previousQueue);
+  const previousHash = text(previous.result_block_hash);
+  if (!resultBlockHashValue) {
+    return { stable_count: 0, previous_hash: previousHash, finality_satisfied: false };
+  }
+  const previousCount = intOrNull(previous.stable_count) || 0;
+  const stableCount = schedulerOwned && previousHash === resultBlockHashValue ? Math.max(1, previousCount) + 1 : 1;
+  return {
+    stable_count: stableCount,
+    previous_hash: previousHash,
+    finality_satisfied: stableCount >= 2
+  };
+}
+
+function mergeTask07QueueRawJson(classRow, status, resultRows, nextCheckAt, task07) {
+  const previous = parseJsonObject(classRow.previous_queue?.raw_json);
+  return safeJson({
+    ...previous,
+    class_no: classRow.class_no,
+    class_const_key: text(classRow.class_const_key || classRow.class_visual_key),
+    status,
+    result_rows: resultRows,
+    attempts: (intOrNull(classRow.previous_attempts) || 0) + 1,
+    next_check_at: nextCheckAt,
+    task07
+  });
+}
+
+function riderResultKey(showNo, focusDay, classNo, entryNo) {
+  return resultKey(showNo, focusDayKey(focusDay), classNo, entryNo);
+}
+
+function existingKeySet(rows, fieldName) {
+  return new Set((rows || []).map((row) => text(row?.[fieldName])).filter(Boolean));
+}
+
+function buildTerminalRiderResults(showNo, focusDay, classRow, trackedEntries, parsedResults, now, runId) {
+  const byEntryNo = new Map((parsedResults || [])
+    .filter((row) => text(row.class_no) === text(classRow.class_no))
+    .map((row) => [text(row.entry_no), row]));
+  return (trackedEntries || []).map((entry) => {
+    const parsed = byEntryNo.get(text(entry.entry_no)) || null;
+    const placed = !!parsed && !!text(parsed.place);
+    return {
+      rider_result_key: riderResultKey(showNo, focusDay, classRow.class_no, entry.entry_no),
+      show_no: Number(showNo),
+      focus_day: focusDay,
+      class_no: intOrNull(classRow.class_no),
+      entry_no: intOrNull(entry.entry_no),
+      horse: text(parsed?.horse) || text(entry.horse),
+      rider: text(parsed?.rider) || text(entry.rider),
+      place: placed ? text(parsed.place) : "",
+      score: text(parsed?.score),
+      result_time: text(parsed?.time),
+      result_status: placed ? "placed" : "no_place",
+      result_source: "horseshowing.show_results4.operational_finality",
+      observed_at: now,
+      run_id: runId
+    };
+  });
+}
+
+function toAirtableHsRiderResult(row) {
+  return cleanFields({
+    rider_result_key: row.rider_result_key,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    class_no: intOrNull(row.class_no),
+    entry_no: intOrNull(row.entry_no),
+    horse: row.horse,
+    rider: row.rider,
+    place: row.place,
+    score: row.score,
+    time: row.result_time,
+    result_status: row.result_status,
+    source: row.result_source,
+    observed_at: airtableDateTime(row.observed_at)
+  });
+}
+
+function resultAvailableTrigger(row, classRow, entryRow, generatedAt) {
+  const triggerKey = resultKey(row.show_no, focusDayKey(row.focus_day), "rider", row.class_no, row.entry_no, "result_available");
+  return {
+    trigger_key: triggerKey,
+    run_id: row.run_id,
+    show_no: Number(row.show_no),
+    focus_day: row.focus_day,
+    focus_day_key: focusDayKey(row.focus_day),
+    level: "rider",
+    trigger_type: "result_available",
+    status: "pending",
+    source_table: TABLES.riderResults,
+    source_key: row.rider_result_key,
+    ring_const_key: text(classRow?.ring_const_key),
+    class_const_key: text(classRow?.class_const_key || classRow?.class_visual_key),
+    entry_const_key: runtimeEntryConstKey(entryRow),
+    class_no: intOrNull(row.class_no),
+    entry_no: intOrNull(row.entry_no),
+    trigger_time: generatedAt,
+    generated_at: generatedAt,
+    horse: row.horse,
+    rider: row.rider,
+    trainer: text(entryRow?.trainer),
+    payload_json: safeJson({
+      rider_result_key: row.rider_result_key,
+      class_no: row.class_no,
+      entry_no: row.entry_no,
+      result_status: row.result_status,
+      place: row.place,
+      score: row.score,
+      result_time: row.result_time,
+      source: row.result_source
+    })
+  };
+}
+
 function watchedScheduleClassKeys(updateRows, entryRows, nowDate = new Date()) {
   const tracked = scopedClassConstKeysFromEntries(entryRows);
   const hasLiveFlagRows = (updateRows || []).some((row) => rowIsTrue(row?.live_flag));
@@ -1447,6 +1676,76 @@ function buildStep6ClassRows(classStartRows, entryRows, queueRows, resultClassRo
   });
 }
 
+function completedTask07ClassConstKeys(queueRows, riderResultRows, trackedByClass) {
+  const completed = new Set();
+  const existing = existingKeySet(riderResultRows, "rider_result_key");
+  const latestQueue = latestQueueByClassConstKey(queueRows);
+  for (const [classKey, entries] of trackedByClass.entries()) {
+    const queue = latestQueue.get(classKey);
+    const task07 = task07MetadataFromQueue(queue);
+    const queueComplete = text(queue?.status).toLowerCase() === "completed" && task07.finality_satisfied === true;
+    const allTerminal = (entries || []).length > 0 && entries.every((entry) => {
+      const classNo = getRuntimeClassNo(entry);
+      return existing.has(riderResultKey(entry.show_no, entry.focus_day, classNo, entry.entry_no));
+    });
+    if (allTerminal || (queueComplete && allTerminal)) completed.add(classKey);
+  }
+  return completed;
+}
+
+function buildTask07ClassRows(classStartRows, entryRows, queueRows, resultReadyKeys, riderResultRows, force, nowDate) {
+  const trackedByClass = trackedEntriesByClassConstKey(entryRows);
+  const latestQueue = latestQueueByClassConstKey(queueRows);
+  const completedKeys = force ? new Set() : completedTask07ClassConstKeys(queueRows, riderResultRows, trackedByClass);
+  const candidates = [];
+  for (const row of classStartRows || []) {
+    const classNo = getRuntimeClassNo(row);
+    const classConstKey = getRuntimeClassKey(row);
+    if (!classNo || !classConstKey) continue;
+    if (!trackedByClass.has(classConstKey)) continue;
+    if (!force && completedKeys.has(classConstKey)) continue;
+    const previousQueue = latestQueue.get(classConstKey) || null;
+    const pendingDue = queueRetryDue(previousQueue, nowDate);
+    const timeEngineReady = resultReadyKeys.has(classConstKey);
+    if (!force && !timeEngineReady && !pendingDue) continue;
+    const previousStatus = text(previousQueue?.status).toLowerCase();
+    const previousAttempts = intOrNull(previousQueue?.attempts) || 0;
+    const probe = resultProbeInfo(row, nowDate);
+    const reason = pendingDue && !timeEngineReady ? "pending_retry_due" : "time_engine_result_ready";
+    candidates.push({
+      class_start_key: text(row.class_start_key || classConstKey),
+      show_no: row.show_no,
+      focus_day: isoDate(row.focus_day),
+      focus_day_key: focusDayKey(row.focus_day || row.iso_date || row.focus_day_key),
+      ring_day_no: intOrNull(row.ring_day_no),
+      ring_no: intOrNull(row.ring_no),
+      ring_name_normalized: text(row.ring_name_normalized),
+      ring_const_key: text(row.ring_const_key || row.ring_visual_key),
+      ring_visual_key: text(row.ring_visual_key),
+      class_visual_key: classConstKey,
+      class_const_key: classConstKey,
+      class_no: classNo,
+      sect_no: text(row.sect_no),
+      class_number: text(row.class_number),
+      class_name: text(row.class_name),
+      class_status: text(row.class_status),
+      is_live: row.is_live,
+      entry_count: intOrNull(row.entry_count),
+      check_results: timeEngineReady || pendingDue,
+      result_probe_ready_at: probe.ready_at,
+      result_probe_reason: reason,
+      previous_attempts: previousAttempts,
+      previous_queue_status: previousStatus,
+      previous_queue: previousQueue
+    });
+  }
+  return candidates.sort((a, b) => {
+    const ringCompare = text(a.ring_name_normalized).localeCompare(text(b.ring_name_normalized));
+    if (ringCompare) return ringCompare;
+    return Number(a.class_no) - Number(b.class_no);
+  });
+}
+
 function step6ResultClassRow(showNo, focusDay, row, now, sourceClass = {}) {
   const classNo = text(row.class_no);
   const classConstKey = text(sourceClass.class_const_key || sourceClass.class_visual_key || row.class_const_key || row.class_visual_key);
@@ -1514,7 +1813,7 @@ function step6ClassResultRow(showNo, focusDay, row, now, sourceClass = {}, entry
   };
 }
 
-function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate) {
+function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate, task07 = null) {
   const key = text(classRow.class_const_key || classRow.class_visual_key);
   const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
   const nextCheckAt = status === "pending" ? catalystDateTime(addMinutes(nowDate, 6)) : "";
@@ -1537,14 +1836,16 @@ function step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now
     result_rows: resultRows,
     completed_at: status === "completed" ? now : "",
     source: "horseshowing.show_results4",
-    raw_json: safeJson({
-      class_no: classRow.class_no,
-      class_const_key: key,
-      status,
-      result_rows: resultRows,
-      attempts,
-      next_check_at: nextCheckAt
-    })
+    raw_json: task07
+      ? mergeTask07QueueRawJson(classRow, status, resultRows, nextCheckAt, task07)
+      : safeJson({
+        class_no: classRow.class_no,
+        class_const_key: key,
+        status,
+        result_rows: resultRows,
+        attempts,
+        next_check_at: nextCheckAt
+      })
   };
 }
 
@@ -1620,7 +1921,7 @@ function toAirtableHsClassResult(row) {
   });
 }
 
-function step6ClassStartStatusRow(classRow, resultRows) {
+function step6ClassStartStatusRow(classRow, resultRows, task07Complete = false, now = catalystDateTime()) {
   const row = {
     class_start_key: classRow.class_start_key,
     show_no: text(classRow.show_no),
@@ -1629,7 +1930,11 @@ function step6ClassStartStatusRow(classRow, resultRows) {
     result_probe_ready_at: classRow.result_probe_ready_at,
     result_probe_reason: classRow.result_probe_reason
   };
-  if (resultRows > 0) row.class_status = "Done";
+  if (task07Complete) {
+    row.class_status = "Done";
+    row.completed_at = now;
+    row.completed_reason = "task07_operational_finality";
+  }
   return row;
 }
 
@@ -1643,6 +1948,8 @@ function toAirtableHsClassStartStatus(row) {
     result_probe_reason: row.result_probe_reason
   };
   if (text(row.class_status)) fields.class_status = row.class_status;
+  if (text(row.completed_at)) fields.completed_at = airtableDateTime(row.completed_at);
+  if (text(row.completed_reason)) fields.completed_reason = row.completed_reason;
   return cleanFields(fields);
 }
 
@@ -1674,12 +1981,15 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const classStartRows = await catalystRows(app, TABLES.classStartTimes, showNo, focusDay);
   const entryGoTimeRows = await catalystRows(app, TABLES.entryGoTimes, showNo, focusDay);
   const timeEngineRows = await catalystRows(app, TABLES.timeEngine, showNo, focusDay);
-  const resultReadyKeys = timeEngineResultReadyClassKeys(timeEngineRows);
+  const timeEngineTriggerRows = await catalystRows(app, TABLES.timeEngineTriggers, showNo, focusDay);
+  const resultReadyKeys = timeEngineTriggerResultReadyClassKeys(timeEngineTriggerRows);
   const watchedReady = watchedScheduleClassKeys(updateScheduleRows, entryGoTimeRows, nowDate);
   const existingQueueRows = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
   const existingResultClassRows = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
   const existingClassResultRows = await catalystRows(app, TABLES.classResults, showNo, focusDay);
-  const allClassRows = buildStep6ClassRows(classStartRows, entryGoTimeRows, existingQueueRows, existingResultClassRows, existingClassResultRows, resultReadyKeys, watchedReady, force, nowDate);
+  const existingRiderResultRows = await catalystRows(app, TABLES.riderResults, showNo, focusDay);
+  const trackedByClass = trackedEntriesByClassConstKey(entryGoTimeRows);
+  const allClassRows = buildTask07ClassRows(classStartRows, entryGoTimeRows, existingQueueRows, resultReadyKeys, existingRiderResultRows, force, nowDate);
   const classRows = allClassRows.slice(offset, offset + limit);
   const classByNo = new Map(classRows.map((row) => [text(row.class_no), row]));
   const entryGoTimeByClassEntry = new Map(entryGoTimeRows.map((row) => [classEntryKey(row), row]));
@@ -1698,19 +2008,21 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
         watched_live_flag_classes: [...watchedReady.values()].length,
         watched_result_ready: [...watchedReady.values()].filter((row) => row.ready === true).length,
         time_engine: timeEngineRows.length,
+        time_engine_triggers: timeEngineTriggerRows.length,
         time_engine_result_ready: resultReadyKeys.size,
         hs_class_start_times: classStartRows.length,
         hs_entry_go_times: entryGoTimeRows.length,
         hs_result_queue: existingQueueRows.length,
         hs_result_classes: existingResultClassRows.length,
-        hs_class_results: existingClassResultRows.length
+        hs_class_results: existingClassResultRows.length,
+        hs_rider_results: existingRiderResultRows.length
       },
       eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate, resultReadyKeys, watchedReady),
       guard: {
         only_hs_entry_go_times_classes: true,
         outside_tracked_class_keys: outsideTrackedClassKeys(allClassRows, entryGoTimeRows).length
       },
-      check_results_count: resultReadyKeys.size + [...watchedReady.values()].filter((row) => row.ready === true).length,
+      check_results_count: resultReadyKeys.size,
       target_classes_total: allClassRows.length,
       offset,
       limit,
@@ -1735,20 +2047,51 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const classResultRows = uniqueRowsByKey(fetched.parsed.results
     .map((row) => step6ClassResultRow(showNo, focusDay, row, now, classByNo.get(text(row.class_no)), entryGoTimeByClassEntry))
     .filter(Boolean), "class_result_key");
+  const terminalByClassKey = new Map();
   const queueRows = classRows.map((classRow) => {
     const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
-    const attempts = (intOrNull(classRow.previous_attempts) || 0) + 1;
-    let status = "pending";
-    if (resultRows > 0 && parsedClassNos.has(text(classRow.class_no))) status = "completed";
-    else if (attempts >= 5) status = "exhausted";
-    return step6ResultQueueRow(showNo, focusDay, classRow, status, resultRows, now, nowDate);
+    const normalizedBlock = normalizedResultBlockForClass(classRow.class_no, fetched.parsed);
+    const hash = resultBlockHash(normalizedBlock);
+    const stability = task07Stability(classRow.previous_queue, hash, true);
+    const resultReady = resultReadyKeys.has(text(classRow.class_const_key));
+    const parsedBlockExists = parsedClassNos.has(text(classRow.class_no)) && !!hash;
+    const noLongerLive = classIsNoLongerLive(classRow);
+    const finalitySatisfied = resultReady && noLongerLive && parsedBlockExists && stability.finality_satisfied;
+    const task07 = {
+      result_block_hash: hash,
+      previous_result_block_hash: stability.previous_hash,
+      stable_count: stability.stable_count,
+      finality_satisfied: finalitySatisfied,
+      observation_status: finalitySatisfied ? "second_identical_observation_terminal" : (parsedBlockExists ? "first_or_changed_observation" : "no_parsed_result_block"),
+      observed_at: now
+    };
+    if (finalitySatisfied) {
+      const entries = trackedByClass.get(text(classRow.class_const_key)) || [];
+      terminalByClassKey.set(text(classRow.class_const_key), buildTerminalRiderResults(showNo, focusDay, classRow, entries, fetched.parsed.results, now, `wec-results-${Date.now()}`));
+    }
+    return step6ResultQueueRow(showNo, focusDay, classRow, finalitySatisfied ? "completed" : "pending", resultRows, now, nowDate, task07);
   });
   const classStartStatusRows = classRows.map((classRow) => {
     const resultRows = fetched.parsed.results.filter((row) => text(row.class_no) === text(classRow.class_no)).length;
-    return step6ClassStartStatusRow(classRow, resultRows);
+    const terminalRows = terminalByClassKey.get(text(classRow.class_const_key)) || [];
+    return step6ClassStartStatusRow(classRow, resultRows, terminalRows.length > 0, now);
   });
+  const terminalRiderRows = uniqueRowsByKey([...terminalByClassKey.values()].flat(), "rider_result_key");
+  const existingRiderResultKeys = existingKeySet(existingRiderResultRows, "rider_result_key");
+  const riderRowsToCreate = terminalRiderRows.filter((row) => !existingRiderResultKeys.has(text(row.rider_result_key)));
+  const existingResultAvailableKeys = existingKeySet(
+    timeEngineTriggerRows.filter((row) => text(row.trigger_type).toLowerCase() === "result_available"),
+    "trigger_key"
+  );
+  const resultAvailableTriggers = terminalRiderRows
+    .map((row) => {
+      const classRow = classByNo.get(text(row.class_no));
+      const entryRow = entryGoTimeByClassEntry.get(classEntryKey(row));
+      return resultAvailableTrigger(row, classRow, entryRow, now);
+    })
+    .filter((row) => !existingResultAvailableKeys.has(text(row.trigger_key)));
 
-  const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 }, class_start_times: { inserted: 0, updated: 0 } };
+  const catalystCounters = { result_classes: { inserted: 0, updated: 0 }, class_results: { inserted: 0, updated: 0 }, result_queue: { inserted: 0, updated: 0 }, class_start_times: { inserted: 0, updated: 0 }, rider_results: { inserted: 0, existing: 0 }, result_available: { inserted: 0, existing: 0 } };
   let catalystTimeColumnMissingRows = 0;
   for (const row of resultClassRows) {
     const result = await upsertCatalyst(app, TABLES.resultClasses, "result_class_key", row);
@@ -1760,6 +2103,32 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     if (result.warning === "catalyst_time_column_missing_time_omitted") catalystTimeColumnMissingRows += 1;
     if (result.action === "inserted") catalystCounters.class_results.inserted += 1;
     if (result.action === "updated") catalystCounters.class_results.updated += 1;
+  }
+  for (const row of riderRowsToCreate) {
+    const result = await insertCatalystIfMissing(app, TABLES.riderResults, "rider_result_key", row);
+    if (result.action === "inserted") catalystCounters.rider_results.inserted += 1;
+    if (result.action === "existing") catalystCounters.rider_results.existing += 1;
+  }
+  for (const row of resultAvailableTriggers) {
+    const result = await insertCatalystIfMissing(app, TABLES.timeEngineTriggers, "trigger_key", row);
+    if (result.action === "inserted") catalystCounters.result_available.inserted += 1;
+    if (result.action === "existing") catalystCounters.result_available.existing += 1;
+  }
+
+  let airtableRiderResultsCreated = 0;
+  let airtableRiderResultsExisting = 0;
+  if (terminalRiderRows.length) {
+    const existingAirtableRows = await airtableList(baseId, AIRTABLE_TABLES.hs_rider_results, activeFocusFormula(showNo, focusDay), token);
+    const existingAirtableKeys = existingKeySet(existingAirtableRows, "rider_result_key");
+    for (const row of terminalRiderRows) {
+      if (existingAirtableKeys.has(text(row.rider_result_key))) {
+        airtableRiderResultsExisting += 1;
+        continue;
+      }
+      await airtableCreate(baseId, AIRTABLE_TABLES.hs_rider_results, toAirtableHsRiderResult(row), token);
+      existingAirtableKeys.add(text(row.rider_result_key));
+      airtableRiderResultsCreated += 1;
+    }
   }
   for (const row of queueRows) {
     const result = await upsertCatalyst(app, TABLES.resultQueue, "result_queue_key", row);
@@ -1775,6 +2144,8 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
   const verifyCatalystQueue = await catalystRows(app, TABLES.resultQueue, showNo, focusDay);
   const verifyCatalystClasses = await catalystRows(app, TABLES.resultClasses, showNo, focusDay);
   const verifyCatalystResults = await catalystRows(app, TABLES.classResults, showNo, focusDay);
+  const verifyCatalystRiderResults = await catalystRows(app, TABLES.riderResults, showNo, focusDay);
+  const verifyCatalystTriggers = await catalystRows(app, TABLES.timeEngineTriggers, showNo, focusDay);
   const nextOffset = offset + limit < allClassRows.length ? offset + limit : 0;
   return {
     ok: verifyCatalystQueue.length > 0 || queueRows.length === 0,
@@ -1785,27 +2156,29 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     source: [CLEAN_RESULT_SOURCE, "hs_update_schedule.live_flag", "hs_class_start_times", "hs_entry_go_times"],
     result_source_endpoint: "show_results4.php",
     source_request_uses_native_class_no: true,
-    target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results"],
-    target_airtable: [],
+    target_catalyst: ["hs_result_queue", "hs_result_classes", "hs_class_results", "hs_rider_results", "hs_class_start_times", "time_engine_triggers"],
+    target_airtable: ["hs_rider_results"],
     source_counts: {
       hs_update_schedule: updateScheduleRows.length,
       tracked_hs_entry_go_times_classes: scopedClassConstKeysFromEntries(entryGoTimeRows).size,
       watched_live_flag_classes: [...watchedReady.values()].length,
       watched_result_ready: [...watchedReady.values()].filter((row) => row.ready === true).length,
       time_engine: timeEngineRows.length,
+      time_engine_triggers: timeEngineTriggerRows.length,
       time_engine_result_ready: resultReadyKeys.size,
       hs_class_start_times: classStartRows.length,
       hs_entry_go_times: entryGoTimeRows.length,
       hs_result_queue: existingQueueRows.length,
       hs_result_classes: existingResultClassRows.length,
-      hs_class_results: existingClassResultRows.length
+      hs_class_results: existingClassResultRows.length,
+      hs_rider_results: existingRiderResultRows.length
     },
     eligibility: runtimeClassSourceEvidence(classStartRows, entryGoTimeRows, existingQueueRows, nowDate, resultReadyKeys, watchedReady),
     guard: {
       only_hs_entry_go_times_classes: true,
       outside_tracked_class_keys: outsideTrackedClassKeys(allClassRows, entryGoTimeRows).length
     },
-    check_results_count: resultReadyKeys.size + [...watchedReady.values()].filter((row) => row.ready === true).length,
+    check_results_count: resultReadyKeys.size,
     target_classes_total: allClassRows.length,
     offset,
     limit,
@@ -1815,8 +2188,11 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     parsed_blocks: fetched.parsed.blocks,
     completed_classes: resultClassRows.length,
     class_results: classResultRows.length,
+    terminal_rider_results: terminalRiderRows.length,
+    terminal_rider_results_created: riderRowsToCreate.length,
+    result_available_events_created: resultAvailableTriggers.length,
     queue_rows: queueRows.length,
-    changed_rows: resultClassRows.length + classResultRows.length + queueRows.length + classStartStatusRows.length,
+    changed_rows: resultClassRows.length + classResultRows.length + queueRows.length + classStartStatusRows.length + riderRowsToCreate.length + resultAvailableTriggers.length,
     attempts: queueRows.map((row) => ({
       class_no: row.class_no,
       status: row.status,
@@ -1830,11 +2206,13 @@ async function runWecStep6Results(app, baseId, token, focusShow, options = {}) {
     fake_results_created: 0,
     catalyst: catalystCounters,
     catalyst_time_column_missing_rows: catalystTimeColumnMissingRows,
-    airtable: { disabled: true, reason: "catalyst_to_airtable_mirroring_disabled" },
+    airtable: { hs_rider_results: { created: airtableRiderResultsCreated, existing: airtableRiderResultsExisting } },
     verify: {
       catalyst_result_queue: verifyCatalystQueue.length,
       catalyst_result_classes: verifyCatalystClasses.length,
-      catalyst_class_results: verifyCatalystResults.length
+      catalyst_class_results: verifyCatalystResults.length,
+      catalyst_hs_rider_results: verifyCatalystRiderResults.length,
+      catalyst_time_engine_triggers: verifyCatalystTriggers.length
     },
     no_old_airtable_staging_source: true,
     result_alerts_run: false,
@@ -2439,6 +2817,15 @@ handle.__test__ = {
   resultAlertLogDetail,
   pendingResultAlertRows,
   toResultAlertRow,
+  safeJson,
+  normalizedResultBlockForClass,
+  resultBlockHash,
+  task07Stability,
+  completedTask07ClassConstKeys,
+  trackedEntriesByClassConstKey,
+  buildTerminalRiderResults,
+  resultAvailableTrigger,
+  toAirtableHsRiderResult,
   RESULTS_UPSTREAM_TIMEOUT_MS,
   RESULTS_UPSTREAM_ATTEMPTS,
   RESULT_ALERT_SOURCE_TABLE

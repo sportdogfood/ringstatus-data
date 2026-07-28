@@ -632,6 +632,22 @@ async function getActiveFocusShow() {
   };
 }
 
+async function getScheduledFocusGate() {
+  try {
+    return { ok: true, focus: await getActiveFocusShow() };
+  } catch (error) {
+    const message = text(error?.message || error);
+    if (message.startsWith("focus_show_active_count:")) {
+      return {
+        ok: false,
+        blocker: message.endsWith(":0") ? "missing_active_focus_show" : "multiple_active_focus_show",
+        active_count: intValue(message.split(":").pop())
+      };
+    }
+    throw error;
+  }
+}
+
 async function syncFocusShowMirror(app, schema, focus, missingContractFields) {
   const focusDay = text(focus.focus_day || focus.iso_date);
   const focusKey = `${intValue(focus.show_no)}|${compactDate(focusDay)}`;
@@ -2627,7 +2643,7 @@ async function buildTimeEngineRows(app, focus, options = {}) {
 
 async function runTimeEngineOnly(app, options = {}) {
   const started = new Date();
-  const focus = await getActiveFocusShow();
+  const focus = options.active_focus || await getActiveFocusShow();
   if (!focus?.show_no) throw new Error("focus_show.show_no_required");
   if (!focus?.focus_day) throw new Error("focus_show.focus_day_required");
   const wakeReason = text(options.wake_reason || options.wakeReason || "state_wake") || "state_wake";
@@ -3933,7 +3949,7 @@ async function runCleanCadenceStack(app, options = {}) {
   const runId = options.run_id || `clean-stack-${Date.now()}`;
   const probeLimit = intValue(options.probe_limit || options.limit) || 300;
   const parseLimit = intValue(options.parse_limit) || 300;
-  const activeFocus = await getActiveFocusShow();
+  const activeFocus = options.active_focus || await getActiveFocusShow();
   const preRuntimeCounts = {
     hs_class_oog: await countCurrentRows(app, TABLES.classOog, activeFocus.show_no, activeFocus.focus_day),
     hs_ring_status: await countCurrentRows(app, TABLES.ringStatus, activeFocus.show_no, activeFocus.focus_day),
@@ -5783,6 +5799,17 @@ async function handle(req, res) {
       return json(res, 200, result);
     }
     if (action === "wec-time-engine") {
+      const focusGate = await getScheduledFocusGate();
+      if (!focusGate.ok) {
+        return json(res, 200, {
+          ok: true,
+          skipped: true,
+          action,
+          skip_reason: focusGate.blocker,
+          active_focus_show_count: focusGate.active_count,
+          router_logs_written: 0
+        });
+      }
       const router = createRouterRun({
         app,
         base: {
@@ -5832,10 +5859,26 @@ async function handle(req, res) {
           http_status: businessResult.ok ? 200 : 500,
           payload_json: { wake_reason: businessResult.wake_reason, skip_reason: businessResult.skip_reason, blocker: businessResult.blocker }
         })
-      }, () => runTimeEngineOnly(app, options));
+      }, () => runTimeEngineOnly(app, { ...options, active_focus: focusGate.focus }));
       return json(res, result.ok ? 200 : 500, result);
     }
     if (action === "wec-clean-cadence-stack" || action === "wec-clean-stage1-4-proof") {
+      const focusGate = await getScheduledFocusGate();
+      if (!focusGate.ok) {
+        return json(res, 200, {
+          ok: true,
+          skipped: true,
+          action,
+          skip_reason: focusGate.blocker,
+          active_focus_show_count: focusGate.active_count,
+          router_logs_written: 0,
+          stage1_run: false,
+          stage2_run: false,
+          stage3a_run: false,
+          stage3b_run: false,
+          step4_run: false
+        });
+      }
       const router = createRouterRun({
         app,
         base: {
@@ -5925,7 +5968,7 @@ async function handle(req, res) {
           http_status: businessResult.ok ? 200 : 500,
           payload_json: { stop_stage: businessResult.stop_stage, stop_reason: businessResult.stop_reason, next_stage: businessResult.next_stage }
         })
-      }, () => runCleanCadenceStack(app, options));
+      }, () => runCleanCadenceStack(app, { ...options, active_focus: focusGate.focus }));
       return json(res, result.ok ? 200 : 500, result);
     }
     const adapters = await makeAdapters(app, options);

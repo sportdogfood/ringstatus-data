@@ -603,8 +603,9 @@ async function airtableCreate(baseId, tableId, fields, token) {
 async function getFocusShow(baseId, showNo, token) {
   const formula = showNo ? `{show_no}=${Number(showNo)}` : "";
   const rows = await airtableList(baseId, "focus_show", formula, token);
-  const row = rows.find((item) => item[FOCUS_SHOW_FIELDS.active] === true);
-  if (!row) throw new Error(showNo ? `No active focus_show found for show_no=${showNo}` : "No active focus_show found");
+  const activeRows = rows.filter((item) => item[FOCUS_SHOW_FIELDS.active] === true);
+  if (activeRows.length !== 1) throw new Error(`focus_show_active_count:${activeRows.length}`);
+  const row = activeRows[0];
   const focusDay = isoDate(row[FOCUS_SHOW_FIELDS.focus_day]);
   if (!focusDay) throw new Error(`active focus_show has no focus_day`);
   return {
@@ -2388,7 +2389,25 @@ async function handle(req, res) {
     phase = "initialize_catalyst";
     const app = catalyst.initialize(req);
     phase = "read_focus_show";
-    const focusShow = await getFocusShow(baseId, requestedShowNo, token);
+    let focusShow;
+    try {
+      focusShow = await getFocusShow(baseId, requestedShowNo, token);
+    } catch (error) {
+      const message = text(error?.message || error);
+      if (message.startsWith("focus_show_active_count:")) {
+        const activeCount = Number(message.split(":").pop()) || 0;
+        return sendJson(res, 200, {
+          ok: true,
+          skipped: true,
+          action,
+          skip_reason: activeCount ? "multiple_active_focus_show" : "missing_active_focus_show",
+          active_focus_show_count: activeCount,
+          result_probe_run: false,
+          router_logs_written: 0
+        });
+      }
+      throw error;
+    }
     const showNo = text(focusShow.show_no);
     logContext = { show_no: Number(showNo), focus_day: focusShow.focus_day };
     if (!isAllowedResultsAction(action)) {

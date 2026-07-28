@@ -16073,8 +16073,8 @@ async function runWecStep4RuntimePrepOnly(app, action, query, body) {
   };
 }
 
-async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body) {
-  const activeFocus = await getActiveAirtableFocusShowStrict();
+async function runWecStep5LiveEnrichmentOnly(req, app, action, query, body, preResolvedFocus = null) {
+  const activeFocus = preResolvedFocus || await getActiveAirtableFocusShowStrict();
   if (!activeFocus.ok) {
     return {
       ok: false,
@@ -17211,6 +17211,19 @@ async function handle(req, res) {
         ...(Array.isArray(body.record_ids) ? body.record_ids.map(text).filter(Boolean) : []),
         ...(Array.isArray(body.rec_ids) ? body.rec_ids.map(text).filter(Boolean) : [])
       ];
+      if (!recordIds.length) {
+        const focusGate = await getActiveAirtableFocusShowStrict();
+        if (!focusGate.ok) {
+          return json(res, 200, {
+            ok: true,
+            skipped: true,
+            action,
+            skip_reason: focusGate.blocker,
+            active_focus_show_count: focusGate.active_count || 0,
+            router_logs_written: 0
+          });
+        }
+      }
       const runId = text(query.get("run_id") || body.run_id) || `helper-horses-${Date.now()}`;
       const router = createRouterRun({
         app,
@@ -17732,6 +17745,19 @@ async function handle(req, res) {
     }
 
     if (action === "wec-step5-live-enrichment") {
+      const focusGate = await getActiveAirtableFocusShowStrict();
+      if (!focusGate.ok) {
+        return json(res, 200, {
+          ok: true,
+          skipped: true,
+          action,
+          skip_reason: focusGate.blocker,
+          active_focus_show_count: focusGate.active_count || 0,
+          live_enrichment_run: false,
+          get_rings_run: false,
+          router_logs_written: 0
+        });
+      }
       const routerRunId = text(query.get("run_id") || body.run_id) || `wec-step5-${new Date().toISOString().replace(/[^0-9A-Za-z]/g, "")}`;
       if (!query.get("run_id")) query.set("run_id", routerRunId);
       const router = createRouterRun({
@@ -17782,7 +17808,7 @@ async function handle(req, res) {
           http_status: businessResult.status_code || (businessResult.ok ? 200 : 500),
           payload_json: { blocker: businessResult.blocker, skip_reason: businessResult.skip_reason, fallback_go_times_created: businessResult.fallback_go_times_created }
         })
-      }, () => runWecStep5LiveEnrichmentOnly(req, app, action, query, body));
+      }, () => runWecStep5LiveEnrichmentOnly(req, app, action, query, body, focusGate));
       return json(res, result.status_code || (result.ok ? 200 : 500), result);
     }
 

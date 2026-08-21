@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14718,
+      "secondsTill": -15318,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -109,7 +109,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -10638,
+      "secondsTill": -11238,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -9381,
+      "secondsTill": -9981,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -235,7 +235,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -5118,
+      "secondsTill": -5718,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -280,7 +280,7 @@
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
       "latestStart": "11:20 AM",
-      "latestStatus": "Underway",
+      "latestStatus": "Completed",
       "total_trips": 18,
       "entry_id": null,
       "backNumber": null,
@@ -298,7 +298,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -2718,
+      "secondsTill": -3318,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -361,7 +361,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -5418,
+      "secondsTill": -6018,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -424,7 +424,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14717,
+      "secondsTill": -15317,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -495,7 +495,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -13462,
+      "secondsTill": -14062,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -558,7 +558,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -12018,
+      "secondsTill": -12618,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -627,7 +627,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -10745,
+      "secondsTill": -11345,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -694,7 +694,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -8718,
+      "secondsTill": -9318,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -767,7 +767,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -8718,
+      "secondsTill": -9318,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -834,7 +834,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -8718,
+      "secondsTill": -9318,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -903,7 +903,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -4722,
+      "secondsTill": -5322,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -966,7 +966,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -3318,
+      "secondsTill": -3918,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1012,92 +1012,23 @@
       "ringName": "Covered",
       "class_group_id": 200026893,
       "class_group_sequence": 8,
-      "class_groupxclasses_id": 200040319,
-      "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
-      "groomName": null,
-      "time_sort": 42601,
-      "class_id": 200026637,
-      "class_number": 737,
-      "completed_trips": 4,
-      "class_name": "1.0m Junior Jumper II2d",
-      "class_type": "Jumpers",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": null,
-      "estimated_go_time": null,
-      "estimated_start_time": "11:50:01",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "11:50 AM",
-      "latestStatus": [
-        "Upcoming"
-      ],
-      "total_trips": 9,
-      "entry_id": null,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": null,
-      "ringWalk": null,
-      "barnName": null,
-      "horseName": null,
-      "teamName": null,
-      "riderName": null,
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": null,
-      "secondsTill": -917,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": null,
-      "runningOOG": null,
-      "lastOOG": null,
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": null,
-      "8778_group_alert": [
-        "Shrek "
-      ],
-      "8778_sched_display": [
-        "Shrek "
-      ],
-      "sched_display": null,
-      "estimatedGO00": null,
-      "estimatedGO": null,
-      "status": "Underway",
-      "scope_status": null,
-      "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
-    },
-    {
-      "sid": 200000067,
-      "dt": "2026-08-21",
-      "ring_number": 3,
-      "ringName": "Covered",
-      "class_group_id": 200026893,
-      "class_group_sequence": 8,
       "class_groupxclasses_id": 200040320,
-      "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
+      "group_name": "1.0m Junior/Amateur Jumper II2d",
       "groomName": null,
-      "time_sort": 42601,
+      "time_sort": 42300,
       "class_id": 200026616,
       "class_number": 765,
-      "completed_trips": 4,
-      "class_name": "1.0m Amateur Jumper II2d",
+      "completed_trips": 9,
+      "class_name": "1.0m Junior/Amateur Jumper II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "11:50:01",
+      "estimated_start_time": "11:45:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:50 AM",
+      "latestStart": "11:45 AM",
       "latestStatus": "Underway",
       "total_trips": 9,
       "entry_id": null,
@@ -1116,7 +1047,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -917,
+      "secondsTill": -1818,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1133,7 +1064,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
     },
@@ -1145,22 +1076,22 @@
       "class_group_id": 200026893,
       "class_group_sequence": 8,
       "class_groupxclasses_id": 200040342,
-      "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
+      "group_name": "1.0m Junior/Amateur Jumper II2d",
       "groomName": null,
-      "time_sort": 42601,
+      "time_sort": 42300,
       "class_id": 200026893,
       "class_number": 780,
-      "completed_trips": 4,
+      "completed_trips": 9,
       "class_name": "Training Jumper (1.0m) II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "11:50:01",
+      "estimated_start_time": "11:45:00",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "11:50 AM",
+      "latestStart": "11:45 AM",
       "latestStatus": "Underway",
       "total_trips": 9,
       "entry_id": null,
@@ -1179,7 +1110,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -917,
+      "secondsTill": -1818,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1196,7 +1127,7 @@
       "sched_display": null,
       "estimatedGO00": null,
       "estimatedGO": null,
-      "status": "Underway",
+      "status": "Completed",
       "scope_status": null,
       "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
     },
@@ -1210,7 +1141,7 @@
       "class_groupxclasses_id": 200040322,
       "group_name": "1.0m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
       "groomName": null,
-      "time_sort": 44307,
+      "time_sort": 44381,
       "class_id": 200026963,
       "class_number": 825,
       "completed_trips": 0,
@@ -1220,10 +1151,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "12:18:27",
+      "estimated_start_time": "12:19:41",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "12:18 PM",
+      "latestStart": "12:19 PM",
       "latestStatus": "Upcoming",
       "total_trips": 1,
       "entry_id": null,
@@ -1242,7 +1173,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 788,
+      "secondsTill": 262,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1273,7 +1204,7 @@
       "class_groupxclasses_id": 200040323,
       "group_name": "Take2 Thoroughbred Jumper (1.0m) II2d",
       "groomName": null,
-      "time_sort": 44487,
+      "time_sort": 44561,
       "class_id": 200026788,
       "class_number": 747,
       "completed_trips": 0,
@@ -1283,10 +1214,10 @@
       "remaining_trips": null,
       "estimated_end_time": null,
       "estimated_go_time": null,
-      "estimated_start_time": "12:21:27",
+      "estimated_start_time": "12:22:41",
       "schedule_sequencetype": "Over Fences",
       "trip_id": null,
-      "latestStart": "12:21 PM",
+      "latestStart": "12:22 PM",
       "latestStatus": "Upcoming",
       "total_trips": 1,
       "entry_id": null,
@@ -1305,7 +1236,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 968,
+      "secondsTill": 442,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1368,7 +1299,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 1481,
+      "secondsTill": 881,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1431,7 +1362,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 2081,
+      "secondsTill": 1481,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1494,7 +1425,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 3281,
+      "secondsTill": 2681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1557,7 +1488,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 3281,
+      "secondsTill": 2681,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1620,7 +1551,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 5681,
+      "secondsTill": 5081,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1691,7 +1622,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": 7481,
+      "secondsTill": 6881,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1762,7 +1693,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14117,
+      "secondsTill": -14717,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1825,7 +1756,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14117,
+      "secondsTill": -14717,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1888,7 +1819,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -43518,
+      "secondsTill": -44118,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1951,7 +1882,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -9917,
+      "secondsTill": -10517,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2022,7 +1953,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14417,
+      "secondsTill": -15017,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2085,7 +2016,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -14417,
+      "secondsTill": -15017,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2148,7 +2079,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -43518,
+      "secondsTill": -44118,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2211,7 +2142,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -43518,
+      "secondsTill": -44118,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2278,7 +2209,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -8717,
+      "secondsTill": -9317,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2345,7 +2276,7 @@
       "time_one": null,
       "time_two": null,
       "pid": null,
-      "secondsTill": -8717,
+      "secondsTill": -9317,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2385,6 +2316,7 @@
         3,
         3,
         4,
+        4,
         5,
         5,
         6,
@@ -2404,32 +2336,31 @@
         13,
         14,
         14,
+        15,
+        16,
+        25,
+        25,
         26,
         26,
-        27,
-        27,
+        28,
+        28,
         29,
         29,
         30,
         30,
-        31,
-        31,
+        33,
+        33,
         34,
-        34,
-        35,
-        35
+        34
       ],
       "underway": [
-        4,
         9,
         15,
-        16,
-        16,
-        17,
-        17
+        16
       ],
       "upcoming": [
-        15,
+        17,
+        17,
         18,
         18,
         19,
@@ -2443,9 +2374,7 @@
         23,
         23,
         24,
-        24,
-        25,
-        25
+        24
       ]
     },
     "ring": {
@@ -2478,22 +2407,21 @@
         21,
         22,
         23,
-        24,
-        25
+        24
       ],
       "5": [
+        25,
         26,
         27,
-        28,
-        29
+        28
       ],
       "6": [
+        29,
         30,
         31,
         32,
         33,
-        34,
-        35
+        34
       ],
       "derby": [
         0,
@@ -2524,22 +2452,21 @@
         21,
         22,
         23,
-        24,
-        25
+        24
       ],
       "hunter 1": [
+        25,
         26,
         27,
-        28,
-        29
+        28
       ],
       "hunter 2": [
+        29,
         30,
         31,
         32,
         33,
-        34,
-        35
+        34
       ]
     },
     "class_type": {
@@ -2565,8 +2492,7 @@
         19,
         20,
         21,
-        22,
-        23
+        22
       ],
       "over fences": [
         0,
@@ -2596,42 +2522,41 @@
         24,
         25,
         26,
-        27,
+        28,
         29,
         30,
-        31,
-        34,
-        35
+        33,
+        34
       ],
       "hunters": [
         5,
+        25,
         26,
         27,
-        28,
+        29,
         30,
-        31,
-        32
+        31
       ],
       "equitation": [
+        23,
         24,
-        25,
-        29,
-        33,
-        34,
-        35
-      ],
-      "under saddle/flat": [
         28,
         32,
-        33
+        33,
+        34
+      ],
+      "under saddle/flat": [
+        27,
+        31,
+        32
       ]
     },
     "group_name_tags": {
       "isfirstup": [
         0,
         6,
-        30,
-        31
+        29,
+        30
       ],
       "target": [
         0,
@@ -2668,8 +2593,7 @@
         31,
         32,
         33,
-        34,
-        35
+        34
       ],
       "open": [
         0,
@@ -2680,8 +2604,8 @@
         10,
         11,
         12,
-        22,
-        23
+        21,
+        22
       ],
       "ii2d": [
         0,
@@ -2704,8 +2628,7 @@
         19,
         20,
         21,
-        22,
-        23
+        22
       ],
       "jumpers": [
         0,
@@ -2729,8 +2652,7 @@
         19,
         20,
         21,
-        22,
-        23
+        22
       ],
       "over fences": [
         0,
@@ -2760,12 +2682,11 @@
         24,
         25,
         26,
-        27,
+        28,
         29,
         30,
-        31,
-        34,
-        35
+        33,
+        34
       ],
       "1.30m open jumper ii2d": [
         0
@@ -2774,7 +2695,7 @@
         1,
         7,
         13,
-        18
+        17
       ],
       "1.30m young jumper ii2d": [
         1
@@ -2786,8 +2707,7 @@
         11,
         12,
         15,
-        16,
-        17
+        16
       ],
       "junior": [
         2,
@@ -2797,8 +2717,7 @@
         12,
         15,
         16,
-        17,
-        25
+        24
       ],
       "1.30m junior/amateur jumper ii2d": [
         2
@@ -2814,22 +2733,22 @@
       ],
       "ushja": [
         5,
+        24,
         25,
         26,
         27,
-        28,
+        29,
         30,
-        31,
-        32
+        31
       ],
       "hunters": [
         5,
+        25,
         26,
         27,
-        28,
+        29,
         30,
-        31,
-        32
+        31
       ],
       "$2": [
         5
@@ -2870,130 +2789,123 @@
       ],
       ".90m": [
         14,
-        20
+        19
       ],
       "training jumper (.90m) ii2d": [
         14,
-        20
+        19
       ],
       "1.0m": [
         15,
         16,
         17,
-        18,
-        19
-      ],
-      "1.0m junior": [
-        15,
-        16,
-        17
-      ],
-      "1.0m amateur & 1.0m training jumper ii2d": [
-        15,
-        16,
-        17
-      ],
-      "1.0m young jumper ii2d (scored as table ii/blue ribbon)": [
         18
       ],
+      "1.0m junior/amateur jumper ii2d": [
+        15,
+        16
+      ],
+      "1.0m young jumper ii2d (scored as table ii/blue ribbon)": [
+        17
+      ],
       "take2 thoroughbred jumper (1.0m) ii2d": [
-        19
+        18
       ],
       "hopeful": [
-        21
+        20
       ],
       ".85m": [
-        21
+        20
       ],
       "hopeful jumper (.85m) ii2d": [
-        21
+        20
       ],
       "puddle": [
-        22,
-        23
+        21,
+        22
       ],
       "puddle jumper open (.70-.80m) ii2d": [
-        22,
-        23
+        21,
+        22
       ],
       "wihs": [
-        24,
-        29
+        23,
+        28
       ],
       "wihs jumper phase": [
-        24
+        23
       ],
       "3'": [
+        24,
         25,
         26,
         27,
-        28,
-        34,
-        35
+        33,
+        34
       ],
       "3'3\"": [
-        25
+        24
       ],
       "medal": [
-        25
+        24
       ],
       "seat": [
-        25
+        24
       ],
       "ushja 3'3\" junior jumper seat medal": [
-        25
+        24
       ],
       "ushja hunter 3'/2'9\"": [
-        26,
-        27
+        25,
+        26
       ],
       "usf": [
-        28,
-        32,
-        33
+        27,
+        31,
+        32
       ],
       "u/s": [
-        28,
-        32
-      ],
-      "under saddle/flat": [
-        28,
-        32,
-        33
-      ],
-      "ushja hunter 3'/2'9\" u/s": [
-        28
-      ],
-      "wihs hunter phase": [
-        29
-      ],
-      "ushja hunter 2'6\"": [
-        30,
+        27,
         31
       ],
-      "2'/2'6\"": [
+      "under saddle/flat": [
+        27,
+        31,
         32
+      ],
+      "ushja hunter 3'/2'9\" u/s": [
+        27
+      ],
+      "wihs hunter phase": [
+        28
+      ],
+      "ushja hunter 2'6\"": [
+        29,
+        30
+      ],
+      "2'/2'6\"": [
+        31
       ],
       "ushja hunter 2'/2'6\" u/s": [
-        32
+        31
       ],
       "14 & under": [
-        33
+        32
       ],
       "adult": [
+        32,
         33,
-        34,
-        35
+        34
       ],
       "flat": [
-        33
+        32
       ],
       "14 & under/adult equitation flat": [
-        33
+        32
       ],
       "14&u/adult equitation (11&u: 2'6\" / 12-14: 2'9\"/adult: 3')": [
-        34,
-        35
+        33,
+        34
       ]
     }
   }

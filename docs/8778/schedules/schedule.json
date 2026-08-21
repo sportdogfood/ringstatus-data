@@ -261,8 +261,10 @@
     "class_number": 744,
     "class_name": "1.15m Open Jumper II2d",
     "latestStart": "9:06 AM",
-    "latestStatus": "Underway",
-    "total_trips": 9,
+    "latestStatus": [
+      "Underway"
+    ],
+    "total_trips": 8,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -292,7 +294,7 @@
     "class_name": "1.10m Open Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 21,
+    "total_trips": 22,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -303,11 +305,13 @@
     "estimated_start_time": "09:40:00",
     "group_display": [
       "Indy",
-      "Rimini"
+      "Rimini",
+      "Doug"
     ],
     "8778_sched_display": [
       "Indy",
-      "Rimini"
+      "Rimini",
+      "Doug"
     ],
     "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -324,7 +328,7 @@
     "class_name": "1.10m Junior Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 21,
+    "total_trips": 22,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -354,7 +358,7 @@
     "class_name": "1.10m Amateur Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 21,
+    "total_trips": 22,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -394,7 +398,7 @@
     "ring_nickname": "Covered",
     "start_display": "10:43 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:43:00",
+    "estimated_start_time": "10:43:50",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, 1.10m, II2d, jumpers, Over Fences"
@@ -839,7 +843,7 @@
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
     "latestStart": "9:20 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 3,
     "show_id": 200000067,
     "show_date": "2026-08-21",
@@ -980,7 +984,7 @@
     "class_id": 200026868,
     "class_number": 510,
     "class_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
-    "latestStart": "9:29 AM",
+    "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000067,
@@ -988,9 +992,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "9:29 AM",
+    "start_display": "9:40 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:29:37",
+    "estimated_start_time": "09:40:01",
     "group_display": [
       "Mark"
     ],
@@ -1010,7 +1014,7 @@
     "class_id": 200026802,
     "class_number": 511,
     "class_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
-    "latestStart": "9:29 AM",
+    "latestStart": "9:40 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000067,
@@ -1018,9 +1022,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "9:29 AM",
+    "start_display": "9:40 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:29:37",
+    "estimated_start_time": "09:40:01",
     "group_display": [
       "Mark"
     ],

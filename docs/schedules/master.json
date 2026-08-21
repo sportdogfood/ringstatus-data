@@ -141,7 +141,7 @@
   },
   {
     "8778_group_display": [
-      " (7)"
+      " (9)"
     ],
     "class_group_id": 200026888,
     "class_id": 200026707,
@@ -153,7 +153,7 @@
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [
-      " (7)"
+      " (9)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -245,7 +245,7 @@
     "class_number": 740,
     "dt": "2026-08-21",
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
-    "group_name_tags": "target, 1.10m, junior, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [
@@ -271,7 +271,7 @@
     "class_number": 715,
     "dt": "2026-08-21",
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
-    "group_name_tags": "target, open, 1.10m, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [
@@ -317,7 +317,7 @@
     "class_number": 780,
     "dt": "2026-08-21",
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
-    "group_name_tags": "target, 1.0m, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [],
@@ -363,7 +363,7 @@
     "class_number": 760,
     "dt": "2026-08-21",
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
-    "group_name_tags": "target, 1.10m, junior, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [
@@ -435,7 +435,7 @@
     "class_number": 765,
     "dt": "2026-08-21",
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
-    "group_name_tags": "target, 1.0m, junior, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [],
@@ -459,7 +459,7 @@
     "class_number": 737,
     "dt": "2026-08-21",
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
-    "group_name_tags": "target, 1.0m, junior, II2d, jumpers, Over Fences",
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences",
     "ring_nickname": null,
     "ring_number": 3,
     "group_display": [
@@ -750,9 +750,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "9:12 AM",
-    "start_display_short": "9:12A",
-    "time_sort": 33171,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33301,
     "total_trips": 3
   },
   {
@@ -798,9 +798,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34501,
+    "start_display": "9:29 AM",
+    "start_display_short": "9:29A",
+    "time_sort": 34177,
     "total_trips": 6
   },
   {
@@ -846,9 +846,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34501,
+    "start_display": "9:29 AM",
+    "start_display_short": "9:29A",
+    "time_sort": 34177,
     "total_trips": 6
   }
 ]

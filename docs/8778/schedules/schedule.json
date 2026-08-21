@@ -41,7 +41,7 @@
     "class_number": 840,
     "class_name": "1.30m Young Jumper II2d",
     "latestStart": "9:08 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 8,
     "show_id": 200000067,
     "show_date": "2026-08-21",
@@ -67,7 +67,7 @@
     "class_number": 773,
     "class_name": "1.30m Junior/Amateur Jumper II2d",
     "latestStart": "9:28 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 5,
     "show_id": 200000067,
     "show_date": "2026-08-21",
@@ -257,7 +257,7 @@
     "class_number": 744,
     "class_name": "1.15m Open Jumper II2d",
     "latestStart": "9:06 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 9,
     "show_id": 200000067,
     "show_date": "2026-08-21",
@@ -303,7 +303,7 @@
     "8778_sched_display": [
       null
     ],
-    "group_name_tags": "target, open, 1.10m, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -333,7 +333,7 @@
     "8778_sched_display": [
       null
     ],
-    "group_name_tags": "target, 1.10m, junior, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -363,7 +363,7 @@
     "8778_sched_display": [
       null
     ],
-    "group_name_tags": "target, 1.10m, junior, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -449,7 +449,7 @@
     "8778_sched_display": [
       null
     ],
-    "group_name_tags": "target, 1.0m, junior, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -475,7 +475,7 @@
     "estimated_start_time": "11:45:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, 1.0m, junior, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -501,7 +501,7 @@
     "estimated_start_time": "11:45:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "target, 1.0m, II2d, jumpers, Over Fences"
+    "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
   },
   {
     "sid": 200000067,
@@ -808,7 +808,7 @@
     "class_id": 200026937,
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
-    "latestStart": "9:12 AM",
+    "latestStart": "9:15 AM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000067,
@@ -816,9 +816,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": null,
-    "start_display": "9:12 AM",
+    "start_display": "9:15 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:12:51",
+    "estimated_start_time": "09:15:01",
     "group_display": [
       null
     ],
@@ -946,7 +946,7 @@
     "class_id": 200026868,
     "class_number": 510,
     "class_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
-    "latestStart": "9:38 AM",
+    "latestStart": "9:29 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000067,
@@ -954,9 +954,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": null,
-    "start_display": "9:38 AM",
+    "start_display": "9:29 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:38:17",
+    "estimated_start_time": "09:29:37",
     "group_display": [
       null
     ],
@@ -976,7 +976,7 @@
     "class_id": 200026802,
     "class_number": 511,
     "class_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
-    "latestStart": "9:38 AM",
+    "latestStart": "9:29 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000067,
@@ -984,9 +984,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": null,
-    "start_display": "9:38 AM",
+    "start_display": "9:29 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:38:17",
+    "estimated_start_time": "09:29:37",
     "group_display": [
       null
     ],

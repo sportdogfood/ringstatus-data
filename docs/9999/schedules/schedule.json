@@ -363,9 +363,7 @@
     "total_trips": 22,
     "class_groupxclasses_id": 200040314,
     "latestStart": "9:40 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-08-21",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
@@ -403,9 +401,7 @@
     "total_trips": 22,
     "class_groupxclasses_id": 200040340,
     "latestStart": "9:40 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-08-21",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
@@ -443,9 +439,7 @@
     "total_trips": 22,
     "class_groupxclasses_id": 200040341,
     "latestStart": "9:40 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-08-21",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
@@ -472,16 +466,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38703,
+    "start_display": "10:46 AM",
+    "start_display_short": "10:46A",
+    "time_sort": 38796,
     "total_trips": 2,
     "class_groupxclasses_id": 200040317,
-    "latestStart": "10:45 AM",
+    "latestStart": "10:46 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-21",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:45:03",
+    "estimated_start_time": "10:46:36",
     "8778_sched_display": []
   },
   {
@@ -1187,7 +1181,7 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200037903,
     "latestStart": "9:40 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-08-21",
     "class_group_sequence": 4,
     "estimated_start_time": "09:40:01",
@@ -1223,7 +1217,7 @@
     "total_trips": 6,
     "class_groupxclasses_id": 200037904,
     "latestStart": "9:40 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-08-21",
     "class_group_sequence": 4,
     "estimated_start_time": "09:40:01",

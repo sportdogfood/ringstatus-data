@@ -3,7 +3,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 1,
-    "ringName": null,
+    "ringName": "Derby",
     "class_groupxclasses_id": 200037789,
     "class_group_id": 200025452,
     "group_name": "1.30m Open Jumper II2d",
@@ -11,21 +11,21 @@
     "class_number": 770,
     "class_name": "1.30m Open Jumper II2d",
     "latestStart": "8:00 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 24,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Derby",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
     "group_display": [
-      " (21)"
+      "Bee (21)"
     ],
     "8778_sched_display": [
-      " (21)"
+      "Bee (21)"
     ],
     "group_name_tags": "isFirstUp, target, open, II2d, jumpers, Over Fences"
   },
@@ -33,7 +33,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 1,
-    "ringName": null,
+    "ringName": "Derby",
     "class_groupxclasses_id": 200037790,
     "class_group_id": 200025453,
     "group_name": "1.30m Young Jumper II2d",
@@ -47,7 +47,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Derby",
     "start_display": "9:08 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "09:08:00",
@@ -59,7 +59,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 1,
-    "ringName": null,
+    "ringName": "Derby",
     "class_groupxclasses_id": 200037791,
     "class_group_id": 200025454,
     "group_name": "1.30m Junior/Amateur Jumper II2d",
@@ -73,7 +73,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Derby",
     "start_display": "9:28 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "09:28:57",
@@ -85,7 +85,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 1,
-    "ringName": null,
+    "ringName": "Derby",
     "class_groupxclasses_id": 200037792,
     "class_group_id": 200025455,
     "group_name": "1.40m Open Stake II2b",
@@ -99,7 +99,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Derby",
     "start_display": "10:15 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:00",
@@ -111,7 +111,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 1,
-    "ringName": null,
+    "ringName": "Derby",
     "class_groupxclasses_id": 200037793,
     "class_group_id": 200025456,
     "group_name": "1.25m Open Jumper II2d",
@@ -125,7 +125,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Derby",
     "start_display": "11:00 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "11:00:00",
@@ -137,7 +137,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 2,
-    "ringName": null,
+    "ringName": "Annex",
     "class_groupxclasses_id": 200037905,
     "class_group_id": 200025518,
     "group_name": "$2,500 USHJA National Hunter Derby",
@@ -151,7 +151,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Annex",
     "start_display": "10:30 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "10:30:00",
@@ -163,7 +163,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040310,
     "class_group_id": 200026885,
     "group_name": "1.20m Open Jumper II2d",
@@ -177,15 +177,19 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:01",
     "group_display": [
-      null
+      "Maiki",
+      "Q",
+      "Dottie"
     ],
     "8778_sched_display": [
-      null
+      "Maiki",
+      "Q",
+      "Dottie"
     ],
     "group_name_tags": "isFirstUp, target, open, 1.20m, II2d, jumpers, Over Fences"
   },
@@ -193,7 +197,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040311,
     "class_group_id": 200026886,
     "group_name": "1.20m Young Jumper II2d",
@@ -207,7 +211,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "8:20 AM",
     "class_group_sequence": 2,
     "estimated_start_time": "08:20:56",
@@ -219,7 +223,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040312,
     "class_group_id": 200026887,
     "group_name": "1.20m Junior/Amateur Jumper II2d",
@@ -233,15 +237,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "8:45 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "08:45:00",
     "group_display": [
-      null
+      "Dottie"
     ],
     "8778_sched_display": [
-      null
+      "Dottie"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -249,7 +253,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040313,
     "class_group_id": 200026888,
     "group_name": "1.15m Open Jumper II2d",
@@ -263,15 +267,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "9:06 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "09:06:13",
     "group_display": [
-      " (9)"
+      "Doug (9)"
     ],
     "8778_sched_display": [
-      " (9)"
+      "Doug (9)"
     ],
     "group_name_tags": "target, open, II2d, jumpers, Over Fences"
   },
@@ -279,7 +283,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040314,
     "class_group_id": 200026889,
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
@@ -293,15 +297,17 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "9:40 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
     "group_display": [
-      null
+      "Indy",
+      "Rimini"
     ],
     "8778_sched_display": [
-      null
+      "Indy",
+      "Rimini"
     ],
     "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -309,7 +315,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040340,
     "class_group_id": 200026889,
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
@@ -323,15 +329,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "9:40 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
     "group_display": [
-      null
+      "Rimini"
     ],
     "8778_sched_display": [
-      null
+      "Rimini"
     ],
     "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -339,7 +345,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040341,
     "class_group_id": 200026889,
     "group_name": "1.10m Open Jumper II2d & 1.10 Junior & Amateur Jumpers II2d",
@@ -353,15 +359,17 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "9:40 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "09:40:00",
     "group_display": [
-      null
+      "Maiki",
+      "Q"
     ],
     "8778_sched_display": [
-      null
+      "Maiki",
+      "Q"
     ],
     "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -369,7 +377,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040317,
     "class_group_id": 200026891,
     "group_name": "1.10m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
@@ -383,7 +391,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "10:43 AM",
     "class_group_sequence": 6,
     "estimated_start_time": "10:43:00",
@@ -395,7 +403,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040318,
     "class_group_id": 200026892,
     "group_name": "Training Jumper (.90m) II2d",
@@ -409,14 +417,28 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "11:00 AM",
     "class_group_sequence": 7,
     "estimated_start_time": "11:00:00",
     "group_display": [
+      "Fento",
+      "Indy",
+      "Munster",
+      "Tommy",
+      "Hurricane",
+      "Mark",
+      "Shrek ",
       null
     ],
     "8778_sched_display": [
+      "Fento",
+      "Indy",
+      "Munster",
+      "Tommy",
+      "Hurricane",
+      "Mark",
+      "Shrek ",
       null
     ],
     "group_name_tags": "target, .90m, II2d, jumpers, Over Fences"
@@ -425,7 +447,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040319,
     "class_group_id": 200026893,
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
@@ -439,15 +461,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "11:45 AM",
     "class_group_sequence": 8,
     "estimated_start_time": "11:45:00",
     "group_display": [
-      null
+      "Shrek "
     ],
     "8778_sched_display": [
-      null
+      "Shrek "
     ],
     "group_name_tags": "target, 1.0m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -455,7 +477,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040320,
     "class_group_id": 200026893,
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
@@ -469,7 +491,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "11:45 AM",
     "class_group_sequence": 8,
     "estimated_start_time": "11:45:00",
@@ -481,7 +503,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040342,
     "class_group_id": 200026893,
     "group_name": "1.0m Junior, 1.0m Amateur & 1.0m Training Jumper II2d",
@@ -495,7 +517,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "11:45 AM",
     "class_group_sequence": 8,
     "estimated_start_time": "11:45:00",
@@ -507,7 +529,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040322,
     "class_group_id": 200026895,
     "group_name": "1.0m Young Jumper II2d (Scored as Table II/Blue Ribbon)",
@@ -521,7 +543,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "12:15 PM",
     "class_group_sequence": 9,
     "estimated_start_time": "12:15:00",
@@ -533,7 +555,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040323,
     "class_group_id": 200026896,
     "group_name": "Take2 Thoroughbred Jumper (1.0m) II2d",
@@ -547,7 +569,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "12:18 PM",
     "class_group_sequence": 10,
     "estimated_start_time": "12:18:00",
@@ -559,7 +581,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040324,
     "class_group_id": 200026897,
     "group_name": "Training Jumper (.90m) II2d",
@@ -573,7 +595,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "12:30 PM",
     "class_group_sequence": 11,
     "estimated_start_time": "12:30:00",
@@ -585,7 +607,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040326,
     "class_group_id": 200026899,
     "group_name": "Hopeful Jumper (.85m) II2d",
@@ -599,7 +621,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "12:40 PM",
     "class_group_sequence": 12,
     "estimated_start_time": "12:40:00",
@@ -611,7 +633,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040327,
     "class_group_id": 200026900,
     "group_name": "Puddle Jumper Open (.70-.80m) II2d",
@@ -625,7 +647,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "1:00 PM",
     "class_group_sequence": 13,
     "estimated_start_time": "13:00:00",
@@ -637,7 +659,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040328,
     "class_group_id": 200026900,
     "group_name": "Puddle Jumper Open (.70-.80m) II2d",
@@ -651,7 +673,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "1:00 PM",
     "class_group_sequence": 13,
     "estimated_start_time": "13:00:00",
@@ -663,7 +685,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040329,
     "class_group_id": 200026901,
     "group_name": "WIHS Jumper Phase",
@@ -677,15 +699,19 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "1:40 PM",
     "class_group_sequence": 14,
     "estimated_start_time": "13:40:00",
     "group_display": [
-      null
+      "Munster",
+      null,
+      "Oddur"
     ],
     "8778_sched_display": [
-      null
+      "Munster",
+      null,
+      "Oddur"
     ],
     "group_name_tags": "target, wihs, Over Fences"
   },
@@ -693,7 +719,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 3,
-    "ringName": null,
+    "ringName": "Covered",
     "class_groupxclasses_id": 200040330,
     "class_group_id": 200026902,
     "group_name": "USHJA 3'3\" Junior Jumper Seat Medal",
@@ -707,15 +733,19 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Covered",
     "start_display": "2:10 PM",
     "class_group_sequence": 15,
     "estimated_start_time": "14:10:00",
     "group_display": [
-      null
+      "Fento",
+      null,
+      "Oddur"
     ],
     "8778_sched_display": [
-      null
+      "Fento",
+      null,
+      "Oddur"
     ],
     "group_name_tags": "target, 3', 3'3\", medal, junior, seat, ushja, Over Fences"
   },
@@ -723,7 +753,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 5,
-    "ringName": null,
+    "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040276,
     "class_group_id": 200026862,
     "group_name": "USHJA Hunter 3'/2'9\"",
@@ -737,7 +767,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 1",
     "start_display": "8:10 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:10:01",
@@ -749,7 +779,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 5,
-    "ringName": null,
+    "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040277,
     "class_group_id": 200026862,
     "group_name": "USHJA Hunter 3'/2'9\"",
@@ -763,7 +793,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 1",
     "start_display": "8:10 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:10:01",
@@ -775,7 +805,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 5,
-    "ringName": null,
+    "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040278,
     "class_group_id": 200026863,
     "group_name": "USHJA Hunter 3'/2'9\" U/S",
@@ -789,7 +819,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 1",
     "start_display": null,
     "class_group_sequence": 2,
     "estimated_start_time": null,
@@ -801,29 +831,33 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 5,
-    "ringName": null,
+    "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040297,
     "class_group_id": 200026873,
     "group_name": "WIHS Hunter Phase",
     "class_id": 200026937,
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
-    "latestStart": "9:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "9:20 AM",
+    "latestStatus": "Underway",
     "total_trips": 3,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
-    "start_display": "9:15 AM",
+    "ring_nickname": "Hunter 1",
+    "start_display": "9:20 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:15:01",
+    "estimated_start_time": "09:20:01",
     "group_display": [
-      null
+      "Munster",
+      null,
+      "Oddur"
     ],
     "8778_sched_display": [
-      null
+      "Munster",
+      null,
+      "Oddur"
     ],
     "group_name_tags": "target, wihs, Over Fences"
   },
@@ -831,7 +865,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037896,
     "class_group_id": 200025508,
     "group_name": "USHJA Hunter 2'6\"",
@@ -845,7 +879,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": "8:05 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:05:01",
@@ -857,7 +891,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037895,
     "class_group_id": 200025508,
     "group_name": "USHJA Hunter 2'6\"",
@@ -871,7 +905,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": "8:05 AM",
     "class_group_sequence": 1,
     "estimated_start_time": "08:05:01",
@@ -883,7 +917,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037898,
     "class_group_id": 200025510,
     "group_name": "USHJA Hunter 2'/2'6\" U/S",
@@ -897,7 +931,7 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": null,
     "class_group_sequence": 2,
     "estimated_start_time": null,
@@ -909,7 +943,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037902,
     "class_group_id": 200025513,
     "group_name": "14 & Under/Adult Equitation Flat",
@@ -923,15 +957,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": null,
     "class_group_sequence": 3,
     "estimated_start_time": null,
     "group_display": [
-      null
+      "Mark"
     ],
     "8778_sched_display": [
-      null
+      "Mark"
     ],
     "group_name_tags": "target, usf, 14 & Under, adult, flat, Under Saddle/Flat"
   },
@@ -939,7 +973,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037903,
     "class_group_id": 200025514,
     "group_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
@@ -953,15 +987,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": "9:29 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "09:29:37",
     "group_display": [
-      null
+      "Mark"
     ],
     "8778_sched_display": [
-      null
+      "Mark"
     ],
     "group_name_tags": "target, adult, 3', Over Fences"
   },
@@ -969,7 +1003,7 @@
     "sid": 200000067,
     "dt": "2026-08-21",
     "ring_number": 6,
-    "ringName": null,
+    "ringName": "Hunter 2",
     "class_groupxclasses_id": 200037904,
     "class_group_id": 200025514,
     "group_name": "14&U/Adult Equitation (11&U: 2'6\" / 12-14: 2'9\"/Adult: 3')",
@@ -983,15 +1017,15 @@
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
-    "ring_nickname": null,
+    "ring_nickname": "Hunter 2",
     "start_display": "9:29 AM",
     "class_group_sequence": 4,
     "estimated_start_time": "09:29:37",
     "group_display": [
-      null
+      "Mark"
     ],
     "8778_sched_display": [
-      null
+      "Mark"
     ],
     "group_name_tags": "target, adult, 3', Over Fences"
   }

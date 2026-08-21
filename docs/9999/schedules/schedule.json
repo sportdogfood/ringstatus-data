@@ -279,9 +279,7 @@
     "total_trips": 3,
     "class_groupxclasses_id": 200040312,
     "latestStart": "8:45 AM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Completed",
     "show_date": "2026-08-21",
     "class_group_sequence": 3,
     "estimated_start_time": "08:45:00",
@@ -291,7 +289,7 @@
   },
   {
     "8778_group_display": [
-      " (7)"
+      " (9)"
     ],
     "class_group_id": 200026888,
     "class_id": 200026707,
@@ -304,7 +302,7 @@
     "ring_number": 3,
     "ringName": null,
     "group_display": [
-      " (7)"
+      " (9)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -322,7 +320,7 @@
     "class_group_sequence": 4,
     "estimated_start_time": "09:06:13",
     "8778_sched_display": [
-      " (7)"
+      " (9)"
     ]
   },
   {
@@ -1121,16 +1119,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34501,
+    "start_display": "9:38 AM",
+    "start_display_short": "9:38A",
+    "time_sort": 34697,
     "total_trips": 6,
     "class_groupxclasses_id": 200037903,
-    "latestStart": "9:35 AM",
+    "latestStart": "9:38 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-21",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:35:01",
+    "estimated_start_time": "09:38:17",
     "8778_sched_display": [
       null
     ]
@@ -1157,16 +1155,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "9:35 AM",
-    "start_display_short": "9:35A",
-    "time_sort": 34501,
+    "start_display": "9:38 AM",
+    "start_display_short": "9:38A",
+    "time_sort": 34697,
     "total_trips": 6,
     "class_groupxclasses_id": 200037904,
-    "latestStart": "9:35 AM",
+    "latestStart": "9:38 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-21",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:35:01",
+    "estimated_start_time": "09:38:17",
     "8778_sched_display": [
       null
     ]

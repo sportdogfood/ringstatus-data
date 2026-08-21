@@ -113,16 +113,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "10:20 AM",
-    "start_display_short": "10:20A",
-    "time_sort": 37200,
+    "start_display": "10:25 AM",
+    "start_display_short": "10:25A",
+    "time_sort": 37500,
     "total_trips": 8,
     "class_groupxclasses_id": 200037792,
-    "latestStart": "10:20 AM",
+    "latestStart": "10:25 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-21",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:20:00",
+    "estimated_start_time": "10:25:00",
     "8778_sched_display": []
   },
   {
@@ -335,7 +335,8 @@
     "8778_group_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "class_group_id": 200026889,
     "class_id": 200026917,
@@ -350,7 +351,8 @@
     "group_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -360,7 +362,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22,
+    "total_trips": 24,
     "class_groupxclasses_id": 200040314,
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",
@@ -370,7 +372,8 @@
     "8778_sched_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ]
   },
   {
@@ -398,7 +401,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22,
+    "total_trips": 24,
     "class_groupxclasses_id": 200040340,
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",
@@ -436,7 +439,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22,
+    "total_trips": 24,
     "class_groupxclasses_id": 200040341,
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",

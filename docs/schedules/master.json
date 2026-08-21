@@ -234,9 +234,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000067,
     "sid": 200000067,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
+    "start_display": "10:25 AM",
+    "start_display_short": "10:25A",
+    "time_sort": 37500,
     "total_trips": 8
   },
   {
@@ -263,13 +263,14 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22
+    "total_trips": 24
   },
   {
     "8778_group_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "class_group_id": 200026889,
     "class_id": 200026917,
@@ -283,7 +284,8 @@
     "group_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -293,7 +295,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22
+    "total_trips": 24
   },
   {
     "8778_group_display": [],
@@ -387,7 +389,7 @@
     "start_display": "9:40 AM",
     "start_display_short": "9:40A",
     "time_sort": 34800,
-    "total_trips": 22
+    "total_trips": 24
   },
   {
     "8778_group_display": [],

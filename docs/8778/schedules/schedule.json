@@ -92,7 +92,7 @@
     "class_id": 200026708,
     "class_number": 807,
     "class_name": "1.40m Open Stake II2b",
-    "latestStart": "10:15 AM",
+    "latestStart": "10:25 AM",
     "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000067,
@@ -100,9 +100,9 @@
     "show_days_display_date": "Friday, August, 21, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Derby",
-    "start_display": "10:15 AM",
+    "start_display": "10:25 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:15:00",
+    "estimated_start_time": "10:25:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, open, 1.40m, jumpers, Over Fences"
@@ -294,7 +294,7 @@
     "class_name": "1.10m Open Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",
-    "total_trips": 22,
+    "total_trips": 24,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -306,12 +306,14 @@
     "group_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "8778_sched_display": [
       "Indy",
       "Rimini",
-      "Doug"
+      "Doug",
+      null
     ],
     "group_name_tags": "target, open, 1.10m, amateur, junior, II2d, jumpers, Over Fences"
   },
@@ -328,7 +330,7 @@
     "class_name": "1.10m Junior Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",
-    "total_trips": 22,
+    "total_trips": 24,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",
@@ -358,7 +360,7 @@
     "class_name": "1.10m Amateur Jumper II2d",
     "latestStart": "9:40 AM",
     "latestStatus": "Underway",
-    "total_trips": 22,
+    "total_trips": 24,
     "show_id": 200000067,
     "show_date": "2026-08-21",
     "show_days_display_date": "Friday, August, 21, 2026",

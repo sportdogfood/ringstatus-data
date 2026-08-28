@@ -38,9 +38,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "8:59 AM",
-    "start_display_short": "8:59A",
-    "time_sort": 32353,
+    "start_display": "8:41 AM",
+    "start_display_short": "8:41A",
+    "time_sort": 31283,
     "total_trips": 2
   },
   {
@@ -226,9 +226,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "9:09 AM",
-    "start_display_short": "9:09A",
-    "time_sort": 32953,
+    "start_display": "8:51 AM",
+    "start_display_short": "8:51A",
+    "time_sort": 31883,
     "total_trips": 6
   },
   {
@@ -315,10 +315,12 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12
+    "total_trips": 13
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200025729,
     "class_id": 200027336,
     "class_name": "1.10m Junior/Amateur Jumper II2d",
@@ -328,7 +330,9 @@
     "group_name_tags": "target, open, young, 1.10m, II2d, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
     "show_days_report_title": "Schedule",
@@ -337,7 +341,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12
+    "total_trips": 13
   },
   {
     "8778_group_display": [],
@@ -433,7 +437,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12
+    "total_trips": 13
   },
   {
     "8778_group_display": [
@@ -732,7 +736,7 @@
     "sid": 200000068,
     "start_display": "10:22 AM",
     "start_display_short": "10:22A",
-    "time_sort": 37361,
+    "time_sort": 37323,
     "total_trips": 4
   },
   {

@@ -47,16 +47,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "8:53 AM",
-    "start_display_short": "8:53A",
-    "time_sort": 31982,
+    "start_display": "8:41 AM",
+    "start_display_short": "8:41A",
+    "time_sort": 31283,
     "total_trips": 2,
     "class_groupxclasses_id": 200038254,
-    "latestStart": "8:53 AM",
+    "latestStart": "8:41 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:53:02",
+    "estimated_start_time": "08:41:23",
     "8778_sched_display": []
   },
   {
@@ -77,16 +77,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "9:03 AM",
-    "start_display_short": "9:03A",
-    "time_sort": 32582,
+    "start_display": "8:51 AM",
+    "start_display_short": "8:51A",
+    "time_sort": 31883,
     "total_trips": 6,
     "class_groupxclasses_id": 200038255,
-    "latestStart": "9:03 AM",
+    "latestStart": "8:51 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
-    "estimated_start_time": "09:03:02",
+    "estimated_start_time": "08:51:23",
     "8778_sched_display": []
   },
   {
@@ -338,7 +338,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12,
+    "total_trips": 13,
     "class_groupxclasses_id": 200038262,
     "latestStart": "9:35 AM",
     "latestStatus": "Upcoming",
@@ -348,7 +348,9 @@
     "8778_sched_display": []
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200025729,
     "class_id": 200027336,
     "class_name": "1.10m Junior/Amateur Jumper II2d",
@@ -359,7 +361,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
     "show_days_report_title": "Schedule",
@@ -368,14 +372,16 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12,
+    "total_trips": 13,
     "class_groupxclasses_id": 200040547,
     "latestStart": "9:35 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
     "estimated_start_time": "09:35:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      null
+    ]
   },
   {
     "8778_group_display": [],
@@ -398,7 +404,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 12,
+    "total_trips": 13,
     "class_groupxclasses_id": 200040548,
     "latestStart": "9:35 AM",
     "latestStatus": "Upcoming",
@@ -908,14 +914,14 @@
     "sid": 200000068,
     "start_display": "10:22 AM",
     "start_display_short": "10:22A",
-    "time_sort": 37372,
+    "time_sort": 37323,
     "total_trips": 4,
     "class_groupxclasses_id": 200040420,
     "latestStart": "10:22 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:22:52",
+    "estimated_start_time": "10:22:03",
     "8778_sched_display": [
       "Munster",
       "Power",

@@ -114,7 +114,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 13,
+    "total_trips": 12,
     "class_groupxclasses_id": 200038256,
     "latestStart": "10:20 AM",
     "latestStatus": "Upcoming",
@@ -914,14 +914,14 @@
     "sid": 200000068,
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
-    "time_sort": 36651,
+    "time_sort": 36615,
     "total_trips": 4,
     "class_groupxclasses_id": 200040420,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:10:51",
+    "estimated_start_time": "10:10:15",
     "8778_sched_display": [
       "Munster",
       "Power",
@@ -1111,7 +1111,8 @@
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "class_group_id": 200025779,
     "class_id": null,
@@ -1124,7 +1125,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -1142,12 +1144,14 @@
     "class_group_sequence": 5,
     "estimated_start_time": "09:43:00",
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "class_group_id": 200025780,
     "class_id": 200027076,
@@ -1160,7 +1164,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -1170,7 +1175,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 12,
+    "total_trips": 14,
     "class_groupxclasses_id": 200038364,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
@@ -1178,12 +1183,14 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:10:00",
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      null
     ]
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "class_group_id": 200025780,
     "class_id": 200027416,
@@ -1196,7 +1203,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      null
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -1206,7 +1214,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 12,
+    "total_trips": 14,
     "class_groupxclasses_id": 200038365,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
@@ -1214,7 +1222,8 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:10:00",
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      null
     ]
   }
 ]

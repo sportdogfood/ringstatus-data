@@ -747,9 +747,7 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200038269,
     "latestStart": "2:10 PM",
-    "latestStatus": [
-      "Underway"
-    ],
+    "latestStatus": "Underway",
     "show_date": "2026-08-28",
     "class_group_sequence": 10,
     "estimated_start_time": "14:10:05",
@@ -784,14 +782,14 @@
     "sid": 200000068,
     "start_display": "2:22 PM",
     "start_display_short": "2:22P",
-    "time_sort": 51748,
+    "time_sort": 51722,
     "total_trips": 1,
     "class_groupxclasses_id": 200038270,
     "latestStart": "2:22 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 11,
-    "estimated_start_time": "14:22:28",
+    "estimated_start_time": "14:22:02",
     "8778_sched_display": [
       "Jason"
     ]

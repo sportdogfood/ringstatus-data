@@ -90,7 +90,7 @@
     "class_name": "1.40m Open Stake II2b",
     "latestStart": "10:20 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 13,
+    "total_trips": 12,
     "show_id": 200000068,
     "show_date": "2026-08-28",
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -309,7 +309,7 @@
     "class_number": 740,
     "class_name": "1.10m Junior/Amateur Jumper II2d",
     "latestStart": "9:35 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 13,
     "show_id": 200000068,
     "show_date": "2026-08-28",
@@ -756,7 +756,7 @@
     "class_id": 200027307,
     "class_number": 580,
     "class_name": "WIHS Hunter Phase",
-    "latestStart": "10:10 AM",
+    "latestStart": "10:19 AM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000068,
@@ -764,9 +764,9 @@
     "show_days_display_date": "Friday, August, 28, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "10:10 AM",
+    "start_display": "10:19 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:10:51",
+    "estimated_start_time": "10:19:03",
     "group_display": [
       "Munster",
       "Power",
@@ -960,10 +960,12 @@
     "class_group_sequence": 5,
     "estimated_start_time": "09:43:00",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "group_name_tags": "target, usf, flat, Under Saddle/Flat"
   },
@@ -980,7 +982,7 @@
     "class_name": "Age Group Equitation (11&U: 2'6\"/12-14: 2'9\"/Adult: 3')",
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 12,
+    "total_trips": 14,
     "show_id": 200000068,
     "show_date": "2026-08-28",
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -990,10 +992,12 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:10:00",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "group_name_tags": "target, adult, 3', Over Fences"
   },
@@ -1010,7 +1014,7 @@
     "class_name": "Age Group Equitation (11&U: 2'6\"/12-14: 2'9\"/Adult: 3')",
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 12,
+    "total_trips": 14,
     "show_id": 200000068,
     "show_date": "2026-08-28",
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -1020,10 +1024,12 @@
     "class_group_sequence": 6,
     "estimated_start_time": "10:10:00",
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "8778_sched_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "group_name_tags": "target, adult, 3', Over Fences"
   }

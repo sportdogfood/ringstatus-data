@@ -67,7 +67,7 @@
     "start_display": "10:20 AM",
     "start_display_short": "10:20A",
     "time_sort": 37200,
-    "total_trips": 13
+    "total_trips": 12
   },
   {
     "8778_group_display": [
@@ -734,9 +734,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:10 AM",
-    "start_display_short": "10:10A",
-    "time_sort": 36651,
+    "start_display": "10:19 AM",
+    "start_display_short": "10:19A",
+    "time_sort": 37143,
     "total_trips": 4
   },
   {
@@ -807,7 +807,8 @@
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "class_group_id": 200025780,
     "class_id": 200027076,
@@ -819,7 +820,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -829,11 +831,12 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 12
+    "total_trips": 14
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "class_group_id": 200025780,
     "class_id": 200027416,
@@ -845,7 +848,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -855,11 +859,12 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 12
+    "total_trips": 14
   },
   {
     "8778_group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "class_group_id": 200025779,
     "class_id": null,
@@ -871,7 +876,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Pedro"
+      "Pedro",
+      "Mark"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",

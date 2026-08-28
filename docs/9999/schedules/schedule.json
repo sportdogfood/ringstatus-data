@@ -49,14 +49,14 @@
     "sid": 200000068,
     "start_display": "8:41 AM",
     "start_display_short": "8:41A",
-    "time_sort": 31283,
+    "time_sort": 31260,
     "total_trips": 2,
     "class_groupxclasses_id": 200038254,
     "latestStart": "8:41 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 2,
-    "estimated_start_time": "08:41:23",
+    "estimated_start_time": "08:41:00",
     "8778_sched_display": []
   },
   {
@@ -79,14 +79,14 @@
     "sid": 200000068,
     "start_display": "8:51 AM",
     "start_display_short": "8:51A",
-    "time_sort": 31883,
+    "time_sort": 31860,
     "total_trips": 6,
     "class_groupxclasses_id": 200038255,
     "latestStart": "8:51 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:51:23",
+    "estimated_start_time": "08:51:00",
     "8778_sched_display": []
   },
   {
@@ -349,7 +349,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Rimini"
     ],
     "class_group_id": 200025729,
     "class_id": 200027336,
@@ -362,7 +362,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      null
+      "Rimini"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, August, 28, 2026",
@@ -380,7 +380,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:35:00",
     "8778_sched_display": [
-      null
+      "Rimini"
     ]
   },
   {
@@ -912,16 +912,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:22 AM",
-    "start_display_short": "10:22A",
-    "time_sort": 37323,
+    "start_display": "10:27 AM",
+    "start_display_short": "10:27A",
+    "time_sort": 37623,
     "total_trips": 4,
     "class_groupxclasses_id": 200040420,
-    "latestStart": "10:22 AM",
+    "latestStart": "10:27 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:22:03",
+    "estimated_start_time": "10:27:03",
     "8778_sched_display": [
       "Munster",
       "Power",

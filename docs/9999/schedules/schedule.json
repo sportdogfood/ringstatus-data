@@ -183,7 +183,9 @@
     "total_trips": 8,
     "class_groupxclasses_id": 200038369,
     "latestStart": "12:00 PM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "show_date": "2026-08-28",
     "class_group_sequence": 3,
     "estimated_start_time": "12:00:05",

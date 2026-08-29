@@ -844,9 +844,7 @@
     "total_trips": null
   },
   {
-    "8778_group_display": [
-      "Tommy"
-    ],
+    "8778_group_display": [],
     "class_group_id": 200026998,
     "class_id": null,
     "class_name": "$500 NAL/WIHS/M&S Child/Adult Amateur Hunter Classic",
@@ -856,9 +854,7 @@
     "group_name_tags": "classic, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [
-      "Tommy"
-    ],
+    "group_display": [],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
@@ -1472,7 +1468,9 @@
     "total_trips": null
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200027000,
     "class_id": null,
     "class_name": "$500 NAL/WIHS/M&S Child/Adult Amateur Hunter Classic",
@@ -1482,7 +1480,9 @@
     "group_name_tags": "classic, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",

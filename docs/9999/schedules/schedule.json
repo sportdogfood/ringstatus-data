@@ -363,7 +363,7 @@
     "total_trips": 18,
     "class_groupxclasses_id": 200038382,
     "latestStart": "10:15 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:03",
@@ -401,7 +401,7 @@
     "total_trips": 18,
     "class_groupxclasses_id": 200040562,
     "latestStart": "10:15 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:03",
@@ -462,16 +462,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:13 AM",
-    "start_display_short": "11:13A",
-    "time_sort": 40392,
+    "start_display": "11:15 AM",
+    "start_display_short": "11:15A",
+    "time_sort": 40504,
     "total_trips": 4,
     "class_groupxclasses_id": 200038385,
-    "latestStart": "11:13 AM",
+    "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:13:12",
+    "estimated_start_time": "11:15:04",
     "8778_sched_display": [
       "Doug"
     ]
@@ -749,7 +749,7 @@
   {
     "8778_group_display": [
       "Jason",
-      "Hurricane"
+      "Hurricane (4)"
     ],
     "class_group_id": 200025809,
     "class_id": 200027147,
@@ -763,7 +763,7 @@
     "ringName": "Village",
     "group_display": [
       "Jason",
-      "Hurricane"
+      "Hurricane (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -776,13 +776,13 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200038397,
     "latestStart": "11:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-08-29",
     "class_group_sequence": 7,
     "estimated_start_time": "11:05:03",
     "8778_sched_display": [
       "Jason",
-      "Hurricane"
+      "Hurricane (4)"
     ]
   },
   {
@@ -803,16 +803,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:22 AM",
-    "start_display_short": "11:22A",
-    "time_sort": 40927,
+    "start_display": "11:23 AM",
+    "start_display_short": "11:23A",
+    "time_sort": 40984,
     "total_trips": 1,
     "class_groupxclasses_id": 200038398,
-    "latestStart": "11:22 AM",
+    "latestStart": "11:23 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:22:07",
+    "estimated_start_time": "11:23:04",
     "8778_sched_display": []
   },
   {
@@ -833,22 +833,22 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:25 AM",
-    "start_display_short": "11:25A",
-    "time_sort": 41107,
+    "start_display": "11:26 AM",
+    "start_display_short": "11:26A",
+    "time_sort": 41164,
     "total_trips": 1,
     "class_groupxclasses_id": 200038399,
-    "latestStart": "11:25 AM",
+    "latestStart": "11:26 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:25:07",
+    "estimated_start_time": "11:26:04",
     "8778_sched_display": []
   },
   {
     "8778_group_display": [
-      "Fan Fan",
-      "Shrek "
+      "Fan Fan (1)",
+      "Shrek  (2)"
     ],
     "class_group_id": 200025812,
     "class_id": 200027034,
@@ -861,27 +861,27 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Fan Fan",
-      "Shrek "
+      "Fan Fan (1)",
+      "Shrek  (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:28 AM",
-    "start_display_short": "11:28A",
-    "time_sort": 41287,
+    "start_display": "11:29 AM",
+    "start_display_short": "11:29A",
+    "time_sort": 41344,
     "total_trips": 10,
     "class_groupxclasses_id": 200038400,
-    "latestStart": "11:28 AM",
+    "latestStart": "11:29 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 10,
-    "estimated_start_time": "11:28:07",
+    "estimated_start_time": "11:29:04",
     "8778_sched_display": [
-      "Fan Fan",
-      "Shrek "
+      "Fan Fan (1)",
+      "Shrek  (2)"
     ]
   },
   {
@@ -1119,7 +1119,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200040512,
     "latestStart": "10:11 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",
@@ -1155,7 +1155,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200040513,
     "latestStart": "10:11 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",

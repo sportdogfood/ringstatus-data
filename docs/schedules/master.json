@@ -182,7 +182,7 @@
   {
     "8778_group_display": [
       "Maiki (4)",
-      "Q (9)"
+      "Q (10)"
     ],
     "class_group_id": 200025798,
     "class_id": 200027058,
@@ -195,7 +195,7 @@
     "ring_number": 3,
     "group_display": [
       "Maiki (4)",
-      "Q (9)"
+      "Q (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -235,7 +235,7 @@
   },
   {
     "8778_group_display": [
-      "Doug (769)"
+      "Doug"
     ],
     "class_group_id": 200025801,
     "class_id": 200027250,
@@ -247,7 +247,7 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Doug (769)"
+      "Doug"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -433,7 +433,7 @@
     "start_display": "8:50 AM",
     "start_display_short": "8:50A",
     "time_sort": 31800,
-    "total_trips": 13
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -499,7 +499,7 @@
     "start_display": "8:50 AM",
     "start_display_short": "8:50A",
     "time_sort": 31800,
-    "total_trips": 13
+    "total_trips": 12
   },
   {
     "8778_group_display": [],
@@ -526,7 +526,7 @@
   {
     "8778_group_display": [
       "Fan Fan",
-      "Shrek  (738)"
+      "Shrek "
     ],
     "class_group_id": 200025812,
     "class_id": 200027034,
@@ -539,7 +539,7 @@
     "ring_number": 4,
     "group_display": [
       "Fan Fan",
-      "Shrek  (738)"
+      "Shrek "
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -575,8 +575,8 @@
   },
   {
     "8778_group_display": [
-      "Jason",
-      "Hurricane (781)"
+      "Hurricane",
+      "Jason"
     ],
     "class_group_id": 200025809,
     "class_id": 200027147,
@@ -588,8 +588,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Jason",
-      "Hurricane (781)"
+      "Hurricane",
+      "Jason"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -647,7 +647,7 @@
   },
   {
     "8778_group_display": [
-      "Macho (336)"
+      "Macho"
     ],
     "class_group_id": 200026986,
     "class_id": null,
@@ -659,7 +659,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Macho (336)"
+      "Macho"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -673,7 +673,7 @@
   },
   {
     "8778_group_display": [
-      "Macho (338)"
+      "Macho"
     ],
     "class_group_id": 200026985,
     "class_id": 200027391,
@@ -685,7 +685,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Macho (338)"
+      "Macho"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -699,7 +699,7 @@
   },
   {
     "8778_group_display": [
-      "Macho (337)"
+      "Macho"
     ],
     "class_group_id": 200026985,
     "class_id": 200027213,
@@ -711,7 +711,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Macho (337)"
+      "Macho"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -769,8 +769,8 @@
   },
   {
     "8778_group_display": [
-      "Mark (529)",
-      "Pedro (529)"
+      "Mark",
+      "Pedro"
     ],
     "class_group_id": 200026997,
     "class_id": 200027287,
@@ -782,8 +782,8 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Mark (529)",
-      "Pedro (529)"
+      "Mark",
+      "Pedro"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -819,7 +819,7 @@
   },
   {
     "8778_group_display": [
-      "Tommy (313)"
+      "Tommy"
     ],
     "class_group_id": 200027000,
     "class_id": 200027137,
@@ -831,7 +831,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Tommy (313)"
+      "Tommy"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -845,7 +845,7 @@
   },
   {
     "8778_group_display": [
-      "Tommy (904)"
+      "Tommy"
     ],
     "class_group_id": 200026998,
     "class_id": 200027321,
@@ -853,11 +853,11 @@
     "class_number": 904,
     "dt": "2026-08-29",
     "group_name": "Adult Amateur Hunter",
-    "group_name_tags": "classic, adult, amateur, hunters, Over Fences",
+    "group_name_tags": "classic, target, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Tommy (904)"
+      "Tommy"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -937,8 +937,8 @@
   },
   {
     "8778_group_display": [
-      "Knox (413)",
-      "Crush (413)"
+      "Knox",
+      "Crush"
     ],
     "class_group_id": 200025842,
     "class_id": 200027051,
@@ -950,8 +950,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Knox (413)",
-      "Crush (413)"
+      "Knox",
+      "Crush"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -987,7 +987,7 @@
   },
   {
     "8778_group_display": [
-      "Tommy (312)"
+      "Tommy"
     ],
     "class_group_id": 200027000,
     "class_id": 200027196,
@@ -999,7 +999,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Tommy (312)"
+      "Tommy"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -1013,7 +1013,7 @@
   },
   {
     "8778_group_display": [
-      "Tommy (311)"
+      "Tommy"
     ],
     "class_group_id": 200027001,
     "class_id": null,
@@ -1025,7 +1025,7 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Tommy (311)"
+      "Tommy"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -1061,8 +1061,8 @@
   },
   {
     "8778_group_display": [
-      "Knox (412)",
-      "Crush (412)"
+      "Knox",
+      "Crush"
     ],
     "class_group_id": 200025842,
     "class_id": 200027364,
@@ -1074,8 +1074,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Knox (412)",
-      "Crush (412)"
+      "Knox",
+      "Crush"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -1089,8 +1089,8 @@
   },
   {
     "8778_group_display": [
-      "Knox (411)",
-      "Crush (411)"
+      "Knox",
+      "Crush"
     ],
     "class_group_id": 200025843,
     "class_id": null,
@@ -1102,8 +1102,8 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Knox (411)",
-      "Crush (411)"
+      "Knox",
+      "Crush"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -1117,7 +1117,7 @@
   },
   {
     "8778_group_display": [
-      "Crush (540)"
+      "Crush"
     ],
     "class_group_id": 200025842,
     "class_id": 200027181,
@@ -1129,7 +1129,7 @@
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
-      "Crush (540)"
+      "Crush"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -1249,7 +1249,7 @@
     "start_display": "10:30 AM",
     "start_display_short": "10:30A",
     "time_sort": 37800,
-    "total_trips": 2
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -1359,7 +1359,7 @@
     "start_display": "10:30 AM",
     "start_display_short": "10:30A",
     "time_sort": 37800,
-    "total_trips": 2
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -1479,7 +1479,7 @@
     "class_number": 904,
     "dt": "2026-08-29",
     "group_name": "Children's Hunter",
-    "group_name_tags": "classic, children's, hunters, Over Fences",
+    "group_name_tags": "classic, target, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [],

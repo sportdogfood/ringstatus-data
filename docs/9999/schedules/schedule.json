@@ -167,16 +167,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:31 AM",
-    "start_display_short": "10:31A",
-    "time_sort": 37863,
+    "start_display": "10:35 AM",
+    "start_display_short": "10:35A",
+    "time_sort": 38106,
     "total_trips": 15,
     "class_groupxclasses_id": 200038375,
-    "latestStart": "10:31 AM",
+    "latestStart": "10:35 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:31:03",
+    "estimated_start_time": "10:35:06",
     "8778_sched_display": []
   },
   {
@@ -279,7 +279,7 @@
     "class_number": 802,
     "dt": "2026-08-29",
     "group_name": "1.10m Junior/Amateur Jumper Classic II2b",
-    "group_name_tags": "target, 1.10m, amateur, junior, wihs, jumpers, Over Fences",
+    "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences",
     "ring_nickname": "Covered",
     "ring_number": 3,
     "ringName": "Covered",
@@ -363,7 +363,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200038382,
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:03",
@@ -374,7 +374,7 @@
   {
     "8778_group_display": [
       "Maiki (6)",
-      "Q (15)"
+      "Q (16)"
     ],
     "class_group_id": 200025798,
     "class_id": 200027058,
@@ -388,7 +388,7 @@
     "ringName": "Covered",
     "group_display": [
       "Maiki (6)",
-      "Q (15)"
+      "Q (16)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -401,13 +401,13 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200040562,
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
     "estimated_start_time": "10:15:03",
     "8778_sched_display": [
       "Maiki (6)",
-      "Q (15)"
+      "Q (16)"
     ]
   },
   {
@@ -462,16 +462,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "start_display": "11:10 AM",
+    "start_display_short": "11:10A",
+    "time_sort": 40200,
     "total_trips": 4,
     "class_groupxclasses_id": 200038385,
-    "latestStart": "11:00 AM",
+    "latestStart": "11:10 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:00:00",
+    "estimated_start_time": "11:10:00",
     "8778_sched_display": [
       "Doug"
     ]
@@ -704,16 +704,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:25 AM",
-    "start_display_short": "10:25A",
-    "time_sort": 37503,
+    "start_display": "10:30 AM",
+    "start_display_short": "10:30A",
+    "time_sort": 37805,
     "total_trips": 7,
     "class_groupxclasses_id": 200038395,
-    "latestStart": "10:25 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:25:03",
+    "estimated_start_time": "10:30:05",
     "8778_sched_display": []
   },
   {
@@ -734,16 +734,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:50 AM",
-    "start_display_short": "10:50A",
-    "time_sort": 39000,
+    "start_display": "10:55 AM",
+    "start_display_short": "10:55A",
+    "time_sort": 39329,
     "total_trips": 1,
     "class_groupxclasses_id": 200038396,
-    "latestStart": "10:50 AM",
+    "latestStart": "10:55 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:50:00",
+    "estimated_start_time": "10:55:29",
     "8778_sched_display": []
   },
   {
@@ -1082,7 +1082,7 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200040510,
     "latestStart": "9:49 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
     "estimated_start_time": "09:49:06",
@@ -1092,18 +1092,22 @@
     ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200026998,
     "class_id": 200027094,
     "class_name": "Adult Amateur Hunter",
     "class_number": 282,
     "dt": "2026-08-29",
-    "group_name": "Adult Amateur Hunter",
+    "group_name": "Child/Adult Amateur Hunter",
     "group_name_tags": "target, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
@@ -1112,28 +1116,36 @@
     "start_display": "10:11 AM",
     "start_display_short": "10:11A",
     "time_sort": 36663,
-    "total_trips": 12,
+    "total_trips": 15,
     "class_groupxclasses_id": 200040512,
     "latestStart": "10:11 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200026998,
     "class_id": 200027362,
     "class_name": "Adult Amateur Hunter",
     "class_number": 283,
     "dt": "2026-08-29",
-    "group_name": "Adult Amateur Hunter",
+    "group_name": "Child/Adult Amateur Hunter",
     "group_name_tags": "target, adult, amateur, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
@@ -1142,17 +1154,23 @@
     "start_display": "10:11 AM",
     "start_display_short": "10:11A",
     "time_sort": 36663,
-    "total_trips": 12,
+    "total_trips": 15,
     "class_groupxclasses_id": 200040513,
     "latestStart": "10:11 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Tommy"
+    ],
     "class_group_id": 200026999,
     "class_id": null,
     "class_name": "Adult Amateur Hunter U/S",
@@ -1163,7 +1181,9 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "ringName": "Hunter 1",
-    "group_display": [],
+    "group_display": [
+      "Tommy"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
@@ -1179,7 +1199,9 @@
     "show_date": "2026-08-29",
     "class_group_sequence": 6,
     "estimated_start_time": "10:12:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      "Tommy"
+    ]
   },
   {
     "8778_group_display": [
@@ -1940,16 +1962,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:31 AM",
-    "start_display_short": "11:31A",
-    "time_sort": 41463,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
     "total_trips": 6,
     "class_groupxclasses_id": 200040554,
-    "latestStart": "11:31 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:31:03",
+    "estimated_start_time": "11:30:00",
     "8778_sched_display": []
   },
   {
@@ -1970,16 +1992,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:31 AM",
-    "start_display_short": "11:31A",
-    "time_sort": 41463,
+    "start_display": "11:30 AM",
+    "start_display_short": "11:30A",
+    "time_sort": 41400,
     "total_trips": 6,
     "class_groupxclasses_id": 200040555,
-    "latestStart": "11:31 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:31:03",
+    "estimated_start_time": "11:30:00",
     "8778_sched_display": []
   }
 ]

@@ -140,7 +140,7 @@
     "class_id": 200027218,
     "class_number": 711,
     "class_name": "1.25m Open Jumper II2b",
-    "latestStart": "10:31 AM",
+    "latestStart": "10:35 AM",
     "latestStatus": "Upcoming",
     "total_trips": 15,
     "show_id": 200000068,
@@ -148,9 +148,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Derby",
-    "start_display": "10:31 AM",
+    "start_display": "10:35 AM",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:31:03",
+    "estimated_start_time": "10:35:06",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, open, jumpers, Over Fences"
@@ -261,7 +261,7 @@
     "8778_sched_display": [
       "Rimini (4)"
     ],
-    "group_name_tags": "target, 1.10m, amateur, junior, wihs, jumpers, Over Fences"
+    "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences"
   },
   {
     "sid": 200000068,
@@ -301,7 +301,7 @@
     "class_number": 788,
     "class_name": "1.20m Open Jumper II2b",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 19,
     "show_id": 200000068,
     "show_date": "2026-08-29",
@@ -331,7 +331,7 @@
     "class_number": 722,
     "class_name": "1.20m Junior/Amateur Jumper II2b",
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 19,
     "show_id": 200000068,
     "show_date": "2026-08-29",
@@ -343,11 +343,11 @@
     "estimated_start_time": "10:15:03",
     "group_display": [
       "Maiki (6)",
-      "Q (15)"
+      "Q (16)"
     ],
     "8778_sched_display": [
       "Maiki (6)",
-      "Q (15)"
+      "Q (16)"
     ],
     "group_name_tags": "target, open, young, 1.20m, jumpers, Over Fences"
   },
@@ -388,7 +388,7 @@
     "class_id": 200027250,
     "class_number": 769,
     "class_name": "1.30m Open Jumper II2b",
-    "latestStart": "11:00 AM",
+    "latestStart": "11:10 AM",
     "latestStatus": "Upcoming",
     "total_trips": 4,
     "show_id": 200000068,
@@ -396,9 +396,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:00 AM",
+    "start_display": "11:10 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:00:00",
+    "estimated_start_time": "11:10:00",
     "group_display": [
       "Doug"
     ],
@@ -600,7 +600,7 @@
     "class_id": 200027261,
     "class_number": 752,
     "class_name": "Training Jumper (.90m) II2b",
-    "latestStart": "10:25 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
     "total_trips": 7,
     "show_id": 200000068,
@@ -608,9 +608,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "10:25 AM",
+    "start_display": "10:30 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:25:03",
+    "estimated_start_time": "10:30:05",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, .90m, jumpers, Over Fences"
@@ -626,7 +626,7 @@
     "class_id": 200027171,
     "class_number": 821,
     "class_name": ".90m Young Jumper Table II",
-    "latestStart": "10:50 AM",
+    "latestStart": "10:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 1,
     "show_id": 200000068,
@@ -634,9 +634,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "10:50 AM",
+    "start_display": "10:55 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:50:00",
+    "estimated_start_time": "10:55:29",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, .90m, jumpers, Over Fences"
@@ -911,7 +911,7 @@
     "class_number": 529,
     "class_name": "M&S Children's Medal",
     "latestStart": "9:49 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 4,
     "show_id": 200000068,
     "show_date": "2026-08-29",
@@ -938,13 +938,15 @@
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040512,
     "class_group_id": 200026998,
-    "group_name": "Adult Amateur Hunter",
+    "group_name": "Child/Adult Amateur Hunter",
     "class_id": 200027094,
     "class_number": 282,
     "class_name": "Adult Amateur Hunter",
     "latestStart": "10:11 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 12,
+    "latestStatus": [
+      "Underway"
+    ],
+    "total_trips": 15,
     "show_id": 200000068,
     "show_date": "2026-08-29",
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -953,8 +955,12 @@
     "start_display": "10:11 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Tommy"
+    ],
+    "8778_sched_display": [
+      "Tommy"
+    ],
     "group_name_tags": "target, adult, amateur, hunters, Over Fences"
   },
   {
@@ -964,13 +970,15 @@
     "ringName": "Hunter 1",
     "class_groupxclasses_id": 200040513,
     "class_group_id": 200026998,
-    "group_name": "Adult Amateur Hunter",
+    "group_name": "Child/Adult Amateur Hunter",
     "class_id": 200027362,
     "class_number": 283,
     "class_name": "Adult Amateur Hunter",
     "latestStart": "10:11 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 12,
+    "latestStatus": [
+      "Underway"
+    ],
+    "total_trips": 15,
     "show_id": 200000068,
     "show_date": "2026-08-29",
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -979,8 +987,12 @@
     "start_display": "10:11 AM",
     "class_group_sequence": 5,
     "estimated_start_time": "10:11:03",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Tommy"
+    ],
+    "8778_sched_display": [
+      "Tommy"
+    ],
     "group_name_tags": "target, adult, amateur, hunters, Over Fences"
   },
   {
@@ -1005,8 +1017,12 @@
     "start_display": "10:12 AM",
     "class_group_sequence": 6,
     "estimated_start_time": "10:12:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Tommy"
+    ],
+    "8778_sched_display": [
+      "Tommy"
+    ],
     "group_name_tags": "target, usf, adult, amateur, U/S, hunters, Under Saddle/Flat"
   },
   {
@@ -1652,7 +1668,7 @@
     "class_id": 200027113,
     "class_number": 189,
     "class_name": "USHJA Hunter 2'9\"",
-    "latestStart": "11:31 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000068,
@@ -1660,9 +1676,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:31 AM",
+    "start_display": "11:30 AM",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:31:03",
+    "estimated_start_time": "11:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, ushja, hunters, Over Fences"
@@ -1678,7 +1694,7 @@
     "class_id": 200027068,
     "class_number": 190,
     "class_name": "USHJA Hunter 2'9\"",
-    "latestStart": "11:31 AM",
+    "latestStart": "11:30 AM",
     "latestStatus": "Upcoming",
     "total_trips": 6,
     "show_id": 200000068,
@@ -1686,9 +1702,9 @@
     "show_days_display_date": "Saturday, August, 29, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:31 AM",
+    "start_display": "11:30 AM",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:31:03",
+    "estimated_start_time": "11:30:00",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, ushja, hunters, Over Fences"

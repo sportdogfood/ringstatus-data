@@ -360,7 +360,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36903,
-    "total_trips": 19,
+    "total_trips": 18,
     "class_groupxclasses_id": 200038382,
     "latestStart": "10:15 AM",
     "latestStatus": "Underway",
@@ -374,7 +374,7 @@
   {
     "8778_group_display": [
       "Maiki (6)",
-      "Q (16)"
+      "Q (15)"
     ],
     "class_group_id": 200025798,
     "class_id": 200027058,
@@ -388,7 +388,7 @@
     "ringName": "Covered",
     "group_display": [
       "Maiki (6)",
-      "Q (16)"
+      "Q (15)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -398,7 +398,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36903,
-    "total_trips": 19,
+    "total_trips": 18,
     "class_groupxclasses_id": 200040562,
     "latestStart": "10:15 AM",
     "latestStatus": "Underway",
@@ -407,7 +407,7 @@
     "estimated_start_time": "10:15:03",
     "8778_sched_display": [
       "Maiki (6)",
-      "Q (16)"
+      "Q (15)"
     ]
   },
   {
@@ -431,7 +431,7 @@
     "start_display": "10:15 AM",
     "start_display_short": "10:15A",
     "time_sort": 36903,
-    "total_trips": 19,
+    "total_trips": 18,
     "class_groupxclasses_id": 200040563,
     "latestStart": "10:15 AM",
     "latestStatus": "Upcoming",
@@ -770,16 +770,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "start_display": "11:05 AM",
+    "start_display_short": "11:05A",
+    "time_sort": 39903,
     "total_trips": 4,
     "class_groupxclasses_id": 200038397,
-    "latestStart": "11:00 AM",
+    "latestStart": "11:05 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 7,
-    "estimated_start_time": "11:00:00",
+    "estimated_start_time": "11:05:03",
     "8778_sched_display": [
       "Jason",
       "Hurricane"
@@ -803,16 +803,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:17 AM",
+    "start_display_short": "11:17A",
+    "time_sort": 40623,
     "total_trips": 1,
     "class_groupxclasses_id": 200038398,
-    "latestStart": "11:15 AM",
+    "latestStart": "11:17 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:15:00",
+    "estimated_start_time": "11:17:03",
     "8778_sched_display": []
   },
   {
@@ -835,14 +835,14 @@
     "sid": 200000068,
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
-    "time_sort": 40800,
+    "time_sort": 40803,
     "total_trips": 1,
     "class_groupxclasses_id": 200038399,
     "latestStart": "11:20 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "11:20:00",
+    "estimated_start_time": "11:20:03",
     "8778_sched_display": []
   },
   {
@@ -1325,16 +1325,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:48 AM",
-    "start_display_short": "10:48A",
-    "time_sort": 38925,
+    "start_display": "10:55 AM",
+    "start_display_short": "10:55A",
+    "time_sort": 39303,
     "total_trips": 3,
     "class_groupxclasses_id": 200040530,
-    "latestStart": "10:48 AM",
+    "latestStart": "10:55 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "10:48:45",
+    "estimated_start_time": "10:55:03",
     "8778_sched_display": []
   },
   {
@@ -1355,16 +1355,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "10:48 AM",
-    "start_display_short": "10:48A",
-    "time_sort": 38925,
+    "start_display": "10:55 AM",
+    "start_display_short": "10:55A",
+    "time_sort": 39303,
     "total_trips": 3,
     "class_groupxclasses_id": 200040531,
-    "latestStart": "10:48 AM",
+    "latestStart": "10:55 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 9,
-    "estimated_start_time": "10:48:45",
+    "estimated_start_time": "10:55:03",
     "8778_sched_display": []
   },
   {

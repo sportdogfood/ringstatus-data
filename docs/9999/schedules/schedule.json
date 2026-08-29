@@ -19,14 +19,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28806,
     "total_trips": 9,
     "class_groupxclasses_id": 200038370,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "8778_sched_display": []
   },
   {
@@ -49,14 +49,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28806,
     "total_trips": 9,
     "class_groupxclasses_id": 200040556,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "8778_sched_display": []
   },
   {
@@ -79,14 +79,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28806,
     "total_trips": 9,
     "class_groupxclasses_id": 200040557,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "8778_sched_display": []
   },
   {
@@ -360,7 +360,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 19,
+    "total_trips": 20,
     "class_groupxclasses_id": 200038382,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
@@ -374,7 +374,7 @@
   {
     "8778_group_display": [
       "Maiki (6)",
-      "Q (11)"
+      "Q (12)"
     ],
     "class_group_id": 200025798,
     "class_id": 200027058,
@@ -388,7 +388,7 @@
     "ringName": "Covered",
     "group_display": [
       "Maiki (6)",
-      "Q (11)"
+      "Q (12)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, August, 29, 2026",
@@ -398,7 +398,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 19,
+    "total_trips": 20,
     "class_groupxclasses_id": 200040562,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
@@ -407,7 +407,7 @@
     "estimated_start_time": "10:10:00",
     "8778_sched_display": [
       "Maiki (6)",
-      "Q (11)"
+      "Q (12)"
     ]
   },
   {
@@ -431,7 +431,7 @@
     "start_display": "10:10 AM",
     "start_display_short": "10:10A",
     "time_sort": 36600,
-    "total_trips": 19,
+    "total_trips": 20,
     "class_groupxclasses_id": 200040563,
     "latestStart": "10:10 AM",
     "latestStatus": "Upcoming",
@@ -496,14 +496,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28806,
     "total_trips": 2,
     "class_groupxclasses_id": 200038386,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "8778_sched_display": []
   },
   {
@@ -526,14 +526,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28806,
     "total_trips": 2,
     "class_groupxclasses_id": 200038387,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:06",
     "8778_sched_display": []
   },
   {
@@ -847,7 +847,7 @@
   },
   {
     "8778_group_display": [
-      "Fan Fan",
+      "Fan Fan (133)",
       "Shrek  (134)"
     ],
     "class_group_id": 200025812,
@@ -861,7 +861,7 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Fan Fan",
+      "Fan Fan (133)",
       "Shrek  (134)"
     ],
     "shifted_to_next_day": null,
@@ -872,7 +872,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 9,
+    "total_trips": 10,
     "class_groupxclasses_id": 200038400,
     "latestStart": "11:20 AM",
     "latestStatus": "Upcoming",
@@ -880,7 +880,7 @@
     "class_group_sequence": 10,
     "estimated_start_time": "11:20:00",
     "8778_sched_display": [
-      "Fan Fan",
+      "Fan Fan (133)",
       "Shrek  (134)"
     ]
   },
@@ -1076,16 +1076,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "9:30 AM",
-    "start_display_short": "9:30A",
-    "time_sort": 34200,
+    "start_display": "9:39 AM",
+    "start_display_short": "9:39A",
+    "time_sort": 34740,
     "total_trips": 4,
     "class_groupxclasses_id": 200040510,
-    "latestStart": "9:30 AM",
+    "latestStart": "9:39 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 4,
-    "estimated_start_time": "09:30:00",
+    "estimated_start_time": "09:39:00",
     "8778_sched_display": [
       "Mark (826)",
       "Pedro (939)"
@@ -1109,16 +1109,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "9:46 AM",
-    "start_display_short": "9:46A",
-    "time_sort": 35160,
+    "start_display": "9:55 AM",
+    "start_display_short": "9:55A",
+    "time_sort": 35700,
     "total_trips": 12,
     "class_groupxclasses_id": 200040512,
-    "latestStart": "9:46 AM",
+    "latestStart": "9:55 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:46:00",
+    "estimated_start_time": "09:55:00",
     "8778_sched_display": []
   },
   {
@@ -1139,16 +1139,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000068,
     "sid": 200000068,
-    "start_display": "9:46 AM",
-    "start_display_short": "9:46A",
-    "time_sort": 35160,
+    "start_display": "9:55 AM",
+    "start_display_short": "9:55A",
+    "time_sort": 35700,
     "total_trips": 12,
     "class_groupxclasses_id": 200040513,
-    "latestStart": "9:46 AM",
+    "latestStart": "9:55 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:46:00",
+    "estimated_start_time": "09:55:00",
     "8778_sched_display": []
   },
   {
@@ -1206,7 +1206,7 @@
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
     "time_sort": 38700,
-    "total_trips": 12,
+    "total_trips": 10,
     "class_groupxclasses_id": 200040517,
     "latestStart": "10:45 AM",
     "latestStatus": "Upcoming",
@@ -1242,7 +1242,7 @@
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
     "time_sort": 38700,
-    "total_trips": 12,
+    "total_trips": 10,
     "class_groupxclasses_id": 200040518,
     "latestStart": "10:45 AM",
     "latestStatus": "Upcoming",
@@ -1405,14 +1405,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28807,
     "total_trips": 14,
     "class_groupxclasses_id": 200038463,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:07",
     "8778_sched_display": [
       "Knox (126)",
       "Crush (828)"
@@ -1444,14 +1444,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28807,
     "total_trips": 14,
     "class_groupxclasses_id": 200038464,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:07",
     "8778_sched_display": [
       "Knox (126)",
       "Crush (828)"
@@ -1520,14 +1520,14 @@
     "sid": 200000068,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28807,
     "total_trips": 14,
     "class_groupxclasses_id": 200038461,
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-08-29",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:07",
     "8778_sched_display": [
       "Crush (828)"
     ]

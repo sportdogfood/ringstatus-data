@@ -406,8 +406,8 @@
   },
   {
     "8778_group_display": [
-      "Doug (6)",
-      "Bee (7)"
+      "Doug (7)",
+      "Bee (8)"
     ],
     "class_group_id": 200026069,
     "class_id": 200027822,
@@ -420,8 +420,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Doug (6)",
-      "Bee (7)"
+      "Doug (7)",
+      "Bee (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, September, 12, 2026",
@@ -439,8 +439,8 @@
     "class_group_sequence": 5,
     "estimated_start_time": "11:30:00",
     "8778_sched_display": [
-      "Doug (6)",
-      "Bee (7)"
+      "Doug (7)",
+      "Bee (8)"
     ]
   },
   {
@@ -494,7 +494,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28819,
-    "total_trips": 25,
+    "total_trips": 24,
     "class_groupxclasses_id": 200038850,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -524,7 +524,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28819,
-    "total_trips": 25,
+    "total_trips": 24,
     "class_groupxclasses_id": 200044094,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -644,7 +644,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28819,
-    "total_trips": 25,
+    "total_trips": 24,
     "class_groupxclasses_id": 200044093,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -704,7 +704,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28819,
-    "total_trips": 25,
+    "total_trips": 24,
     "class_groupxclasses_id": 200038851,
     "latestStart": "8:00 AM",
     "latestStatus": "Underway",
@@ -1200,16 +1200,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:56 AM",
-    "start_display_short": "9:56A",
-    "time_sort": 35815,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 15,
     "class_groupxclasses_id": 200044038,
-    "latestStart": "9:56 AM",
+    "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-12",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:56:55",
+    "estimated_start_time": "10:00:00",
     "8778_sched_display": [
       "Pedro"
     ]
@@ -1236,16 +1236,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:56 AM",
-    "start_display_short": "9:56A",
-    "time_sort": 35815,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 15,
     "class_groupxclasses_id": 200044039,
-    "latestStart": "9:56 AM",
+    "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-12",
     "class_group_sequence": 5,
-    "estimated_start_time": "09:56:55",
+    "estimated_start_time": "10:00:00",
     "8778_sched_display": [
       "Pedro"
     ]

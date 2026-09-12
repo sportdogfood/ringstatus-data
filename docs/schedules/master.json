@@ -44,9 +44,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:09 AM",
-    "start_display_short": "11:09A",
-    "time_sort": 40140,
+    "start_display": "11:10 AM",
+    "start_display_short": "11:10A",
+    "time_sort": 40200,
     "total_trips": 18
   },
   {
@@ -132,9 +132,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "start_display": "10:45 AM",
+    "start_display_short": "10:45A",
+    "time_sort": 38700,
     "total_trips": 3
   },
   {
@@ -180,9 +180,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:15 AM",
-    "start_display_short": "9:15A",
-    "time_sort": 33300,
+    "start_display": "9:10 AM",
+    "start_display_short": "9:10A",
+    "time_sort": 33000,
     "total_trips": 6
   },
   {
@@ -297,8 +297,8 @@
   },
   {
     "8778_group_display": [
-      "Doug (4)",
-      "Bee (5)"
+      "Doug (6)",
+      "Bee (7)"
     ],
     "class_group_id": 200026069,
     "class_id": 200027822,
@@ -310,8 +310,8 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Doug (4)",
-      "Bee (5)"
+      "Doug (6)",
+      "Bee (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, September, 12, 2026",
@@ -321,7 +321,7 @@
     "start_display": "11:30 AM",
     "start_display_short": "11:30A",
     "time_sort": 41400,
-    "total_trips": 14
+    "total_trips": 16
   },
   {
     "8778_group_display": [],
@@ -364,7 +364,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28819,
     "total_trips": 25
   },
   {
@@ -375,7 +375,7 @@
     "class_number": 698,
     "dt": "2026-09-12",
     "group_name": "Itty Bitty Jumpers (.60-.65m) Table II & II2b",
-    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
+    "group_name_tags": "isFirstUp, target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [],
@@ -386,7 +386,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28819,
     "total_trips": 25
   },
   {
@@ -406,9 +406,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:33 AM",
-    "start_display_short": "9:33A",
-    "time_sort": 34380,
+    "start_display": "9:40 AM",
+    "start_display_short": "9:40A",
+    "time_sort": 34800,
     "total_trips": 14
   },
   {
@@ -428,9 +428,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:51 AM",
-    "start_display_short": "11:51A",
-    "time_sort": 42660,
+    "start_display": "12:01 PM",
+    "start_display_short": "12:01P",
+    "time_sort": 43260,
     "total_trips": 1
   },
   {
@@ -450,9 +450,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:33 AM",
-    "start_display_short": "9:33A",
-    "time_sort": 34380,
+    "start_display": "9:40 AM",
+    "start_display_short": "9:40A",
+    "time_sort": 34800,
     "total_trips": 14
   },
   {
@@ -463,7 +463,7 @@
     "class_number": 695,
     "dt": "2026-09-12",
     "group_name": "Itty Bitty Jumpers (.60-.65m) Table II & II2b",
-    "group_name_tags": "target, 60-.65m, jumpers, Over Fences",
+    "group_name_tags": "isFirstUp, target, 60-.65m, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [],
@@ -474,7 +474,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28819,
     "total_trips": 25
   },
   {
@@ -494,9 +494,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39600,
+    "start_display": "11:10 AM",
+    "start_display_short": "11:10A",
+    "time_sort": 40200,
     "total_trips": 17
   },
   {
@@ -518,7 +518,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28819,
     "total_trips": 25
   },
   {
@@ -538,9 +538,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
+    "start_display": "10:25 AM",
+    "start_display_short": "10:25A",
+    "time_sort": 37500,
     "total_trips": 15
   },
   {
@@ -963,7 +963,7 @@
     "class_number": 904,
     "dt": "2026-09-12",
     "group_name": "Children's/Adult Amateur Hunter",
-    "group_name_tags": "classic, adult, amateur, children's, hunters, Over Fences",
+    "group_name_tags": "classic, target, adult, amateur, children's, hunters, Over Fences",
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [],
@@ -1063,7 +1063,7 @@
     "class_number": 412,
     "dt": "2026-09-12",
     "group_name": "USEF Pony Medal & Small Pony Hunter",
-    "group_name_tags": "isFirstUp, target, medal, pony, small, hunters, Over Fences",
+    "group_name_tags": "target, medal, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1076,9 +1076,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:10 AM",
+    "start_display_short": "8:10A",
+    "time_sort": 29407,
     "total_trips": 22
   },
   {
@@ -1123,7 +1123,7 @@
     "class_number": 413,
     "dt": "2026-09-12",
     "group_name": "USEF Pony Medal & Small Pony Hunter",
-    "group_name_tags": "isFirstUp, target, medal, pony, small, hunters, Over Fences",
+    "group_name_tags": "target, medal, pony, small, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1136,9 +1136,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:10 AM",
+    "start_display_short": "8:10A",
+    "time_sort": 29407,
     "total_trips": 22
   },
   {
@@ -1152,7 +1152,7 @@
     "class_number": 540,
     "dt": "2026-09-12",
     "group_name": "USEF Pony Medal & Small Pony Hunter",
-    "group_name_tags": "isFirstUp, target, medal, pony, small, Over Fences",
+    "group_name_tags": "target, medal, pony, small, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1164,9 +1164,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:10 AM",
+    "start_display_short": "8:10A",
+    "time_sort": 29407,
     "total_trips": 22
   },
   {
@@ -1186,9 +1186,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:00 AM",
-    "start_display_short": "9:00A",
-    "time_sort": 32400,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
     "total_trips": 16
   },
   {
@@ -1208,9 +1208,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:00 AM",
-    "start_display_short": "9:00A",
-    "time_sort": 32400,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
     "total_trips": 16
   },
   {
@@ -1230,9 +1230,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:45 AM",
-    "start_display_short": "9:45A",
-    "time_sort": 35100,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 16
   },
   {
@@ -1252,9 +1252,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:45 AM",
-    "start_display_short": "9:45A",
-    "time_sort": 35100,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 16
   },
   {
@@ -1274,9 +1274,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:00 AM",
-    "start_display_short": "9:00A",
-    "time_sort": 32400,
+    "start_display": "9:15 AM",
+    "start_display_short": "9:15A",
+    "time_sort": 33300,
     "total_trips": 16
   },
   {
@@ -1340,9 +1340,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "9:45 AM",
-    "start_display_short": "9:45A",
-    "time_sort": 35100,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 16
   },
   {

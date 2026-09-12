@@ -861,7 +861,9 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200044000,
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-09-12",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",
@@ -897,7 +899,9 @@
     "total_trips": 11,
     "class_groupxclasses_id": 200044001,
     "latestStart": "8:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "show_date": "2026-09-12",
     "class_group_sequence": 1,
     "estimated_start_time": "08:00:00",

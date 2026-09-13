@@ -260,7 +260,7 @@
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
     "time_sort": 29700,
-    "total_trips": 3,
+    "total_trips": 4,
     "class_groupxclasses_id": 200038988,
     "latestStart": "8:15 AM",
     "latestStatus": "Upcoming",
@@ -320,7 +320,7 @@
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
     "time_sort": 36000,
-    "total_trips": 5,
+    "total_trips": 6,
     "class_groupxclasses_id": 200039007,
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
@@ -736,8 +736,8 @@
   },
   {
     "8778_group_display": [
-      "Fan Fan (8)",
-      "LaLa (9)"
+      "Fan Fan (9)",
+      "LaLa (10)"
     ],
     "class_group_id": 200026144,
     "class_id": 200027724,
@@ -750,8 +750,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Fan Fan (8)",
-      "LaLa (9)"
+      "Fan Fan (9)",
+      "LaLa (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -769,8 +769,8 @@
     "class_group_sequence": 6,
     "estimated_start_time": "09:25:00",
     "8778_sched_display": [
-      "Fan Fan (8)",
-      "LaLa (9)"
+      "Fan Fan (9)",
+      "LaLa (10)"
     ]
   },
   {
@@ -821,16 +821,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "7:45 AM",
-    "start_display_short": "7:45A",
-    "time_sort": 27900,
+    "start_display": "7:50 AM",
+    "start_display_short": "7:50A",
+    "time_sort": 28206,
     "total_trips": 3,
     "class_groupxclasses_id": 200039011,
-    "latestStart": "7:45 AM",
+    "latestStart": "7:50 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:45:00",
+    "estimated_start_time": "07:50:06",
     "8778_sched_display": []
   },
   {
@@ -1385,16 +1385,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:12 AM",
+    "start_display_short": "11:12A",
+    "time_sort": 40320,
     "total_trips": 11,
     "class_groupxclasses_id": 200039064,
-    "latestStart": "11:15 AM",
+    "latestStart": "11:12 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 11,
-    "estimated_start_time": "11:15:00",
+    "estimated_start_time": "11:12:00",
     "8778_sched_display": []
   },
   {
@@ -1445,16 +1445,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "11:15 AM",
-    "start_display_short": "11:15A",
-    "time_sort": 40500,
+    "start_display": "11:12 AM",
+    "start_display_short": "11:12A",
+    "time_sort": 40320,
     "total_trips": 11,
     "class_groupxclasses_id": 200039065,
-    "latestStart": "11:15 AM",
+    "latestStart": "11:12 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 11,
-    "estimated_start_time": "11:15:00",
+    "estimated_start_time": "11:12:00",
     "8778_sched_display": []
   },
   {
@@ -1708,14 +1708,14 @@
     "sid": 200000069,
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
-    "time_sort": 27900,
+    "time_sort": 27907,
     "total_trips": 3,
     "class_groupxclasses_id": 200044089,
     "latestStart": "7:45 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 3,
-    "estimated_start_time": "07:45:00",
+    "estimated_start_time": "07:45:07",
     "8778_sched_display": []
   },
   {
@@ -1738,14 +1738,14 @@
     "sid": 200000069,
     "start_display": "7:45 AM",
     "start_display_short": "7:45A",
-    "time_sort": 27900,
+    "time_sort": 27907,
     "total_trips": 3,
     "class_groupxclasses_id": 200044090,
     "latestStart": "7:45 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 3,
-    "estimated_start_time": "07:45:00",
+    "estimated_start_time": "07:45:07",
     "8778_sched_display": []
   },
   {

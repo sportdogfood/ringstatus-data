@@ -199,14 +199,14 @@
     "sid": 200000069,
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
-    "time_sort": 34500,
+    "time_sort": 34506,
     "total_trips": 21,
     "class_groupxclasses_id": 200038993,
     "latestStart": "9:35 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 6,
-    "estimated_start_time": "09:35:00",
+    "estimated_start_time": "09:35:06",
     "8778_sched_display": []
   },
   {
@@ -290,7 +290,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 30,
+    "total_trips": 29,
     "class_groupxclasses_id": 200038986,
     "latestStart": "11:00 AM",
     "latestStatus": "Upcoming",
@@ -505,14 +505,14 @@
     "sid": 200000069,
     "start_display": "10:45 AM",
     "start_display_short": "10:45A",
-    "time_sort": 38718,
+    "time_sort": 38712,
     "total_trips": 3,
     "class_groupxclasses_id": 200038997,
     "latestStart": "10:45 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 9,
-    "estimated_start_time": "10:45:18",
+    "estimated_start_time": "10:45:12",
     "8778_sched_display": []
   },
   {
@@ -736,8 +736,8 @@
   },
   {
     "8778_group_display": [
-      "Fan Fan (9)",
-      "LaLa (10)"
+      "Fan Fan (20)",
+      "LaLa (21)"
     ],
     "class_group_id": 200026144,
     "class_id": 200027724,
@@ -750,8 +750,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Fan Fan (9)",
-      "LaLa (10)"
+      "Fan Fan (20)",
+      "LaLa (21)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -760,17 +760,17 @@
     "sid": 200000069,
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
-    "time_sort": 34500,
+    "time_sort": 34506,
     "total_trips": 21,
     "class_groupxclasses_id": 200038994,
     "latestStart": "9:35 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 6,
-    "estimated_start_time": "09:35:00",
+    "estimated_start_time": "09:35:06",
     "8778_sched_display": [
-      "Fan Fan (9)",
-      "LaLa (10)"
+      "Fan Fan (20)",
+      "LaLa (21)"
     ]
   },
   {
@@ -1369,8 +1369,8 @@
   },
   {
     "8778_group_display": [
-      "Crush (9)",
-      "Bernie (13)"
+      "Crush (3)",
+      "Bernie (6)"
     ],
     "class_group_id": 200026195,
     "class_id": 200027542,
@@ -1383,8 +1383,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Crush (9)",
-      "Bernie (13)"
+      "Crush (3)",
+      "Bernie (6)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -1402,15 +1402,15 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:40:06",
     "8778_sched_display": [
-      "Crush (9)",
-      "Bernie (13)"
+      "Crush (3)",
+      "Bernie (6)"
     ]
   },
   {
     "8778_group_display": [
       "Knox (1)",
-      "Crush (7)",
-      "Bernie (11)"
+      "Crush (11)",
+      "Bernie (13)"
     ],
     "class_group_id": 200026195,
     "class_id": 200027634,
@@ -1424,8 +1424,8 @@
     "ringName": "Hunter 2",
     "group_display": [
       "Knox (1)",
-      "Crush (7)",
-      "Bernie (11)"
+      "Crush (11)",
+      "Bernie (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -1444,8 +1444,8 @@
     "estimated_start_time": "08:40:06",
     "8778_sched_display": [
       "Knox (1)",
-      "Crush (7)",
-      "Bernie (11)"
+      "Crush (11)",
+      "Bernie (13)"
     ]
   },
   {

@@ -203,7 +203,7 @@
     "total_trips": 20,
     "class_groupxclasses_id": 200038993,
     "latestStart": "9:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-13",
     "class_group_sequence": 6,
     "estimated_start_time": "09:35:06",
@@ -473,16 +473,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38700,
+    "start_display": "10:50 AM",
+    "start_display_short": "10:50A",
+    "time_sort": 39006,
     "total_trips": 11,
     "class_groupxclasses_id": 200039008,
-    "latestStart": "10:45 AM",
+    "latestStart": "10:50 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 5,
-    "estimated_start_time": "10:45:00",
+    "estimated_start_time": "10:50:06",
     "8778_sched_display": []
   },
   {
@@ -503,16 +503,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38718,
+    "start_display": "10:50 AM",
+    "start_display_short": "10:50A",
+    "time_sort": 39024,
     "total_trips": 3,
     "class_groupxclasses_id": 200038997,
-    "latestStart": "10:45 AM",
+    "latestStart": "10:50 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 9,
-    "estimated_start_time": "10:45:18",
+    "estimated_start_time": "10:50:24",
     "8778_sched_display": []
   },
   {
@@ -533,16 +533,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "10:45 AM",
-    "start_display_short": "10:45A",
-    "time_sort": 38700,
+    "start_display": "10:50 AM",
+    "start_display_short": "10:50A",
+    "time_sort": 39006,
     "total_trips": 3,
     "class_groupxclasses_id": 200038996,
-    "latestStart": "10:45 AM",
+    "latestStart": "10:50 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-13",
     "class_group_sequence": 8,
-    "estimated_start_time": "10:45:00",
+    "estimated_start_time": "10:50:06",
     "8778_sched_display": []
   },
   {
@@ -764,7 +764,7 @@
     "total_trips": 20,
     "class_groupxclasses_id": 200038994,
     "latestStart": "9:35 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-13",
     "class_group_sequence": 6,
     "estimated_start_time": "09:35:06",
@@ -975,7 +975,7 @@
     "total_trips": 15,
     "class_groupxclasses_id": 200039033,
     "latestStart": "10:45 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-13",
     "class_group_sequence": 6,
     "estimated_start_time": "10:45:00",
@@ -1369,8 +1369,8 @@
   },
   {
     "8778_group_display": [
-      "Crush (2)",
-      "Bernie (4)"
+      "Crush (3)",
+      "Bernie (5)"
     ],
     "class_group_id": 200026195,
     "class_id": 200027542,
@@ -1383,8 +1383,8 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      "Crush (2)",
-      "Bernie (4)"
+      "Crush (3)",
+      "Bernie (5)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -1402,8 +1402,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "08:40:06",
     "8778_sched_display": [
-      "Crush (2)",
-      "Bernie (4)"
+      "Crush (3)",
+      "Bernie (5)"
     ]
   },
   {
@@ -1502,7 +1502,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200039105,
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-13",
     "class_group_sequence": 5,
     "estimated_start_time": "10:15:00",
@@ -1562,7 +1562,7 @@
     "total_trips": 19,
     "class_groupxclasses_id": 200039103,
     "latestStart": "10:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-13",
     "class_group_sequence": 5,
     "estimated_start_time": "10:15:00",

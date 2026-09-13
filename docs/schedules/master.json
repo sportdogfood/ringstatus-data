@@ -19,7 +19,7 @@
     "start_display": "2:15 PM",
     "start_display_short": "2:15P",
     "time_sort": 51300,
-    "total_trips": 2
+    "total_trips": 1
   },
   {
     "8778_group_display": [],
@@ -41,7 +41,7 @@
     "start_display": "1:15 PM",
     "start_display_short": "1:15P",
     "time_sort": 47700,
-    "total_trips": 7
+    "total_trips": 5
   },
   {
     "8778_group_display": [],
@@ -62,7 +62,7 @@
     "sid": 200000069,
     "start_display": "8:15 AM",
     "start_display_short": "8:15A",
-    "time_sort": 29701,
+    "time_sort": 29702,
     "total_trips": 4
   },
   {
@@ -173,7 +173,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 5
+    "total_trips": 6
   },
   {
     "8778_group_display": [],
@@ -217,7 +217,7 @@
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
     "time_sort": 36000,
-    "total_trips": 32
+    "total_trips": 31
   },
   {
     "8778_group_display": [],
@@ -330,7 +330,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28814,
     "total_trips": 15
   },
   {
@@ -462,7 +462,7 @@
     "sid": 200000069,
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "time_sort": 28814,
     "total_trips": 15
   },
   {
@@ -511,8 +511,8 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Mark"
+      "Munster (1)",
+      "Mark (2)"
     ],
     "class_group_id": 200026158,
     "class_id": 200027834,
@@ -524,8 +524,8 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Munster",
-      "Mark"
+      "Munster (1)",
+      "Mark (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -877,7 +877,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 11
+    "total_trips": 10
   },
   {
     "8778_group_display": [],
@@ -1176,7 +1176,7 @@
     "class_number": 541,
     "dt": "2026-09-13",
     "group_name": "WIHS Pony, Small Pony Conf/Handy/Classic",
-    "group_name_tags": "isFirstUp, target, pony, small, wihs, Over Fences",
+    "group_name_tags": "target, pony, small, wihs, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1188,9 +1188,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29700,
     "total_trips": 26
   },
   {
@@ -1205,7 +1205,7 @@
     "class_number": 414,
     "dt": "2026-09-13",
     "group_name": "WIHS Pony, Small Pony Conf/Handy/Classic",
-    "group_name_tags": "isFirstUp, target, pony, small, wihs, hunters, Over Fences",
+    "group_name_tags": "target, pony, small, wihs, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1218,9 +1218,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29700,
     "total_trips": 26
   },
   {
@@ -1367,7 +1367,7 @@
     "class_number": 415,
     "dt": "2026-09-13",
     "group_name": "WIHS Pony, Small Pony Conf/Handy/Classic",
-    "group_name_tags": "handy, isFirstUp, pony, small, wihs, hunters, Over Fences",
+    "group_name_tags": "handy, pony, small, wihs, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1380,9 +1380,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29700,
     "total_trips": 26
   },
   {
@@ -1397,7 +1397,7 @@
     "class_number": 906,
     "dt": "2026-09-13",
     "group_name": "WIHS Pony, Small Pony Conf/Handy/Classic",
-    "group_name_tags": "classic, isFirstUp, pony, small, wihs, hunters, Over Fences",
+    "group_name_tags": "classic, pony, small, wihs, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [
@@ -1410,9 +1410,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000069,
     "sid": 200000069,
-    "start_display": "8:00 AM",
-    "start_display_short": "8:00A",
-    "time_sort": 28800,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29700,
     "total_trips": 26
   },
   {

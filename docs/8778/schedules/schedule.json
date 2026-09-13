@@ -12,7 +12,7 @@
     "class_name": "1.40m Open Jumper II2.1",
     "latestStart": "2:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 2,
+    "total_trips": 1,
     "show_id": 200000069,
     "show_date": "2026-09-13",
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -38,7 +38,7 @@
     "class_name": "1.30m Open Jumper II2.1",
     "latestStart": "1:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 7,
+    "total_trips": 5,
     "show_id": 200000069,
     "show_date": "2026-09-13",
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -72,7 +72,7 @@
     "ring_nickname": "Covered",
     "start_display": "8:15 AM",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:15:01",
+    "estimated_start_time": "08:15:02",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, young, 1.20m, jumpers, Over Fences"
@@ -194,7 +194,7 @@
     "class_name": "1.15m Open Jumper II2d",
     "latestStart": "8:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 5,
+    "total_trips": 6,
     "show_id": 200000069,
     "show_date": "2026-09-13",
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -246,7 +246,7 @@
     "class_name": "$24,999 Haig Landscape Grand Prix",
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 32,
+    "total_trips": 31,
     "show_id": 200000069,
     "show_date": "2026-09-13",
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -388,7 +388,7 @@
     "ring_nickname": "Village",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:14",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "isFirstUp, target, 60-.65m, II2d, jumpers, Over Fences"
@@ -544,7 +544,7 @@
     "ring_nickname": "Village",
     "start_display": "8:00 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:00:14",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "isFirstUp, target, 60-.65m, II2d, jumpers, Over Fences"
@@ -624,12 +624,12 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:15:00",
     "group_display": [
-      "Munster",
-      "Mark"
+      "Munster (1)",
+      "Mark (2)"
     ],
     "8778_sched_display": [
-      "Munster",
-      "Mark"
+      "Munster (1)",
+      "Mark (2)"
     ],
     "group_name_tags": "target, 3', 3'3\", medal, Over Fences"
   },
@@ -916,7 +916,7 @@
     "class_name": "THIS Children's Medal",
     "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 11,
+    "total_trips": 10,
     "show_id": 200000069,
     "show_date": "2026-09-13",
     "show_days_display_date": "Sunday, September, 13, 2026",
@@ -1284,7 +1284,7 @@
     "class_id": 200027542,
     "class_number": 541,
     "class_name": "WIHS Pony Equitation",
-    "latestStart": "8:00 AM",
+    "latestStart": "8:15 AM",
     "latestStatus": "Upcoming",
     "total_trips": 26,
     "show_id": 200000069,
@@ -1292,9 +1292,9 @@
     "show_days_display_date": "Sunday, September, 13, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "8:00 AM",
+    "start_display": "8:15 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:15:00",
     "group_display": [
       "Crush (12)",
       "Bernie (16)"
@@ -1303,7 +1303,7 @@
       "Crush (12)",
       "Bernie (16)"
     ],
-    "group_name_tags": "isFirstUp, target, pony, small, wihs, Over Fences"
+    "group_name_tags": "target, pony, small, wihs, Over Fences"
   },
   {
     "sid": 200000069,
@@ -1316,7 +1316,7 @@
     "class_id": 200027634,
     "class_number": 414,
     "class_name": "Small Pony Conformation Hunter",
-    "latestStart": "8:00 AM",
+    "latestStart": "8:15 AM",
     "latestStatus": "Upcoming",
     "total_trips": 26,
     "show_id": 200000069,
@@ -1324,9 +1324,9 @@
     "show_days_display_date": "Sunday, September, 13, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 2",
-    "start_display": "8:00 AM",
+    "start_display": "8:15 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "08:00:00",
+    "estimated_start_time": "08:15:00",
     "group_display": [
       "Knox (1)",
       "Crush (10)",
@@ -1337,7 +1337,7 @@
       "Crush (10)",
       "Bernie (14)"
     ],
-    "group_name_tags": "isFirstUp, target, pony, small, wihs, hunters, Over Fences"
+    "group_name_tags": "target, pony, small, wihs, hunters, Over Fences"
   },
   {
     "sid": 200000069,

@@ -2,15 +2,15 @@
   {
     "8778_group_display": [
       "Jason (2)",
-      "Haze (4)",
-      "Indy (5)",
-      "Rimini (12)",
-      "Power (13)",
-      "Fan Fan (17)",
-      "Hurricane (18)",
-      "Munster (19)",
-      "Shrek  (26)",
-      "Mark (27)"
+      "Haze (3)",
+      "Indy (4)",
+      "Rimini (10)",
+      "Power (11)",
+      "Fan Fan (15)",
+      "Hurricane (16)",
+      "Munster (17)",
+      "Shrek  (24)",
+      "Mark (25)"
     ],
     "class_group_id": 200026230,
     "class_id": 200028233,
@@ -23,15 +23,15 @@
     "ring_number": 3,
     "group_display": [
       "Jason (2)",
-      "Haze (4)",
-      "Indy (5)",
-      "Rimini (12)",
-      "Power (13)",
-      "Fan Fan (17)",
-      "Hurricane (18)",
-      "Munster (19)",
-      "Shrek  (26)",
-      "Mark (27)"
+      "Haze (3)",
+      "Indy (4)",
+      "Rimini (10)",
+      "Power (11)",
+      "Fan Fan (15)",
+      "Hurricane (16)",
+      "Munster (17)",
+      "Shrek  (24)",
+      "Mark (25)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, September, 17, 2026",
@@ -63,7 +63,7 @@
     "start_display": "9:25 AM",
     "start_display_short": "9:25A",
     "time_sort": 33900,
-    "total_trips": 15
+    "total_trips": 17
   },
   {
     "8778_group_display": [],
@@ -153,7 +153,9 @@
   },
   {
     "8778_group_display": [
-      "Bee (17)"
+      " (1)",
+      " (2)",
+      "Bee (19)"
     ],
     "class_group_id": 200026228,
     "class_id": 200028174,
@@ -165,7 +167,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Bee (17)"
+      " (1)",
+      " (2)",
+      "Bee (19)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, September, 17, 2026",
@@ -175,7 +179,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 19
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -197,7 +201,7 @@
     "start_display": "9:25 AM",
     "start_display_short": "9:25A",
     "time_sort": 33900,
-    "total_trips": 15
+    "total_trips": 17
   },
   {
     "8778_group_display": [
@@ -249,7 +253,7 @@
     "start_display": "8:00 AM",
     "start_display_short": "8:00A",
     "time_sort": 28800,
-    "total_trips": 19
+    "total_trips": 21
   },
   {
     "8778_group_display": [],
@@ -268,9 +272,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:09 AM",
-    "start_display_short": "10:09A",
-    "time_sort": 36540,
+    "start_display": "10:06 AM",
+    "start_display_short": "10:06A",
+    "time_sort": 36360,
     "total_trips": 4
   },
   {
@@ -498,7 +502,7 @@
     "sid": 200000070,
     "start_display": "8:43 AM",
     "start_display_short": "8:43A",
-    "time_sort": 31383,
+    "time_sort": 31382,
     "total_trips": 13
   },
   {
@@ -509,7 +513,7 @@
     "class_number": 188,
     "dt": "2026-09-17",
     "group_name": "USHJA Hunter 2'3\"/2'6\"/2'9\"",
-    "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [],
@@ -518,9 +522,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "8:10 AM",
-    "start_display_short": "8:10A",
-    "time_sort": 29403,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29703,
     "total_trips": 11
   },
   {
@@ -564,7 +568,7 @@
     "sid": 200000070,
     "start_display": "8:43 AM",
     "start_display_short": "8:43A",
-    "time_sort": 31383,
+    "time_sort": 31382,
     "total_trips": 13
   },
   {
@@ -597,7 +601,7 @@
     "class_number": 187,
     "dt": "2026-09-17",
     "group_name": "USHJA Hunter 2'3\"/2'6\"/2'9\"",
-    "group_name_tags": "isFirstUp, target, ushja, hunters, Over Fences",
+    "group_name_tags": "target, ushja, hunters, Over Fences",
     "ring_nickname": "Hunter 2",
     "ring_number": 6,
     "group_display": [],
@@ -606,9 +610,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "8:10 AM",
-    "start_display_short": "8:10A",
-    "time_sort": 29403,
+    "start_display": "8:15 AM",
+    "start_display_short": "8:15A",
+    "time_sort": 29703,
     "total_trips": 11
   },
   {

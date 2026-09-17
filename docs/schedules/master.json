@@ -272,10 +272,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:15 AM",
-    "start_display_short": "10:15A",
-    "time_sort": 36900,
-    "total_trips": 3
+    "start_display": "10:06 AM",
+    "start_display_short": "10:06A",
+    "time_sort": 36360,
+    "total_trips": 2
   },
   {
     "8778_group_display": [],
@@ -294,10 +294,10 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "9:30 AM",
-    "start_display_short": "9:30A",
-    "time_sort": 34200,
-    "total_trips": 5
+    "start_display": "9:40 AM",
+    "start_display_short": "9:40A",
+    "time_sort": 34802,
+    "total_trips": 2
   },
   {
     "8778_group_display": [],
@@ -341,7 +341,7 @@
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
     "time_sort": 36000,
-    "total_trips": 5
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -385,7 +385,7 @@
     "start_display": "11:00 AM",
     "start_display_short": "11:00A",
     "time_sort": 39600,
-    "total_trips": 8
+    "total_trips": 4
   },
   {
     "8778_group_display": [],
@@ -407,7 +407,7 @@
     "start_display": "11:20 AM",
     "start_display_short": "11:20A",
     "time_sort": 40800,
-    "total_trips": 7
+    "total_trips": 3
   },
   {
     "8778_group_display": [],
@@ -452,36 +452,6 @@
     "start_display_short": "8:05A",
     "time_sort": 29103,
     "total_trips": 9
-  },
-  {
-    "8778_group_display": [
-      "Munster",
-      "Power",
-      "Jason"
-    ],
-    "class_group_id": 200026272,
-    "class_id": 200028088,
-    "class_name": "WIHS Hunter Phase",
-    "class_number": 580,
-    "dt": "2026-09-17",
-    "group_name": "WIHS Hunter Phase",
-    "group_name_tags": "target, wihs, Over Fences",
-    "ring_nickname": "Hunter 1",
-    "ring_number": 5,
-    "group_display": [
-      "Munster",
-      "Power",
-      "Jason"
-    ],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Thursday, September, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000070,
-    "sid": 200000070,
-    "start_display": "9:50 AM",
-    "start_display_short": "9:50A",
-    "time_sort": 35400,
-    "total_trips": 4
   },
   {
     "8778_group_display": [],

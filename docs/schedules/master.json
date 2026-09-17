@@ -272,9 +272,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:00 AM",
-    "start_display_short": "10:00A",
-    "time_sort": 36000,
+    "start_display": "10:15 AM",
+    "start_display_short": "10:15A",
+    "time_sort": 36900,
     "total_trips": 3
   },
   {
@@ -294,9 +294,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "9:18 AM",
-    "start_display_short": "9:18A",
-    "time_sort": 33482,
+    "start_display": "9:30 AM",
+    "start_display_short": "9:30A",
+    "time_sort": 34200,
     "total_trips": 5
   },
   {
@@ -338,9 +338,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "9:45 AM",
-    "start_display_short": "9:45A",
-    "time_sort": 35100,
+    "start_display": "10:00 AM",
+    "start_display_short": "10:00A",
+    "time_sort": 36000,
     "total_trips": 5
   },
   {
@@ -382,9 +382,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "check gate",
-    "start_display_short": "checkgate",
-    "time_sort": 81600,
+    "start_display": "11:00 AM",
+    "start_display_short": "11:00A",
+    "time_sort": 39600,
     "total_trips": 8
   },
   {
@@ -404,9 +404,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "check gate",
-    "start_display_short": "checkgate",
-    "time_sort": 82500,
+    "start_display": "11:20 AM",
+    "start_display_short": "11:20A",
+    "time_sort": 40800,
     "total_trips": 7
   },
   {
@@ -570,28 +570,6 @@
     "start_display_short": "8:45A",
     "time_sort": 31505,
     "total_trips": 10
-  },
-  {
-    "8778_group_display": [],
-    "class_group_id": 200026253,
-    "class_id": null,
-    "class_name": "USHJA Hunter 3' U/S",
-    "class_number": 221,
-    "dt": "2026-09-17",
-    "group_name": "USHJA Hunter 3' U/S",
-    "group_name_tags": "target, usf, 3', ushja, U/S, hunters, Under Saddle/Flat",
-    "ring_nickname": "Hunter 1",
-    "ring_number": 5,
-    "group_display": [],
-    "shifted_to_next_day": null,
-    "show_days_display_date": "Thursday, September, 17, 2026",
-    "show_days_report_title": "Schedule",
-    "show_id": 200000070,
-    "sid": 200000070,
-    "start_display": "9:11 AM",
-    "start_display_short": "9:11A",
-    "time_sort": 33060,
-    "total_trips": null
   },
   {
     "8778_group_display": [],

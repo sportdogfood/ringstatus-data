@@ -13,7 +13,7 @@
       "time_sort": 28800,
       "class_id": 200028174,
       "class_number": 787,
-      "completed_trips": 21,
+      "completed_trips": 22,
       "class_name": "1.20m Open Jumper II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -25,7 +25,7 @@
       "trip_id": null,
       "latestStart": "8:00 AM",
       "latestStatus": "Completed",
-      "total_trips": 21,
+      "total_trips": 22,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -5845,
+      "secondsTill": -6745,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -78,7 +78,7 @@
       "time_sort": 28800,
       "class_id": 200028174,
       "class_number": 787,
-      "completed_trips": 21,
+      "completed_trips": 22,
       "class_name": "1.20m Open Jumper II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -90,7 +90,7 @@
       "trip_id": null,
       "latestStart": "8:00 AM",
       "latestStatus": "Completed",
-      "total_trips": 21,
+      "total_trips": 22,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -5845,
+      "secondsTill": -6745,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -143,7 +143,7 @@
       "time_sort": 28800,
       "class_id": 200028174,
       "class_number": 787,
-      "completed_trips": 21,
+      "completed_trips": 22,
       "class_name": "1.20m Open Jumper II2d",
       "class_type": "Jumpers",
       "lastGoneIn": null,
@@ -155,7 +155,7 @@
       "trip_id": null,
       "latestStart": "8:00 AM",
       "latestStatus": "Completed",
-      "total_trips": 21,
+      "total_trips": 22,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -5845,
+      "secondsTill": -6745,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -194,6 +194,71 @@
       "status": "Completed",
       "scope_status": "current",
       "group_name_tags": "firstUp, target, open, 1.20m, II2d, jumpers, Over Fences"
+    },
+    {
+      "sid": "200000070",
+      "dt": "2026-09-17",
+      "ring_number": 3,
+      "ringName": "Covered",
+      "class_group_id": 200026228,
+      "class_group_sequence": 2,
+      "class_groupxclasses_id": 200039122,
+      "group_name": "1.20m Open & Young Jumpers II2d",
+      "groomName": "dayani",
+      "time_sort": 28800,
+      "class_id": 200028174,
+      "class_number": 787,
+      "completed_trips": 22,
+      "class_name": "1.20m Open Jumper II2d",
+      "class_type": "Jumpers",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "08:00:00",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "8:00 AM",
+      "latestStatus": "Completed",
+      "total_trips": 22,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": 0,
+      "barnName": "Doug",
+      "horseName": "Doug",
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": -6745,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "8:51 AM",
+      "runningOOG": null,
+      "lastOOG": 17,
+      "sched_display": "Doug (17)",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "8:51:00",
+      "estimatedGO": "8:51 AM",
+      "rider_name": "GRACE LYONS",
+      "rider_id": null,
+      "horse": "IDEAL",
+      "horse_id": null,
+      "status": "Completed",
+      "scope_status": "current",
+      "group_name_tags": null
     },
     {
       "sid": "200000070",
@@ -237,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": -445,
+      "secondsTill": -1345,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -302,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 754,
+      "secondsTill": -145,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -367,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 754,
+      "secondsTill": -145,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -415,7 +480,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -432,21 +497,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:00 AM",
+      "latestGO": "11:03 AM",
       "runningOOG": null,
-      "lastOOG": 5,
-      "sched_display": "Indy (5)",
+      "lastOOG": 6,
+      "sched_display": "Indy (6)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:00:00",
-      "estimatedGO": "11:00 AM",
+      "estimatedGO00": "11:03:00",
+      "estimatedGO": "11:03 AM",
       "rider_name": "CARSYN KOROTKIN",
       "rider_id": 50082,
       "horse": "INDIGO VAN DE MUGGENHOEK",
@@ -480,7 +545,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -497,21 +562,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:39 AM",
+      "latestGO": "11:42 AM",
       "runningOOG": null,
-      "lastOOG": 18,
-      "sched_display": "Munster (18)",
+      "lastOOG": 19,
+      "sched_display": "Munster (19)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:39:00",
-      "estimatedGO": "11:39 AM",
+      "estimatedGO00": "11:42:00",
+      "estimatedGO": "11:42 AM",
       "rider_name": "NAOMI SELLECK",
       "rider_id": 1000001728,
       "horse": "MASTERMIND",
@@ -545,7 +610,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -562,21 +627,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:36 AM",
+      "latestGO": "11:39 AM",
       "runningOOG": null,
-      "lastOOG": 17,
-      "sched_display": "Hurricane (17)",
+      "lastOOG": 18,
+      "sched_display": "Hurricane (18)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:36:00",
-      "estimatedGO": "11:36 AM",
+      "estimatedGO00": "11:39:00",
+      "estimatedGO": "11:39 AM",
       "rider_name": "TAYLOR OAKVIK",
       "rider_id": 47066,
       "horse": "HURRICANE",
@@ -610,7 +675,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -627,21 +692,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "12:00 PM",
+      "latestGO": "12:03 PM",
       "runningOOG": null,
-      "lastOOG": 25,
-      "sched_display": "Shrek  (25)",
+      "lastOOG": 26,
+      "sched_display": "Shrek  (26)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "12:00:00",
-      "estimatedGO": "12:00 PM",
+      "estimatedGO00": "12:03:00",
+      "estimatedGO": "12:03 PM",
       "rider_name": "LOLA APPLEBAUM",
       "rider_id": 88626,
       "horse": "TENOR VAN'T KLAVERTJE VIER",
@@ -675,7 +740,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -692,21 +757,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:33 AM",
+      "latestGO": "11:36 AM",
       "runningOOG": null,
-      "lastOOG": 16,
-      "sched_display": "Fan Fan (16)",
+      "lastOOG": 17,
+      "sched_display": "Fan Fan (17)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:33:00",
-      "estimatedGO": "11:33 AM",
+      "estimatedGO00": "11:36:00",
+      "estimatedGO": "11:36 AM",
       "rider_name": "SYDNEY MATALON",
       "rider_id": 83010,
       "horse": "FANFAN BOY",
@@ -740,7 +805,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -757,21 +822,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:21 AM",
+      "latestGO": "11:24 AM",
       "runningOOG": null,
-      "lastOOG": 12,
-      "sched_display": "Power (12)",
+      "lastOOG": 13,
+      "sched_display": "Power (13)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:21:00",
-      "estimatedGO": "11:21 AM",
+      "estimatedGO00": "11:24:00",
+      "estimatedGO": "11:24 AM",
       "rider_name": "CARSYN KOROTKIN",
       "rider_id": 50082,
       "horse": "S&L PREDICTABLE",
@@ -805,7 +870,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -822,21 +887,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "12:03 PM",
+      "latestGO": "12:06 PM",
       "runningOOG": null,
-      "lastOOG": 26,
-      "sched_display": "Mark (26)",
+      "lastOOG": 27,
+      "sched_display": "Mark (27)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "12:03:00",
-      "estimatedGO": "12:03 PM",
+      "estimatedGO00": "12:06:00",
+      "estimatedGO": "12:06 PM",
       "rider_name": "KATE MARISCH",
       "rider_id": 1000001391,
       "horse": "MARKANTO A",
@@ -870,7 +935,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -887,21 +952,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "11:18 AM",
+      "latestGO": "11:21 AM",
       "runningOOG": null,
-      "lastOOG": 11,
-      "sched_display": "Rimini (11)",
+      "lastOOG": 12,
+      "sched_display": "Rimini (12)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "11:18:00",
-      "estimatedGO": "11:18 AM",
+      "estimatedGO00": "11:21:00",
+      "estimatedGO": "11:21 AM",
       "rider_name": "TANNER KOROTKIN",
       "rider_id": 9590,
       "horse": "RIMINI DU PRINTEMPS",
@@ -935,7 +1000,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -952,21 +1017,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "10:57 AM",
+      "latestGO": "11:00 AM",
       "runningOOG": null,
-      "lastOOG": 4,
-      "sched_display": "Haze (4)",
+      "lastOOG": 5,
+      "sched_display": "Haze (5)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
-      "estimatedGO00": "10:57:00",
-      "estimatedGO": "10:57 AM",
+      "estimatedGO00": "11:00:00",
+      "estimatedGO": "11:00 AM",
       "rider_name": "TANNER KOROTKIN",
       "rider_id": 9590,
       "horse": "GRUYERES DU THOT",
@@ -1000,7 +1065,7 @@
       "trip_id": null,
       "latestStart": "10:45 AM",
       "latestStatus": "Upcoming",
-      "total_trips": 26,
+      "total_trips": 27,
       "entry_id": null,
       "backNumber": null,
       "entryNumber": null,
@@ -1017,21 +1082,21 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 4054,
+      "secondsTill": 3154,
       "time_three": null,
       "score1": null,
       "score2": null,
       "score3": null,
       "lastTime": null,
-      "latestGO": "10:54 AM",
+      "latestGO": "10:57 AM",
       "runningOOG": null,
-      "lastOOG": 3,
-      "sched_display": "Jason (3)",
+      "lastOOG": 4,
+      "sched_display": "Jason (4)",
       "is_target": true,
       "is_parent": null,
       "path_tenant": "19676",
-      "estimatedGO00": "10:54:00",
-      "estimatedGO": "10:54 AM",
+      "estimatedGO00": "10:57:00",
+      "estimatedGO": "10:57 AM",
       "rider_name": "GRACE LYONS",
       "rider_id": 73560,
       "horse": "JASON",
@@ -1082,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1147,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1212,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1277,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1342,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1407,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 9454,
+      "secondsTill": 8554,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1472,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12154,
+      "secondsTill": 11254,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1537,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12154,
+      "secondsTill": 11254,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1602,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 12154,
+      "secondsTill": 11254,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1667,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12874,
+      "secondsTill": 11974,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1732,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12874,
+      "secondsTill": 11974,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1760,140 +1825,141 @@
     "rider": {
       "9590": [
         0,
-        13,
-        14
-      ],
-      "46790": [
-        3,
-        21,
-        24
-      ],
-      "47066": [
-        8,
-        17
-      ],
-      "50082": [
-        5,
-        6,
-        11,
-        23,
-        25
-      ],
-      "73560": [
+        14,
         15
       ],
-      "79378": [
-        20,
-        26
+      "46790": [
+        4,
+        22,
+        25
       ],
-      "83010": [
-        10
-      ],
-      "88626": [
-        9
-      ],
-      "1000001391": [
-        12,
+      "47066": [
+        9,
         18
       ],
-      "1000001728": [
-        4,
+      "50082": [
+        6,
         7,
-        16,
-        19,
-        22
+        12,
+        24,
+        26
+      ],
+      "73560": [
+        16
+      ],
+      "79378": [
+        21,
+        27
+      ],
+      "83010": [
+        11
+      ],
+      "88626": [
+        10
+      ],
+      "1000001391": [
+        13,
+        19
+      ],
+      "1000001728": [
+        5,
+        8,
+        17,
+        20,
+        23
       ],
       "tanner korotkin": [
         0,
         1,
         2,
-        13,
-        14
+        14,
+        15
       ],
       "tanner": [
         0,
-        13,
-        14
-      ],
-      "zoey burton": [
-        3,
-        21,
-        24
-      ],
-      "zoey": [
-        3,
-        21,
-        24
-      ],
-      "naomi selleck": [
-        4,
-        7,
-        16,
-        19,
-        22
-      ],
-      "naomi": [
-        4,
-        7,
-        16,
-        19,
-        22
-      ],
-      "carsyn korotkin": [
-        5,
-        6,
-        11,
-        23,
-        25
-      ],
-      "carsyn": [
-        5,
-        6,
-        11,
-        23,
-        25
-      ],
-      "taylor oakvik": [
-        8,
-        17
-      ],
-      "taylor": [
-        8,
-        17
-      ],
-      "lola applebaum": [
-        9
-      ],
-      "lola": [
-        9
-      ],
-      "sydney matalon": [
-        10
-      ],
-      "sydney": [
-        10
-      ],
-      "kate marisch": [
-        12,
-        18
-      ],
-      "kate": [
-        12,
-        18
+        14,
+        15
       ],
       "grace lyons": [
-        15
+        3,
+        16
+      ],
+      "zoey burton": [
+        4,
+        22,
+        25
+      ],
+      "zoey": [
+        4,
+        22,
+        25
+      ],
+      "naomi selleck": [
+        5,
+        8,
+        17,
+        20,
+        23
+      ],
+      "naomi": [
+        5,
+        8,
+        17,
+        20,
+        23
+      ],
+      "carsyn korotkin": [
+        6,
+        7,
+        12,
+        24,
+        26
+      ],
+      "carsyn": [
+        6,
+        7,
+        12,
+        24,
+        26
+      ],
+      "taylor oakvik": [
+        9,
+        18
+      ],
+      "taylor": [
+        9,
+        18
+      ],
+      "lola applebaum": [
+        10
+      ],
+      "lola": [
+        10
+      ],
+      "sydney matalon": [
+        11
+      ],
+      "sydney": [
+        11
+      ],
+      "kate marisch": [
+        13,
+        19
+      ],
+      "kate": [
+        13,
+        19
       ],
       "grace": [
-        15
+        16
       ],
       "lainey posa": [
-        20,
-        26
+        21,
+        27
       ],
       "lainey": [
-        20,
-        26
+        21,
+        27
       ]
     },
     "horse": {
@@ -1913,93 +1979,99 @@
         2,
         2
       ],
+      "ideal": [
+        3
+      ],
+      "doug": [
+        3
+      ],
       "jason": [
-        3,
-        3,
-        15,
-        15,
-        21,
-        21,
-        24,
-        24
+        4,
+        4,
+        16,
+        16,
+        22,
+        22,
+        25,
+        25
       ],
       "mastermind": [
-        4,
-        7,
-        16,
-        22
-      ],
-      "munster": [
-        4,
-        7,
-        16,
-        22
-      ],
-      "s&l predictable": [
         5,
-        11,
-        23
-      ],
-      "power": [
-        5,
-        11,
-        23
-      ],
-      "indigo van de muggenhoek": [
-        6,
-        25
-      ],
-      "indy": [
-        6,
-        25
-      ],
-      "hurricane": [
-        8,
         8,
         17,
-        17
+        23
+      ],
+      "munster": [
+        5,
+        8,
+        17,
+        23
+      ],
+      "s&l predictable": [
+        6,
+        12,
+        24
+      ],
+      "power": [
+        6,
+        12,
+        24
+      ],
+      "indigo van de muggenhoek": [
+        7,
+        26
+      ],
+      "indy": [
+        7,
+        26
+      ],
+      "hurricane": [
+        9,
+        9,
+        18,
+        18
       ],
       "tenor van't klavertje vier": [
-        9
+        10
       ],
       "shrek": [
-        9
+        10
       ],
       "fanfan boy": [
-        10
+        11
       ],
       "fan fan": [
-        10
+        11
       ],
       "markanto a": [
-        12,
-        18
+        13,
+        19
       ],
       "mark": [
-        12,
-        18
+        13,
+        19
       ],
       "rimini du printemps": [
-        13
+        14
       ],
       "rimini": [
-        13
+        14
       ],
       "gruyeres du thot": [
-        14,
-        19
+        15,
+        20
       ],
       "haze": [
-        14,
-        19
+        15,
+        20
       ],
       "oddur van beaugaarde": [
-        20,
-        26
+        21,
+        27
       ],
       "oddur": [
-        20,
-        26
+        21,
+        27
       ]
     },
     "status": {
@@ -2009,13 +2081,15 @@
         1,
         1,
         2,
-        2
+        2,
+        3,
+        3
       ],
       "current": [
         0,
         1,
         2,
-        6,
+        3,
         7,
         8,
         9,
@@ -2033,11 +2107,10 @@
         21,
         22,
         23,
-        24
+        24,
+        25
       ],
       "upcoming": [
-        3,
-        3,
         4,
         4,
         5,
@@ -2083,14 +2156,16 @@
         25,
         25,
         26,
-        26
+        26,
+        27,
+        27
       ],
       "dropped": [
-        3,
         4,
         5,
-        25,
-        26
+        6,
+        26,
+        27
       ]
     },
     "ring": {
@@ -2098,7 +2173,7 @@
         0,
         1,
         2,
-        6,
+        3,
         7,
         8,
         9,
@@ -2118,18 +2193,19 @@
         23,
         24,
         25,
-        26
+        26,
+        27
       ],
       "5": [
-        3,
         4,
-        5
+        5,
+        6
       ],
       "covered": [
         0,
         1,
         2,
-        6,
+        3,
         7,
         8,
         9,
@@ -2149,12 +2225,13 @@
         23,
         24,
         25,
-        26
+        26,
+        27
       ],
       "hunter 1": [
-        3,
         4,
-        5
+        5,
+        6
       ]
     },
     "class_type": {
@@ -2162,7 +2239,7 @@
         0,
         1,
         2,
-        6,
+        3,
         7,
         8,
         9,
@@ -2171,7 +2248,8 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
       "over fences": [
         0,
@@ -2200,13 +2278,13 @@
         23,
         24,
         25,
-        26
+        26,
+        27
       ],
       "equitation": [
-        3,
         4,
         5,
-        16,
+        6,
         17,
         18,
         19,
@@ -2216,7 +2294,8 @@
         23,
         24,
         25,
-        26
+        26,
+        27
       ]
     },
     "group_name_tags": {
@@ -2229,7 +2308,6 @@
         0,
         1,
         2,
-        3,
         4,
         5,
         6,
@@ -2251,7 +2329,8 @@
         22,
         23,
         24,
-        26
+        25,
+        27
       ],
       "open": [
         0,
@@ -2267,7 +2346,6 @@
         0,
         1,
         2,
-        6,
         7,
         8,
         9,
@@ -2276,13 +2354,13 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
       "jumpers": [
         0,
         1,
         2,
-        6,
         7,
         8,
         9,
@@ -2291,13 +2369,13 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
       "over fences": [
         0,
         1,
         2,
-        3,
         4,
         5,
         6,
@@ -2319,28 +2397,29 @@
         22,
         23,
         24,
-        26
+        25,
+        27
       ],
       "1.20m open & young jumpers ii2d": [
         0,
         1,
-        2
+        2,
+        3
       ],
       "wihs": [
-        3,
         4,
         5,
-        22,
+        6,
         23,
-        24
+        24,
+        25
       ],
       "wihs hunter phase": [
-        3,
         4,
-        5
+        5,
+        6
       ],
       "1.0m": [
-        6,
         7,
         8,
         9,
@@ -2349,10 +2428,10 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
       "training jumper (1.0m) & 1.0m young jumper ii2d": [
-        6,
         7,
         8,
         9,
@@ -2361,64 +2440,65 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
       "3'": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "3'3\"": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "medal": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "seat": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "ushja": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "ushja 3'3\" jumper seat medal": [
-        16,
         17,
         18,
         19,
         20,
-        21
+        21,
+        22
       ],
       "wihs jumper phase": [
-        22,
         23,
-        24
+        24,
+        25
       ],
       "platinum performance/usef show jumping talent search 1* ***3 to fill***": [
-        25,
-        26
+        26,
+        27
       ]
     }
   }

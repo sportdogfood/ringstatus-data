@@ -1,7 +1,7 @@
 [
   {
     "8778_group_display": [
-      "Bee"
+      "Bee (17)"
     ],
     "class_group_id": 200026228,
     "class_id": 200028174,
@@ -14,7 +14,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Bee"
+      "Bee (17)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, September, 17, 2026",
@@ -32,7 +32,7 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:00:00",
     "8778_sched_display": [
-      "Bee"
+      "Bee (17)"
     ]
   },
   {
@@ -127,16 +127,16 @@
   },
   {
     "8778_group_display": [
-      "Indy",
-      "Munster",
-      "Hurricane",
-      "Shrek ",
-      "Fan Fan",
-      "Power",
-      "Mark",
-      "Rimini",
-      "Haze",
-      "Jason"
+      "Jason (2)",
+      "Haze (4)",
+      "Indy (5)",
+      "Rimini (12)",
+      "Power (13)",
+      "Fan Fan (17)",
+      "Hurricane (18)",
+      "Munster (19)",
+      "Shrek  (26)",
+      "Mark (27)"
     ],
     "class_group_id": 200026230,
     "class_id": 200028233,
@@ -149,16 +149,16 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Indy",
-      "Munster",
-      "Hurricane",
-      "Shrek ",
-      "Fan Fan",
-      "Power",
-      "Mark",
-      "Rimini",
-      "Haze",
-      "Jason"
+      "Jason (2)",
+      "Haze (4)",
+      "Indy (5)",
+      "Rimini (12)",
+      "Power (13)",
+      "Fan Fan (17)",
+      "Hurricane (18)",
+      "Munster (19)",
+      "Shrek  (26)",
+      "Mark (27)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, September, 17, 2026",
@@ -176,16 +176,16 @@
     "class_group_sequence": 4,
     "estimated_start_time": "10:45:00",
     "8778_sched_display": [
-      "Indy",
-      "Munster",
-      "Hurricane",
-      "Shrek ",
-      "Fan Fan",
-      "Power",
-      "Mark",
-      "Rimini",
-      "Haze",
-      "Jason"
+      "Jason (2)",
+      "Haze (4)",
+      "Indy (5)",
+      "Rimini (12)",
+      "Power (13)",
+      "Fan Fan (17)",
+      "Hurricane (18)",
+      "Munster (19)",
+      "Shrek  (26)",
+      "Mark (27)"
     ]
   },
   {
@@ -220,12 +220,12 @@
   },
   {
     "8778_group_display": [
-      "Munster",
-      "Hurricane",
-      "Mark",
-      "Haze",
-      "Oddur",
-      "Jason"
+      "Haze (2)",
+      "Oddur (3)",
+      "Munster (4)",
+      "Jason (12)",
+      "Hurricane (13)",
+      "Mark (14)"
     ],
     "class_group_id": 200026233,
     "class_id": 200027868,
@@ -238,12 +238,12 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Munster",
-      "Hurricane",
-      "Mark",
-      "Haze",
-      "Oddur",
-      "Jason"
+      "Haze (2)",
+      "Oddur (3)",
+      "Munster (4)",
+      "Jason (12)",
+      "Hurricane (13)",
+      "Mark (14)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Thursday, September, 17, 2026",
@@ -261,12 +261,12 @@
     "class_group_sequence": 6,
     "estimated_start_time": "12:15:00",
     "8778_sched_display": [
-      "Munster",
-      "Hurricane",
-      "Mark",
-      "Haze",
-      "Oddur",
-      "Jason"
+      "Haze (2)",
+      "Oddur (3)",
+      "Munster (4)",
+      "Jason (12)",
+      "Hurricane (13)",
+      "Mark (14)"
     ]
   },
   {
@@ -428,16 +428,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": null,
-    "start_display_short": null,
-    "time_sort": null,
+    "start_display": "9:30 AM",
+    "start_display_short": "9:30A",
+    "time_sort": 34200,
     "total_trips": null,
     "class_groupxclasses_id": 200039369,
-    "latestStart": null,
+    "latestStart": "9:30 AM",
     "latestStatus": null,
     "show_date": "2026-09-17",
     "class_group_sequence": 3,
-    "estimated_start_time": null,
+    "estimated_start_time": "09:30:00",
     "8778_sched_display": []
   },
   {
@@ -638,16 +638,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": null,
-    "start_display_short": null,
-    "time_sort": null,
+    "start_display": "8:29 AM",
+    "start_display_short": "8:29A",
+    "time_sort": 30540,
     "total_trips": null,
     "class_groupxclasses_id": 200039152,
-    "latestStart": null,
+    "latestStart": "8:29 AM",
     "latestStatus": null,
     "show_date": "2026-09-17",
     "class_group_sequence": 2,
-    "estimated_start_time": null,
+    "estimated_start_time": "08:29:00",
     "8778_sched_display": []
   },
   {
@@ -668,16 +668,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "8:44 AM",
-    "start_display_short": "8:44A",
-    "time_sort": 31443,
+    "start_display": "8:43 AM",
+    "start_display_short": "8:43A",
+    "time_sort": 31400,
     "total_trips": 13,
     "class_groupxclasses_id": 200039154,
-    "latestStart": "8:44 AM",
+    "latestStart": "8:43 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-17",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:44:03",
+    "estimated_start_time": "08:43:20",
     "8778_sched_display": []
   },
   {
@@ -698,16 +698,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "8:44 AM",
-    "start_display_short": "8:44A",
-    "time_sort": 31443,
+    "start_display": "8:43 AM",
+    "start_display_short": "8:43A",
+    "time_sort": 31400,
     "total_trips": 13,
     "class_groupxclasses_id": 200039155,
-    "latestStart": "8:44 AM",
+    "latestStart": "8:43 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-17",
     "class_group_sequence": 3,
-    "estimated_start_time": "08:44:03",
+    "estimated_start_time": "08:43:20",
     "8778_sched_display": []
   },
   {
@@ -728,16 +728,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": null,
-    "start_display_short": null,
-    "time_sort": null,
+    "start_display": "9:11 AM",
+    "start_display_short": "9:11A",
+    "time_sort": 33060,
     "total_trips": null,
     "class_groupxclasses_id": 200039158,
-    "latestStart": null,
+    "latestStart": "9:11 AM",
     "latestStatus": null,
     "show_date": "2026-09-17",
     "class_group_sequence": 4,
-    "estimated_start_time": null,
+    "estimated_start_time": "09:11:00",
     "8778_sched_display": []
   },
   {
@@ -860,16 +860,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": null,
-    "start_display_short": null,
-    "time_sort": null,
+    "start_display": "8:38 AM",
+    "start_display_short": "8:38A",
+    "time_sort": 31080,
     "total_trips": null,
     "class_groupxclasses_id": 200039231,
-    "latestStart": null,
+    "latestStart": "8:38 AM",
     "latestStatus": null,
     "show_date": "2026-09-17",
     "class_group_sequence": 2,
-    "estimated_start_time": null,
+    "estimated_start_time": "08:38:00",
     "8778_sched_display": []
   }
 ]

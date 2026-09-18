@@ -391,7 +391,7 @@
   },
   {
     "8778_group_display": [
-      "Ranger (6)"
+      "Ranger (10)"
     ],
     "class_group_id": 200026305,
     "class_id": 200028221,
@@ -404,30 +404,30 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Ranger (6)"
+      "Ranger (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "12:15 PM",
-    "start_display_short": "12:15P",
-    "time_sort": 44103,
+    "start_display": "12:20 PM",
+    "start_display_short": "12:20P",
+    "time_sort": 44404,
     "total_trips": 10,
     "class_groupxclasses_id": 200039242,
-    "latestStart": "12:15 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "12:20 PM",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:15:03",
+    "estimated_start_time": "12:20:04",
     "8778_sched_display": [
-      "Ranger (6)"
+      "Ranger (10)"
     ]
   },
   {
     "8778_group_display": [
-      "Ranger (3)"
+      "Ranger (7)"
     ],
     "class_group_id": 200026305,
     "class_id": 200028041,
@@ -440,25 +440,25 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Ranger (3)"
+      "Ranger (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "12:15 PM",
-    "start_display_short": "12:15P",
-    "time_sort": 44103,
+    "start_display": "12:20 PM",
+    "start_display_short": "12:20P",
+    "time_sort": 44404,
     "total_trips": 10,
     "class_groupxclasses_id": 200039243,
-    "latestStart": "12:15 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "12:20 PM",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 6,
-    "estimated_start_time": "12:15:03",
+    "estimated_start_time": "12:20:04",
     "8778_sched_display": [
-      "Ranger (3)"
+      "Ranger (7)"
     ]
   },
   {
@@ -523,14 +523,14 @@
     "sid": 200000070,
     "start_display": "1:00 PM",
     "start_display_short": "1:00P",
-    "time_sort": 46803,
+    "time_sort": 46821,
     "total_trips": 4,
     "class_groupxclasses_id": 200039246,
     "latestStart": "1:00 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 8,
-    "estimated_start_time": "13:00:03",
+    "estimated_start_time": "13:00:21",
     "8778_sched_display": [
       "Ranger (1)",
       "Hurricane (2)"
@@ -1167,16 +1167,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "1:12 PM",
-    "start_display_short": "1:12P",
-    "time_sort": 47520,
+    "start_display": "1:09 PM",
+    "start_display_short": "1:09P",
+    "time_sort": 47340,
     "total_trips": 7,
     "class_groupxclasses_id": 200039267,
-    "latestStart": "1:12 PM",
+    "latestStart": "1:09 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:12:00",
+    "estimated_start_time": "13:09:00",
     "8778_sched_display": [
       "Shrek  (1)"
     ]
@@ -1203,16 +1203,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "1:12 PM",
-    "start_display_short": "1:12P",
-    "time_sort": 47520,
+    "start_display": "1:09 PM",
+    "start_display_short": "1:09P",
+    "time_sort": 47340,
     "total_trips": 7,
     "class_groupxclasses_id": 200039268,
-    "latestStart": "1:12 PM",
+    "latestStart": "1:09 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:12:00",
+    "estimated_start_time": "13:09:00",
     "8778_sched_display": [
       "Fan Fan (2)"
     ]

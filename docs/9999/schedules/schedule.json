@@ -319,14 +319,14 @@
     "sid": 200000070,
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
-    "time_sort": 36000,
+    "time_sort": 36008,
     "total_trips": 13,
     "class_groupxclasses_id": 200039240,
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:00:00",
+    "estimated_start_time": "10:00:08",
     "8778_sched_display": []
   },
   {
@@ -383,14 +383,16 @@
     "sid": 200000070,
     "start_display": "10:00 AM",
     "start_display_short": "10:00A",
-    "time_sort": 36000,
-    "total_trips": 6,
+    "time_sort": 36009,
+    "total_trips": 7,
     "class_groupxclasses_id": 200039346,
     "latestStart": "10:00 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Underway"
+    ],
     "show_date": "2026-09-18",
     "class_group_sequence": 3,
-    "estimated_start_time": "10:00:00",
+    "estimated_start_time": "10:00:09",
     "8778_sched_display": [
       "Macho (1)"
     ]
@@ -1053,16 +1055,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:05 AM",
-    "start_display_short": "10:05A",
-    "time_sort": 36315,
+    "start_display": "10:11 AM",
+    "start_display_short": "10:11A",
+    "time_sort": 36711,
     "total_trips": 9,
     "class_groupxclasses_id": 200039261,
-    "latestStart": "10:05 AM",
+    "latestStart": "10:11 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 7,
-    "estimated_start_time": "10:05:15",
+    "estimated_start_time": "10:11:51",
     "8778_sched_display": [
       "Rimini (7)"
     ]

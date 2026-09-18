@@ -103,7 +103,7 @@
     "class_number": 836,
     "class_name": "1.20m Young Jumper II2b",
     "latestStart": "8:25 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 2,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -129,7 +129,7 @@
     "class_number": 720,
     "class_name": "1.20m Junior Jumper II2b",
     "latestStart": "8:39 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 12,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -320,7 +320,7 @@
     "class_name": "$2,500 USHJA National Hunter Derby",
     "latestStart": "10:00 AM",
     "latestStatus": "Upcoming",
-    "total_trips": 5,
+    "total_trips": 6,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -329,8 +329,12 @@
     "start_display": "10:00 AM",
     "class_group_sequence": 3,
     "estimated_start_time": "10:00:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      null
+    ],
+    "8778_sched_display": [
+      null
+    ],
     "group_name_tags": "target, ushja, hunters, Over Fences"
   },
   {
@@ -355,8 +359,12 @@
     "start_display": "11:45 AM",
     "class_group_sequence": 6,
     "estimated_start_time": "11:45:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Ranger (2)"
+    ],
+    "8778_sched_display": [
+      "Ranger (2)"
+    ],
     "group_name_tags": "target, adult, amateur, Over Fences"
   },
   {
@@ -381,8 +389,12 @@
     "start_display": "11:45 AM",
     "class_group_sequence": 6,
     "estimated_start_time": "11:45:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Ranger (1)"
+    ],
+    "8778_sched_display": [
+      "Ranger (1)"
+    ],
     "group_name_tags": "target, adult, amateur, Over Fences"
   },
   {
@@ -407,8 +419,12 @@
     "start_display": "12:30 PM",
     "class_group_sequence": 7,
     "estimated_start_time": "12:30:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "group_display": [
+      "Ranger"
+    ],
+    "8778_sched_display": [
+      "Ranger"
+    ],
     "group_name_tags": "target, usf, adult, amateur, flat, Under Saddle/Flat"
   },
   {
@@ -434,10 +450,12 @@
     "class_group_sequence": 8,
     "estimated_start_time": "12:45:00",
     "group_display": [
-      "Hurricane (1)"
+      "Hurricane (1)",
+      "Ranger (1)"
     ],
     "8778_sched_display": [
-      "Hurricane (1)"
+      "Hurricane (1)",
+      "Ranger (1)"
     ],
     "group_name_tags": "target, adult, medal, Over Fences"
   },
@@ -946,7 +964,7 @@
     "class_name": "1.0m Junior Jumper II2b",
     "latestStart": "12:11 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 8,
+    "total_trips": 9,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -976,7 +994,7 @@
     "class_name": "1.0m Amateur Jumper II2b",
     "latestStart": "12:11 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 8,
+    "total_trips": 9,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",

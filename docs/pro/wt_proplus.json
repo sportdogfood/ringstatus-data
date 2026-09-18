@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -7055,
+      "secondsTill": -7655,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -7055,
+      "secondsTill": -7655,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": -7055,
+      "secondsTill": -7655,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -237,7 +237,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -4959,
+      "secondsTill": -5559,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -302,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -4959,
+      "secondsTill": -5559,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -3788,
+      "secondsTill": -4388,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -3788,
+      "secondsTill": -4388,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -2256,
+      "secondsTill": -2856,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -519,71 +519,6 @@
       "status": "Completed",
       "scope_status": "current",
       "group_name_tags": "target, open, jumpers, Over Fences"
-    },
-    {
-      "sid": "200000070",
-      "dt": "2026-09-18",
-      "ring_number": 4,
-      "ringName": "Village",
-      "class_group_id": 200026321,
-      "class_group_sequence": 7,
-      "class_groupxclasses_id": 200039261,
-      "group_name": "1.10m Junior/Amateur Jumper II2b",
-      "groomName": "fernando_1, fernando_2",
-      "time_sort": 35556,
-      "class_id": 200027921,
-      "class_number": 740,
-      "completed_trips": 0,
-      "class_name": "1.10m Junior/Amateur Jumper II2b",
-      "class_type": "Jumpers",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": null,
-      "estimated_go_time": null,
-      "estimated_start_time": "09:52:36",
-      "schedule_sequencetype": "Over Fences",
-      "trip_id": null,
-      "latestStart": "9:52 AM",
-      "latestStatus": "Upcoming",
-      "total_trips": 9,
-      "entry_id": null,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": null,
-      "ringWalk": 0,
-      "barnName": "Rimini",
-      "horseName": "Rimini",
-      "teamName": "Sophie",
-      "riderName": "Sophie",
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": 384,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "10:13 AM",
-      "runningOOG": null,
-      "lastOOG": 7,
-      "sched_display": "Rimini (7)",
-      "is_target": true,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "10:13:00",
-      "estimatedGO": "10:13 AM",
-      "rider_name": "SOPHIE HEAP",
-      "rider_id": 67673,
-      "horse": "RIMINI DU PRINTEMPS",
-      "horse_id": null,
-      "status": "Upcoming",
-      "scope_status": "current",
-      "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000070",
@@ -627,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 1040,
+      "secondsTill": 440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -648,7 +583,72 @@
       "horse_id": null,
       "status": "Upcoming",
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "target, ushja, hunters, Over Fences"
+    },
+    {
+      "sid": "200000070",
+      "dt": "2026-09-18",
+      "ring_number": 4,
+      "ringName": "Village",
+      "class_group_id": 200026321,
+      "class_group_sequence": 7,
+      "class_groupxclasses_id": 200039261,
+      "group_name": "1.10m Junior/Amateur Jumper II2b",
+      "groomName": "fernando_1, fernando_2",
+      "time_sort": 36315,
+      "class_id": 200027921,
+      "class_number": 740,
+      "completed_trips": 0,
+      "class_name": "1.10m Junior/Amateur Jumper II2b",
+      "class_type": "Jumpers",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "10:05:15",
+      "schedule_sequencetype": "Over Fences",
+      "trip_id": null,
+      "latestStart": "10:05 AM",
+      "latestStatus": "Upcoming",
+      "total_trips": 9,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": 0,
+      "barnName": "Rimini",
+      "horseName": "Rimini",
+      "teamName": "Sophie",
+      "riderName": "Sophie",
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": 517,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "10:26 AM",
+      "runningOOG": null,
+      "lastOOG": 7,
+      "sched_display": "Rimini (7)",
+      "is_target": true,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "10:26:00",
+      "estimatedGO": "10:26 AM",
+      "rider_name": "SOPHIE HEAP",
+      "rider_id": 67673,
+      "horse": "RIMINI DU PRINTEMPS",
+      "horse_id": null,
+      "status": "Upcoming",
+      "scope_status": "current",
+      "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000070",
@@ -692,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 5000,
+      "secondsTill": 4400,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -757,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 7340,
+      "secondsTill": 6740,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -822,7 +822,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 7340,
+      "secondsTill": 6740,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8900,
+      "secondsTill": 8300,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 8900,
+      "secondsTill": 8300,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1017,7 +1017,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 10040,
+      "secondsTill": 9440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1082,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 10220,
+      "secondsTill": 9620,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1147,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 10940,
+      "secondsTill": 10340,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1212,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 10940,
+      "secondsTill": 10340,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1277,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12740,
+      "secondsTill": 12140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12740,
+      "secondsTill": 12140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1407,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12740,
+      "secondsTill": 12140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1472,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 12740,
+      "secondsTill": 12140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1537,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15440,
+      "secondsTill": 14840,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1602,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 15440,
+      "secondsTill": 14840,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1667,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 19040,
+      "secondsTill": 18440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1732,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21740,
+      "secondsTill": 21140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1797,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21740,
+      "secondsTill": 21140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1862,7 +1862,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 21740,
+      "secondsTill": 21140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1927,7 +1927,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 28040,
+      "secondsTill": 27440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1992,7 +1992,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 28040,
+      "secondsTill": 27440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2057,7 +2057,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 28040,
+      "secondsTill": 27440,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2122,7 +2122,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 30740,
+      "secondsTill": 30140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2187,7 +2187,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 30740,
+      "secondsTill": 30140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2252,7 +2252,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 30740,
+      "secondsTill": 30140,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2298,7 +2298,7 @@
         7
       ],
       "67673": [
-        8,
+        9,
         19,
         20,
         23,
@@ -2349,7 +2349,7 @@
       "carsyn korotkin": [
         1,
         7,
-        9
+        8
       ],
       "carsyn": [
         1,
@@ -2386,14 +2386,14 @@
         17
       ],
       "sophie heap": [
-        8,
+        9,
         19,
         20,
         23,
         26
       ],
       "sophie": [
-        8,
+        9,
         19,
         20,
         23,
@@ -2483,16 +2483,16 @@
       "bee": [
         7
       ],
-      "rimini du printemps": [
-        8
-      ],
-      "rimini": [
-        8
-      ],
       "forte": [
-        9
+        8
       ],
       "macho": [
+        8
+      ],
+      "rimini du printemps": [
+        9
+      ],
+      "rimini": [
         9
       ],
       "hurricane": [
@@ -2703,7 +2703,7 @@
         4,
         5,
         6,
-        8,
+        9,
         13,
         14
       ],
@@ -2713,7 +2713,7 @@
         2
       ],
       "6": [
-        9
+        8
       ],
       "hunter 1": [
         0,
@@ -2725,7 +2725,7 @@
         4,
         5,
         6,
-        8,
+        9,
         13,
         14
       ],
@@ -2756,7 +2756,7 @@
         34
       ],
       "hunter 2": [
-        9
+        8
       ]
     },
     "class_type": {
@@ -2826,12 +2826,12 @@
         5,
         6,
         7,
-        8,
+        9,
         13,
         14
       ],
       "hunters": [
-        9
+        8
       ],
       "under saddle/flat": [
         15,
@@ -2850,6 +2850,7 @@
         6,
         7,
         8,
+        9,
         11,
         12,
         13,
@@ -2889,6 +2890,7 @@
         6,
         7,
         8,
+        9,
         11,
         12,
         13,
@@ -2932,7 +2934,7 @@
         5,
         6,
         7,
-        8,
+        9,
         13,
         14
       ],
@@ -2943,7 +2945,7 @@
       "amateur": [
         5,
         6,
-        8,
+        9,
         11,
         12,
         13,
@@ -2956,20 +2958,27 @@
       "1.35m open stake ii2b": [
         7
       ],
-      "1.10m": [
-        8
-      ],
-      "junior": [
+      "ushja": [
         8,
-        14
+        25
       ],
-      "1.10m junior/amateur jumper ii2b": [
+      "hunters": [
         8
       ],
       "$2": [
-        9
+        8
       ],
       "500 ushja national hunter derby": [
+        8
+      ],
+      "1.10m": [
+        9
+      ],
+      "junior": [
+        9,
+        14
+      ],
+      "1.10m junior/amateur jumper ii2b": [
         9
       ],
       "adult": [
@@ -3057,9 +3066,6 @@
         32,
         33,
         34
-      ],
-      "ushja": [
-        25
       ],
       "ushja 3'3\" hunter seat medal": [
         25

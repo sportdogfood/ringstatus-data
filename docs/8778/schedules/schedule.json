@@ -37,7 +37,9 @@
     "class_number": 808,
     "class_name": "1.35m Open Stake II2b",
     "latestStart": "9:05 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 12,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -1159,7 +1161,7 @@
     "class_number": 224,
     "class_name": "USHJA Hunter 3'",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 10,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -1185,7 +1187,7 @@
     "class_number": 225,
     "class_name": "USHJA Hunter 3'",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 10,
     "show_id": 200000070,
     "show_date": "2026-09-18",

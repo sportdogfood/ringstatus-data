@@ -348,7 +348,7 @@
     "class_id": 200028221,
     "class_number": 519,
     "class_name": "Adult Amateur Equitation",
-    "latestStart": "11:45 AM",
+    "latestStart": "11:40 AM",
     "latestStatus": "Upcoming",
     "total_trips": 10,
     "show_id": 200000070,
@@ -356,9 +356,9 @@
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:45 AM",
+    "start_display": "11:40 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:45:00",
+    "estimated_start_time": "11:40:00",
     "group_display": [
       "Ranger (2)"
     ],
@@ -378,7 +378,7 @@
     "class_id": 200028041,
     "class_number": 520,
     "class_name": "Adult Amateur Equitation",
-    "latestStart": "11:45 AM",
+    "latestStart": "11:40 AM",
     "latestStatus": "Upcoming",
     "total_trips": 10,
     "show_id": 200000070,
@@ -386,9 +386,9 @@
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:45 AM",
+    "start_display": "11:40 AM",
     "class_group_sequence": 6,
-    "estimated_start_time": "11:45:00",
+    "estimated_start_time": "11:40:00",
     "group_display": [
       "Ranger (1)"
     ],
@@ -469,10 +469,10 @@
     "group_name": "12-14 Equitation",
     "class_id": 200028162,
     "class_number": 513,
-    "class_name": "12-14 Equitation",
+    "class_name": "14 & Under Equitation",
     "latestStart": "1:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 10,
+    "total_trips": 14,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -483,11 +483,15 @@
     "estimated_start_time": "13:15:00",
     "group_display": [
       "Coffee (1)",
-      "Haze (3)"
+      "Oddur (2)",
+      "Haze (3)",
+      "Mark (4)"
     ],
     "8778_sched_display": [
       "Coffee (1)",
-      "Haze (3)"
+      "Oddur (2)",
+      "Haze (3)",
+      "Mark (4)"
     ],
     "group_name_tags": "target, Over Fences"
   },
@@ -501,10 +505,10 @@
     "group_name": "12-14 Equitation",
     "class_id": 200027867,
     "class_number": 514,
-    "class_name": "12-14 Equitation",
+    "class_name": "14 & Under Equitation",
     "latestStart": "1:15 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 10,
+    "total_trips": 14,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -514,11 +518,15 @@
     "class_group_sequence": 9,
     "estimated_start_time": "13:15:00",
     "group_display": [
+      "Oddur (1)",
       "Coffee (2)",
+      "Mark (3)",
       "Haze (4)"
     ],
     "8778_sched_display": [
+      "Oddur (1)",
       "Coffee (2)",
+      "Mark (3)",
       "Haze (4)"
     ],
     "group_name_tags": "target, Over Fences"
@@ -530,10 +538,10 @@
     "ringName": "Covered",
     "class_groupxclasses_id": 200039249,
     "class_group_id": 200026310,
-    "group_name": "12-14 Equitation Flat",
+    "group_name": "14 & Under Equitation Flat",
     "class_id": null,
     "class_number": 512,
-    "class_name": "12-14 Equitation Flat",
+    "class_name": "14 & Under Equitation Flat",
     "latestStart": "2:00 PM",
     "latestStatus": null,
     "total_trips": null,
@@ -547,11 +555,15 @@
     "estimated_start_time": "14:00:00",
     "group_display": [
       "Coffee",
-      "Haze"
+      "Haze",
+      "Oddur",
+      "Mark"
     ],
     "8778_sched_display": [
       "Coffee",
-      "Haze"
+      "Haze",
+      "Oddur",
+      "Mark"
     ],
     "group_name_tags": "target, usf, flat, Under Saddle/Flat"
   },
@@ -710,7 +722,7 @@
     "class_name": "USEF/NCEA Junior Hunter Seat Medal",
     "latestStart": "4:45 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 6,
+    "total_trips": 7,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -830,7 +842,7 @@
     "class_name": "1.10m Open Jumper II2b",
     "latestStart": "9:35 AM",
     "latestStatus": "Underway",
-    "total_trips": 13,
+    "total_trips": 14,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -855,7 +867,7 @@
     "class_number": 831,
     "class_name": "1.10m Young Jumper Table II",
     "latestStart": "10:12 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 3,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -884,7 +896,7 @@
     "latestStatus": [
       "Upcoming"
     ],
-    "total_trips": 8,
+    "total_trips": 7,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -964,7 +976,7 @@
     "class_id": 200028007,
     "class_number": 737,
     "class_name": "1.0m Junior Jumper II2b",
-    "latestStart": "12:11 PM",
+    "latestStart": "12:08 PM",
     "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000070,
@@ -972,9 +984,9 @@
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "12:11 PM",
+    "start_display": "12:08 PM",
     "class_group_sequence": 10,
-    "estimated_start_time": "12:11:00",
+    "estimated_start_time": "12:08:00",
     "group_display": [
       "Shrek  (1)"
     ],
@@ -994,7 +1006,7 @@
     "class_id": 200028092,
     "class_number": 765,
     "class_name": "1.0m Amateur Jumper II2b",
-    "latestStart": "12:11 PM",
+    "latestStart": "12:08 PM",
     "latestStatus": "Upcoming",
     "total_trips": 8,
     "show_id": 200000070,
@@ -1002,9 +1014,9 @@
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Village",
-    "start_display": "12:11 PM",
+    "start_display": "12:08 PM",
     "class_group_sequence": 10,
-    "estimated_start_time": "12:11:00",
+    "estimated_start_time": "12:08:00",
     "group_display": [
       "Fan Fan (2)"
     ],

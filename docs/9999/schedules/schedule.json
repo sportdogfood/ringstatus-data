@@ -538,9 +538,9 @@
   },
   {
     "8778_group_display": [
+      "Coffee (1)",
       "Oddur (2)",
       "Mark (4)",
-      "Coffee (5)",
       "Haze (7)"
     ],
     "class_group_id": 200026309,
@@ -554,9 +554,9 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
+      "Coffee (1)",
       "Oddur (2)",
       "Mark (4)",
-      "Coffee (5)",
       "Haze (7)"
     ],
     "shifted_to_next_day": null,
@@ -564,27 +564,27 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48606,
+    "start_display": "1:35 PM",
+    "start_display_short": "1:35P",
+    "time_sort": 48904,
     "total_trips": 14,
     "class_groupxclasses_id": 200039247,
-    "latestStart": "1:30 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "1:35 PM",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 9,
-    "estimated_start_time": "13:30:06",
+    "estimated_start_time": "13:35:04",
     "8778_sched_display": [
+      "Coffee (1)",
       "Oddur (2)",
       "Mark (4)",
-      "Coffee (5)",
       "Haze (7)"
     ]
   },
   {
     "8778_group_display": [
-      "Oddur (1)",
       "Mark (3)",
+      "Oddur (5)",
       "Coffee (6)",
       "Haze (8)"
     ],
@@ -599,8 +599,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Oddur (1)",
       "Mark (3)",
+      "Oddur (5)",
       "Coffee (6)",
       "Haze (8)"
     ],
@@ -609,19 +609,19 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "1:30 PM",
-    "start_display_short": "1:30P",
-    "time_sort": 48606,
+    "start_display": "1:35 PM",
+    "start_display_short": "1:35P",
+    "time_sort": 48904,
     "total_trips": 14,
     "class_groupxclasses_id": 200039248,
-    "latestStart": "1:30 PM",
-    "latestStatus": "Upcoming",
+    "latestStart": "1:35 PM",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 9,
-    "estimated_start_time": "13:30:06",
+    "estimated_start_time": "13:35:04",
     "8778_sched_display": [
-      "Oddur (1)",
       "Mark (3)",
+      "Oddur (5)",
       "Coffee (6)",
       "Haze (8)"
     ]
@@ -1135,14 +1135,14 @@
     "sid": 200000070,
     "start_display": "1:40 PM",
     "start_display_short": "1:40P",
-    "time_sort": 49200,
+    "time_sort": 49204,
     "total_trips": 1,
     "class_groupxclasses_id": 200039264,
     "latestStart": "1:40 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 10,
-    "estimated_start_time": "13:40:00",
+    "estimated_start_time": "13:40:04",
     "8778_sched_display": []
   },
   {
@@ -1169,14 +1169,14 @@
     "sid": 200000070,
     "start_display": "1:43 PM",
     "start_display_short": "1:43P",
-    "time_sort": 49380,
+    "time_sort": 49384,
     "total_trips": 6,
     "class_groupxclasses_id": 200039267,
     "latestStart": "1:43 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:43:00",
+    "estimated_start_time": "13:43:04",
     "8778_sched_display": [
       "Shrek  (1)"
     ]
@@ -1205,14 +1205,14 @@
     "sid": 200000070,
     "start_display": "1:43 PM",
     "start_display_short": "1:43P",
-    "time_sort": 49380,
+    "time_sort": 49384,
     "total_trips": 6,
     "class_groupxclasses_id": 200039268,
     "latestStart": "1:43 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
-    "estimated_start_time": "13:43:00",
+    "estimated_start_time": "13:43:04",
     "8778_sched_display": [
       "Fan Fan (2)"
     ]

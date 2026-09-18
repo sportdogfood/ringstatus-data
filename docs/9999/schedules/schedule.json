@@ -347,16 +347,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39607,
+    "start_display": "11:05 AM",
+    "start_display_short": "11:05A",
+    "time_sort": 39903,
     "total_trips": 3,
     "class_groupxclasses_id": 200039241,
-    "latestStart": "11:00 AM",
+    "latestStart": "11:05 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:00:07",
+    "estimated_start_time": "11:05:03",
     "8778_sched_display": []
   },
   {
@@ -1010,10 +1010,10 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 15,
+    "total_trips": 14,
     "class_groupxclasses_id": 200039259,
     "latestStart": "9:35 AM",
-    "latestStatus": "Completed",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 5,
     "estimated_start_time": "09:35:00",
@@ -1088,7 +1088,9 @@
     ]
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      null
+    ],
     "class_group_id": 200026322,
     "class_id": 200028045,
     "class_name": "1.15m Open Jumper II2b",
@@ -1099,7 +1101,9 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "ringName": "Village",
-    "group_display": [],
+    "group_display": [
+      null
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
@@ -1108,14 +1112,16 @@
     "start_display": "11:10 AM",
     "start_display_short": "11:10A",
     "time_sort": 40200,
-    "total_trips": 8,
+    "total_trips": 9,
     "class_groupxclasses_id": 200039263,
     "latestStart": "11:10 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 8,
     "estimated_start_time": "11:10:00",
-    "8778_sched_display": []
+    "8778_sched_display": [
+      null
+    ]
   },
   {
     "8778_group_display": [],

@@ -651,7 +651,9 @@
     "class_number": 535,
     "class_name": "USHJA 3'3\" Hunter Seat Medal",
     "latestStart": "3:15 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": [
+      "Upcoming"
+    ],
     "total_trips": 6,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -660,7 +662,7 @@
     "ring_nickname": "Covered",
     "start_display": "3:15 PM",
     "class_group_sequence": 13,
-    "estimated_start_time": "15:15:00",
+    "estimated_start_time": "15:15:03",
     "group_display": [
       "Mark (5)"
     ],
@@ -1085,7 +1087,7 @@
     "class_number": 783,
     "class_name": "Puddle Jumper Open (.70-.80m) II2b",
     "latestStart": "2:55 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 4,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -1111,7 +1113,7 @@
     "class_number": 795,
     "class_name": "Puddle Jumper Junior/Amateur (.70-.80m) II2b",
     "latestStart": "2:55 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 4,
     "show_id": 200000070,
     "show_date": "2026-09-18",

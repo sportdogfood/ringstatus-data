@@ -361,7 +361,7 @@
   },
   {
     "8778_group_display": [
-      null
+      "Macho (1)"
     ],
     "class_group_id": 200026355,
     "class_id": 200028139,
@@ -374,7 +374,7 @@
     "ring_number": 6,
     "ringName": "Hunter 2",
     "group_display": [
-      null
+      "Macho (1)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -392,7 +392,7 @@
     "class_group_sequence": 3,
     "estimated_start_time": "10:00:00",
     "8778_sched_display": [
-      null
+      "Macho (1)"
     ]
   },
   {
@@ -992,10 +992,10 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 14,
+    "total_trips": 13,
     "class_groupxclasses_id": 200039259,
     "latestStart": "9:35 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 5,
     "estimated_start_time": "09:35:00",
@@ -1019,16 +1019,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:17 AM",
-    "start_display_short": "10:17A",
-    "time_sort": 37020,
+    "start_display": "10:12 AM",
+    "start_display_short": "10:12A",
+    "time_sort": 36724,
     "total_trips": 4,
     "class_groupxclasses_id": 200039260,
-    "latestStart": "10:17 AM",
-    "latestStatus": "Upcoming",
+    "latestStart": "10:12 AM",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 6,
-    "estimated_start_time": "10:17:00",
+    "estimated_start_time": "10:12:04",
     "8778_sched_display": []
   },
   {
@@ -1053,16 +1053,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:29 AM",
-    "start_display_short": "10:29A",
-    "time_sort": 37740,
+    "start_display": "9:52 AM",
+    "start_display_short": "9:52A",
+    "time_sort": 35556,
     "total_trips": 9,
     "class_groupxclasses_id": 200039261,
-    "latestStart": "10:29 AM",
+    "latestStart": "9:52 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 7,
-    "estimated_start_time": "10:29:00",
+    "estimated_start_time": "09:52:36",
     "8778_sched_display": [
       "Rimini (7)"
     ]

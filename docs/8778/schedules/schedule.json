@@ -37,9 +37,7 @@
     "class_number": 808,
     "class_name": "1.35m Open Stake II2b",
     "latestStart": "9:05 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 12,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -69,9 +67,7 @@
     "class_number": 788,
     "class_name": "1.20m Open Jumper II2b",
     "latestStart": "8:20 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 5,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -82,12 +78,12 @@
     "class_group_sequence": 2,
     "estimated_start_time": "08:20:00",
     "group_display": [
-      "Maiki (1)",
-      "Q (4)"
+      "Q (3)",
+      "Maiki (4)"
     ],
     "8778_sched_display": [
-      "Maiki (1)",
-      "Q (4)"
+      "Q (3)",
+      "Maiki (4)"
     ],
     "group_name_tags": "target, open, 1.20m, jumpers, Over Fences"
   },
@@ -155,9 +151,7 @@
     "class_number": 724,
     "class_name": "1.20m Amateur Jumper II2b",
     "latestStart": "8:39 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 12,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -168,12 +162,12 @@
     "class_group_sequence": 4,
     "estimated_start_time": "08:39:31",
     "group_display": [
-      "Maiki (3)",
-      "Q (11)"
+      "Maiki (4)",
+      "Q (10)"
     ],
     "8778_sched_display": [
-      "Maiki (3)",
-      "Q (11)"
+      "Maiki (4)",
+      "Q (10)"
     ],
     "group_name_tags": "target, 1.20m, amateur, junior, jumpers, Over Fences"
   },
@@ -292,7 +286,7 @@
     "class_id": 200028024,
     "class_number": 701,
     "class_name": "1.40m Open Jumper II2.1",
-    "latestStart": "11:00 AM",
+    "latestStart": "11:15 AM",
     "latestStatus": "Upcoming",
     "total_trips": 3,
     "show_id": 200000070,
@@ -300,9 +294,9 @@
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:00 AM",
+    "start_display": "11:15 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:00:07",
+    "estimated_start_time": "11:15:04",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, open, 1.40m, II2.1, jumpers, Over Fences"
@@ -450,12 +444,12 @@
     "class_group_sequence": 8,
     "estimated_start_time": "12:45:00",
     "group_display": [
-      "Hurricane (1)",
-      "Ranger (1)"
+      "Ranger (1)",
+      "Hurricane (2)"
     ],
     "8778_sched_display": [
-      "Hurricane (1)",
-      "Ranger (1)"
+      "Ranger (1)",
+      "Hurricane (2)"
     ],
     "group_name_tags": "target, adult, medal, Over Fences"
   },
@@ -482,16 +476,16 @@
     "class_group_sequence": 9,
     "estimated_start_time": "13:15:00",
     "group_display": [
-      "Coffee (1)",
       "Oddur (2)",
-      "Haze (3)",
-      "Mark (4)"
+      "Mark (4)",
+      "Coffee (5)",
+      "Haze (7)"
     ],
     "8778_sched_display": [
-      "Coffee (1)",
       "Oddur (2)",
-      "Haze (3)",
-      "Mark (4)"
+      "Mark (4)",
+      "Coffee (5)",
+      "Haze (7)"
     ],
     "group_name_tags": "target, Over Fences"
   },
@@ -519,15 +513,15 @@
     "estimated_start_time": "13:15:00",
     "group_display": [
       "Oddur (1)",
-      "Coffee (2)",
       "Mark (3)",
-      "Haze (4)"
+      "Coffee (6)",
+      "Haze (8)"
     ],
     "8778_sched_display": [
       "Oddur (1)",
-      "Coffee (2)",
       "Mark (3)",
-      "Haze (4)"
+      "Coffee (6)",
+      "Haze (8)"
     ],
     "group_name_tags": "target, Over Fences"
   },
@@ -698,14 +692,14 @@
     "class_group_sequence": 14,
     "estimated_start_time": "15:45:00",
     "group_display": [
-      "Coffee (4)",
-      "Mark (5)",
-      "Munster (6)"
+      "Coffee (5)",
+      "Mark (6)",
+      "Munster (7)"
     ],
     "8778_sched_display": [
-      "Coffee (4)",
-      "Mark (5)",
-      "Munster (6)"
+      "Coffee (5)",
+      "Mark (6)",
+      "Munster (7)"
     ],
     "group_name_tags": "target, 3', 3'3\", medal, Over Fences"
   },
@@ -842,7 +836,7 @@
     "class_name": "1.10m Open Jumper II2b",
     "latestStart": "9:35 AM",
     "latestStatus": "Completed",
-    "total_trips": 15,
+    "total_trips": 14,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -893,9 +887,7 @@
     "class_number": 740,
     "class_name": "1.10m Junior/Amateur Jumper II2b",
     "latestStart": "10:26 AM",
-    "latestStatus": [
-      "Upcoming"
-    ],
+    "latestStatus": "Completed",
     "total_trips": 8,
     "show_id": 200000070,
     "show_date": "2026-09-18",
@@ -906,10 +898,10 @@
     "class_group_sequence": 7,
     "estimated_start_time": "10:26:05",
     "group_display": [
-      "Rimini (7)"
+      "Rimini (8)"
     ],
     "8778_sched_display": [
-      "Rimini (7)"
+      "Rimini (8)"
     ],
     "group_name_tags": "target, 1.10m, amateur, junior, jumpers, Over Fences"
   },
@@ -925,8 +917,8 @@
     "class_number": 745,
     "class_name": "1.15m Open Jumper II2b",
     "latestStart": "11:10 AM",
-    "latestStatus": "Upcoming",
-    "total_trips": 8,
+    "latestStatus": "Underway",
+    "total_trips": 9,
     "show_id": 200000070,
     "show_date": "2026-09-18",
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -934,9 +926,13 @@
     "ring_nickname": "Village",
     "start_display": "11:10 AM",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:10:00",
-    "group_display": [],
-    "8778_sched_display": [],
+    "estimated_start_time": "11:10:03",
+    "group_display": [
+      "Rimini (1)"
+    ],
+    "8778_sched_display": [
+      "Rimini (1)"
+    ],
     "group_name_tags": "target, open, jumpers, Over Fences"
   },
   {

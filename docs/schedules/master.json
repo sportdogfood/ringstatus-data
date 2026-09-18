@@ -45,8 +45,8 @@
   },
   {
     "8778_group_display": [
-      "Maiki (1)",
-      "Q (4)"
+      "Q (3)",
+      "Maiki (4)"
     ],
     "class_group_id": 200026295,
     "class_id": 200027874,
@@ -58,8 +58,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Maiki (1)",
-      "Q (4)"
+      "Q (3)",
+      "Maiki (4)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -73,8 +73,8 @@
   },
   {
     "8778_group_display": [
-      "Maiki (3)",
-      "Q (11)"
+      "Maiki (4)",
+      "Q (10)"
     ],
     "class_group_id": 200026298,
     "class_id": 200028283,
@@ -86,8 +86,8 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Maiki (3)",
-      "Q (11)"
+      "Maiki (4)",
+      "Q (10)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -255,7 +255,7 @@
     "start_display": "9:35 AM",
     "start_display_short": "9:35A",
     "time_sort": 34500,
-    "total_trips": 15
+    "total_trips": 14
   },
   {
     "8778_group_display": [],
@@ -281,10 +281,10 @@
   },
   {
     "8778_group_display": [
-      "Coffee (1)",
       "Oddur (2)",
-      "Haze (3)",
-      "Mark (4)"
+      "Mark (4)",
+      "Coffee (5)",
+      "Haze (7)"
     ],
     "class_group_id": 200026309,
     "class_id": 200028162,
@@ -296,10 +296,10 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Coffee (1)",
       "Oddur (2)",
-      "Haze (3)",
-      "Mark (4)"
+      "Mark (4)",
+      "Coffee (5)",
+      "Haze (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -489,9 +489,9 @@
   },
   {
     "8778_group_display": [
-      "Coffee (4)",
-      "Mark (5)",
-      "Munster (6)"
+      "Coffee (5)",
+      "Mark (6)",
+      "Munster (7)"
     ],
     "class_group_id": 200026314,
     "class_id": 200028058,
@@ -503,9 +503,9 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Coffee (4)",
-      "Mark (5)",
-      "Munster (6)"
+      "Coffee (5)",
+      "Mark (6)",
+      "Munster (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -519,8 +519,8 @@
   },
   {
     "8778_group_display": [
-      "Hurricane (1)",
-      "Ranger (1)"
+      "Ranger (1)",
+      "Hurricane (2)"
     ],
     "class_group_id": 200026308,
     "class_id": 200028076,
@@ -532,8 +532,8 @@
     "ring_nickname": "Covered",
     "ring_number": 3,
     "group_display": [
-      "Hurricane (1)",
-      "Ranger (1)"
+      "Ranger (1)",
+      "Hurricane (2)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -592,9 +592,9 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "11:00 AM",
-    "start_display_short": "11:00A",
-    "time_sort": 39607,
+    "start_display": "11:15 AM",
+    "start_display_short": "11:15A",
+    "time_sort": 40504,
     "total_trips": 3
   },
   {
@@ -652,9 +652,9 @@
   {
     "8778_group_display": [
       "Oddur (1)",
-      "Coffee (2)",
       "Mark (3)",
-      "Haze (4)"
+      "Coffee (6)",
+      "Haze (8)"
     ],
     "class_group_id": 200026309,
     "class_id": 200027867,
@@ -667,9 +667,9 @@
     "ring_number": 3,
     "group_display": [
       "Oddur (1)",
-      "Coffee (2)",
       "Mark (3)",
-      "Haze (4)"
+      "Coffee (6)",
+      "Haze (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -734,7 +734,9 @@
     "total_trips": 6
   },
   {
-    "8778_group_display": [],
+    "8778_group_display": [
+      "Rimini (1)"
+    ],
     "class_group_id": 200026322,
     "class_id": 200028045,
     "class_name": "1.15m Open Jumper II2b",
@@ -744,7 +746,9 @@
     "group_name_tags": "target, open, jumpers, Over Fences",
     "ring_nickname": "Village",
     "ring_number": 4,
-    "group_display": [],
+    "group_display": [
+      "Rimini (1)"
+    ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
     "show_days_report_title": "Schedule",
@@ -752,8 +756,8 @@
     "sid": 200000070,
     "start_display": "11:10 AM",
     "start_display_short": "11:10A",
-    "time_sort": 40200,
-    "total_trips": 8
+    "time_sort": 40203,
+    "total_trips": 9
   },
   {
     "8778_group_display": [],
@@ -827,7 +831,7 @@
   },
   {
     "8778_group_display": [
-      "Rimini (7)"
+      "Rimini (8)"
     ],
     "class_group_id": 200026321,
     "class_id": 200027921,
@@ -839,7 +843,7 @@
     "ring_nickname": "Village",
     "ring_number": 4,
     "group_display": [
-      "Rimini (7)"
+      "Rimini (8)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",

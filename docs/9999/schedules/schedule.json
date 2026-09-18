@@ -541,7 +541,7 @@
       "Coffee (1)",
       "Oddur (2)",
       "Mark (3)",
-      "Haze (14)"
+      "Haze (11)"
     ],
     "class_group_id": 200026309,
     "class_id": 200028162,
@@ -557,7 +557,7 @@
       "Coffee (1)",
       "Oddur (2)",
       "Mark (3)",
-      "Haze (14)"
+      "Haze (11)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -570,7 +570,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200039247,
     "latestStart": "1:35 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-18",
     "class_group_sequence": 9,
     "estimated_start_time": "13:35:04",
@@ -578,7 +578,7 @@
       "Coffee (1)",
       "Oddur (2)",
       "Mark (3)",
-      "Haze (14)"
+      "Haze (11)"
     ]
   },
   {
@@ -586,7 +586,7 @@
       "Mark (4)",
       "Oddur (5)",
       "Coffee (6)",
-      "Haze (13)"
+      "Haze (14)"
     ],
     "class_group_id": 200026309,
     "class_id": 200027867,
@@ -602,7 +602,7 @@
       "Mark (4)",
       "Oddur (5)",
       "Coffee (6)",
-      "Haze (13)"
+      "Haze (14)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Friday, September, 18, 2026",
@@ -615,7 +615,7 @@
     "total_trips": 14,
     "class_groupxclasses_id": 200039248,
     "latestStart": "1:35 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-18",
     "class_group_sequence": 9,
     "estimated_start_time": "13:35:04",
@@ -623,7 +623,7 @@
       "Mark (4)",
       "Oddur (5)",
       "Coffee (6)",
-      "Haze (13)"
+      "Haze (14)"
     ]
   },
   {
@@ -857,16 +857,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "5:12 PM",
-    "start_display_short": "5:12P",
-    "time_sort": 61920,
+    "start_display": "5:15 PM",
+    "start_display_short": "5:15P",
+    "time_sort": 62100,
     "total_trips": 7,
     "class_groupxclasses_id": 200039255,
-    "latestStart": "5:12 PM",
+    "latestStart": "5:15 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 15,
-    "estimated_start_time": "17:12:00",
+    "estimated_start_time": "17:15:00",
     "8778_sched_display": []
   },
   {
@@ -1170,10 +1170,10 @@
     "start_display": "2:08 PM",
     "start_display_short": "2:08P",
     "time_sort": 50884,
-    "total_trips": 4,
+    "total_trips": 5,
     "class_groupxclasses_id": 200039267,
     "latestStart": "2:08 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
     "estimated_start_time": "14:08:04",
@@ -1187,7 +1187,7 @@
     ],
     "class_group_id": 200026325,
     "class_id": 200028092,
-    "class_name": "1.0m Amateur Jumper II2b",
+    "class_name": "1.0m Junior/Amateur Jumper II2b",
     "class_number": 765,
     "dt": "2026-09-18",
     "group_name": "1.0m Junior & Amateur Jumpers II2b",
@@ -1206,10 +1206,10 @@
     "start_display": "2:08 PM",
     "start_display_short": "2:08P",
     "time_sort": 50884,
-    "total_trips": 4,
+    "total_trips": 5,
     "class_groupxclasses_id": 200039268,
     "latestStart": "2:08 PM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "show_date": "2026-09-18",
     "class_group_sequence": 11,
     "estimated_start_time": "14:08:04",
@@ -1235,16 +1235,16 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "2:20 PM",
-    "start_display_short": "2:20P",
-    "time_sort": 51600,
-    "total_trips": 2,
+    "start_display": "2:22 PM",
+    "start_display_short": "2:22P",
+    "time_sort": 51741,
+    "total_trips": 1,
     "class_groupxclasses_id": 200039269,
-    "latestStart": "2:20 PM",
+    "latestStart": "2:22 PM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-18",
     "class_group_sequence": 12,
-    "estimated_start_time": "14:20:00",
+    "estimated_start_time": "14:22:21",
     "8778_sched_display": []
   },
   {
@@ -1268,7 +1268,7 @@
     "start_display": "2:30 PM",
     "start_display_short": "2:30P",
     "time_sort": 52200,
-    "total_trips": 2,
+    "total_trips": 1,
     "class_groupxclasses_id": 200039270,
     "latestStart": "2:30 PM",
     "latestStatus": "Upcoming",

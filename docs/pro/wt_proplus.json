@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -21190,
+      "secondsTill": -26896,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -237,7 +237,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -302,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -21190,
+      "secondsTill": -26896,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -562,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -29593,
+      "secondsTill": -30193,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -627,7 +627,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28393,
+      "secondsTill": -28993,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -692,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28393,
+      "secondsTill": -28993,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -757,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28393,
+      "secondsTill": -28993,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -822,7 +822,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28096,
+      "secondsTill": -28696,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28096,
+      "secondsTill": -28696,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -28096,
+      "secondsTill": -28696,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -974,6 +974,71 @@
       "status": null,
       "scope_status": "current",
       "group_name_tags": "firstUp, target, usf, model, pony, medium, small, U/S, hunters, Under Saddle/Flat"
+    },
+    {
+      "sid": "200000070",
+      "dt": "2026-09-19",
+      "ring_number": 6,
+      "ringName": "Hunter 2",
+      "class_group_id": null,
+      "class_group_sequence": null,
+      "class_groupxclasses_id": null,
+      "group_name": null,
+      "groomName": "Groom",
+      "time_sort": 30600,
+      "class_id": null,
+      "class_number": 401,
+      "completed_trips": null,
+      "class_name": "Schooling Pony",
+      "class_type": "Hunters",
+      "lastGoneIn": null,
+      "remaining_trips": null,
+      "estimated_end_time": null,
+      "estimated_go_time": null,
+      "estimated_start_time": "08:30:00",
+      "schedule_sequencetype": null,
+      "trip_id": null,
+      "latestStart": "8:30 AM",
+      "latestStatus": null,
+      "total_trips": null,
+      "entry_id": null,
+      "backNumber": null,
+      "entryNumber": null,
+      "entryxclasses_uuid": null,
+      "ringWalk": 0,
+      "barnName": "Poptart",
+      "horseName": "Poptart",
+      "teamName": null,
+      "riderName": null,
+      "latestPlacing": null,
+      "lastScore": null,
+      "lastPlace": null,
+      "lastPosition": null,
+      "time_one": null,
+      "time_two": null,
+      "pid": 8778,
+      "secondsTill": -26896,
+      "time_three": null,
+      "score1": null,
+      "score2": null,
+      "score3": null,
+      "lastTime": null,
+      "latestGO": "8:30 AM",
+      "runningOOG": null,
+      "lastOOG": null,
+      "sched_display": "Poptart",
+      "is_target": null,
+      "is_parent": null,
+      "path_tenant": "8778",
+      "estimatedGO00": "8:30:00",
+      "estimatedGO": "8:30 AM",
+      "rider_name": "JESSICA HEAP",
+      "rider_id": null,
+      "horse": "POPTART",
+      "horse_id": null,
+      "status": null,
+      "scope_status": "current",
+      "group_name_tags": "schooling_pony, model, pony, hunters"
     },
     {
       "sid": "200000070",
@@ -1017,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -25996,
+      "secondsTill": -26596,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1082,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -25036,
+      "secondsTill": -25636,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1147,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -21612,
+      "secondsTill": -22212,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1212,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -21612,
+      "secondsTill": -22212,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1234,71 +1299,6 @@
       "status": "Completed",
       "scope_status": "current",
       "group_name_tags": "target, adult, medal, Over Fences"
-    },
-    {
-      "sid": "200000070",
-      "dt": "2026-09-19",
-      "ring_number": 6,
-      "ringName": "Hunter 2",
-      "class_group_id": null,
-      "class_group_sequence": null,
-      "class_groupxclasses_id": null,
-      "group_name": null,
-      "groomName": "Groom",
-      "time_sort": 35706,
-      "class_id": null,
-      "class_number": 401,
-      "completed_trips": null,
-      "class_name": "Schooling Pony",
-      "class_type": "Hunters",
-      "lastGoneIn": null,
-      "remaining_trips": null,
-      "estimated_end_time": null,
-      "estimated_go_time": null,
-      "estimated_start_time": "09:55:06",
-      "schedule_sequencetype": null,
-      "trip_id": null,
-      "latestStart": "9:55 AM",
-      "latestStatus": null,
-      "total_trips": null,
-      "entry_id": null,
-      "backNumber": null,
-      "entryNumber": null,
-      "entryxclasses_uuid": null,
-      "ringWalk": 0,
-      "barnName": "Poptart",
-      "horseName": "Poptart",
-      "teamName": null,
-      "riderName": null,
-      "latestPlacing": null,
-      "lastScore": null,
-      "lastPlace": null,
-      "lastPosition": null,
-      "time_one": null,
-      "time_two": null,
-      "pid": 8778,
-      "secondsTill": -21190,
-      "time_three": null,
-      "score1": null,
-      "score2": null,
-      "score3": null,
-      "lastTime": null,
-      "latestGO": "9:55 AM",
-      "runningOOG": null,
-      "lastOOG": null,
-      "sched_display": "Poptart",
-      "is_target": null,
-      "is_parent": null,
-      "path_tenant": "8778",
-      "estimatedGO00": "9:55:00",
-      "estimatedGO": "9:55 AM",
-      "rider_name": "JESSICA HEAP",
-      "rider_id": null,
-      "horse": "POPTART",
-      "horse_id": null,
-      "status": null,
-      "scope_status": "current",
-      "group_name_tags": "schooling_pony, model, pony, hunters"
     },
     {
       "sid": "200000070",
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -19668,
+      "secondsTill": -20268,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1407,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -19668,
+      "secondsTill": -20268,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1472,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -19096,
+      "secondsTill": -19696,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1537,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -19096,
+      "secondsTill": -19696,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1602,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -16576,
+      "secondsTill": -17176,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1667,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -16576,
+      "secondsTill": -17176,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1732,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -16027,
+      "secondsTill": -16627,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1797,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -10996,
+      "secondsTill": -11596,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1862,7 +1862,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -10996,
+      "secondsTill": -11596,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1927,7 +1927,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -10696,
+      "secondsTill": -11296,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1992,7 +1992,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -9791,
+      "secondsTill": -10391,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2057,7 +2057,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -9791,
+      "secondsTill": -10391,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2122,7 +2122,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6496,
+      "secondsTill": -7096,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2187,7 +2187,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2252,7 +2252,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2317,7 +2317,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2382,7 +2382,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2447,7 +2447,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2512,7 +2512,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2577,7 +2577,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": -6486,
+      "secondsTill": -7086,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2607,7 +2607,7 @@
         39
       ],
       "47066": [
-        17,
+        18,
         27,
         28
       ],
@@ -2619,7 +2619,7 @@
         9,
         10,
         11,
-        16,
+        17,
         34,
         36,
         37,
@@ -2640,7 +2640,7 @@
         13
       ],
       "73560": [
-        15
+        16
       ],
       "79378": [
         25,
@@ -2667,7 +2667,7 @@
         5,
         12,
         13,
-        19
+        15
       ],
       "jessica": [
         0,
@@ -2689,7 +2689,7 @@
         9,
         10,
         11,
-        16,
+        17,
         34,
         36,
         37,
@@ -2699,32 +2699,32 @@
         9,
         10,
         11,
-        16,
+        17,
         34,
         36,
         37,
         38
       ],
       "grace lyons": [
-        15
+        16
       ],
       "grace": [
-        15
+        16
       ],
       "taylor oakvik": [
-        17,
+        18,
         22,
         23,
         27,
         28
       ],
       "taylor": [
-        17,
+        18,
         27,
         28
       ],
       "kaitlyn sheerahamed": [
-        18,
+        19,
         20,
         21
       ],
@@ -2802,8 +2802,8 @@
         5,
         13,
         13,
-        19,
-        19
+        15,
+        15
       ],
       "benlea magic dragon": [
         6,
@@ -2821,33 +2821,33 @@
         9,
         10,
         11,
-        16
+        17
       ],
       "macho": [
         9,
         10,
         11,
-        16
+        17
       ],
       "ideal": [
-        15
+        16
       ],
       "doug": [
-        15
+        16
       ],
       "hurricane": [
-        17,
-        17,
+        18,
+        18,
         36,
         36
       ],
       "range rover": [
-        18,
+        19,
         20,
         21
       ],
       "ranger": [
-        18,
+        19,
         20,
         21
       ],
@@ -2956,12 +2956,12 @@
         10,
         11,
         11,
-        15,
-        15,
-        17,
-        17,
+        16,
+        16,
         18,
         18,
+        19,
+        19,
         20,
         20,
         21,
@@ -3048,7 +3048,7 @@
     },
     "ring": {
       "3": [
-        15,
+        16,
         22,
         23,
         29,
@@ -3071,9 +3071,9 @@
         9,
         10,
         11,
-        16,
         17,
         18,
+        19,
         20,
         21,
         24,
@@ -3093,7 +3093,7 @@
         12,
         13,
         14,
-        19
+        15
       ],
       "hunter 2": [
         0,
@@ -3108,15 +3108,15 @@
         12,
         13,
         14,
-        19
+        15
       ],
       "hunter 1": [
         9,
         10,
         11,
-        16,
         17,
         18,
+        19,
         20,
         21,
         24,
@@ -3124,7 +3124,7 @@
         26
       ],
       "covered": [
-        15,
+        16,
         22,
         23,
         29,
@@ -3160,8 +3160,8 @@
         12,
         13,
         14,
-        16,
-        19,
+        15,
+        17,
         20,
         21
       ],
@@ -3178,9 +3178,9 @@
         9,
         10,
         11,
-        15,
-        17,
+        16,
         18,
+        19,
         20,
         21,
         22,
@@ -3202,8 +3202,8 @@
       ],
       "equitation": [
         3,
-        17,
         18,
+        19,
         24,
         25,
         26,
@@ -3220,12 +3220,12 @@
         12,
         13,
         14,
-        16,
+        17,
         24,
         25
       ],
       "jumpers": [
-        15,
+        16,
         22,
         23,
         27,
@@ -3239,7 +3239,7 @@
       "schooling_pony": [
         0,
         6,
-        19
+        15
       ],
       "model": [
         0,
@@ -3254,7 +3254,7 @@
         12,
         13,
         14,
-        19
+        15
       ],
       "pony": [
         0,
@@ -3269,7 +3269,7 @@
         12,
         13,
         14,
-        19
+        15
       ],
       "hunters": [
         0,
@@ -3286,8 +3286,8 @@
         12,
         13,
         14,
-        16,
-        19,
+        15,
+        17,
         20,
         21
       ],
@@ -3304,9 +3304,9 @@
         9,
         10,
         11,
-        15,
-        17,
+        16,
         18,
+        19,
         20,
         21,
         22,
@@ -3350,10 +3350,10 @@
         12,
         13,
         14,
-        15,
         16,
         17,
         18,
+        19,
         20,
         21,
         22,
@@ -3391,8 +3391,8 @@
       ],
       "medal": [
         3,
-        17,
         18,
+        19,
         24,
         25,
         26
@@ -3400,12 +3400,12 @@
       "owner": [
         9,
         11,
-        16
+        17
       ],
       "3'": [
         9,
         11,
-        16,
+        17,
         32,
         33,
         34,
@@ -3418,12 +3418,12 @@
       "3'3\"": [
         9,
         11,
-        16
+        17
       ],
       "3'6\"": [
         9,
         11,
-        16,
+        17,
         32,
         33,
         34,
@@ -3436,7 +3436,7 @@
       "amateur": [
         9,
         11,
-        16,
+        17,
         20,
         21,
         27,
@@ -3448,7 +3448,7 @@
       "junior": [
         9,
         11,
-        16,
+        17,
         24,
         25,
         29,
@@ -3472,7 +3472,7 @@
         12,
         13,
         14,
-        16,
+        17,
         24,
         25
       ],
@@ -3480,13 +3480,13 @@
         12,
         13,
         14,
-        16
+        17
       ],
       "under saddle/flat": [
         12,
         13,
         14,
-        16,
+        17,
         24,
         25
       ],
@@ -3496,12 +3496,12 @@
         14
       ],
       "open": [
-        15,
+        16,
         22,
         23
       ],
       "ii2d": [
-        15,
+        16,
         22,
         23,
         27,
@@ -3510,7 +3510,7 @@
         31
       ],
       "jumpers": [
-        15,
+        16,
         22,
         23,
         27,
@@ -3520,23 +3520,23 @@
         31
       ],
       "1.30m junior/amateur": [
-        15
-      ],
-      "open & young jumpers ii2d": [
-        15
-      ],
-      "junior/amateur owner hunter 3'6\"/3'3\" u/s": [
         16
       ],
+      "open & young jumpers ii2d": [
+        16
+      ],
+      "junior/amateur owner hunter 3'6\"/3'3\" u/s": [
+        17
+      ],
       "adult": [
-        17,
         18,
+        19,
         20,
         21
       ],
       "ariat adult medal": [
-        17,
-        18
+        18,
+        19
       ],
       "adult amateur hunter": [
         20,

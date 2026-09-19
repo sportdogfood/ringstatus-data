@@ -256,7 +256,7 @@
     "class_name": "1.10m Open Jumper II2d",
     "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
-    "total_trips": 13,
+    "total_trips": 11,
     "show_id": 200000070,
     "show_date": "2026-09-19",
     "show_days_display_date": "Saturday, September, 19, 2026",
@@ -878,10 +878,12 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:00",
     "group_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "8778_sched_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "group_name_tags": "target, adult, medal, Over Fences"
   },
@@ -1150,7 +1152,7 @@
     "ring_nickname": "Hunter 2",
     "start_display": "7:30 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "group_display": [
       "Poptart"
     ],
@@ -1180,7 +1182,7 @@
     "ring_nickname": "Hunter 2",
     "start_display": "7:30 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "group_display": [
       "Knox",
       "Benlea"
@@ -1212,7 +1214,7 @@
     "ring_nickname": "Hunter 2",
     "start_display": "7:30 AM",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "group_display": [
       "Knox",
       "Poptart",

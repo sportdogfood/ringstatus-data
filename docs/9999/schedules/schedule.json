@@ -119,7 +119,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 13,
+    "total_trips": 11,
     "class_groupxclasses_id": 200039362,
     "latestStart": "12:30 PM",
     "latestStatus": "Upcoming",
@@ -1132,7 +1132,8 @@
   },
   {
     "8778_group_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "class_group_id": 200026404,
     "class_id": 200028116,
@@ -1145,7 +1146,8 @@
     "ring_number": 5,
     "ringName": "Hunter 1",
     "group_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, September, 19, 2026",
@@ -1163,7 +1165,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:00:00",
     "8778_sched_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ]
   },
   {
@@ -1224,14 +1227,14 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21,
     "class_groupxclasses_id": 200039436,
     "latestStart": "7:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-19",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "8778_sched_display": [
       "Knox",
       "Poptart",
@@ -1262,14 +1265,14 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21,
     "class_groupxclasses_id": 200039434,
     "latestStart": "7:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-19",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "8778_sched_display": [
       "Poptart"
     ]
@@ -1360,14 +1363,14 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21,
     "class_groupxclasses_id": 200039435,
     "latestStart": "7:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-19",
     "class_group_sequence": 1,
-    "estimated_start_time": "07:30:00",
+    "estimated_start_time": "07:30:07",
     "8778_sched_display": [
       "Knox",
       "Benlea"

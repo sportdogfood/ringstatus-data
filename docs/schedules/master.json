@@ -91,7 +91,7 @@
     "start_display": "12:30 PM",
     "start_display_short": "12:30P",
     "time_sort": 45000,
-    "total_trips": 13
+    "total_trips": 11
   },
   {
     "8778_group_display": [],
@@ -789,7 +789,8 @@
   },
   {
     "8778_group_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "class_group_id": 200026404,
     "class_id": 200028116,
@@ -801,7 +802,8 @@
     "ring_nickname": "Hunter 1",
     "ring_number": 5,
     "group_display": [
-      "Hurricane"
+      "Hurricane",
+      "Ranger"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, September, 19, 2026",
@@ -884,7 +886,7 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21
   },
   {
@@ -914,7 +916,7 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21
   },
   {
@@ -940,7 +942,7 @@
     "sid": 200000070,
     "start_display": "7:30 AM",
     "start_display_short": "7:30A",
-    "time_sort": 27000,
+    "time_sort": 27007,
     "total_trips": 21
   },
   {

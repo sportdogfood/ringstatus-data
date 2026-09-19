@@ -6,9 +6,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039577,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -42,7 +42,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -63,7 +63,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "handy, model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -71,9 +71,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039576,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -107,7 +107,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -117,7 +117,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Knox",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:15:00",
@@ -128,7 +128,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -136,9 +136,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039576,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -172,7 +172,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -182,7 +182,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Poptart",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:15:00",
@@ -193,7 +193,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -201,9 +201,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039577,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -237,7 +237,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -258,7 +258,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "handy, model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -266,9 +266,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039577,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -302,7 +302,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -323,7 +323,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "handy, model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -331,9 +331,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039576,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 29700,
       "class_id": null,
@@ -367,7 +367,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 55901,
+      "secondsTill": 55301,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -377,7 +377,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Benlea",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:15:00",
@@ -388,7 +388,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "model, pony, medium, small, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -432,7 +432,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 56801,
+      "secondsTill": 56201,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -442,7 +442,7 @@
       "runningOOG": null,
       "lastOOG": 2,
       "sched_display": "Coffee (2)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:36:00",
@@ -453,7 +453,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "maclay, Over Fences"
     },
     {
       "sid": "200000070",
@@ -497,7 +497,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 56801,
+      "secondsTill": 56201,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -507,7 +507,7 @@
       "runningOOG": null,
       "lastOOG": 1,
       "sched_display": "Munster (1)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:33:00",
@@ -518,7 +518,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "maclay, Over Fences"
     },
     {
       "sid": "200000070",
@@ -562,7 +562,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 56801,
+      "secondsTill": 56201,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -572,7 +572,7 @@
       "runningOOG": null,
       "lastOOG": 7,
       "sched_display": "Power (7)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:51:00",
@@ -583,7 +583,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "maclay, Over Fences"
     },
     {
       "sid": "200000070",
@@ -627,7 +627,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 56801,
+      "secondsTill": 56201,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -637,7 +637,7 @@
       "runningOOG": null,
       "lastOOG": 8,
       "sched_display": "Oddur (8)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "8:54:00",
@@ -648,7 +648,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "maclay, Over Fences"
     },
     {
       "sid": "200000070",
@@ -692,7 +692,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 56801,
+      "secondsTill": 56201,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -702,7 +702,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Jason",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "19676",
       "estimatedGO00": "8:30:00",
@@ -713,7 +713,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "maclay, Over Fences"
     },
     {
       "sid": "200000070",
@@ -721,9 +721,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039575,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 32220,
       "class_id": null,
@@ -757,7 +757,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 58421,
+      "secondsTill": 57821,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -777,7 +777,7 @@
       "horse": "FORT KNOX",
       "horse_id": null,
       "status": null,
-      "scope_status": "dropped",
+      "scope_status": "current",
       "group_name_tags": null
     },
     {
@@ -786,9 +786,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039578,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 32220,
       "class_id": null,
@@ -822,7 +822,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 58421,
+      "secondsTill": 57821,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -842,7 +842,7 @@
       "horse": "POPTART",
       "horse_id": null,
       "status": null,
-      "scope_status": "dropped",
+      "scope_status": "current",
       "group_name_tags": null
     },
     {
@@ -851,9 +851,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039578,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 32220,
       "class_id": null,
@@ -887,7 +887,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 58421,
+      "secondsTill": 57821,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -907,7 +907,7 @@
       "horse": "FORT KNOX",
       "horse_id": null,
       "status": null,
-      "scope_status": "dropped",
+      "scope_status": "current",
       "group_name_tags": null
     },
     {
@@ -916,9 +916,9 @@
       "ring_number": 6,
       "ringName": "Hunter 2",
       "class_group_id": 200026482,
-      "class_group_sequence": 4,
+      "class_group_sequence": 2,
       "class_groupxclasses_id": 200039578,
-      "group_name": "WIHS Pony, Small/Medium Pony Conf/Handy/Classic",
+      "group_name": "Small/Medium Pony Conf/Handy/Classic",
       "groomName": "Groom",
       "time_sort": 32220,
       "class_id": null,
@@ -952,7 +952,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 58421,
+      "secondsTill": 57821,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -972,7 +972,7 @@
       "horse": "BENLEA MAGIC DRAGON",
       "horse_id": null,
       "status": null,
-      "scope_status": "dropped",
+      "scope_status": "current",
       "group_name_tags": null
     },
     {
@@ -1017,7 +1017,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 59501,
+      "secondsTill": 58901,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1082,7 +1082,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 61001,
+      "secondsTill": 60401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1103,7 +1103,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', Over Fences"
     },
     {
       "sid": "200000070",
@@ -1147,7 +1147,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 61001,
+      "secondsTill": 60401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1168,7 +1168,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', Over Fences"
     },
     {
       "sid": "200000070",
@@ -1212,7 +1212,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 63161,
+      "secondsTill": 62561,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1222,7 +1222,7 @@
       "runningOOG": null,
       "lastOOG": 4,
       "sched_display": "Hurricane (4)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:28:00",
@@ -1233,7 +1233,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "adult, Over Fences"
     },
     {
       "sid": "200000070",
@@ -1241,7 +1241,7 @@
       "ring_number": 5,
       "ringName": "Hunter 1",
       "class_group_id": 200026460,
-      "class_group_sequence": 12,
+      "class_group_sequence": 7,
       "class_groupxclasses_id": 200039532,
       "group_name": "Junior/Amateur Owner Hunter 3'6\"/3'3\"",
       "groomName": "Groom",
@@ -1277,7 +1277,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 63701,
+      "secondsTill": 63101,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1298,7 +1298,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "handy, owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -1306,7 +1306,7 @@
       "ring_number": 5,
       "ringName": "Hunter 1",
       "class_group_id": 200026460,
-      "class_group_sequence": 12,
+      "class_group_sequence": 7,
       "class_groupxclasses_id": 200039531,
       "group_name": "Junior/Amateur Owner Hunter 3'6\"/3'3\"",
       "groomName": "Groom",
@@ -1342,7 +1342,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 63701,
+      "secondsTill": 63101,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1352,7 +1352,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Macho",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:25:00",
@@ -1363,7 +1363,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
     },
     {
       "sid": "200000070",
@@ -1407,7 +1407,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 64721,
+      "secondsTill": 64121,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1417,7 +1417,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Shrek ",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "10:42:00",
@@ -1428,7 +1428,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "1.0m, amateur, junior, jumpers, Over Fences"
     },
     {
       "sid": "200000070",
@@ -1472,7 +1472,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 67001,
+      "secondsTill": 66401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1493,7 +1493,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1537,7 +1537,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 67001,
+      "secondsTill": 66401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1558,7 +1558,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1602,7 +1602,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 67001,
+      "secondsTill": 66401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1623,7 +1623,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1667,7 +1667,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 67001,
+      "secondsTill": 66401,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1688,7 +1688,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "warmup, 3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1732,7 +1732,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 70061,
+      "secondsTill": 69461,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1742,7 +1742,7 @@
       "runningOOG": null,
       "lastOOG": 9,
       "sched_display": "Munster (9)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "12:38:00",
@@ -1753,7 +1753,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1797,7 +1797,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 70061,
+      "secondsTill": 69461,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1807,7 +1807,7 @@
       "runningOOG": null,
       "lastOOG": 2,
       "sched_display": "Mark (2)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "12:17:00",
@@ -1818,7 +1818,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1862,7 +1862,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 70061,
+      "secondsTill": 69461,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1872,7 +1872,7 @@
       "runningOOG": null,
       "lastOOG": 16,
       "sched_display": "Oddur (16)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "12:59:00",
@@ -1883,7 +1883,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1927,7 +1927,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 19676,
-      "secondsTill": 70061,
+      "secondsTill": 69461,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -1937,7 +1937,7 @@
       "runningOOG": null,
       "lastOOG": null,
       "sched_display": "Jason",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "19676",
       "estimatedGO00": "12:11:00",
@@ -1948,7 +1948,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "3', 3'3\", Over Fences"
     },
     {
       "sid": "200000070",
@@ -1992,7 +1992,7 @@
       "time_one": null,
       "time_two": null,
       "pid": 8778,
-      "secondsTill": 70061,
+      "secondsTill": 69461,
       "time_three": null,
       "score1": null,
       "score2": null,
@@ -2002,7 +2002,7 @@
       "runningOOG": null,
       "lastOOG": 10,
       "sched_display": "Coffee (10)",
-      "is_target": null,
+      "is_target": true,
       "is_parent": null,
       "path_tenant": "8778",
       "estimatedGO00": "12:41:00",
@@ -2013,7 +2013,7 @@
       "horse_id": null,
       "status": null,
       "scope_status": "current",
-      "group_name_tags": null
+      "group_name_tags": "3', 3'3\", Over Fences"
     }
   ],
   "indexes": {
@@ -2195,6 +2195,10 @@
         8,
         9,
         10,
+        11,
+        12,
+        13,
+        14,
         16,
         17,
         18,
@@ -2212,10 +2216,6 @@
         30
       ],
       "dropped": [
-        11,
-        12,
-        13,
-        14,
         15
       ]
     },
@@ -2371,17 +2371,81 @@
       ]
     },
     "group_name_tags": {
-      "wihs pony": [
+      "handy": [
+        0,
+        3,
+        4,
+        19
+      ],
+      "model": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pony": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "medium": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "small": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "hunters": [
         0,
         1,
         2,
         3,
         4,
         5,
-        11,
-        12,
-        13,
-        14
+        19,
+        20
+      ],
+      "over fences": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
       ],
       "small/medium pony conf/handy/classic": [
         0,
@@ -2395,6 +2459,13 @@
         13,
         14
       ],
+      "maclay": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "region 10 nhsaa/maclay area championship": [
         6,
         7,
@@ -2402,16 +2473,79 @@
         9,
         10
       ],
+      "warmup": [
+        16,
+        17,
+        22,
+        23,
+        24,
+        25
+      ],
+      "3'": [
+        16,
+        17,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
       "3' equitation warm up": [
         16,
         17
       ],
+      "adult": [
+        18
+      ],
       "this/nhs adult area championships": [
         18
+      ],
+      "owner": [
+        19,
+        20
+      ],
+      "3'3\"": [
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "3'6\"": [
+        19,
+        20
+      ],
+      "amateur": [
+        19,
+        20,
+        21
+      ],
+      "junior": [
+        19,
+        20,
+        21
       ],
       "junior/amateur owner hunter 3'6\"/3'3\"": [
         19,
         20
+      ],
+      "1.0m": [
+        21
+      ],
+      "jumpers": [
+        21
       ],
       "$1": [
         21

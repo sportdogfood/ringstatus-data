@@ -371,8 +371,10 @@
     "class_number": 955,
     "class_name": "3'6\" Equitation Warm Up",
     "latestStart": "2:00 PM",
-    "latestStatus": "Upcoming",
-    "total_trips": 11,
+    "latestStatus": [
+      "Underway"
+    ],
+    "total_trips": 10,
     "show_id": 200000070,
     "show_date": "2026-09-19",
     "show_days_display_date": "Saturday, September, 19, 2026",
@@ -380,7 +382,7 @@
     "ring_nickname": "Covered",
     "start_display": "2:00 PM",
     "class_group_sequence": 11,
-    "estimated_start_time": "14:00:00",
+    "estimated_start_time": "14:00:10",
     "group_display": [
       "Coffee",
       "Indy",

@@ -648,7 +648,7 @@
     "total_trips": 4,
     "class_groupxclasses_id": 200039366,
     "latestStart": "12:50 PM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-19",
     "class_group_sequence": 9,
     "estimated_start_time": "12:50:00",
@@ -688,8 +688,8 @@
   },
   {
     "8778_group_display": [
-      "Fan Fan (8)",
-      "Shrek  (9)"
+      "Shrek  (10)",
+      "Fan Fan (13)"
     ],
     "class_group_id": 200026386,
     "class_id": 200027988,
@@ -702,8 +702,8 @@
     "ring_number": 4,
     "ringName": "Village",
     "group_display": [
-      "Fan Fan (8)",
-      "Shrek  (9)"
+      "Shrek  (10)",
+      "Fan Fan (13)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Saturday, September, 19, 2026",
@@ -721,8 +721,8 @@
     "class_group_sequence": 10,
     "estimated_start_time": "13:05:05",
     "8778_sched_display": [
-      "Fan Fan (8)",
-      "Shrek  (9)"
+      "Shrek  (10)",
+      "Fan Fan (13)"
     ]
   },
   {
@@ -1111,7 +1111,7 @@
     "total_trips": 16,
     "class_groupxclasses_id": 200039423,
     "latestStart": "10:20 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "show_date": "2026-09-19",
     "class_group_sequence": 5,
     "estimated_start_time": "10:20:28",

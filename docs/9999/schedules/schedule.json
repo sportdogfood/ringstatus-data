@@ -122,7 +122,7 @@
     "start_display": "8:30 AM",
     "start_display_short": "8:30A",
     "time_sort": 30600,
-    "total_trips": 9,
+    "total_trips": 8,
     "class_groupxclasses_id": 200039487,
     "latestStart": "8:30 AM",
     "latestStatus": "Upcoming",
@@ -244,8 +244,8 @@
   },
   {
     "8778_group_display": [
-      "Ranger (7)",
-      "Hurricane (8)"
+      "Ranger (6)",
+      "Hurricane (7)"
     ],
     "class_group_id": 200026442,
     "class_id": 200028278,
@@ -258,8 +258,8 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
-      "Ranger (7)",
-      "Hurricane (8)"
+      "Ranger (6)",
+      "Hurricane (7)"
     ],
     "shifted_to_next_day": null,
     "show_days_display_date": "Sunday, September, 20, 2026",
@@ -277,8 +277,8 @@
     "class_group_sequence": 3,
     "estimated_start_time": "09:40:00",
     "8778_sched_display": [
-      "Ranger (7)",
-      "Hurricane (8)"
+      "Ranger (6)",
+      "Hurricane (7)"
     ]
   },
   {
@@ -313,6 +313,7 @@
   },
   {
     "8778_group_display": [
+      " (2)",
       "Hurricane (4)"
     ],
     "class_group_id": 200026443,
@@ -326,6 +327,7 @@
     "ring_number": 3,
     "ringName": "Covered",
     "group_display": [
+      " (2)",
       "Hurricane (4)"
     ],
     "shifted_to_next_day": null,
@@ -333,17 +335,18 @@
     "show_days_report_title": "Schedule",
     "show_id": 200000070,
     "sid": 200000070,
-    "start_display": "10:19 AM",
-    "start_display_short": "10:19A",
-    "time_sort": 37140,
+    "start_display": "10:30 AM",
+    "start_display_short": "10:30A",
+    "time_sort": 37800,
     "total_trips": 8,
     "class_groupxclasses_id": 200039489,
-    "latestStart": "10:19 AM",
+    "latestStart": "10:30 AM",
     "latestStatus": "Upcoming",
     "show_date": "2026-09-20",
     "class_group_sequence": 4,
-    "estimated_start_time": "10:19:00",
+    "estimated_start_time": "10:30:00",
     "8778_sched_display": [
+      " (2)",
       "Hurricane (4)"
     ]
   },

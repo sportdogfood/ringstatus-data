@@ -145,7 +145,7 @@
       "Ranger (6)",
       "Hurricane (12)"
     ],
-    "group_name_tags": "warmup, 3', Over Fences"
+    "group_name_tags": "target, warmup, 3', Over Fences"
   },
   {
     "sid": 200000070,
@@ -192,7 +192,7 @@
     "class_id": 200028279,
     "class_number": 957,
     "class_name": "3'3\" Equitation Warm Up",
-    "latestStart": "11:40 AM",
+    "latestStart": "11:45 AM",
     "latestStatus": "Upcoming",
     "total_trips": 13,
     "show_id": 200000070,
@@ -200,22 +200,22 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Covered",
-    "start_display": "11:40 AM",
+    "start_display": "11:45 AM",
     "class_group_sequence": 5,
-    "estimated_start_time": "11:40:00",
+    "estimated_start_time": "11:45:04",
     "group_display": [
       "Munster (3)",
-      "Mark (8)",
+      "Mark (7)",
       "Oddur (12)",
       "Coffee (14)"
     ],
     "8778_sched_display": [
       "Munster (3)",
-      "Mark (8)",
+      "Mark (7)",
       "Oddur (12)",
       "Coffee (14)"
     ],
-    "group_name_tags": "warmup, 3', 3'3\", Over Fences"
+    "group_name_tags": "target, warmup, 3', 3'3\", Over Fences"
   },
   {
     "sid": 200000070,
@@ -449,7 +449,7 @@
     "class_number": 815,
     "class_name": "$250 .85m Jumper Classic II2b",
     "latestStart": "10:45 AM",
-    "latestStatus": "Underway",
+    "latestStatus": "Completed",
     "total_trips": 11,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -475,7 +475,7 @@
     "class_number": 742,
     "class_name": "1.10m Junior/Amateur Jumper II2b",
     "latestStart": "11:35 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 7,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -512,10 +512,10 @@
     "class_group_sequence": 7,
     "estimated_start_time": "12:05:00",
     "group_display": [
-      "Shrek  (11)"
+      "Shrek  (2)"
     ],
     "8778_sched_display": [
-      "Shrek  (11)"
+      "Shrek  (2)"
     ],
     "group_name_tags": "target, 1.0m, amateur, junior, jumpers, Over Fences"
   },
@@ -603,7 +603,7 @@
     "8778_sched_display": [
       "Macho"
     ],
-    "group_name_tags": "handy, owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
+    "group_name_tags": "handy, target, owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -629,7 +629,7 @@
     "estimated_start_time": "10:35:05",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "add_back, owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
+    "group_name_tags": "add_back, target, owner, 3', 3'3\", 3'6\", amateur, junior, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -642,7 +642,7 @@
     "class_id": 200028105,
     "class_number": 659,
     "class_name": "Warm Up Hunter",
-    "latestStart": "11:50 AM",
+    "latestStart": "11:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 11,
     "show_id": 200000070,
@@ -650,12 +650,12 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:50 AM",
+    "start_display": "11:55 AM",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:50:00",
+    "estimated_start_time": "11:55:04",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, children's, hunters, Over Fences"
+    "group_name_tags": "target, warmup, children's, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -668,7 +668,7 @@
     "class_id": 200028112,
     "class_number": 314,
     "class_name": "Children's Hunter",
-    "latestStart": "11:50 AM",
+    "latestStart": "11:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 11,
     "show_id": 200000070,
@@ -676,9 +676,9 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:50 AM",
+    "start_display": "11:55 AM",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:50:00",
+    "estimated_start_time": "11:55:04",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, children's, hunters, Over Fences"
@@ -694,7 +694,7 @@
     "class_id": 200028227,
     "class_number": 315,
     "class_name": "Children's Hunter",
-    "latestStart": "11:50 AM",
+    "latestStart": "11:55 AM",
     "latestStatus": "Upcoming",
     "total_trips": 11,
     "show_id": 200000070,
@@ -702,9 +702,9 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "11:50 AM",
+    "start_display": "11:55 AM",
     "class_group_sequence": 8,
-    "estimated_start_time": "11:50:00",
+    "estimated_start_time": "11:55:04",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, children's, hunters, Over Fences"
@@ -720,7 +720,7 @@
     "class_id": 200028105,
     "class_number": 659,
     "class_name": "Warm Up Hunter",
-    "latestStart": "12:20 PM",
+    "latestStart": "12:25 PM",
     "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000070,
@@ -728,12 +728,12 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:20 PM",
+    "start_display": "12:25 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:20:00",
+    "estimated_start_time": "12:25:04",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, adult, amateur, hunters, Over Fences"
+    "group_name_tags": "target, warmup, adult, amateur, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -746,7 +746,7 @@
     "class_id": 200027977,
     "class_number": 284,
     "class_name": "Adult Amateur Hunter",
-    "latestStart": "12:20 PM",
+    "latestStart": "12:25 PM",
     "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000070,
@@ -754,9 +754,9 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:20 PM",
+    "start_display": "12:25 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:20:00",
+    "estimated_start_time": "12:25:04",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, hunters, Over Fences"
@@ -772,7 +772,7 @@
     "class_id": 200028189,
     "class_number": 285,
     "class_name": "Adult Amateur Hunter",
-    "latestStart": "12:20 PM",
+    "latestStart": "12:25 PM",
     "latestStatus": "Upcoming",
     "total_trips": 5,
     "show_id": 200000070,
@@ -780,9 +780,9 @@
     "show_days_display_date": "Sunday, September, 20, 2026",
     "show_days_report_title": "Schedule",
     "ring_nickname": "Hunter 1",
-    "start_display": "12:20 PM",
+    "start_display": "12:25 PM",
     "class_group_sequence": 9,
-    "estimated_start_time": "12:20:00",
+    "estimated_start_time": "12:25:04",
     "group_display": [],
     "8778_sched_display": [],
     "group_name_tags": "target, adult, amateur, hunters, Over Fences"
@@ -889,7 +889,7 @@
     "estimated_start_time": "08:46:42",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, older, younger, hunters, Over Fences"
+    "group_name_tags": "target, warmup, older, younger, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1045,7 +1045,7 @@
     "estimated_start_time": "09:40:05",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, short, stirrup, hunters, Over Fences"
+    "group_name_tags": "target, warmup, short, stirrup, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1123,7 +1123,7 @@
     "estimated_start_time": "08:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "isFirstUp, warmup, 2'/2'6\", hunters, Over Fences"
+    "group_name_tags": "isFirstUp, target, warmup, 2'/2'6\", hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1189,7 +1189,9 @@
     "class_number": 402,
     "class_name": "Schooling Pony",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1205,7 +1207,7 @@
     "8778_sched_display": [
       "Knox (1)"
     ],
-    "group_name_tags": "schooling_pony, pony, medium, small, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, target, pony, medium, small, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1219,7 +1221,9 @@
     "class_number": 414,
     "class_name": "Small/Medium Pony Conformation Hunter",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1253,7 +1257,9 @@
     "class_number": 415,
     "class_name": "Small/Medium Pony Hunter Handy",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1273,7 +1279,7 @@
       "Poptart (6)",
       "Benlea (12)"
     ],
-    "group_name_tags": "handy, pony, medium, small, hunters, Over Fences"
+    "group_name_tags": "handy, target, pony, medium, small, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1287,7 +1293,9 @@
     "class_number": 906,
     "class_name": "$500 Pony Hunter Classic",
     "latestStart": "8:40 AM",
-    "latestStatus": "Underway",
+    "latestStatus": [
+      "Completed"
+    ],
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1307,7 +1315,7 @@
       "Poptart (3)",
       "Benlea (5)"
     ],
-    "group_name_tags": "classic, pony, medium, small, hunters, Over Fences"
+    "group_name_tags": "classic, target, pony, medium, small, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1321,7 +1329,7 @@
     "class_number": 402,
     "class_name": "Schooling Pony",
     "latestStart": "11:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1333,7 +1341,7 @@
     "estimated_start_time": "11:15:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "schooling_pony, pony, large, hunters, Over Fences"
+    "group_name_tags": "schooling_pony, target, pony, large, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1347,7 +1355,7 @@
     "class_number": 434,
     "class_name": "Large Pony Conformation Hunter",
     "latestStart": "11:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1373,7 +1381,7 @@
     "class_number": 435,
     "class_name": "Large Pony Hunter Handy",
     "latestStart": "11:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1385,7 +1393,7 @@
     "estimated_start_time": "11:15:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "handy, pony, large, hunters, Over Fences"
+    "group_name_tags": "handy, target, pony, large, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1411,7 +1419,7 @@
     "estimated_start_time": "12:00:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, pony, children's, hunters, Over Fences"
+    "group_name_tags": "target, warmup, pony, children's, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1541,7 +1549,7 @@
     "estimated_start_time": "13:15:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, adult, amateur, hunters, Over Fences"
+    "group_name_tags": "target, warmup, adult, amateur, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1619,7 +1627,7 @@
     "estimated_start_time": "13:15:02",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "warmup, adult, low, amateur, hunters, Over Fences"
+    "group_name_tags": "target, warmup, adult, low, amateur, hunters, Over Fences"
   },
   {
     "sid": 200000070,
@@ -1685,7 +1693,7 @@
     "class_number": 906,
     "class_name": "$500 Pony Hunter Classic",
     "latestStart": "11:15 AM",
-    "latestStatus": "Upcoming",
+    "latestStatus": "Underway",
     "total_trips": 18,
     "show_id": 200000070,
     "show_date": "2026-09-20",
@@ -1697,6 +1705,6 @@
     "estimated_start_time": "11:15:00",
     "group_display": [],
     "8778_sched_display": [],
-    "group_name_tags": "classic, pony, large, hunters, Over Fences"
+    "group_name_tags": "classic, target, pony, large, hunters, Over Fences"
   }
 ]

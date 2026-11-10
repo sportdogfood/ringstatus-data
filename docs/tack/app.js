@@ -550,41 +550,34 @@
 
       // silent background refresh
       try {
-        const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
-        if (res && res.ok) {
-          const raw = await res.json();
-          const fresh = normalizeCatalogStrict(raw);
-          if (fresh.length) {
-            state.catalog = fresh;
-            state.catalogStatus = 'ready';
-            saveCatalogToStorage(fresh);
-            render();
-          }
-        }
+        await refreshCatalog();
       } catch (_) {}
       return;
     }
 
     try {
-      const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('bad status');
-      const raw = await res.json();
-      const items = normalizeCatalogStrict(raw);
-
-      if (items.length) {
-        state.catalog = items;
-        state.catalogStatus = 'ready';
-        saveCatalogToStorage(items);
-        render();
-        return;
-      }
-      throw new Error('empty');
+      await refreshCatalog();
     } catch (_) {
       state.catalog = [...buildFallbackCatalog(), ...confirmedAdds.values()];
       state.catalogStatus = 'fallback';
       saveCatalogToStorage(state.catalog);
       render();
     }
+  }
+
+  async function refreshCatalog() {
+    const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('bad status');
+    const raw = await res.json();
+    const items = normalizeCatalogStrict(raw);
+    if (!items.length) throw new Error('empty catalog');
+    state.catalog = items;
+    state.catalogStatus = 'ready';
+    saveCatalogToStorage(items);
+
+    const addedIds = new Set(raw.filter(row => row?.tackAddition === true).map(row => String(row.horseId)));
+    mergeSessionAdditions(items.filter(horse => addedIds.has(horse.horseId)));
+    render();
   }
 
   function getCatalog() {
@@ -641,6 +634,18 @@
   function findHorse(horseId) {
     if (!state.session) return null;
     return state.session.horses.find((h) => h.horseId === horseId) || null;
+  }
+
+  function mergeSessionAdditions(horses) {
+    if (!state.session) return;
+    const missing = horses.filter(horse => !findHorse(horse.horseId));
+    if (!missing.length) return;
+    const listKeys = getListKeys(getListsConfig());
+    for (const horse of missing) {
+      const lists = Object.fromEntries(listKeys.map(key => [key, false]));
+      state.session.horses.push({ ...horse, state: false, lists });
+    }
+    saveSessionToStorage();
   }
 
   function horseLabel(horse) {
@@ -1271,16 +1276,14 @@
         state.catalog = [...state.catalog, horse];
         saveCatalogToStorage(state.catalog);
       }
-      if (state.session && !findHorse(horse.horseId)) {
-        const lists = Object.fromEntries(getListKeys(getListsConfig()).map(key => [key, false]));
-        state.session.horses.push({ ...horse, state: false, lists });
-        saveSessionToStorage();
-      }
+      mergeSessionAdditions([horse]);
+      state.stateFilter = '';
       if (payload.source === 'Directory') {
         screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
       }
       screen.status.textContent = horse.horseName + ' added to Active Horses.';
       if (state.currentScreen !== 'add-horses') render();
+      refreshCatalog().catch(() => {});
       return true;
     } catch (_) {
       screen.status.textContent = 'Save could not be confirmed. Try again.';

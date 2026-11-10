@@ -29,6 +29,7 @@
   const STORAGE_KEY_SESSION = 'tack_session_v1';
   const STORAGE_KEY_CATALOG = 'tack_horses_catalog_v1';
   const STORAGE_KEY_LISTS = 'tack_lists_catalog_v1';
+  const STORAGE_KEY_ADDS = 'tack_pending_horse_adds_v1';
 
   // 12-hour TTL
   const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 43200000
@@ -81,7 +82,8 @@
     storageOk: true
   };
   const confirmedAdds = new Map();
-  const manualRequests = new Map();
+  const pendingAdds = new Map();
+  let flushingAdds = false;
   let addScreen;
   let pendingSessionId;
 
@@ -650,7 +652,9 @@
 
   function horseLabel(horse) {
     // Indicator only. No auto-select.
-    return horse.horseName + (horse.barnActive ? ' 🏷️' : '');
+    const pending = pendingAdds.get(horse.horseId);
+    const status = pending ? (pending.failed ? ' · Needs sync' : ' · Saving…') : '';
+    return horse.horseName + (horse.barnActive ? ' 🏷️' : '') + status;
   }
 
   // groupby barnActive (A→Z) then others (A→Z)
@@ -891,6 +895,7 @@
         }
       });
       addHorsesRow(screenRoot);
+      addRetryRow(screenRoot);
 
       const note = document.createElement('div');
       note.style.margin = '10px 10px 0';
@@ -931,6 +936,7 @@
       }
     });
     addHorsesRow(screenRoot);
+    addRetryRow(screenRoot);
 
     // Start screen only: simple text under Restart (NOT a pill row)
     const lastSavedIso = state.session.lastUpdated || state.session.createdAt;
@@ -1071,18 +1077,23 @@
       });
     }
     addHorsesRow(results);
+    addRetryRow(results);
   }
 
   function addHorsesRow(container) {
     createRow('Add Horses', {
       container, button: true,
       onClick: () => {
-        if (!addScreen?.saving) {
-          addScreen = makeAddScreen(state.currentScreen === 'state' ? state.stateFilter : '');
-        }
+        addScreen = makeAddScreen(state.currentScreen === 'state' ? state.stateFilter : '');
         setScreen('add-horses');
       }
     });
+  }
+
+  function addRetryRow(container) {
+    if ([...pendingAdds.values()].some(job => job.failed)) {
+      createRow('Retry horse saves', { container, button: true, onClick: flushPendingAdds });
+    }
   }
 
   function makeAddScreen(query) {
@@ -1095,7 +1106,7 @@
     results.style.display = 'contents';
     const form = document.createElement('form');
     form.hidden = true;
-    const screen = { root, results, form, status, query, rows: null, saving: false };
+    const screen = { root, results, form, status, query, rows: null };
 
     mountHorseSearch(root, query, value => {
       screen.query = value;
@@ -1174,9 +1185,8 @@
     addChoices('color', 'Color', HORSE_COLORS);
     addChoices('gender', 'Gender', HORSE_GENDERS);
     createRow('Save horse', { container: form, button: true }).type = 'submit';
-    form.addEventListener('submit', async event => {
+    form.addEventListener('submit', event => {
       event.preventDefault();
-      if (screen.saving) return;
       const details = Object.fromEntries(new FormData(form));
       details.show_name = details.show_name.trim();
       details.barn_name = details.barn_name.trim();
@@ -1188,11 +1198,10 @@
         status.textContent = 'Tap a color and gender.';
         return;
       }
-      const sessionId = additionSessionId();
-      const key = JSON.stringify([sessionId, details]);
-      if (!manualRequests.has(key)) manualRequests.set(key, crypto.randomUUID());
-      if (await saveHorse(screen, { source: 'Manual', request_id: manualRequests.get(key), ...details })) {
-        manualRequests.delete(key);
+      const requestId = crypto.randomUUID();
+      if (queueHorse(screen, { source: 'Manual', request_id: requestId, ...details }, {
+        horseId: 'tack_' + requestId, horseName: details.barn_name, barnActive: false
+      })) {
         form.reset();
         showManual(false);
       }
@@ -1210,7 +1219,8 @@
       if (!response.ok) throw new Error('directory_unavailable');
       const rows = await response.json();
       if (!Array.isArray(rows)) throw new Error('directory_unavailable');
-      screen.rows = rows.filter(row => typeof row?.name === 'string' && typeof row.recordId === 'string');
+      screen.rows = rows.filter(row => typeof row?.name === 'string' &&
+        typeof row.recordId === 'string' && Number.isSafeInteger(row.horseId));
     } catch (_) {
       screen.rows = false;
     }
@@ -1218,7 +1228,7 @@
   }
 
   function renderDirectory(screen) {
-    const { results, rows, saving } = screen;
+    const { results, rows } = screen;
     results.replaceChildren();
     const term = screen.query.trim().toLowerCase();
     if (rows === null) {
@@ -1230,12 +1240,14 @@
     } else if (!term) {
       createRow('Type a horse name to search.', { container: results });
     } else {
-      const matches = rows.filter(row => row.name.toLowerCase().includes(term));
-      for (const { name, recordId } of matches.slice(0, 30)) {
+      const matches = rows.filter(row => row.name.toLowerCase().includes(term) && !pendingAdds.has(String(row.horseId)));
+      for (const { name, recordId, horseId } of matches.slice(0, 30)) {
         createRow(name, {
           container: results, button: true, tagText: 'Add',
-          onClick: () => saveHorse(screen, { source: 'Directory', directory_record_id: recordId })
-        }).disabled = saving;
+          onClick: () => queueHorse(screen, { source: 'Directory', directory_record_id: recordId }, {
+            horseId: String(horseId), horseName: name, barnActive: false
+          })
+        });
       }
       if (!matches.length) createRow('No horses found.', { container: results });
       if (matches.length > 30) createRow('Keep typing to narrow the results.', { container: results });
@@ -1246,53 +1258,76 @@
     return state.session?.sessionId || (pendingSessionId ||= crypto.randomUUID());
   }
 
-  async function saveHorse(screen, payload) {
-    if (screen.saving) return false;
-    screen.saving = true;
-    screen.status.textContent = 'Saving horse…';
-    for (const field of screen.form.elements) field.disabled = true;
-    renderDirectory(screen);
-    try {
-      const response = await fetch(HORSE_ADD_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, session_id: additionSessionId() })
-      });
-      const receipt = await response.json();
-      if (response.status === 429) {
-        screen.status.textContent = 'TackLists is busy. Try saving again later.';
-        return false;
+  function savePendingAdds() {
+    storageSet(STORAGE_KEY_ADDS, JSON.stringify([...pendingAdds.values()]));
+  }
+
+  function rememberHorse(horse) {
+    confirmedAdds.set(horse.horseId, horse);
+    const catalog = getCatalog();
+    state.catalog = [...catalog.filter(item => item.horseId !== horse.horseId), horse];
+    saveCatalogToStorage(state.catalog);
+    const current = findHorse(horse.horseId);
+    if (current) {
+      if (current.horseName !== horse.horseName) {
+        current.horseName = horse.horseName;
+        saveSessionToStorage();
       }
-      if (receipt.error === 'horse_already_in_picker') {
-        screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
-        screen.status.textContent = 'This horse is already in the picker.';
-        return false;
-      }
-      const [horse] = normalizeCatalogStrict([receipt.horse]);
-      if (!response.ok || !receipt.additionId || !horse) throw new Error('save_not_confirmed');
-      confirmedAdds.set(horse.horseId, horse);
-      state.catalog = getCatalog();
-      if (!state.catalog.some(item => item.horseId === horse.horseId)) {
-        state.catalog = [...state.catalog, horse];
-        saveCatalogToStorage(state.catalog);
-      }
+    } else {
       mergeSessionAdditions([horse]);
-      state.stateFilter = '';
-      if (payload.source === 'Directory') {
-        screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
-      }
-      screen.status.textContent = horse.horseName + ' added to Active Horses.';
-      if (state.currentScreen !== 'add-horses') render();
-      refreshCatalog().catch(() => {});
-      return true;
-    } catch (_) {
-      screen.status.textContent = 'Save could not be confirmed. Try again.';
-      return false;
-    } finally {
-      screen.saving = false;
-      for (const field of screen.form.elements) field.disabled = false;
-      renderDirectory(screen);
     }
+  }
+
+  function queueHorse(screen, payload, horse) {
+    if (pendingAdds.has(horse.horseId)) return false;
+    pendingAdds.set(horse.horseId, { horse, payload: { ...payload, session_id: additionSessionId() } });
+    savePendingAdds();
+    rememberHorse(horse);
+    state.stateFilter = '';
+    screen.lastQueuedId = horse.horseId;
+    screen.status.textContent = horse.horseName + ' added on this device. Saving to Airtable…';
+    if (payload.source === 'Directory') {
+      screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
+    }
+    renderDirectory(screen);
+    flushPendingAdds();
+    return true;
+  }
+
+  async function flushPendingAdds() {
+    if (flushingAdds || !pendingAdds.size) return;
+    flushingAdds = true;
+    let updated = false;
+    try {
+      for (const [horseId, job] of pendingAdds) {
+        job.failed = false;
+        try {
+          const response = await fetch(HORSE_ADD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(job.payload)
+          });
+          const receipt = await response.json();
+          const [horse] = normalizeCatalogStrict([receipt.horse]);
+          if (!response.ok || !receipt.additionId || horse?.horseId !== horseId) throw new Error('save_not_confirmed');
+          rememberHorse(horse);
+          pendingAdds.delete(horseId);
+          updated = true;
+        } catch (_) {
+          job.failed = true;
+        }
+        savePendingAdds();
+        if (addScreen?.lastQueuedId === horseId) {
+          addScreen.status.textContent = job.failed
+            ? 'Saved on this device. Use Retry horse saves to sync with Airtable.'
+            : job.horse.horseName + ' saved to Airtable.';
+        }
+        if (state.currentScreen !== 'add-horses') render();
+      }
+    } finally {
+      flushingAdds = false;
+    }
+    if (updated) refreshCatalog().catch(() => {});
   }
 
   function toggleListMembership(listKey, horseId) {
@@ -1596,6 +1631,16 @@
   state.listsStatus = (Array.isArray(state.listsConfig) && state.listsConfig.length) ? 'ready' : 'fallback';
 
   state.session = loadSessionFromStorage();
+  const queued = safeJSONParse(storageGet(STORAGE_KEY_ADDS));
+  if (Array.isArray(queued)) {
+    for (const job of queued) {
+      if (typeof job?.horse?.horseId !== 'string' || typeof job.horse.horseName !== 'string' ||
+          !SESSION_ID_PATTERN.test(job.payload?.session_id)) continue;
+      pendingAdds.set(job.horse.horseId, job);
+      confirmedAdds.set(job.horse.horseId, job.horse);
+    }
+    mergeSessionAdditions([...confirmedAdds.values()]);
+  }
 
   // If we resumed a valid session, extend TTL for another 12 hours (no lastUpdated change)
   if (state.session) {
@@ -1609,4 +1654,6 @@
   // background loads
   loadListsConfig();
   loadCatalog(); // background (used for New/Restart)
+  window.addEventListener('online', flushPendingAdds);
+  flushPendingAdds();
 })();

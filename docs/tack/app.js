@@ -17,6 +17,11 @@
 
   // horses source
   const HORSES_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/horses.json';
+  const HORSE_SEARCH_URL = 'https://ringstatus.webflow.io/test/tackapp/horse-search.json';
+  const HORSE_ADD_URL = 'https://ringstatus.com/test/tackapp/horses.json';
+  const SIGN_IN_URL = 'https://ringstatus.com/recognize';
+  const HORSE_COLORS = ['Grey', 'Chestnut', 'Bay', 'Palomino', 'Liverchestnut', 'Black', 'Paint'];
+  const HORSE_GENDERS = ['Mare', 'Gelding'];
 
 
   const LISTS_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/lists.json';
@@ -75,6 +80,9 @@
     // storage health (for start-screen note)
     storageOk: true
   };
+  const confirmedAdds = new Map();
+  const manualRequests = new Map();
+  let addScreen;
 
   // ---------------------------------------------------------------------------
   // DOM refs
@@ -518,6 +526,9 @@
         barnActive: row && row.barnActive === true
       });
     }
+    for (const horse of out.length ? confirmedAdds.values() : []) {
+      if (!out.some(item => item.horseId === horse.horseId)) out.push(horse);
+    }
     return out;
   }
 
@@ -560,7 +571,7 @@
       }
       throw new Error('empty');
     } catch (_) {
-      state.catalog = buildFallbackCatalog();
+      state.catalog = [...buildFallbackCatalog(), ...confirmedAdds.values()];
       state.catalogStatus = 'fallback';
       saveCatalogToStorage(state.catalog);
       render();
@@ -687,6 +698,7 @@
     if (s === 'start') return 'Start';
     if (s === 'summary') return 'Summary';
     if (s === 'share') return 'Share';
+    if (s === 'add-horses') return 'Add Horses';
 
     // state label from config
     if (s === 'state') return labelForKey('state');
@@ -801,10 +813,14 @@
   // ---------------------------------------------------------------------------
 
   function createRow(label, options = {}) {
-    const { tagText, tagVariant, tagPositive, active, onClick } = options;
+    const { tagText, tagVariant, tagPositive, active, onClick, container = screenRoot, button = false } = options;
 
-    const row = document.createElement('div');
+    const row = document.createElement(button ? 'button' : 'div');
     row.className = 'row row--tap';
+    if (button) {
+      row.type = 'button';
+      row.style.textAlign = 'left';
+    }
     if (active) row.classList.add('row--active');
 
     const titleEl = document.createElement('div');
@@ -823,7 +839,8 @@
 
     if (typeof onClick === 'function') row.addEventListener('click', onClick);
 
-    screenRoot.appendChild(row);
+    container.appendChild(row);
+    return row;
   }
 
   // ---------------------------------------------------------------------------
@@ -858,6 +875,7 @@
           setScreen('state');
         }
       });
+      addHorsesRow(screenRoot);
 
       const note = document.createElement('div');
       note.style.margin = '10px 10px 0';
@@ -897,6 +915,7 @@
         setScreen('state');
       }
     });
+    addHorsesRow(screenRoot);
 
     // Start screen only: simple text under Restart (NOT a pill row)
     const lastSavedIso = state.session.lastUpdated || state.session.createdAt;
@@ -953,10 +972,7 @@
     render();
   }
 
-  function renderStateScreen() {
-    ensureSession();
-    screenRoot.innerHTML = '';
-
+  function mountHorseSearch(container, value, onSearch) {
     const searchWrap = document.createElement('div');
     searchWrap.className = 'state-search';
 
@@ -964,16 +980,29 @@
     searchInput.type = 'search';
     searchInput.className = 'state-search-input';
     searchInput.placeholder = 'Search horses...';
-    searchInput.value = state.stateFilter || '';
-
-    searchInput.addEventListener('input', (e) => {
-      state.stateFilter = e.target.value || '';
-      render();
-    });
+    searchInput.setAttribute('aria-label', 'Search horses');
+    searchInput.value = value;
+    searchInput.addEventListener('input', () => onSearch(searchInput.value));
 
     searchWrap.appendChild(searchInput);
-    screenRoot.appendChild(searchWrap);
+    container.appendChild(searchWrap);
+  }
 
+  function renderStateScreen() {
+    ensureSession();
+    screenRoot.innerHTML = '';
+    const results = document.createElement('div');
+    results.style.display = 'contents';
+    mountHorseSearch(screenRoot, state.stateFilter, (value) => {
+      state.stateFilter = value;
+      renderPickerHorses(results);
+    });
+    screenRoot.appendChild(results);
+    renderPickerHorses(results);
+  }
+
+  function renderPickerHorses(results) {
+    results.replaceChildren();
     const sorted = sortBarnActiveThenName(state.session.horses);
 
     const term = (state.stateFilter || '').trim().toLowerCase();
@@ -985,18 +1014,18 @@
     const inactive = filtered.filter((h) => !h.state);
 
     if (!active.length && !inactive.length) {
-      createRow('No horses found.', {});
-      return;
+      createRow('No horses found.', { container: results });
     }
 
     if (active.length) {
       const label = document.createElement('div');
       label.className = 'list-group-label';
       label.textContent = 'Active';
-      screenRoot.appendChild(label);
+      results.appendChild(label);
 
       active.forEach((horse) => {
         createRow(horseLabel(horse), {
+          container: results,
           active: true,
           tagVariant: 'boolean',
           tagPositive: true,
@@ -1009,21 +1038,213 @@
       if (active.length) {
         const divider = document.createElement('div');
         divider.className = 'list-group-divider';
-        screenRoot.appendChild(divider);
+        results.appendChild(divider);
       }
 
       const label = document.createElement('div');
       label.className = 'list-group-label';
       label.textContent = 'Inactive';
-      screenRoot.appendChild(label);
+      results.appendChild(label);
 
       inactive.forEach((horse) => {
         createRow(horseLabel(horse), {
+          container: results,
           tagVariant: 'boolean',
           tagPositive: false,
           onClick: () => handleStateHorseClick(horse.horseId)
         });
       });
+    }
+    addHorsesRow(results);
+  }
+
+  function addHorsesRow(container) {
+    createRow('Add Horses', {
+      container, button: true,
+      onClick: () => {
+        if (!addScreen?.saving) {
+          addScreen = makeAddScreen(state.currentScreen === 'state' ? state.stateFilter : '');
+        }
+        setScreen('add-horses');
+      }
+    });
+  }
+
+  function makeAddScreen(query) {
+    const root = document.createElement('div');
+    root.style.display = 'contents';
+    const status = document.createElement('div');
+    status.className = 'list-group-label';
+    status.setAttribute('role', 'status');
+    const results = document.createElement('div');
+    results.style.display = 'contents';
+    const form = document.createElement('form');
+    form.hidden = true;
+    const screen = { root, results, form, status, query, rows: null, saving: false };
+
+    mountHorseSearch(root, query, value => {
+      screen.query = value;
+      renderDirectory(screen);
+    });
+    root.appendChild(status);
+    function showManual(open) {
+      form.hidden = !open;
+      results.style.display = open ? 'none' : 'contents';
+      manualButton.setAttribute('aria-expanded', String(open));
+      if (open) form.elements.show_name.focus();
+    }
+    const manualButton = createRow('Add manually', {
+      container: root, button: true,
+      onClick: () => showManual(form.hidden)
+    });
+    manualButton.setAttribute('aria-expanded', 'false');
+
+    function addField(name, text, choices) {
+      const label = document.createElement('label');
+      label.className = 'state-search';
+      label.style.display = 'block';
+      const title = document.createElement('span');
+      title.className = 'list-group-label';
+      title.textContent = text;
+      const field = document.createElement(choices ? 'select' : 'input');
+      field.className = 'state-search-input';
+      field.name = name;
+      field.required = true;
+      if (choices) {
+        field.add(new Option('Choose ' + text.toLowerCase(), ''));
+        for (const choice of choices) field.add(new Option(choice, choice));
+      } else {
+        field.maxLength = 150;
+      }
+      label.append(title, field);
+      form.appendChild(label);
+    }
+    addField('show_name', 'Show name');
+    addField('barn_name', 'Barn name');
+    addField('color', 'Color', HORSE_COLORS);
+    addField('gender', 'Gender', HORSE_GENDERS);
+    createRow('Save horse', { container: form, button: true }).type = 'submit';
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (screen.saving) return;
+      const details = Object.fromEntries(new FormData(form));
+      details.show_name = details.show_name.trim();
+      details.barn_name = details.barn_name.trim();
+      if (!details.show_name || !details.barn_name) {
+        status.textContent = 'Enter both the show name and barn name.';
+        return;
+      }
+      const key = JSON.stringify(details);
+      if (!manualRequests.has(key)) manualRequests.set(key, crypto.randomUUID());
+      if (await saveHorse(screen, { source: 'Manual', request_id: manualRequests.get(key), ...details })) {
+        manualRequests.delete(key);
+        form.reset();
+        showManual(false);
+      }
+    });
+    root.append(results, form);
+    loadDirectory(screen);
+    return screen;
+  }
+
+  async function loadDirectory(screen) {
+    screen.rows = null;
+    renderDirectory(screen);
+    try {
+      const response = await fetch(HORSE_SEARCH_URL, { cache: 'no-store' });
+      if (!response.ok) throw new Error('directory_unavailable');
+      const rows = await response.json();
+      if (!Array.isArray(rows)) throw new Error('directory_unavailable');
+      screen.rows = rows.filter(row => typeof row?.name === 'string' && typeof row.recordId === 'string');
+    } catch (_) {
+      screen.rows = false;
+    }
+    renderDirectory(screen);
+  }
+
+  function renderDirectory(screen) {
+    const { results, rows, saving } = screen;
+    results.replaceChildren();
+    const term = screen.query.trim().toLowerCase();
+    if (rows === null) {
+      createRow('Loading horse directory…', { container: results });
+    } else if (rows === false) {
+      createRow('Directory unavailable. Tap to retry.', {
+        container: results, button: true, onClick: () => loadDirectory(screen)
+      });
+    } else if (!term) {
+      createRow('Type a horse name to search.', { container: results });
+    } else {
+      const matches = rows.filter(row => row.name.toLowerCase().includes(term));
+      for (const { name, recordId } of matches.slice(0, 30)) {
+        createRow(name, {
+          container: results, button: true, tagText: 'Add',
+          onClick: () => saveHorse(screen, { source: 'Directory', directory_record_id: recordId })
+        }).disabled = saving;
+      }
+      if (!matches.length) createRow('No horses found.', { container: results });
+      if (matches.length > 30) createRow('Keep typing to narrow the results.', { container: results });
+    }
+  }
+
+  async function saveHorse(screen, payload) {
+    if (screen.saving) return false;
+    screen.saving = true;
+    screen.status.textContent = 'Saving horse…';
+    for (const field of screen.form.elements) field.disabled = true;
+    renderDirectory(screen);
+    try {
+      const response = await fetch(HORSE_ADD_URL, {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const receipt = await response.json();
+      if (response.status === 401) {
+        const link = document.createElement('a');
+        link.href = SIGN_IN_URL;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.style.color = 'inherit';
+        link.textContent = 'Sign in to RingStatus';
+        screen.status.replaceChildren(link, ' in the new tab, then return here and try again.');
+        return false;
+      }
+      if (response.status === 403) {
+        screen.status.textContent = 'This RingStatus account cannot add horses for Castlewood.';
+        return false;
+      }
+      if (receipt.error === 'horse_already_in_picker') {
+        screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
+        screen.status.textContent = 'This horse is already in the picker.';
+        return false;
+      }
+      const [horse] = normalizeCatalogStrict([receipt.horse]);
+      if (!response.ok || !receipt.additionId || !horse) throw new Error('save_not_confirmed');
+      confirmedAdds.set(horse.horseId, horse);
+      state.catalog = getCatalog();
+      if (!state.catalog.some(item => item.horseId === horse.horseId)) {
+        state.catalog = [...state.catalog, horse];
+        saveCatalogToStorage(state.catalog);
+      }
+      if (state.session && !findHorse(horse.horseId)) {
+        const lists = Object.fromEntries(getListKeys(getListsConfig()).map(key => [key, false]));
+        state.session.horses.push({ ...horse, state: false, lists });
+        saveSessionToStorage();
+      }
+      if (payload.source === 'Directory') {
+        screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
+      }
+      screen.status.textContent = horse.horseName + ' added to Active Horses.';
+      if (state.currentScreen !== 'add-horses') render();
+      return true;
+    } catch (_) {
+      screen.status.textContent = 'Save could not be confirmed. Try again.';
+      return false;
+    } finally {
+      screen.saving = false;
+      for (const field of screen.form.elements) field.disabled = false;
+      renderDirectory(screen);
     }
   }
 
@@ -1224,6 +1445,10 @@
 
     if (scr === 'start') return renderStartScreen();
     if (scr === 'state') return renderStateScreen();
+    if (scr === 'add-horses') {
+      if (addScreen.root.parentNode !== screenRoot) screenRoot.replaceChildren(addScreen.root);
+      return;
+    }
     if (scr === 'summary') return renderSummaryScreen();
     if (scr === 'share') return renderShareScreen();
 

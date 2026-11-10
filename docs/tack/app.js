@@ -19,9 +19,9 @@
   const HORSES_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/horses.json';
   const HORSE_SEARCH_URL = 'https://ringstatus.webflow.io/test/tackapp/horse-search.json';
   const HORSE_ADD_URL = 'https://ringstatus.com/test/tackapp/horses.json';
-  const SIGN_IN_URL = 'https://ringstatus.com/recognize';
   const HORSE_COLORS = ['Grey', 'Chestnut', 'Bay', 'Palomino', 'Liverchestnut', 'Black', 'Paint'];
   const HORSE_GENDERS = ['Mare', 'Gelding'];
+  const SESSION_ID_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 
 
   const LISTS_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/lists.json';
@@ -83,6 +83,7 @@
   const confirmedAdds = new Map();
   const manualRequests = new Map();
   let addScreen;
+  let pendingSessionId;
 
   // ---------------------------------------------------------------------------
   // DOM refs
@@ -93,6 +94,14 @@
   const headerAction = document.getElementById('header-action');
   const screenRoot = document.getElementById('screen-root');
   const navRow = document.getElementById('nav-row');
+
+  function sizeTapPill(button) {
+    button.style.paddingInline = '14px';
+    button.style.width = 'max-content';
+    button.style.minWidth = '0';
+    button.style.flex = '0 0 auto';
+  }
+  navRow?.querySelectorAll('.nav-btn').forEach(sizeTapPill);
 
   // ---------------------------------------------------------------------------
   // Storage + cookie helpers
@@ -446,7 +455,7 @@
     if (!horses.length) return null;
 
     return {
-      sessionId: String(parsed.sessionId || nowMs()),
+      sessionId: SESSION_ID_PATTERN.test(parsed.sessionId) ? parsed.sessionId : crypto.randomUUID(),
       createdAt: String(parsed.createdAt || new Date().toISOString()),
       lastUpdated: parsed.lastUpdated ? String(parsed.lastUpdated) : null,
       expiresAt: parsed.expiresAt ? String(parsed.expiresAt) : null,
@@ -606,12 +615,13 @@
     });
 
     state.session = {
-      sessionId: nowMs().toString(),
+      sessionId: pendingSessionId || crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       lastUpdated: null,
       expiresAt: new Date(nowMs() + SESSION_TTL_MS).toISOString(),
       horses
     };
+    pendingSessionId = null;
 
     saveSessionToStorage();
   }
@@ -1099,30 +1109,65 @@
     });
     manualButton.setAttribute('aria-expanded', 'false');
 
-    function addField(name, text, choices) {
+    function addField(name, text) {
       const label = document.createElement('label');
       label.className = 'state-search';
       label.style.display = 'block';
       const title = document.createElement('span');
       title.className = 'list-group-label';
       title.textContent = text;
-      const field = document.createElement(choices ? 'select' : 'input');
+      const field = document.createElement('input');
       field.className = 'state-search-input';
       field.name = name;
       field.required = true;
-      if (choices) {
-        field.add(new Option('Choose ' + text.toLowerCase(), ''));
-        for (const choice of choices) field.add(new Option(choice, choice));
-      } else {
-        field.maxLength = 150;
-      }
+      field.maxLength = 150;
       label.append(title, field);
       form.appendChild(label);
     }
+    function addChoices(name, text, choices) {
+      const group = document.createElement('div');
+      group.className = 'state-search';
+      group.setAttribute('role', 'group');
+      group.setAttribute('aria-label', text);
+      const title = document.createElement('div');
+      title.className = 'list-group-label';
+      title.textContent = text;
+      const scroller = document.createElement('div');
+      scroller.className = 'nav-scroller';
+      const row = document.createElement('div');
+      row.className = 'nav-row';
+      const field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = name;
+      const buttons = choices.map(choice => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'nav-btn';
+        sizeTapPill(button);
+        button.style.minHeight = '44px';
+        button.textContent = choice;
+        button.setAttribute('aria-pressed', 'false');
+        button.addEventListener('click', () => selectChoice(choice));
+        row.appendChild(button);
+        return button;
+      });
+      function selectChoice(value) {
+        field.value = value;
+        buttons.forEach((button, index) => {
+          const selected = choices[index] === value;
+          button.setAttribute('aria-pressed', String(selected));
+          button.classList.toggle('nav-btn--primary', selected);
+        });
+      }
+      form.addEventListener('reset', () => selectChoice(''));
+      scroller.appendChild(row);
+      group.append(title, scroller, field);
+      form.appendChild(group);
+    }
     addField('show_name', 'Show name');
     addField('barn_name', 'Barn name');
-    addField('color', 'Color', HORSE_COLORS);
-    addField('gender', 'Gender', HORSE_GENDERS);
+    addChoices('color', 'Color', HORSE_COLORS);
+    addChoices('gender', 'Gender', HORSE_GENDERS);
     createRow('Save horse', { container: form, button: true }).type = 'submit';
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -1134,7 +1179,12 @@
         status.textContent = 'Enter both the show name and barn name.';
         return;
       }
-      const key = JSON.stringify(details);
+      if (!details.color || !details.gender) {
+        status.textContent = 'Tap a color and gender.';
+        return;
+      }
+      const sessionId = additionSessionId();
+      const key = JSON.stringify([sessionId, details]);
       if (!manualRequests.has(key)) manualRequests.set(key, crypto.randomUUID());
       if (await saveHorse(screen, { source: 'Manual', request_id: manualRequests.get(key), ...details })) {
         manualRequests.delete(key);
@@ -1187,6 +1237,10 @@
     }
   }
 
+  function additionSessionId() {
+    return state.session?.sessionId || (pendingSessionId ||= crypto.randomUUID());
+  }
+
   async function saveHorse(screen, payload) {
     if (screen.saving) return false;
     screen.saving = true;
@@ -1195,23 +1249,13 @@
     renderDirectory(screen);
     try {
       const response = await fetch(HORSE_ADD_URL, {
-        method: 'POST', credentials: 'include',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ ...payload, session_id: additionSessionId() })
       });
       const receipt = await response.json();
-      if (response.status === 401) {
-        const link = document.createElement('a');
-        link.href = SIGN_IN_URL;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.style.color = 'inherit';
-        link.textContent = 'Sign in to RingStatus';
-        screen.status.replaceChildren(link, ' in the new tab, then return here and try again.');
-        return false;
-      }
-      if (response.status === 403) {
-        screen.status.textContent = 'This RingStatus account cannot add horses for Castlewood.';
+      if (response.status === 429) {
+        screen.status.textContent = 'TackLists is busy. Try saving again later.';
         return false;
       }
       if (receipt.error === 'horse_already_in_picker') {

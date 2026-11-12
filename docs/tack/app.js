@@ -16,14 +16,20 @@
   // ---------------------------------------------------------------------------
 
   // horses source
-  const HORSES_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/horses.json';
+  const HORSES_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/horses.json';
+  const HORSE_SEARCH_URL = 'https://ringstatus.webflow.io/test/tackapp/horse-search.json';
+  const HORSE_ADD_URL = 'https://ringstatus.com/test/tackapp/horses.json';
+  const HORSE_COLORS = ['Grey', 'Chestnut', 'Bay', 'Palomino', 'Liverchestnut', 'Black', 'Paint'];
+  const HORSE_GENDERS = ['Mare', 'Gelding'];
+  const SESSION_ID_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 
 
-  const LISTS_DATA_URL = 'https://ringstatus-proxy.gombcg.workers.dev/docs/8778/tack/lists.json';
+  const LISTS_DATA_URL = 'https://ringstatus.webflow.io/test/tackapp/lists.json';
 
   const STORAGE_KEY_SESSION = 'tack_session_v1';
   const STORAGE_KEY_CATALOG = 'tack_horses_catalog_v1';
   const STORAGE_KEY_LISTS = 'tack_lists_catalog_v1';
+  const STORAGE_KEY_ADDS = 'tack_pending_horse_adds_v1';
 
   // 12-hour TTL
   const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 43200000
@@ -75,6 +81,11 @@
     // storage health (for start-screen note)
     storageOk: true
   };
+  const confirmedAdds = new Map();
+  const pendingAdds = new Map();
+  let flushingAdds = false;
+  let addScreen;
+  let pendingSessionId;
 
   // ---------------------------------------------------------------------------
   // DOM refs
@@ -85,6 +96,14 @@
   const headerAction = document.getElementById('header-action');
   const screenRoot = document.getElementById('screen-root');
   const navRow = document.getElementById('nav-row');
+
+  function sizeTapPill(button) {
+    button.style.paddingInline = '14px';
+    button.style.width = 'max-content';
+    button.style.minWidth = '0';
+    button.style.flex = '0 0 auto';
+  }
+  navRow?.querySelectorAll('.nav-btn').forEach(sizeTapPill);
 
   // ---------------------------------------------------------------------------
   // Storage + cookie helpers
@@ -438,7 +457,7 @@
     if (!horses.length) return null;
 
     return {
-      sessionId: String(parsed.sessionId || nowMs()),
+      sessionId: SESSION_ID_PATTERN.test(parsed.sessionId) ? parsed.sessionId : crypto.randomUUID(),
       createdAt: String(parsed.createdAt || new Date().toISOString()),
       lastUpdated: parsed.lastUpdated ? String(parsed.lastUpdated) : null,
       expiresAt: parsed.expiresAt ? String(parsed.expiresAt) : null,
@@ -518,6 +537,9 @@
         barnActive: row && row.barnActive === true
       });
     }
+    for (const horse of out.length ? confirmedAdds.values() : []) {
+      if (!out.some(item => item.horseId === horse.horseId)) out.push(horse);
+    }
     return out;
   }
 
@@ -530,41 +552,34 @@
 
       // silent background refresh
       try {
-        const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
-        if (res && res.ok) {
-          const raw = await res.json();
-          const fresh = normalizeCatalogStrict(raw);
-          if (fresh.length) {
-            state.catalog = fresh;
-            state.catalogStatus = 'ready';
-            saveCatalogToStorage(fresh);
-            render();
-          }
-        }
+        await refreshCatalog();
       } catch (_) {}
       return;
     }
 
     try {
-      const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('bad status');
-      const raw = await res.json();
-      const items = normalizeCatalogStrict(raw);
-
-      if (items.length) {
-        state.catalog = items;
-        state.catalogStatus = 'ready';
-        saveCatalogToStorage(items);
-        render();
-        return;
-      }
-      throw new Error('empty');
+      await refreshCatalog();
     } catch (_) {
-      state.catalog = buildFallbackCatalog();
+      state.catalog = [...buildFallbackCatalog(), ...confirmedAdds.values()];
       state.catalogStatus = 'fallback';
       saveCatalogToStorage(state.catalog);
       render();
     }
+  }
+
+  async function refreshCatalog() {
+    const res = await fetch(HORSES_DATA_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('bad status');
+    const raw = await res.json();
+    const items = normalizeCatalogStrict(raw);
+    if (!items.length) throw new Error('empty catalog');
+    state.catalog = items;
+    state.catalogStatus = 'ready';
+    saveCatalogToStorage(items);
+
+    const addedIds = new Set(raw.filter(row => row?.tackAddition === true).map(row => String(row.horseId)));
+    mergeSessionAdditions(items.filter(horse => addedIds.has(horse.horseId)));
+    render();
   }
 
   function getCatalog() {
@@ -595,12 +610,13 @@
     });
 
     state.session = {
-      sessionId: nowMs().toString(),
+      sessionId: pendingSessionId || crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       lastUpdated: null,
       expiresAt: new Date(nowMs() + SESSION_TTL_MS).toISOString(),
       horses
     };
+    pendingSessionId = null;
 
     saveSessionToStorage();
   }
@@ -622,9 +638,23 @@
     return state.session.horses.find((h) => h.horseId === horseId) || null;
   }
 
+  function mergeSessionAdditions(horses) {
+    if (!state.session) return;
+    const missing = horses.filter(horse => !findHorse(horse.horseId));
+    if (!missing.length) return;
+    const listKeys = getListKeys(getListsConfig());
+    for (const horse of missing) {
+      const lists = Object.fromEntries(listKeys.map(key => [key, false]));
+      state.session.horses.push({ ...horse, state: false, lists });
+    }
+    saveSessionToStorage();
+  }
+
   function horseLabel(horse) {
     // Indicator only. No auto-select.
-    return horse.horseName + (horse.barnActive ? ' 🏷️' : '');
+    const pending = pendingAdds.get(horse.horseId);
+    const status = pending ? (pending.failed ? ' · Needs sync' : ' · Saving…') : '';
+    return horse.horseName + (horse.barnActive ? ' 🏷️' : '') + status;
   }
 
   // groupby barnActive (A→Z) then others (A→Z)
@@ -687,6 +717,7 @@
     if (s === 'start') return 'Start';
     if (s === 'summary') return 'Summary';
     if (s === 'share') return 'Share';
+    if (s === 'add-horses') return 'Add Horses';
 
     // state label from config
     if (s === 'state') return labelForKey('state');
@@ -801,10 +832,14 @@
   // ---------------------------------------------------------------------------
 
   function createRow(label, options = {}) {
-    const { tagText, tagVariant, tagPositive, active, onClick } = options;
+    const { tagText, tagVariant, tagPositive, active, onClick, container = screenRoot, button = false } = options;
 
-    const row = document.createElement('div');
+    const row = document.createElement(button ? 'button' : 'div');
     row.className = 'row row--tap';
+    if (button) {
+      row.type = 'button';
+      row.style.textAlign = 'left';
+    }
     if (active) row.classList.add('row--active');
 
     const titleEl = document.createElement('div');
@@ -823,7 +858,8 @@
 
     if (typeof onClick === 'function') row.addEventListener('click', onClick);
 
-    screenRoot.appendChild(row);
+    container.appendChild(row);
+    return row;
   }
 
   // ---------------------------------------------------------------------------
@@ -858,6 +894,8 @@
           setScreen('state');
         }
       });
+      addHorsesRow(screenRoot);
+      addRetryRow(screenRoot);
 
       const note = document.createElement('div');
       note.style.margin = '10px 10px 0';
@@ -897,6 +935,8 @@
         setScreen('state');
       }
     });
+    addHorsesRow(screenRoot);
+    addRetryRow(screenRoot);
 
     // Start screen only: simple text under Restart (NOT a pill row)
     const lastSavedIso = state.session.lastUpdated || state.session.createdAt;
@@ -953,10 +993,7 @@
     render();
   }
 
-  function renderStateScreen() {
-    ensureSession();
-    screenRoot.innerHTML = '';
-
+  function mountHorseSearch(container, value, onSearch) {
     const searchWrap = document.createElement('div');
     searchWrap.className = 'state-search';
 
@@ -964,16 +1001,29 @@
     searchInput.type = 'search';
     searchInput.className = 'state-search-input';
     searchInput.placeholder = 'Search horses...';
-    searchInput.value = state.stateFilter || '';
-
-    searchInput.addEventListener('input', (e) => {
-      state.stateFilter = e.target.value || '';
-      render();
-    });
+    searchInput.setAttribute('aria-label', 'Search horses');
+    searchInput.value = value;
+    searchInput.addEventListener('input', () => onSearch(searchInput.value));
 
     searchWrap.appendChild(searchInput);
-    screenRoot.appendChild(searchWrap);
+    container.appendChild(searchWrap);
+  }
 
+  function renderStateScreen() {
+    ensureSession();
+    screenRoot.innerHTML = '';
+    const results = document.createElement('div');
+    results.style.display = 'contents';
+    mountHorseSearch(screenRoot, state.stateFilter, (value) => {
+      state.stateFilter = value;
+      renderPickerHorses(results);
+    });
+    screenRoot.appendChild(results);
+    renderPickerHorses(results);
+  }
+
+  function renderPickerHorses(results) {
+    results.replaceChildren();
     const sorted = sortBarnActiveThenName(state.session.horses);
 
     const term = (state.stateFilter || '').trim().toLowerCase();
@@ -985,18 +1035,18 @@
     const inactive = filtered.filter((h) => !h.state);
 
     if (!active.length && !inactive.length) {
-      createRow('No horses found.', {});
-      return;
+      createRow('No horses found.', { container: results });
     }
 
     if (active.length) {
       const label = document.createElement('div');
       label.className = 'list-group-label';
       label.textContent = 'Active';
-      screenRoot.appendChild(label);
+      results.appendChild(label);
 
       active.forEach((horse) => {
         createRow(horseLabel(horse), {
+          container: results,
           active: true,
           tagVariant: 'boolean',
           tagPositive: true,
@@ -1009,22 +1059,275 @@
       if (active.length) {
         const divider = document.createElement('div');
         divider.className = 'list-group-divider';
-        screenRoot.appendChild(divider);
+        results.appendChild(divider);
       }
 
       const label = document.createElement('div');
       label.className = 'list-group-label';
       label.textContent = 'Inactive';
-      screenRoot.appendChild(label);
+      results.appendChild(label);
 
       inactive.forEach((horse) => {
         createRow(horseLabel(horse), {
+          container: results,
           tagVariant: 'boolean',
           tagPositive: false,
           onClick: () => handleStateHorseClick(horse.horseId)
         });
       });
     }
+    addHorsesRow(results);
+    addRetryRow(results);
+  }
+
+  function addHorsesRow(container) {
+    createRow('Add Horses', {
+      container, button: true,
+      onClick: () => {
+        addScreen = makeAddScreen(state.currentScreen === 'state' ? state.stateFilter : '');
+        setScreen('add-horses');
+      }
+    });
+  }
+
+  function addRetryRow(container) {
+    if ([...pendingAdds.values()].some(job => job.failed)) {
+      createRow('Retry horse saves', { container, button: true, onClick: flushPendingAdds });
+    }
+  }
+
+  function makeAddScreen(query) {
+    const root = document.createElement('div');
+    root.style.display = 'contents';
+    const status = document.createElement('div');
+    status.className = 'list-group-label';
+    status.setAttribute('role', 'status');
+    const results = document.createElement('div');
+    results.style.display = 'contents';
+    const form = document.createElement('form');
+    form.hidden = true;
+    const screen = { root, results, form, status, query, rows: null };
+
+    mountHorseSearch(root, query, value => {
+      screen.query = value;
+      renderDirectory(screen);
+    });
+    root.appendChild(status);
+    function showManual(open) {
+      form.hidden = !open;
+      results.style.display = open ? 'none' : 'contents';
+      manualButton.setAttribute('aria-expanded', String(open));
+      if (open) form.elements.show_name.focus();
+    }
+    const manualButton = createRow('Add manually', {
+      container: root, button: true,
+      onClick: () => showManual(form.hidden)
+    });
+    manualButton.setAttribute('aria-expanded', 'false');
+
+    function addField(name, text) {
+      const label = document.createElement('label');
+      label.className = 'state-search';
+      label.style.display = 'block';
+      const title = document.createElement('span');
+      title.className = 'list-group-label';
+      title.textContent = text;
+      const field = document.createElement('input');
+      field.className = 'state-search-input';
+      field.name = name;
+      field.required = true;
+      field.maxLength = 150;
+      label.append(title, field);
+      form.appendChild(label);
+    }
+    function addChoices(name, text, choices) {
+      const group = document.createElement('div');
+      group.className = 'state-search';
+      group.setAttribute('role', 'group');
+      group.setAttribute('aria-label', text);
+      const title = document.createElement('div');
+      title.className = 'list-group-label';
+      title.textContent = text;
+      const scroller = document.createElement('div');
+      scroller.className = 'nav-scroller';
+      const row = document.createElement('div');
+      row.className = 'nav-row';
+      const field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = name;
+      const buttons = choices.map(choice => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'nav-btn';
+        sizeTapPill(button);
+        button.style.minHeight = '44px';
+        button.textContent = choice;
+        button.setAttribute('aria-pressed', 'false');
+        button.addEventListener('click', () => selectChoice(choice));
+        row.appendChild(button);
+        return button;
+      });
+      function selectChoice(value) {
+        field.value = value;
+        buttons.forEach((button, index) => {
+          const selected = choices[index] === value;
+          button.setAttribute('aria-pressed', String(selected));
+          button.classList.toggle('nav-btn--primary', selected);
+        });
+      }
+      form.addEventListener('reset', () => selectChoice(''));
+      scroller.appendChild(row);
+      group.append(title, scroller, field);
+      form.appendChild(group);
+    }
+    addField('show_name', 'Show name');
+    addField('barn_name', 'Barn name');
+    addChoices('color', 'Color', HORSE_COLORS);
+    addChoices('gender', 'Gender', HORSE_GENDERS);
+    createRow('Save horse', { container: form, button: true }).type = 'submit';
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const details = Object.fromEntries(new FormData(form));
+      details.show_name = details.show_name.trim();
+      details.barn_name = details.barn_name.trim();
+      if (!details.show_name || !details.barn_name) {
+        status.textContent = 'Enter both the show name and barn name.';
+        return;
+      }
+      if (!details.color || !details.gender) {
+        status.textContent = 'Tap a color and gender.';
+        return;
+      }
+      const requestId = crypto.randomUUID();
+      if (queueHorse(screen, { source: 'Manual', request_id: requestId, ...details }, {
+        horseId: 'tack_' + requestId, horseName: details.barn_name, barnActive: false
+      })) {
+        form.reset();
+        showManual(false);
+      }
+    });
+    root.append(results, form);
+    loadDirectory(screen);
+    return screen;
+  }
+
+  async function loadDirectory(screen) {
+    screen.rows = null;
+    renderDirectory(screen);
+    try {
+      const response = await fetch(HORSE_SEARCH_URL, { cache: 'no-store' });
+      if (!response.ok) throw new Error('directory_unavailable');
+      const rows = await response.json();
+      if (!Array.isArray(rows)) throw new Error('directory_unavailable');
+      screen.rows = rows.filter(row => typeof row?.name === 'string' &&
+        typeof row.recordId === 'string' && Number.isSafeInteger(row.horseId));
+    } catch (_) {
+      screen.rows = false;
+    }
+    renderDirectory(screen);
+  }
+
+  function renderDirectory(screen) {
+    const { results, rows } = screen;
+    results.replaceChildren();
+    const term = screen.query.trim().toLowerCase();
+    if (rows === null) {
+      createRow('Loading horse directory…', { container: results });
+    } else if (rows === false) {
+      createRow('Directory unavailable. Tap to retry.', {
+        container: results, button: true, onClick: () => loadDirectory(screen)
+      });
+    } else if (!term) {
+      createRow('Type a horse name to search.', { container: results });
+    } else {
+      const matches = rows.filter(row => row.name.toLowerCase().includes(term) && !pendingAdds.has(String(row.horseId)));
+      for (const { name, recordId, horseId } of matches.slice(0, 30)) {
+        createRow(name, {
+          container: results, button: true, tagText: 'Add',
+          onClick: () => queueHorse(screen, { source: 'Directory', directory_record_id: recordId }, {
+            horseId: String(horseId), horseName: name, barnActive: false
+          })
+        });
+      }
+      if (!matches.length) createRow('No horses found.', { container: results });
+      if (matches.length > 30) createRow('Keep typing to narrow the results.', { container: results });
+    }
+  }
+
+  function additionSessionId() {
+    return state.session?.sessionId || (pendingSessionId ||= crypto.randomUUID());
+  }
+
+  function savePendingAdds() {
+    storageSet(STORAGE_KEY_ADDS, JSON.stringify([...pendingAdds.values()]));
+  }
+
+  function rememberHorse(horse) {
+    confirmedAdds.set(horse.horseId, horse);
+    const catalog = getCatalog();
+    state.catalog = [...catalog.filter(item => item.horseId !== horse.horseId), horse];
+    saveCatalogToStorage(state.catalog);
+    const current = findHorse(horse.horseId);
+    if (current) {
+      if (current.horseName !== horse.horseName) {
+        current.horseName = horse.horseName;
+        saveSessionToStorage();
+      }
+    } else {
+      mergeSessionAdditions([horse]);
+    }
+  }
+
+  function queueHorse(screen, payload, horse) {
+    if (pendingAdds.has(horse.horseId)) return false;
+    pendingAdds.set(horse.horseId, { horse, payload: { ...payload, session_id: additionSessionId() } });
+    savePendingAdds();
+    rememberHorse(horse);
+    state.stateFilter = '';
+    screen.lastQueuedId = horse.horseId;
+    screen.status.textContent = horse.horseName + ' added on this device. Saving to Airtable…';
+    if (payload.source === 'Directory') {
+      screen.rows = screen.rows.filter(row => row.recordId !== payload.directory_record_id);
+    }
+    renderDirectory(screen);
+    flushPendingAdds();
+    return true;
+  }
+
+  async function flushPendingAdds() {
+    if (flushingAdds || !pendingAdds.size) return;
+    flushingAdds = true;
+    let updated = false;
+    try {
+      for (const [horseId, job] of pendingAdds) {
+        job.failed = false;
+        try {
+          const response = await fetch(HORSE_ADD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(job.payload)
+          });
+          const receipt = await response.json();
+          const [horse] = normalizeCatalogStrict([receipt.horse]);
+          if (!response.ok || !receipt.additionId || horse?.horseId !== horseId) throw new Error('save_not_confirmed');
+          rememberHorse(horse);
+          pendingAdds.delete(horseId);
+          updated = true;
+        } catch (_) {
+          job.failed = true;
+        }
+        savePendingAdds();
+        if (addScreen?.lastQueuedId === horseId) {
+          addScreen.status.textContent = job.failed
+            ? 'Saved on this device. Use Retry horse saves to sync with Airtable.'
+            : job.horse.horseName + ' saved to Airtable.';
+        }
+        if (state.currentScreen !== 'add-horses') render();
+      }
+    } finally {
+      flushingAdds = false;
+    }
+    if (updated) refreshCatalog().catch(() => {});
   }
 
   function toggleListMembership(listKey, horseId) {
@@ -1224,6 +1527,10 @@
 
     if (scr === 'start') return renderStartScreen();
     if (scr === 'state') return renderStateScreen();
+    if (scr === 'add-horses') {
+      if (addScreen.root.parentNode !== screenRoot) screenRoot.replaceChildren(addScreen.root);
+      return;
+    }
     if (scr === 'summary') return renderSummaryScreen();
     if (scr === 'share') return renderShareScreen();
 
@@ -1324,6 +1631,16 @@
   state.listsStatus = (Array.isArray(state.listsConfig) && state.listsConfig.length) ? 'ready' : 'fallback';
 
   state.session = loadSessionFromStorage();
+  const queued = safeJSONParse(storageGet(STORAGE_KEY_ADDS));
+  if (Array.isArray(queued)) {
+    for (const job of queued) {
+      if (typeof job?.horse?.horseId !== 'string' || typeof job.horse.horseName !== 'string' ||
+          !SESSION_ID_PATTERN.test(job.payload?.session_id)) continue;
+      pendingAdds.set(job.horse.horseId, job);
+      confirmedAdds.set(job.horse.horseId, job.horse);
+    }
+    mergeSessionAdditions([...confirmedAdds.values()]);
+  }
 
   // If we resumed a valid session, extend TTL for another 12 hours (no lastUpdated change)
   if (state.session) {
@@ -1337,4 +1654,6 @@
   // background loads
   loadListsConfig();
   loadCatalog(); // background (used for New/Restart)
+  window.addEventListener('online', flushPendingAdds);
+  flushPendingAdds();
 })();

@@ -1,0 +1,632 @@
+{
+  "graph": {
+    "classes": {
+      "15|200000078|2026-11-12|1|200031679": {
+        "class-id": 200031679,
+        "class-key": "15|200000078|2026-11-12|1|200031679",
+        "class-name": "$5,000 1.35m Stake II2.1",
+        "class-number": "808",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|1|200031714": {
+        "class-id": 200031714,
+        "class-key": "15|200000078|2026-11-12|1|200031714",
+        "class-name": "$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)",
+        "class-number": "3010",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|1|200031715": {
+        "class-id": 200031715,
+        "class-key": "15|200000078|2026-11-12|1|200031715",
+        "class-name": "$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)",
+        "class-number": "3011",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|5|200031625": {
+        "class-id": 200031625,
+        "class-key": "15|200000078|2026-11-12|5|200031625",
+        "class-name": "1.20m Open Jumper II2d",
+        "class-number": "787",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|5|200031628": {
+        "class-id": 200031628,
+        "class-key": "15|200000078|2026-11-12|5|200031628",
+        "class-name": "1.25m Open Jumper II2d",
+        "class-number": "710",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|5|200031630": {
+        "class-id": 200031630,
+        "class-key": "15|200000078|2026-11-12|5|200031630",
+        "class-name": "1.30m Open Jumper II2d",
+        "class-number": "770",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|5|200031633": {
+        "class-id": 200031633,
+        "class-key": "15|200000078|2026-11-12|5|200031633",
+        "class-name": "1.40m Open Jumper II2d",
+        "class-number": "700",
+        "record-status": "Active"
+      },
+      "15|200000078|2026-11-12|5|200031689": {
+        "class-id": 200031689,
+        "class-key": "15|200000078|2026-11-12|5|200031689",
+        "class-name": "Mulligan Class",
+        "class-number": "990",
+        "record-status": "Active"
+      }
+    },
+    "groups": {
+      "15|200000078|2026-11-12|1|200028729": {
+        "group-id": 200028729,
+        "group-key": "15|200000078|2026-11-12|1|200028729",
+        "group-name": "$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)",
+        "source-json": "{\"class_group_id\":200028729,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043433,\"class_list\":\"3011\",\"group_name\":\"$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)\"}"
+      },
+      "15|200000078|2026-11-12|1|200028730": {
+        "group-id": 200028730,
+        "group-key": "15|200000078|2026-11-12|1|200028730",
+        "group-name": "$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)",
+        "source-json": "{\"class_group_id\":200028730,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043434,\"class_list\":\"3010\",\"group_name\":\"$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)\"}"
+      },
+      "15|200000078|2026-11-12|1|200028731": {
+        "group-id": 200028731,
+        "group-key": "15|200000078|2026-11-12|1|200028731",
+        "group-name": "$5,000 1.35m Stake II2.1",
+        "source-json": "{\"class_group_id\":200028731,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043435,\"class_list\":\"808\",\"group_name\":\"$5,000 1.35m Stake II2.1\"}"
+      },
+      "15|200000078|2026-11-12|2|200031093": {
+        "group-id": 200031093,
+        "group-key": "15|200000078|2026-11-12|2|200031093",
+        "group-name": "Open Back # Schooling 9-4pm",
+        "source-json": "{\"class_group_id\":200031093,\"class_group_uuid\":\"9E5BE75511CF4596BA373965724DA58D\",\"class_list\":\"\",\"group_name\":\"Open Back # Schooling 9-4pm\"}"
+      },
+      "15|200000078|2026-11-12|3|200028748": {
+        "group-id": 200028748,
+        "group-key": "15|200000078|2026-11-12|3|200028748",
+        "group-name": "2'9\"-3' Fall Back # Schooling 9-11am",
+        "source-json": "{\"class_group_id\":200028748,\"class_group_uuid\":\"205DF4451FF74182981031E8BB3BFABC\",\"class_list\":\"\",\"group_name\":\"2'9\\\"-3' Fall Back # Schooling 9-11am\"}"
+      },
+      "15|200000078|2026-11-12|3|200028749": {
+        "group-id": 200028749,
+        "group-key": "15|200000078|2026-11-12|3|200028749",
+        "group-name": "2'6\"-2'9\" Fall Back # Schooling 11-12:30pm",
+        "source-json": "{\"class_group_id\":200028749,\"class_group_uuid\":\"ACB52D7AAF7C4F33B3C7C6E1F9499B73\",\"class_list\":\"\",\"group_name\":\"2'6\\\"-2'9\\\" Fall Back # Schooling 11-12:30pm\"}"
+      },
+      "15|200000078|2026-11-12|3|200028750": {
+        "group-id": 200028750,
+        "group-key": "15|200000078|2026-11-12|3|200028750",
+        "group-name": "2'3\"-2'6\" Fall Back # Schooling 12:40-3pm",
+        "source-json": "{\"class_group_id\":200028750,\"class_group_uuid\":\"7DC09362260E4DAE9CE8409F64F0DF76\",\"class_list\":\"\",\"group_name\":\"2'3\\\"-2'6\\\" Fall Back # Schooling 12:40-3pm\"}"
+      },
+      "15|200000078|2026-11-12|3|200028751": {
+        "group-id": 200028751,
+        "group-key": "15|200000078|2026-11-12|3|200028751",
+        "group-name": "18\"-2' Fall Back # Schooling 3-4pm",
+        "source-json": "{\"class_group_id\":200028751,\"class_group_uuid\":\"C4576880750C4FE7B3A2A7148FC60396\",\"class_list\":\"\",\"group_name\":\"18\\\"-2' Fall Back # Schooling 3-4pm\"}"
+      },
+      "15|200000078|2026-11-12|4|200028738": {
+        "group-id": 200028738,
+        "group-key": "15|200000078|2026-11-12|4|200028738",
+        "group-name": "1.10m Fall Back # Schooling 9-11am",
+        "source-json": "{\"class_group_id\":200028738,\"class_group_uuid\":\"AE910C60D0524981AC474DB9A13B0C24\",\"class_list\":\"\",\"group_name\":\"1.10m Fall Back # Schooling 9-11am\"}"
+      },
+      "15|200000078|2026-11-12|4|200028739": {
+        "group-id": 200028739,
+        "group-key": "15|200000078|2026-11-12|4|200028739",
+        "group-name": "Drag & Reset 11-11:30am",
+        "source-json": "{\"class_group_id\":200028739,\"class_group_uuid\":\"F98B4791F3A846C0987720D5D53B1463\",\"class_list\":\"\",\"group_name\":\"Drag & Reset 11-11:30am\"}"
+      },
+      "15|200000078|2026-11-12|4|200028740": {
+        "group-id": 200028740,
+        "group-key": "15|200000078|2026-11-12|4|200028740",
+        "group-name": "1.0m Fall Back # Schooling 11:30-1pm",
+        "source-json": "{\"class_group_id\":200028740,\"class_group_uuid\":\"AB0456DC1F7F41CEB56FA1F7C81B8AAD\",\"class_list\":\"\",\"group_name\":\"1.0m Fall Back # Schooling 11:30-1pm\"}"
+      },
+      "15|200000078|2026-11-12|4|200028741": {
+        "group-id": 200028741,
+        "group-key": "15|200000078|2026-11-12|4|200028741",
+        "group-name": "Drag & Reset 1-1:30pm",
+        "source-json": "{\"class_group_id\":200028741,\"class_group_uuid\":\"6549B4684F9C4CC49F48AA36EA6CB081\",\"class_list\":\"\",\"group_name\":\"Drag & Reset 1-1:30pm\"}"
+      },
+      "15|200000078|2026-11-12|4|200028742": {
+        "group-id": 200028742,
+        "group-key": "15|200000078|2026-11-12|4|200028742",
+        "group-name": ".90-.95m Fall Back # Schooling 1:30-3pm",
+        "source-json": "{\"class_group_id\":200028742,\"class_group_uuid\":\"E52F08DF67B44F04A1DE2726B4F56086\",\"class_list\":\"\",\"group_name\":\".90-.95m Fall Back # Schooling 1:30-3pm\"}"
+      },
+      "15|200000078|2026-11-12|4|200028743": {
+        "group-id": 200028743,
+        "group-key": "15|200000078|2026-11-12|4|200028743",
+        "group-name": ".70-.80m Fall Back # Schooling 3:15-4:30pm",
+        "source-json": "{\"class_group_id\":200028743,\"class_group_uuid\":\"B63500A12E7040A982B0033F75CD4953\",\"class_list\":\"\",\"group_name\":\".70-.80m Fall Back # Schooling 3:15-4:30pm\"}"
+      },
+      "15|200000078|2026-11-12|5|200028732": {
+        "group-id": 200028732,
+        "group-key": "15|200000078|2026-11-12|5|200028732",
+        "group-name": "1.20m Open Jumper II2d",
+        "source-json": "{\"class_group_id\":200028732,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043436,\"class_list\":\"787\",\"group_name\":\"1.20m Open Jumper II2d\"}"
+      },
+      "15|200000078|2026-11-12|5|200028733": {
+        "group-id": 200028733,
+        "group-key": "15|200000078|2026-11-12|5|200028733",
+        "group-name": "1.25m Open Jumper II2d",
+        "source-json": "{\"class_group_id\":200028733,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043437,\"class_list\":\"710\",\"group_name\":\"1.25m Open Jumper II2d\"}"
+      },
+      "15|200000078|2026-11-12|5|200028735": {
+        "group-id": 200028735,
+        "group-key": "15|200000078|2026-11-12|5|200028735",
+        "group-name": "1.40m Open Jumper II2d",
+        "source-json": "{\"class_group_id\":200028735,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043439,\"class_list\":\"700\",\"group_name\":\"1.40m Open Jumper II2d\"}"
+      },
+      "15|200000078|2026-11-12|5|200028736": {
+        "group-id": 200028736,
+        "group-key": "15|200000078|2026-11-12|5|200028736",
+        "group-name": "Mulligan Class",
+        "source-json": "{\"class_group_id\":200028736,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043440,\"class_list\":\"990\",\"group_name\":\"Mulligan Class\"}"
+      },
+      "15|200000078|2026-11-12|5|200028737": {
+        "group-id": 200028737,
+        "group-key": "15|200000078|2026-11-12|5|200028737",
+        "group-name": "Fall Back # Open Schooling after Build/Drag until 4:30pm",
+        "source-json": "{\"class_group_id\":200028737,\"class_group_uuid\":\"C345F733D67C42A49017B95059519FFA\",\"class_list\":\"\",\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\"}"
+      },
+      "15|200000078|2026-11-12|5|200028760": {
+        "group-id": 200028760,
+        "group-key": "15|200000078|2026-11-12|5|200028760",
+        "group-name": "1.30m Open Jumper II2d",
+        "source-json": "{\"class_group_id\":200028760,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043449,\"class_list\":\"770\",\"group_name\":\"1.30m Open Jumper II2d\"}"
+      },
+      "15|200000078|2026-11-12|6|200031095": {
+        "group-id": 200031095,
+        "group-key": "15|200000078|2026-11-12|6|200031095",
+        "group-name": "Open back number schooling from 9-4pm",
+        "source-json": "{\"class_group_id\":200031095,\"class_group_uuid\":\"8301C8ECF82B482DB629D96DDFEF5A12\",\"class_list\":\"\",\"group_name\":\"Open back number schooling from 9-4pm\"}"
+      },
+      "15|200000078|2026-11-12|7|200028744": {
+        "group-id": 200028744,
+        "group-key": "15|200000078|2026-11-12|7|200028744",
+        "group-name": "3'3\"-3'6\" Fall Back # Schooling 9-11am",
+        "source-json": "{\"class_group_id\":200028744,\"class_group_uuid\":\"6B283869DDF5495EA71447E031B0B007\",\"class_list\":\"\",\"group_name\":\"3'3\\\"-3'6\\\" Fall Back # Schooling 9-11am\"}"
+      },
+      "15|200000078|2026-11-12|7|200028745": {
+        "group-id": 200028745,
+        "group-key": "15|200000078|2026-11-12|7|200028745",
+        "group-name": "3' Fall Back # Schooling 11-12:30pm",
+        "source-json": "{\"class_group_id\":200028745,\"class_group_uuid\":\"7ED89132B8304A349A38C0C031B6E49B\",\"class_list\":\"\",\"group_name\":\"3' Fall Back # Schooling 11-12:30pm\"}"
+      },
+      "15|200000078|2026-11-12|7|200028746": {
+        "group-id": 200028746,
+        "group-key": "15|200000078|2026-11-12|7|200028746",
+        "group-name": "2'9\" Fall Back # Schooling 12:40-3pm",
+        "source-json": "{\"class_group_id\":200028746,\"class_group_uuid\":\"C24FC49693B44DA389BC9D3535DAB36B\",\"class_list\":\"\",\"group_name\":\"2'9\\\" Fall Back # Schooling 12:40-3pm\"}"
+      },
+      "15|200000078|2026-11-12|7|200028747": {
+        "group-id": 200028747,
+        "group-key": "15|200000078|2026-11-12|7|200028747",
+        "group-name": "2'6\" Fall Back # Schooling 3-4pm",
+        "source-json": "{\"class_group_id\":200028747,\"class_group_uuid\":\"FD224CE783274D93A52A7507116EDE66\",\"class_list\":\"\",\"group_name\":\"2'6\\\" Fall Back # Schooling 3-4pm\"}"
+      },
+      "15|200000078|2026-11-12|8|200031094": {
+        "group-id": 200031094,
+        "group-key": "15|200000078|2026-11-12|8|200031094",
+        "group-name": "Open back number schooling from 9-4pm",
+        "source-json": "{\"class_group_id\":200031094,\"class_group_uuid\":\"38EF52D8910344E28A339629C64C56F7\",\"class_list\":\"\",\"group_name\":\"Open back number schooling from 9-4pm\"}"
+      }
+    },
+    "rings": {
+      "15|200000078|2026-11-12|1": {
+        "ring-id": 51,
+        "ring-key": "15|200000078|2026-11-12|1",
+        "ring-name": "International Ring",
+        "ring-number": 1
+      },
+      "15|200000078|2026-11-12|2": {
+        "ring-id": 9,
+        "ring-key": "15|200000078|2026-11-12|2",
+        "ring-name": "E.R. Mische Grand Hunter",
+        "ring-number": 2
+      },
+      "15|200000078|2026-11-12|3": {
+        "ring-id": 37,
+        "ring-key": "15|200000078|2026-11-12|3",
+        "ring-name": "Rost Arena",
+        "ring-number": 3
+      },
+      "15|200000078|2026-11-12|4": {
+        "ring-id": 52,
+        "ring-key": "15|200000078|2026-11-12|4",
+        "ring-name": "Mogavero",
+        "ring-number": 4
+      },
+      "15|200000078|2026-11-12|5": {
+        "ring-id": 49,
+        "ring-key": "15|200000078|2026-11-12|5",
+        "ring-name": "Denemethy",
+        "ring-number": 5
+      },
+      "15|200000078|2026-11-12|6": {
+        "ring-id": 25,
+        "ring-key": "15|200000078|2026-11-12|6",
+        "ring-name": "Ring 6",
+        "ring-number": 6
+      },
+      "15|200000078|2026-11-12|7": {
+        "ring-id": 56,
+        "ring-key": "15|200000078|2026-11-12|7",
+        "ring-name": "Ring 8",
+        "ring-number": 7
+      },
+      "15|200000078|2026-11-12|8": {
+        "ring-id": 58,
+        "ring-key": "15|200000078|2026-11-12|8",
+        "ring-name": "Ring 9",
+        "ring-number": 8
+      },
+      "15|200000078|2026-11-12|9": {
+        "ring-id": 53,
+        "ring-key": "15|200000078|2026-11-12|9",
+        "ring-name": "Ring 10",
+        "ring-number": 9
+      }
+    },
+    "schedules": {
+      "15|200000078|2026-11-12|1|200043433": {
+        "end-time": "10:21:00",
+        "kind": "class",
+        "name": "$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|1|200043433",
+        "source-id": "200043433",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028729,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043433,\"class_id\":200031715,\"class_list\":\"3011\",\"class_name\":\"$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)\",\"class_number\":3011,\"class_type\":\"Jumpers\",\"completed_trips\":58,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"$1,000 CSI3* Bainbridge Companies 1.40m 2 Phase (222.2.3)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 222.2.3\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bainbridge Companies\",\"start_time_default\":\"08:00:00\",\"total_trips\":58,\"warmup_class\":0}",
+        "source-position": 0,
+        "start-time": "08:00:00",
+        "total-trips": 58
+      },
+      "15|200000078|2026-11-12|1|200043434": {
+        "end-time": "13:21:00",
+        "kind": "class",
+        "name": "$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|1|200043434",
+        "source-id": "200043434",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028730,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043434,\"class_id\":200031714,\"class_list\":\"3010\",\"class_name\":\"$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)\",\"class_number\":3010,\"class_type\":\"Jumpers\",\"completed_trips\":57,\"estimated_end_time\":\"13:21:00\",\"estimated_start_time\":\"11:00:00\",\"group_has_warmup\":false,\"group_name\":\"$32,000 JTWG Inc. CSI3* 1.45m 2 Phase Special (222.2.3)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 222.2.3\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"11:00:00\",\"total_trips\":57,\"warmup_class\":0}",
+        "source-position": 1,
+        "start-time": "11:00:00",
+        "total-trips": 57
+      },
+      "15|200000078|2026-11-12|1|200043435": {
+        "end-time": "17:08:00",
+        "kind": "class",
+        "name": "$5,000 1.35m Stake II2.1",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|1|200043435",
+        "source-id": "200043435",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028731,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043435,\"class_id\":200031679,\"class_list\":\"808\",\"class_name\":\"$5,000 1.35m Stake II2.1\",\"class_number\":808,\"class_type\":\"Jumpers\",\"completed_trips\":82,\"estimated_end_time\":\"17:08:00\",\"estimated_start_time\":\"13:55:00\",\"group_has_warmup\":false,\"group_name\":\"$5,000 1.35m Stake II2.1\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.1\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Ringside Health\",\"start_time_default\":\"13:55:00\",\"total_trips\":82,\"warmup_class\":0}",
+        "source-position": 2,
+        "start-time": "13:55:00",
+        "total-trips": 82
+      },
+      "15|200000078|2026-11-12|2|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "Open Back # Schooling 9-4pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|2|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031093,\"class_group_uuid\":\"9E5BE75511CF4596BA373965724DA58D\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"Open Back # Schooling 9-4pm\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":867789,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001568543004680260\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|3|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "2'9\"-3' Fall Back # Schooling 9-11am",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|3|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028748,\"class_group_uuid\":\"205DF4451FF74182981031E8BB3BFABC\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"2'9\\\"-3' Fall Back # Schooling 9-11am\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":3,\"ring_id\":37,\"ring_name\":\"Rost Arena\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855799,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001599927448648485\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|3|position-1": {
+        "end-time": "11:00:00",
+        "kind": "break",
+        "name": "2'6\"-2'9\" Fall Back # Schooling 11-12:30pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|3|position-1",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028749,\"class_group_uuid\":\"ACB52D7AAF7C4F33B3C7C6E1F9499B73\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"11:00:00\",\"estimated_start_time\":\"11:00:00\",\"group_has_warmup\":false,\"group_name\":\"2'6\\\"-2'9\\\" Fall Back # Schooling 11-12:30pm\",\"group_sequence\":2,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":3,\"ring_id\":37,\"ring_name\":\"Rost Arena\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855800,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"11:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001547311314861936\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 1,
+        "start-time": "11:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|3|position-2": {
+        "end-time": "12:40:00",
+        "kind": "break",
+        "name": "2'3\"-2'6\" Fall Back # Schooling 12:40-3pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|3|position-2",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028750,\"class_group_uuid\":\"7DC09362260E4DAE9CE8409F64F0DF76\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"12:40:00\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"2'3\\\"-2'6\\\" Fall Back # Schooling 12:40-3pm\",\"group_sequence\":3,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":3,\"ring_id\":37,\"ring_name\":\"Rost Arena\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855801,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"12:40:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001502814070755543\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 2,
+        "start-time": "12:40:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|3|position-3": {
+        "end-time": "15:00:00",
+        "kind": "break",
+        "name": "18\"-2' Fall Back # Schooling 3-4pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|3|position-3",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028751,\"class_group_uuid\":\"C4576880750C4FE7B3A2A7148FC60396\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:00:00\",\"estimated_start_time\":\"15:00:00\",\"group_has_warmup\":false,\"group_name\":\"18\\\"-2' Fall Back # Schooling 3-4pm\",\"group_sequence\":4,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":3,\"ring_id\":37,\"ring_name\":\"Rost Arena\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855802,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"15:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001561577894793410\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 3,
+        "start-time": "15:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "1.10m Fall Back # Schooling 9-11am",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028738,\"class_group_uuid\":\"AE910C60D0524981AC474DB9A13B0C24\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"1.10m Fall Back # Schooling 9-11am\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855789,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001574706347856033\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-1": {
+        "end-time": "11:00:00",
+        "kind": "break",
+        "name": "Drag & Reset 11-11:30am",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-1",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028739,\"class_group_uuid\":\"F98B4791F3A846C0987720D5D53B1463\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"11:00:00\",\"estimated_start_time\":\"11:00:00\",\"group_has_warmup\":false,\"group_name\":\"Drag & Reset 11-11:30am\",\"group_sequence\":2,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855790,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"11:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001583770513347770\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 1,
+        "start-time": "11:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-2": {
+        "end-time": "11:30:00",
+        "kind": "break",
+        "name": "1.0m Fall Back # Schooling 11:30-1pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-2",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028740,\"class_group_uuid\":\"AB0456DC1F7F41CEB56FA1F7C81B8AAD\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"11:30:00\",\"estimated_start_time\":\"11:30:00\",\"group_has_warmup\":false,\"group_name\":\"1.0m Fall Back # Schooling 11:30-1pm\",\"group_sequence\":3,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855791,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"11:30:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001580403120049498\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 2,
+        "start-time": "11:30:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-3": {
+        "end-time": "13:00:00",
+        "kind": "break",
+        "name": "Drag & Reset 1-1:30pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-3",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028741,\"class_group_uuid\":\"6549B4684F9C4CC49F48AA36EA6CB081\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"13:00:00\",\"estimated_start_time\":\"13:00:00\",\"group_has_warmup\":false,\"group_name\":\"Drag & Reset 1-1:30pm\",\"group_sequence\":4,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855792,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"13:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001525396303458800\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 3,
+        "start-time": "13:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-4": {
+        "end-time": "13:30:00",
+        "kind": "break",
+        "name": ".90-.95m Fall Back # Schooling 1:30-3pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-4",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028742,\"class_group_uuid\":\"E52F08DF67B44F04A1DE2726B4F56086\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"13:30:00\",\"estimated_start_time\":\"13:30:00\",\"group_has_warmup\":false,\"group_name\":\".90-.95m Fall Back # Schooling 1:30-3pm\",\"group_sequence\":5,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855793,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"13:30:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001505219112947801\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 4,
+        "start-time": "13:30:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|4|position-5": {
+        "end-time": "15:15:00",
+        "kind": "break",
+        "name": ".70-.80m Fall Back # Schooling 3:15-4:30pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|4|position-5",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028743,\"class_group_uuid\":\"B63500A12E7040A982B0033F75CD4953\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:15:00\",\"estimated_start_time\":\"15:15:00\",\"group_has_warmup\":false,\"group_name\":\".70-.80m Fall Back # Schooling 3:15-4:30pm\",\"group_sequence\":6,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"No Score, No Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855794,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"15:15:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001518829273342323\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 5,
+        "start-time": "15:15:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|5|200043436": {
+        "end-time": "10:06:00",
+        "kind": "class",
+        "name": "1.20m Open Jumper II2d",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|5|200043436",
+        "source-id": "200043436",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028732,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043436,\"class_id\":200031625,\"class_list\":\"787\",\"class_name\":\"1.20m Open Jumper II2d\",\"class_number\":787,\"class_type\":\"Jumpers\",\"completed_trips\":37,\"estimated_end_time\":\"10:06:00\",\"estimated_start_time\":\"08:30:00\",\"group_has_warmup\":false,\"group_name\":\"1.20m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Ringside  Health\",\"start_time_default\":\"08:30:00\",\"total_trips\":37,\"warmup_class\":0}",
+        "source-position": 0,
+        "start-time": "08:30:00",
+        "total-trips": 37
+      },
+      "15|200000078|2026-11-12|5|200043437": {
+        "end-time": "11:16:00",
+        "kind": "class",
+        "name": "1.25m Open Jumper II2d",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|5|200043437",
+        "source-id": "200043437",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028733,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043437,\"class_id\":200031628,\"class_list\":\"710\",\"class_name\":\"1.25m Open Jumper II2d\",\"class_number\":710,\"class_type\":\"Jumpers\",\"completed_trips\":17,\"estimated_end_time\":\"11:16:00\",\"estimated_start_time\":\"10:30:00\",\"group_has_warmup\":false,\"group_name\":\"1.25m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"10:30:00\",\"total_trips\":17,\"warmup_class\":0}",
+        "source-position": 1,
+        "start-time": "10:30:00",
+        "total-trips": 17
+      },
+      "15|200000078|2026-11-12|5|200043439": {
+        "end-time": "13:26:00",
+        "kind": "class",
+        "name": "1.40m Open Jumper II2d",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|5|200043439",
+        "source-id": "200043439",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028735,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043439,\"class_id\":200031633,\"class_list\":\"700\",\"class_name\":\"1.40m Open Jumper II2d\",\"class_number\":700,\"class_type\":\"Jumpers\",\"completed_trips\":6,\"estimated_end_time\":\"13:26:00\",\"estimated_start_time\":\"13:15:00\",\"group_has_warmup\":false,\"group_name\":\"1.40m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bainbridge Companies\",\"start_time_default\":\"13:15:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-position": 3,
+        "start-time": "13:15:00",
+        "total-trips": 6
+      },
+      "15|200000078|2026-11-12|5|200043440": {
+        "end-time": "13:26:00",
+        "kind": "class",
+        "name": "Mulligan Class",
+        "record-status": "Active — no entries",
+        "schedule-key": "15|200000078|2026-11-12|5|200043440",
+        "source-id": "200043440",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028736,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043440,\"class_id\":200031689,\"class_list\":\"990\",\"class_name\":\"Mulligan Class\",\"class_number\":990,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"13:26:00\",\"estimated_start_time\":\"13:26:00\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
+        "source-position": 4,
+        "start-time": "13:26:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|5|200043449": {
+        "end-time": "12:41:32",
+        "kind": "class",
+        "name": "1.30m Open Jumper II2d",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|5|200043449",
+        "source-id": "200043449",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028760,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043449,\"class_id\":200031630,\"class_list\":\"770\",\"class_name\":\"1.30m Open Jumper II2d\",\"class_number\":770,\"class_type\":\"Jumpers\",\"completed_trips\":26,\"estimated_end_time\":\"12:41:32\",\"estimated_start_time\":\"11:40:00\",\"group_has_warmup\":false,\"group_name\":\"1.30m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"11:40:00\",\"total_trips\":26,\"warmup_class\":0}",
+        "source-position": 2,
+        "start-time": "11:40:00",
+        "total-trips": 26
+      },
+      "15|200000078|2026-11-12|5|position-5": {
+        "end-time": "13:26:00",
+        "kind": "break",
+        "name": "Fall Back # Open Schooling after Build/Drag until 4:30pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|5|position-5",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028737,\"class_group_uuid\":\"C345F733D67C42A49017B95059519FFA\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"13:26:00\",\"estimated_start_time\":\"13:26:00\",\"group_has_warmup\":false,\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\",\"group_sequence\":6,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":5,\"ring_id\":49,\"ring_name\":\"Denemethy\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855788,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001535208094379261\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 5,
+        "start-time": "13:26:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|6|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "Open back number schooling from 9-4pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|6|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031095,\"class_group_uuid\":\"8301C8ECF82B482DB629D96DDFEF5A12\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"Open back number schooling from 9-4pm\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":6,\"ring_id\":25,\"ring_name\":\"Ring 6\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":867795,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001595516244942152\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|7|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "3'3\"-3'6\" Fall Back # Schooling 9-11am",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|7|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028744,\"class_group_uuid\":\"6B283869DDF5495EA71447E031B0B007\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"3'3\\\"-3'6\\\" Fall Back # Schooling 9-11am\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":7,\"ring_id\":56,\"ring_name\":\"Ring 8\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855795,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001538703964921435\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|7|position-1": {
+        "end-time": "11:00:00",
+        "kind": "break",
+        "name": "3' Fall Back # Schooling 11-12:30pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|7|position-1",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028745,\"class_group_uuid\":\"7ED89132B8304A349A38C0C031B6E49B\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"11:00:00\",\"estimated_start_time\":\"11:00:00\",\"group_has_warmup\":false,\"group_name\":\"3' Fall Back # Schooling 11-12:30pm\",\"group_sequence\":2,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":7,\"ring_id\":56,\"ring_name\":\"Ring 8\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855796,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"11:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001549347452504284\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 1,
+        "start-time": "11:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|7|position-2": {
+        "end-time": "12:40:00",
+        "kind": "break",
+        "name": "2'9\" Fall Back # Schooling 12:40-3pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|7|position-2",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028746,\"class_group_uuid\":\"C24FC49693B44DA389BC9D3535DAB36B\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"12:40:00\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"2'9\\\" Fall Back # Schooling 12:40-3pm\",\"group_sequence\":3,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":7,\"ring_id\":56,\"ring_name\":\"Ring 8\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855797,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"12:40:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001535926674400909\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 2,
+        "start-time": "12:40:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|7|position-3": {
+        "end-time": "15:00:00",
+        "kind": "break",
+        "name": "2'6\" Fall Back # Schooling 3-4pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|7|position-3",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028747,\"class_group_uuid\":\"FD224CE783274D93A52A7507116EDE66\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:00:00\",\"estimated_start_time\":\"15:00:00\",\"group_has_warmup\":false,\"group_name\":\"2'6\\\" Fall Back # Schooling 3-4pm\",\"group_sequence\":4,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":7,\"ring_id\":56,\"ring_name\":\"Ring 8\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855798,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"15:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001545416804259486\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 3,
+        "start-time": "15:00:00",
+        "total-trips": 0
+      },
+      "15|200000078|2026-11-12|8|position-0": {
+        "end-time": "09:00:00",
+        "kind": "break",
+        "name": "Open back number schooling from 9-4pm",
+        "record-status": "Active",
+        "schedule-key": "15|200000078|2026-11-12|8|position-0",
+        "source-id": null,
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031094,\"class_group_uuid\":\"38EF52D8910344E28A339629C64C56F7\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-12T00:00:00.000Z\",\"day_number\":2,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"09:00:00\",\"estimated_start_time\":\"09:00:00\",\"group_has_warmup\":false,\"group_name\":\"Open back number schooling from 9-4pm\",\"group_sequence\":1,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"Score W/ Jog\",\"is_open_card_warmup\":false,\"jogordertrips\":10,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":6,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":8,\"ring_id\":58,\"ring_name\":\"Ring 9\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":867790,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"09:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001549947946850575\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 0,
+        "start-time": "09:00:00",
+        "total-trips": 0
+      }
+    }
+  },
+  "priorities": {
+    "15|200000078|2026-11-12|1|200043433": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|1|200043434": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|1|200043435": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|5|200043436": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|5|200043437": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|5|200043439": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    },
+    "15|200000078|2026-11-12|5|200043440": {
+      "rs-flag": "Mulligan",
+      "rs-lever": "lever2",
+      "rs-priority": null
+    },
+    "15|200000078|2026-11-12|5|200043449": {
+      "rs-flag": "First trip",
+      "rs-lever": "lever1",
+      "rs-priority": 1
+    }
+  }
+}

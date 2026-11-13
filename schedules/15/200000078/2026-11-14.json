@@ -2640,10 +2640,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|4|200043585",
         "source-id": "200043585",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028852,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043585,\"class_id\":200031617,\"class_list\":\"781\",\"class_name\":\"Training Jumper (1.0m) II2b\",\"class_number\":781,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:33:00\",\"estimated_start_time\":\"10:06:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (1.0m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":10,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028852,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043585,\"class_id\":200031617,\"class_list\":\"781\",\"class_name\":\"Training Jumper (1.0m) II2b\",\"class_number\":781,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:33:00\",\"estimated_start_time\":\"10:06:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (1.0m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":11,\"warmup_class\":0}",
         "source-position": 4,
         "start-time": "10:06:00",
-        "total-trips": 10
+        "total-trips": 11
       },
       "15|200000078|2026-11-14|4|200043586": {
         "end-time": "10:39:00",
@@ -2688,10 +2688,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|4|200043589",
         "source-id": "200043589",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028855,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043589,\"class_id\":200031654,\"class_list\":\"738,766\",\"class_name\":\"1.0m Amateur Jumper II2b\",\"class_number\":766,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:51:00\",\"estimated_start_time\":\"10:39:00\",\"group_has_warmup\":false,\"group_name\":\"1.0m Junior & Amateur Jumpers II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bullseye Horse Transportation\",\"start_time_default\":\"00:00:00\",\"total_trips\":15,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028855,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043589,\"class_id\":200031654,\"class_list\":\"738,766\",\"class_name\":\"1.0m Amateur Jumper II2b\",\"class_number\":766,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:51:00\",\"estimated_start_time\":\"10:39:00\",\"group_has_warmup\":false,\"group_name\":\"1.0m Junior & Amateur Jumpers II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bullseye Horse Transportation\",\"start_time_default\":\"00:00:00\",\"total_trips\":16,\"warmup_class\":0}",
         "source-position": 8,
         "start-time": "10:39:00",
-        "total-trips": 15
+        "total-trips": 16
       },
       "15|200000078|2026-11-14|5|200043570": {
         "end-time": "08:42:00",
@@ -4092,10 +4092,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|8|200043590",
         "source-id": "200043590",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028856,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043590,\"class_id\":200031613,\"class_list\":\"751\",\"class_name\":\"Training Jumper (.90m) II2b\",\"class_number\":751,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (.90m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":15,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028856,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043590,\"class_id\":200031613,\"class_list\":\"751\",\"class_name\":\"Training Jumper (.90m) II2b\",\"class_number\":751,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (.90m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":16,\"warmup_class\":0}",
         "source-position": 0,
         "start-time": "08:00:00",
-        "total-trips": 15
+        "total-trips": 16
       },
       "15|200000078|2026-11-14|8|200043591": {
         "end-time": "08:51:00",

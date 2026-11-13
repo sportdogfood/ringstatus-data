@@ -4152,10 +4152,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|8|200043595",
         "source-id": "200043595",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028860,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043595,\"class_id\":200031598,\"class_list\":\"694,697\",\"class_name\":\"Itty Bitty Jumper Open (.60-.65m) II2b\",\"class_number\":694,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:00:00\",\"estimated_start_time\":\"09:12:00\",\"group_has_warmup\":false,\"group_name\":\"Itty Bitty Jumpers (.60-.65m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028860,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043595,\"class_id\":200031598,\"class_list\":\"694,697\",\"class_name\":\"Itty Bitty Jumper Open (.60-.65m) II2b\",\"class_number\":694,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:00:00\",\"estimated_start_time\":\"09:12:00\",\"group_has_warmup\":false,\"group_name\":\"Itty Bitty Jumpers (.60-.65m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":10,\"warmup_class\":0}",
         "source-position": 5,
         "start-time": "09:12:00",
-        "total-trips": 7
+        "total-trips": 10
       },
       "15|200000078|2026-11-14|8|200043596": {
         "end-time": "10:00:00",

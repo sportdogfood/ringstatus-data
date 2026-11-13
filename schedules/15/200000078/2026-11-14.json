@@ -2517,10 +2517,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043758",
         "source-id": "200043758",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043758,\"class_id\":200031555,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Warm Up\",\"class_number\":600,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":5,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043758,\"class_id\":200031555,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Warm Up\",\"class_number\":600,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":4,\"warmup_class\":1}",
         "source-position": 32,
         "start-time": "14:30:00",
-        "total-trips": 5
+        "total-trips": 4
       },
       "15|200000078|2026-11-14|6|200043759": {
         "end-time": "15:16:00",
@@ -2529,10 +2529,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043759",
         "source-id": "200043759",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043759,\"class_id\":200031501,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Hunter\",\"class_number\":602,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":9,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043759,\"class_id\":200031501,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Hunter\",\"class_number\":602,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 33,
         "start-time": "14:30:00",
-        "total-trips": 9
+        "total-trips": 8
       },
       "15|200000078|2026-11-14|6|200043760": {
         "end-time": "15:16:00",
@@ -2541,10 +2541,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043760",
         "source-id": "200043760",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043760,\"class_id\":200031502,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Hunter\",\"class_number\":603,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":9,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028929,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043760,\"class_id\":200031502,\"class_list\":\"600,602,603\",\"class_name\":\"Stirrup Hunter\",\"class_number\":603,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:16:00\",\"estimated_start_time\":\"14:30:00\",\"group_has_warmup\":true,\"group_name\":\"Stirrup Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:30:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 34,
         "start-time": "14:30:00",
-        "total-trips": 9
+        "total-trips": 8
       },
       "15|200000078|2026-11-14|6|200043764": {
         "end-time": "15:31:00",
@@ -2553,10 +2553,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043764",
         "source-id": "200043764",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028931,\"class_group_sequence\":16,\"class_groupxclasses_id\":200043764,\"class_id\":200031500,\"class_list\":\"601\",\"class_name\":\"Stirrup Hunter U/S\",\"class_number\":601,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:31:00\",\"estimated_start_time\":\"15:16:00\",\"group_has_warmup\":false,\"group_name\":\"Stirrup Hunter U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":9,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028931,\"class_group_sequence\":16,\"class_groupxclasses_id\":200043764,\"class_id\":200031500,\"class_list\":\"601\",\"class_name\":\"Stirrup Hunter U/S\",\"class_number\":601,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:31:00\",\"estimated_start_time\":\"15:16:00\",\"group_has_warmup\":false,\"group_name\":\"Stirrup Hunter U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 35,
         "start-time": "15:16:00",
-        "total-trips": 9
+        "total-trips": 8
       },
       "15|200000078|2026-11-14|6|200043765": {
         "end-time": "10:17:00",

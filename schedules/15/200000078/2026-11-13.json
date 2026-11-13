@@ -928,7 +928,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|1|200043443",
         "source-id": "200043443",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028754,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043443,\"class_id\":200031716,\"class_list\":\"3012\",\"class_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"class_number\":3012,\"class_type\":\"Jumpers\",\"completed_trips\":50,\"estimated_end_time\":\"14:52:00\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"12:40:00\",\"total_trips\":57,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028754,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043443,\"class_id\":200031716,\"class_list\":\"3012\",\"class_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"class_number\":3012,\"class_type\":\"Jumpers\",\"completed_trips\":51,\"estimated_end_time\":\"14:52:00\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"12:40:00\",\"total_trips\":57,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "12:40:00",
         "total-trips": 57
@@ -1246,13 +1246,13 @@
         "total-trips": 0
       },
       "15|200000078|2026-11-13|4|200043455": {
-        "end-time": "14:47:00",
+        "end-time": "14:47:23",
         "kind": "class",
         "name": "WIHS Jumper Phase",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|4|200043455",
         "source-id": "200043455",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028766,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043455,\"class_id\":200031593,\"class_list\":\"581\",\"class_name\":\"WIHS Jumper Phase\",\"class_number\":581,\"class_type\":\"Equitation\",\"completed_trips\":4,\"estimated_end_time\":\"14:47:00\",\"estimated_start_time\":\"14:35:00\",\"group_has_warmup\":false,\"group_name\":\"WIHS Jumper Phase\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:35:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028766,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043455,\"class_id\":200031593,\"class_list\":\"581\",\"class_name\":\"WIHS Jumper Phase\",\"class_number\":581,\"class_type\":\"Equitation\",\"completed_trips\":5,\"estimated_end_time\":\"14:47:23\",\"estimated_start_time\":\"14:35:00\",\"group_has_warmup\":false,\"group_name\":\"WIHS Jumper Phase\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:35:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 6,
         "start-time": "14:35:00",
         "total-trips": 6

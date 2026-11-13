@@ -1674,10 +1674,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043903",
         "source-id": "200043903",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029011,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043903,\"class_id\":200031503,\"class_list\":\"604\",\"class_name\":\"Short Stirrup Equitation Flat\",\"class_number\":604,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:58:00\",\"estimated_start_time\":\"09:43:00\",\"group_has_warmup\":false,\"group_name\":\"Short Stirrup Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029011,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043903,\"class_id\":200031503,\"class_list\":\"604\",\"class_name\":\"Short Stirrup Equitation Flat\",\"class_number\":604,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:58:00\",\"estimated_start_time\":\"09:43:00\",\"group_has_warmup\":false,\"group_name\":\"Short Stirrup Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
         "source-position": 12,
         "start-time": "09:43:00",
-        "total-trips": 6
+        "total-trips": 7
       },
       "15|200000078|2026-11-15|2|200043904": {
         "end-time": "10:13:00",
@@ -1710,10 +1710,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043906",
         "source-id": "200043906",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029013,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043906,\"class_id\":200031504,\"class_list\":\"614,605,606,619,620\",\"class_name\":\"Short Stirrup Equitation\",\"class_number\":605,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"11:07:00\",\"estimated_start_time\":\"10:13:00\",\"group_has_warmup\":true,\"group_name\":\"Short/Rusty Stirrup Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029013,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043906,\"class_id\":200031504,\"class_list\":\"614,605,606,619,620\",\"class_name\":\"Short Stirrup Equitation\",\"class_number\":605,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"11:07:00\",\"estimated_start_time\":\"10:13:00\",\"group_has_warmup\":true,\"group_name\":\"Short/Rusty Stirrup Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
         "source-position": 15,
         "start-time": "10:13:00",
-        "total-trips": 6
+        "total-trips": 7
       },
       "15|200000078|2026-11-15|2|200043907": {
         "end-time": "11:07:00",
@@ -1722,10 +1722,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043907",
         "source-id": "200043907",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029013,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043907,\"class_id\":200031505,\"class_list\":\"614,605,606,619,620\",\"class_name\":\"Short Stirrup Equitation\",\"class_number\":606,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"11:07:00\",\"estimated_start_time\":\"10:13:00\",\"group_has_warmup\":true,\"group_name\":\"Short/Rusty Stirrup Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029013,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043907,\"class_id\":200031505,\"class_list\":\"614,605,606,619,620\",\"class_name\":\"Short Stirrup Equitation\",\"class_number\":606,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"11:07:00\",\"estimated_start_time\":\"10:13:00\",\"group_has_warmup\":true,\"group_name\":\"Short/Rusty Stirrup Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
         "source-position": 16,
         "start-time": "10:13:00",
-        "total-trips": 6
+        "total-trips": 7
       },
       "15|200000078|2026-11-15|2|200043908": {
         "end-time": "11:07:00",
@@ -2274,10 +2274,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|5|200043774",
         "source-id": "200043774",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028939,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043774,\"class_id\":200031673,\"class_list\":\"837\",\"class_name\":\"$600 1.20m Young Jumper II2d\",\"class_number\":837,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:00:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":false,\"group_name\":\"$600 1.20m Young Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028939,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043774,\"class_id\":200031673,\"class_list\":\"837\",\"class_name\":\"$600 1.20m Young Jumper II2d\",\"class_number\":837,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:00:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":false,\"group_name\":\"$600 1.20m Young Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "09:45:00",
-        "total-trips": 5
+        "total-trips": 6
       },
       "15|200000078|2026-11-15|5|200043775": {
         "end-time": "11:33:00",

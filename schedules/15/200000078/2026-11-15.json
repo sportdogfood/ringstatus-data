@@ -2682,10 +2682,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043800",
         "source-id": "200043800",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028959,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043800,\"class_id\":200031595,\"class_list\":\"530\",\"class_name\":\"Hamel Foundation NHS 3'3\\\" Medal\",\"class_number\":530,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Hamel Foundation NHS 3'3\\\" Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":12,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028959,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043800,\"class_id\":200031595,\"class_list\":\"530\",\"class_name\":\"Hamel Foundation NHS 3'3\\\" Medal\",\"class_number\":530,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Hamel Foundation NHS 3'3\\\" Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":11,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "08:00:00",
-        "total-trips": 12
+        "total-trips": 11
       },
       "15|200000078|2026-11-15|7|200043801": {
         "end-time": "08:48:00",
@@ -2706,10 +2706,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043802",
         "source-id": "200043802",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028961,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043802,\"class_id\":200031597,\"class_list\":\"570\",\"class_name\":\"ASPCA Maclay\",\"class_number\":570,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:09:00\",\"estimated_start_time\":\"08:48:00\",\"group_has_warmup\":false,\"group_name\":\"ASPCA Maclay\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028961,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043802,\"class_id\":200031597,\"class_list\":\"570\",\"class_name\":\"ASPCA Maclay\",\"class_number\":570,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:09:00\",\"estimated_start_time\":\"08:48:00\",\"group_has_warmup\":false,\"group_name\":\"ASPCA Maclay\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "08:48:00",
-        "total-trips": 7
+        "total-trips": 6
       },
       "15|200000078|2026-11-15|7|200043803": {
         "end-time": "09:30:00",

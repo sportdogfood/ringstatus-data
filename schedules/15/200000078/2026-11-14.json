@@ -2465,10 +2465,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|4|200043583",
         "source-id": "200043583",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028850,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043583,\"class_id\":200031651,\"class_list\":\"761\",\"class_name\":\"1.10m Junior/Amateur Jumper II2b\",\"class_number\":761,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"09:54:00\",\"estimated_start_time\":\"08:54:00\",\"group_has_warmup\":false,\"group_name\":\"1.10m Junior/Amateur Jumper II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":27,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028850,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043583,\"class_id\":200031651,\"class_list\":\"761\",\"class_name\":\"1.10m Junior/Amateur Jumper II2b\",\"class_number\":761,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"09:54:00\",\"estimated_start_time\":\"08:54:00\",\"group_has_warmup\":false,\"group_name\":\"1.10m Junior/Amateur Jumper II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":28,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "08:54:00",
-        "total-trips": 27
+        "total-trips": 28
       },
       "15|200000078|2026-11-14|4|200043584": {
         "end-time": "10:24:00",
@@ -2525,10 +2525,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|4|200043588",
         "source-id": "200043588",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028855,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043588,\"class_id\":200031657,\"class_list\":\"738,766\",\"class_name\":\"1.0m Junior Jumper II2b\",\"class_number\":738,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"12:27:00\",\"estimated_start_time\":\"11:03:00\",\"group_has_warmup\":false,\"group_name\":\"1.0m Junior & Amateur Jumpers II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bullseye Horse Transportation\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028855,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043588,\"class_id\":200031657,\"class_list\":\"738,766\",\"class_name\":\"1.0m Junior Jumper II2b\",\"class_number\":738,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"12:27:00\",\"estimated_start_time\":\"11:03:00\",\"group_has_warmup\":false,\"group_name\":\"1.0m Junior & Amateur Jumpers II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Bullseye Horse Transportation\",\"start_time_default\":\"00:00:00\",\"total_trips\":15,\"warmup_class\":0}",
         "source-position": 7,
         "start-time": "11:03:00",
-        "total-trips": 14
+        "total-trips": 15
       },
       "15|200000078|2026-11-14|4|200043589": {
         "end-time": "12:27:00",
@@ -3221,10 +3221,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043765",
         "source-id": "200043765",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043765,\"class_id\":200031538,\"class_list\":\"655,406,407\",\"class_name\":\"Warm Up Hunter\",\"class_number\":655,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043765,\"class_id\":200031538,\"class_list\":\"655,406,407\",\"class_name\":\"Warm Up Hunter\",\"class_number\":655,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
         "source-position": 18,
         "start-time": "09:48:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-14|6|200043766": {
         "end-time": "10:21:00",
@@ -3233,10 +3233,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043766",
         "source-id": "200043766",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043766,\"class_id\":200031463,\"class_list\":\"655,406,407\",\"class_name\":\"Children's Pony Hunter\",\"class_number\":406,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043766,\"class_id\":200031463,\"class_list\":\"655,406,407\",\"class_name\":\"Children's Pony Hunter\",\"class_number\":406,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 19,
         "start-time": "09:48:00",
-        "total-trips": 5
+        "total-trips": 6
       },
       "15|200000078|2026-11-14|6|200043767": {
         "end-time": "10:21:00",
@@ -3245,10 +3245,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043767",
         "source-id": "200043767",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043767,\"class_id\":200031464,\"class_list\":\"655,406,407\",\"class_name\":\"Children's Pony Hunter\",\"class_number\":407,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028932,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043767,\"class_id\":200031464,\"class_list\":\"655,406,407\",\"class_name\":\"Children's Pony Hunter\",\"class_number\":407,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:21:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":true,\"group_name\":\"Children's Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 20,
         "start-time": "09:48:00",
-        "total-trips": 5
+        "total-trips": 6
       },
       "15|200000078|2026-11-14|6|200043768": {
         "end-time": "10:36:00",
@@ -3257,10 +3257,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043768",
         "source-id": "200043768",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028933,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043768,\"class_id\":200031462,\"class_list\":\"405\",\"class_name\":\"Children's Pony Hunter U/S \",\"class_number\":405,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:36:00\",\"estimated_start_time\":\"10:21:00\",\"group_has_warmup\":false,\"group_name\":\"Children's Pony Hunter U/S \",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028933,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043768,\"class_id\":200031462,\"class_list\":\"405\",\"class_name\":\"Children's Pony Hunter U/S \",\"class_number\":405,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:36:00\",\"estimated_start_time\":\"10:21:00\",\"group_has_warmup\":false,\"group_name\":\"Children's Pony Hunter U/S \",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 21,
         "start-time": "10:21:00",
-        "total-trips": 5
+        "total-trips": 6
       },
       "15|200000078|2026-11-14|7|200043599": {
         "end-time": "09:09:00",
@@ -4049,10 +4049,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|8|200043590",
         "source-id": "200043590",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028856,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043590,\"class_id\":200031613,\"class_list\":\"751\",\"class_name\":\"Training Jumper (.90m) II2b\",\"class_number\":751,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:54:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (.90m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":23,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028856,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043590,\"class_id\":200031613,\"class_list\":\"751\",\"class_name\":\"Training Jumper (.90m) II2b\",\"class_number\":751,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:54:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Training Jumper (.90m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":24,\"warmup_class\":0}",
         "source-position": 0,
         "start-time": "08:00:00",
-        "total-trips": 23
+        "total-trips": 24
       },
       "15|200000078|2026-11-14|8|200043591": {
         "end-time": "09:00:00",

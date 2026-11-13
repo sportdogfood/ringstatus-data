@@ -1542,10 +1542,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043892",
         "source-id": "200043892",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029004,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043892,\"class_id\":200031524,\"class_list\":\"608\",\"class_name\":\"Walk\",\"class_number\":608,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"07:55:00\",\"estimated_start_time\":\"07:45:00\",\"group_has_warmup\":false,\"group_name\":\"Walk\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029004,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043892,\"class_id\":200031524,\"class_list\":\"608\",\"class_name\":\"Walk\",\"class_number\":608,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"07:55:00\",\"estimated_start_time\":\"07:45:00\",\"group_has_warmup\":false,\"group_name\":\"Walk\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "07:45:00",
-        "total-trips": 2
+        "total-trips": 3
       },
       "15|200000078|2026-11-15|2|200043893": {
         "end-time": "08:05:00",
@@ -1554,10 +1554,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043893",
         "source-id": "200043893",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029005,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043893,\"class_id\":200031525,\"class_list\":\"609\",\"class_name\":\"Walk/Trot\",\"class_number\":609,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:05:00\",\"estimated_start_time\":\"07:55:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029005,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043893,\"class_id\":200031525,\"class_list\":\"609\",\"class_name\":\"Walk/Trot\",\"class_number\":609,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:05:00\",\"estimated_start_time\":\"07:55:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "07:55:00",
-        "total-trips": 2
+        "total-trips": 3
       },
       "15|200000078|2026-11-15|2|200043894": {
         "end-time": "08:15:00",
@@ -1566,10 +1566,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043894",
         "source-id": "200043894",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029006,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043894,\"class_id\":200031526,\"class_list\":\"610\",\"class_name\":\"Walk/Trot Pleasure\",\"class_number\":610,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:15:00\",\"estimated_start_time\":\"08:05:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot Pleasure\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029006,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043894,\"class_id\":200031526,\"class_list\":\"610\",\"class_name\":\"Walk/Trot Pleasure\",\"class_number\":610,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:15:00\",\"estimated_start_time\":\"08:05:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot Pleasure\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "08:05:00",
-        "total-trips": 2
+        "total-trips": 3
       },
       "15|200000078|2026-11-15|2|200043895": {
         "end-time": "08:25:00",
@@ -1578,10 +1578,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043895",
         "source-id": "200043895",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029007,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043895,\"class_id\":200031527,\"class_list\":\"611\",\"class_name\":\"Walk/Trot Jump\",\"class_number\":611,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:25:00\",\"estimated_start_time\":\"08:15:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot Jump\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029007,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043895,\"class_id\":200031527,\"class_list\":\"611\",\"class_name\":\"Walk/Trot Jump\",\"class_number\":611,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:25:00\",\"estimated_start_time\":\"08:15:00\",\"group_has_warmup\":false,\"group_name\":\"Walk/Trot Jump\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
         "source-position": 4,
         "start-time": "08:15:00",
-        "total-trips": 2
+        "total-trips": 3
       },
       "15|200000078|2026-11-15|2|200043896": {
         "end-time": "08:40:00",
@@ -1590,10 +1590,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043896",
         "source-id": "200043896",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029008,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043896,\"class_id\":200031515,\"class_list\":\"144\",\"class_name\":\"Younger Cross Rail Equitation Flat\",\"class_number\":144,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:40:00\",\"estimated_start_time\":\"08:25:00\",\"group_has_warmup\":false,\"group_name\":\"Younger Cross Rail Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029008,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043896,\"class_id\":200031515,\"class_list\":\"144\",\"class_name\":\"Younger Cross Rail Equitation Flat\",\"class_number\":144,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:40:00\",\"estimated_start_time\":\"08:25:00\",\"group_has_warmup\":false,\"group_name\":\"Younger Cross Rail Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 5,
         "start-time": "08:25:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043897": {
         "end-time": "08:55:00",
@@ -1614,10 +1614,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043898",
         "source-id": "200043898",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043898,\"class_id\":200031554,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Cross Rail Warm Up\",\"class_number\":140,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043898,\"class_id\":200031554,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Cross Rail Warm Up\",\"class_number\":140,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
         "source-position": 7,
         "start-time": "08:55:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043899": {
         "end-time": "09:10:00",
@@ -1626,10 +1626,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043899",
         "source-id": "200043899",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043899,\"class_id\":200031516,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Younger Cross Rail Equitation\",\"class_number\":145,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043899,\"class_id\":200031516,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Younger Cross Rail Equitation\",\"class_number\":145,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 8,
         "start-time": "08:55:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043900": {
         "end-time": "09:10:00",
@@ -1638,10 +1638,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043900",
         "source-id": "200043900",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043900,\"class_id\":200031517,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Younger Cross Rail Equitation\",\"class_number\":146,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043900,\"class_id\":200031517,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Younger Cross Rail Equitation\",\"class_number\":146,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:10:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 9,
         "start-time": "08:55:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043901": {
         "end-time": "09:10:00",

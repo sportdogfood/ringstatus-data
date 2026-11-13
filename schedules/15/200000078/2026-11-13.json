@@ -922,13 +922,13 @@
         "total-trips": 38
       },
       "15|200000078|2026-11-13|1|200043443": {
-        "end-time": "14:31:10",
+        "end-time": "14:33:00",
         "kind": "class",
         "name": "$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|1|200043443",
         "source-id": "200043443",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028754,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043443,\"class_id\":200031716,\"class_list\":\"3012\",\"class_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"class_number\":3012,\"class_type\":\"Jumpers\",\"completed_trips\":34,\"estimated_end_time\":\"14:31:10\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"12:40:00\",\"total_trips\":57,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028754,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043443,\"class_id\":200031716,\"class_list\":\"3012\",\"class_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"class_number\":3012,\"class_type\":\"Jumpers\",\"completed_trips\":35,\"estimated_end_time\":\"14:33:00\",\"estimated_start_time\":\"12:40:00\",\"group_has_warmup\":false,\"group_name\":\"$62,500 Arthramid by Contura Vet CSI3* Grand Prix Qualifier (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"12:40:00\",\"total_trips\":57,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "12:40:00",
         "total-trips": 57
@@ -1150,27 +1150,27 @@
         "total-trips": 4
       },
       "15|200000078|2026-11-13|3|200043552": {
-        "end-time": "14:18:52",
+        "end-time": "14:20:27",
         "kind": "class",
         "name": "USHJA Hunter 2'9\" U/S",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|3|200043552",
         "source-id": "200043552",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028820,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043552,\"class_id\":200031432,\"class_list\":\"186\",\"class_name\":\"USHJA Hunter 2'9\\\" U/S\",\"class_number\":186,\"class_type\":\"Hunters\",\"completed_trips\":1,\"estimated_end_time\":\"14:18:52\",\"estimated_start_time\":\"14:13:01\",\"group_has_warmup\":false,\"group_name\":\"USHJA Hunter 2'9\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"13:40:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028820,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043552,\"class_id\":200031432,\"class_list\":\"186\",\"class_name\":\"USHJA Hunter 2'9\\\" U/S\",\"class_number\":186,\"class_type\":\"Hunters\",\"completed_trips\":6,\"estimated_end_time\":\"14:20:27\",\"estimated_start_time\":\"14:13:01\",\"group_has_warmup\":false,\"group_name\":\"USHJA Hunter 2'9\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"13:40:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 16,
         "start-time": "14:13:01",
         "total-trips": 6
       },
       "15|200000078|2026-11-13|3|200043557": {
-        "end-time": "14:18:52",
+        "end-time": "14:20:27",
         "kind": "class",
         "name": "Mulligan Class",
         "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-13|3|200043557",
         "source-id": "200043557",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028823,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043557,\"class_id\":200031693,\"class_list\":\"994\",\"class_name\":\"Mulligan Class\",\"class_number\":994,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:18:52\",\"estimated_start_time\":\"14:18:52\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028823,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043557,\"class_id\":200031693,\"class_list\":\"994\",\"class_name\":\"Mulligan Class\",\"class_number\":994,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:20:27\",\"estimated_start_time\":\"14:20:27\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 17,
-        "start-time": "14:18:52",
+        "start-time": "14:20:27",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|3|200043562": {
@@ -1414,16 +1414,16 @@
         "total-trips": 10
       },
       "15|200000078|2026-11-13|5|200043452": {
-        "end-time": "14:19:00",
+        "end-time": "14:25:39",
         "kind": "class",
         "name": "1.30m Junior/Amateur Jumper II2d",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|5|200043452",
         "source-id": "200043452",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028763,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043452,\"class_id\":200031643,\"class_list\":\"773\",\"class_name\":\"1.30m Junior/Amateur Jumper II2d\",\"class_number\":773,\"class_type\":\"Jumpers\",\"completed_trips\":16,\"estimated_end_time\":\"14:19:00\",\"estimated_start_time\":\"13:20:01\",\"group_has_warmup\":false,\"group_name\":\"1.30m Junior/Amateur Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"13:20:00\",\"total_trips\":30,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028763,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043452,\"class_id\":200031643,\"class_list\":\"773\",\"class_name\":\"1.30m Junior/Amateur Jumper II2d\",\"class_number\":773,\"class_type\":\"Jumpers\",\"completed_trips\":16,\"estimated_end_time\":\"14:25:39\",\"estimated_start_time\":\"13:20:01\",\"group_has_warmup\":false,\"group_name\":\"1.30m Junior/Amateur Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"13:20:00\",\"total_trips\":29,\"warmup_class\":0}",
         "source-position": 5,
         "start-time": "13:20:01",
-        "total-trips": 30
+        "total-trips": 29
       },
       "15|200000078|2026-11-13|5|200043453": {
         "end-time": "15:17:00",
@@ -1492,7 +1492,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043494",
         "source-id": "200043494",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028795,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043494,\"class_id\":200031528,\"class_list\":\"207,382,383\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"08:33:01\",\"estimated_start_time\":\"08:05:01\",\"group_has_warmup\":true,\"group_name\":\"Performance Hunter 3'6\\\"\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028795,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043494,\"class_id\":200031528,\"class_list\":\"207,382,383\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"08:33:01\",\"estimated_start_time\":\"08:05:01\",\"group_has_warmup\":true,\"group_name\":\"Performance Hunter 3'6\\\"\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 0,
         "start-time": "08:05:01",
         "total-trips": 14
@@ -1540,7 +1540,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043502",
         "source-id": "200043502",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028799,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043502,\"class_id\":200031528,\"class_list\":\"207,387,388\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"09:47:01\",\"estimated_start_time\":\"08:35:01\",\"group_has_warmup\":true,\"group_name\":\"Performance Hunter 3'3\\\"\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028799,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043502,\"class_id\":200031528,\"class_list\":\"207,387,388\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"09:47:01\",\"estimated_start_time\":\"08:35:01\",\"group_has_warmup\":true,\"group_name\":\"Performance Hunter 3'3\\\"\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 4,
         "start-time": "08:35:01",
         "total-trips": 14
@@ -1588,7 +1588,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043506",
         "source-id": "200043506",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028801,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043506,\"class_id\":200031528,\"class_list\":\"207,372,373\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"10:57:01\",\"estimated_start_time\":\"10:20:00\",\"group_has_warmup\":true,\"group_name\":\"3'3\\\" Green Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"10:20:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028801,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043506,\"class_id\":200031528,\"class_list\":\"207,372,373\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"10:57:01\",\"estimated_start_time\":\"10:20:00\",\"group_has_warmup\":true,\"group_name\":\"3'3\\\" Green Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"10:20:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 8,
         "start-time": "10:20:00",
         "total-trips": 14
@@ -1636,7 +1636,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043514",
         "source-id": "200043514",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028805,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043514,\"class_id\":200031528,\"class_list\":\"207,202,203\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"11:52:01\",\"estimated_start_time\":\"11:20:01\",\"group_has_warmup\":true,\"group_name\":\"3' Green Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028805,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043514,\"class_id\":200031528,\"class_list\":\"207,202,203\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"11:52:01\",\"estimated_start_time\":\"11:20:01\",\"group_has_warmup\":true,\"group_name\":\"3' Green Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 12,
         "start-time": "11:20:01",
         "total-trips": 14
@@ -1684,7 +1684,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043518",
         "source-id": "200043518",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028807,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043518,\"class_id\":200031528,\"class_list\":\"207,166,167\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"12:47:01\",\"estimated_start_time\":\"12:10:01\",\"group_has_warmup\":true,\"group_name\":\"Young Hunter 3' (6 & Under)\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"11:15:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028807,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043518,\"class_id\":200031528,\"class_list\":\"207,166,167\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"12:47:01\",\"estimated_start_time\":\"12:10:01\",\"group_has_warmup\":true,\"group_name\":\"Young Hunter 3' (6 & Under)\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"11:15:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 16,
         "start-time": "12:10:01",
         "total-trips": 14
@@ -1726,63 +1726,63 @@
         "total-trips": 5
       },
       "15|200000078|2026-11-13|7|200043522": {
-        "end-time": "14:25:20",
+        "end-time": "14:25:22",
         "kind": "class",
         "name": "Add Back Hunter",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043522",
         "source-id": "200043522",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043522,\"class_id\":200031528,\"class_list\":\"207,222,223\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":13,\"estimated_end_time\":\"14:25:20\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"12:45:00\",\"total_trips\":14,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043522,\"class_id\":200031528,\"class_list\":\"207,222,223\",\"class_name\":\"Add Back Hunter\",\"class_number\":207,\"class_type\":\"Hunters\",\"completed_trips\":14,\"estimated_end_time\":\"14:25:22\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"12:45:00\",\"total_trips\":14,\"warmup_class\":1}",
         "source-position": 20,
         "start-time": "13:10:01",
         "total-trips": 14
       },
       "15|200000078|2026-11-13|7|200043523": {
-        "end-time": "14:25:20",
+        "end-time": "14:25:22",
         "kind": "class",
         "name": "USHJA Hunter 3'",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043523",
         "source-id": "200043523",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043523,\"class_id\":200031438,\"class_list\":\"207,222,223\",\"class_name\":\"USHJA Hunter 3'\",\"class_number\":222,\"class_type\":\"Hunters\",\"completed_trips\":8,\"estimated_end_time\":\"14:25:20\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"12:45:00\",\"total_trips\":10,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043523,\"class_id\":200031438,\"class_list\":\"207,222,223\",\"class_name\":\"USHJA Hunter 3'\",\"class_number\":222,\"class_type\":\"Hunters\",\"completed_trips\":8,\"estimated_end_time\":\"14:25:22\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"12:45:00\",\"total_trips\":10,\"warmup_class\":0}",
         "source-position": 21,
         "start-time": "13:10:01",
         "total-trips": 10
       },
       "15|200000078|2026-11-13|7|200043524": {
-        "end-time": "14:25:20",
+        "end-time": "14:25:22",
         "kind": "class",
         "name": "USHJA Hunter 3'",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043524",
         "source-id": "200043524",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043524,\"class_id\":200031439,\"class_list\":\"207,222,223\",\"class_name\":\"USHJA Hunter 3'\",\"class_number\":223,\"class_type\":\"Hunters\",\"completed_trips\":5,\"estimated_end_time\":\"14:25:20\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"12:45:00\",\"total_trips\":10,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028809,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043524,\"class_id\":200031439,\"class_list\":\"207,222,223\",\"class_name\":\"USHJA Hunter 3'\",\"class_number\":223,\"class_type\":\"Hunters\",\"completed_trips\":5,\"estimated_end_time\":\"14:25:22\",\"estimated_start_time\":\"13:10:01\",\"group_has_warmup\":true,\"group_name\":\"USHJA Hunter 3'\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"12:45:00\",\"total_trips\":10,\"warmup_class\":0}",
         "source-position": 22,
         "start-time": "13:10:01",
         "total-trips": 10
       },
       "15|200000078|2026-11-13|7|200043527": {
-        "end-time": "14:40:20",
+        "end-time": "14:40:22",
         "kind": "class",
         "name": "USHJA Hunter 3' U/S",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043527",
         "source-id": "200043527",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028810,\"class_group_sequence\":12,\"class_groupxclasses_id\":200043527,\"class_id\":200031437,\"class_list\":\"221\",\"class_name\":\"USHJA Hunter 3' U/S\",\"class_number\":221,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:40:20\",\"estimated_start_time\":\"14:25:20\",\"group_has_warmup\":false,\"group_name\":\"USHJA Hunter 3' U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"14:15:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028810,\"class_group_sequence\":12,\"class_groupxclasses_id\":200043527,\"class_id\":200031437,\"class_list\":\"221\",\"class_name\":\"USHJA Hunter 3' U/S\",\"class_number\":221,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:40:22\",\"estimated_start_time\":\"14:25:22\",\"group_has_warmup\":false,\"group_name\":\"USHJA Hunter 3' U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Perfect Products\",\"start_time_default\":\"14:15:00\",\"total_trips\":5,\"warmup_class\":0}",
         "source-position": 23,
-        "start-time": "14:25:20",
+        "start-time": "14:25:22",
         "total-trips": 5
       },
       "15|200000078|2026-11-13|7|200043528": {
-        "end-time": "14:40:20",
+        "end-time": "14:40:22",
         "kind": "class",
         "name": "Mulligan Class",
         "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-13|7|200043528",
         "source-id": "200043528",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028811,\"class_group_sequence\":13,\"class_groupxclasses_id\":200043528,\"class_id\":200031692,\"class_list\":\"993\",\"class_name\":\"Mulligan Class\",\"class_number\":993,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:40:20\",\"estimated_start_time\":\"14:40:20\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028811,\"class_group_sequence\":13,\"class_groupxclasses_id\":200043528,\"class_id\":200031692,\"class_list\":\"993\",\"class_name\":\"Mulligan Class\",\"class_number\":993,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:40:22\",\"estimated_start_time\":\"14:40:22\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 24,
-        "start-time": "14:40:20",
+        "start-time": "14:40:22",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|7|position-25": {

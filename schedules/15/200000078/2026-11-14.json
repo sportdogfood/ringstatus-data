@@ -1836,10 +1836,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|1|200043569",
         "source-id": "200043569",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028838,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043569,\"class_id\":200031717,\"class_list\":\"3013\",\"class_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"class_number\":3013,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"13:12:00\",\"estimated_start_time\":\"10:39:00\",\"group_has_warmup\":false,\"group_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":51,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028838,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043569,\"class_id\":200031717,\"class_list\":\"3013\",\"class_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"class_number\":3013,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"13:12:00\",\"estimated_start_time\":\"10:39:00\",\"group_has_warmup\":false,\"group_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":53,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "10:39:00",
-        "total-trips": 51
+        "total-trips": 53
       },
       "15|200000078|2026-11-14|2|200043669": {
         "end-time": "09:15:00",

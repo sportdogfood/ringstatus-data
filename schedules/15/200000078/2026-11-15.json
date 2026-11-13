@@ -1602,10 +1602,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043897",
         "source-id": "200043897",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029009,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043897,\"class_id\":200031518,\"class_list\":\"150\",\"class_name\":\"Older Cross Rail Equitation Flat\",\"class_number\":150,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:55:00\",\"estimated_start_time\":\"08:40:00\",\"group_has_warmup\":false,\"group_name\":\"Older Cross Rail Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029009,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043897,\"class_id\":200031518,\"class_list\":\"150\",\"class_name\":\"Older Cross Rail Equitation Flat\",\"class_number\":150,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:55:00\",\"estimated_start_time\":\"08:40:00\",\"group_has_warmup\":false,\"group_name\":\"Older Cross Rail Equitation Flat\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 6,
         "start-time": "08:40:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043898": {
         "end-time": "09:19:00",
@@ -1650,10 +1650,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043901",
         "source-id": "200043901",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043901,\"class_id\":200031519,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Older Cross Rail Equitation\",\"class_number\":151,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:19:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043901,\"class_id\":200031519,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Older Cross Rail Equitation\",\"class_number\":151,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:19:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 10,
         "start-time": "08:55:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043902": {
         "end-time": "09:19:00",
@@ -1662,10 +1662,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|2|200043902",
         "source-id": "200043902",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043902,\"class_id\":200031520,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Older Cross Rail Equitation\",\"class_number\":152,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:19:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200029010,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043902,\"class_id\":200031520,\"class_list\":\"140,145,146,151,152\",\"class_name\":\"Older Cross Rail Equitation\",\"class_number\":152,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:19:00\",\"estimated_start_time\":\"08:55:00\",\"group_has_warmup\":true,\"group_name\":\"Younger/Older Cross Rail Equitations\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 11,
         "start-time": "08:55:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-15|2|200043903": {
         "end-time": "09:34:00",

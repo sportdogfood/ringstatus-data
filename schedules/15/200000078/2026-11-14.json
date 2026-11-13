@@ -1817,10 +1817,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|1|200043569",
         "source-id": "200043569",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028838,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043569,\"class_id\":200031717,\"class_list\":\"3013\",\"class_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"class_number\":3013,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"13:45:00\",\"estimated_start_time\":\"10:48:00\",\"group_has_warmup\":false,\"group_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":63,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028838,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043569,\"class_id\":200031717,\"class_list\":\"3013\",\"class_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"class_number\":3013,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"13:45:00\",\"estimated_start_time\":\"10:48:00\",\"group_has_warmup\":false,\"group_name\":\"$32,000 Corro CSI3* 1.45m Speed (220.2.1.1)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":65,\"warmup_class\":0}",
         "source-position": 2,
         "start-time": "10:48:00",
-        "total-trips": 63
+        "total-trips": 65
       },
       "15|200000078|2026-11-14|2|200043664": {
         "end-time": "09:54:00",
@@ -2921,10 +2921,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043740",
         "source-id": "200043740",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043740,\"class_id\":200031473,\"class_list\":\"540,401,422,423\",\"class_name\":\"Medium Pony Hunter\",\"class_number\":422,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:30:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043740,\"class_id\":200031473,\"class_list\":\"540,401,422,423\",\"class_name\":\"Medium Pony Hunter\",\"class_number\":422,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:30:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 7,
         "start-time": "08:30:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-14|6|200043741": {
         "end-time": "08:36:00",
@@ -2933,10 +2933,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043741",
         "source-id": "200043741",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043741,\"class_id\":200031476,\"class_list\":\"540,401,422,423\",\"class_name\":\"Medium Pony Hunter\",\"class_number\":423,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:30:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043741,\"class_id\":200031476,\"class_list\":\"540,401,422,423\",\"class_name\":\"Medium Pony Hunter\",\"class_number\":423,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:36:00\",\"estimated_start_time\":\"08:30:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 8,
         "start-time": "08:30:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-14|6|200043742": {
         "end-time": "08:51:00",
@@ -2945,10 +2945,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043742",
         "source-id": "200043742",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028922,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043742,\"class_id\":200031472,\"class_list\":\"421\",\"class_name\":\"Medium Pony Hunter U/S\",\"class_number\":421,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:51:00\",\"estimated_start_time\":\"08:36:00\",\"group_has_warmup\":false,\"group_name\":\"Medium Pony Hunter U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028922,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043742,\"class_id\":200031472,\"class_list\":\"421\",\"class_name\":\"Medium Pony Hunter U/S\",\"class_number\":421,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:51:00\",\"estimated_start_time\":\"08:36:00\",\"group_has_warmup\":false,\"group_name\":\"Medium Pony Hunter U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 9,
         "start-time": "08:36:00",
-        "total-trips": 1
+        "total-trips": 2
       },
       "15|200000078|2026-11-14|6|200043743": {
         "end-time": "09:21:00",

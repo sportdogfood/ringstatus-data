@@ -2394,10 +2394,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043869",
         "source-id": "200043869",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043869,\"class_id\":200031558,\"class_list\":\"402,414,415,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043869,\"class_id\":200031558,\"class_list\":\"402,414,415,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
         "source-position": 2,
         "start-time": "08:27:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043870": {
         "end-time": "08:45:00",
@@ -2406,10 +2406,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043870",
         "source-id": "200043870",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043870,\"class_id\":200031470,\"class_list\":\"402,414,415,914\",\"class_name\":\"Small Pony Conformation Hunter\",\"class_number\":414,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043870,\"class_id\":200031470,\"class_list\":\"402,414,415,914\",\"class_name\":\"Small Pony Conformation Hunter\",\"class_number\":414,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "08:27:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043871": {
         "end-time": "08:45:00",
@@ -2418,10 +2418,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043871",
         "source-id": "200043871",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043871,\"class_id\":200031471,\"class_list\":\"402,414,415,914\",\"class_name\":\"Small Pony Hunter\",\"class_number\":415,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028994,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043871,\"class_id\":200031471,\"class_list\":\"402,414,415,914\",\"class_name\":\"Small Pony Hunter\",\"class_number\":415,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"08:45:00\",\"estimated_start_time\":\"08:27:00\",\"group_has_warmup\":true,\"group_name\":\"Small Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Corro\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
         "source-position": 4,
         "start-time": "08:27:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043872": {
         "end-time": "08:45:00",
@@ -2442,10 +2442,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043873",
         "source-id": "200043873",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028995,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043873,\"class_id\":200031558,\"class_list\":\"402,424,425,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:03:00\",\"estimated_start_time\":\"08:45:00\",\"group_has_warmup\":true,\"group_name\":\"Medium Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028995,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043873,\"class_id\":200031558,\"class_list\":\"402,424,425,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:03:00\",\"estimated_start_time\":\"08:45:00\",\"group_has_warmup\":true,\"group_name\":\"Medium Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
         "source-position": 6,
         "start-time": "08:45:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043874": {
         "end-time": "09:03:00",
@@ -2490,10 +2490,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043877",
         "source-id": "200043877",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028996,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043877,\"class_id\":200031558,\"class_list\":\"402,434,435,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:36:00\",\"estimated_start_time\":\"09:03:00\",\"group_has_warmup\":true,\"group_name\":\"Large Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028996,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043877,\"class_id\":200031558,\"class_list\":\"402,434,435,914\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:36:00\",\"estimated_start_time\":\"09:03:00\",\"group_has_warmup\":true,\"group_name\":\"Large Pony Conf/Handy Hunter & Classic\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
         "source-position": 10,
         "start-time": "09:03:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043878": {
         "end-time": "09:36:00",
@@ -2550,10 +2550,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|6|200043882",
         "source-id": "200043882",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028998,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043882,\"class_id\":200031558,\"class_list\":\"402,444,445\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:03:00\",\"estimated_start_time\":\"09:51:00\",\"group_has_warmup\":true,\"group_name\":\"Green Pony Conformation Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028998,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043882,\"class_id\":200031558,\"class_list\":\"402,444,445\",\"class_name\":\"Schooling Pony Hunter\",\"class_number\":402,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:03:00\",\"estimated_start_time\":\"09:51:00\",\"group_has_warmup\":true,\"group_name\":\"Green Pony Conformation Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":1}",
         "source-position": 15,
         "start-time": "09:51:00",
-        "total-trips": 2
+        "total-trips": 1
       },
       "15|200000078|2026-11-15|6|200043883": {
         "end-time": "10:03:00",

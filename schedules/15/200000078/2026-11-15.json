@@ -1494,10 +1494,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|1|200043770",
         "source-id": "200043770",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028935,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043770,\"class_id\":200031718,\"class_list\":\"3014\",\"class_name\":\"$120,000 Equine Tack & Nutritionals CSI3* Grand Prix (220.2.1.2)\",\"class_number\":3014,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:15:00\",\"estimated_start_time\":\"08:39:00\",\"group_has_warmup\":false,\"group_name\":\"$120,000 Equine Tack & Nutritionals CSI3* Grand Prix (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":32,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028935,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043770,\"class_id\":200031718,\"class_list\":\"3014\",\"class_name\":\"$120,000 Equine Tack & Nutritionals CSI3* Grand Prix (220.2.1.2)\",\"class_number\":3014,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:15:00\",\"estimated_start_time\":\"08:39:00\",\"group_has_warmup\":false,\"group_name\":\"$120,000 Equine Tack & Nutritionals CSI3* Grand Prix (220.2.1.2)\",\"is_open_card_warmup\":false,\"jumper_table\":\"FEI Rule 220.2.1.2\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":34,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "08:39:00",
-        "total-trips": 32
+        "total-trips": 34
       },
       "15|200000078|2026-11-15|1|200043771": {
         "end-time": "12:06:00",
@@ -2910,10 +2910,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043819",
         "source-id": "200043819",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043819,\"class_id\":200031395,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":344,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043819,\"class_id\":200031395,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":344,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":0}",
         "source-position": 20,
         "start-time": "11:45:00",
-        "total-trips": 2
+        "total-trips": 4
       },
       "15|200000078|2026-11-15|7|200043820": {
         "end-time": "12:03:00",
@@ -2922,10 +2922,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043820",
         "source-id": "200043820",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043820,\"class_id\":200031396,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":345,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043820,\"class_id\":200031396,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":345,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":0}",
         "source-position": 21,
         "start-time": "11:45:00",
-        "total-trips": 2
+        "total-trips": 4
       },
       "15|200000078|2026-11-15|7|200043821": {
         "end-time": "12:03:00",
@@ -3003,13 +3003,13 @@
         "end-time": "12:18:00",
         "kind": "class",
         "name": "Amateur Owner Hunter 3'3\" 36 & Over U/S",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043827",
         "source-id": "200043827",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028971,\"class_group_sequence\":14,\"class_groupxclasses_id\":200043827,\"class_id\":200031372,\"class_list\":\"391\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over U/S\",\"class_number\":391,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:18:00\",\"estimated_start_time\":\"12:03:00\",\"group_has_warmup\":false,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028971,\"class_group_sequence\":14,\"class_groupxclasses_id\":200043827,\"class_id\":200031372,\"class_list\":\"391\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over U/S\",\"class_number\":391,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:18:00\",\"estimated_start_time\":\"12:03:00\",\"group_has_warmup\":false,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 28,
         "start-time": "12:03:00",
-        "total-trips": 2
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043828": {
         "end-time": "12:33:00",
@@ -3027,25 +3027,25 @@
         "end-time": "12:33:00",
         "kind": "class",
         "name": "Amateur Owner Hunter 3'3\" 36 & Over",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043829",
         "source-id": "200043829",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028972,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043829,\"class_id\":200031375,\"class_list\":\"210,394,395,912\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"class_number\":394,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:33:00\",\"estimated_start_time\":\"12:18:00\",\"group_has_warmup\":true,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028972,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043829,\"class_id\":200031375,\"class_list\":\"210,394,395,912\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"class_number\":394,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:33:00\",\"estimated_start_time\":\"12:18:00\",\"group_has_warmup\":true,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 30,
         "start-time": "12:18:00",
-        "total-trips": 2
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043830": {
         "end-time": "12:33:00",
         "kind": "class",
         "name": "Amateur Owner Hunter 3'3\" 36 & Over",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043830",
         "source-id": "200043830",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028972,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043830,\"class_id\":200031376,\"class_list\":\"210,394,395,912\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"class_number\":395,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:33:00\",\"estimated_start_time\":\"12:18:00\",\"group_has_warmup\":true,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028972,\"class_group_sequence\":15,\"class_groupxclasses_id\":200043830,\"class_id\":200031376,\"class_list\":\"210,394,395,912\",\"class_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"class_number\":395,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:33:00\",\"estimated_start_time\":\"12:18:00\",\"group_has_warmup\":true,\"group_name\":\"Amateur Owner Hunter 3'3\\\" 36 & Over\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Hemp Bedding\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 31,
         "start-time": "12:18:00",
-        "total-trips": 2
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043831": {
         "end-time": "12:33:00",
@@ -3925,9 +3925,9 @@
       "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043827": {
-      "rs-flag": "Flat",
-      "rs-lever": "lever1",
-      "rs-priority": 9
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043828": {
       "rs-flag": "Add back",
@@ -3935,14 +3935,14 @@
       "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043829": {
-      "rs-flag": "First trip",
-      "rs-lever": "lever1",
-      "rs-priority": 1
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043830": {
-      "rs-flag": "Second trip",
-      "rs-lever": "lever1",
-      "rs-priority": 2
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043831": {
       "rs-flag": "Classic",

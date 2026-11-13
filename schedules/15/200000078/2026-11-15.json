@@ -753,14 +753,14 @@
       "15|200000078|2026-11-15|7|200031395": {
         "class-id": 200031395,
         "class-key": "15|200000078|2026-11-15|7|200031395",
-        "class-name": "Junior Hunter 3'3\" 16-17",
+        "class-name": "Jr Hunter 3'3\" 16-17/AO Hunter 3'3\"",
         "class-number": "344",
         "record-status": "Active"
       },
       "15|200000078|2026-11-15|7|200031396": {
         "class-id": 200031396,
         "class-key": "15|200000078|2026-11-15|7|200031396",
-        "class-name": "Junior Hunter 3'3\" 16-17",
+        "class-name": "Jr Hunter 3'3\" 16-17/AO Hunter 3'3\"",
         "class-number": "345",
         "record-status": "Active"
       },
@@ -2730,10 +2730,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043804",
         "source-id": "200043804",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028963,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043804,\"class_id\":200031382,\"class_list\":\"306\",\"class_name\":\"Junior Hunter 3'6\\\" U/S\",\"class_number\":306,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:45:00\",\"estimated_start_time\":\"09:30:00\",\"group_has_warmup\":false,\"group_name\":\"Junior Hunter 3'6\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028963,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043804,\"class_id\":200031382,\"class_list\":\"306\",\"class_name\":\"Junior Hunter 3'6\\\" U/S\",\"class_number\":306,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"09:45:00\",\"estimated_start_time\":\"09:30:00\",\"group_has_warmup\":false,\"group_name\":\"Junior Hunter 3'6\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 5,
         "start-time": "09:30:00",
-        "total-trips": 7
+        "total-trips": 8
       },
       "15|200000078|2026-11-15|7|200043805": {
         "end-time": "10:18:00",
@@ -2754,10 +2754,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043806",
         "source-id": "200043806",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028964,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043806,\"class_id\":200031385,\"class_list\":\"210,309,310,912\",\"class_name\":\"Junior Hunter 3'6\\\"\",\"class_number\":309,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:18:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":true,\"group_name\":\"Large Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028964,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043806,\"class_id\":200031385,\"class_list\":\"210,309,310,912\",\"class_name\":\"Junior Hunter 3'6\\\"\",\"class_number\":309,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:18:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":true,\"group_name\":\"Large Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 7,
         "start-time": "09:45:00",
-        "total-trips": 7
+        "total-trips": 8
       },
       "15|200000078|2026-11-15|7|200043807": {
         "end-time": "10:18:00",
@@ -2766,10 +2766,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043807",
         "source-id": "200043807",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028964,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043807,\"class_id\":200031386,\"class_list\":\"210,309,310,912\",\"class_name\":\"Junior Hunter 3'6\\\"\",\"class_number\":310,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:18:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":true,\"group_name\":\"Large Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028964,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043807,\"class_id\":200031386,\"class_list\":\"210,309,310,912\",\"class_name\":\"Junior Hunter 3'6\\\"\",\"class_number\":310,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:18:00\",\"estimated_start_time\":\"09:45:00\",\"group_has_warmup\":true,\"group_name\":\"Large Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 8,
         "start-time": "09:45:00",
-        "total-trips": 7
+        "total-trips": 8
       },
       "15|200000078|2026-11-15|7|200043808": {
         "end-time": "10:18:00",
@@ -2787,13 +2787,13 @@
         "end-time": "10:33:00",
         "kind": "class",
         "name": "Small Junior Hunter 3'6\" U/S",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043809",
         "source-id": "200043809",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028965,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043809,\"class_id\":200031377,\"class_list\":\"301\",\"class_name\":\"Small Junior Hunter 3'6\\\" U/S\",\"class_number\":301,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:33:00\",\"estimated_start_time\":\"10:18:00\",\"group_has_warmup\":false,\"group_name\":\"Small Junior Hunter 3'6\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028965,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043809,\"class_id\":200031377,\"class_list\":\"301\",\"class_name\":\"Small Junior Hunter 3'6\\\" U/S\",\"class_number\":301,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:33:00\",\"estimated_start_time\":\"10:18:00\",\"group_has_warmup\":false,\"group_name\":\"Small Junior Hunter 3'6\\\" U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 10,
         "start-time": "10:18:00",
-        "total-trips": 1
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043810": {
         "end-time": "10:57:00",
@@ -2811,25 +2811,25 @@
         "end-time": "10:57:00",
         "kind": "class",
         "name": "Small Junior Hunter 3'6\"",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043811",
         "source-id": "200043811",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028966,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043811,\"class_id\":200031380,\"class_list\":\"210,304,305,912\",\"class_name\":\"Small Junior Hunter 3'6\\\"\",\"class_number\":304,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:33:00\",\"group_has_warmup\":true,\"group_name\":\"Small Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028966,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043811,\"class_id\":200031380,\"class_list\":\"210,304,305,912\",\"class_name\":\"Small Junior Hunter 3'6\\\"\",\"class_number\":304,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:33:00\",\"group_has_warmup\":true,\"group_name\":\"Small Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 12,
         "start-time": "10:33:00",
-        "total-trips": 1
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043812": {
         "end-time": "10:57:00",
         "kind": "class",
         "name": "Small Junior Hunter 3'6\"",
-        "record-status": "Active",
+        "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-15|7|200043812",
         "source-id": "200043812",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028966,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043812,\"class_id\":200031381,\"class_list\":\"210,304,305,912\",\"class_name\":\"Small Junior Hunter 3'6\\\"\",\"class_number\":305,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:33:00\",\"group_has_warmup\":true,\"group_name\":\"Small Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":1,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028966,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043812,\"class_id\":200031381,\"class_list\":\"210,304,305,912\",\"class_name\":\"Small Junior Hunter 3'6\\\"\",\"class_number\":305,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:33:00\",\"group_has_warmup\":true,\"group_name\":\"Small Junior Hunter 3'6\\\"\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 13,
         "start-time": "10:33:00",
-        "total-trips": 1
+        "total-trips": 0
       },
       "15|200000078|2026-11-15|7|200043813": {
         "end-time": "10:57:00",
@@ -2906,11 +2906,11 @@
       "15|200000078|2026-11-15|7|200043819": {
         "end-time": "12:03:00",
         "kind": "class",
-        "name": "Junior Hunter 3'3\" 16-17",
+        "name": "Jr Hunter 3'3\" 16-17/AO Hunter 3'3\"",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043819",
         "source-id": "200043819",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043819,\"class_id\":200031395,\"class_list\":\"210,344,345,912\",\"class_name\":\"Junior Hunter 3'3\\\" 16-17\",\"class_number\":344,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043819,\"class_id\":200031395,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":344,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 20,
         "start-time": "11:45:00",
         "total-trips": 2
@@ -2918,11 +2918,11 @@
       "15|200000078|2026-11-15|7|200043820": {
         "end-time": "12:03:00",
         "kind": "class",
-        "name": "Junior Hunter 3'3\" 16-17",
+        "name": "Jr Hunter 3'3\" 16-17/AO Hunter 3'3\"",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043820",
         "source-id": "200043820",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043820,\"class_id\":200031396,\"class_list\":\"210,344,345,912\",\"class_name\":\"Junior Hunter 3'3\\\" 16-17\",\"class_number\":345,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028968,\"class_group_sequence\":11,\"class_groupxclasses_id\":200043820,\"class_id\":200031396,\"class_list\":\"210,344,345,912\",\"class_name\":\"Jr Hunter 3'3\\\" 16-17/AO Hunter 3'3\\\"\",\"class_number\":345,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"12:03:00\",\"estimated_start_time\":\"11:45:00\",\"group_has_warmup\":true,\"group_name\":\"Junior Hunter 3'3\\\" 16-17\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 21,
         "start-time": "11:45:00",
         "total-trips": 2
@@ -3835,9 +3835,9 @@
       "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043809": {
-      "rs-flag": "Flat",
-      "rs-lever": "lever1",
-      "rs-priority": 9
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043810": {
       "rs-flag": "Add back",
@@ -3845,14 +3845,14 @@
       "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043811": {
-      "rs-flag": "First trip",
-      "rs-lever": "lever1",
-      "rs-priority": 1
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043812": {
-      "rs-flag": "Second trip",
-      "rs-lever": "lever1",
-      "rs-priority": 2
+      "rs-flag": "No entries",
+      "rs-lever": "lever2",
+      "rs-priority": null
     },
     "15|200000078|2026-11-15|7|200043813": {
       "rs-flag": "Classic",

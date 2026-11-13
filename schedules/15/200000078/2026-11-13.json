@@ -946,13 +946,13 @@
         "total-trips": 16
       },
       "15|200000078|2026-11-13|2|200043566": {
-        "end-time": "15:48:18",
+        "end-time": "15:48:49",
         "kind": "class",
         "name": "$1,500 USHJA National Hunter Derby",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|2|200043566",
         "source-id": "200043566",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028834,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043566,\"class_id\":200031686,\"class_list\":\"920\",\"class_name\":\"$1,500 USHJA National Hunter Derby\",\"class_number\":920,\"class_type\":\"Hunters\",\"completed_trips\":16,\"estimated_end_time\":\"15:48:18\",\"estimated_start_time\":\"14:25:00\",\"group_has_warmup\":false,\"group_name\":\"$1,500 USHJA National Hunter Derby\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Presented by: Pilates Rocks\",\"start_time_default\":\"14:15:00\",\"total_trips\":18,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028834,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043566,\"class_id\":200031686,\"class_list\":\"920\",\"class_name\":\"$1,500 USHJA National Hunter Derby\",\"class_number\":920,\"class_type\":\"Hunters\",\"completed_trips\":18,\"estimated_end_time\":\"15:48:49\",\"estimated_start_time\":\"14:25:00\",\"group_has_warmup\":false,\"group_name\":\"$1,500 USHJA National Hunter Derby\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Presented by: Pilates Rocks\",\"start_time_default\":\"14:15:00\",\"total_trips\":18,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "14:25:00",
         "total-trips": 18
@@ -970,15 +970,15 @@
         "total-trips": 0
       },
       "15|200000078|2026-11-13|2|position-2": {
-        "end-time": "15:48:18",
+        "end-time": "15:48:49",
         "kind": "break",
         "name": "Back # Schooling for Cross Rail/Short Stirrup after Build",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|2|position-2",
         "source-id": null,
-        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031097,\"class_group_uuid\":\"2D29869695454E8B8CB08CA92A15F054\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:48:18\",\"estimated_start_time\":\"15:48:18\",\"group_has_warmup\":false,\"group_name\":\"Back # Schooling for Cross Rail/Short Stirrup after Build\",\"group_sequence\":3,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":868569,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"15:30:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001516385064459541\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031097,\"class_group_uuid\":\"2D29869695454E8B8CB08CA92A15F054\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:48:49\",\"estimated_start_time\":\"15:48:49\",\"group_has_warmup\":false,\"group_name\":\"Back # Schooling for Cross Rail/Short Stirrup after Build\",\"group_sequence\":3,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":868569,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"15:30:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001516385064459541\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
         "source-position": 2,
-        "start-time": "15:48:18",
+        "start-time": "15:48:49",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|3|200043529": {
@@ -1264,21 +1264,21 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|4|200043456",
         "source-id": "200043456",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028767,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043456,\"class_id\":200031585,\"class_list\":\"545\",\"class_name\":\"Marshall + Sterling/USHJA 3'3\\\" Junior Jumping Seat Medal\",\"class_number\":545,\"class_type\":\"Equitation\",\"completed_trips\":7,\"estimated_end_time\":\"15:41:00\",\"estimated_start_time\":\"15:00:01\",\"group_has_warmup\":false,\"group_name\":\"Marshall + Sterling/USHJA 3'3\\\" Junior Jumping Seat Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:00:00\",\"total_trips\":8,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028767,\"class_group_sequence\":6,\"class_groupxclasses_id\":200043456,\"class_id\":200031585,\"class_list\":\"545\",\"class_name\":\"Marshall + Sterling/USHJA 3'3\\\" Junior Jumping Seat Medal\",\"class_number\":545,\"class_type\":\"Equitation\",\"completed_trips\":8,\"estimated_end_time\":\"15:41:00\",\"estimated_start_time\":\"15:00:01\",\"group_has_warmup\":false,\"group_name\":\"Marshall + Sterling/USHJA 3'3\\\" Junior Jumping Seat Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 7,
         "start-time": "15:00:01",
         "total-trips": 8
       },
       "15|200000078|2026-11-13|4|200043458": {
-        "end-time": "15:43:00",
+        "end-time": "15:47:00",
         "kind": "class",
         "name": "Platinum Performance / USEF Show Jumping Talent Search 1*",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|4|200043458",
         "source-id": "200043458",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028769,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043458,\"class_id\":200031591,\"class_list\":\"590\",\"class_name\":\"Platinum Performance / USEF Show Jumping Talent Search 1*\",\"class_number\":590,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"15:43:00\",\"estimated_start_time\":\"15:41:00\",\"group_has_warmup\":false,\"group_name\":\"Platinum Performance / USEF Show Jumping Talent Search 1*\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:40:00\",\"total_trips\":2,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028769,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043458,\"class_id\":200031591,\"class_list\":\"590\",\"class_name\":\"Platinum Performance / USEF Show Jumping Talent Search 1*\",\"class_number\":590,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"15:47:00\",\"estimated_start_time\":\"15:45:00\",\"group_has_warmup\":false,\"group_name\":\"Platinum Performance / USEF Show Jumping Talent Search 1*\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:40:00\",\"total_trips\":2,\"warmup_class\":0}",
         "source-position": 8,
-        "start-time": "15:41:00",
+        "start-time": "15:45:00",
         "total-trips": 2
       },
       "15|200000078|2026-11-13|4|200043459": {
@@ -1354,15 +1354,15 @@
         "total-trips": 8
       },
       "15|200000078|2026-11-13|4|position-9": {
-        "end-time": "15:43:00",
+        "end-time": "15:47:00",
         "kind": "break",
         "name": "Fall Back # Open Schooling after Build/Drag until 4:30pm",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|4|position-9",
         "source-id": null,
-        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028779,\"class_group_uuid\":\"6F1074BDDE2749F78FA2C3E18190FF4F\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:43:00\",\"estimated_start_time\":\"15:43:00\",\"group_has_warmup\":false,\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\",\"group_sequence\":8,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855830,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001579650824939873\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028779,\"class_group_uuid\":\"6F1074BDDE2749F78FA2C3E18190FF4F\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:47:00\",\"estimated_start_time\":\"15:47:00\",\"group_has_warmup\":false,\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\",\"group_sequence\":8,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":4,\"ring_id\":52,\"ring_name\":\"Mogavero\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855830,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001579650824939873\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
         "source-position": 9,
-        "start-time": "15:43:00",
+        "start-time": "15:47:00",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|5|200043446": {
@@ -1426,27 +1426,27 @@
         "total-trips": 29
       },
       "15|200000078|2026-11-13|5|200043453": {
-        "end-time": "15:47:13",
+        "end-time": "15:50:13",
         "kind": "class",
         "name": "1.20m Junior/Amateur Jumper II2d",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|5|200043453",
         "source-id": "200043453",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028764,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043453,\"class_id\":200031639,\"class_list\":\"720\",\"class_name\":\"1.20m Junior/Amateur Jumper II2d\",\"class_number\":720,\"class_type\":\"Jumpers\",\"completed_trips\":16,\"estimated_end_time\":\"15:47:13\",\"estimated_start_time\":\"15:05:01\",\"group_has_warmup\":false,\"group_name\":\"1.20m Junior/Amateur Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:00:00\",\"total_trips\":21,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028764,\"class_group_sequence\":7,\"class_groupxclasses_id\":200043453,\"class_id\":200031639,\"class_list\":\"720\",\"class_name\":\"1.20m Junior/Amateur Jumper II2d\",\"class_number\":720,\"class_type\":\"Jumpers\",\"completed_trips\":17,\"estimated_end_time\":\"15:50:13\",\"estimated_start_time\":\"15:05:01\",\"group_has_warmup\":false,\"group_name\":\"1.20m Junior/Amateur Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:00:00\",\"total_trips\":21,\"warmup_class\":0}",
         "source-position": 6,
         "start-time": "15:05:01",
         "total-trips": 21
       },
       "15|200000078|2026-11-13|5|200043454": {
-        "end-time": "15:47:13",
+        "end-time": "16:30:00",
         "kind": "class",
         "name": "Mulligan Class",
         "record-status": "Active — no entries",
         "schedule-key": "15|200000078|2026-11-13|5|200043454",
         "source-id": "200043454",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028765,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043454,\"class_id\":200031690,\"class_list\":\"991\",\"class_name\":\"Mulligan Class\",\"class_number\":991,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"15:47:13\",\"estimated_start_time\":\"15:47:13\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"15:45:00\",\"total_trips\":0,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028765,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043454,\"class_id\":200031690,\"class_list\":\"991\",\"class_name\":\"Mulligan Class\",\"class_number\":991,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"16:30:00\",\"estimated_start_time\":\"16:30:00\",\"group_has_warmup\":false,\"group_name\":\"Mulligan Class\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"16:30:00\",\"total_trips\":0,\"warmup_class\":0}",
         "source-position": 7,
-        "start-time": "15:47:13",
+        "start-time": "16:30:00",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|5|200047402": {
@@ -1462,15 +1462,15 @@
         "total-trips": 15
       },
       "15|200000078|2026-11-13|5|position-8": {
-        "end-time": "15:47:13",
+        "end-time": "16:30:00",
         "kind": "break",
         "name": "Fall Back # Open Schooling after Build/Drag until 4:30pm",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|5|position-8",
         "source-id": null,
-        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028770,\"class_group_uuid\":\"CAA999D1C94A49C888834ED8457F770C\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"15:47:13\",\"estimated_start_time\":\"15:47:13\",\"group_has_warmup\":false,\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\",\"group_sequence\":9,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":5,\"ring_id\":49,\"ring_name\":\"Denemethy\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855821,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001555907974492472\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028770,\"class_group_uuid\":\"CAA999D1C94A49C888834ED8457F770C\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-13T00:00:00.000Z\",\"day_number\":3,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"16:30:00\",\"estimated_start_time\":\"16:30:00\",\"group_has_warmup\":false,\"group_name\":\"Fall Back # Open Schooling after Build/Drag until 4:30pm\",\"group_sequence\":9,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":5,\"ring_id\":49,\"ring_name\":\"Denemethy\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855821,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001555907974492472\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
         "source-position": 8,
-        "start-time": "15:47:13",
+        "start-time": "16:30:00",
         "total-trips": 0
       },
       "15|200000078|2026-11-13|6|position-0": {

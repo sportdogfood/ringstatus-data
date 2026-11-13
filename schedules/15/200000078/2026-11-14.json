@@ -916,17 +916,11 @@
         "group-name": "Mulligan Class",
         "source-json": "{\"class_group_id\":200028893,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043687,\"class_list\":\"997\",\"group_name\":\"Mulligan Class\"}"
       },
-      "15|200000078|2026-11-14|2|200028894": {
-        "group-id": 200028894,
-        "group-key": "15|200000078|2026-11-14|2|200028894",
-        "group-name": "To Start 30 Min after 1st Hunter Ring Completion",
-        "source-json": "{\"class_group_id\":200028894,\"class_group_uuid\":\"6C831B8C68A14191A8F68AE5ED0110D9\",\"class_list\":\"\",\"group_name\":\"To Start 30 Min after 1st Hunter Ring Completion\"}"
-      },
       "15|200000078|2026-11-14|2|200028895": {
         "group-id": 200028895,
         "group-key": "15|200000078|2026-11-14|2|200028895",
         "group-name": "$1,000 USHJA Junior/Amateur 2'6\"/2'9\" Hunter Derby",
-        "source-json": "{\"class_group_id\":200028895,\"class_group_sequence\":10,\"class_groupxclasses_id\":200043688,\"class_list\":\"925\",\"group_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\"}"
+        "source-json": "{\"class_group_id\":200028895,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043688,\"class_list\":\"925\",\"group_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\"}"
       },
       "15|200000078|2026-11-14|2|200031101": {
         "group-id": 200031101,
@@ -1395,10 +1389,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|1|200043568",
         "source-id": "200043568",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028837,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043568,\"class_id\":200031721,\"class_list\":\"707\",\"class_name\":\"1.40m Junior/Amateur Jumper II2.1\",\"class_number\":707,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:15:00\",\"group_has_warmup\":false,\"group_name\":\"1.40m Junior/Amateur Jumper II2.1\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"10:15:00\",\"total_trips\":21,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028837,\"class_group_sequence\":2,\"class_groupxclasses_id\":200043568,\"class_id\":200031721,\"class_list\":\"707\",\"class_name\":\"1.40m Junior/Amateur Jumper II2.1\",\"class_number\":707,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:57:00\",\"estimated_start_time\":\"10:15:00\",\"group_has_warmup\":false,\"group_name\":\"1.40m Junior/Amateur Jumper II2.1\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.1\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"10:15:00\",\"total_trips\":19,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "10:15:00",
-        "total-trips": 21
+        "total-trips": 19
       },
       "15|200000078|2026-11-14|1|200043569": {
         "end-time": "15:45:00",
@@ -1629,15 +1623,15 @@
         "total-trips": 0
       },
       "15|200000078|2026-11-14|2|200043688": {
-        "end-time": "14:21:00",
+        "end-time": "14:41:00",
         "kind": "class",
         "name": "$1,000 USHJA Junior/Amateur 2'6\"/2'9\" Hunter Derby",
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|2|200043688",
         "source-id": "200043688",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028895,\"class_group_sequence\":10,\"class_groupxclasses_id\":200043688,\"class_id\":200031684,\"class_list\":\"925\",\"class_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\",\"class_number\":925,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:21:00\",\"estimated_start_time\":\"14:00:00\",\"group_has_warmup\":false,\"group_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, The Corcoran Group\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
-        "source-position": 21,
-        "start-time": "14:00:00",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028895,\"class_group_sequence\":9,\"class_groupxclasses_id\":200043688,\"class_id\":200031684,\"class_list\":\"925\",\"class_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\",\"class_number\":925,\"class_type\":\"Hunters\",\"completed_trips\":0,\"estimated_end_time\":\"14:41:00\",\"estimated_start_time\":\"14:20:00\",\"group_has_warmup\":false,\"group_name\":\"$1,000 USHJA Junior/Amateur 2'6\\\"/2'9\\\" Hunter Derby\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Stephanie Schwed, The Corcoran Group\",\"start_time_default\":\"14:20:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-position": 20,
+        "start-time": "14:20:00",
         "total-trips": 7
       },
       "15|200000078|2026-11-14|2|200043916": {
@@ -1664,28 +1658,16 @@
         "start-time": "09:30:00",
         "total-trips": 15
       },
-      "15|200000078|2026-11-14|2|position-20": {
-        "end-time": "14:00:00",
-        "kind": "break",
-        "name": "To Start 30 Min after 1st Hunter Ring Completion",
-        "record-status": "Active",
-        "schedule-key": "15|200000078|2026-11-14|2|position-20",
-        "source-id": null,
-        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200028894,\"class_group_uuid\":\"6C831B8C68A14191A8F68AE5ED0110D9\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-14T00:00:00.000Z\",\"day_number\":4,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"14:00:00\",\"estimated_start_time\":\"14:00:00\",\"group_has_warmup\":false,\"group_name\":\"To Start 30 Min after 1st Hunter Ring Completion\",\"group_sequence\":9,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":855946,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001523683203445134\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
-        "source-position": 20,
-        "start-time": "14:00:00",
-        "total-trips": 0
-      },
-      "15|200000078|2026-11-14|2|position-22": {
-        "end-time": "14:21:00",
+      "15|200000078|2026-11-14|2|position-21": {
+        "end-time": "14:41:00",
         "kind": "break",
         "name": "Back # Schooling for Cross Rail/Short Stirrup after build",
         "record-status": "Active",
-        "schedule-key": "15|200000078|2026-11-14|2|position-22",
+        "schedule-key": "15|200000078|2026-11-14|2|position-21",
         "source-id": null,
-        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031101,\"class_group_uuid\":\"41E01831B07340378F08F907E759D4C0\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-14T00:00:00.000Z\",\"day_number\":4,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"14:21:00\",\"estimated_start_time\":\"14:21:00\",\"group_has_warmup\":false,\"group_name\":\"Back # Schooling for Cross Rail/Short Stirrup after build\",\"group_sequence\":11,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":868849,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001586650918441862\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
-        "source-position": 22,
-        "start-time": "14:21:00",
+        "source-json": "{\"actual_end_time\":\"00:00:00\",\"actual_start_time\":\"00:00:00\",\"break_duration\":0,\"cancelled\":0,\"check_in\":0,\"class_group_id\":200031101,\"class_group_uuid\":\"41E01831B07340378F08F907E759D4C0\",\"class_list\":\"\",\"class_setup_prep_time\":0,\"class_time_per_trip\":0,\"completed_trips\":0,\"coursedesignerid_list\":\"\",\"customer_id\":15,\"day\":\"2026-11-14T00:00:00.000Z\",\"day_number\":4,\"derbytiebreakerone\":0,\"derbytiebreakertwo\":0,\"enable_r3\":0,\"estimated_end_time\":\"14:41:00\",\"estimated_start_time\":\"14:41:00\",\"group_has_warmup\":false,\"group_name\":\"Back # Schooling for Cross Rail/Short Stirrup after build\",\"group_sequence\":10,\"history\":\"\",\"hunter_scoreby\":\"\",\"hunter_type\":\"\",\"is_open_card_warmup\":false,\"jogordertrips\":0,\"judgeid_list\":\"\",\"jumper_table\":\"\",\"last_schedule_date\":\"0000-00-00\",\"last_schedule_time\":\"00:00:00\",\"number_of_scores\":0,\"optimum_timeallowed_jo\":0,\"optimum_timeallowed_tripone\":0,\"order_tool\":\"\",\"orderofgotype\":0,\"remaining_trips\":0,\"reset_order\":0,\"ring\":2,\"ring_id\":9,\"ring_name\":\"E.R. Mische Grand Hunter\",\"rotateingroupingsof\":0,\"schedule_break\":1,\"set_order\":0,\"set_order_by\":\"\",\"sgl_id\":868849,\"show_id\":200000078,\"show_total_trips\":true,\"signup_publish\":0,\"sponsor\":\"\",\"start_classsignup_date\":\"0000-00-00\",\"start_classsignup_time\":\"00:00:00\",\"start_time_default\":\"00:00:00\",\"stop_classsignup_date\":\"0000-00-00\",\"stop_classsignup_time\":\"00:00:00\",\"sync_id\":\"00001586650918441862\",\"timeallowed_jo\":0,\"timeallowed_r3\":0,\"timeallowed_tripone\":0,\"total_trips\":0,\"tripgoatonce\":0,\"trips_in_between\":null,\"web_order_user_email\":\"\",\"web_order_user_name\":\"\"}",
+        "source-position": 21,
+        "start-time": "14:41:00",
         "total-trips": 0
       },
       "15|200000078|2026-11-14|3|200043692": {

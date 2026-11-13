@@ -2808,10 +2808,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043732",
         "source-id": "200043732",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028919,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043732,\"class_id\":200031587,\"class_list\":\"540,401,412,413\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:24:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Small Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028919,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043732,\"class_id\":200031587,\"class_list\":\"540,401,412,413\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:24:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Small Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":1}",
         "source-position": 0,
         "start-time": "08:00:00",
-        "total-trips": 4
+        "total-trips": 5
       },
       "15|200000078|2026-11-14|6|200043733": {
         "end-time": "08:24:00",
@@ -2868,10 +2868,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043738",
         "source-id": "200043738",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043738,\"class_id\":200031587,\"class_list\":\"540,401,422,423\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:51:00\",\"estimated_start_time\":\"08:39:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028921,\"class_group_sequence\":3,\"class_groupxclasses_id\":200043738,\"class_id\":200031587,\"class_list\":\"540,401,422,423\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"08:51:00\",\"estimated_start_time\":\"08:39:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Medium Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":1}",
         "source-position": 5,
         "start-time": "08:39:00",
-        "total-trips": 4
+        "total-trips": 5
       },
       "15|200000078|2026-11-14|6|200043739": {
         "end-time": "08:51:00",
@@ -2928,10 +2928,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-14|6|200043743",
         "source-id": "200043743",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028923,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043743,\"class_id\":200031587,\"class_list\":\"540,401,432,433\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:51:00\",\"estimated_start_time\":\"09:06:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Large Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":1}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028923,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043743,\"class_id\":200031587,\"class_list\":\"540,401,432,433\",\"class_name\":\"Marshall + Sterling/USEF Pony Medal\",\"class_number\":540,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:51:00\",\"estimated_start_time\":\"09:06:00\",\"group_has_warmup\":true,\"group_name\":\"M&S/USEF Pony Medal & Large Pony Hunter\",\"is_open_card_warmup\":true,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":false,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":1}",
         "source-position": 10,
         "start-time": "09:06:00",
-        "total-trips": 4
+        "total-trips": 5
       },
       "15|200000078|2026-11-14|6|200043744": {
         "end-time": "09:51:00",

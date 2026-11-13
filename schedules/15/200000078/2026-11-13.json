@@ -1252,10 +1252,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|4|200043455",
         "source-id": "200043455",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028766,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043455,\"class_id\":200031593,\"class_list\":\"581\",\"class_name\":\"WIHS Jumper Phase\",\"class_number\":581,\"class_type\":\"Equitation\",\"completed_trips\":6,\"estimated_end_time\":\"14:37:37\",\"estimated_start_time\":\"14:35:00\",\"group_has_warmup\":false,\"group_name\":\"WIHS Jumper Phase\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:35:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028766,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043455,\"class_id\":200031593,\"class_list\":\"581\",\"class_name\":\"WIHS Jumper Phase\",\"class_number\":581,\"class_type\":\"Equitation\",\"completed_trips\":6,\"estimated_end_time\":\"14:37:37\",\"estimated_start_time\":\"14:35:00\",\"group_has_warmup\":false,\"group_name\":\"WIHS Jumper Phase\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"14:35:00\",\"total_trips\":6,\"warmup_class\":0}",
         "source-position": 6,
         "start-time": "14:35:00",
-        "total-trips": 7
+        "total-trips": 6
       },
       "15|200000078|2026-11-13|4|200043456": {
         "end-time": "15:41:00",

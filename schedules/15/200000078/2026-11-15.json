@@ -2286,10 +2286,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|5|200043775",
         "source-id": "200043775",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028940,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043775,\"class_id\":200031641,\"class_list\":\"723\",\"class_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"class_number\":723,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:00:00\",\"estimated_start_time\":\"09:42:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":27,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028940,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043775,\"class_id\":200031641,\"class_list\":\"723\",\"class_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"class_number\":723,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:00:00\",\"estimated_start_time\":\"09:42:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":28,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "09:42:00",
-        "total-trips": 27
+        "total-trips": 28
       },
       "15|200000078|2026-11-15|5|200043776": {
         "end-time": "11:09:00",
@@ -2706,10 +2706,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043802",
         "source-id": "200043802",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028961,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043802,\"class_id\":200031597,\"class_list\":\"570\",\"class_name\":\"ASPCA Maclay\",\"class_number\":570,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:09:00\",\"estimated_start_time\":\"08:48:00\",\"group_has_warmup\":false,\"group_name\":\"ASPCA Maclay\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":6,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028961,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043802,\"class_id\":200031597,\"class_list\":\"570\",\"class_name\":\"ASPCA Maclay\",\"class_number\":570,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:09:00\",\"estimated_start_time\":\"08:48:00\",\"group_has_warmup\":false,\"group_name\":\"ASPCA Maclay\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "08:48:00",
-        "total-trips": 6
+        "total-trips": 7
       },
       "15|200000078|2026-11-15|7|200043803": {
         "end-time": "09:30:00",
@@ -2718,10 +2718,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|7|200043803",
         "source-id": "200043803",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028962,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043803,\"class_id\":200031588,\"class_list\":\"550\",\"class_name\":\"USEF / Valencia Saddlery Hunter Seat Medal\",\"class_number\":550,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:30:00\",\"estimated_start_time\":\"09:09:00\",\"group_has_warmup\":false,\"group_name\":\"USEF / Valencia Saddlery Hunter Seat Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028962,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043803,\"class_id\":200031588,\"class_list\":\"550\",\"class_name\":\"USEF / Valencia Saddlery Hunter Seat Medal\",\"class_number\":550,\"class_type\":\"Equitation\",\"completed_trips\":0,\"estimated_end_time\":\"09:30:00\",\"estimated_start_time\":\"09:09:00\",\"group_has_warmup\":false,\"group_name\":\"USEF / Valencia Saddlery Hunter Seat Medal\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 4,
         "start-time": "09:09:00",
-        "total-trips": 7
+        "total-trips": 8
       },
       "15|200000078|2026-11-15|7|200043804": {
         "end-time": "09:45:00",

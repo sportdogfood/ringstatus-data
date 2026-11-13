@@ -1720,7 +1720,7 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-13|7|200043521",
         "source-id": "200043521",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028808,\"class_group_sequence\":10,\"class_groupxclasses_id\":200043521,\"class_id\":200031319,\"class_list\":\"165\",\"class_name\":\"Young Hunter 3' (6 & Under) U/S\",\"class_number\":165,\"class_type\":\"Hunters\",\"completed_trips\":5,\"estimated_end_time\":\"12:52:30\",\"estimated_start_time\":\"12:47:01\",\"group_has_warmup\":false,\"group_name\":\"Young Hunter 3' (6 & Under) U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"12:30:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028808,\"class_group_sequence\":10,\"class_groupxclasses_id\":200043521,\"class_id\":200031319,\"class_list\":\"165\",\"class_name\":\"Young Hunter 3' (6 & Under) U/S\",\"class_number\":165,\"class_type\":\"Hunters\",\"completed_trips\":5,\"estimated_end_time\":\"12:52:30\",\"estimated_start_time\":\"12:47:01\",\"group_has_warmup\":false,\"group_name\":\"Young Hunter 3' (6 & Under) U/S\",\"is_open_card_warmup\":false,\"jumper_table\":\"\",\"results_verified\":1,\"schedule_break\":0,\"schedule_sequencetype\":\"Under Saddle/Flat\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"12:30:00\",\"total_trips\":5,\"warmup_class\":0}",
         "source-position": 19,
         "start-time": "12:47:01",
         "total-trips": 5
@@ -2231,9 +2231,9 @@
       "rs-priority": 2
     },
     "15|200000078|2026-11-13|7|200043521": {
-      "rs-flag": "First trip",
+      "rs-flag": "Flat",
       "rs-lever": "lever1",
-      "rs-priority": 1
+      "rs-priority": 9
     },
     "15|200000078|2026-11-13|7|200043522": {
       "rs-flag": "Add back",

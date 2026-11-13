@@ -2298,10 +2298,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|5|200043776",
         "source-id": "200043776",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028941,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043776,\"class_id\":200031621,\"class_list\":\"717\",\"class_name\":\"1.10m Open Jumper II2d\",\"class_number\":717,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:09:00\",\"estimated_start_time\":\"10:57:00\",\"group_has_warmup\":false,\"group_name\":\"1.10m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028941,\"class_group_sequence\":5,\"class_groupxclasses_id\":200043776,\"class_id\":200031621,\"class_list\":\"717\",\"class_name\":\"1.10m Open Jumper II2d\",\"class_number\":717,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:09:00\",\"estimated_start_time\":\"10:57:00\",\"group_has_warmup\":false,\"group_name\":\"1.10m Open Jumper II2d\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.d\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
         "source-position": 4,
         "start-time": "10:57:00",
-        "total-trips": 5
+        "total-trips": 3
       },
       "15|200000078|2026-11-15|5|200043777": {
         "end-time": "11:15:00",
@@ -3198,10 +3198,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|8|200043792",
         "source-id": "200043792",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028954,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043792,\"class_id\":200031606,\"class_list\":\"785,797\",\"class_name\":\"Puddle Jumper Open (.70-.80m) II2b\",\"class_number\":785,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:30:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Puddle Jumpers (.70-.80m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Equine Tack & Nutritionals\",\"start_time_default\":\"00:00:00\",\"total_trips\":3,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028954,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043792,\"class_id\":200031606,\"class_list\":\"785,797\",\"class_name\":\"Puddle Jumper Open (.70-.80m) II2b\",\"class_number\":785,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:30:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Puddle Jumpers (.70-.80m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Equine Tack & Nutritionals\",\"start_time_default\":\"00:00:00\",\"total_trips\":4,\"warmup_class\":0}",
         "source-position": 0,
         "start-time": "08:00:00",
-        "total-trips": 3
+        "total-trips": 4
       },
       "15|200000078|2026-11-15|8|200043793": {
         "end-time": "08:30:00",
@@ -3210,10 +3210,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|8|200043793",
         "source-id": "200043793",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028954,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043793,\"class_id\":200031609,\"class_list\":\"785,797\",\"class_name\":\"Puddle Jumper Junior/Amateur (.70-.80m) II2b\",\"class_number\":797,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:30:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Puddle Jumpers (.70-.80m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Equine Tack & Nutritionals\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028954,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043793,\"class_id\":200031609,\"class_list\":\"785,797\",\"class_name\":\"Puddle Jumper Junior/Amateur (.70-.80m) II2b\",\"class_number\":797,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"08:30:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"Puddle Jumpers (.70-.80m) II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Equine Tack & Nutritionals\",\"start_time_default\":\"00:00:00\",\"total_trips\":8,\"warmup_class\":0}",
         "source-position": 1,
         "start-time": "08:00:00",
-        "total-trips": 7
+        "total-trips": 8
       },
       "15|200000078|2026-11-15|8|200043794": {
         "end-time": "08:51:00",

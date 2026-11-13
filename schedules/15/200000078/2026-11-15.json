@@ -2226,10 +2226,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|4|200043791",
         "source-id": "200043791",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028953,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043791,\"class_id\":200031677,\"class_list\":\"815\",\"class_name\":\"$250 .85m Jumper Classic II2b\",\"class_number\":815,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:12:00\",\"estimated_start_time\":\"09:57:00\",\"group_has_warmup\":false,\"group_name\":\"$250 .85m Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":5,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028953,\"class_group_sequence\":8,\"class_groupxclasses_id\":200043791,\"class_id\":200031677,\"class_list\":\"815\",\"class_name\":\"$250 .85m Jumper Classic II2b\",\"class_number\":815,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"10:12:00\",\"estimated_start_time\":\"09:57:00\",\"group_has_warmup\":false,\"group_name\":\"$250 .85m Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":7,\"warmup_class\":0}",
         "source-position": 8,
         "start-time": "09:57:00",
-        "total-trips": 5
+        "total-trips": 7
       },
       "15|200000078|2026-11-15|4|position-9": {
         "end-time": "10:12:00",
@@ -2262,10 +2262,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|5|200043773",
         "source-id": "200043773",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028938,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043773,\"class_id\":200031642,\"class_list\":\"775\",\"class_name\":\"$2,640 NAL 1.30m Junior/Amateur Jumper Classic II2b\",\"class_number\":775,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"09:21:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.30m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"00:00:00\",\"total_trips\":27,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028938,\"class_group_sequence\":1,\"class_groupxclasses_id\":200043773,\"class_id\":200031642,\"class_list\":\"775\",\"class_name\":\"$2,640 NAL 1.30m Junior/Amateur Jumper Classic II2b\",\"class_number\":775,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"09:21:00\",\"estimated_start_time\":\"08:00:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.30m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"Arthramid by Contura Vet\",\"start_time_default\":\"00:00:00\",\"total_trips\":29,\"warmup_class\":0}",
         "source-position": 0,
         "start-time": "08:00:00",
-        "total-trips": 27
+        "total-trips": 29
       },
       "15|200000078|2026-11-15|5|200043774": {
         "end-time": "09:48:00",
@@ -2286,10 +2286,10 @@
         "record-status": "Active",
         "schedule-key": "15|200000078|2026-11-15|5|200043775",
         "source-id": "200043775",
-        "source-json": "{\"cancelled\":0,\"class_group_id\":200028940,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043775,\"class_id\":200031641,\"class_list\":\"723\",\"class_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"class_number\":723,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:15:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":29,\"warmup_class\":0}",
+        "source-json": "{\"cancelled\":0,\"class_group_id\":200028940,\"class_group_sequence\":4,\"class_groupxclasses_id\":200043775,\"class_id\":200031641,\"class_list\":\"723\",\"class_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"class_number\":723,\"class_type\":\"Jumpers\",\"completed_trips\":0,\"estimated_end_time\":\"11:15:00\",\"estimated_start_time\":\"09:48:00\",\"group_has_warmup\":false,\"group_name\":\"$2,640 NAL 1.20m Junior/Amateur Jumper Classic II2b\",\"is_open_card_warmup\":false,\"jumper_table\":\"USEF Table II.2.b\",\"results_verified\":0,\"schedule_break\":0,\"schedule_sequencetype\":\"Over Fences\",\"show_total_trips\":true,\"sponsor\":\"\",\"start_time_default\":\"00:00:00\",\"total_trips\":30,\"warmup_class\":0}",
         "source-position": 3,
         "start-time": "09:48:00",
-        "total-trips": 29
+        "total-trips": 30
       },
       "15|200000078|2026-11-15|5|200043776": {
         "end-time": "11:24:00",
